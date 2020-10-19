@@ -1,0 +1,21 @@
+#
+# CS3099 Group A3
+#
+
+DOCKER_COMPOSE_COMMAND:=docker-compose --env-file config.env
+
+.PHONY: start
+start:
+	$(DOCKER_COMPOSE_COMMAND) up --build -d
+
+.PHONY: stop
+stop:
+	$(DOCKER_COMPOSE_COMMAND) stop
+
+.PHONY: reset
+reset:
+	$(DOCKER_COMPOSE_COMMAND) down --remove-orphans
+
+.PHONY: logs
+logs:
+	$(DOCKER_COMPOSE_COMMAND) logs

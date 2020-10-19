@@ -1,0 +1,98 @@
+#
+# CS3099 Group A3
+#
+
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: unifed
+  creationTimestamp: "2020-10-17T17:49:13Z"
+
+spec:
+  restartPolicy: OnFailure
+
+  hostAliases:
+  - ip: "127.0.0.1"
+    hostnames:
+      - "backend"
+      - "frontend"
+      - "mongo"
+
+  containers:
+    - name: mongo
+      image: docker.io/library/mongo:4
+      env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: ${MONGO_ADMIN_USERNAME}
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          value: ${MONGO_ADMIN_PASSWORD}
+    
+    - name: nginx
+      image: docker.io/corfr/nginx-dnsmasq
+      volumeMounts:
+        - mountPath: /etc/nginx/nginx.conf
+          name: nginx-conf
+      ports:
+        - containerPort: 80
+          hostPort: ${BACKEND_PORT}
+          protocol: TCP
+  
+    - name: mongo-express
+      image: docker.io/library/mongo-express
+      ports:
+        - containerPort: 8081
+          hostPort: ${MONGO_INSPECT_PORT}
+          protocol: TCP
+      env:
+        - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+          value: ${MONGO_ADMIN_USERNAME}
+        - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+          value: ${MONGO_ADMIN_PASSWORD}
+        - name: ME_CONFIG_MONGODB_SERVER
+          value: mongo
+        - name: ME_CONFIG_BASICAUTH_USERNAME
+          value: ${MONGO_INSPECT_USERNAME} 
+        - name: ME_CONFIG_BASICAUTH_PASSWORD
+          value: ${MONGO_INSPECT_PASSWORD}
+  
+    - name: backend
+      image: localhost/unifed-backend
+      command: ["npx"]
+      args: ["nodmon", "src/unifed.ts"]
+      volumeMounts:
+        - mountPath: /usr/src/unifed/src
+          name: backend
+      env:
+        - name: MONGO_HOSTNAME
+          value: mongo
+        - name: MONGO_PORT
+          value: 27017
+        - name: MONGO_DB
+          value: ${MONGO_DB}
+        - name: MONGO_USERNAME
+          value: ${MONGO_ADMIN_USERNAME}
+        - name: MONGO_PASSWORD
+          value: ${MONGO_ADMIN_PASSWORD}
+    
+    - name: frontend
+      image: localhost/unifed-frontend
+      volumeMounts:
+        - mountPath: /usr/src/unifed/src
+          name: frontend
+
+  volumes:
+    - name: frontend
+      hostPath:
+        path: ./frontend/src
+        type: Directory
+
+    - name: backend
+      hostpath:
+        path: ./backend/src
+        type: Directory
+    
+    - name: nginx-conf
+      hostpath:
+        path: ./nginx.conf
+        type: File

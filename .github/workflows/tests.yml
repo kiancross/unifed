@@ -1,0 +1,74 @@
+#
+# CS3099 Group A3
+#
+
+name: Checks
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  fontend:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12
+
+    - uses: actions/cache@v2
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ~/.cache/yarn/
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
+    - run: npm install -g yarn
+    - run: (cd frontend && yarn install)
+
+    - name: Style check
+      run: (cd frontend && yarn lint)
+
+    - name: Test
+      run: (cd frontend && yarn test)
+
+    - name: Build
+      run: (cd frontend && yarn build)
+  
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12
+
+    - uses: actions/cache@v2
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ~/.cache/yarn/
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
+    - run: npm install -g yarn
+    - run: (cd backend && yarn install)
+
+    - name: Style check
+      run: (cd backend && yarn lint)
+
+    - name: Test
+      run: (cd backend && yarn test)
+
+    - name: Build
+      run: (cd backend && yarn build)
