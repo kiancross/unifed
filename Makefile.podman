@@ -10,7 +10,7 @@ PODMAN_COMMAND:=podman
 
 .PHONY: start
 start: unifed-backend unifed-frontend reset
-	# Podman doesn't support passing an environment file :(
+	@# Podman doesn't support passing an environment file :(
 	$(PODMAN_COMMAND) play kube <(source ./$(CONFIG_PATH); \
 		variable_names=$$(grep -v '^\s*#.*$$' $(CONFIG_PATH) | grep -v '^\s*$$' | cut -f1 -d=); \
 		variable_literals=$$(echo "$${variable_names}" | awk '{printf "$${"$$1"} " }'); \
