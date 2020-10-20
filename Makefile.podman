@@ -38,4 +38,4 @@ unifed-backend:
 
 .PHONY: unifed-frontend
 unifed-frontend:
-	$(PODMAN_COMMAND) build -t unifed-backend frontend
+	$(PODMAN_COMMAND) build -t unifed-frontend frontend
