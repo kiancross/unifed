@@ -59,7 +59,7 @@ spec:
     - name: backend
       image: localhost/unifed-backend
       command: ["npx"]
-      args: ["nodmon", "src/unifed.ts"]
+      args: ["nodemon", "src/unifed.ts"]
       volumeMounts:
         - mountPath: /usr/src/unifed/src
           name: backend
