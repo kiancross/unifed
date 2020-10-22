@@ -2,24 +2,15 @@
  * CS3099 Group A3
  */
 
-import React from "react";
-import "./App.scss";
+import React from "react"
+import "./App.scss"
+import LoginHandler from "./LoginHandler"
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <LoginHandler/>
       </header>
     </div>
   );
