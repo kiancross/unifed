@@ -2,9 +2,12 @@ import React from "react"
 import LoginForm from "./Components/LoginForm"
 import RegisterForm from "./Components/RegisterForm"
 
+/* Will be changed to tsx file once I understand how state works
+*/
+
 class LoginHandler extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             isLoggingIn: false
         }
