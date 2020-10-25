@@ -1,5 +1,8 @@
-import {useFormik} from 'formik';
-import React from 'react';
+import {useFormik} from 'formik'
+import React from 'react'
+import "./../App.scss"
+
+const buttonStyle = "Submit-button"
 
 const SignupForm = () => {
 
@@ -62,7 +65,7 @@ const SignupForm = () => {
                 value={formik.values.password}
             />
 
-            <button type="submit">Submit</button>
+            <button className={buttonStyle} type="submit">Submit</button>
         </form>
       </div>
     );

@@ -1,15 +1,19 @@
 import React from "react"
 import LoginForm from "./Components/LoginForm"
 import RegisterForm from "./Components/RegisterForm"
+import logo from "./st-andrews-logo.png"
+import "./App.scss"
 
 /* Will be changed to tsx file once I understand how state works
 */
+
+const buttonStyle = "Submit-button"
 
 class LoginHandler extends React.Component {
     constructor() {
         super();
         this.state = {
-            isLoggingIn: false
+            isLoggingIn: true
         }
         this.handleClick = this.handleClick.bind(this)
     }
@@ -23,9 +27,11 @@ class LoginHandler extends React.Component {
     render() {
         return (
             <div>
+                <img src ={logo} width="250" height="300">
+                </img> 
                 {this.state.isLoggingIn ? <LoginForm/> : <RegisterForm/>}
-                <button style={{padding:"10px", margin:30}} onClick={this.handleClick}>
-                    {this.state.isLoggingIn ? "I want to register an account" : "I have an account"}
+                <button className={buttonStyle} onClick={this.handleClick}>
+                    {this.state.isLoggingIn ? "Sign up" : "Login"}
                 </button>
             </div>
         )

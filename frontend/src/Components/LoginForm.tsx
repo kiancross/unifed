@@ -1,5 +1,9 @@
-import {useFormik} from 'formik';
-import React from 'react';
+import {useFormik} from 'formik'
+import React from 'react'
+import "./../App.scss"
+import { Link } from "react-router-dom"
+
+const buttonStyle = "Submit-button"
 
 const LoginForm = () => {
 
@@ -20,7 +24,7 @@ const LoginForm = () => {
     return (
       <div>
         <h1>
-          Login Below!
+          Welcome Back!
         </h1>
         
         <form onSubmit={formik.handleSubmit}>
@@ -42,8 +46,13 @@ const LoginForm = () => {
                 value={formik.values.password}
             />
 
-            <button type="submit">Submit</button>
+            <button className={buttonStyle} type="submit">Submit</button>
         </form>
+
+        <Link to="/reset-password">
+          <button className={buttonStyle}> Reset Password </button>
+        </Link>
+        
       </div>
     );
 };

@@ -18,7 +18,7 @@
 }
 
 .App-header {
-  background-color: #3A487F;
+  background-color: #011b45;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -30,4 +30,15 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.Submit-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  font-size: 16px;
+  margin: 10px;
+  border-radius:10px;
 }
