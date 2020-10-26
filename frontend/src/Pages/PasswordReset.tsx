@@ -64,7 +64,7 @@ const PasswordResetForm = () => {
 
             <button className={buttonStyle} type="submit">Submit</button>
         </form>
-        <Link to="/login">
+        <Link to="/">
         <button className={buttonStyle} type="submit">Login</button>
         </Link>
         </div>

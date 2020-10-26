@@ -2,6 +2,7 @@ import {useFormik} from 'formik'
 import React from 'react'
 import "./../App.scss"
 import { Link } from "react-router-dom"
+import logo from "./../st-andrews-logo.png"
 
 const buttonStyle = "Submit-button"
 
@@ -23,6 +24,8 @@ const LoginForm = () => {
 
     return (
       <div>
+        <img src={logo} width="250" height="300">
+          </img>
         <h1>
           Welcome Back!
         </h1>

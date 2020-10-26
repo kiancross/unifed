@@ -13,9 +13,10 @@ import {
 } from "react-router-dom"
 
 //Pages
-import LoginHandler from "./LoginHandler"
-import PasswordResetForm from "./Components/PasswordReset"
+import PasswordResetForm from "./Pages/PasswordReset"
 import PageNotFound from "./Pages/404"
+import LoginForm from "./Pages/Login"
+import RegisterForm from "./Pages/Register"
 
 function App() {
   return (
@@ -23,8 +24,9 @@ function App() {
       <header className="App-header">
         <Router>
           <Switch>
-            <Route exact path="/login" component={LoginHandler} />
+            <Route exact path="/" component={LoginForm} />
             <Route exact path="/reset-password" component={PasswordResetForm} />
+            <Route exact path="/register" component={RegisterForm} />
             <Route component={PageNotFound} />
           </Switch>
         </Router>
