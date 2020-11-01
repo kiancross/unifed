@@ -19,7 +19,19 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react",
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "strict": true,
+    "experimentalDecorators": true
   },
   "include": [
     "src"
