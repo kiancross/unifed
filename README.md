@@ -23,7 +23,8 @@
   * `make logs` - view the logs for the Node.js application.
   * `make test` - run both the frontend and backend unit tests.
   * `make lint` - run both the frontend and backend code style checks.
-  * `make checks` - run `make test` and `make lint`.
+  * `make build` - build both the frontend and backend code.
+  * `make checks` - run the `test`, `lint` and `build` targets.
   * `make clean` - remove all build files and dependencies.
 
 ### `yarn`
@@ -57,7 +58,9 @@ The general workflow for fixing a bug/adding a feature should be:
 
 ## Workflows
 There are numerous ways you can work on the project. The easiest is probably
-to use the containers that have been setup.
+to use the containers that have been setup. When using the containers,
+updates to your code will be reflected live. However, when adding new
+dependencies, you must reload the containers (`make restart`).
 
 Alternatively, you can setup your own development environment and run
 everything locally (i.e. setup a MongoDB instance yourself).

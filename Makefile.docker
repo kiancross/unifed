@@ -14,7 +14,7 @@ stop:
 
 .PHONY: reset
 reset:
-	$(DOCKER_COMPOSE_COMMAND) down --remove-orphans
+	$(DOCKER_COMPOSE_COMMAND) down --remove-orphans --volumes
 
 .PHONY: logs
 logs:

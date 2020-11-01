@@ -5,14 +5,13 @@
 name: Checks
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 
 jobs:
   fontend:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
@@ -24,7 +23,7 @@ jobs:
         cache-name: cache-node-modules
       with:
         path: ~/.cache/yarn/
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn-lock.json') }}
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
@@ -44,6 +43,7 @@ jobs:
   
   backend:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1

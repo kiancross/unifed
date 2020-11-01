@@ -25,9 +25,11 @@ services:
       - database
     volumes:
       - mongo_data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ADMIN_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ADMIN_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
 
   mongo-express:
     image: mongo-express
@@ -46,7 +48,7 @@ services:
   backend:
     build: backend
     restart: unless-stopped
-    command: npx nodemon src/unifed.ts
+    command: yarn watch
     networks:
       - proxy
       - database
@@ -54,12 +56,20 @@ services:
       - mongo
     volumes:
       - ./backend/src:/usr/src/unifed/src:ro
+      - ./backend/build:/usr/src/unifed/build
     environment:
+      SMTP_USERNAME: ${SMTP_USERNAME}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
       MONGO_HOSTNAME: mongo
       MONGO_PORT: 27017
-      MONGO_DB: ${MONGO_DB}
-      MONGO_USERNAME: ${MONGO_ADMIN_USERNAME}
-      MONGO_PASSWORD: ${MONGO_ADMIN_PASSWORD}
+      MONGO_DATABASE: ${MONGO_DATABASE}
+      MONGO_USERNAME: user
+      MONGO_PASSWORD: pass
+      JWT_SECRET: ${JWT_SECRET}
+      SITE_URL: ${SITE_URL}
+      APPLICATION_NAME: ${APPLICATION_NAME}
   
   frontend:
     build: frontend

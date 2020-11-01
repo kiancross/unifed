@@ -6,8 +6,9 @@
 FROM node:12-alpine
 WORKDIR /usr/src/unifed
 COPY package.json .
-RUN npm install
-ADD . /usr/src/unifed
-RUN npm build
-CMD [ "npm", "start" ]
+COPY yarn.lock .
+RUN yarn install
+ADD . .
+RUN yarn build
+CMD [ "yarn", "start" ]
 EXPOSE 8080
