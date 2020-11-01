@@ -3,6 +3,23 @@ import React from 'react'
 import "./../App.scss"
 import { Link } from "react-router-dom"
 import logo from "./../st-andrews-logo.png"
+import { useQuery, gql } from "@apollo/client"
+
+const SIGNUP_MUTATION = gql`
+  mutation SignupMutation($email: String!, $password: String!, $name: String!) {
+    signup(email: $email, password: $password, name: $name) {
+      token
+    }
+  }
+`
+
+const LOGIN_MUTATION = gql`
+  mutation LoginMutation($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+    }
+  }
+`
 
 const buttonStyle = "Submit-button"
 
@@ -29,7 +46,7 @@ const LoginForm = () => {
         <h1>
           Welcome Back!
         </h1>
-        
+
         <form onSubmit={formik.handleSubmit}>
             <label htmlFor="email">Email Address: </label>
             <input
@@ -55,7 +72,7 @@ const LoginForm = () => {
         <Link to="/reset-password">
           <button className={buttonStyle}> Reset Password </button>
         </Link>
-        
+
       </div>
     );
 };

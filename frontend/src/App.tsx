@@ -4,7 +4,7 @@
 
 import React from "react"
 import "./App.scss"
-import { 
+import {
   BrowserRouter as Router,
   Route,
   Switch,
