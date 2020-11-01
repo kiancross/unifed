@@ -3,9 +3,9 @@
  */
 
 db.createUser({
-	user: "user",
-	pwd: "pass",
-	roles:[{
+  user: "user",
+  pwd: "pass",
+  roles:[{
     role: "readWrite",
     db: "unifed"
   }]
