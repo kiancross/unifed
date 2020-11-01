@@ -2,34 +2,22 @@
  * CS3099 Group A3
  */
 
+import "reflect-metadata";
 import express from "express";
-import { graphqlHTTP } from "express-graphql";
-import { buildSchema } from "graphql";
+import mongoose from "mongoose";
+import routes from "./api/routes";
+import * as config from "./utils/config";
 
-const SERVER_PORT = 8080;
-const app = express();
+(async () => {
+  const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+  const mongoUri =
+    `mongodb://${config.mongoUsername}:${config.mongoPassword}@` +
+    `${config.mongoHostname}:${config.mongoPort}/${config.mongoDatabase}`;
 
-const schema = buildSchema(`
-  type Query {
-    hello: String
-  }
-`);
+  await mongoose.connect(mongoUri, mongoOptions);
 
-const root = {
-  hello: () => {
-    return "Hello world!";
-  },
-};
-
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    schema: schema,
-    rootValue: root,
-    graphiql: true,
-  }),
-);
-
-app.listen(SERVER_PORT, () => {
-  console.log(`Server listening on http://localhost:${SERVER_PORT}`);
-});
+  const app = express();
+  app.use("/", await routes);
+  const serverPort = 8080;
+  app.listen(serverPort, () => console.log(`Server running on http://localhost:${serverPort}`));
+})();
