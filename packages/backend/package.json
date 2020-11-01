@@ -9,7 +9,6 @@
     "@types/mongoose": "^5.7.36",
     "@types/node": "^14.14.6",
     "@types/nodemailer": "^6.4.0",
-    "@types/zxcvbn": "^4.4.0",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.1",
     "eslint": "^7.11.0",
@@ -39,13 +38,13 @@
     "nodemailer": "^6.4.14",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.0",
-    "zxcvbn": "^4.4.2"
+    "unifed-shared": "^0.1.0"
   },
   "scripts": {
     "start": "node build/unifed.js",
     "watch": "nodemon src/unifed.ts",
     "test": "jest --coverage --watchAll=false",
-    "build": "tsc",
+    "build": "yarn workspace unifed-shared build && tsc",
     "clean": "rm -rf coverage build",
     "lint": "eslint . --ext .ts",
     "fix": "eslint . --ext .ts --fix"

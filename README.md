@@ -41,6 +41,8 @@ The `backend` has an additional `watch` command that is the same
 as `start`, but automatically reloads if it detects changes to
 the source code. The `start` command for `frontend` does this
 by default.
+
+The `shared` directory does not have the `watch` or `start` commands.
   
 
 ## Contributing

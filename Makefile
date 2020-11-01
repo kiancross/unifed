@@ -35,21 +35,17 @@ checks: lint test build
 
 .PHONY: test
 test:
-	cd backend && yarn test
-	cd frontend && yarn test
+	yarn workspaces run test
 
 .PHONY: lint
 lint:
-	cd backend && yarn lint
-	cd frontend && yarn lint
+	yarn workspaces run lint
 
 .PHONY: build
-lint:
-	cd backend && yarn build
-	cd frontend && yarn build
+build:
+	yarn workspaces run build
 
 .PHONY: clean
 clean:
-	cd backend && yarn clean
-	cd frontend && yarn clean
-	rm -rf {.,backend,frontend}/node_modules
+	yarn workspaces run clean
+	rm -rf node_modules packages/**/node_modules
