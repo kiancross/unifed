@@ -23,7 +23,8 @@
   * `make logs` - view the logs for the Node.js application.
   * `make test` - run both the frontend and backend unit tests.
   * `make lint` - run both the frontend and backend code style checks.
-  * `make checks` - run `make test` and `make lint`.
+  * `make build` - build both the frontend and backend code.
+  * `make checks` - run the `test`, `lint` and `build` targets.
   * `make clean` - remove all build files and dependencies.
 
 ### `yarn`
