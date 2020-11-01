@@ -31,7 +31,7 @@ endif
 restart: stop start
 
 .PHONY: checks
-checks: lint test
+checks: lint test build
 
 .PHONY: test
 test:
@@ -42,6 +42,11 @@ test:
 lint:
 	cd backend && yarn lint
 	cd frontend && yarn lint
+
+.PHONY: build
+lint:
+	cd backend && yarn build
+	cd frontend && yarn build
 
 .PHONY: clean
 clean:
