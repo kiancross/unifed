@@ -29,12 +29,25 @@
     "build": "react-scripts build",
     "test": "react-scripts test --coverage --watchAll=false",
     "clean": "rm -rf coverage build",
-    "lint": "eslint '*/**/*.{js,ts,tsx}'",
-    "fix": "eslint '*/**/*.{js,ts,tsx}' --fix"
+    "lint": "eslint --ext .js,.ts,.tsx src/",
+    "fix": "eslint --ext .js,ts,tsx --fix src/"
   },
   "dependencies": {
+    "@accounts/client": "^0.29.0",
+    "@accounts/client-password": "^0.29.0",
+    "@accounts/graphql-client": "^0.29.0",
+    "@apollo/client": "^3.2.5",
+    "@material-ui/core": "^4.11.0",
+    "@types/react-router-dom": "^5.1.6",
+    "apollo-client": "^2.6.10",
+    "formik": "^2.2.1",
+    "formik-material-ui": "^3.0.0",
+    "graphql": "^15.4.0",
     "react": "^16.14.0",
-    "react-dom": "^16.14.0"
+    "react-apollo": "^3.1.5",
+    "react-dom": "^16.14.0",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
