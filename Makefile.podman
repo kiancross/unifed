@@ -34,8 +34,8 @@ logs:
 
 .PHONY: unifed-backend
 unifed-backend:
-	$(PODMAN_COMMAND) build -t unifed-backend backend
+	$(PODMAN_COMMAND) build -f Dockerfile.backend -t unifed-backend .
 
 .PHONY: unifed-frontend
 unifed-frontend:
-	$(PODMAN_COMMAND) build -t unifed-frontend frontend
+	$(PODMAN_COMMAND) build -f Dockerfile.frontend -t unifed-frontend .

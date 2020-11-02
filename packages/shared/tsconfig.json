@@ -18,6 +18,7 @@
     "emitDecoratorMetadata": true,
     "strict": true,
     "experimentalDecorators": true,
+    "declaration": true,
     "rootDir": "src",
     "outDir": "build"
   },

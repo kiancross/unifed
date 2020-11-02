@@ -1,0 +1,15 @@
+#
+# CS3099 Group A3
+#
+
+FROM node:12-alpine
+WORKDIR /usr/src/unifed
+COPY yarn.lock .
+COPY package.json .
+COPY packages/shared/package.json packages/shared/package.json
+COPY packages/backend/package.json packages/backend/package.json
+RUN yarn install
+ADD . .
+RUN yarn workspace unifed-shared build
+CMD [ "yarn", "workspace", "unifed-backend", "watch" ]
+EXPOSE 8080

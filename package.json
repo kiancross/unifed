@@ -1,0 +1,10 @@
+{
+  "name": "unifed",
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "workspaces": {
+    "packages": ["packages/*"],
+    "nohoist": ["**/jest", "**/testing-library**"]
+  }
+}
