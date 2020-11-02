@@ -10,7 +10,7 @@ import {
 import "./../App.scss";
 import logo from "./../st-andrews-logo.png";
 
-import { passwordClient } from "../accountsgraphqlclient";
+import { passwordClient } from "../utils/accounts";
 import { GraphQLErrorList } from "@accounts/graphql-client";
 
 interface FormValues {

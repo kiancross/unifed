@@ -1,7 +1,7 @@
 import { AccountsClient } from "@accounts/client";
 import { AccountsClientPassword } from "@accounts/client-password";
 import { AccountsGraphQLClient } from "@accounts/graphql-client";
-import { apolloClient } from "./apolloclient";
+import { apolloClient } from "./apollo-client";
 
 // Use ApolloClient as transport mechanism
 const accountsGraphQL = new AccountsGraphQLClient({

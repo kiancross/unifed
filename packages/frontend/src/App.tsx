@@ -13,10 +13,10 @@ import {
 } from "react-router-dom";
 
 //Pages
-import PasswordResetForm from "./Pages/PasswordReset";
-import PageNotFound from "./Pages/404";
-import LoginForm from "./Pages/Login";
-import RegisterForm from "./Pages/Register";
+import PasswordResetForm from "./pages/PasswordReset";
+import PageNotFound from "./pages/404";
+import LoginForm from "./pages/Login";
+import RegisterForm from "./pages/Register";
 
 function App(): JSX.Element {
   return (
