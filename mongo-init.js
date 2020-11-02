@@ -10,5 +10,3 @@ db.createUser({
     db: "unifed"
   }]
 });
-
-db.createCollection("users");

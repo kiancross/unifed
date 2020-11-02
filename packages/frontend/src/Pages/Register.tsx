@@ -54,7 +54,7 @@ const SignupForm = (): JSX.Element => {
   };
   return (
     <div className="container">
-      <img src={logo} alt='st andrews logo' width="250" height="300"></img>
+      <img src={logo} alt="st andrews logo" width="250" height="300"></img>
       <Formik
         initialValues={initialValues}
         //TODO add validation

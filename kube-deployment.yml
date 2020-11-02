@@ -22,6 +22,9 @@ spec:
   containers:
     - name: mongo
       image: docker.io/library/mongo:4
+      volumeMounts:
+        - mountPath: /docker-entrypoint-initdb.d/mongo-init.js
+          name: mongo-init
       env:
         - name: MONGO_INITDB_ROOT_USERNAME
           value: ${MONGO_ADMIN_USERNAME}
@@ -60,8 +63,6 @@ spec:
   
     - name: backend
       image: localhost/unifed-backend
-      command: ["yarn"]
-      args: ["watch"]
       volumeMounts:
         - mountPath: /usr/src/unifed/src
           name: backend
@@ -101,15 +102,20 @@ spec:
   volumes:
     - name: frontend
       hostPath:
-        path: ./frontend/src
+        path: ./packages/frontend/src
         type: Directory
 
     - name: backend
       hostpath:
-        path: ./backend/src
+        path: ./packages/backend/src
         type: Directory
     
     - name: nginx-conf
       hostpath:
         path: ./nginx.conf
+        type: File
+    
+    - name: mongo-init
+      hostpath:
+        path: ./mongo-init.js
         type: File

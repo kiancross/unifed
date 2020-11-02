@@ -9,66 +9,38 @@ on:
     branches: [ master ]
 
 jobs:
-  fontend:
+  checks:
+    name: ${{ matrix.component }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    strategy:
+      matrix:
+        component: [frontend, backend, shared]
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 12
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
 
-    - uses: actions/cache@v2
-      env:
-        cache-name: cache-node-modules
-      with:
-        path: ~/.cache/yarn/
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+      - uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.cache/yarn/
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
-    - run: npm install -g yarn
-    - run: (cd frontend && yarn install)
+      - run: npm install -g yarn
+      - run: yarn install
 
-    - name: Style check
-      run: (cd frontend && yarn lint)
+      - name: Style check
+        run: yarn workspace unifed-${{ matrix.component }} lint
 
-    - name: Test
-      run: (cd frontend && yarn test)
+      - name: Test
+        run: yarn workspace unifed-${{ matrix.component }} test
 
-    - name: Build
-      run: (cd frontend && yarn build)
-  
-  backend:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 12
-
-    - uses: actions/cache@v2
-      env:
-        cache-name: cache-node-modules
-      with:
-        path: ~/.cache/yarn/
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
-
-    - run: npm install -g yarn
-    - run: (cd backend && yarn install)
-
-    - name: Style check
-      run: (cd backend && yarn lint)
-
-    - name: Test
-      run: (cd backend && yarn test)
-
-    - name: Build
-      run: (cd backend && yarn build)
+      - name: Build
+        run: yarn workspace unifed-${{ matrix.component }} build

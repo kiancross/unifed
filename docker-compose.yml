@@ -46,17 +46,18 @@ services:
       ME_CONFIG_MONGODB_SERVER: mongo
   
   backend:
-    build: backend
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
     restart: unless-stopped
-    command: yarn watch
     networks:
       - proxy
       - database
     depends_on:
       - mongo
     volumes:
-      - ./backend/src:/usr/src/unifed/src:ro
-      - ./backend/build:/usr/src/unifed/build
+      - ./packages/backend/src:/usr/src/unifed/src:ro
+      - ./packages/backend/build:/usr/src/unifed/build
     environment:
       SMTP_USERNAME: ${SMTP_USERNAME}
       SMTP_PASSWORD: ${SMTP_PASSWORD}
@@ -72,12 +73,14 @@ services:
       APPLICATION_NAME: ${APPLICATION_NAME}
   
   frontend:
-    build: frontend
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
     restart: unless-stopped
     networks:
       - proxy
     volumes:
-      - ./frontend/src:/usr/src/unifed/src:ro
+      - ./packages/frontend/src:/usr/src/unifed/src:ro
 
 networks:
   proxy:
