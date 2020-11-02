@@ -56,8 +56,8 @@ services:
     depends_on:
       - mongo
     volumes:
-      - ./packages/backend/src:/usr/src/unifed/src:ro
-      - ./packages/backend/build:/usr/src/unifed/build
+      - ./packages/shared/src:/usr/src/unifed/packages/shared/src:ro
+      - ./packages/backend/src:/usr/src/unifed/packages/backend/src:ro
     environment:
       SMTP_USERNAME: ${SMTP_USERNAME}
       SMTP_PASSWORD: ${SMTP_PASSWORD}
@@ -80,7 +80,8 @@ services:
     networks:
       - proxy
     volumes:
-      - ./packages/frontend/src:/usr/src/unifed/src:ro
+      - ./packages/shared/src:/usr/src/unifed/packages/shared/src:ro
+      - ./packages/frontend/src:/usr/src/unifed/packages/frontend/src:ro
 
 networks:
   proxy:

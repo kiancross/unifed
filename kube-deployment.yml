@@ -64,7 +64,7 @@ spec:
     - name: backend
       image: localhost/unifed-backend
       volumeMounts:
-        - mountPath: /usr/src/unifed/src
+        - mountPath: /usr/src/unifed/packages/backend/src
           name: backend
       env:
         - name: SMTP_USERNAME
@@ -96,7 +96,7 @@ spec:
     - name: frontend
       image: localhost/unifed-frontend
       volumeMounts:
-        - mountPath: /usr/src/unifed/src
+        - mountPath: /usr/src/unifed/packages/frontend/src
           name: frontend
 
   volumes:

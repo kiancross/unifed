@@ -9,7 +9,7 @@ COPY package.json .
 COPY packages/shared/package.json packages/shared/package.json
 COPY packages/frontend/package.json packages/frontend/package.json
 RUN yarn install
-ADD . .
+ADD packages packages
 ENV CI=true
 CMD [ "yarn", "workspace", "unifed-frontend", "start" ]
 EXPOSE 3000
