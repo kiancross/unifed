@@ -1,31 +1,37 @@
 import React from 'react'
 import {
   Formik,
-  FormikHelpers,
-  FormikProps,
+  // FormikHelpers,
+  // FormikProps,
   Form,
   Field,
-  FieldProps
+  // FieldProps
 } from 'formik'
 import "./../App.scss"
+import logo from "./../st-andrews-logo.png"
 
 import { passwordClient } from '../accountsgraphqlclient'
 import { GraphQLErrorList } from '@accounts/graphql-client'
 
 interface FormValues {
-  firstName: string,
-  lastName: string,
-  email: string,
+  username: string
+  email: string
   password: string
+  // profile: {
+  //   name: string
+  // }
+  name: string
 }
 
 async function registerUser(values: FormValues) {
   try {
     passwordClient.createUser({
-      firstName: values.firstName,
-      lastName: values.lastName,
+      username: values.username,
       email: values.email,
-      password: values.password
+      password: values.password,
+      profile: {
+        name: values.name
+      }
     })
   } catch (err) {
       /*
@@ -40,15 +46,15 @@ async function registerUser(values: FormValues) {
 }
 
 const SignupForm: React.FC<{}> = () => {
-  const initialValues: FormValues = {
-    firstName: '',
-    lastName: '',
+  const initialValues = {
+    username: '',
     email: '',
-    password: ''
+    password: '',
+    name: ''
   }
   return (
-    <div>
-      <h1>Sign Up Below!</h1>
+    <div className="container">
+      <img src={logo} width="250" height="300"></img>
       <Formik
         initialValues = {initialValues}
         //TODO add validation
@@ -58,39 +64,47 @@ const SignupForm: React.FC<{}> = () => {
         }}
       >
         <Form>
-          <label htmlFor="firstName">First Name:</label>
-          <Field
-              id="firstName"
-              name="firstName"
+          <div>
+            <label htmlFor="username">Username:</label>
+            <Field
+              name="username"
+              // id="username"
               // type="firstname"
               // onChange={formik.handleChange}
               // value={formik.values.firstname}
-          />
-          <label htmlFor="lastName">Last Name:</label>
-          <Field
-              id="lastname"
-              name="lastname"
-              // type="lastname"
-              // onChange={formik.handleChange}
-              // value={formik.values.lastname}
-          />
-          <label htmlFor="email">Last Name:</label>
-          <Field
-              id="email"
+            />
+          </div>
+          <div>
+            <label htmlFor="email">Email:</label>
+            <Field
               name="email"
+              // id="email"
               // type="lastname"
               // onChange={formik.handleChange}
               // value={formik.values.lastname}
-          />
-          <label htmlFor="password">Last Name:</label>
-          <Field
-              id="password"
+            />
+          </div>
+          <div>
+            <label htmlFor="password">Password:</label>
+            <Field
               name="password"
+              // id="password"
               // type="lastname"
               // onChange={formik.handleChange}
               // value={formik.values.lastname}
-          />
-          <button type="submit">Submit</button>
+            />
+          </div>
+          <div>
+            <label htmlFor="name">Name:</label>
+            <Field
+              name="name"
+              // id="name"
+              // type="lastname"
+              // onChange={formik.handleChange}
+              // value={formik.values.lastname}
+            />
+          </div>
+          <button type="submit" className="Submit-button">Create Account</button>
         </Form>
       </Formik>
     </div>

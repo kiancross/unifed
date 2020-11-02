@@ -9,7 +9,7 @@ COPY package.json .
 COPY yarn.lock .
 RUN yarn install
 ADD . .
-RUN yarn build
+# RUN yarn build
 ENV CI=true
 CMD [ "yarn", "start" ]
 EXPOSE 3000

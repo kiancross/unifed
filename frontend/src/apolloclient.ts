@@ -1,6 +1,10 @@
-import { ApolloClient, NormalizedCacheObject, InMemoryCache } from '@apollo/client';
+import {
+  ApolloClient,
+  NormalizedCacheObject,
+  InMemoryCache
+} from '@apollo/client'
 
 export const apolloClient: ApolloClient<NormalizedCacheObject> = new ApolloClient({
-  uri: 'https://48p1r2roz4.sse.codesandbox.io',
+  uri: 'http://localhost:8080/internal',
   cache: new InMemoryCache()
 })
