@@ -14,7 +14,7 @@ const PasswordResetForm = (): JSX.Element => {
       retypednewpassword: "",
     },
     onSubmit: (values) => {
-      if (values.newpassword != values.retypednewpassword) {
+      if (values.newpassword !== values.retypednewpassword) {
         alert("The enterred passwords do not match\nYour password has not been changed");
       } else {
         /* Check if old password is right
@@ -28,7 +28,7 @@ const PasswordResetForm = (): JSX.Element => {
 
   return (
     <div>
-      <img src={logo} width="250" height="300"></img>
+      <img src={logo} alt='st andrews logo' width="250" height="300"></img>
       <h1>Reset Password</h1>
       <form onSubmit={formik.handleSubmit}>
         <label htmlFor="oldpassword">Old Password: </label>

@@ -23,7 +23,7 @@ const LoginForm = (): JSX.Element => {
 
   return (
     <div>
-      <img src={logo} width="250" height="300"></img>
+      <img src={logo} alt='st andrews logo' width="250" height="300"></img>
       <h1>Welcome Back!</h1>
 
       <form onSubmit={formik.handleSubmit}>
