@@ -7,8 +7,8 @@ import ReactDOM from "react-dom";
 import "./index.scss";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { ApolloProvider } from '@apollo/client';
-import { apolloClient } from './apolloclient'
+import { ApolloProvider } from "@apollo/client";
+import { apolloClient } from "./apolloclient";
 
 ReactDOM.render(
   <React.StrictMode>

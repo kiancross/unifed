@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
   Formik,
   // FormikHelpers,
@@ -6,21 +6,21 @@ import {
   Form,
   Field,
   // FieldProps
-} from 'formik'
-import "./../App.scss"
-import logo from "./../st-andrews-logo.png"
+} from "formik";
+import "./../App.scss";
+import logo from "./../st-andrews-logo.png";
 
-import { passwordClient } from '../accountsgraphqlclient'
-import { GraphQLErrorList } from '@accounts/graphql-client'
+import { passwordClient } from "../accountsgraphqlclient";
+import { GraphQLErrorList } from "@accounts/graphql-client";
 
 interface FormValues {
-  username: string
-  email: string
-  password: string
+  username: string;
+  email: string;
+  password: string;
   // profile: {
   //   name: string
   // }
-  name: string
+  name: string;
 }
 
 async function registerUser(values: FormValues) {
@@ -30,37 +30,37 @@ async function registerUser(values: FormValues) {
       email: values.email,
       password: values.password,
       profile: {
-        name: values.name
-      }
-    })
+        name: values.name,
+      },
+    });
   } catch (err) {
-      /*
+    /*
           Check if login is valid by looking into db
           Send to homepage if so
           Return message not valid login if not
       */
-      if (err instanceof GraphQLErrorList) {
-        console.log(err.message)
-      }
+    if (err instanceof GraphQLErrorList) {
+      console.log(err.message);
+    }
   }
 }
 
-const SignupForm: React.FC<{}> = () => {
+const SignupForm = (): JSX.Element => {
   const initialValues = {
-    username: '',
-    email: '',
-    password: '',
-    name: ''
-  }
+    username: "",
+    email: "",
+    password: "",
+    name: "",
+  };
   return (
     <div className="container">
       <img src={logo} width="250" height="300"></img>
       <Formik
-        initialValues = {initialValues}
+        initialValues={initialValues}
         //TODO add validation
-        onSubmit = {values => {
-          alert(JSON.stringify(values, null, 2))
-          registerUser(values)
+        onSubmit={(values) => {
+          alert(JSON.stringify(values, null, 2));
+          registerUser(values);
         }}
       >
         <Form>
@@ -104,11 +104,13 @@ const SignupForm: React.FC<{}> = () => {
               // value={formik.values.lastname}
             />
           </div>
-          <button type="submit" className="Submit-button">Create Account</button>
+          <button type="submit" className="Submit-button">
+            Create Account
+          </button>
         </Form>
       </Formik>
     </div>
-  )
-}
+  );
+};
 
-export default SignupForm
+export default SignupForm;

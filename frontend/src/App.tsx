@@ -2,23 +2,23 @@
  * CS3099 Group A3
  */
 
-import React from "react"
-import "./App.scss"
+import React from "react";
+import "./App.scss";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   // Link,
   // Redirect
-} from "react-router-dom"
+} from "react-router-dom";
 
 //Pages
-import PasswordResetForm from "./Pages/PasswordReset"
-import PageNotFound from "./Pages/404"
-import LoginForm from "./Pages/Login"
-import RegisterForm from "./Pages/Register"
+import PasswordResetForm from "./Pages/PasswordReset";
+import PageNotFound from "./Pages/404";
+import LoginForm from "./Pages/Login";
+import RegisterForm from "./Pages/Register";
 
-function App() {
+function App(): JSX.Element {
   return (
     <div className="App">
       <header className="App-header">
