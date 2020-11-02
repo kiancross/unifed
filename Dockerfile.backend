@@ -9,7 +9,7 @@ COPY package.json .
 COPY packages/shared/package.json packages/shared/package.json
 COPY packages/backend/package.json packages/backend/package.json
 RUN yarn install
-ADD . .
+ADD packages packages
 RUN yarn workspace unifed-shared build
 CMD [ "yarn", "workspace", "unifed-backend", "watch" ]
 EXPOSE 8080
