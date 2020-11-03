@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Formik,
-  // FormikHelpers,
-  // FormikProps,
-  Form,
-  Field,
-  // FieldProps
-} from "formik";
+import { Formik, Form, Field } from "formik";
 import "./../App.scss";
 import logo from "./../st-andrews-logo.png";
 
@@ -17,9 +10,6 @@ interface FormValues {
   username: string;
   email: string;
   password: string;
-  // profile: {
-  //   name: string
-  // }
   name: string;
 }
 
@@ -66,43 +56,19 @@ const SignupForm = (): JSX.Element => {
         <Form>
           <div>
             <label htmlFor="username">Username:</label>
-            <Field
-              name="username"
-              // id="username"
-              // type="firstname"
-              // onChange={formik.handleChange}
-              // value={formik.values.firstname}
-            />
+            <Field name="username" />
           </div>
           <div>
             <label htmlFor="email">Email:</label>
-            <Field
-              name="email"
-              // id="email"
-              // type="lastname"
-              // onChange={formik.handleChange}
-              // value={formik.values.lastname}
-            />
+            <Field name="email" />
           </div>
           <div>
             <label htmlFor="password">Password:</label>
-            <Field
-              name="password"
-              // id="password"
-              // type="lastname"
-              // onChange={formik.handleChange}
-              // value={formik.values.lastname}
-            />
+            <Field name="password" />
           </div>
           <div>
             <label htmlFor="name">Name:</label>
-            <Field
-              name="name"
-              // id="name"
-              // type="lastname"
-              // onChange={formik.handleChange}
-              // value={formik.values.lastname}
-            />
+            <Field name="name" />
           </div>
           <button type="submit" className="Submit-button">
             Create Account
