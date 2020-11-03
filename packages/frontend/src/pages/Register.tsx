@@ -2,7 +2,6 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import "./../App.scss";
 import logo from "./../st-andrews-logo.png";
-
 import { passwordClient } from "../utils/accounts";
 import { GraphQLErrorList } from "@accounts/graphql-client";
 
@@ -15,7 +14,7 @@ interface FormValues {
 
 async function registerUser(values: FormValues) {
   try {
-    passwordClient.createUser({
+    await passwordClient.createUser({
       username: values.username,
       email: values.email,
       password: values.password,
@@ -24,11 +23,6 @@ async function registerUser(values: FormValues) {
       },
     });
   } catch (err) {
-    /*
-          Check if login is valid by looking into db
-          Send to homepage if so
-          Return message not valid login if not
-      */
     if (err instanceof GraphQLErrorList) {
       console.log(err.message);
     }
@@ -49,7 +43,6 @@ const SignupForm = (): JSX.Element => {
         initialValues={initialValues}
         //TODO add validation
         onSubmit={(values) => {
-          alert(JSON.stringify(values, null, 2));
           registerUser(values);
         }}
       >

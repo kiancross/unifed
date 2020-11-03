@@ -1,7 +1,6 @@
 import React from "react";
 import "./../App.scss";
 import logo from "./../st-andrews-logo.png";
-
 import { Link } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { accountsClient } from "../utils/accounts";
@@ -14,25 +13,24 @@ interface FormValues {
 
 async function loginUser(values: FormValues) {
   try {
-    await accountsClient.loginWithService('password', {
+    await accountsClient.loginWithService("password", {
       user: {
         email: values.email,
       },
       password: values.password,
-    })
+    });
   } catch (err) {
     if (err instanceof GraphQLErrorList) {
       console.log(err.message);
     }
   }
-  console.log("Logged In!")
 }
 
 const LoginForm = (): JSX.Element => {
   const initialValues = {
     email: "",
     password: "",
-  }
+  };
   return (
     <div className="container">
       <img src={logo} alt="st andrews logo" width="250" height="300"></img>
@@ -41,7 +39,6 @@ const LoginForm = (): JSX.Element => {
         initialValues={initialValues}
         //TODO add validation
         onSubmit={(values) => {
-          alert(JSON.stringify(values, null, 2));
           loginUser(values);
         }}
       >
