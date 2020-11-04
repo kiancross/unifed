@@ -2,6 +2,8 @@
 # CS3099 Group A3
 #
 
+SHELL:=/bin/bash
+
 CONFIG_PATH:=config.env
 KUBE_PATH:=kube-deployment.yml
 POD_NAME:=unifed
