@@ -35,7 +35,8 @@ checks: lint test build
 
 .PHONY: test
 test:
-	yarn workspaces run test
+	yarn workspaces run test:unit
+	yarn workspaces run test:integration
 
 .PHONY: lint
 lint:

@@ -2,7 +2,12 @@
 # CS3099 Group A3
 #
 
-DOCKER_COMPOSE_COMMAND:=docker-compose --env-file config.env
+SHELL:=/bin/bash
+
+DOCKER_COMPOSE_COMMAND:=docker-compose \
+	--env-file config.env \
+  -f <(./generate-docker-compose.sh) \
+  --project-directory .
 
 .PHONY: start
 start:

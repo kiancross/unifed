@@ -23,7 +23,8 @@
     "zxcvbn": "^4.4.2"
   },
   "scripts": {
-    "test": "jest --coverage --watchAll=false",
+    "test:unit": "jest",
+    "test:integration": "true",
     "build": "tsc",
     "clean": "rm -rf coverage build",
     "lint": "eslint . --ext .ts",

@@ -19,7 +19,7 @@ export default (async (): Promise<GraphQLSchema> => {
   await accountsDatabase.setupIndexes();
 
   const { typeDefs, resolvers } = await buildTypeDefsAndResolvers({
-    resolvers: [__dirname + "/resolvers/*.ts"],
+    resolvers: [__dirname + "/resolvers/*.{ts,js}"],
     orphanedTypes: [CreateUserInput],
     validate: true,
   });
