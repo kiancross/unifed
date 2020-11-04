@@ -77,9 +77,6 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       
-      - uses: satackey/action-docker-layer-caching@v0.0.8
-        continue-on-error: true
-
       - run: npm install -g yarn
       - run: yarn install
       - run: yarn workspace unifed-frontend build
