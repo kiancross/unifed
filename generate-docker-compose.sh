@@ -1,7 +1,9 @@
+#!/usr/bin/env bash
 #
 # CS3099 Group A3
 #
 
+cat << 'EOF'
 version: "3"
 
 services:
@@ -12,9 +14,21 @@ services:
       - proxy
     depends_on:
       - backend
+EOF
+if [[ $NODE_ENV == prod ]]; then
+cat << 'EOF'
+    volumes:
+      - ./nginx.prod.conf:/etc/nginx/nginx.conf:ro
+      - ./packages/frontend/build:/var/www/virtual/unifed-frontend:ro
+EOF
+else
+cat << 'EOF'
       - frontend
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+EOF
+fi
+cat << 'EOF'
     ports:
       - ${BACKEND_PORT}:80
 
@@ -31,20 +45,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ADMIN_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
 
-  mongo-express:
-    image: mongo-express
-    restart: unless-stopped
-    networks:
-      - database
-    ports:
-      - ${MONGO_INSPECT_PORT}:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ADMIN_USERNAME}
-      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ADMIN_PASSWORD}
-      ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_INSPECT_USERNAME} 
-      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_INSPECT_PASSWORD}
-      ME_CONFIG_MONGODB_SERVER: mongo
-  
   backend:
     build:
       context: .
@@ -71,6 +71,26 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       SITE_URL: ${SITE_URL}
       APPLICATION_NAME: ${APPLICATION_NAME}
+EOF
+cat << EOF
+      NODE_ENV: $NODE_ENV
+EOF
+
+if [[ $NODE_ENV != prod ]]; then
+cat << 'EOF'
+  mongo-express:
+    image: mongo-express
+    restart: unless-stopped
+    networks:
+      - database
+    ports:
+      - ${MONGO_INSPECT_PORT}:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ADMIN_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ADMIN_PASSWORD}
+      ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_INSPECT_USERNAME} 
+      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_INSPECT_PASSWORD}
+      ME_CONFIG_MONGODB_SERVER: mongo
   
   frontend:
     build:
@@ -82,7 +102,10 @@ services:
     volumes:
       - ./packages/shared/src:/usr/src/unifed/packages/shared/src:ro
       - ./packages/frontend/src:/usr/src/unifed/packages/frontend/src:ro
+EOF
+fi
 
+cat << 'EOF'
 networks:
   proxy:
     driver: bridge
@@ -91,3 +114,4 @@ networks:
 
 volumes:
   mongo_data:
+EOF

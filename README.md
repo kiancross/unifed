@@ -32,10 +32,12 @@ The `yarn` commands available within both the `frontend` and `backend`
 directories are:
   * `yarn start` - start the development server.
   * `yarn build` - build a production version.
-  * `yarn test` - stop all of the containers.
-  * `yarn lint` - reset persistent storage for the containers.
-  * `yarn clean` - run `make stop` then `make start`.
-  * `yarn fix` - view the logs for the Node.js application.
+  * `yarn test:unit` - run unit tests.
+  * `yarn test:integration` - run e2e/integration tests (note that the
+    application must have been started on localhost:8080).
+  * `yarn lint` - check code style.
+  * `yarn clean` - remove and build files.
+  * `yarn fix` - fix any easily fixable issues with code style.
   
 The `backend` has an additional `watch` command that is the same
 as `start`, but automatically reloads if it detects changes to

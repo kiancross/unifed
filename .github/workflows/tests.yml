@@ -7,6 +7,8 @@ name: Checks
 on:
   pull_request:
     branches: [ master ]
+  push:
+    branches: [ master ]
 
 jobs:
   checks:
@@ -14,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     strategy:
+      fail-fast: false
       matrix:
         component: [frontend, backend, shared]
     steps:
@@ -22,25 +25,70 @@ jobs:
         with:
           node-version: 12
 
+      - run: echo "::set-output name=dir::$(yarn cache dir)"
+        id: yarn-cache-dir-path
+
       - uses: actions/cache@v2
         env:
           cache-name: cache-node-modules
         with:
-          path: ~/.cache/yarn/
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-
+      
       - run: npm install -g yarn
       - run: yarn install
 
-      - name: Style check
+      - name: Style checks
         run: yarn workspace unifed-${{ matrix.component }} lint
-
-      - name: Test
-        run: yarn workspace unifed-${{ matrix.component }} test
-
+      
       - name: Build
         run: yarn workspace unifed-${{ matrix.component }} build
+      
+      - name: Unit tests
+        run: yarn workspace unifed-${{ matrix.component }} test:unit
+  
+  integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: checks
+    env:
+      NODE_ENV: prod
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - run: echo "::set-output name=dir::$(yarn cache dir)"
+        id: yarn-cache-dir-path
+
+      - uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      
+      - run: npm install -g yarn
+      - run: yarn install
+      - run: yarn workspace unifed-frontend build
+
+      - run: make -f Makefile.docker start
+
+      - name: Frontend integration tests
+        run: yarn workspace unifed-frontend run test:integration
+        continue-on-error: true
+      
+      - name: Backend integration tests
+        run: yarn workspace unifed-frontend run test:integration
+        continue-on-error: true
+
+      - run: make -f Makefile.docker stop

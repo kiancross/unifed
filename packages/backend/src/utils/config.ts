@@ -17,7 +17,7 @@ if (process.env.JWT_SECRET === undefined) throw new EnvVarNotDefinedError();
 if (process.env.SITE_URL === undefined) throw new EnvVarNotDefinedError();
 if (process.env.APPLICATION_NAME === undefined) throw new EnvVarNotDefinedError();
 
-export const debug = true;
+export const debug = process.env.NODE_ENV === "prod" ? false : true;
 export const smtpHost: string = process.env.SMTP_HOST;
 export const smtpPort: number = parseInt(process.env.SMTP_PORT);
 export const smtpUsername: string = process.env.SMTP_USERNAME;
