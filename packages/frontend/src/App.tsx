@@ -17,6 +17,7 @@ import PasswordResetForm from "./pages/PasswordReset";
 import PageNotFound from "./pages/404";
 import LoginForm from "./pages/Login";
 import RegisterForm from "./pages/Register";
+import VerifyEmailPage from "./pages/VerifyEmail";
 
 function App(): JSX.Element {
   return (
@@ -27,6 +28,7 @@ function App(): JSX.Element {
             <Route exact path="/" component={LoginForm} />
             <Route exact path="/reset-password" component={PasswordResetForm} />
             <Route exact path="/register" component={RegisterForm} />
+            <Route path="/verify-email/:token" component={VerifyEmailPage} />
             <Route component={PageNotFound} />
           </Switch>
         </Router>
