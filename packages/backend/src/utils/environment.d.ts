@@ -17,6 +17,7 @@ declare global {
       JWT_SECRET: string;
       SITE_URL: string;
       APPLICATION_NAME: string;
+      NODE_ENV: string;
     }
   }
 }

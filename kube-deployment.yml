@@ -112,7 +112,7 @@ spec:
     
     - name: nginx-conf
       hostpath:
-        path: ./nginx.conf
+        path: ./nginx.dev.conf
         type: File
     
     - name: mongo-init

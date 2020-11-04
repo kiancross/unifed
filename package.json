@@ -5,6 +5,6 @@
   "license": "UNLICENSED",
   "workspaces": {
     "packages": ["packages/*"],
-    "nohoist": ["**/jest", "**/testing-library**"]
+    "nohoist": ["**/jest", "**/testing-library**", "**puppeteer**"]
   }
 }
