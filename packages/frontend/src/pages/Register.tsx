@@ -22,6 +22,7 @@ async function registerUser(values: FormValues) {
         name: values.name,
       },
     });
+    await passwordClient.requestVerificationEmail(values.email);
   } catch (err) {
     if (err instanceof GraphQLErrorList) {
       console.log(err.message);
@@ -41,7 +42,7 @@ const SignupForm = (): JSX.Element => {
       <img src={logo} alt="st andrews logo" width="250" height="300"></img>
       <Formik
         initialValues={initialValues}
-        //TODO add validation
+        // TODO add validation
         onSubmit={(values) => {
           registerUser(values);
         }}
