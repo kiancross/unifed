@@ -1,33 +1,83 @@
 import React from "react";
-import { Box, Card, CardActionArea, CardContent, Typography } from "@material-ui/core";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  IconButton,
+  List,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+  TextField,
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import EditIcon from "@material-ui/icons/Edit";
 
 interface AccountTabParams {
+  username: string;
   email: string;
 }
 
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: "#ffffff",
+    color: "#000000",
+  },
+});
+
 const AccountTab = (props: AccountTabParams): JSX.Element => {
+  const [passOpen, setPassOpen] = React.useState(false);
+
+  const handlePassClickOpen = () => {
+    setPassOpen(true);
+  };
+
+  const handleClose = () => {
+    setPassOpen(false);
+  };
+
+  const PassResetDialog = (): JSX.Element => {
+    return (
+      <Dialog open={passOpen} onClose={handleClose}>
+        <DialogTitle>Update your password</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Password must contain letters, numbers and symbols</DialogContentText>
+          <TextField fullWidth required label="Old Password" />
+          <TextField fullWidth required label="New Password" />
+          <TextField fullWidth required label="Confirm New Password" />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Save</Button>
+        </DialogActions>
+      </Dialog>
+    );
+  };
+
+  const classes = useStyles();
   return (
-    <Box borderRadius="borderRadius" textAlign="left" bgcolor="secondary.main" m={1}>
-      <Card>
-        <CardActionArea>
-          <CardContent>
-            <Typography variant="subtitle2" color="textSecondary" gutterBottom>
-              Email address
-            </Typography>
-            <Typography>{props.email}</Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-      <Card>
-        <CardActionArea>
-          <CardContent>
-            <Typography variant="subtitle2" color="textSecondary" gutterBottom>
-              Password
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    </Box>
+    <div className={classes.root}>
+      <List>
+        <ListItem>
+          <ListItemText primary={props.username} secondary="Username" />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary={props.email} secondary="Email" />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="***" secondary="Password" />
+          <ListItemSecondaryAction>
+            <IconButton onClick={handlePassClickOpen} color="primary" edge="end">
+              <EditIcon />
+            </IconButton>
+            <PassResetDialog />
+          </ListItemSecondaryAction>
+        </ListItem>
+      </List>
+    </div>
   );
 };
 
