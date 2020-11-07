@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#
+# CS3099 Group A3
+#
+
+set -e
+
+tmp_dir=$(mktemp -d)
+extract_dir=$tmp_dir/extracted
+normed_dir=$tmp_dir/normed
+
+mkdir -p "$extract_dir"
+mkdir -p "$normed_dir"
+
+if [[ -d $1 ]]; then
+  cp "$1"/* "$extract_dir"
+else
+  unzip "$1" -d "$extract_dir" > /dev/null
+fi
+
+for file in $(find $extract_dir -name "*.json"); do
+  cat "$file" | ./scripts/replace-paths "$(pwd)" > "$normed_dir/$(basename $file)"
+done
+
+yarn nyc report --reporter html --reporter text --reporter json -t "$normed_dir" --report-dir "$2"
+
+rm -rf "$tmp_dir"

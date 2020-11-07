@@ -11,6 +11,5 @@ COPY packages/backend/package.json packages/backend/package.json
 RUN yarn install
 ADD packages packages
 RUN yarn workspace unifed-shared build
-RUN yarn workspace unifed-backend build
-CMD [ "yarn", "workspace", "unifed-backend", "start" ]
+CMD [ "yarn", "workspace", "unifed-backend", "start:watch" ]
 EXPOSE 8080

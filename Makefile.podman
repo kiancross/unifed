@@ -4,8 +4,8 @@
 
 SHELL:=/bin/bash
 
-CONFIG_PATH:=config.env
-KUBE_PATH:=kube-deployment.yml
+CONFIG_PATH:=configs/config.env
+KUBE_PATH:=configs/kube-deployment.yml
 POD_NAME:=unifed
 
 PODMAN_COMMAND:=podman
