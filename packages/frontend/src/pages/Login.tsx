@@ -19,12 +19,16 @@ async function loginUser(values: FormValues) {
       },
       password: values.password,
     });
+    console.log("logged in");
   } catch (err) {
     if (err instanceof GraphQLErrorList) {
+      // TODO present error if account is not verified
       console.log(err.message);
     }
   }
 }
+
+const submitButtonStyle = "Submit-button";
 
 const LoginForm = (): JSX.Element => {
   const initialValues = {
@@ -51,13 +55,13 @@ const LoginForm = (): JSX.Element => {
             <label htmlFor="password">Password:</label>
             <Field name="password" />
           </div>
-          <button type="submit" className="Submit-button">
+          <button type="submit" className={submitButtonStyle}>
             Login
           </button>
         </Form>
       </Formik>
       <Link to="/reset-password">
-        <button className="Submit-button">Reset Password</button>
+        <button className={submitButtonStyle}>Forgot Password?</button>
       </Link>
     </div>
   );

@@ -13,7 +13,8 @@ import {
 } from "react-router-dom";
 
 //Pages
-import PasswordResetForm from "./pages/PasswordReset";
+import ResetPasswordRequest from "./pages/ResetPasswordRequest";
+import ResetPassword from "./pages/ResetPassword";
 import PageNotFound from "./pages/404";
 import LoginForm from "./pages/Login";
 import RegisterForm from "./pages/Register";
@@ -26,7 +27,8 @@ function App(): JSX.Element {
         <Router>
           <Switch>
             <Route exact path="/" component={LoginForm} />
-            <Route exact path="/reset-password" component={PasswordResetForm} />
+            <Route exact path="/reset-password" component={ResetPasswordRequest} />
+            <Route path="/reset-password/:token" component={ResetPassword} />
             <Route exact path="/register" component={RegisterForm} />
             <Route path="/verify-email/:token" component={VerifyEmailPage} />
             <Route component={PageNotFound} />
