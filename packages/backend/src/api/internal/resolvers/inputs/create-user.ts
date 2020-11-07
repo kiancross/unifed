@@ -3,10 +3,10 @@
  */
 
 import { InputType, Field } from "type-graphql";
-import UserProfileInput from "./user-profile";
+import { UserProfileInput } from "./user-profile";
 
 @InputType()
-export default class CreateUserInput {
+export class CreateUserInput {
   @Field(() => UserProfileInput)
   profile!: UserProfileInput;
 }

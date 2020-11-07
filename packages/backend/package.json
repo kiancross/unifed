@@ -33,13 +33,15 @@
     "apollo-server-express": "^2.18.2",
     "class-validator": "^0.12.2",
     "express": "^4.17.1",
+    "express-async-router": "^0.1.15",
     "got": "^11.8.0",
     "graphql": "^15.4.0",
     "mongoose": "^5.10.9",
     "nodemailer": "^6.4.14",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.0",
-    "unifed-shared": "^0.1.0"
+    "unifed-shared": "^0.1.0",
+    "yarn": "^1.22.10"
   },
   "scripts": {
     "start": "if [ \"$NODE_ENV\" = prod ]; then node build/unifed.js; else nodemon src/unifed.ts; fi",

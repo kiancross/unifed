@@ -3,14 +3,14 @@
  */
 
 import { Resolver, Query, Arg } from "type-graphql";
-import { User, UserModel } from "../../../models/user";
+import { User, UserModel } from "../../../models";
 
-import CreateUserType from "./inputs/create-user";
+import { CreateUserInput } from "./inputs";
 
 @Resolver()
-export default class UserResolver {
+export class UserResolver {
   @Query(() => [User])
-  async getUsers(@Arg("user") user: CreateUserType): Promise<User[]> {
+  async getUsers(@Arg("user") user: CreateUserInput): Promise<User[]> {
     console.log(user);
     return await UserModel.find();
   }

@@ -7,7 +7,7 @@ import { GraphQLSchema } from "graphql";
 import { buildTypeDefsAndResolvers, emitSchemaDefinitionFile } from "type-graphql";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { mergeResolvers, mergeTypeDefs } from "@graphql-tools/merge";
-import CreateUserInput from "./resolvers/inputs/create-user";
+import { CreateUserInput } from "./resolvers/inputs";
 import {
   accountsTypeDefs,
   accountsResolvers,
@@ -15,7 +15,7 @@ import {
   accountsDatabase,
 } from "./accounts-setup";
 
-export default (async (): Promise<GraphQLSchema> => {
+export const schema = (async (): Promise<GraphQLSchema> => {
   await accountsDatabase.setupIndexes();
 
   const { typeDefs, resolvers } = await buildTypeDefsAndResolvers({
