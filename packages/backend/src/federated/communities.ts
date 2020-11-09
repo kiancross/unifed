@@ -4,20 +4,15 @@
 
 import { Response, Request, NextFunction } from "express";
 import { AsyncRouter } from "express-async-router";
-import { CommunityModel } from "../../models";
-
-// integration tests run two instances against each other
+import { CommunityModel, Post } from "../models";
 
 async function getCommunity(req: Request, res: Response, next: NextFunction) {
-
   const community = await CommunityModel.findById(req.params.id);
 
   if (community === null) {
-
     res.status(404).json({
-      error: "Community not found"
+      error: `Community not found: '${req.params.id}'`,
     });
-
   } else {
     res.locals.community = community;
     next();
@@ -27,15 +22,25 @@ async function getCommunity(req: Request, res: Response, next: NextFunction) {
 const router = AsyncRouter();
 
 router.get("/", async (_, res) => {
-  res.json(await CommunityModel.find());
+  const communities = await CommunityModel.find();
+  res.json(communities.map((community) => community.id));
 });
 
 router.get("/:id", getCommunity, (_, res) => {
   res.json(res.locals.community);
 });
 
-router.get("/:id/timestamps", getCommunity, (_, res) => {
-  res.json(true);
+router.get("/:id/timestamps", getCommunity, async (_, res) => {
+  const populatedCommunity = await res.locals.community.populate("posts").execPopulate();
+
+  res.json(
+    populatedCommunity.posts?.map((post: Post) => {
+      return {
+        id: post.id,
+        modified: post.updatedAtUnixTimeStamp,
+      };
+    }),
+  );
 });
 
 export { router as routes };

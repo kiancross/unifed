@@ -2,17 +2,14 @@
  * CS3099 Group A3
  */
 
-import { prop as Property, getModelForClass } from "@typegoose/typegoose";
+import { prop as Property, getModelForClass, Ref } from "@typegoose/typegoose";
 import { ObjectType, Field } from "type-graphql";
+import { Base } from "./base";
+import { Post } from "./post";
 import { User } from "./user";
 
 @ObjectType()
-export class Community {
- 
-  @Field()
-  @Property({ required: true })
-  _id!: string;
-  
+export class Community extends Base {
   @Field()
   @Property({ required: true })
   title!: string;
@@ -22,27 +19,26 @@ export class Community {
   description!: string;
 
   @Field(() => [User])
-  @Property({type: () => [User]})
-  admins?: User[];
-  
-  public get id() {
-    return this._id;
-  }
-  
-  public set id(id: string) {
-    this._id = id;
-  }
+  @Property({ ref: "User" })
+  admins?: Ref<User>[];
 
-  public toJSON() {
+  @Field(() => [Post])
+  @Property({
+    ref: "Post",
+    type: String,
+    foreignField: "community",
+    localField: "_id",
+  })
+  posts?: Ref<Post>[];
+
+  toJSON() {
     return {
-      id: this.id,
+      ...super.toJSON(),
       title: this.title,
       description: this.description,
-      admins: this.admins
+      admins: this.admins,
     };
   }
 }
 
 export const CommunityModel = getModelForClass(Community);
-
-CommunityModel.create({_id: "work", title: "My Comm", description: "This is a description"});

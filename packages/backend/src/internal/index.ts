@@ -6,14 +6,14 @@ import { Application, Router } from "express";
 import { ApolloServer } from "apollo-server-express";
 import { accountsContext } from "./accounts-setup";
 import { schema } from "./schema";
-import { debug } from "../../utils/config";
+import { config } from "../utils";
 
 export const routes = (async (): Promise<Router> => {
   const router: Router = Router();
 
   const server = new ApolloServer({
     schema: await schema,
-    playground: debug,
+    playground: config.debug,
     context: accountsContext,
   });
 
