@@ -5,8 +5,8 @@
 SHELL:=/bin/bash
 
 DOCKER_COMPOSE_COMMAND:=docker-compose \
-	--env-file config.env \
-  -f <(./generate-docker-compose.sh) \
+	--env-file configs/config.env \
+  -f <(node scripts/generate-docker-compose.js) \
   --project-directory .
 
 .PHONY: start

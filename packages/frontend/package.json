@@ -25,13 +25,14 @@
     ]
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts -r @cypress/instrument-cra start",
     "build": "react-scripts build",
-    "test:unit": "react-scripts test --coverage --watchAll=false",
-    "test:integration": "jest -c integration/jest.config.ts",
-    "clean": "rm -rf coverage build",
-    "lint": "eslint --ext .js,.ts,.tsx src/",
-    "fix": "eslint --ext .js,ts,tsx --fix src/"
+    "test:unit": "react-scripts test --coverage --coverageReporters html json text --watchAll=false",
+    "test:integration": "cypress run",
+    "test:integration:open": "cypress open",
+    "clean": "rm -rf coverage .nyc_output build cypress/videos cypress/screenshots",
+    "lint": "eslint --ext .js,.ts,.tsx src/ cypress/",
+    "fix": "eslint --ext .js,ts,tsx --fix src/ cypress/"
   },
   "dependencies": {
     "@accounts/apollo-link": "^0.29.0",
@@ -52,26 +53,23 @@
     "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
+    "@cypress/code-coverage": "^3.8.3",
+    "@cypress/instrument-cra": "^1.4.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "@types/expect-puppeteer": "^4.4.5",
-    "@types/jest-environment-puppeteer": "^4.4.0",
     "@types/node": "^14.11.2",
-    "@types/puppeteer": "^5.4.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.1",
+    "cypress": "^5.5.0",
     "eslint-config-prettier": "^6.13.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.4",
-    "jest-puppeteer": "^4.4.0",
     "node-sass": "^4.14.1",
     "prettier": "^2.1.2",
-    "puppeteer": "^5.4.1",
     "react-scripts": "3.4.3",
-    "ts-jest": "^26.4.3",
     "typescript": "^4.0.3"
   }
 }
