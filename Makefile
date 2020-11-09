@@ -46,7 +46,15 @@ lint:
 build:
 	yarn workspaces run build
 
+.PHONY: coverage
+coverage:
+	./scripts/generate-coverage-report
+
 .PHONY: clean
 clean:
 	yarn workspaces run clean
+	rm -rf coverage
+
+.PHONY: clean
+clean-all: clean
 	rm -rf node_modules packages/**/node_modules
