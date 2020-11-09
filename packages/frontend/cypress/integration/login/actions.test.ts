@@ -4,7 +4,7 @@
 
 context("Actions", () => {
   beforeEach(() => {
-    cy.visit(`${Cypress.env("baseUrl")}`);
+    cy.visit("/");
   });
 
   it("example", () => {
