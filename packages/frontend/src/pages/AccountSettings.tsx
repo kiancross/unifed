@@ -9,31 +9,32 @@ function changePassword(oldPassword: string, newPassword: string) {
   try {
     passwordClient.changePassword(oldPassword, newPassword);
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 }
 
-enum UserStatus { FETCHING, LOGGED_IN, LOGGED_OUT }
-
-interface Props {}
-
-interface State {
-  gotUser: UserStatus,
-  selectedTab: number,
-  email: string,
-  username: string,
+enum UserStatus {
+  FETCHING,
+  LOGGED_IN,
+  LOGGED_OUT,
 }
 
-class AccountSettings extends React.Component<Props, State> {
+interface State {
+  gotUser: UserStatus;
+  selectedTab: number;
+  email: string;
+  username: string;
+}
 
-  constructor(props: Props) {
+class AccountSettings extends React.Component<T, State> {
+  constructor(props: T) {
     super(props);
     this.state = {
       gotUser: UserStatus.FETCHING,
       selectedTab: 0,
       email: "",
       username: "",
-    }
+    };
     this.handleTabChange = this.handleTabChange.bind(this);
     this.setDetails = this.setDetails.bind(this);
     this.handleLoggedOut = this.handleLoggedOut.bind(this);
@@ -41,8 +42,8 @@ class AccountSettings extends React.Component<Props, State> {
 
   handleTabChange(_event: React.ChangeEvent<unknown>, newValue: number) {
     this.setState(() => ({
-      selectedTab: newValue
-    }))
+      selectedTab: newValue,
+    }));
   }
 
   setDetails(username: string, email: string) {
@@ -50,29 +51,27 @@ class AccountSettings extends React.Component<Props, State> {
       gotUser: UserStatus.LOGGED_IN,
       username: username,
       email: email,
-    }))
+    }));
   }
 
   handleLoggedOut() {
     this.setState(() => ({
       gotUser: UserStatus.LOGGED_OUT,
-    }))
+    }));
   }
 
   render() {
-
-    if (this.state.gotUser===UserStatus.FETCHING) {
+    if (this.state.gotUser === UserStatus.FETCHING) {
       accountsClient.getUser().then((user) => {
-        if(!user) this.handleLoggedOut();
-        else if(user.username && user.emails) this.setDetails(user.username, user.emails[0].address);
-      })
+        if (!user) this.handleLoggedOut();
+        else if (user.username && user.emails)
+          this.setDetails(user.username, user.emails[0].address);
+      });
     }
 
-    if (this.state.gotUser===UserStatus.LOGGED_OUT) return (
-      <Redirect to="/" />
-    )
+    if (this.state.gotUser === UserStatus.LOGGED_OUT) return <Redirect to="/" />;
 
-    return(
+    return (
       <Container maxWidth="sm">
         <AppBar position="static">
           <Tabs value={this.state.selectedTab} onChange={this.handleTabChange}>
@@ -80,8 +79,11 @@ class AccountSettings extends React.Component<Props, State> {
             <Tab label="PROFILE" />
           </Tabs>
         </AppBar>
-        {this.state.selectedTab === 0 && <AccountTab username={this.state.username} email={this.state.email} />}
-        {this.state.selectedTab === 3 && changePassword("JonsPassword123%%", "JonsNewPassword123%%")}
+        {this.state.selectedTab === 0 && (
+          <AccountTab username={this.state.username} email={this.state.email} />
+        )}
+        {this.state.selectedTab === 3 &&
+          changePassword("JonsPassword123%%", "JonsNewPassword123%%")}
       </Container>
     );
   }

@@ -3,35 +3,30 @@ import { Container, Grid } from "@material-ui/core";
 import UserInfoCard from "../components/UserInfoCard";
 import Post from "../components/Post";
 import "./../App.scss";
-import PostEditor from "./../components/PostEditor"
-
-interface Props {
-
-}
+import PostEditor from "./../components/PostEditor";
 
 interface State {
-  makingPost: boolean
+  makingPost: boolean;
 }
 
-class HomePage extends React.Component <Props, State>{
-
-  constructor(props:Props) {
+class HomePage extends React.Component<T, State> {
+  constructor(props: T) {
     super(props);
-    
+
     this.state = {
-      makingPost: false
-    }
+      makingPost: false,
+    };
 
     this.updateMakingPost = this.updateMakingPost.bind(this);
   }
 
   updateMakingPost() {
-    this.setState(state => ({
-      makingPost: !state.makingPost
-    }))
+    this.setState((state) => ({
+      makingPost: !state.makingPost,
+    }));
   }
-  
-  render() { 
+
+  render() {
     const text1 =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit amet est placerat in egestas erat imperdiet sed. Amet nisl suscipit adipiscing bibendum. Neque aliquam vestibulum morbi blandit cursus risus at ultrices mi. Cras semper auctor neque vitae tempus quam.";
     const text2 =
@@ -39,19 +34,18 @@ class HomePage extends React.Component <Props, State>{
 
     return (
       <div>
-        
-        {this.state.makingPost ? 
+        {this.state.makingPost ? (
           <div>
-            <PostEditor /> 
+            <PostEditor />
             <button className="Submit-button" onClick={this.updateMakingPost}>
               Close
             </button>
           </div>
-          : 
+        ) : (
           <button className="Submit-button" onClick={this.updateMakingPost}>
-          Make Post
+            Make Post
           </button>
-        }
+        )}
         <Container maxWidth="lg">
           <Grid container spacing={3}>
             <Grid item container xs={8} direction="column" spacing={2}>
@@ -68,6 +62,6 @@ class HomePage extends React.Component <Props, State>{
       </div>
     );
   }
-};
+}
 
 export default HomePage;

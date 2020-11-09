@@ -10,7 +10,7 @@ export default function App() {
 
   const handleClick = () => {
     if (mdEditor.current) {
-        //send query to db
+      //send query to db
       alert(mdEditor.current.getMdValue());
     }
   };
@@ -27,12 +27,14 @@ export default function App() {
         ref={mdEditor}
         value={value}
         style={{
-          height: "300px"
+          height: "300px",
         }}
         onChange={handleEditorChange}
-        renderHTML={text => <ReactMarkdown source={text} />}
+        renderHTML={(text) => <ReactMarkdown source={text} />}
       />
-      <button className="Submit-button" onClick={handleClick}>Submit Post</button>
+      <button className="Submit-button" onClick={handleClick}>
+        Submit Post
+      </button>
     </div>
   );
 }
