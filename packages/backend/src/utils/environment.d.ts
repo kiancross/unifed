@@ -19,6 +19,10 @@ declare global {
       APPLICATION_NAME: string;
       NODE_ENV: string;
     }
+
+    interface Global {
+      __coverage__: any;
+    }
   }
 }
 

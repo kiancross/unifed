@@ -112,10 +112,10 @@ spec:
     
     - name: nginx-conf
       hostpath:
-        path: ./nginx.dev.conf
+        path: ./configs/nginx.dev.conf
         type: File
     
     - name: mongo-init
       hostpath:
-        path: ./mongo-init.js
+        path: ./configs/mongo-init.js
         type: File

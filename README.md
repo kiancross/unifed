@@ -25,7 +25,9 @@
   * `make lint` - run both the frontend and backend code style checks.
   * `make build` - build both the frontend and backend code.
   * `make checks` - run the `test`, `lint` and `build` targets.
-  * `make clean` - remove all build files and dependencies.
+  * `make clean` - remove all build files.
+  * `make clean-all` - remove all build files and dependencies.
+  * `make coverage` - generate coverage report (output to `./coverage`).
 
 ### `yarn`
 The `yarn` commands available within both the `frontend` and `backend`
