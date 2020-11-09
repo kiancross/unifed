@@ -197,17 +197,17 @@ jobs:
           name: tests-coverage-json
           path: coverage-json
 
-      - run: ./scripts/generate-coverage-report coverage-json merged-coverage
+      - run: ./scripts/generate-coverage-report -i coverage-json -o merged-coverage
 
       - run: |
           mkdir unit-coverage-json
           cp coverage-json/unit-tests-* unit-coverage-json
-          ./scripts/generate-coverage-report unit-coverage-json unit-coverage
+          ./scripts/generate-coverage-report -i unit-coverage-json -o unit-coverage
       
       - run: |
           mkdir integration-coverage-json
           cp coverage-json/integration-tests-* integration-coverage-json
-          ./scripts/generate-coverage-report integration-coverage-json integration-coverage
+          ./scripts/generate-coverage-report -i integration-coverage-json -o integration-coverage
 
       - uses: actions/upload-artifact@v2
         with:

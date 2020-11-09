@@ -5,23 +5,59 @@
 
 set -e
 
+print_help() {
+  echo "Generate a coverage report"
+  echo "  -i Input file. Can be a directory or zip file. If ommitted"
+  echo "     then coverage files are searched for".
+  echo ""
+  echo "  -o Output directory. If ommitted then 'coverage' is used."
+}
+
 tmp_dir=$(mktemp -d)
 extract_dir=$tmp_dir/extracted
 normed_dir=$tmp_dir/normed
 
+output_file="$(readlink -m coverage)"
+
 mkdir -p "$extract_dir"
 mkdir -p "$normed_dir"
 
-if [[ -d $1 ]]; then
-  cp "$1"/* "$extract_dir"
+while getopts "h?o:i:" opt; do
+  case "$opt" in
+    h|\?)
+      print_help
+      exit 0
+      ;;
+    i)  input_file=$(readlink -m $OPTARG)
+      ;;
+    o)  output_file=$(readlink -m $OPTARG)
+      ;;
+  esac
+done
+
+shift $((OPTIND-1))
+
+if [[ -z $input_file ]]; then
+
+  coverage_files=$(find . \( -path "*/.nyc_output/*.json" -o -path "*/coverage/*.json" \) -not -path "*/node_modules/*")
+  
+  for file in $coverage_files; do
+    cp --backup=t "$file" "$extract_dir"
+  done
+
+elif [[ -d $input_file ]]; then
+  cp "$input_file"/* "$extract_dir"
+elif [[ -f $1 ]]; then
+  unzip "$input_file" -d "$extract_dir" > /dev/null
 else
-  unzip "$1" -d "$extract_dir" > /dev/null
+  1>&2 echo "No valid options passed"
+  exit 1
 fi
 
 for file in $(find $extract_dir -name "*.json"); do
   cat "$file" | ./scripts/replace-paths "$(pwd)" > "$normed_dir/$(basename $file)"
 done
 
-yarn nyc report --reporter html --reporter text --reporter json -t "$normed_dir" --report-dir "$2"
+yarn nyc report --reporter html --reporter text --reporter json -t "$normed_dir" --report-dir "$output_file"
 
 rm -rf "$tmp_dir"
