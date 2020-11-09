@@ -11,11 +11,11 @@ export default function App() {
   const handleClick = () => {
     if (mdEditor.current) {
       //send query to db
-      alert(mdEditor.current.getMdValue());
+      //alert(mdEditor.current.getMdValue());
     }
   };
 
-  const handleEditorChange = ({ html, text }) => {
+  const handleEditorChange = ({ text }: { text: string }) => {
     const newValue = text.replace(/\d/g, "");
     console.log(newValue);
     setValue(newValue);

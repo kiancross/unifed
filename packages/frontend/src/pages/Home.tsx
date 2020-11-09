@@ -9,9 +9,9 @@ interface State {
   makingPost: boolean;
 }
 
-class HomePage extends React.Component<T, State> {
-  constructor(props: T) {
-    super(props);
+class HomePage extends React.Component<any, State> {
+  constructor() {
+    super({});
 
     this.state = {
       makingPost: false,

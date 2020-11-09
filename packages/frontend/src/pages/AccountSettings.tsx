@@ -26,9 +26,10 @@ interface State {
   username: string;
 }
 
-class AccountSettings extends React.Component<T, State> {
-  constructor(props: T) {
-    super(props);
+class AccountSettings extends React.Component<any, State> {
+  constructor() {
+    super({});
+
     this.state = {
       gotUser: UserStatus.FETCHING,
       selectedTab: 0,
