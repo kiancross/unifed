@@ -1,12 +1,10 @@
-/// <reference types="cypress" />
-
-/**
- * @type {Cypress.PluginConfig}
+/*
+ * CS3099 Group A3
  */
+
 module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
-  
-  require('@cypress/code-coverage/task')(on, config)
+
+  require("@cypress/code-coverage/task")(on, config);
+
   return config;
-}
+};

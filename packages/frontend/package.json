@@ -30,9 +30,9 @@
     "test:unit": "react-scripts test --coverage --coverageReporters html json text --watchAll=false",
     "test:integration": "cypress run",
     "test:integration:open": "cypress open",
-    "clean": "rm -rf coverage build cypress/videos cypress/screenshots",
-    "lint": "eslint --ext .js,.ts,.tsx src/",
-    "fix": "eslint --ext .js,ts,tsx --fix src/"
+    "clean": "rm -rf coverage .nyc_output build cypress/videos cypress/screenshots",
+    "lint": "eslint --ext .js,.ts,.tsx src/ cypress/",
+    "fix": "eslint --ext .js,ts,tsx --fix src/ cypress/"
   },
   "dependencies": {
     "@accounts/client": "^0.29.0",
