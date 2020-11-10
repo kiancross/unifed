@@ -6,7 +6,6 @@ import { prop as Property, getModelForClass, Ref } from "@typegoose/typegoose";
 import { ObjectType, Field } from "type-graphql";
 import { Base } from "./base";
 import { Post } from "./post";
-import { User } from "./user";
 
 @ObjectType()
 export class Community extends Base {
@@ -17,10 +16,6 @@ export class Community extends Base {
   @Field()
   @Property({ required: true })
   description!: string;
-
-  @Field(() => [User])
-  @Property({ ref: "User" })
-  admins?: Ref<User>[];
 
   @Field(() => [Post])
   @Property({
@@ -36,7 +31,7 @@ export class Community extends Base {
       ...super.toJSON(),
       title: this.title,
       description: this.description,
-      admins: this.admins,
+      admins: [],
     };
   }
 }

@@ -2,15 +2,7 @@
  * CS3099 Group A3
  */
 
-import {
-  Query,
-  Resolver,
-  Mutation,
-  FieldResolver,
-  ResolverInterface,
-  Root,
-  Arg,
-} from "type-graphql";
+import { Resolver, Mutation, FieldResolver, ResolverInterface, Root, Arg } from "type-graphql";
 import { CurrentUser } from "./utils";
 import { AuthoriseUser } from "../auth-checkers";
 import { User, UserModel } from "../../models";
@@ -25,11 +17,6 @@ export class UsersResolver implements ResolverInterface<User> {
     @CurrentUser() user: User,
   ): Promise<boolean> {
     await UserModel.updateOne({ _id: user.id }, { $set: { profile } });
-    return true;
-  }
-
-  @Query()
-  foo(): boolean {
     return true;
   }
 

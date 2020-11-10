@@ -8,7 +8,7 @@ import { RemoteReferenceInput } from "./remote-reference";
 @InputType()
 export class CreatePostInput {
   @Field(() => RemoteReferenceInput)
-  community!: RemoteReferenceInput;
+  parent!: RemoteReferenceInput;
 
   @Field()
   title!: string;

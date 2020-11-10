@@ -4,7 +4,7 @@
 
 import { Response, Request, NextFunction, json as jsonBodyParser } from "express";
 import { AsyncRouter } from "express-async-router";
-import { PostModel } from "../models";
+import { PostModel, CommunityModel } from "../models";
 
 async function getPost(req: Request, res: Response, next: NextFunction) {
   const post = await PostModel.findById(req.params.id);
@@ -61,14 +61,15 @@ router.post("/", async (req, res) => {
   const post = req.body;
 
   const parentPost = await PostModel.findById(post.parent);
+  const communityId = parentPost ? parentPost.community : post.parent;
 
-  res.json(
-    await PostModel.create({
-      ...post,
-      community: parentPost ? parentPost.community : post.parent,
-      parentPost: parentPost ? parentPost : null,
-    }),
-  );
+  const community = await CommunityModel.findById(communityId);
+  if (!community) {
+    res.status(400).json({ error: "Invalid field: 'parent'" });
+    return;
+  }
+
+  res.json(await PostModel.create({ ...post, community, parentPost }));
 });
 
 router.get("/:id", getPost, (_, res) => {

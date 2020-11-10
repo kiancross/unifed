@@ -37,12 +37,6 @@ export class User extends Base {
   @Field()
   @Property({ _id: false, required: true })
   profile!: UserProfile;
-
-  /*
-  @Field(() => [Community])
-  @Property({ref: "Community" })
-  subscriptions?: Ref<Community>[];
-  */
 }
 
 export const UserModel = getModelForClass(User);

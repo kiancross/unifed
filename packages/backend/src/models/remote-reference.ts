@@ -14,13 +14,4 @@ export class RemoteReference {
   @Field()
   @Property({ required: true })
   host!: string;
-
-  /* 
-  toJSON() {
-    return {
-      id: this.id,
-      host: this.host
-    }
-  }
- */
 }

@@ -10,30 +10,26 @@ import { CreatePostInput, RemoteReferenceInput } from "./inputs";
 import { postsService } from "../../services";
 
 @Resolver(Post)
-export class PostsResolver /*implements ResolverInterface<Post> */ {
+export class PostsResolver /* implements ResolverInterface<Post> */ {
   @AuthoriseUser()
-  @Mutation(() => Post)
+  @Mutation(() => Post, { nullable: true })
   async createPost(
     @Arg("post") post: CreatePostInput,
     @CurrentUser() user: User,
   ): Promise<Post | null> {
-    const p = await postsService.createPost(post.community.host, {
+    return await postsService.createPost(post.parent.host, {
       ...post,
-      parent: post.community.id,
+      parent: post.parent.id,
       contentType: "markdown",
       author: {
         id: user.username,
         host: "localhost:8080",
       },
     });
-
-    return p;
   }
 
   @Query(() => [Post])
   async getPosts(@Arg("community") remote: RemoteReferenceInput): Promise<Post[]> {
-    const p = await postsService.getPosts(remote.host, remote.id);
-
-    return p;
+    return await postsService.getPosts(remote.host, remote.id);
   }
 }

@@ -8,11 +8,19 @@ import { Post } from "../models";
 
 // TODO
 export async function createPost(host: string, post: any) {
-  return (await got
-    .post(getFederatedApiEndpoint(host, ["posts"]), {
-      json: post,
-    })
-    .json()) as Post;
+  try {
+    return (await got
+      .post(getFederatedApiEndpoint(host, ["posts"]), {
+        json: post,
+      })
+      .json()) as Post;
+  } catch (error) {
+    if (error.response.statusCode === 400) {
+      return null;
+    } else {
+      throw error;
+    }
+  }
 }
 
 export async function getPosts(host: string, community: string) {
@@ -21,4 +29,8 @@ export async function getPosts(host: string, community: string) {
       community,
     },
   }).json()) as Post[];
+}
+
+export async function getPost(host: string, post: string) {
+  return (await got(getFederatedApiEndpoint(host, ["posts", post])).json()) as Post;
 }

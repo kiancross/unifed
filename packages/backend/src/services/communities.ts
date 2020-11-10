@@ -25,5 +25,13 @@ export async function getCommunities(host: string): Promise<Community[]> {
 }
 
 export async function getCommunity(host: string, id: string): Promise<Community | null> {
-  return await got(getFederatedApiEndpoint(host, ["communities", id])).json();
+  try {
+    return await got(getFederatedApiEndpoint(host, ["communities", id])).json();
+  } catch (error) {
+    if (error.response.statusCode === 404) {
+      return null;
+    } else {
+      throw error;
+    }
+  }
 }
