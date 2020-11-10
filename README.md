@@ -25,7 +25,9 @@
   * `make lint` - run both the frontend and backend code style checks.
   * `make build` - build both the frontend and backend code.
   * `make checks` - run the `test`, `lint` and `build` targets.
-  * `make clean` - remove all build files and dependencies.
+  * `make clean` - remove all build files.
+  * `make clean-all` - remove all build files and dependencies.
+  * `make coverage` - generate coverage report (output to `./coverage`).
 
 ### `yarn`
 The `yarn` commands available within both the `frontend` and `backend`
@@ -45,6 +47,13 @@ the source code. The `start` command for `frontend` does this
 by default.
 
 The `shared` directory does not have the `watch` or `start` commands.
+
+### Testing
+If you are having trouble with `yarn test:integration` in the `frontend`
+package then try the following docker command to run Cypress:
+```
+docker run -it -v $PWD:/e2e -w /e2e --entrypoint=cypress --net=host cypress/included:5.5.0 run --project packages/frontend
+```
   
 
 ## Contributing

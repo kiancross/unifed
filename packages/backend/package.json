@@ -17,6 +17,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.5.3",
     "nodemon": "^2.0.6",
+    "nyc": "^15.1.0",
     "prettier": "^2.1.2",
     "ts-jest": "^26.4.1",
     "ts-node": "^9.0.0",
@@ -46,11 +47,12 @@
     "yarn": "^1.22.10"
   },
   "scripts": {
-    "start": "if [ \"$NODE_ENV\" = prod ]; then node build/unifed.js; else nodemon src/unifed.ts; fi",
+    "start": "nyc node build/unifed.js",
+    "start:watch": "nodemon --exec nyc ts-node src/unifed.ts",
     "test:unit": "jest",
     "test:integration": "jest -c integration/jest.config.ts",
     "build": "yarn workspace unifed-shared build && tsc",
-    "clean": "rm -rf coverage build",
+    "clean": "rm -rf coverage build .nyc_output",
     "lint": "eslint . --ext .ts",
     "fix": "eslint . --ext .ts --fix"
   }

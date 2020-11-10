@@ -17,6 +17,14 @@ import { config } from "./utils";
   await mongoose.connect(mongoUri, mongoOptions);
 
   const app = express();
+
+  /* istanbul ignore next */
+  if (global.__coverage__) {
+    app.get("/internal/__coverage__", (_, res) => {
+      res.json({ coverage: global.__coverage__ });
+    });
+  }
+
   app.use("/", await routes);
   const serverPort = 8080;
   app.listen(serverPort, () => console.log(`Server running on http://localhost:${serverPort}`));
