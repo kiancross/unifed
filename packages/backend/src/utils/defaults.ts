@@ -4,7 +4,7 @@
 
 import { CommunityModel } from "../models";
 
-export async function createDefaults() {
+export async function createDefaults(): Promise<void> {
   try {
     await CommunityModel.create({
       _id: "all",
