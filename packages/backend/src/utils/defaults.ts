@@ -7,6 +7,11 @@ import { CommunityModel } from "../models";
 export async function createDefaults() {
   try {
     await CommunityModel.create({
+      _id: "all",
+      title: "All",
+      description: "Display on a user's home page",
+    });
+    await CommunityModel.create({
       _id: "general",
       title: "General Discussion",
       description: "A community for everything!",
