@@ -9,11 +9,15 @@ import App from "./App";
 import * as serviceWorker from "./service-worker";
 import { ApolloProvider } from "@apollo/client";
 import { apolloClient } from "./utils/apollo-client";
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "./utils/mui-theme";
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={apolloClient}>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root"),
