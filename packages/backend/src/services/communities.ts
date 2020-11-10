@@ -6,16 +6,23 @@ import got from "got";
 import { getFederatedApiEndpoint } from "./utils";
 import { Community } from "../models";
 
-export async function getCommunities(host: string): Promise<Community[]> {
-  const communityIds: string[] = await got(getFederatedApiEndpoint(host, ["communities"])).json();
+class CommunityNotFoundError extends Error {
+  constructor(id: string) {
+    super(`Community not found: ${id}`) 
+  }
+}
 
+export async function getCommunities(host: string): Promise<Community[]> {
+
+  const communityIds: string[] = await got(getFederatedApiEndpoint(host, ["communities"])).json();
   const communities = [];
 
-  for (let i = 0; i < communityIds.length; i++) {
-    const community = await getCommunity(host, communityIds[i]);
+  for (const communityId of communityIds) {
+
+    const community = await getCommunity(host, communityId);
 
     if (community === null) {
-      throw Error("Community not found");
+      throw new CommunityNotFoundError(communityId);
     }
 
     communities.push(community);
@@ -25,11 +32,14 @@ export async function getCommunities(host: string): Promise<Community[]> {
 }
 
 export async function getCommunity(host: string, id: string): Promise<Community | null> {
+
   try {
     return await got(getFederatedApiEndpoint(host, ["communities", id])).json();
+
   } catch (error) {
     if (error.response.statusCode === 404) {
       return null;
+
     } else {
       throw error;
     }
