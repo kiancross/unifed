@@ -7,20 +7,21 @@ import { GraphQLSchema } from "graphql";
 import { buildTypeDefsAndResolvers, emitSchemaDefinitionFile } from "type-graphql";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { mergeResolvers, mergeTypeDefs } from "@graphql-tools/merge";
-import CreateUserInput from "./resolvers/inputs/create-user";
 import {
   accountsTypeDefs,
   accountsResolvers,
   accountsSchemaDirectives,
   accountsDatabase,
 } from "./accounts-setup";
+import { UsersResolver, PostsResolver, CommunitiesResolver, CreateUserInput } from "./resolvers";
+import { User } from "../models";
 
-export default (async (): Promise<GraphQLSchema> => {
+export const schema = (async (): Promise<GraphQLSchema> => {
   await accountsDatabase.setupIndexes();
 
   const { typeDefs, resolvers } = await buildTypeDefsAndResolvers({
-    resolvers: [__dirname + "/resolvers/*.{ts,js}"],
-    orphanedTypes: [CreateUserInput],
+    resolvers: [UsersResolver, PostsResolver, CommunitiesResolver],
+    orphanedTypes: [CreateUserInput, User],
     validate: true,
   });
 
@@ -32,7 +33,7 @@ export default (async (): Promise<GraphQLSchema> => {
     },
   });
 
-  const schemaOutputPath = path.resolve(__dirname, "../../../build/schema.graphql");
+  const schemaOutputPath = path.resolve(__dirname, "../../build/schema.graphql");
   await emitSchemaDefinitionFile(schemaOutputPath, schema);
 
   return schema;

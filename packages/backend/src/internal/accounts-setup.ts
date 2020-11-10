@@ -4,13 +4,13 @@
 
 import mongoose from "mongoose";
 import MongoDBInterface from "@accounts/mongo";
+import { v4 as uuidv4 } from "uuid";
 import { AccountsServer, ServerHooks } from "@accounts/server";
 import { AccountsPassword } from "@accounts/password";
 import { AccountsModule } from "@accounts/graphql-api";
 import { mergeResolvers, mergeTypeDefs } from "@graphql-tools/merge";
-import { emailTransporter } from "../../utils/email";
 import { validateUsername, validateName, validatePassword } from "unifed-shared";
-import * as config from "../../utils/config";
+import { config, emailTransporter } from "../utils";
 
 class EmailNotVerifiedError extends Error {
   constructor() {
@@ -30,7 +30,11 @@ class InvalidFieldError extends Error {
   }
 }
 
-export const accountsDatabase = new MongoDBInterface(mongoose.connection);
+export const accountsDatabase = new MongoDBInterface(mongoose.connection, {
+  idProvider: uuidv4,
+  convertUserIdToMongoObjectId: false,
+  convertSessionIdToMongoObjectId: false,
+});
 
 const passwordStrategy = new AccountsPassword({
   validateUsername: (username) => {
@@ -75,10 +79,12 @@ const server = new AccountsServer(
     db: accountsDatabase,
     tokenSecret: config.jwtSecret,
     siteUrl: config.siteUrl,
+    /*
     createJwtPayload: async (data, user) => {
       console.log(data, user);
       return {};
     },
+   */
     sendMail: (params) => {
       return emailTransporter.sendMail(params);
     },

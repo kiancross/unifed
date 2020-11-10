@@ -3,7 +3,8 @@
  */
 
 import { prop as Property, getModelForClass } from "@typegoose/typegoose";
-import { ObjectType, Field, ID } from "type-graphql";
+import { ObjectType, Field } from "type-graphql";
+import { Base } from "./base";
 
 @ObjectType()
 export class UserProfile {
@@ -24,16 +25,13 @@ class EmailRecord {
 }
 
 @ObjectType()
-export class User {
-  @Field(() => ID)
-  id!: number;
-
+export class User extends Base {
   @Field()
   @Property({ required: true })
   username!: string;
 
   @Field(() => [EmailRecord])
-  @Property({ required: true })
+  @Property({ id: false, required: true })
   emails!: EmailRecord[];
 
   @Field()

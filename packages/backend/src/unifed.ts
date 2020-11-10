@@ -5,8 +5,9 @@
 import "reflect-metadata";
 import express from "express";
 import mongoose from "mongoose";
-import routes from "./api/routes";
-import * as config from "./utils/config";
+import { routes } from "./routes";
+import { config } from "./utils";
+import { createDefaults } from "./utils";
 
 (async () => {
   const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true };
@@ -24,6 +25,8 @@ import * as config from "./utils/config";
       res.json({ coverage: global.__coverage__ });
     });
   }
+
+  await createDefaults();
 
   app.use("/", await routes);
   const serverPort = 8080;

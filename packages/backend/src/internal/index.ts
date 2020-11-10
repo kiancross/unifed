@@ -5,10 +5,10 @@
 import { Application, Router } from "express";
 import { ApolloServer } from "apollo-server-express";
 import { accountsContext } from "./accounts-setup";
-import * as config from "../../utils/config";
-import schema from "./schema";
+import { schema } from "./schema";
+import { config } from "../utils";
 
-export default (async (): Promise<Router> => {
+export const routes = (async (): Promise<Router> => {
   const router: Router = Router();
 
   const server = new ApolloServer({
