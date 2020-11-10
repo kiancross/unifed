@@ -3,7 +3,7 @@
  */
 
 import { prop as Property, getModelForClass, Ref, modelOptions } from "@typegoose/typegoose";
-import { dateToUnixTimeStamp } from "../utils/date";
+import { dateToUnixTimestamp } from "../utils/date";
 import { ObjectType, Field } from "type-graphql";
 import { Base, getIdFromRef } from "./base";
 import { Community } from "./community";
@@ -51,12 +51,12 @@ export class Post extends Base {
   })
   children?: Ref<Post>[];
 
-  get updatedAtUnixTimeStamp() {
-    return this.updatedAt ? dateToUnixTimeStamp(this.updatedAt) : undefined;
+  get updatedAtUnixTimestamp() {
+    return this.updatedAt ? dateToUnixTimestamp(this.updatedAt) : undefined;
   }
 
-  get createdAtUnixTimeStamp() {
-    return this.createdAt ? dateToUnixTimeStamp(this.createdAt) : undefined;
+  get createdAtUnixTimestamp() {
+    return this.createdAt ? dateToUnixTimestamp(this.createdAt) : undefined;
   }
 
   toJSON() {
@@ -72,8 +72,8 @@ export class Post extends Base {
       contentType: this.contentType,
       body: this.body,
       author: this.author,
-      modified: this.updatedAtUnixTimeStamp,
-      created: this.createdAtUnixTimeStamp,
+      modified: this.updatedAtUnixTimestamp,
+      created: this.createdAtUnixTimestamp,
     };
   }
 }
