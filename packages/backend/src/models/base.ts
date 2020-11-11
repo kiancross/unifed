@@ -30,8 +30,8 @@ export abstract class Base extends defaultClasses.TimeStamps {
     this._id = id;
   }
 
-  toJSON() {
-    return <{ [key: string]: any }>{
+  toJSON(): { [key: string]: any } {
+    return {
       id: this.id,
     };
   }

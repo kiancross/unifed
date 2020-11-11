@@ -59,7 +59,7 @@ export class Post extends Base {
     return this.createdAt ? dateToUnixTimeStamp(this.createdAt) : undefined;
   }
 
-  toJSON() {
+  toJSON(): { [key: string]: any } {
     if (this.updatedAt === undefined || this.createdAt === undefined) {
       throw Error("Missing content meta-data");
     }

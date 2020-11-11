@@ -26,7 +26,7 @@ export class Community extends Base {
   })
   posts?: Ref<Post>[];
 
-  toJSON() {
+  toJSON(): { [key: string]: any } {
     return {
       ...super.toJSON(),
       title: this.title,
