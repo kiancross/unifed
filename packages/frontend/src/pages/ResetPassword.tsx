@@ -1,86 +1,122 @@
-import React from "react";
+import React, { useState } from "react";
 import { passwordClient } from "../utils/accounts";
-import { Link, Redirect, useParams } from "react-router-dom";
-import { Formik, Form, Field } from "formik";
-import logo from "../st-andrews-logo.png";
+import { Redirect, useParams } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { TextField, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
-interface ResetPasswordParams {
+import logo from "../st-andrews-logo.png";
+import zxcvbn from "zxcvbn";
+
+interface Params {
   token: string;
 }
 
-interface FormValues {
-  newPassword: string;
-  retypedNewPassword: string;
+interface Values {
+  newPass: string;
+  retyped: string;
 }
 
 const submitButtonStyle = "Submit-button";
 
-async function resetPassword(values: FormValues, token: string) {
-  if (values.newPassword === values.retypedNewPassword) {
-    try {
-      console.log("before");
-      await passwordClient.resetPassword(token, values.newPassword);
-      console.log("after");
-      ResetPasswordSucceeded();
-    } catch (err) {
-      console.log(err);
-      ResetPasswordFailed();
-    }
-  } else {
-    // TODO add error popup
-    console.log("invalid");
+function validate({ newPass, retyped }: Values) {
+  const errors: Partial<Values> = {};
+  if (newPass === retyped) {
+    [zxcvbn(newPass), zxcvbn(retyped)].forEach((result, isRetyped) => {
+      if (result.score < 3) {
+        if (isRetyped) {
+          errors.retyped = result.feedback.suggestions[0];
+        } else {
+          errors.newPass = result.feedback.suggestions[0];
+        }
+      }
+    });
   }
+  return errors;
 }
 
+function formatError(msg: string): JSX.Element[] {
+  console.log(msg);
+  return msg
+    .replace(",", "")
+    .split("\n")
+    .map((str, i) => <p key={i}>{str}</p>);
+}
+
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: "#FFFFFF",
+  },
+  root: {
+
+  }
+});
+
 const ResetPassword = (): JSX.Element => {
-  const { token } = useParams<ResetPasswordParams>();
-  const initialValues = {
-    newPassword: "",
-    retypedNewPassword: "",
-  };
+  const { token } = useParams<Params>();
+  const [isReset, setIsReset] = useState(false);
+  const [isInternalServerError, setIsInternalServerError] = useState(false);
+  const classes = useStyles();
   return (
     <Formik
-      initialValues={initialValues}
-      // TODO add validation (incl. check for new password consistency)
-      onSubmit={(values) => {
-        resetPassword(values, token);
+      initialValues={{
+        newPass: "",
+        retyped: "",
+      }}
+      validate={validate}
+      onSubmit={async (values) => {
+        try {
+          await passwordClient.resetPassword(token, values.newPass);
+          setIsReset(true);
+        } catch (err) {
+          console.log(err);
+          setIsInternalServerError(true);
+        }
       }}
     >
-      <div className="container">
-        <img src={logo} alt="st andrews logo" width="250" height="300"></img>
-        <Form>
-          <div>
-            <label htmlFor="newPassword">New Password:</label>
-            <Field name="newPassword" />
+      {() => (
+        <>
+          <div className="container" style={{ float: "left" }}>
+            <img src={logo} alt="st andrews logo" width="250" height="300"></img>
+            <Form>
+              <div>
+                {/* <label htmlFor="newPassword">New Password:</label> */}
+                {/* <div className="field"> */}
+                <Field
+                  name="newPass"
+                  as={TextField}
+                  id="filled-basic"
+                  label="New Password"
+                  variant="filled"
+                  color="secondary"
+                  classes={classes}
+                />
+                {/* </div> */}
+              </div>
+              <div>
+                {/* <label htmlFor="retypedNewPassword">Retype New Password:</label> */}
+                <Field
+                  name="retyped"
+                  as={TextField}
+                  id="filled-basic"
+                  label="New Password"
+                  variant="filled"
+                  color="secondary"
+                />
+              </div>
+              <Button type="submit" variant="contained" classes={classes}>
+                Change Password
+              </Button>
+            </Form>
+            {isReset ? <Redirect to="/" /> : null}
+            {isInternalServerError ? <div>INTERNAL SERVER ERROR</div> : null}
           </div>
-          <div>
-            <label htmlFor="retypedNewPassword">Retype New Password:</label>
-            <Field name="retypedNewpassword" />
+          <div className="container" style={{ float: "left" }}>
+            <ErrorMessage name="newPass">{(msg) => formatError(msg)}</ErrorMessage>
           </div>
-          <button type="submit" className={submitButtonStyle}>
-            Change Password
-          </button>
-        </Form>
-      </div>
+        </>
+      )}
     </Formik>
-  );
-};
-
-const ResetPasswordFailed = (): JSX.Element => {
-  return (
-    <div className="container">
-      <h1>Password Reset Failed!</h1>
-      <Link to="/reset-password">
-        <button className={submitButtonStyle}>Try Again</button>
-      </Link>
-    </div>
-  );
-};
-
-const ResetPasswordSucceeded = (): JSX.Element => {
-  return (
-    // TODO redirect to login
-    <Redirect to="/" />
   );
 };
 
