@@ -2,29 +2,26 @@
  * CS3099 Group A3
  */
 
-import { prop as Property, getModelForClass, Ref, modelOptions } from "@typegoose/typegoose";
+import { prop as Property, getModelForClass, Ref } from "@typegoose/typegoose";
+import { validate as uuidValidate } from "uuid";
+import { ObjectType, Field, createUnionType } from "type-graphql";
 import { dateToUnixTimeStamp } from "../utils/date";
-import { ObjectType, Field } from "type-graphql";
 import { Base, getIdFromRef } from "./base";
 import { Community } from "./community";
 import { RemoteReference } from "./remote-reference";
 
-@modelOptions({
-  schemaOptions: {
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
-  },
-})
+const PostParentUnion = createUnionType({
+  name: "PostParent",
+  types: () => [Post, Community] as const
+});
+
 @ObjectType()
 export class Post extends Base {
   @Property({ ref: "Community", type: String })
-  community!: Ref<Community>;
+  community?: Ref<Community>;
 
   @Property({ ref: "Post", type: String })
   parentPost?: Ref<Post>;
-
-  @Field()
-  parent!: string;
 
   @Field()
   @Property({})
@@ -51,6 +48,32 @@ export class Post extends Base {
   })
   children?: Ref<Post>[];
 
+  @Field(() => PostParentUnion)
+  get parent(): Ref<typeof PostParentUnion> {
+    return this.parentPost ? this.parentPost : this.community;
+  }
+
+  set parent(parent: Ref<typeof PostParentUnion>) {
+
+    if (parent instanceof Community) {
+      this.community = parent;
+      this.parentPost = undefined;
+
+    } else if (parent instanceof Post) {
+      this.community = parent.community;
+      this.parentPost = parent;
+
+    } else if (parent !== undefined && uuidValidate(parent)) {
+    
+      this.community = undefined; // TODO
+      this.parentPost = parent;    
+
+    } else {
+      this.community = parent;
+      this.parentPost = undefined;
+    }
+  }
+
   get updatedAtUnixTimeStamp() {
     return this.updatedAt ? dateToUnixTimeStamp(this.updatedAt) : undefined;
   }
@@ -66,7 +89,7 @@ export class Post extends Base {
 
     return {
       ...super.toJSON(),
-      parent: this.parentPost ? getIdFromRef(this.parentPost) : getIdFromRef(this.community),
+      parent: getIdFromRef(this.parent),
       children: this.children?.map(getIdFromRef),
       title: this.title,
       contentType: this.contentType,
