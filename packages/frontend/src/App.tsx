@@ -21,6 +21,8 @@ import VerifyEmailPage from "./pages/VerifyEmail";
 import PublicUserProfile from "./pages/PublicUserProfile";
 import HomePage from "./pages/Home";
 import AccountSettingsPage from "./pages/AccountSettings";
+import CreatePost from "./pages/CreatePost"
+import PostPage from "./pages/PostPage"
 
 import Header from "./components/Header";
 import { Box } from "@material-ui/core";
@@ -39,6 +41,8 @@ function App(): JSX.Element {
             <Route exact path="/register" component={RegisterForm} />
             <Route path="/user/:username" component={PublicUserProfile} />
             <Route path="/verify-email/:token" component={VerifyEmailPage} />
+            <Route path="/make-post" component={CreatePost} />
+            <Route path="/posts/:postId" component={PostPage} />
             <Route component={PageNotFound} />
           </Switch>
         </Router>
