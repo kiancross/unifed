@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { passwordClient } from "../utils/accounts";
 import { Redirect, useParams } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import { TextField, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 
 import logo from "../st-andrews-logo.png";
 import zxcvbn from "zxcvbn";
@@ -16,47 +15,27 @@ interface Values {
   newPass: string;
   retyped: string;
 }
-
-const submitButtonStyle = "Submit-button";
-
 function validate({ newPass, retyped }: Values) {
   const errors: Partial<Values> = {};
   if (newPass === retyped) {
     [zxcvbn(newPass), zxcvbn(retyped)].forEach((result, isRetyped) => {
       if (result.score < 3) {
         if (isRetyped) {
-          errors.retyped = result.feedback.suggestions[0];
+          errors.retyped = "Password not strong enough";
         } else {
-          errors.newPass = result.feedback.suggestions[0];
+          errors.newPass = "Password not strong enough";
         }
       }
     });
+  } else {
+    errors.retyped = errors.newPass = "Passwords do not match";
   }
   return errors;
 }
-
-function formatError(msg: string): JSX.Element[] {
-  console.log(msg);
-  return msg
-    .replace(",", "")
-    .split("\n")
-    .map((str, i) => <p key={i}>{str}</p>);
-}
-
-const useStyles = makeStyles({
-  root: {
-    backgroundColor: "#FFFFFF",
-  },
-  root: {
-
-  }
-});
-
 const ResetPassword = (): JSX.Element => {
   const { token } = useParams<Params>();
   const [isReset, setIsReset] = useState(false);
   const [isInternalServerError, setIsInternalServerError] = useState(false);
-  const classes = useStyles();
   return (
     <Formik
       initialValues={{
@@ -64,6 +43,7 @@ const ResetPassword = (): JSX.Element => {
         retyped: "",
       }}
       validate={validate}
+      validateOnBlur={true}
       onSubmit={async (values) => {
         try {
           await passwordClient.resetPassword(token, values.newPass);
@@ -74,45 +54,44 @@ const ResetPassword = (): JSX.Element => {
         }
       }}
     >
-      {() => (
+      {({ errors, touched }) => (
         <>
           <div className="container" style={{ float: "left" }}>
             <img src={logo} alt="st andrews logo" width="250" height="300"></img>
             <Form>
-              <div>
-                {/* <label htmlFor="newPassword">New Password:</label> */}
-                {/* <div className="field"> */}
+              <div style={{ margin: "10px" }}>
                 <Field
                   name="newPass"
                   as={TextField}
-                  id="filled-basic"
-                  label="New Password"
-                  variant="filled"
-                  color="secondary"
-                  classes={classes}
+                  label="Password"
+                  color="primary"
+                  helperText={errors.newPass}
+                  error={!!errors.newPass}
                 />
-                {/* </div> */}
               </div>
               <div>
-                {/* <label htmlFor="retypedNewPassword">Retype New Password:</label> */}
                 <Field
                   name="retyped"
                   as={TextField}
-                  id="filled-basic"
-                  label="New Password"
-                  variant="filled"
-                  color="secondary"
+                  label="Retype"
+                  color="primary"
+                  helperText={errors.newPass}
+                  error={!!errors.newPass}
                 />
               </div>
-              <Button type="submit" variant="contained" classes={classes}>
+              <Button
+                type="submit"
+                variant="contained"
+                style={{ margin: "20px" }}
+                disabled={
+                  (!touched.newPass && !touched.retyped) || !!errors.newPass || !!errors.retyped
+                }
+              >
                 Change Password
               </Button>
             </Form>
             {isReset ? <Redirect to="/" /> : null}
             {isInternalServerError ? <div>INTERNAL SERVER ERROR</div> : null}
-          </div>
-          <div className="container" style={{ float: "left" }}>
-            <ErrorMessage name="newPass">{(msg) => formatError(msg)}</ErrorMessage>
           </div>
         </>
       )}
