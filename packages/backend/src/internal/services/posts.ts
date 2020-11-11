@@ -4,7 +4,7 @@
 
 import got from "got";
 import { getFederatedApiEndpoint } from "./utils";
-import { Post } from "../models";
+import { Post } from "../../models";
 
 // TODO
 export async function createPost(host: string, post: any) {

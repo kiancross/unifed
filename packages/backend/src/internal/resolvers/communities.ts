@@ -3,7 +3,7 @@
  */
 
 import { Resolver, Query, Arg } from "type-graphql";
-import { communitiesService } from "../../services";
+import { communitiesService } from "../services";
 import { RemoteReferenceInput } from "./inputs";
 import { Community } from "../../models";
 

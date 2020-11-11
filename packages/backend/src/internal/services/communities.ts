@@ -4,7 +4,7 @@
 
 import got from "got";
 import { getFederatedApiEndpoint } from "./utils";
-import { Community } from "../models";
+import { Community } from "../../models";
 
 class CommunityNotFoundError extends Error {
   constructor(id: string) {

@@ -7,7 +7,7 @@ import { CurrentUser } from "./utils";
 import { AuthoriseUser } from "../auth-checkers";
 import { Post, User } from "../../models";
 import { CreatePostInput, RemoteReferenceInput } from "./inputs";
-import { postsService } from "../../services";
+import { postsService } from "../services";
 
 @Resolver(Post)
 export class PostsResolver /* implements ResolverInterface<Post> */ {
