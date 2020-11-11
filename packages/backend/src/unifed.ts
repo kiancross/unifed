@@ -23,7 +23,6 @@ import { createDefaults, logger } from "./utils";
 
   /* istanbul ignore next */
   if (global.__coverage__) {
-
     logger.info("Serving coverage report");
 
     app.get("/internal/__coverage__", (_, res) => {
