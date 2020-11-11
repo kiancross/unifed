@@ -8,7 +8,7 @@ import { RemoteReferenceInput } from "./inputs";
 import { Community } from "../../models";
 
 @Resolver(Community)
-export class CommunitiesResolver /*implements ResolverInterface<Post> */ {
+export class CommunitiesResolver {
   @Query(() => [Community])
   async getCommunities(@Arg("host") host: string): Promise<Community[]> {
     return await communitiesService.getCommunities(host);

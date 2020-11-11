@@ -15,14 +15,17 @@ const PostParentUnion = createUnionType({
 });
 
 type PostObjectFields = "community" | "parentPost" | "title" | "contentType" | "body" | "author" | "parent";
-type PostObject = Pick<Post, PostObjectFields>;
+export type PostObject = Pick<Post, PostObjectFields>;
 
 @ObjectType()
 export class Post extends Base {
+
+  @Field(() => Community)
   @Property({ ref: "Community", type: String })
   community!: Ref<Community>;
 
-  @Property({ ref: "Post", type: String, nullable: true })
+  @Field(() => Post, { nullable: true })
+  @Property({ ref: "Post", type: String })
   parentPost?: Ref<Post>;
 
   @Field()
@@ -50,13 +53,17 @@ export class Post extends Base {
   })
   children?: Ref<Post>[];
 
-  @Field(() => PostParentUnion)
   get parent(): Ref<typeof PostParentUnion> {
     return this.parentPost === undefined ? this.community : this.parentPost;
   }
 
   static async fromObj(obj: PostObject): Promise<Post> {
+
     const post = new Post();
+
+    if (obj.parent && (obj.parentPost || obj.community)) {
+      new Error("Must not set 'parentPost' or 'community' if 'parent' is set");
+    }
 
     post.title = obj.title;
     post.contentType = obj.contentType;
@@ -65,8 +72,8 @@ export class Post extends Base {
     post.parentPost = obj.parentPost;
     post.community = obj.community;
 
-    if (obj.parentPost && !await PostModel.findById(obj.parentPost)) new Error();
-    if (obj.community && !await CommunityModel.findById(obj.community)) new Error();
+    if (obj.parentPost && !await PostModel.findById(obj.parentPost)) new Error("'parentPost' not found");
+    if (obj.community && !await CommunityModel.findById(obj.community)) new Error("'community' not found");
 
     if (obj.parent) {
       const parentPost = await PostModel.findById(obj.parent);
@@ -82,7 +89,7 @@ export class Post extends Base {
           post.community = community;
 
         } else {
-          throw Error(`Parent is not a valid community or post: ${obj.parent}`);
+          throw Error("'parent' is not a community or post");
         }
       }
     }

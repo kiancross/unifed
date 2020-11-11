@@ -10,7 +10,8 @@ import { CreatePostInput, RemoteReferenceInput } from "./inputs";
 import { postsService } from "../services";
 
 @Resolver(Post)
-export class PostsResolver /* implements ResolverInterface<Post> */ {
+export class PostsResolver /*implements ResolverInterface<Post>*/ {
+
   @AuthoriseUser()
   @Mutation(() => Post, { nullable: true })
   async createPost(

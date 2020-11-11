@@ -4,10 +4,11 @@
 
 import got from "got";
 import { getFederatedApiEndpoint } from "./utils";
-import { Post } from "../../models";
+import { Post, PostObject, RemoteReferenceObject } from "../../models";
 
-// TODO
-export async function createPost(host: string, post: any) {
+type CreatePostObject = Omit<PostObject, "community"> | Record<"author", RemoteReferenceObject>;
+
+export async function createPost(host: string, post: CreatePostObject) {
   try {
     return (await got
       .post(getFederatedApiEndpoint(host, ["posts"]), {
