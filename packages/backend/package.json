@@ -9,6 +9,7 @@
     "@types/mongoose": "^5.7.36",
     "@types/node": "^14.14.6",
     "@types/nodemailer": "^6.4.0",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.1",
     "eslint": "^7.11.0",
@@ -16,6 +17,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.5.3",
     "nodemon": "^2.0.6",
+    "nyc": "^15.1.0",
     "prettier": "^2.1.2",
     "ts-jest": "^26.4.1",
     "ts-node": "^9.0.0",
@@ -33,20 +35,24 @@
     "apollo-server-express": "^2.18.2",
     "class-validator": "^0.12.2",
     "express": "^4.17.1",
+    "express-async-router": "^0.1.15",
     "got": "^11.8.0",
     "graphql": "^15.4.0",
     "mongoose": "^5.10.9",
     "nodemailer": "^6.4.14",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.0",
-    "unifed-shared": "^0.1.0"
+    "unifed-shared": "^0.1.0",
+    "uuid": "^8.3.1",
+    "winston": "^3.3.3"
   },
   "scripts": {
-    "start": "if [ \"$NODE_ENV\" = prod ]; then node build/unifed.js; else nodemon src/unifed.ts; fi",
+    "start": "nyc node build/unifed.js",
+    "start:watch": "nodemon --exec nyc ts-node src/unifed.ts",
     "test:unit": "jest",
     "test:integration": "jest -c integration/jest.config.ts",
     "build": "yarn workspace unifed-shared build && tsc",
-    "clean": "rm -rf coverage build",
+    "clean": "rm -rf coverage build .nyc_output",
     "lint": "eslint . --ext .ts",
     "fix": "eslint . --ext .ts --fix"
   }
