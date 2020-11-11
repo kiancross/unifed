@@ -23,7 +23,7 @@ function throwIfUndefined(value?: string): string {
 
 class Config {
   static get debug(): boolean {
-    return process.env.NODE_ENV === "prod" ? false : true;
+    return process.env.NODE_ENV === "production" ? false : true;
   }
 
   static get smtpHost(): string {
