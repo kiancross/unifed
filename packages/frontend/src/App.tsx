@@ -13,7 +13,7 @@ import {
 } from "react-router-dom";
 
 //Pages
-import PasswordResetForm from "./pages/PasswordReset";
+import PasswordResetForm from "./pages/ResetPasswordRequest";
 import PageNotFound from "./pages/404";
 import LoginForm from "./pages/Login";
 import RegisterForm from "./pages/Register";
