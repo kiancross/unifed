@@ -7,7 +7,7 @@ import express from "express";
 import mongoose from "mongoose";
 import { routes } from "./routes";
 import { config } from "./utils";
-import { createDefaults } from "./utils";
+import { createDefaults, logger } from "./utils";
 
 (async () => {
   const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true };
@@ -17,10 +17,15 @@ import { createDefaults } from "./utils";
 
   await mongoose.connect(mongoUri, mongoOptions);
 
+  logger.info("Connected to database");
+
   const app = express();
 
   /* istanbul ignore next */
   if (global.__coverage__) {
+
+    logger.info("Serving coverage report");
+
     app.get("/internal/__coverage__", (_, res) => {
       res.json({ coverage: global.__coverage__ });
     });
@@ -30,5 +35,5 @@ import { createDefaults } from "./utils";
 
   app.use("/", await routes);
   const serverPort = 8080;
-  app.listen(serverPort, () => console.log(`Server running on http://localhost:${serverPort}`));
+  app.listen(serverPort, () => logger.info(`Server running on http://localhost:${serverPort}`));
 })();
