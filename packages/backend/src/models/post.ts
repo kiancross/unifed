@@ -3,24 +3,26 @@
  */
 
 import { prop as Property, getModelForClass, Ref } from "@typegoose/typegoose";
-import { validate as uuidValidate } from "uuid";
 import { ObjectType, Field, createUnionType } from "type-graphql";
 import { dateToUnixTimeStamp } from "../utils/date";
 import { Base, getIdFromRef } from "./base";
-import { Community } from "./community";
+import { Community, CommunityModel } from "./community";
 import { RemoteReference } from "./remote-reference";
 
 const PostParentUnion = createUnionType({
   name: "PostParent",
-  types: () => [Post, Community] as const
+  types: () => [Post, Community] as const,
 });
+
+type PostObjectFields = "community" | "parentPost" | "title" | "contentType" | "body" | "author" | "parent";
+type PostObject = Pick<Post, PostObjectFields>;
 
 @ObjectType()
 export class Post extends Base {
   @Property({ ref: "Community", type: String })
-  community?: Ref<Community>;
+  community!: Ref<Community>;
 
-  @Property({ ref: "Post", type: String })
+  @Property({ ref: "Post", type: String, nullable: true })
   parentPost?: Ref<Post>;
 
   @Field()
@@ -50,28 +52,42 @@ export class Post extends Base {
 
   @Field(() => PostParentUnion)
   get parent(): Ref<typeof PostParentUnion> {
-    return this.parentPost ? this.parentPost : this.community;
+    return this.parentPost === undefined ? this.community : this.parentPost;
   }
 
-  set parent(parent: Ref<typeof PostParentUnion>) {
+  static async fromObj(obj: PostObject): Promise<Post> {
+    const post = new Post();
 
-    if (parent instanceof Community) {
-      this.community = parent;
-      this.parentPost = undefined;
+    post.title = obj.title;
+    post.contentType = obj.contentType;
+    post.body = obj.body;
+    post.author = obj.author;
+    post.parentPost = obj.parentPost;
+    post.community = obj.community;
 
-    } else if (parent instanceof Post) {
-      this.community = parent.community;
-      this.parentPost = parent;
+    if (obj.parentPost && !await PostModel.findById(obj.parentPost)) new Error();
+    if (obj.community && !await CommunityModel.findById(obj.community)) new Error();
 
-    } else if (parent !== undefined && uuidValidate(parent)) {
-    
-      this.community = undefined; // TODO
-      this.parentPost = parent;    
+    if (obj.parent) {
+      const parentPost = await PostModel.findById(obj.parent);
 
-    } else {
-      this.community = parent;
-      this.parentPost = undefined;
+      if (parentPost) {
+        post.community = parentPost.community;
+        post.parentPost = parentPost;
+
+      } else {
+        const community = await CommunityModel.findById(obj.parent);
+
+        if (community) {
+          post.community = community;
+
+        } else {
+          throw Error(`Parent is not a valid community or post: ${obj.parent}`);
+        }
+      }
     }
+
+    return post;
   }
 
   get updatedAtUnixTimeStamp() {
