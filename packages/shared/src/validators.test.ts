@@ -2,89 +2,90 @@
  * CS3099 Group A3
  */
 
+import { expect } from "chai";
 import { validateUsername, validateName, validatePassword } from ".";
 
 describe("validateUsername", () => {
-  test("Lowercase character", () => {
-    expect(validateUsername("a")).toBe(true);
+  it("Lowercase character", () => {
+    expect(validateUsername("a")).to.be.true;
   });
 
-  test("Uppercase character", () => {
-    expect(validateUsername("A")).toBe(true);
+  it("Uppercase character", () => {
+    expect(validateUsername("A")).to.be.true;
   });
 
-  test("Empty", () => {
-    expect(validateUsername("")).toBe(false);
+  it("Empty", () => {
+    expect(validateUsername("")).to.be.false;
   });
 
-  test("25 characters (too long)", () => {
-    expect(validateUsername("a".repeat(25))).toBe(false);
+  it("25 characters (too long)", () => {
+    expect(validateUsername("a".repeat(25))).to.be.false;
   });
 
-  test("24 characters (boundary)", () => {
-    expect(validateUsername("a".repeat(24))).toBe(true);
+  it("24 characters (boundary)", () => {
+    expect(validateUsername("a".repeat(24))).to.be.true;
   });
 
-  test("Underscore", () => {
-    expect(validateUsername("_")).toBe(true);
+  it("Underscore", () => {
+    expect(validateUsername("_")).to.be.true;
   });
 
-  test("Number", () => {
-    expect(validateUsername("1")).toBe(true);
+  it("Number", () => {
+    expect(validateUsername("1")).to.be.true;
   });
 
-  test("Fullstop", () => {
-    expect(validateUsername(".")).toBe(false);
+  it("Fullstop", () => {
+    expect(validateUsername(".")).to.be.false;
   });
 
-  test("Dash", () => {
-    expect(validateUsername("-")).toBe(true);
+  it("Dash", () => {
+    expect(validateUsername("-")).to.be.true;
   });
 
-  test("Example", () => {
-    expect(validateUsername("exa-mple_user1")).toBe(true);
+  it("Example", () => {
+    expect(validateUsername("exa-mple_user1")).to.be.true;
   });
 });
 
 describe("validateName", () => {
-  test("Empty", () => {
-    expect(validateName("")).toBe(false);
+  it("Empty", () => {
+    expect(validateName("")).to.be.false;
   });
 
-  test("1 character (boundary)", () => {
-    expect(validateName("a")).toBe(true);
+  it("1 character (boundary)", () => {
+    expect(validateName("a")).to.be.true;
   });
 
-  test("64 characters (boundary)", () => {
-    expect(validateName("a".repeat(64))).toBe(true);
+  it("64 characters (boundary)", () => {
+    expect(validateName("a".repeat(64))).to.be.true;
   });
 
-  test("65 characters (too long)", () => {
-    expect(validateName("a".repeat(65))).toBe(false);
+  it("65 characters (too long)", () => {
+    expect(validateName("a".repeat(65))).to.be.false;
   });
 
-  test("Example", () => {
-    expect(validateName("John Smith")).toBe(true);
+  it("Example", () => {
+    expect(validateName("John Smith")).to.be.true;
   });
 });
 
 describe("validatePassword", () => {
-  test("Weak", () => {
+  it("Weak", () => {
     const result = validatePassword("weak");
 
-    expect(result.valid).toBe(false);
-    expect(result.warning).toMatch(/^.*$/);
+    expect(result.valid).to.be.false;
+    expect(result.warning).to.match(/^.*$/);
 
     for (const suggestion of result.suggestions) {
-      expect(suggestion).toMatch(/^.*$/);
+      expect(suggestion).to.match(/^.*$/);
     }
   });
 
-  test("Strong", () => {
+  it("Strong", () => {
     const result = validatePassword("ThisIsAStr0ngP@55w0rd");
 
-    expect(result.valid).toBe(true);
-    expect(result.warning).toBeUndefined();
-    expect(result.suggestions.length).toBe(0);
+    expect(result.valid).to.be.true;
+    expect(result.warning).to.be.undefined;
+    expect(result.suggestions.length).to.equal(0);
   });
 });

@@ -1,0 +1,11 @@
+#
+# CS3099 Group A3
+#
+
+extends: "@istanbuljs/nyc-config-typescript"
+check-coverage: true
+all: true
+reporter:
+  - text
+  - html
+  - json

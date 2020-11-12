@@ -2,212 +2,213 @@
  * CS3099 Group A3
  */
 
+import { expect } from "chai";
 import { config } from "./config";
 
 describe("debug", () => {
-  test("NODE_ENV = production", () => {
+  it("NODE_ENV = production", () => {
     process.env.NODE_ENV = "production";
-    expect(config.debug).toBe(false);
+    expect(config.debug).to.be.false;
   });
   
-  test("NODE_ENV = test", () => {
+  it("NODE_ENV = test", () => {
     process.env.NODE_ENV = "test";
-    expect(config.debug).toBe(true);
+    expect(config.debug).to.be.true;
   });
   
-  test("NODE_ENV = debug", () => {
+  it("NODE_ENV = debug", () => {
     process.env.NODE_ENV = "debug";
-    expect(config.debug).toBe(true);
+    expect(config.debug).to.be.true;
   });
 });
 
 describe("smtpHost", () => {
-  test("SMTP_HOST = undefined", () => {
+  it("SMTP_HOST = undefined", () => {
     delete process.env.SMTP_HOST;
-    expect(() => config.smtpHost).toThrow();
+    expect(() => config.smtpHost).to.throw();
   });
   
-  test("SMTP_HOST = undefined", () => {
+  it("SMTP_HOST = undefined", () => {
     process.env.SMTP_HOST = "mail.test.com";
-    expect(config.smtpHost).toBe("mail.test.com");
+    expect(config.smtpHost).to.equal("mail.test.com");
   });
 });
 
 describe("smtpPort", () => {
-  test("SMTP_PORT = undefined", () => {
+  it("SMTP_PORT = undefined", () => {
     delete process.env.SMTP_PORT;
-    expect(() => config.smtpPort).toThrow();
+    expect(() => config.smtpPort).to.throw();
   });
   
-  test("SMTP_PORT = string", () => {
+  it("SMTP_PORT = string", () => {
     process.env.SMTP_PORT = "597-string";
-    expect(() => config.smtpPort).toThrow();
+    expect(() => config.smtpPort).to.throw();
   });
   
-  test("SMTP_PORT = number", () => {
+  it("SMTP_PORT = number", () => {
     process.env.SMTP_PORT = "597";
-    expect(config.smtpPort).toBe(597);
+    expect(config.smtpPort).to.equal(597);
   });
 });
 
 describe("smtpUsername", () => {
-  test("SMTP_USERNAME = undefined", () => {
+  it("SMTP_USERNAME = undefined", () => {
     delete process.env.SMTP_USERNAME;
-    expect(() => config.smtpUsername).toThrow();
+    expect(() => config.smtpUsername).to.throw();
   });
   
-  test("SMTP_USERNAME = string", () => {
+  it("SMTP_USERNAME = string", () => {
     process.env.SMTP_USERNAME = "email_user";
-    expect(config.smtpUsername).toBe("email_user");
+    expect(config.smtpUsername).to.equal("email_user");
   });
 });
 
 describe("smtpPassword", () => {
-  test("SMTP_PASSWORD = undefined", () => {
+  it("SMTP_PASSWORD = undefined", () => {
     delete process.env.SMTP_PASSWORD;
-    expect(() => config.smtpPassword).toThrow();
+    expect(() => config.smtpPassword).to.throw();
   });
   
-  test("SMTP_PASSWORD = string", () => {
+  it("SMTP_PASSWORD = string", () => {
     process.env.SMTP_PASSWORD = "user_password";
-    expect(config.smtpPassword).toBe("user_password");
+    expect(config.smtpPassword).to.equal("user_password");
   });
 });
 
 describe("mongoHostname", () => {
-  test("MONGO_HOSTNAME = undefined", () => {
+  it("MONGO_HOSTNAME = undefined", () => {
     delete process.env.MONGO_HOSTNAME;
-    expect(() => config.mongoHostname).toThrow();
+    expect(() => config.mongoHostname).to.throw();
   });
   
-  test("MONGO_HOSTNAME = string", () => {
+  it("MONGO_HOSTNAME = string", () => {
     process.env.MONGO_HOSTNAME = "dbhost";
-    expect(config.mongoHostname).toBe("dbhost");
+    expect(config.mongoHostname).to.equal("dbhost");
   });
 });
 
 describe("mongoPort", () => {
-  test("MONGO_PORT = undefined", () => {
+  it("MONGO_PORT = undefined", () => {
     delete process.env.MONGO_PORT;
-    expect(() => config.mongoPort).toThrow();
+    expect(() => config.mongoPort).to.throw();
   });
   
-  test("MONGO_PORT = string", () => {
+  it("MONGO_PORT = string", () => {
     process.env.MONGO_PORT = "119-string";
-    expect(() => config.mongoPort).toThrow();
+    expect(() => config.mongoPort).to.throw();
   });
   
-  test("MONGO_PORT = number", () => {
+  it("MONGO_PORT = number", () => {
     process.env.MONGO_PORT = "27017";
-    expect(config.mongoPort).toBe(27017);
+    expect(config.mongoPort).to.equal(27017);
   });
 });
 
 describe("mongoDatabase", () => {
-  test("MONGO_DATABASE = undefined", () => {
+  it("MONGO_DATABASE = undefined", () => {
     delete process.env.MONGO_DATABASE;
-    expect(() => config.mongoDatabase).toThrow();
+    expect(() => config.mongoDatabase).to.throw();
   });
   
-  test("MONGO_DATABASE = string", () => {
+  it("MONGO_DATABASE = string", () => {
     process.env.MONGO_DATABASE = "dbname";
-    expect(config.mongoDatabase).toBe("dbname");
+    expect(config.mongoDatabase).to.equal("dbname");
   });
 });
 
 describe("mongoUsername", () => {
-  test("MONGO_USERNAME = undefined", () => {
+  it("MONGO_USERNAME = undefined", () => {
     delete process.env.MONGO_USERNAME;
-    expect(() => config.mongoUsername).toThrow();
+    expect(() => config.mongoUsername).to.throw();
   });
   
-  test("MONGO_USERNAME = string", () => {
+  it("MONGO_USERNAME = string", () => {
     process.env.MONGO_USERNAME = "dbuser";
-    expect(config.mongoUsername).toBe("dbuser");
+    expect(config.mongoUsername).to.equal("dbuser");
   });
 });
 
 describe("mongoPassword", () => {
-  test("MONGO_PASSWORD = undefined", () => {
+  it("MONGO_PASSWORD = undefined", () => {
     delete process.env.MONGO_PASSWORD;
-    expect(() => config.mongoPassword).toThrow();
+    expect(() => config.mongoPassword).to.throw();
   });
   
-  test("MONGO_PASSWORD = string", () => {
+  it("MONGO_PASSWORD = string", () => {
     process.env.MONGO_PASSWORD = "dbpass";
-    expect(config.mongoPassword).toBe("dbpass");
+    expect(config.mongoPassword).to.equal("dbpass");
   });
 });
 
 describe("jwtSecret", () => {
-  test("JWT_SECRET = undefined", () => {
+  it("JWT_SECRET = undefined", () => {
     delete process.env.JWT_SECRET;
-    expect(() => config.jwtSecret).toThrow();
+    expect(() => config.jwtSecret).to.throw();
   });
   
-  test("JWT_SECRET = string", () => {
+  it("JWT_SECRET = string", () => {
     process.env.JWT_SECRET = "jwtsec";
-    expect(config.jwtSecret).toBe("jwtsec");
+    expect(config.jwtSecret).to.equal("jwtsec");
   });
 });
 
 describe("siteHost", () => {
-  test("SITE_HOST = undefined", () => {
+  it("SITE_HOST = undefined", () => {
     delete process.env.SITE_HOST;
-    expect(() => config.siteHost).toThrow();
+    expect(() => config.siteHost).to.throw();
   });
   
-  test("SITE_HOST = string", () => {
+  it("SITE_HOST = string", () => {
     process.env.SITE_HOST = "sitehost";
-    expect(config.siteHost).toBe("sitehost");
+    expect(config.siteHost).to.equal("sitehost");
   });
 });
 
 describe("siteProtocol", () => {
-  test("SITE_PROTOCOL = undefined", () => {
+  it("SITE_PROTOCOL = undefined", () => {
     delete process.env.SITE_PROTOCOL;
-    expect(() => config.siteProtocol).toThrow();
+    expect(() => config.siteProtocol).to.throw();
   });
   
-  test("SITE_PROTOCOL = string", () => {
+  it("SITE_PROTOCOL = string", () => {
     process.env.SITE_HOST = "http";
-    expect(config.siteHost).toBe("http");
+    expect(config.siteHost).to.equal("http");
   });
   
-  test("SITE_PROTOCOL = string", () => {
+  it("SITE_PROTOCOL = string", () => {
     process.env.SITE_HOST = "https";
-    expect(config.siteHost).toBe("https");
+    expect(config.siteHost).to.equal("https");
   });
 });
 
 describe("siteUrl", () => {
-  test("SITE_HOST = undefined", () => {
+  it("SITE_HOST = undefined", () => {
     delete process.env.SITE_HOST;
     process.env.SITE_PROTOCOL = "http";
-    expect(() => config.siteUrl).toThrow();
+    expect(() => config.siteUrl).to.throw();
   });
   
-  test("SITE_PROTOCOL = undefined", () => {
+  it("SITE_PROTOCOL = undefined", () => {
     process.env.SITE_HOST = "sitehost";
     delete process.env.SITE_PROTOCOL;
-    expect(() => config.siteUrl).toThrow();
+    expect(() => config.siteUrl).to.throw();
   });
   
-  test("format", () => {
+  it("Format", () => {
     process.env.SITE_HOST = "sitehost";
     process.env.SITE_PROTOCOL = "http";
-    expect(config.siteUrl).toBe("http://sitehost");
+    expect(config.siteUrl).to.equal("http://sitehost");
   });
 });
 
 describe("applicationName", () => {
-  test("APPLICATION_NAME = undefined", () => {
+  it("APPLICATION_NAME = undefined", () => {
     delete process.env.APPLICATION_NAME;
-    expect(() => config.applicationName).toThrow();
+    expect(() => config.applicationName).to.throw();
   });
   
-  test("APPLICATION_NAME = string", () => {
+  it("APPLICATION_NAME = string", () => {
     process.env.APPLICATION_NAME = "appname";
-    expect(config.applicationName).toBe("appname");
+    expect(config.applicationName).to.equal("appname");
   });
 });

@@ -6,13 +6,13 @@ import { prop as Property, defaultClasses, Ref, isRefType, isDocument } from "@t
 import { ObjectType, Field, ID } from "type-graphql";
 import { v4 as uuidv4 } from "uuid";
 
-class UnrecognisedPropertyError<T> extends Error {
+export class UnrecognisedPropertyError<T> extends Error {
   constructor(item: T) {
-    super(`Property if of unrecognised type: ${typeof item}`);
+    super(`Property '${item}' of unrecognised type '${typeof item}'`);
   }
 }
 
-export function getIdFromRef<T>(item: Ref<T>) {
+export function getIdFromRef<T extends Base>(item: Ref<T>) {
   if (isDocument(item)) {
     return item.id;
   } else if (isRefType(item)) {
