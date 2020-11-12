@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import "./../App.scss";
-import logo from "./../st-andrews-logo.png";
+import logo from "./../images/st-andrews-logo.png";
 import { passwordClient } from "../utils/accounts";
 import { GraphQLErrorList } from "@accounts/graphql-client";
 
