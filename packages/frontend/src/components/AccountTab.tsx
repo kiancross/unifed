@@ -45,9 +45,24 @@ const AccountTab = (props: AccountTabParams): JSX.Element => {
         <DialogTitle>Update your password</DialogTitle>
         <DialogContent>
           <DialogContentText>Password must contain letters, numbers and symbols</DialogContentText>
-          <TextField fullWidth required label="Old Password" />
-          <TextField fullWidth required label="New Password" />
-          <TextField fullWidth required label="Confirm New Password" />
+          <TextField
+            inputProps={{ "data-cy": "old-password" }}
+            fullWidth
+            required
+            label="Old Password"
+          />
+          <TextField
+            inputProps={{ "data-cy": "new-password" }}
+            fullWidth
+            required
+            label="New Password"
+          />
+          <TextField
+            inputProps={{ "data-cy": "confirm-password" }}
+            fullWidth
+            required
+            label="Confirm New Password"
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
@@ -70,7 +85,12 @@ const AccountTab = (props: AccountTabParams): JSX.Element => {
         <ListItem>
           <ListItemText primary="***" secondary="Password" />
           <ListItemSecondaryAction>
-            <IconButton onClick={handlePassClickOpen} color="primary" edge="end">
+            <IconButton
+              id="change-password-button"
+              onClick={handlePassClickOpen}
+              color="primary"
+              edge="end"
+            >
               <EditIcon />
             </IconButton>
             <PassResetDialog />
