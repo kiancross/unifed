@@ -27,6 +27,9 @@ export abstract class Base extends defaultClasses.TimeStamps {
   @Property({ default: uuidv4 })
   _id!: string;
 
+  @Field()
+  host?: string;
+
   @Field(() => ID)
   get id() {
     return this._id;
