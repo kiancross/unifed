@@ -12,6 +12,7 @@ interface FormValues {
 
 const ResetPasswordRequest = (): JSX.Element => {
   const initialValues = {
+    // TODO fill in if it was entered in login form
     email: "",
   };
   return (

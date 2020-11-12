@@ -4,7 +4,7 @@ import { Redirect, useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { TextField, Button } from "@material-ui/core";
 
-import logo from "../st-andrews-logo.png";
+import logo from "./../images/st-andrews-logo.png";
 import zxcvbn from "zxcvbn";
 
 interface Params {
