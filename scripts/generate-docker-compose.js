@@ -82,7 +82,8 @@ if (devEnv) {
       MONGO_USERNAME: "user",
       MONGO_PASSWORD: "pass",
       JWT_SECRET: "${JWT_SECRET}",
-      SITE_URL: "${SITE_URL}",
+      SITE_HOST: "${SITE_HOST}",
+      SITE_PROTOCOL: "${SITE_PROTOCOL}",
       APPLICATION_NAME: "${APPLICATION_NAME}",
       NODE_ENV: "$NODE_ENV"
     }

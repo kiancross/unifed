@@ -15,7 +15,8 @@ declare global {
       MONGO_USERNAME: string;
       MONGO_PASSWORD: string;
       JWT_SECRET: string;
-      SITE_URL: string;
+      SITE_HOST: string;
+      SITE_PROTOCOL: string;
       APPLICATION_NAME: string;
       NODE_ENV: string;
     }
