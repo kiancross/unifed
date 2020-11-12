@@ -7,13 +7,13 @@ import {gql, useMutation} from "@apollo/client"
 import { Formik, Form } from "formik";
 
 interface Props {
-    parentId:String
+    parentId:String,
+    parentTitle:String
 }
 
 export default function CommentEditor(props:Props) {
   const mdEditor = React.useRef<Editor>(null);
   const [value, setValue] = React.useState("Write here");
-  const parentId = props.parentId 
 
   const MAKE_COMMENT = gql`
     mutation CREATE_POST($title:String!, $parentId:String!, $body:String!) {
@@ -24,7 +24,10 @@ export default function CommentEditor(props:Props) {
     }
   `
   
-  const [makePost] = useMutation(MAKE_COMMENT)
+  const [makePost, {data}] = useMutation(MAKE_COMMENT)
+
+  if (data) window.location.reload()
+
   const initialValues = {
     title: ""
   }
@@ -34,10 +37,8 @@ export default function CommentEditor(props:Props) {
       const body = mdEditor.current.getMdValue();
 
       try {
-        const title = "Comment on " + parentId
-        makePost({variables: {title: title, parentId:parentId , body:body}})
-        window.location.reload()
-        
+        const title = "Comment on " + props.parentTitle
+        makePost({variables: {title: title, parentId:props.parentId , body:body}})    
       }
       catch(err) {
         alert("Post could not be made")

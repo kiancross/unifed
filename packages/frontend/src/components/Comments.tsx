@@ -35,17 +35,17 @@ const Comments = (props:CommentParams) => {
 
     return (
         <Container>
-        <Grid container spacing={3}>
-            <Grid item container xs={8} direction="column" spacing={2}>
-                {commentPosts.map((post:any) => {
-                    const username = post.author.id
-                    const text = post.body
-                    return (
-                        <Post username={username} text ={text} title="" />
-                    )
-                })}
+            <Grid container spacing={3}>
+                <Grid item container xs={8} direction="column" spacing={2}>
+                    {commentPosts.map((post:any) => {
+                        const username = post.author.id
+                        const text = post.body
+                        return (
+                            <Post username={username} text ={text} title="" />
+                        )
+                    })}
+                </Grid>
             </Grid>
-        </Grid>
         </Container>     
 
     )

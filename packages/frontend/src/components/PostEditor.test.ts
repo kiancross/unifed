@@ -1,5 +1,9 @@
 import React from "react"
-import PostEditor from "./PostEditor"
 
-it("Should enter post body", () => {
+const PostEditor = require("./PostEditor")
+
+it("Should find PostEditor", () => {
+    expect(
+        
+    )
 }

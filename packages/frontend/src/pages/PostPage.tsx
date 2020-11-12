@@ -49,10 +49,10 @@ const PostPage = ():JSX.Element => {
                     <UserInfoCard username={username} name={username} />
                 </Grid>
                 <h3 style={{color:"black"}}>
-                Comments
+                    Comments
                 </h3>
                 <Comments parentId={postId}/>
-                <CommentEditor parentId={postId}/>
+                <CommentEditor parentId={postId} parentTitle={title}/>
             </Grid>
             
 
