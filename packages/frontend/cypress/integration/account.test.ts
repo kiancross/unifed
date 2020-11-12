@@ -16,7 +16,7 @@ context("Actions", () => {
 
   it("Checks guest users get redirected from account settings page", () => {
     cy.visit("/account");
-    cy.url().should("eq", "http://localhost:8080/");
+    cy.url().should("eq", Cypress.config().baseUrl + "/");
   });
 
   it("Checks logged in users see their account settings", () => {
