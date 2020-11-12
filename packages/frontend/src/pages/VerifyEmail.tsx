@@ -2,12 +2,12 @@ import React from "react";
 import { Link, Redirect, useParams } from "react-router-dom";
 import { passwordClient } from "../utils/accounts";
 
-interface VerifyEmailParams {
+interface Params {
   token: string;
 }
 
 const VerifyEmail = (): JSX.Element => {
-  const { token } = useParams<VerifyEmailParams>();
+  const { token } = useParams<Params>();
   let isTokenValid = false;
   try {
     passwordClient.verifyEmail(token);
