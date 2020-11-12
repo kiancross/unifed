@@ -2,19 +2,13 @@
  * CS3099 Group A3
  */
 
-import { prop as Property, getModelForClass, Ref, modelOptions } from "@typegoose/typegoose";
-import { dateToUnixTimeStamp } from "../utils/date";
+import { prop as Property, getModelForClass, Ref } from "@typegoose/typegoose";
 import { ObjectType, Field } from "type-graphql";
+import { dateToUnixTimeStamp } from "../utils/date";
 import { Base, getIdFromRef } from "./base";
 import { Community } from "./community";
 import { RemoteReference } from "./remote-reference";
 
-@modelOptions({
-  schemaOptions: {
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
-  },
-})
 @ObjectType()
 export class Post extends Base {
   @Property({ ref: "Community", type: String })
@@ -22,9 +16,6 @@ export class Post extends Base {
 
   @Property({ ref: "Post", type: String })
   parentPost?: Ref<Post>;
-
-  @Field()
-  parent!: string;
 
   @Field()
   @Property({})
@@ -59,14 +50,10 @@ export class Post extends Base {
     return this.createdAt ? dateToUnixTimeStamp(this.createdAt) : undefined;
   }
 
-  toJSON() {
-    if (this.updatedAt === undefined || this.createdAt === undefined) {
-      throw Error("Missing content meta-data");
-    }
-
+  toJSON(): { [key: string]: any } {
     return {
       ...super.toJSON(),
-      parent: this.parentPost ? getIdFromRef(this.parentPost) : getIdFromRef(this.community),
+      parent: getIdFromRef(this.parentPost === undefined ? this.community : this.parentPost),
       children: this.children?.map(getIdFromRef),
       title: this.title,
       contentType: this.contentType,
