@@ -4,7 +4,7 @@
 
 import { Router } from "express";
 import { routes as internalRoutes } from "./internal";
-import { routes as federatedRoutes } from "./federated";
+import { routes as federatedRoutes } from "./federated-server";
 
 export const routes = (async (): Promise<Router> => {
   const router: Router = Router();
