@@ -83,8 +83,8 @@ router.post("/", async (req, res) => {
   res.json(await PostModel.create(post));
 });
 
-router.get("/:id", getPost, (_, res) => {
-  res.json(res.locals.post);
+router.get("/:id", getPost, async (_, res) => {
+  res.json(await res.locals.post.populate("children").execPopulate());
 });
 
 router.put("/:id", getPost, (_, res) => {
