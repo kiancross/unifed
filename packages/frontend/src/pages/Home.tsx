@@ -21,8 +21,8 @@ const HomePage = () => {
 
   const { loading, error, data } = useQuery(GET_POSTS);
 
-  if (loading) return <h1 style={{ color: "black" }}>'Loading...'</h1>;
-  if (error) return <h1 style={{ color: "black" }}>`Error! ${error.message}` </h1>;
+  if (loading) return <h1 style={{ color: "black" }}>Loading...</h1>;
+  if (error) return <h1 style={{ color: "black" }}>Error! ${error.message} </h1>;
 
   return (
     <div>
@@ -33,7 +33,14 @@ const HomePage = () => {
         <Grid container spacing={3}>
           <Grid item container xs={8} direction="column" spacing={2}>
             {data.getPosts.map((post: any) => {
-              return <PostPreview username={post.author.id} title={post.title} postId={post.id} />;
+              return (
+                <PostPreview
+                  key={post}
+                  username={post.author.id}
+                  title={post.title}
+                  postId={post.id}
+                />
+              );
             })}
           </Grid>
 

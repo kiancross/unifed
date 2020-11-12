@@ -30,8 +30,8 @@ const PostPage = (): JSX.Element => {
     variables: { id: postId },
   });
 
-  if (loading) return <h1>'Loading...'</h1>;
-  if (error) return <h1>`Error! ${error.message}` </h1>;
+  if (loading) return <h1>Loading...</h1>;
+  if (error) return <h1>Error! ${error.message} </h1>;
 
   const postData = data.getPost;
   const username = postData.author.id;

@@ -27,8 +27,8 @@ const Comments = (props: CommentParams) => {
     variables: { id: parentId },
   });
 
-  if (loading) return <h1>'Loading...'</h1>;
-  if (error) return <h1>`Error! ${error.message}` </h1>;
+  if (loading) return <h1>Loading...</h1>;
+  if (error) return <h1>Error! ${error.message} </h1>;
 
   const commentPosts = data.getPost.children;
 
@@ -39,7 +39,7 @@ const Comments = (props: CommentParams) => {
           {commentPosts.map((post: any) => {
             const username = post.author.id;
             const text = post.body;
-            return <Post username={username} text={text} title="" />;
+            return <Post key={post} username={username} text={text} title="" />;
           })}
         </Grid>
       </Grid>
