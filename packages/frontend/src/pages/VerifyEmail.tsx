@@ -8,16 +8,16 @@ interface VerifyEmailParams {
 
 const VerifyEmail = (): JSX.Element => {
   const { token } = useParams<VerifyEmailParams>();
-  let verified = false;
+  let isTokenValid = false;
   try {
     passwordClient.verifyEmail(token);
-    verified = true;
+    isTokenValid = true;
   } catch (err) {
     console.log(err);
   }
   return (
     <div className="container">
-      {verified ? (
+      {isTokenValid ? (
         // TODO redirect to home page on success
         <Redirect to="/" />
       ) : (
