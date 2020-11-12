@@ -84,7 +84,7 @@ export default function App() {
           />
 
           <button className="Submit-button" type="submit">
-            Make Post
+            Submit Post
           </button>
         </Form>
       </Formik>
