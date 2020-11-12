@@ -57,7 +57,7 @@ const LoginForm = (): JSX.Element => {
           loginUser(values);
         }}
       >
-        {({ errors, touched }) => (
+        {({ values, errors, touched }) => (
           <Form>
             <div>
               <Field
@@ -65,8 +65,8 @@ const LoginForm = (): JSX.Element => {
                 as={TextField}
                 label="Email"
                 color="primary"
-                helperText={errors.email}
-                error={!!errors.email}
+                helperText={values.email && errors.email}
+                error={values.email && !!errors.email}
               />
             </div>
             <div>
@@ -75,8 +75,8 @@ const LoginForm = (): JSX.Element => {
                 as={TextField}
                 label="Password"
                 color="primary"
-                helperText={errors.password}
-                error={!!errors.password}
+                helperText={values.password && errors.password}
+                error={values.password && !!errors.password}
               />
             </div>
             <Button

@@ -53,7 +53,7 @@ const ResetPassword = (): JSX.Element => {
         }
       }}
     >
-      {({ errors, touched }) => (
+      {({ values, errors, touched }) => (
         <>
           <div className="container" style={{ float: "left" }}>
             <img src={logo} alt="st andrews logo" width="250" height="300"></img>
@@ -64,8 +64,8 @@ const ResetPassword = (): JSX.Element => {
                   as={TextField}
                   label="Password"
                   color="primary"
-                  helperText={errors.newPass}
-                  error={!!errors.newPass}
+                  helperText={values.newPass && errors.newPass}
+                  error={values.newPass && !!errors.newPass}
                 />
               </div>
               <div>
@@ -74,8 +74,8 @@ const ResetPassword = (): JSX.Element => {
                   as={TextField}
                   label="Retype"
                   color="primary"
-                  helperText={errors.newPass}
-                  error={!!errors.newPass}
+                  helperText={values.newPass && errors.newPass}
+                  error={values.newPass && !!errors.newPass}
                 />
               </div>
               <Button

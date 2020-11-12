@@ -66,7 +66,7 @@ const SignupForm = (): JSX.Element => {
           registerUser(values);
         }}
       >
-        {({ errors, touched }) => (
+        {({ values, errors, touched }) => (
           <Form>
             <div>
               <Field
@@ -74,8 +74,8 @@ const SignupForm = (): JSX.Element => {
                 as={TextField}
                 label="Username"
                 color="primary"
-                helperText={errors.username}
-                error={!!errors.username}
+                helperText={values.username && errors.username}
+                error={values.username && !!errors.username}
               />
             </div>
             <div>
@@ -84,8 +84,8 @@ const SignupForm = (): JSX.Element => {
                 as={TextField}
                 label="Name"
                 color="primary"
-                helperText={errors.name}
-                error={!!errors.name}
+                helperText={values.name && errors.name}
+                error={values.name && !!errors.name}
               />
             </div>
             <div>
@@ -94,8 +94,8 @@ const SignupForm = (): JSX.Element => {
                 as={TextField}
                 label="Email"
                 color="primary"
-                helperText={errors.email}
-                error={!!errors.email}
+                helperText={values.email && errors.email}
+                error={values.email && !!errors.email}
               />
             </div>
             <div>
@@ -104,8 +104,8 @@ const SignupForm = (): JSX.Element => {
                 as={TextField}
                 label="Password"
                 color="primary"
-                helperText={errors.password}
-                error={!!errors.password}
+                helperText={values.password && errors.password}
+                error={values.password && !!errors.password}
               />
             </div>
             <Button

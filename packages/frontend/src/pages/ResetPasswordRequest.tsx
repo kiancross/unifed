@@ -30,7 +30,7 @@ const ResetPasswordRequest = (): JSX.Element => {
           await passwordClient.requestPasswordReset(values.email);
         }}
       >
-        {({ errors, touched }) => (
+        {({ values, errors, touched }) => (
           <Form>
             <div>
               <Field
@@ -38,8 +38,8 @@ const ResetPasswordRequest = (): JSX.Element => {
                 as={TextField}
                 label="Email"
                 color="primary"
-                helperText={errors.email}
-                error={!!errors.email}
+                helperText={values.email && errors.email}
+                error={values.email && !!errors.email}
               />
             </div>
             <Button
