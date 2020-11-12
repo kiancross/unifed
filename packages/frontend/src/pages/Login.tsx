@@ -76,7 +76,7 @@ const LoginForm = (): JSX.Element => {
               />
             </div>
             <div>
-            <Field
+              <Field
                 name="password"
                 as={TextField}
                 label="Password"
