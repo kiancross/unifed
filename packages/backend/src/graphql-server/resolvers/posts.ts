@@ -7,7 +7,7 @@ import { CurrentUser } from "./utils";
 import { AuthoriseUser } from "../auth-checkers";
 import { Post, User } from "../../models";
 import { CreatePostInput, RemoteReferenceInput } from "./inputs";
-import { postsService } from "../services";
+import { postsClient } from "../federation-client";
 
 @Resolver(Post)
 export class PostsResolver /*implements ResolverInterface<Post>*/ {
@@ -18,7 +18,7 @@ export class PostsResolver /*implements ResolverInterface<Post>*/ {
     @Arg("post") post: CreatePostInput,
     @CurrentUser() user: User,
   ): Promise<Post | null> {
-    return await postsService.createPost(post.parent.host, {
+    return await postsClient.createPost(post.parent.host, {
       ...post,
       parent: post.parent.id,
       contentType: "markdown",
@@ -31,6 +31,6 @@ export class PostsResolver /*implements ResolverInterface<Post>*/ {
 
   @Query(() => [Post])
   async getPosts(@Arg("community") remote: RemoteReferenceInput): Promise<Post[]> {
-    return await postsService.getPosts(remote.host, remote.id);
+    return await postsClient.getPosts(remote.host, remote.id);
   }
 }
