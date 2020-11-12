@@ -67,7 +67,15 @@ class Config {
   }
 
   static get siteUrl(): string {
-    return throwIfUndefined(process.env.SITE_URL);
+    return `${this.siteProtocol}://${this.siteHost}`;
+  }
+
+  static get siteHost(): string {
+    return throwIfUndefined(process.env.SITE_HOST)
+  }
+
+  static get siteProtocol(): string {
+    return throwIfUndefined(process.env.SITE_PROTOCOL)
   }
 
   static get applicationName(): string {

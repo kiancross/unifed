@@ -5,8 +5,8 @@
 import { config } from "./config";
 
 describe("debug", () => {
-  test("NODE_ENV = prod", () => {
-    process.env.NODE_ENV = "prod";
+  test("NODE_ENV = production", () => {
+    process.env.NODE_ENV = "production";
     expect(config.debug).toBe(false);
   });
   
@@ -138,17 +138,6 @@ describe("jwtSecret", () => {
   test("JWT_SECRET = string", () => {
     process.env.JWT_SECRET = "string";
     expect(config.jwtSecret).toBe("string");
-  });
-});
-
-describe("siteUrl", () => {
-  test("SITE_URL = undefined", () => {
-    expect(() => config.siteUrl).toThrow();
-  });
-  
-  test("SITE_URL = string", () => {
-    process.env.SITE_URL = "string";
-    expect(config.siteUrl).toBe("string");
   });
 });
 

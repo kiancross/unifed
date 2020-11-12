@@ -6,13 +6,19 @@ import { prop as Property, defaultClasses, Ref, isRefType, isDocument } from "@t
 import { ObjectType, Field, ID } from "type-graphql";
 import { v4 as uuidv4 } from "uuid";
 
+class UnrecognisedPropertyError<T> extends Error {
+  constructor(item: T) {
+    super(`Property if of unrecognised type: ${typeof item}`);
+  }
+}
+
 export function getIdFromRef<T>(item: Ref<T>) {
   if (isDocument(item)) {
     return item.id;
   } else if (isRefType(item)) {
     return item;
   } else {
-    throw Error(`Child is of unrecognised type '${typeof item}'`);
+    throw new UnrecognisedPropertyError(item);
   }
 }
 
@@ -20,6 +26,9 @@ export function getIdFromRef<T>(item: Ref<T>) {
 export abstract class Base extends defaultClasses.TimeStamps {
   @Property({ default: uuidv4 })
   _id!: string;
+
+  @Field()
+  host?: string;
 
   @Field(() => ID)
   get id() {
@@ -30,8 +39,8 @@ export abstract class Base extends defaultClasses.TimeStamps {
     this._id = id;
   }
 
-  toJSON() {
-    return <{ [key: string]: any }>{
+  toJSON(): { [key: string]: any } {
+    return {
       id: this.id,
     };
   }

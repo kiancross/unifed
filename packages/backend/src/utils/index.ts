@@ -6,3 +6,4 @@ export * from "./config";
 export * from "./date";
 export * from "./email";
 export * from "./defaults";
+export * from "./logging";
