@@ -5,7 +5,7 @@
 import { ObjectType, Field } from "type-graphql";
 import { prop as Property } from "@typegoose/typegoose";
 
-export type RemoteReferenceObject = Pick<RemoteReference, "id" | "host"> ;
+export type RemoteReferenceObject = Pick<RemoteReference, "id" | "host">;
 
 @ObjectType()
 export class RemoteReference {
@@ -20,7 +20,7 @@ export class RemoteReference {
   toJSON(): { [key: string]: any } {
     return {
       id: this.id,
-      host: this.host
-    }
+      host: this.host,
+    };
   }
 }

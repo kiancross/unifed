@@ -15,10 +15,8 @@ class UnrecognisedPropertyError<T> extends Error {
 export function getIdFromRef<T>(item: Ref<T>) {
   if (isDocument(item)) {
     return item.id;
-
   } else if (isRefType(item)) {
     return item;
-
   } else {
     throw new UnrecognisedPropertyError(item);
   }

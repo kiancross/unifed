@@ -11,7 +11,6 @@ import { postsClient } from "../federation-client";
 
 @Resolver(Post)
 export class PostsResolver /*implements ResolverInterface<Post>*/ {
-
   @AuthoriseUser()
   @Mutation(() => Post, { nullable: true })
   async createPost(

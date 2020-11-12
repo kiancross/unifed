@@ -14,12 +14,18 @@ const PostParentUnion = createUnionType({
   types: () => [Post, Community] as const,
 });
 
-type PostObjectFields = "community" | "parentPost" | "title" | "contentType" | "body" | "author" | "parent";
+type PostObjectFields =
+  | "community"
+  | "parentPost"
+  | "title"
+  | "contentType"
+  | "body"
+  | "author"
+  | "parent";
 export type PostObject = Pick<Post, PostObjectFields>;
 
 @ObjectType()
 export class Post extends Base {
-
   @Field(() => Community)
   @Property({ ref: "Community", type: String })
   community!: Ref<Community>;
@@ -58,7 +64,6 @@ export class Post extends Base {
   }
 
   static async fromObj(obj: PostObject): Promise<Post> {
-
     const post = new Post();
 
     if (obj.parent && (obj.parentPost || obj.community)) {
@@ -72,8 +77,10 @@ export class Post extends Base {
     post.parentPost = obj.parentPost;
     post.community = obj.community;
 
-    if (obj.parentPost && !await PostModel.findById(obj.parentPost)) new Error("'parentPost' not found");
-    if (obj.community && !await CommunityModel.findById(obj.community)) new Error("'community' not found");
+    if (obj.parentPost && !(await PostModel.findById(obj.parentPost)))
+      new Error("'parentPost' not found");
+    if (obj.community && !(await CommunityModel.findById(obj.community)))
+      new Error("'community' not found");
 
     if (obj.parent) {
       const parentPost = await PostModel.findById(obj.parent);
@@ -81,13 +88,11 @@ export class Post extends Base {
       if (parentPost) {
         post.community = parentPost.community;
         post.parentPost = parentPost;
-
       } else {
         const community = await CommunityModel.findById(obj.parent);
 
         if (community) {
           post.community = community;
-
         } else {
           throw Error("'parent' is not a community or post");
         }
