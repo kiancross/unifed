@@ -31,5 +31,5 @@ export const mongoPassword: string = process.env.MONGO_PASSWORD;
 export const jwtSecret: string = process.env.JWT_SECRET;
 export const siteHost: string = process.env.SITE_HOST;
 export const siteProtocol: string = process.env.SITE_PROTOCOL;
-export const siteUrl: string = `${siteProtocol}://${siteHost}`;
+export const siteUrl = `${siteProtocol}://${siteHost}`;
 export const applicationName: string = process.env.APPLICATION_NAME;

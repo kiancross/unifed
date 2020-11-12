@@ -11,7 +11,6 @@ import { RemoteReference } from "./remote-reference";
 
 @ObjectType()
 export class Post extends Base {
-
   @Property({ ref: "Community", type: String })
   community!: Ref<Community>;
 

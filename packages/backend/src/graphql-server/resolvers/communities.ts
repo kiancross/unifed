@@ -21,7 +21,6 @@ export class CommunitiesResolver implements ResolverInterface<Community> {
 
   @FieldResolver()
   async posts(@Root() community: Community): Promise<Post[]> {
-
     if (community.host === undefined) {
       throw new Error("Host can not be undefined");
     }

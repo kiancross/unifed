@@ -10,7 +10,6 @@ import { Post } from "./post";
 
 @ObjectType()
 export class Community extends Base {
-
   @IsString()
   @Field()
   @Property({ required: true })

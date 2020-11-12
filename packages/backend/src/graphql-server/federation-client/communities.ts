@@ -15,7 +15,6 @@ class CommunityNotFoundError extends Error {
 }
 
 export async function getCommunities(host: string): Promise<Community[]> {
-
   const communityIds: string[] = await got(getFederatedApiEndpoint(host, ["communities"])).json();
   if (!isStringArray(communityIds)) {
     throw new RemoteResponseError(communityIds);
@@ -37,19 +36,17 @@ export async function getCommunities(host: string): Promise<Community[]> {
 }
 
 export async function getCommunity(host: string, id: string): Promise<Community | null> {
-
   try {
     const rawCommunity = await got(getFederatedApiEndpoint(host, ["communities", id])).json();
     const community = plainToClass(Community, rawCommunity as Community);
     community.host = host;
 
-    const validation = await validate(community)
+    const validation = await validate(community);
     if (validation.length !== 0) {
       throw new RemoteResponseError(rawCommunity);
     }
 
     return community;
-
   } catch (error) {
     if (error?.response?.statusCode === 404) {
       return null;

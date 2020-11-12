@@ -59,7 +59,6 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-
   const postRaw = req.body;
   const post = plainToClass(Post, postRaw as Post);
 
@@ -68,13 +67,11 @@ router.post("/", async (req, res) => {
   if (parentPost) {
     post.community = parentPost.community;
     post.parentPost = parentPost;
-
   } else {
     const community = await CommunityModel.findById(postRaw.parent);
 
     if (community) {
       post.community = community;
-
     } else {
       res.status(400).json({ error: "Invalid field: 'parent'" });
       return;
