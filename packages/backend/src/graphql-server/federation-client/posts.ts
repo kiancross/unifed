@@ -3,6 +3,7 @@
  */
 
 import got from "got";
+import { plainToClass } from "class-transformer";
 import { getFederatedApiEndpoint } from "./utils";
 import { Post, User } from "../../models";
 import { config } from "../../utils";
@@ -20,8 +21,11 @@ export async function createPost(host: string, user: User, parent: string, title
         },
       },
     }).json();
- 
-   return rawPost as Post; 
+
+    const post = plainToClass(Post, rawPost as Post);
+    post.host = host;
+
+    return post;
     
     // insert ref into db
 
@@ -34,14 +38,25 @@ export async function createPost(host: string, user: User, parent: string, title
   }
 }
 
-export async function getPosts(host: string, community: string) {
-  return (await got(getFederatedApiEndpoint(host, ["posts"]), {
+export async function getPosts(host: string, community: string): Promise<Post[]> {
+
+  const rawPosts = await got(getFederatedApiEndpoint(host, ["posts"]), {
     searchParams: {
       community,
     },
-  }).json()) as Post[];
+  }).json();
+
+  const posts = plainToClass(Post, rawPosts as Post[]);
+  posts.forEach(element => element.host = host);
+
+  return posts;
 }
 
-export async function getPost(host: string, post: string) {
-  return (await got(getFederatedApiEndpoint(host, ["posts", post])).json()) as Post;
+export async function getPost(host: string, id: string): Promise<Post> {
+  const rawPost = await got(getFederatedApiEndpoint(host, ["posts", id])).json();
+
+  const post = plainToClass(Post, rawPost as Post);
+  post.host = host;
+
+  return post;
 }
