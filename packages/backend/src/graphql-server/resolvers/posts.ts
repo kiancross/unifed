@@ -35,8 +35,13 @@ export class PostsResolver implements ResolverInterface<Post> {
   }
 
   @Query(() => [Post])
-  async getPosts(@Arg("community") remote: RemoteReferenceInput): Promise<Post[]> {
-    return await postsClient.getPosts(remote.host, remote.id);
+  async getPosts(@Arg("community") community: RemoteReferenceInput): Promise<Post[]> {
+    return await postsClient.getPosts(community.host, community.id);
+  }
+  
+  @Query(() => Post)
+  async getPost(@Arg("post") post: RemoteReferenceInput): Promise<Post> {
+    return await postsClient.getPost(post.host, post.id);
   }
 
   @FieldResolver()
