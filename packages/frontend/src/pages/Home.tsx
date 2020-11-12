@@ -21,8 +21,8 @@ const HomePage = () => {
 
   const { loading, error, data } = useQuery(GET_POSTS);
   
-  if (loading) return <h1>'Loading...'</h1>
-  if (error) return <h1>`Error! ${error.message}` </h1>
+  if (loading) return <h1 style={{color:"black"}}>'Loading...'</h1>
+  if (error) return <h1 style={{color:"black"}}>`Error! ${error.message}` </h1>
   
   return (
     <div>

@@ -1,4 +1,4 @@
-describe('Test', () => {
+describe('Make Post Test', () => {
     it("Should make post", () => {
         cy.visit('/home')
         cy.contains('Make Post')

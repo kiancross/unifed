@@ -7,24 +7,24 @@ import {gql, useMutation} from "@apollo/client"
 import { Formik, Form } from "formik";
 
 interface Props {
-    postId:String
+    parentId:String
 }
 
 export default function CommentEditor(props:Props) {
   const mdEditor = React.useRef<Editor>(null);
   const [value, setValue] = React.useState("Write here");
-  const parentId = props.postId 
+  const parentId = props.parentId 
 
-  const MAKE_POST = gql`
-    mutation CREATE_POST($parentId:String!, $body:String!) {
+  const MAKE_COMMENT = gql`
+    mutation CREATE_POST($title:String!, $parentId:String!, $body:String!) {
       createPost(post: {parent: {id:$parentId, host:"localhost:8080"}, 
-        title: "", body: $body}) {
+        title: $title, body: $body}) {
         id
       }
     }
   `
   
-  const [makePost] = useMutation(MAKE_POST)
+  const [makePost] = useMutation(MAKE_COMMENT)
   const initialValues = {
     title: ""
   }
@@ -34,8 +34,10 @@ export default function CommentEditor(props:Props) {
       const body = mdEditor.current.getMdValue();
 
       try {
-        makePost({variables: {parentId:parentId , body:body}})
+        const title = "Comment on " + parentId
+        makePost({variables: {title: title, parentId:parentId , body:body}})
         window.location.reload()
+        
       }
       catch(err) {
         alert("Post could not be made")
@@ -49,7 +51,7 @@ export default function CommentEditor(props:Props) {
   };
 
   return (
-    <div>
+    <div style={{margin:"20px", alignContent:"center"}}>
       <Formik
         initialValues={initialValues}
         onSubmit={() => {
@@ -62,7 +64,7 @@ export default function CommentEditor(props:Props) {
           value={value}
           style={{
             height: "200px",
-            width:"500px"
+            width:"800px"
           }}
           onChange={handleEditorChange}
           renderHTML={(text) => <ReactMarkdown source={text} />}
