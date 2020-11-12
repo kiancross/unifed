@@ -4,7 +4,7 @@
 
 import { Router } from "express";
 import { routes as graphqlRoutes } from "./graphql-server";
-import { routes as federatedRoutes } from "./federated-server";
+import { routes as federatedRoutes } from "./federation-server";
 
 export const routes = (async (): Promise<Router> => {
   const router: Router = Router();
