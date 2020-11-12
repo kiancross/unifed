@@ -5,13 +5,15 @@ import { Link } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { accountsClient } from "../utils/accounts";
 import { GraphQLErrorList } from "@accounts/graphql-client";
+import zxcvbn from "zxcvbn";
+import { Button, TextField } from "@material-ui/core";
 
-interface FormValues {
+interface Values {
   email: string;
   password: string;
 }
 
-async function loginUser(values: FormValues) {
+async function loginUser(values: Values) {
   try {
     await accountsClient.loginWithService("password", {
       user: {
@@ -28,40 +30,76 @@ async function loginUser(values: FormValues) {
   }
 }
 
-const submitButtonStyle = "Submit-button";
+function validateEmail(email: string) {
+  const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return regexp.test(email);
+}
+
+function validate({ email, password }: Values) {
+  const errors: Partial<Values> = {};
+  if (!validateEmail(email)) {
+    errors.email = "Invalid email";
+  }
+  const result = zxcvbn(password);
+  if (result.score < 3) {
+    errors.password = "Password not strong enough";
+  }
+  return errors;
+}
 
 const LoginForm = (): JSX.Element => {
-  const initialValues = {
-    email: "",
-    password: "",
-  };
   return (
     <div className="container">
       <img src={logo} alt="st andrews logo" width="250" height="300"></img>
       <h1>Welcome Back!</h1>
       <Formik
-        initialValues={initialValues}
-        //TODO add validation
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        validate={validate}
+        validateOnBlur={true}
         onSubmit={(values) => {
           loginUser(values);
         }}
       >
-        <Form>
-          <div>
-            <label htmlFor="email">Email:</label>
-            <Field name="email" />
-          </div>
-          <div>
-            <label htmlFor="password">Password:</label>
-            <Field name="password" />
-          </div>
-          <button type="submit" className={submitButtonStyle}>
-            Login
-          </button>
-        </Form>
+        {({ errors, touched }) => (
+          <Form>
+            <div>
+              <Field
+                name="email"
+                as={TextField}
+                label="Email"
+                color="primary"
+                helperText={errors.email}
+                error={!!errors.email}
+              />
+            </div>
+            <div>
+            <Field
+                name="password"
+                as={TextField}
+                label="Password"
+                color="primary"
+                helperText={errors.password}
+                error={!!errors.password}
+              />
+            </div>
+            <Button
+              type="submit"
+              variant="contained"
+              style={{ margin: "20px" }}
+              disabled={!touched.email || !!errors.email}
+            >
+              Login
+            </Button>
+          </Form>
+        )}
       </Formik>
-      <Link to="/reset-password">
-        <button className={submitButtonStyle}>Forgot Password?</button>
+      <Link to="/reset-password" style={{ textDecoration: "none" }}>
+        <Button type="submit" variant="contained">
+          Forgot Password?
+        </Button>
       </Link>
     </div>
   );
