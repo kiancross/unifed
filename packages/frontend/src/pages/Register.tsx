@@ -4,23 +4,25 @@ import "./../App.scss";
 import logo from "./../st-andrews-logo.png";
 import { passwordClient } from "../utils/accounts";
 import { GraphQLErrorList } from "@accounts/graphql-client";
+import { validateUsername, validateName, validateEmail, validatePassword } from "unifed-shared";
+import { Button, TextField } from "@material-ui/core";
 
-interface FormValues {
+interface Values {
   username: string;
+  name: string;
   email: string;
   password: string;
-  name: string;
 }
 
-async function registerUser(values: FormValues) {
+async function registerUser(values: Values) {
   try {
     await passwordClient.createUser({
       username: values.username,
-      email: values.email,
-      password: values.password,
       profile: {
         name: values.name,
       },
+      email: values.email,
+      password: values.password,
     });
     await passwordClient.requestVerificationEmail(values.email);
   } catch (err) {
@@ -30,44 +32,98 @@ async function registerUser(values: FormValues) {
   }
 }
 
+function validate({ username, name, email, password }: Values) {
+  const errors: Partial<Values> = {};
+  if (!validateUsername(username)) {
+    errors.username = "Invalid username";
+  }
+  if (!validateName(name)) {
+    errors.name = "Invalid name";
+  }
+  if (!validateEmail(email)) {
+    errors.email = "Invalid email";
+  }
+  if (!validatePassword(password).valid) {
+    errors.password = "Invalid password";
+  }
+  return errors;
+}
+
 const SignupForm = (): JSX.Element => {
-  const initialValues = {
-    username: "",
-    email: "",
-    password: "",
-    name: "",
-  };
   return (
     <div className="container">
       <img src={logo} alt="st andrews logo" width="250" height="300"></img>
       <Formik
-        initialValues={initialValues}
-        // TODO add validation
+        initialValues={{
+          username: "",
+          name: "",
+          email: "",
+          password: "",
+        }}
+        validate={validate}
+        validateOnBlur={true}
         onSubmit={(values) => {
           registerUser(values);
         }}
       >
-        <Form>
-          <div>
-            <label htmlFor="username">Username:</label>
-            <Field name="username" />
-          </div>
-          <div>
-            <label htmlFor="email">Email:</label>
-            <Field name="email" />
-          </div>
-          <div>
-            <label htmlFor="password">Password:</label>
-            <Field name="password" />
-          </div>
-          <div>
-            <label htmlFor="name">Name:</label>
-            <Field name="name" />
-          </div>
-          <button type="submit" className="Submit-button">
-            Create Account
-          </button>
-        </Form>
+        {({ errors, touched }) => (
+          <Form>
+            <div>
+              <Field
+                name="username"
+                as={TextField}
+                label="Username"
+                color="primary"
+                helperText={errors.username}
+                error={!!errors.username}
+              />
+            </div>
+            <div>
+              <Field
+                name="name"
+                as={TextField}
+                label="Name"
+                color="primary"
+                helperText={errors.name}
+                error={!!errors.name}
+              />
+            </div>
+            <div>
+              <Field
+                name="email"
+                as={TextField}
+                label="Email"
+                color="primary"
+                helperText={errors.email}
+                error={!!errors.email}
+              />
+            </div>
+            <div>
+              <Field
+                name="password"
+                as={TextField}
+                label="Password"
+                color="primary"
+                helperText={errors.password}
+                error={!!errors.password}
+              />
+            </div>
+            <Button
+              type="submit"
+              variant="contained"
+              style={{ margin: "20px" }}
+              disabled={
+                (!touched.username && !touched.name && !touched.email && !touched.password) ||
+                !!errors.username ||
+                !!errors.name ||
+                !!errors.email ||
+                !!errors.password
+              }
+            >
+              Create Account
+            </Button>
+          </Form>
+        )}
       </Formik>
     </div>
   );

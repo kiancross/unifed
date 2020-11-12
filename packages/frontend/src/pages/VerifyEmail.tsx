@@ -18,7 +18,6 @@ const VerifyEmail = (): JSX.Element => {
   return (
     <div className="container">
       {isTokenValid ? (
-        // TODO redirect to home page on success
         <Redirect to="/" />
       ) : (
         <React.Fragment>

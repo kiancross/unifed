@@ -18,6 +18,11 @@ export function validateName(name: string): boolean {
   return /^.{1,64}$/.test(name);
 }
 
+export function validateEmail(email: string): boolean {
+  const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return regexp.test(email);
+}
+
 export function validatePassword(password: string): PasswordValidationResult {
   const result = zxcvbn(password);
   const valid = result.score >= 3;
