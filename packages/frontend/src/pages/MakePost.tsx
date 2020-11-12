@@ -3,7 +3,7 @@ import PostEditor from "../components/PostEditor"
 import { Link } from "react-router-dom";
 import "./../App.scss";
 
-const CreatePost = () => {
+const MakePost = () => {
     return (
         <div>
             <PostEditor />
@@ -16,4 +16,4 @@ const CreatePost = () => {
     )
 }
 
-export default CreatePost
+export default MakePost

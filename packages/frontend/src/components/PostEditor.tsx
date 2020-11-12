@@ -48,7 +48,7 @@ export default function App() {
       try {
         makePost({variables: {title:title, body:body}})
       }
-      catch(err) {
+      catch(e) {
         alert("Post could not be made")
       }
     }
