@@ -3,53 +3,50 @@ import Editor from "react-markdown-editor-lite";
 import ReactMarkdown from "react-markdown";
 import "react-markdown-editor-lite/lib/index.css";
 import "./../App.scss";
-import {gql, useMutation} from "@apollo/client"
+import { gql, useMutation } from "@apollo/client";
 import { Formik, Form, Field } from "formik";
-import { Redirect } from "react-router-dom"
-
+import { Redirect } from "react-router-dom";
 
 export default function App() {
   const mdEditor = React.useRef<Editor>(null);
   const [value, setValue] = React.useState("Write here");
 
   const MAKE_POST = gql`
-    mutation CREATE_POST($title:String!, $body:String!) {
-      createPost(post: {parent: {id:"all", host:"localhost:8080"}, 
-        title: $title, body: $body}) {
+    mutation CREATE_POST($title: String!, $body: String!) {
+      createPost(
+        post: { parent: { id: "all", host: "localhost:8080" }, title: $title, body: $body }
+      ) {
         id
       }
     }
-  `
-  
-  const [ makePost, { loading, error, data } ] = useMutation(MAKE_POST)
+  `;
 
-  
+  const [makePost, { loading, error, data }] = useMutation(MAKE_POST);
+
   if (loading) return <p>Creating Post...</p>;
   if (error) return <p>Error :(</p>;
   if (data) {
     const url = "/posts/" + data.createPost.id;
-    return <Redirect to={url}/>
+    return <Redirect to={url} />;
   }
 
   const initialValues = {
-    title: ""
-  }
+    title: "",
+  };
 
   interface postValues {
-    title:string
+    title: string;
   }
- 
 
-  const handleClick = (values:postValues) => {
+  const handleClick = (values: postValues) => {
     if (mdEditor.current) {
-      const title = values.title
+      const title = values.title;
       const body = mdEditor.current.getMdValue();
 
       try {
-        makePost({variables: {title:title, body:body}})
-      }
-      catch(e) {
-        alert("Post could not be made")
+        makePost({ variables: { title: title, body: body } });
+      } catch (e) {
+        alert("Post could not be made");
       }
     }
   };
@@ -63,14 +60,14 @@ export default function App() {
     <div id="postEditor">
       <Formik
         initialValues={initialValues}
-        onSubmit={(values:any) => {
+        onSubmit={(values: any) => {
           handleClick(values);
         }}
       >
-        <Form style={{display:"block"}}>
-          <div style={{margin:"20px", color:"black"}}>
+        <Form style={{ display: "block" }}>
+          <div style={{ margin: "20px", color: "black" }}>
             <label htmlFor="title">Title: </label>
-            <Field name="title"/>
+            <Field name="title" />
           </div>
 
           <Editor
@@ -80,7 +77,7 @@ export default function App() {
               height: "300px",
             }}
             onChange={handleEditorChange}
-            renderHTML={(text:string) => <ReactMarkdown source={text} />}
+            renderHTML={(text: string) => <ReactMarkdown source={text} />}
           />
 
           <button className="Submit-button" type="submit">

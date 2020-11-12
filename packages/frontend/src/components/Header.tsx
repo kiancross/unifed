@@ -1,12 +1,12 @@
 import React from "react";
 import { AppBar, Box, Toolbar, Typography } from "@material-ui/core";
 import logo from "./../images/st-andrews-logo.png";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 
 // Simple placeholder header
 const Header = (): JSX.Element => {
   const logo_height = 30;
-  const logo_width = logo_height * 300/351;
+  const logo_width = (logo_height * 300) / 351;
   return (
     <AppBar color="primary" position="sticky">
       <Toolbar variant="dense">

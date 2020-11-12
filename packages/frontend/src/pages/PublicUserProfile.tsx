@@ -16,7 +16,7 @@ const PublicUserProfile = (): JSX.Element => {
     <Container>
       <Grid container spacing={3}>
         <Grid item container xs={8} direction="column" spacing={2}>
-          <Post username={username} text="Example post" title="Example Title"/>
+          <Post username={username} text="Example post" title="Example Title" />
         </Grid>
         <Grid item container xs={4} direction="column" spacing={2}>
           <UserInfoCard username={username} name={name} />

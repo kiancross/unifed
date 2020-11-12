@@ -6,7 +6,7 @@ import "fontsource-roboto";
 interface PostValues {
   username: string;
   text: string;
-  title:string;
+  title: string;
 }
 
 const Post = (props: PostValues): JSX.Element => {
@@ -21,7 +21,9 @@ const Post = (props: PostValues): JSX.Element => {
             <Typography variant="body2" gutterBottom>
               <Link href={"/user/" + props.username}>{props.username}</Link>
             </Typography>
-            <Typography variant="h5" paragraph={true}>{props.title}</Typography>
+            <Typography variant="h5" paragraph={true}>
+              {props.title}
+            </Typography>
             <Typography variant="body2">{props.text}</Typography>
           </CardContent>
         </Card>

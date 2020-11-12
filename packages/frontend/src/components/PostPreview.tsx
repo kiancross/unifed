@@ -19,10 +19,10 @@ const PostPreview = (props: PostValues): JSX.Element => {
         <Card style={{ textAlign: "left" }}>
           <CardContent>
             <Typography variant="body2" gutterBottom>
-                <Link href={"/user/" + props.username}>{props.username}</Link>
+              <Link href={"/user/" + props.username}>{props.username}</Link>
             </Typography>
             <Typography variant="body2">
-                <Link href={"/posts/" + props.postId}>{props.title}</Link>
+              <Link href={"/posts/" + props.postId}>{props.title}</Link>
             </Typography>
           </CardContent>
         </Card>
