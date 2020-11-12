@@ -66,16 +66,16 @@ class Config {
     return throwIfUndefined(process.env.JWT_SECRET);
   }
 
-  static get siteUrl(): string {
-    return `${this.siteProtocol}://${this.siteHost}`;
-  }
-
   static get siteHost(): string {
     return throwIfUndefined(process.env.SITE_HOST)
   }
 
   static get siteProtocol(): string {
     return throwIfUndefined(process.env.SITE_PROTOCOL)
+  }
+  
+  static get siteUrl(): string {
+    return `${this.siteProtocol}://${this.siteHost}`;
   }
 
   static get applicationName(): string {
