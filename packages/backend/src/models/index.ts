@@ -2,6 +2,7 @@
  * CS3099 Group A3
  */
 
-export { User, UserModel } from "./user";
-export { Post, PostModel } from "./post";
-export { Community, CommunityModel } from "./community";
+export * from "./user";
+export * from "./post";
+export * from "./community";
+export * from "./remote-reference";
