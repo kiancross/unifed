@@ -2,9 +2,10 @@
  * CS3099 Group A3
  */
 
+import { plainToClass } from "class-transformer";
 import { Response, Request, NextFunction, json as jsonBodyParser } from "express";
 import { AsyncRouter } from "express-async-router";
-import { Post, PostModel } from "../models";
+import { Post, PostModel, CommunityModel } from "../models";
 
 async function getPost(req: Request, res: Response, next: NextFunction) {
   const post = await PostModel.findById(req.params.id);
@@ -58,12 +59,29 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const post = await Post.fromObj(req.body);
 
-  if (!post) {
-    res.status(400).json({ error: "Invalid field: 'parent'" });
-    return;
+  const postRaw = req.body;
+  const post = plainToClass(Post, postRaw as Post);
+
+  const parentPost = await PostModel.findById(postRaw.parent);
+
+  if (parentPost) {
+    post.community = parentPost.community;
+    post.parentPost = parentPost;
+
+  } else {
+    const community = await CommunityModel.findById(postRaw.parent);
+
+    if (community) {
+      post.community = community;
+
+    } else {
+      res.status(400).json({ error: "Invalid field: 'parent'" });
+      return;
+    }
   }
+
+  // TODO validate
 
   res.json(await PostModel.create(post));
 });

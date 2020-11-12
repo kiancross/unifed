@@ -4,17 +4,27 @@
 
 import got from "got";
 import { getFederatedApiEndpoint } from "./utils";
-import { Post, PostObject, RemoteReferenceObject } from "../../models";
+import { Post, User } from "../../models";
+import { config } from "../../utils";
 
-type CreatePostObject = Omit<PostObject, "community"> | Record<"author", RemoteReferenceObject>;
+export async function createPost(host: string, user: User, parent: string, title: string, body: string) {
 
-export async function createPost(host: string, post: CreatePostObject) {
   try {
-    return (await got
-      .post(getFederatedApiEndpoint(host, ["posts"]), {
-        json: post,
-      })
-      .json()) as Post;
+    const rawPost = await got.post(getFederatedApiEndpoint(host, ["posts"]), {
+      json: {
+        parent, title, body,
+        contentType: "markdown",
+        author: {
+          id: user.username,
+          host: config.siteHost,
+        },
+      },
+    }).json();
+ 
+   return rawPost as Post; 
+    
+    // insert ref into db
+
   } catch (error) {
     if (error.response.statusCode === 400) {
       return null;

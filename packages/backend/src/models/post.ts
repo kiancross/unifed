@@ -3,26 +3,11 @@
  */
 
 import { prop as Property, getModelForClass, Ref } from "@typegoose/typegoose";
-import { ObjectType, Field, createUnionType } from "type-graphql";
+import { ObjectType, Field } from "type-graphql";
 import { dateToUnixTimeStamp } from "../utils/date";
 import { Base, getIdFromRef } from "./base";
-import { Community, CommunityModel } from "./community";
+import { Community } from "./community";
 import { RemoteReference } from "./remote-reference";
-
-const PostParentUnion = createUnionType({
-  name: "PostParent",
-  types: () => [Post, Community] as const,
-});
-
-type PostObjectFields =
-  | "community"
-  | "parentPost"
-  | "title"
-  | "contentType"
-  | "body"
-  | "author"
-  | "parent";
-export type PostObject = Pick<Post, PostObjectFields>;
 
 @ObjectType()
 export class Post extends Base {
@@ -59,49 +44,6 @@ export class Post extends Base {
   })
   children?: Ref<Post>[];
 
-  get parent(): Ref<typeof PostParentUnion> {
-    return this.parentPost === undefined ? this.community : this.parentPost;
-  }
-
-  static async fromObj(obj: PostObject): Promise<Post> {
-    const post = new Post();
-
-    if (obj.parent && (obj.parentPost || obj.community)) {
-      new Error("Must not set 'parentPost' or 'community' if 'parent' is set");
-    }
-
-    post.title = obj.title;
-    post.contentType = obj.contentType;
-    post.body = obj.body;
-    post.author = obj.author;
-    post.parentPost = obj.parentPost;
-    post.community = obj.community;
-
-    if (obj.parentPost && !(await PostModel.findById(obj.parentPost)))
-      new Error("'parentPost' not found");
-    if (obj.community && !(await CommunityModel.findById(obj.community)))
-      new Error("'community' not found");
-
-    if (obj.parent) {
-      const parentPost = await PostModel.findById(obj.parent);
-
-      if (parentPost) {
-        post.community = parentPost.community;
-        post.parentPost = parentPost;
-      } else {
-        const community = await CommunityModel.findById(obj.parent);
-
-        if (community) {
-          post.community = community;
-        } else {
-          throw Error("'parent' is not a community or post");
-        }
-      }
-    }
-
-    return post;
-  }
-
   get updatedAtUnixTimeStamp() {
     return this.updatedAt ? dateToUnixTimeStamp(this.updatedAt) : undefined;
   }
@@ -111,13 +53,9 @@ export class Post extends Base {
   }
 
   toJSON(): { [key: string]: any } {
-    if (this.updatedAt === undefined || this.createdAt === undefined) {
-      throw Error("Missing content meta-data");
-    }
-
     return {
       ...super.toJSON(),
-      parent: getIdFromRef(this.parent),
+      parent: getIdFromRef(this.parentPost === undefined ? this.community : this.parentPost),
       children: this.children?.map(getIdFromRef),
       title: this.title,
       contentType: this.contentType,

@@ -17,15 +17,7 @@ export class PostsResolver /*implements ResolverInterface<Post>*/ {
     @Arg("post") post: CreatePostInput,
     @CurrentUser() user: User,
   ): Promise<Post | null> {
-    return await postsClient.createPost(post.parent.host, {
-      ...post,
-      parent: post.parent.id,
-      contentType: "markdown",
-      author: {
-        id: user.username,
-        host: "localhost:8080",
-      },
-    });
+    return await postsClient.createPost(post.parent.host, user, post.parent.id, post.title, post.body);
   }
 
   @Query(() => [Post])
