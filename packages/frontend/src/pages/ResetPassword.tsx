@@ -3,9 +3,8 @@ import { passwordClient } from "../utils/accounts";
 import { Redirect, useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { TextField, Button } from "@material-ui/core";
-
+import { validatePassword } from "unifed-shared";
 import logo from "../st-andrews-logo.png";
-import zxcvbn from "zxcvbn";
 
 interface Params {
   token: string;
@@ -18,8 +17,8 @@ interface Values {
 function validate({ newPass, retyped }: Values) {
   const errors: Partial<Values> = {};
   if (newPass === retyped) {
-    [zxcvbn(newPass), zxcvbn(retyped)].forEach((result, isRetyped) => {
-      if (result.score < 3) {
+    [validatePassword(newPass), validatePassword(retyped)].forEach((result, isRetyped) => {
+      if (!result.valid) {
         if (isRetyped) {
           errors.retyped = "Password not strong enough";
         } else {

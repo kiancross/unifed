@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { accountsClient } from "../utils/accounts";
 import { GraphQLErrorList } from "@accounts/graphql-client";
-import zxcvbn from "zxcvbn";
+import { validateEmail, validatePassword } from "unifed-shared";
 import { Button, TextField } from "@material-ui/core";
 
 interface Values {
@@ -30,18 +30,12 @@ async function loginUser(values: Values) {
   }
 }
 
-function validateEmail(email: string) {
-  const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return regexp.test(email);
-}
-
 function validate({ email, password }: Values) {
   const errors: Partial<Values> = {};
   if (!validateEmail(email)) {
     errors.email = "Invalid email";
   }
-  const result = zxcvbn(password);
-  if (result.score < 3) {
+  if (!validatePassword(password).valid) {
     errors.password = "Password not strong enough";
   }
   return errors;

@@ -4,14 +4,10 @@ import "./../App.scss";
 import logo from "./../st-andrews-logo.png";
 import { passwordClient } from "../utils/accounts";
 import { Button, TextField } from "@material-ui/core";
+import { validateEmail } from "unifed-shared";
 
 interface Values {
   email: string;
-}
-
-function validateEmail(email: string) {
-  const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return regexp.test(email);
 }
 
 function validate({ email }: Values) {
