@@ -5,11 +5,11 @@ import "fontsource-roboto";
 
 interface PostValues {
   username: string;
-  text: string;
   title: string;
+  postId: string;
 }
 
-const Post = (props: PostValues): JSX.Element => {
+const PostPreview = (props: PostValues): JSX.Element => {
   return (
     <Grid item container spacing={2}>
       <Grid item xs={1} container justify="flex-end">
@@ -21,10 +21,9 @@ const Post = (props: PostValues): JSX.Element => {
             <Typography variant="body2" gutterBottom>
               <Link href={"/user/" + props.username}>{props.username}</Link>
             </Typography>
-            <Typography variant="h5" paragraph={true}>
-              {props.title}
+            <Typography variant="body2">
+              <Link href={"/posts/" + props.postId}>{props.title}</Link>
             </Typography>
-            <Typography variant="body2">{props.text}</Typography>
           </CardContent>
         </Card>
       </Grid>
@@ -32,4 +31,4 @@ const Post = (props: PostValues): JSX.Element => {
   );
 };
 
-export default Post;
+export default PostPreview;

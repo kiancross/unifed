@@ -14,5 +14,6 @@
   },
   "devDependencies": {
     "nyc": "^15.1.0"
-  }
+  },
+  "dependencies": {}
 }
