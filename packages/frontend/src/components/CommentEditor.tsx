@@ -15,7 +15,7 @@ export default function CommentEditor(props: Props) {
   const mdEditor = React.useRef<Editor>(null);
   const [value, setValue] = React.useState("Write here");
 
-  const MAKE_COMMENT = gql`
+  const MAKE_COMMENTS = gql`
     mutation CREATE_POST($title: String!, $parentId: String!, $body: String!) {
       createPost(
         post: { parent: { id: $parentId, host: "localhost:8080" }, title: $title, body: $body }
@@ -25,7 +25,7 @@ export default function CommentEditor(props: Props) {
     }
   `;
 
-  const [makePost, { data }] = useMutation(MAKE_COMMENT);
+  const [makePost, { data }] = useMutation(MAKE_COMMENTS);
 
   if (data) window.location.reload();
 
