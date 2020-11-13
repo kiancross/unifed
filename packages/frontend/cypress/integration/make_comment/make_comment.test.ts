@@ -29,5 +29,4 @@ describe("Make Comment Test", () => {
     cy.contains("Comments");
     cy.contains("Test Comment");
   });
-
 });
