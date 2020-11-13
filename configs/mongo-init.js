@@ -31,3 +31,20 @@ db.users.insertOne({
         }
     ]
 })
+
+db.posts.insertOne(
+    {
+        _id: '06752e4c-49ba-4887-af00-4176aff93286',
+        title: 'Test Title',
+        body: 'Test Post',
+        contentType: 'markdown',
+        author: {
+            id: 'allan1',
+            host: 'localhost:8080'
+        },
+        community: 'all',
+        createdAt: ISODate('2020-11-13T12:02:34.602Z'),
+        updatedAt: ISODate('2020-11-13T12:02:34.602Z'),
+        __v: 0
+    }
+)
