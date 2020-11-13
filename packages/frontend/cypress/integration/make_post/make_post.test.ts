@@ -24,11 +24,13 @@ describe("Make Post Test", () => {
       .click()
       .get('input[name="title"]')
       .clear()
-      .type("Test title")
+      .type("Cypress Title")
       .get('textarea[name="textarea"]')
       .clear()
-      .type("Test post")
+      .type("Cypress Post")
       .get('button[type="submit"]')
       .click();
+    cy.contains("Cypress Title");
+    cy.contains("Cypress Post");
   });
 });
