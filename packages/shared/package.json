@@ -29,6 +29,10 @@
     "fix": "eslint . --ext .ts --fix"
   },
   "ava": {
+    "concurrency": 5,
+    "files": [
+      "!build/**/*"
+    ],
     "extensions": [
       "ts"
     ],
