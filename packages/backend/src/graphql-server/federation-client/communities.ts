@@ -8,7 +8,7 @@ import { validate } from "class-validator";
 import { getFederatedApiEndpoint, isStringArray, RemoteResponseError } from "./utils";
 import { Community } from "../../models";
 
-class CommunityNotFoundError extends Error {
+export class CommunityNotFoundError extends Error {
   constructor(id: string) {
     super(`Community not found: ${id}`);
   }

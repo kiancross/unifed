@@ -4,7 +4,7 @@
 
 import { prop as Property, getModelForClass, Ref } from "@typegoose/typegoose";
 import { ObjectType, Field } from "type-graphql";
-import { dateToUnixTimeStamp } from "../utils/date";
+import { dateToUnixTimestamp } from "../utils/date";
 import { Base, getIdFromRef } from "./base";
 import { Community } from "./community";
 import { RemoteReference } from "./remote-reference";
@@ -42,25 +42,25 @@ export class Post extends Base {
   })
   children?: Ref<Post>[];
 
-  get updatedAtUnixTimeStamp() {
-    return this.updatedAt ? dateToUnixTimeStamp(this.updatedAt) : undefined;
+  get updatedAtUnixTimestamp() {
+    return this.updatedAt ? dateToUnixTimestamp(this.updatedAt) : undefined;
   }
 
-  get createdAtUnixTimeStamp() {
-    return this.createdAt ? dateToUnixTimeStamp(this.createdAt) : undefined;
+  get createdAtUnixTimestamp() {
+    return this.createdAt ? dateToUnixTimestamp(this.createdAt) : undefined;
   }
 
   toJSON(): { [key: string]: any } {
     return {
       ...super.toJSON(),
       parent: getIdFromRef(this.parentPost === undefined ? this.community : this.parentPost),
-      children: this.children?.map(getIdFromRef),
+      children: (this.children || []).map(getIdFromRef),
       title: this.title,
       contentType: this.contentType,
       body: this.body,
       author: this.author,
-      modified: this.updatedAtUnixTimeStamp,
-      created: this.createdAtUnixTimeStamp,
+      modified: this.updatedAtUnixTimestamp,
+      created: this.createdAtUnixTimestamp,
     };
   }
 }
