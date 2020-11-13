@@ -3,9 +3,8 @@ import { passwordClient } from "../utils/accounts";
 import { Redirect, useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { TextField, Button } from "@material-ui/core";
-
+import { validatePassword } from "unifed-shared";
 import logo from "./../images/st-andrews-logo.png";
-import zxcvbn from "zxcvbn";
 
 interface Params {
   token: string;
@@ -18,8 +17,8 @@ interface Values {
 function validate({ newPass, retyped }: Values) {
   const errors: Partial<Values> = {};
   if (newPass === retyped) {
-    [zxcvbn(newPass), zxcvbn(retyped)].forEach((result, isRetyped) => {
-      if (result.score < 3) {
+    [validatePassword(newPass), validatePassword(retyped)].forEach((result, isRetyped) => {
+      if (!result.valid) {
         if (isRetyped) {
           errors.retyped = "Password not strong enough";
         } else {
@@ -54,7 +53,7 @@ const ResetPassword = (): JSX.Element => {
         }
       }}
     >
-      {({ errors, touched }) => (
+      {({ values, errors, touched }) => (
         <>
           <div className="container" style={{ float: "left" }}>
             <img src={logo} alt="st andrews logo" width="250" height="300"></img>
@@ -65,8 +64,8 @@ const ResetPassword = (): JSX.Element => {
                   as={TextField}
                   label="Password"
                   color="primary"
-                  helperText={errors.newPass}
-                  error={!!errors.newPass}
+                  helperText={values.newPass && errors.newPass}
+                  error={values.newPass && !!errors.newPass}
                 />
               </div>
               <div>
@@ -75,8 +74,8 @@ const ResetPassword = (): JSX.Element => {
                   as={TextField}
                   label="Retype"
                   color="primary"
-                  helperText={errors.newPass}
-                  error={!!errors.newPass}
+                  helperText={values.newPass && errors.newPass}
+                  error={values.newPass && !!errors.newPass}
                 />
               </div>
               <Button

@@ -24,5 +24,6 @@
   "ts-node": {
     "files": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude" : ["src/**/*.test.ts"]
 }
