@@ -7,10 +7,10 @@ process.env.SMTP_PORT = "587";
 process.env.SMTP_USERNAME = "rogers.price3@ethereal.email";
 process.env.SMTP_PASSWORD = "YwgzQrmK2gemUfR63g";
 
-import { expect } from "chai";
+import test from "ava";
 import { emailTransporter } from "../email";
 
-it("Correct type", async () => {
+test("Correct type", async t => {
 
   const info = await emailTransporter.sendMail({
     from: "sender@server.com",
@@ -19,5 +19,5 @@ it("Correct type", async () => {
     text: "Plaintext version of the message",
   });
 
-  expect(info.response).to.match(/^250 Accepted/);
+  t.regex(info.response, /^250 Accepted/);
 });

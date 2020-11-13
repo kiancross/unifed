@@ -2,42 +2,34 @@
  * CS3099 Group A3
  */
 
-import { expect } from "chai";
+import test from "ava";
 import { Base, UnrecognisedPropertyError, getIdFromRef } from "../base";
 
 class MockBase extends Base { }
 
-describe("Base", () => {
-
-  let base: MockBase;
-
-  beforeEach(() => {
-    base = new MockBase();
-  });
-
-  it("id getter", () => {
-    expect(base.id).to.be.undefined;
-  });
-
-  it("id setter", () => {
-    base.id = "someid";
-    expect(base.id).to.equal("someid");
-  });
-
-  it("toJSON", () => {
-    base.id = "someid";
-    expect(base.toJSON()).to.deep.equal({id: "someid"})
-  })
+test("id getter", t => {
+  const base = new MockBase();
+  t.is(base.id, undefined);
 });
 
-describe("getIdFromRef", () => {
-  it("isRefType", () => {
-    expect(getIdFromRef("someid")).to.equal("someid");
-  });
+test("id setter", t => {
+  const base = new MockBase();
+  base.id = "someid";
+  t.is(base.id, "someid");
 });
 
-it("UnrecognisedPropertyError", () => {
+test("toJSON", t => {
+  const base = new MockBase();
+  base.id = "someid";
+  t.deepEqual(base.toJSON(), {id: "someid"})
+})
+
+test("isRefType", t => {
+  t.is(getIdFromRef("someid"), "someid");
+});
+
+test("UnrecognisedPropertyError", t => {
   const error = new UnrecognisedPropertyError("someprop");
-  expect(error.message).to.contain("someprop");
-  expect(error.message).to.contain(typeof "someprop");
+  t.regex(error.message, /someprop/);
+  t.regex(error.message, new RegExp(typeof "someprop"));
 })
