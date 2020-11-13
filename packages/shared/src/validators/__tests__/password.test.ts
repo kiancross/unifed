@@ -5,7 +5,7 @@
 import test from "ava";
 import { validatePassword } from "../password";
 
-test("Weak", t => {
+test("Weak", (t) => {
   const result = validatePassword("weak");
 
   t.false(result.valid);
@@ -20,7 +20,7 @@ test("Weak", t => {
   }
 });
 
-test("Strong", t => {
+test("Strong", (t) => {
   const result = validatePassword("ThisIsAStr0ngP@55w0rd");
 
   t.true(result.valid);
