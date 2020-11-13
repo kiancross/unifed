@@ -26,9 +26,7 @@ describe("Make Comment Test", () => {
       .type("Test Comment")
       .get('button[type="submit"]')
       .click();
-  });
-
-  it("Should contain elements", () => {
     cy.contains("Comments");
+    cy.contains("Test Comment");
   });
 });
