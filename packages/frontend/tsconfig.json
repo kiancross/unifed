@@ -30,7 +30,6 @@
     "noImplicitAny": true,
     "sourceMap": true,
     "emitDecoratorMetadata": true,
-    "strict": true,
     "experimentalDecorators": true
   },
   "include": ["src"]

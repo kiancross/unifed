@@ -1,6 +1,6 @@
 import React from "react";
 import "./../App.scss";
-import logo from "./../st-andrews-logo.png";
+import logo from "./../images/st-andrews-logo.png";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { accountsClient } from "../utils/accounts";
@@ -94,6 +94,9 @@ const LoginForm = (): JSX.Element => {
         <Button type="submit" variant="contained">
           Forgot Password?
         </Button>
+      </Formik>
+      <Link to="/reset-password">
+        <button className={submitButtonStyle}>Forgot Password?</button>
       </Link>
     </div>
   );

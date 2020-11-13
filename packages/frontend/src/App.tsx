@@ -22,6 +22,8 @@ import VerifyEmailPage from "./pages/VerifyEmail";
 import PublicUserProfile from "./pages/PublicUserProfile";
 import HomePage from "./pages/Home";
 import AccountSettingsPage from "./pages/AccountSettings";
+import MakePost from "./pages/MakePost";
+import PostPage from "./pages/PostPage";
 
 import Header from "./components/Header";
 import { Box } from "@material-ui/core";
@@ -29,9 +31,9 @@ import { Box } from "@material-ui/core";
 function App(): JSX.Element {
   return (
     <div className="App">
-      <Header />
-      <Box className="App-header" component="span" m={3}>
-        <Router>
+      <Router>
+        <Header />
+        <Box className="App-header" component="span" m={3}>
           <Switch>
             <Route exact path="/" component={LoginForm} />
             <Route exact path="/reset-password" component={ResetPasswordRequest} />
@@ -41,10 +43,12 @@ function App(): JSX.Element {
             <Route exact path="/register" component={RegisterForm} />
             <Route path="/user/:username" component={PublicUserProfile} />
             <Route path="/verify-email/:token" component={VerifyEmailPage} />
+            <Route path="/make-post" component={MakePost} />
+            <Route path="/posts/:postId" component={PostPage} />
             <Route component={PageNotFound} />
           </Switch>
-        </Router>
-      </Box>
+        </Box>
+      </Router>
     </div>
   );
 }

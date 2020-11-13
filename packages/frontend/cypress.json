@@ -1,5 +1,8 @@
 {
   "env": {
+    "cypress-react-selector": {
+      "root": "#root"
+    },
     "codeCoverage": {
       "url": "http://localhost:8080/internal/__coverage__"
     }

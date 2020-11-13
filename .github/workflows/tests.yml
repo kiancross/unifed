@@ -124,7 +124,8 @@ jobs:
           MONGO_USERNAME: "user"
           MONGO_PASSWORD: "pass"
           JWT_SECRET: "randomjwtsecret"
-          SITE_URL: "http://localhost:8080"
+          SITE_HOST: "localhost:8080"
+          SITE_PROTOCOL: "http"
           APPLICATION_NAME: "Unifed"
 
       - run: wait-on -t 30000 http://localhost:3000/

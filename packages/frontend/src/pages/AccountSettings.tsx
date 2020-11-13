@@ -1,17 +1,8 @@
 import React from "react";
 import { AppBar, Container, Tab, Tabs } from "@material-ui/core";
 import AccountTab from "../components/AccountTab";
-import { accountsClient, passwordClient } from "../utils/accounts";
+import { accountsClient } from "../utils/accounts";
 import { Redirect } from "react-router";
-// import { User } from '@accounts/types';
-
-function changePassword(oldPassword: string, newPassword: string) {
-  try {
-    passwordClient.changePassword(oldPassword, newPassword);
-  } catch (err) {
-    console.log(err);
-  }
-}
 
 enum UserStatus {
   FETCHING,
@@ -26,9 +17,9 @@ interface State {
   username: string;
 }
 
-class AccountSettings extends React.Component<any, State> {
-  constructor() {
-    super({});
+class AccountSettings extends React.Component<unknown, State> {
+  constructor(props: unknown) {
+    super(props);
 
     this.state = {
       gotUser: UserStatus.FETCHING,
@@ -41,13 +32,13 @@ class AccountSettings extends React.Component<any, State> {
     this.handleLoggedOut = this.handleLoggedOut.bind(this);
   }
 
-  handleTabChange(_event: React.ChangeEvent<unknown>, newValue: number) {
+  handleTabChange(_event: React.ChangeEvent<unknown>, newValue: number): void {
     this.setState(() => ({
       selectedTab: newValue,
     }));
   }
 
-  setDetails(username: string, email: string) {
+  setDetails(username: string, email: string): void {
     this.setState(() => ({
       gotUser: UserStatus.LOGGED_IN,
       username: username,
@@ -55,7 +46,7 @@ class AccountSettings extends React.Component<any, State> {
     }));
   }
 
-  handleLoggedOut() {
+  handleLoggedOut(): void {
     this.setState(() => ({
       gotUser: UserStatus.LOGGED_OUT,
     }));
@@ -83,8 +74,6 @@ class AccountSettings extends React.Component<any, State> {
         {this.state.selectedTab === 0 && (
           <AccountTab username={this.state.username} email={this.state.email} />
         )}
-        {this.state.selectedTab === 3 &&
-          changePassword("JonsPassword123%%", "JonsNewPassword123%%")}
       </Container>
     );
   }
