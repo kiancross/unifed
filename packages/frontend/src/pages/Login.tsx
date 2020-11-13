@@ -94,9 +94,6 @@ const LoginForm = (): JSX.Element => {
         <Button type="submit" variant="contained">
           Forgot Password?
         </Button>
-      </Formik>
-      <Link to="/reset-password">
-        <button className={submitButtonStyle}>Forgot Password?</button>
       </Link>
     </div>
   );
