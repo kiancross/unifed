@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import "./../App.scss";
 import { passwordClient } from "../utils/accounts";
 import { Button, TextField } from "@material-ui/core";
 import { validateEmail } from "unifed-shared";
 import logo from "./../images/st-andrews-logo.png";
+import { Redirect } from "react-router";
 
 interface Values {
   email: string;
@@ -19,6 +20,7 @@ function validate({ email }: Values) {
 }
 
 const ResetPasswordRequest = (): JSX.Element => {
+  const [isRequested, setIsRequested] = useState(false);
   return (
     <div className="container">
       <img src={logo} alt="st andrews logo" width="250" height="300"></img>
@@ -28,9 +30,10 @@ const ResetPasswordRequest = (): JSX.Element => {
         validateOnBlur={true}
         onSubmit={async (values: Values) => {
           await passwordClient.requestPasswordReset(values.email);
+          setIsRequested(true);
         }}
       >
-        {({ values, errors, touched }) => (
+        {({ values, errors }) => (
           <Form>
             <div>
               <Field
@@ -40,19 +43,22 @@ const ResetPasswordRequest = (): JSX.Element => {
                 color="primary"
                 helperText={values.email && errors.email}
                 error={values.email && !!errors.email}
+                data-testid="email"
               />
             </div>
             <Button
               type="submit"
               variant="contained"
               style={{ margin: "20px" }}
-              disabled={!touched.email || !!errors.email}
+              disabled={!!errors.email}
+              data-testid="submit"
             >
               Send Email
             </Button>
           </Form>
         )}
       </Formik>
+      {isRequested ? <Redirect to="/" /> : null}
     </div>
   );
 };
