@@ -10,8 +10,7 @@ process.env.SMTP_PASSWORD = "YwgzQrmK2gemUfR63g";
 import test from "ava";
 import { emailTransporter } from "../email";
 
-test("Correct type", async t => {
-
+test("Correct type", async (t) => {
   const info = await emailTransporter.sendMail({
     from: "sender@server.com",
     to: "receiver@sender.com",

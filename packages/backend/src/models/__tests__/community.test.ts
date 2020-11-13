@@ -5,7 +5,7 @@
 import test from "ava";
 import { Community } from "../community";
 
-test("toJSON", t => {
+test("toJSON", (t) => {
   const community = new Community();
   community.id = "someid";
   community.title = "Some title";
@@ -14,6 +14,6 @@ test("toJSON", t => {
     id: "someid",
     title: "Some title",
     description: "Some description",
-    admins: []
-  })
-})
+    admins: [],
+  });
+});

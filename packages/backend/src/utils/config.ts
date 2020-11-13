@@ -6,7 +6,6 @@ class EnvVarNotDefinedError extends Error {}
 class EnvVarNotInteger extends Error {}
 
 function getInteger(value: string): number {
-
   const n = Number(value);
 
   if (isNaN(n) || !Number.isInteger(n)) {
@@ -67,13 +66,13 @@ class Config {
   }
 
   static get siteHost(): string {
-    return throwIfUndefined(process.env.SITE_HOST)
+    return throwIfUndefined(process.env.SITE_HOST);
   }
 
   static get siteProtocol(): string {
-    return throwIfUndefined(process.env.SITE_PROTOCOL)
+    return throwIfUndefined(process.env.SITE_PROTOCOL);
   }
-  
+
   static get siteUrl(): string {
     return `${this.siteProtocol}://${this.siteHost}`;
   }

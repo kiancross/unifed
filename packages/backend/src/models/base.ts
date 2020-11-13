@@ -2,6 +2,7 @@
  * CS3099 Group A3
  */
 
+import { IsString, IsNotEmpty } from "class-validator";
 import { prop as Property, defaultClasses, Ref, isRefType, isDocument } from "@typegoose/typegoose";
 import { ObjectType, Field, ID } from "type-graphql";
 import { v4 as uuidv4 } from "uuid";
@@ -24,12 +25,18 @@ export function getIdFromRef<T extends Base>(item: Ref<T>) {
 
 @ObjectType()
 export abstract class Base extends defaultClasses.TimeStamps {
+  @IsNotEmpty()
+  @IsString()
   @Property({ default: uuidv4 })
   _id!: string;
 
+  @IsNotEmpty()
+  @IsString()
   @Field()
   host?: string;
 
+  @IsNotEmpty()
+  @IsString()
   @Field(() => ID)
   get id() {
     return this._id;
