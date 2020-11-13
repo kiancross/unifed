@@ -2,12 +2,12 @@ import React from "react";
 import { Link, Redirect, useParams } from "react-router-dom";
 import { passwordClient } from "../utils/accounts";
 
-interface VerifyEmailParams {
+interface Params {
   token: string;
 }
 
 const VerifyEmail = (): JSX.Element => {
-  const { token } = useParams<VerifyEmailParams>();
+  const { token } = useParams<Params>();
   let isTokenValid = false;
   try {
     passwordClient.verifyEmail(token);
@@ -18,7 +18,6 @@ const VerifyEmail = (): JSX.Element => {
   return (
     <div className="container">
       {isTokenValid ? (
-        // TODO redirect to home page on success
         <Redirect to="/" />
       ) : (
         <React.Fragment>

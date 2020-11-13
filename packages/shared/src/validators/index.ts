@@ -5,3 +5,4 @@
 export { validateName } from "./name";
 export { validatePassword } from "./password";
 export { validateUsername } from "./username";
+export { validateEmail } from "./email";

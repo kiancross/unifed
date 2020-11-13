@@ -2,6 +2,7 @@ import React from "react";
 import { Card, CardContent, Grid, Link, Typography } from "@material-ui/core";
 import UserIcon from "./UserIcon";
 import "fontsource-roboto";
+import ReactMarkdown from "react-markdown";
 
 interface PostValues {
   username: string;
@@ -24,7 +25,7 @@ const Post = (props: PostValues): JSX.Element => {
             <Typography variant="h5" paragraph={true}>
               {props.title}
             </Typography>
-            <Typography variant="body2">{props.text}</Typography>
+            <ReactMarkdown>{props.text}</ReactMarkdown>
           </CardContent>
         </Card>
       </Grid>

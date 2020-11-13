@@ -36,10 +36,10 @@ function App(): JSX.Element {
         <Box className="App-header" component="span" m={3}>
           <Switch>
             <Route exact path="/" component={LoginForm} />
-            <Route exact path="/home" component={HomePage} />
-            <Route exact path="/account" component={AccountSettingsPage} />
             <Route exact path="/reset-password" component={ResetPasswordRequest} />
             <Route path="/reset-password/:token" component={ResetPassword} />
+            <Route exact path="/home" component={HomePage} />
+            <Route exact path="/account" component={AccountSettingsPage} />
             <Route exact path="/register" component={RegisterForm} />
             <Route path="/user/:username" component={PublicUserProfile} />
             <Route path="/verify-email/:token" component={VerifyEmailPage} />
