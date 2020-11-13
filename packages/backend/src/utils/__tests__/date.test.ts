@@ -3,7 +3,7 @@
  */
 
 import { expect } from "chai";
-import { dateToUnixTimestamp } from "./date";
+import { dateToUnixTimestamp } from "../date";
 
 describe("dateToUnixTimestamp", () => {
   it("Example 1", () => {

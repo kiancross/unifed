@@ -3,7 +3,7 @@
  */
 
 import { expect } from "chai";
-import { validateUsername, validateName, validatePassword } from ".";
+import { validateUsername, validateName, validatePassword } from "../validators";
 
 describe("validateUsername", () => {
   it("Lowercase character", () => {

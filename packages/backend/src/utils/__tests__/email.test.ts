@@ -8,7 +8,7 @@ process.env.SMTP_USERNAME = "rogers.price3@ethereal.email";
 process.env.SMTP_PASSWORD = "YwgzQrmK2gemUfR63g";
 
 import { expect } from "chai";
-import { emailTransporter } from "./email";
+import { emailTransporter } from "../email";
 
 it("Correct type", async () => {
 

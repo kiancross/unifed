@@ -3,7 +3,7 @@
  */
 
 import { expect } from "chai";
-import { config } from "./config";
+import { config } from "../config";
 
 describe("debug", () => {
   it("NODE_ENV = production", () => {
