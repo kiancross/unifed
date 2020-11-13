@@ -3,7 +3,7 @@
  */
 
 import { expect } from "chai";
-import { Base, UnrecognisedPropertyError, getIdFromRef } from "./base";
+import { Base, UnrecognisedPropertyError, getIdFromRef } from "../base";
 
 class MockBase extends Base { }
 

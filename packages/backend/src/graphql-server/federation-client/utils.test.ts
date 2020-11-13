@@ -2,67 +2,68 @@
  * CS3099 Group A3
  */
 
+import { expect } from "chai";
 import { getFederatedApiEndpoint, isStringArray, RemoteResponseError } from "./utils";
 
 describe("RemoteResponseError", () => {
-  test("Message", () => {
+  it("Message", () => {
     const error = new RemoteResponseError("foo");
-    expect(error.message).toMatch("foo");
+    expect(error.message).to.match(/foo/);
   });
 });
 
 describe("isStringArray", () => {
-  test("Empty", () => {
-    expect(isStringArray([])).toBe(true);
+  it("Empty", () => {
+    expect(isStringArray([])).to.be.true;
   });
   
-  test("Not array", () => {
-    expect(isStringArray("something else")).toBe(false);
+  it("Not array", () => {
+    expect(isStringArray("something else")).to.be.false;
   });
   
-  test("Array of numbers", () => {
-    expect(isStringArray([1, 2])).toBe(false);
+  it("Array of numbers", () => {
+    expect(isStringArray([1, 2])).to.be.false;
   });
   
-  test("Mixture", () => {
-    expect(isStringArray(["string", 2])).toBe(false);
+  it("Mixture", () => {
+    expect(isStringArray(["string", 2])).to.be.false;
   });
   
-  test("Array of strings", () => {
-    expect(isStringArray(["string", "another string"])).toBe(true);
+  it("Array of strings", () => {
+    expect(isStringArray(["string", "another string"])).to.be.true;
   });
 });
 
 describe("getFederatedApiEndpoint", () => {
-  test("No path", () => {
-    expect(getFederatedApiEndpoint("test", [])).toBe("http://test/fed/");
+  it("No path", () => {
+    expect(getFederatedApiEndpoint("it", [])).to.equal("http://it/fed/");
   });
   
-  test("Trailing host slash", () => {
-    expect(getFederatedApiEndpoint("test/", [])).toBe("http://test/fed/");
+  it("Trailing host slash", () => {
+    expect(getFederatedApiEndpoint("it/", [])).to.equal("http://it/fed/");
   });
   
-  test("Port", () => {
-    expect(getFederatedApiEndpoint("test:8080", [])).toBe("http://test:8080/fed/");
+  it("Port", () => {
+    expect(getFederatedApiEndpoint("it:8080", [])).to.equal("http://it:8080/fed/");
   });
   
-  test("Path", () => {
-    expect(getFederatedApiEndpoint("test", ["endpoint"])).toBe("http://test/fed/endpoint");
+  it("Path", () => {
+    expect(getFederatedApiEndpoint("it", ["endpoint"])).to.equal("http://it/fed/endpoint");
   });
   
-  test("Tailing path slash", () => {
-    expect(getFederatedApiEndpoint("test", ["endpoint/"])).toBe("http://test/fed/endpoint");
+  it("Tailing path slash", () => {
+    expect(getFederatedApiEndpoint("it", ["endpoint/"])).to.equal("http://it/fed/endpoint");
   });
   
-  test("Leading path slash", () => {
-    expect(getFederatedApiEndpoint("test", ["/endpoint"])).toBe("http://test/fed/endpoint");
+  it("Leading path slash", () => {
+    expect(getFederatedApiEndpoint("it", ["/endpoint"])).to.equal("http://it/fed/endpoint");
   });
   
-  test("Trailing and leading path slash", () => {
-    expect(getFederatedApiEndpoint("test", ["/endpoint/"])).toBe("http://test/fed/endpoint");
+  it("Trailing and leading path slash", () => {
+    expect(getFederatedApiEndpoint("it", ["/endpoint/"])).to.equal("http://it/fed/endpoint");
   });
   
-  test("Multiple endpoints", () => {
-    expect(getFederatedApiEndpoint("test", ["end", "point"])).toBe("http://test/fed/end/point");
+  it("Multiple endpoints", () => {
+    expect(getFederatedApiEndpoint("it", ["end", "point"])).to.equal("http://it/fed/end/point");
   });
 });

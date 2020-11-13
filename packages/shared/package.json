@@ -24,7 +24,7 @@
     "zxcvbn": "^4.4.2"
   },
   "scripts": {
-    "test:unit": "nyc mocha -r ts-node/register src/**/*.test.ts",
+    "test:unit": "nyc mocha -r ts-node/register --recursive --extension .test.ts src/",
     "test:integration": "true",
     "build": "tsc",
     "clean": "rm -rf coverage .nyc_output build",

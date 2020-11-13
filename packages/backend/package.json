@@ -19,6 +19,7 @@
     "eslint-config-prettier": "^6.13.0",
     "eslint-plugin-prettier": "^3.1.4",
     "mocha": "^8.2.1",
+    "nock": "^13.0.5",
     "nodemon": "^2.0.6",
     "nyc": "^15.1.0",
     "prettier": "^2.1.2",
@@ -53,7 +54,7 @@
   "scripts": {
     "start": "nyc node build/unifed.js",
     "start:watch": "nodemon --exec nyc ts-node src/unifed.ts",
-    "test:unit": "nyc mocha -r ts-node/register src/**/*.test.ts",
+    "test:unit": "nyc mocha -r ts-node/register --recursive --extension .test.ts src/",
     "test:integration": "mocha -r ts-node/register integration/**/*.test.ts",
     "build": "yarn workspace unifed-shared build && tsc",
     "clean": "rm -rf coverage build .nyc_output",

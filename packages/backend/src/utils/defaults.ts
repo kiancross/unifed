@@ -5,7 +5,7 @@
 import { CommunityModel } from "../models";
 import { logger } from "./logging";
 
-const creators = [
+export const creators = [
   async () => {
     await CommunityModel.create({
       _id: "all",

@@ -54,7 +54,7 @@ export class Post extends Base {
     return {
       ...super.toJSON(),
       parent: getIdFromRef(this.parentPost === undefined ? this.community : this.parentPost),
-      children: this.children?.map(getIdFromRef),
+      children: (this.children || []).map(getIdFromRef),
       title: this.title,
       contentType: this.contentType,
       body: this.body,
