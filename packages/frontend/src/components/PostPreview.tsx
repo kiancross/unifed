@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardContent, Grid, Link, Typography } from "@material-ui/core";
+import { Card, CardActionArea, CardContent, Grid, Link, Typography } from "@material-ui/core";
 import UserIcon from "./UserIcon";
 import "fontsource-roboto";
 
@@ -17,14 +17,14 @@ const PostPreview = (props: PostValues): JSX.Element => {
       </Grid>
       <Grid item xs={11} container direction="column" justify="flex-start">
         <Card style={{ textAlign: "left" }}>
-          <CardContent>
-            <Typography variant="body2" gutterBottom>
-              <Link href={"/user/" + props.username}>{props.username}</Link>
-            </Typography>
-            <Typography variant="body2">
-              <Link href={"/posts/" + props.postId}>{props.title}</Link>
-            </Typography>
-          </CardContent>
+          <CardActionArea disableRipple href={"/posts/" + props.postId}>
+            <CardContent>
+              <Typography variant="body2" gutterBottom>
+                <Link href={"/user/" + props.username}>{props.username}</Link>
+              </Typography>
+              <Typography variant="body1">{props.title}</Typography>
+            </CardContent>
+          </CardActionArea>
         </Card>
       </Grid>
     </Grid>

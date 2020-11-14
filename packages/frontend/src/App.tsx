@@ -33,7 +33,7 @@ function App(): JSX.Element {
     <div className="App">
       <Router>
         <Header />
-        <Box className="App-header" component="span" m={3}>
+        <Box className="App-header">
           <Switch>
             <Route exact path="/" component={LoginForm} />
             <Route exact path="/reset-password" component={ResetPasswordRequest} />

@@ -1,8 +1,10 @@
 import React from "react";
 import { AppBar, Container, Tab, Tabs } from "@material-ui/core";
 import AccountTab from "../components/AccountTab";
-import { accountsClient } from "../utils/accounts";
+import ProfileTab from "../components/ProfileTab";
 import { Redirect } from "react-router";
+import { gql } from "@apollo/client";
+import { apolloClient } from "../utils/apollo-client";
 
 enum UserStatus {
   FETCHING,
@@ -15,7 +17,24 @@ interface State {
   selectedTab: number;
   email: string;
   username: string;
+  name: string;
 }
+
+const GET_USER = {
+  query: gql`
+    query {
+      getUser {
+        emails {
+          address
+        }
+        username
+        profile {
+          name
+        }
+      }
+    }
+  `,
+};
 
 class AccountSettings extends React.Component<unknown, State> {
   constructor(props: unknown) {
@@ -26,10 +45,10 @@ class AccountSettings extends React.Component<unknown, State> {
       selectedTab: 0,
       email: "",
       username: "",
+      name: "",
     };
     this.handleTabChange = this.handleTabChange.bind(this);
     this.setDetails = this.setDetails.bind(this);
-    this.handleLoggedOut = this.handleLoggedOut.bind(this);
   }
 
   handleTabChange(_event: React.ChangeEvent<unknown>, newValue: number): void {
@@ -38,33 +57,33 @@ class AccountSettings extends React.Component<unknown, State> {
     }));
   }
 
-  setDetails(username: string, email: string): void {
-    this.setState(() => ({
-      gotUser: UserStatus.LOGGED_IN,
-      username: username,
-      email: email,
-    }));
-  }
-
-  handleLoggedOut(): void {
-    this.setState(() => ({
-      gotUser: UserStatus.LOGGED_OUT,
-    }));
+  setDetails(): void {
+    apolloClient.query(GET_USER).then((res) => {
+      const userInfo = res.data.getUser;
+      if (userInfo) {
+        this.setState(() => ({
+          gotUser: UserStatus.LOGGED_IN,
+          username: userInfo.username,
+          email: userInfo.emails[0].address,
+          name: userInfo.profile.name,
+        }));
+      } else {
+        this.setState(() => ({
+          gotUser: UserStatus.LOGGED_OUT,
+        }));
+      }
+    });
   }
 
   render() {
     if (this.state.gotUser === UserStatus.FETCHING) {
-      accountsClient.getUser().then((user) => {
-        if (!user) this.handleLoggedOut();
-        else if (user.username && user.emails)
-          this.setDetails(user.username, user.emails[0].address);
-      });
+      this.setDetails();
     }
 
     if (this.state.gotUser === UserStatus.LOGGED_OUT) return <Redirect to="/" />;
 
     return (
-      <Container maxWidth="sm">
+      <Container style={{ paddingTop: "1.5rem" }} maxWidth="sm">
         <AppBar position="static">
           <Tabs value={this.state.selectedTab} onChange={this.handleTabChange}>
             <Tab label="ACCOUNT" />
@@ -74,6 +93,7 @@ class AccountSettings extends React.Component<unknown, State> {
         {this.state.selectedTab === 0 && (
           <AccountTab username={this.state.username} email={this.state.email} />
         )}
+        {this.state.selectedTab === 1 && <ProfileTab name={this.state.name} />}
       </Container>
     );
   }

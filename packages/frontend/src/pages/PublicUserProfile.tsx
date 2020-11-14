@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Grid } from "@material-ui/core";
 import UserInfoCard from "./../components/UserInfoCard";
 import { useParams } from "react-router-dom";
-import Post from "../components/Post";
+import Comment from "../components/Comment";
 
 interface PublicUserProfileParams {
   username: string;
@@ -16,7 +16,7 @@ const PublicUserProfile = (): JSX.Element => {
     <Container>
       <Grid container spacing={3}>
         <Grid item container xs={8} direction="column" spacing={2}>
-          <Post username={username} text="Example post" title="Example Title" />
+          <Comment username={username} text="Example post" title="Example Title" />
         </Grid>
         <Grid item container xs={4} direction="column" spacing={2}>
           <UserInfoCard username={username} name={name} />

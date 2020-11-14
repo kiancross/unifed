@@ -1,6 +1,6 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
-import Post from "./Post";
+import Comment from "./Comment";
 import { Container, Grid } from "@material-ui/core";
 
 interface CommentParams {
@@ -39,7 +39,7 @@ const Comments = (props: CommentParams) => {
           {commentPosts.map((post: any) => {
             const username = post.author.id;
             const text = post.body;
-            return <Post key={post} username={username} text={text} title="" />;
+            return <Comment key={post} username={username} text={text} title="" />;
           })}
         </Grid>
       </Grid>
