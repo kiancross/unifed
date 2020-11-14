@@ -51,7 +51,7 @@ context("Account Settings Page Tests", () => {
     cy.get("[data-testid=confirm-password]").type(otherPassword);
     cy.contains("Change").click();
     cy.get("[data-testid=old-password]").clear().type(password);
-    cy.contains("Change")
+    cy.contains("Change");
     //   .click();
     // cy.login(email, otherPassword).then((res) => {
     //   expect(res).to.be.ok;
