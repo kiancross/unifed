@@ -83,7 +83,7 @@ class AccountSettings extends React.Component<unknown, State> {
     if (this.state.gotUser === UserStatus.LOGGED_OUT) return <Redirect to="/" />;
 
     return (
-      <Container maxWidth="sm">
+      <Container style={{ paddingTop: "1.5rem" }} maxWidth="sm">
         <AppBar position="static">
           <Tabs value={this.state.selectedTab} onChange={this.handleTabChange}>
             <Tab label="ACCOUNT" />

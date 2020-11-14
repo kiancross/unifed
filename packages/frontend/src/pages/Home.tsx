@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Grid } from "@material-ui/core";
-import UserInfoCard from "../components/UserInfoCard";
 import PostPreview from "../components/PostPreview";
-import "./../App.scss";
-import { Link } from "react-router-dom";
+import MakePostButton from "../components/MakePostButton";
 import { gql, useQuery } from "@apollo/client";
+import CommunityDesc from "../components/CommunityDesc";
+import CommunityHeader from "../components/CommunityHeader";
 
 const HomePage = () => {
   const GET_POSTS = gql`
@@ -19,6 +19,8 @@ const HomePage = () => {
     }
   `;
 
+  const desc = "Homepage of Unifed";
+
   const { loading, error, data } = useQuery(GET_POSTS);
 
   if (loading) return <h1 style={{ color: "black" }}>Loading Homepage...</h1>;
@@ -26,9 +28,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <Link to="/make-post">
-        <button className="Submit-button">Make Post</button>
-      </Link>
+      <CommunityHeader title="Home" />
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           <Grid item container xs={8} direction="column" spacing={2}>
@@ -45,7 +45,8 @@ const HomePage = () => {
           </Grid>
 
           <Grid item container xs={4} direction="column" spacing={2}>
-            <UserInfoCard username="js123" name="John Smith" />
+            <MakePostButton />
+            <CommunityDesc desc={desc} />
           </Grid>
         </Grid>
       </Container>

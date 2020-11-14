@@ -30,7 +30,7 @@ const PostPage = (): JSX.Element => {
     variables: { id: postId },
   });
 
-  if (loading) return <h1 style={{ color: "black" }}>Loading Post...</h1>;
+  if (loading) return <h1 style={{ color: "black" }}>Loading Comment...</h1>;
   if (error) return <h1 style={{ color: "black" }}>Error! ${error.message} </h1>;
 
   const postData = data.getPost;
@@ -39,18 +39,18 @@ const PostPage = (): JSX.Element => {
   const title = postData.title;
 
   return (
-    <Container maxWidth="lg">
+    <Container style={{ paddingTop: "1.5rem", width: "80%" }} maxWidth="xl">
       <Grid container spacing={3}>
-        <Grid item container xs={8} direction="column" spacing={2}>
+        <Grid item container xs={9} direction="column" spacing={2}>
           <Post username={username} text={body} title={title} />
+          <h3 style={{ color: "black" }}>Comments</h3>
+          <Comments parentId={postId} />
+          <CommentEditor parentId={postId} parentTitle={title} />
         </Grid>
 
-        <Grid item container xs={4} direction="column" spacing={2}>
+        <Grid item container xs={3} direction="column" spacing={2}>
           <UserInfoCard username={username} name={username} />
         </Grid>
-        <h3 style={{ color: "black" }}>Comments</h3>
-        <Comments parentId={postId} />
-        <CommentEditor parentId={postId} parentTitle={title} />
       </Grid>
     </Container>
   );

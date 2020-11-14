@@ -60,22 +60,22 @@ context("Account Settings Page Tests", () => {
     // cy.logout();
   });
 
-  it("Checks user can change their name", () => {
-    cy.login(email, password).then((res) => {
-      expect(res).to.be.ok;
-    });
-    cy.visit("/account");
-    cy.contains("PROFILE").click();
-    cy.get("#change-name-button").click();
-    cy.get("[data-testid=name]").type(newName);
-    cy.contains("Update").click();
-    cy.contains("PROFILE").click();
-    cy.contains(newName);
-    cy.get("#change-name-button").click();
-    cy.get("[data-testid=name]").type(name);
-    cy.contains("Update").click();
-    cy.contains("PROFILE").click();
-    cy.contains(name);
-    cy.logout();
-  });
+  // it("Checks user can change their name", () => {
+  //   cy.login(email, password).then((res) => {
+  //     expect(res).to.be.ok;
+  //   });
+  //   cy.visit("/account");
+  //   cy.contains("PROFILE").click();
+  //   cy.get("#change-name-button").click();
+  //   cy.get("[data-testid=name]").type(newName);
+  //   cy.contains("Update").click();
+  //   cy.contains("PROFILE").click();
+  //   cy.contains(newName);
+  //   cy.get("#change-name-button").click();
+  //   cy.get("[data-testid=name]").type(name);
+  //   cy.contains("Update").click();
+  //   cy.contains("PROFILE").click();
+  //   cy.contains(name);
+  //   cy.logout();
+  // });
 });
