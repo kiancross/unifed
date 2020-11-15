@@ -41,16 +41,15 @@ const PostPage = (): JSX.Element => {
   const title = postData.title;
 
   return (
-    <Container style={{ paddingTop: "1.5rem", width: "80%" }} maxWidth="xl">
+    <Container style={{ paddingTop: "1.5rem" }}>
       <Grid container spacing={3}>
-        <Grid item container xs={9} direction="column" spacing={2}>
+        <Grid item container xs={8} direction="column" spacing={2}>
           <Post username={username} text={body} title={title} />
-          <h3 style={{ color: "black" }}>Comments</h3>
-          <Comments parentId={post} server={server} />
           <CommentEditor parentId={post} parentTitle={title} server={server} />
+          <Comments parentId={post} server={server} />
         </Grid>
 
-        <Grid item container xs={3} direction="column" spacing={2}>
+        <Grid item container xs={4} direction="column" spacing={2}>
           <UserInfoCard username={username} name={username} />
         </Grid>
       </Grid>
