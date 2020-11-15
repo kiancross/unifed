@@ -7,6 +7,8 @@ interface PostValues {
   username: string;
   title: string;
   postId: string;
+  server: string;
+  community: string;
 }
 
 const PostPreview = (props: PostValues): JSX.Element => {
@@ -17,7 +19,10 @@ const PostPreview = (props: PostValues): JSX.Element => {
       </Grid>
       <Grid item xs={11} container direction="column" justify="flex-start">
         <Card style={{ textAlign: "left" }}>
-          <CardActionArea disableRipple href={"/posts/" + props.postId}>
+          <CardActionArea
+            disableRipple
+            href={`/instances/${props.server}/communities/${props.community}/posts/${props.postId}`}
+          >
             <CardContent>
               <Typography variant="body2" gutterBottom>
                 <Link href={"/user/" + props.username}>{props.username}</Link>

@@ -4,15 +4,17 @@ import Comment from "./Comment";
 import { Container, Grid } from "@material-ui/core";
 
 interface CommentParams {
+  server: string;
   parentId: string;
 }
 
 const Comments = (props: CommentParams) => {
   const parentId = props.parentId;
+  const server = props.server;
 
   const GET_COMMENTS = gql`
-    query GET_COMMENTS($id: String!) {
-      getPost(post: { id: $id, host: "localhost:8080" }) {
+    query GET_COMMENTS($id: String!, $server: String!) {
+      getPost(post: { id: $id, host: $server }) {
         children {
           body
           author {
@@ -24,7 +26,7 @@ const Comments = (props: CommentParams) => {
   `;
 
   const { loading, error, data } = useQuery(GET_COMMENTS, {
-    variables: { id: parentId },
+    variables: { id: parentId, server },
   });
 
   if (loading) return <h1>Loading...</h1>;

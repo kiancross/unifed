@@ -17,7 +17,7 @@ describe("Make Comment Test", () => {
     cy.login().then((res) => {
       expect(res).to.be.ok;
     });
-    cy.visit("/posts/" + postId);
+    cy.visit("/instances/localhost:8080/communities/all/posts/" + postId);
   });
 
   it("Should make comment", () => {
