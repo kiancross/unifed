@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import "./../App.scss";
 import logo from "./../images/st-andrews-logo.png";
@@ -6,6 +6,7 @@ import { passwordClient } from "../utils/accounts";
 import { GraphQLErrorList } from "@accounts/graphql-client";
 import { validateUsername, validateName, validateEmail, validatePassword } from "unifed-shared";
 import { Button, TextField } from "@material-ui/core";
+import { Redirect } from "react-router";
 
 interface Values {
   username: string;
@@ -44,15 +45,17 @@ function validate({ username, name, email, password }: Values) {
     errors.email = "Invalid email";
   }
   if (!validatePassword(password).valid) {
-    errors.password = "Invalid password";
+    errors.password = "Password not strong enough";
   }
   return errors;
 }
 
 const SignupForm = (): JSX.Element => {
+  const [isAccountCreated, setIsAccountCreated] = useState(false);
   return (
     <div className="container">
       <img src={logo} alt="st andrews logo" width="250" height="300"></img>
+      <h1>Hello!</h1>
       <Formik
         initialValues={{
           username: "",
@@ -64,6 +67,7 @@ const SignupForm = (): JSX.Element => {
         validateOnBlur={true}
         onSubmit={(values) => {
           registerUser(values);
+          setIsAccountCreated(true);
         }}
       >
         {({ values, errors, touched }) => (
@@ -75,7 +79,8 @@ const SignupForm = (): JSX.Element => {
                 label="Username"
                 color="primary"
                 helperText={values.username && errors.username}
-                error={values.username && !!errors.username}
+                error={!!values.username && !!errors.username}
+                data-testid="username"
               />
             </div>
             <div>
@@ -85,7 +90,8 @@ const SignupForm = (): JSX.Element => {
                 label="Name"
                 color="primary"
                 helperText={values.name && errors.name}
-                error={values.name && !!errors.name}
+                error={!!values.name && !!errors.name}
+                data-testid="name"
               />
             </div>
             <div>
@@ -95,7 +101,8 @@ const SignupForm = (): JSX.Element => {
                 label="Email"
                 color="primary"
                 helperText={values.email && errors.email}
-                error={values.email && !!errors.email}
+                error={!!values.email && !!errors.email}
+                data-testid="email"
               />
             </div>
             <div>
@@ -105,7 +112,8 @@ const SignupForm = (): JSX.Element => {
                 label="Password"
                 color="primary"
                 helperText={values.password && errors.password}
-                error={values.password && !!errors.password}
+                error={!!values.password && !!errors.password}
+                data-testid="password"
               />
             </div>
             <Button
@@ -119,12 +127,14 @@ const SignupForm = (): JSX.Element => {
                 !!errors.email ||
                 !!errors.password
               }
+              data-testid="submit"
             >
               Create Account
             </Button>
           </Form>
         )}
       </Formik>
+      {isAccountCreated ? <Redirect to="/" /> : null}
     </div>
   );
 };

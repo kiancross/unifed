@@ -66,6 +66,7 @@ const ResetPassword = (): JSX.Element => {
                   color="primary"
                   helperText={values.newPass && errors.newPass}
                   error={values.newPass && !!errors.newPass}
+                  data-testid="newPass"
                 />
               </div>
               <div>
@@ -76,6 +77,7 @@ const ResetPassword = (): JSX.Element => {
                   color="primary"
                   helperText={values.newPass && errors.newPass}
                   error={values.newPass && !!errors.newPass}
+                  data-testid="retyped"
                 />
               </div>
               <Button
@@ -85,6 +87,7 @@ const ResetPassword = (): JSX.Element => {
                 disabled={
                   (!touched.newPass && !touched.retyped) || !!errors.newPass || !!errors.retyped
                 }
+                data-testid="submit"
               >
                 Change Password
               </Button>

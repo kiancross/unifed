@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import "./../App.scss";
 import logo from "./../images/st-andrews-logo.png";
-import { Link } from "react-router-dom";
+import { Link, BrowserRouter, Redirect } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { accountsClient } from "../utils/accounts";
 import { GraphQLErrorList } from "@accounts/graphql-client";
@@ -42,6 +42,7 @@ function validate({ email, password }: Values) {
 }
 
 const LoginForm = (): JSX.Element => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <div className="container">
       <img src={logo} alt="st andrews logo" width="250" height="300"></img>
@@ -55,6 +56,7 @@ const LoginForm = (): JSX.Element => {
         validateOnBlur={true}
         onSubmit={(values) => {
           loginUser(values);
+          setIsLoggedIn(true);
         }}
       >
         {({ values, errors, touched }) => (
@@ -66,7 +68,8 @@ const LoginForm = (): JSX.Element => {
                 label="Email"
                 color="primary"
                 helperText={values.email && errors.email}
-                error={values.email && !!errors.email}
+                error={!!values.email && !!errors.email}
+                data-testid="email"
               />
             </div>
             <div>
@@ -76,7 +79,8 @@ const LoginForm = (): JSX.Element => {
                 label="Password"
                 color="primary"
                 helperText={values.password && errors.password}
-                error={values.password && !!errors.password}
+                error={!!values.password && !!errors.password}
+                data-testid="password"
               />
             </div>
             <Button
@@ -84,17 +88,21 @@ const LoginForm = (): JSX.Element => {
               variant="contained"
               style={{ margin: "20px" }}
               disabled={!touched.email || !!errors.email}
+              data-testid="submit"
             >
               Login
             </Button>
           </Form>
         )}
       </Formik>
-      <Link to="/reset-password" style={{ textDecoration: "none" }}>
-        <Button type="submit" variant="contained">
-          Forgot Password?
-        </Button>
-      </Link>
+      <BrowserRouter>
+        <Link to="/reset-password" style={{ textDecoration: "none" }}>
+          <Button type="submit" variant="contained">
+            Forgot Password?
+          </Button>
+        </Link>
+      </BrowserRouter>
+      {isLoggedIn ? <Redirect to="/" /> : null}
     </div>
   );
 };
