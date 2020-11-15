@@ -7,6 +7,7 @@ import { gql, useMutation } from "@apollo/client";
 import { Formik, Form } from "formik";
 
 interface Props {
+  server: string;
   parentId: string;
   parentTitle: string;
 }
@@ -16,10 +17,8 @@ export default function CommentEditor(props: Props) {
   const [value, setValue] = React.useState("Write here");
 
   const MAKE_COMMENTS = gql`
-    mutation CREATE_POST($title: String!, $parentId: String!, $body: String!) {
-      createPost(
-        post: { parent: { id: $parentId, host: "localhost:8080" }, title: $title, body: $body }
-      ) {
+    mutation CREATE_POST($title: String!, $parentId: String!, $body: String!, $server: String!) {
+      createPost(post: { parent: { id: $parentId, host: $server }, title: $title, body: $body }) {
         id
       }
     }
@@ -38,8 +37,9 @@ export default function CommentEditor(props: Props) {
       const body = mdEditor.current.getMdValue();
 
       try {
-        const title = "Comment on " + props.parentTitle;
-        makePost({ variables: { title: title, parentId: props.parentId, body: body } });
+        makePost({
+          variables: { title: "", parentId: props.parentId, body: body, server: props.server },
+        });
       } catch (err) {
         alert("Post could not be made");
       }

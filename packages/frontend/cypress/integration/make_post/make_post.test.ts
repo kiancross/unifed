@@ -19,9 +19,7 @@ describe("Make Post Test", () => {
   });
 
   it("Should make post", () => {
-    cy.visit("/home")
-      .contains("Make Post")
-      .click()
+    cy.visit("/instances/localhost:8080/communities/all/posts/create")
       .get('input[name="title"]')
       .clear()
       .type("Cypress Title")
