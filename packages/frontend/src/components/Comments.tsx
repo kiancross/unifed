@@ -1,18 +1,20 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
-import Post from "./Post";
-import { Container, Grid } from "@material-ui/core";
+import Comment from "./Comment";
+import { Grid } from "@material-ui/core";
 
 interface CommentParams {
+  server: string;
   parentId: string;
 }
 
 const Comments = (props: CommentParams) => {
   const parentId = props.parentId;
+  const server = props.server;
 
   const GET_COMMENTS = gql`
-    query GET_COMMENTS($id: String!) {
-      getPost(post: { id: $id, host: "localhost:8080" }) {
+    query GET_COMMENTS($id: String!, $server: String!) {
+      getPost(post: { id: $id, host: $server }) {
         children {
           body
           author {
@@ -24,7 +26,7 @@ const Comments = (props: CommentParams) => {
   `;
 
   const { loading, error, data } = useQuery(GET_COMMENTS, {
-    variables: { id: parentId },
+    variables: { id: parentId, server },
   });
 
   if (loading) return <h1>Loading...</h1>;
@@ -33,17 +35,13 @@ const Comments = (props: CommentParams) => {
   const commentPosts = data.getPost.children;
 
   return (
-    <Container>
-      <Grid container spacing={3}>
-        <Grid item container xs={8} direction="column" spacing={2}>
-          {commentPosts.map((post: any) => {
-            const username = post.author.id;
-            const text = post.body;
-            return <Post key={post} username={username} text={text} title="" />;
-          })}
-        </Grid>
-      </Grid>
-    </Container>
+    <Grid item container xs={12} direction="column">
+      {commentPosts.map((post: any) => {
+        const username = post.author.id;
+        const text = post.body;
+        return <Comment key={post} username={username} text={text} title="" />;
+      })}
+    </Grid>
   );
 };
 

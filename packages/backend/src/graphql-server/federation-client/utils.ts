@@ -26,9 +26,8 @@ export function getFederatedApiEndpoint(hostname: string, endpoints: string[]): 
   const trimmedHostname = hostname.replace(/\/$/, "");
   const trimmedEndpoints = [];
 
-  for (let i = 0; i < endpoints.length; i++) {
-    const endpoint = endpoints[i].replace(/(^\/|\/$)/g, "");
-    trimmedEndpoints.push(endpoint);
+  for (const endpoint of endpoints) {
+    trimmedEndpoints.push(endpoint.replace(/(^\/|\/$)/g, ""));
   }
 
   const endpoint = trimmedEndpoints.join("/");

@@ -7,15 +7,18 @@ import { gql, useMutation } from "@apollo/client";
 import { Formik, Form, Field } from "formik";
 import { Redirect } from "react-router-dom";
 
-export default function App() {
+interface Params {
+  server: string;
+  community: string;
+}
+
+export default function App(props: Params) {
   const mdEditor = React.useRef<Editor>(null);
   const [value, setValue] = React.useState("Write here");
 
   const MAKE_POST = gql`
-    mutation CREATE_POST($title: String!, $body: String!) {
-      createPost(
-        post: { parent: { id: "all", host: "localhost:8080" }, title: $title, body: $body }
-      ) {
+    mutation CREATE_POST($title: String!, $body: String!, $community: String!, $host: String!) {
+      createPost(post: { parent: { id: $community, host: $host }, title: $title, body: $body }) {
         id
       }
     }
@@ -26,7 +29,7 @@ export default function App() {
   if (loading) return <p>Creating Post...</p>;
   if (error) return <p>Error :(</p>;
   if (data) {
-    const url = "/posts/" + data.createPost.id;
+    const url = `/instances/${props.server}/communities/${props.community}/posts/${data.createPost.id}`;
     return <Redirect to={url} />;
   }
 
@@ -44,7 +47,9 @@ export default function App() {
       const body = mdEditor.current.getMdValue();
 
       try {
-        makePost({ variables: { title: title, body: body } });
+        makePost({
+          variables: { title: title, body: body, community: props.community, host: props.server },
+        });
       } catch (e) {
         alert("Post could not be made");
       }

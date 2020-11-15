@@ -3,7 +3,7 @@
  */
 
 import { createTransport } from "nodemailer";
-import * as config from "./config";
+import { config } from "./config";
 
 export const emailTransporter = createTransport({
   host: config.smtpHost,

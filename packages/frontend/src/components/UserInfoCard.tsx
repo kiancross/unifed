@@ -12,7 +12,12 @@ const UserInfoCard = (props: userInfo): JSX.Element => {
   return (
     <Grid item>
       <Card>
-        <CardHeader avatar={userIcon} title={props.name} subheader={props.username} />
+        <CardHeader
+          data-testid="user-info-card-header"
+          avatar={userIcon}
+          title={props.name}
+          subheader={props.username}
+        />
         <Divider />
         <Grid container justify="center">
           <CardActions>

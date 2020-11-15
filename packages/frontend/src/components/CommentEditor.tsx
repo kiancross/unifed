@@ -5,8 +5,10 @@ import "react-markdown-editor-lite/lib/index.css";
 import "./../App.scss";
 import { gql, useMutation } from "@apollo/client";
 import { Formik, Form } from "formik";
+import { Grid, Button } from "@material-ui/core";
 
 interface Props {
+  server: string;
   parentId: string;
   parentTitle: string;
 }
@@ -15,17 +17,15 @@ export default function CommentEditor(props: Props) {
   const mdEditor = React.useRef<Editor>(null);
   const [value, setValue] = React.useState("Write here");
 
-  const MAKE_COMMENT = gql`
-    mutation CREATE_POST($title: String!, $parentId: String!, $body: String!) {
-      createPost(
-        post: { parent: { id: $parentId, host: "localhost:8080" }, title: $title, body: $body }
-      ) {
+  const MAKE_COMMENTS = gql`
+    mutation CREATE_POST($title: String!, $parentId: String!, $body: String!, $server: String!) {
+      createPost(post: { parent: { id: $parentId, host: $server }, title: $title, body: $body }) {
         id
       }
     }
   `;
 
-  const [makePost, { data }] = useMutation(MAKE_COMMENT);
+  const [makePost, { data }] = useMutation(MAKE_COMMENTS);
 
   if (data) window.location.reload();
 
@@ -38,8 +38,9 @@ export default function CommentEditor(props: Props) {
       const body = mdEditor.current.getMdValue();
 
       try {
-        const title = "Comment on " + props.parentTitle;
-        makePost({ variables: { title: title, parentId: props.parentId, body: body } });
+        makePost({
+          variables: { title: "", parentId: props.parentId, body: body, server: props.server },
+        });
       } catch (err) {
         alert("Post could not be made");
       }
@@ -52,7 +53,7 @@ export default function CommentEditor(props: Props) {
   };
 
   return (
-    <div style={{ margin: "20px", alignContent: "center" }}>
+    <Grid item>
       <Formik
         initialValues={initialValues}
         onSubmit={() => {
@@ -64,17 +65,23 @@ export default function CommentEditor(props: Props) {
             ref={mdEditor}
             value={value}
             style={{
-              height: "200px",
-              width: "800px",
+              height: " 170px",
             }}
             onChange={handleEditorChange}
             renderHTML={(text) => <ReactMarkdown source={text} />}
           />
-          <button className="Submit-button" type="submit">
-            Make Comment
-          </button>
+          <Button
+            color="primary"
+            disableElevation
+            fullWidth
+            variant="contained"
+            className="Submit-button"
+            type="submit"
+          >
+            SEND
+          </Button>
         </Form>
       </Formik>
-    </div>
+    </Grid>
   );
 }
