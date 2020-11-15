@@ -2,7 +2,7 @@ import { errorMessageBehavesCorrectlyFor } from "./utils/errorMessageBehaviour";
 
 context("Actions", () => {
   it("renders errors on invalid input", () => {
-    cy.visit("/");
+    cy.visit("/login");
     cy.contains("Welcome Back!");
     errorMessageBehavesCorrectlyFor("email", "invalid@email", "Invalid email");
     errorMessageBehavesCorrectlyFor("password", "weakpassword", "Password not strong enough");
@@ -24,6 +24,6 @@ context("Actions", () => {
     cy.get(`[data-testid=email]`).type("allan1@someemail.com");
     cy.get(`[data-testid=password]`).type("MyPassword123&&");
     cy.get("[data-testid=submit").click();
-    cy.url().should("eq", Cypress.config().baseUrl + "/home");
+    cy.url().should("eq", Cypress.config().baseUrl + "/");
   });
 });

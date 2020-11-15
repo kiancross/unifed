@@ -102,7 +102,7 @@ const LoginForm = (): JSX.Element => {
           </Button>
         </Link>
       </BrowserRouter>
-      {isLoggedIn ? <Redirect to="/home" /> : null}
+      {isLoggedIn ? <Redirect to="/" /> : null}
     </div>
   );
 };
