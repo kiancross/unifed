@@ -5,6 +5,7 @@ import "react-markdown-editor-lite/lib/index.css";
 import "./../App.scss";
 import { gql, useMutation } from "@apollo/client";
 import { Formik, Form } from "formik";
+import { Grid, Button } from "@material-ui/core";
 
 interface Props {
   server: string;
@@ -52,7 +53,7 @@ export default function CommentEditor(props: Props) {
   };
 
   return (
-    <div style={{ margin: "20px", alignContent: "center" }}>
+    <Grid item>
       <Formik
         initialValues={initialValues}
         onSubmit={() => {
@@ -64,17 +65,23 @@ export default function CommentEditor(props: Props) {
             ref={mdEditor}
             value={value}
             style={{
-              height: "200px",
-              width: "800px",
+              height: " 170px",
             }}
             onChange={handleEditorChange}
             renderHTML={(text) => <ReactMarkdown source={text} />}
           />
-          <button className="Submit-button" type="submit">
-            Make Comment
-          </button>
+          <Button
+            color="primary"
+            disableElevation
+            fullWidth
+            variant="contained"
+            className="Submit-button"
+            type="submit"
+          >
+            SEND
+          </Button>
         </Form>
       </Formik>
-    </div>
+    </Grid>
   );
 }

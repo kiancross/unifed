@@ -1,7 +1,7 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import Comment from "./Comment";
-import { Container, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 
 interface CommentParams {
   server: string;
@@ -35,17 +35,13 @@ const Comments = (props: CommentParams) => {
   const commentPosts = data.getPost.children;
 
   return (
-    <Container>
-      <Grid container spacing={3}>
-        <Grid item container xs={8} direction="column" spacing={2}>
-          {commentPosts.map((post: any) => {
-            const username = post.author.id;
-            const text = post.body;
-            return <Comment key={post} username={username} text={text} title="" />;
-          })}
-        </Grid>
-      </Grid>
-    </Container>
+    <Grid item container xs={12} direction="column">
+      {commentPosts.map((post: any) => {
+        const username = post.author.id;
+        const text = post.body;
+        return <Comment key={post} username={username} text={text} title="" />;
+      })}
+    </Grid>
   );
 };
 
