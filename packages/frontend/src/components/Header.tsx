@@ -11,7 +11,7 @@ const Header = (): JSX.Element => {
     <AppBar color="primary" position="sticky">
       <Toolbar variant="dense">
         <Box component="span" m={1}>
-          <Link to="/home">
+          <Link to="/">
             <img src={logo} alt="st andrews logo" width={logo_width} height={logo_height}></img>
           </Link>
         </Box>

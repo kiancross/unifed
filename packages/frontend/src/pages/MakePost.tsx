@@ -1,8 +1,8 @@
 import React from "react";
 import PostEditor from "../components/PostEditor";
-import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import "./../App.scss";
+import { Button, Container, Grid } from "@material-ui/core";
 
 interface Params {
   server: string;
@@ -11,14 +11,19 @@ interface Params {
 
 const MakePost = () => {
   const { community, server } = useParams<Params>();
+  const href = "/instances/" + server + "/communities/" + community + "/posts";
 
   return (
-    <div>
-      <PostEditor community={community} server={server} />
-      <Link to="/home">
-        <button className="Submit-button">Back to home</button>
-      </Link>
-    </div>
+    <Container style={{ paddingTop: "1.5rem" }} maxWidth="lg">
+      <Grid container direction="column" spacing={3}>
+        <PostEditor community={community} server={server} />
+        <Grid item>
+          <Button href={href} variant="contained" color="primary">
+            Cancel Post
+          </Button>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 
