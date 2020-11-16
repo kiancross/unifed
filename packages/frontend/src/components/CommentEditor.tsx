@@ -1,11 +1,11 @@
 import React from "react";
 import Editor from "react-markdown-editor-lite";
-import ReactMarkdown from "react-markdown";
 import "react-markdown-editor-lite/lib/index.css";
 import "./../App.scss";
 import { gql, useMutation } from "@apollo/client";
 import { Formik, Form } from "formik";
 import { Grid, Button } from "@material-ui/core";
+import MarkdownViewer from "./MarkdownViewer";
 
 interface Props {
   server: string;
@@ -15,7 +15,6 @@ interface Props {
 
 export default function CommentEditor(props: Props) {
   const mdEditor = React.useRef<Editor>(null);
-  const [value, setValue] = React.useState("Write here");
 
   const MAKE_COMMENTS = gql`
     mutation CREATE_POST($title: String!, $parentId: String!, $body: String!, $server: String!) {
@@ -47,11 +46,6 @@ export default function CommentEditor(props: Props) {
     }
   };
 
-  const handleEditorChange = ({ text }: { text: string }) => {
-    const newValue = text.replace(/\d/g, "");
-    setValue(newValue);
-  };
-
   return (
     <Grid item>
       <Formik
@@ -63,12 +57,10 @@ export default function CommentEditor(props: Props) {
         <Form>
           <Editor
             ref={mdEditor}
-            value={value}
             style={{
               height: " 170px",
             }}
-            onChange={handleEditorChange}
-            renderHTML={(text) => <ReactMarkdown source={text} />}
+            renderHTML={(text) => <MarkdownViewer>{text}</MarkdownViewer>}
           />
           <Button
             color="primary"

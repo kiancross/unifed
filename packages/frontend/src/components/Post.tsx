@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Card, CardContent, Grid, Link, Typography } from "@material-ui/core";
 import "fontsource-roboto";
-import ReactMarkdown from "react-markdown";
+import MarkdownViewer from "./MarkdownViewer";
 import theme from "../utils/mui-theme";
 
 interface PostValues {
@@ -20,7 +20,7 @@ const Post = (props: PostValues): JSX.Element => {
               <Link href={"/user/" + props.username}>{props.username}</Link>
             </Typography>
             <Typography variant="h5">{props.title}</Typography>
-            <ReactMarkdown>{props.text}</ReactMarkdown>
+            <MarkdownViewer>{props.text}</MarkdownViewer>
           </CardContent>
         </Card>
       </Box>

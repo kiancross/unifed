@@ -128,7 +128,7 @@ jobs:
           SITE_PROTOCOL: "http"
           APPLICATION_NAME: "Unifed"
 
-      - run: wait-on -t 30000 http://localhost:3000/
+      - run: wait-on -t 60000 http://localhost:3000/
         if: ${{ matrix.component == 'frontend' }}
       
       - run: wait-on -t 30000 http://localhost:8080/internal/__coverage__

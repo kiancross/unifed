@@ -1,11 +1,11 @@
 import React from "react";
 import Editor from "react-markdown-editor-lite";
-import ReactMarkdown from "react-markdown";
 import "react-markdown-editor-lite/lib/index.css";
 import "./../App.scss";
 import { gql, useMutation } from "@apollo/client";
 import { Formik, Form, Field } from "formik";
 import { Redirect } from "react-router-dom";
+import MarkdownViewer from "./MarkdownViewer";
 
 interface Params {
   server: string;
@@ -14,7 +14,6 @@ interface Params {
 
 export default function App(props: Params) {
   const mdEditor = React.useRef<Editor>(null);
-  const [value, setValue] = React.useState("Write here");
 
   const MAKE_POST = gql`
     mutation CREATE_POST($title: String!, $body: String!, $community: String!, $host: String!) {
@@ -56,11 +55,6 @@ export default function App(props: Params) {
     }
   };
 
-  const handleEditorChange = ({ text }: { text: string }) => {
-    const newValue = text.replace(/\d/g, "");
-    setValue(newValue);
-  };
-
   return (
     <div id="postEditor">
       <Formik
@@ -77,12 +71,10 @@ export default function App(props: Params) {
 
           <Editor
             ref={mdEditor}
-            value={value}
             style={{
               height: "300px",
             }}
-            onChange={handleEditorChange}
-            renderHTML={(text: string) => <ReactMarkdown source={text} />}
+            renderHTML={(text: string) => <MarkdownViewer>{text}</MarkdownViewer>}
           />
 
           <button className="Submit-button" type="submit">

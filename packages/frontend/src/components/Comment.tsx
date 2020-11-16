@@ -3,6 +3,7 @@ import { Box, Card, CardContent, Grid, Link, Typography } from "@material-ui/cor
 import UserIcon from "./UserIcon";
 import "fontsource-roboto";
 import theme from "../utils/mui-theme";
+import MarkdownViewer from "./MarkdownViewer";
 
 interface PostValues {
   username: string;
@@ -32,7 +33,7 @@ const Comment = (props: PostValues): JSX.Element => {
               <Typography variant="body2" gutterBottom>
                 <Link href={"/user/" + props.username}>{props.username}</Link>
               </Typography>
-              <Typography variant="body2">{props.text}</Typography>
+              <MarkdownViewer>{props.text}</MarkdownViewer>
             </CardContent>
           </Card>
         </Box>
