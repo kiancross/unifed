@@ -16,6 +16,7 @@ const Comments = (props: CommentParams) => {
     query GET_COMMENTS($id: String!, $server: String!) {
       getPost(post: { id: $id, host: $server }) {
         children {
+          id
           body
           author {
             id
@@ -39,7 +40,7 @@ const Comments = (props: CommentParams) => {
       {commentPosts.map((post: any) => {
         const username = post.author.id;
         const text = post.body;
-        return <Comment key={post} username={username} text={text} title="" />;
+        return <Comment key={post.id} username={username} text={text} title="" />;
       })}
     </Grid>
   );
