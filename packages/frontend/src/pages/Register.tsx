@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import "./../App.scss";
-import logo from "./../images/st-andrews-logo.png";
+import logo from "./../images/unifed.svg";
 import { passwordClient } from "../utils/accounts";
 import { GraphQLErrorList } from "@accounts/graphql-client";
 import { validateUsername, validateName, validateEmail, validatePassword } from "unifed-shared";

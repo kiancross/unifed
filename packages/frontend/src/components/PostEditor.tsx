@@ -1,7 +1,6 @@
 import React from "react";
 import Editor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
-import "./../App.scss";
 import { gql, useMutation } from "@apollo/client";
 import { Formik, Form, Field } from "formik";
 import { Redirect } from "react-router-dom";

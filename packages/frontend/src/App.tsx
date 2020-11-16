@@ -3,16 +3,12 @@
  */
 
 import React from "react";
-import "./App.scss";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
-  // Link,
-  // Redirect
 } from "react-router-dom";
 
-//Pages
 import ResetPasswordRequest from "./pages/ResetPasswordRequest";
 import ResetPassword from "./pages/ResetPassword";
 import PageNotFound from "./pages/404";

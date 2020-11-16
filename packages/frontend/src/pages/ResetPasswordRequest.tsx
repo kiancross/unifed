@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import "./../App.scss";
 import { passwordClient } from "../utils/accounts";
 import { Button, TextField } from "@material-ui/core";
 import { validateEmail } from "unifed-shared";
-import logo from "./../images/st-andrews-logo.png";
+import logo from "./../images/unifed.svg";
 import { Redirect } from "react-router";
 
 interface Values {

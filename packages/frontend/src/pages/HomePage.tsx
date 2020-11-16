@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import "./../App.scss";
 
 import { accountsClient } from "../utils/accounts";
 

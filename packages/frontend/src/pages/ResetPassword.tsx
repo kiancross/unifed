@@ -4,7 +4,7 @@ import { Redirect, useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { TextField, Button } from "@material-ui/core";
 import { validatePassword } from "unifed-shared";
-import logo from "./../images/st-andrews-logo.png";
+import logo from "./../images/unifed.svg";
 
 interface Params {
   token: string;

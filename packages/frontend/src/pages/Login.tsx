@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import "./../App.scss";
-import logo from "./../images/st-andrews-logo.png";
+import logo from "./../images/unifed.svg";
 import { Link, BrowserRouter, Redirect } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { accountsClient } from "../utils/accounts";

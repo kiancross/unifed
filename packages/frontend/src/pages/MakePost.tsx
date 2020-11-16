@@ -2,7 +2,6 @@ import React from "react";
 import PostEditor from "../components/PostEditor";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import "./../App.scss";
 
 interface Params {
   server: string;

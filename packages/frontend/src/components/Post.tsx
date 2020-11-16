@@ -1,8 +1,7 @@
 import React from "react";
 import { Box, Card, CardContent, Grid, Link, Typography } from "@material-ui/core";
-import "fontsource-roboto";
 import MarkdownViewer from "./MarkdownViewer";
-import theme from "../utils/mui-theme";
+import theme from "../utils/theme";
 
 interface PostValues {
   username: string;
