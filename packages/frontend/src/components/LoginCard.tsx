@@ -104,7 +104,7 @@ const LoginCard = (): JSX.Element => {
         </Formik>
         <BrowserRouter>
           <Typography>
-            <Link href="/reset-password">Forgot Password?</Link>
+            <Link href="/reset-password">Forgotten Password?</Link>
           </Typography>
         </BrowserRouter>
       </CardContent>
