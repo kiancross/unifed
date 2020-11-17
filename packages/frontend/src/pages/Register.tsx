@@ -11,7 +11,7 @@ const SignupForm = (): JSX.Element => {
   return (
     <NonAuthenticatedTemplate>
       <RegisterCard />
-      <Button href="/login" fullWidth color="primary" variant="contained" style={{"margin-top": "16px"}}>
+      <Button href="/login" fullWidth color="primary" variant="contained" style={{marginTop: "16px"}}>
         Already a user? Login
       </Button>
     </NonAuthenticatedTemplate>

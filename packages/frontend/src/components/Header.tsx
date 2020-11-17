@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar, Box, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Box, Toolbar } from "@material-ui/core";
 import logo from "./../images/unifed.svg";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
