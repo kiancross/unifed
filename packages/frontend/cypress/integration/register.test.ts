@@ -3,24 +3,15 @@ import { errorMessageBehavesCorrectlyFor } from "./utils/errorMessageBehaviour";
 context("Actions", () => {
   it("renders errors on invalid input", () => {
     cy.visit("/register");
-    errorMessageBehavesCorrectlyFor("username", "invalid username", "Invalid username");
-    errorMessageBehavesCorrectlyFor("name", "a".repeat(65), "Invalid name");
-    errorMessageBehavesCorrectlyFor("email", "invalid@email", "Invalid email");
-    errorMessageBehavesCorrectlyFor("password", "weakpassword", "Password not strong enough");
-  });
-
-  it("only enables submit button when all fields are valid", () => {
     cy.get("[data-testid=username]").type("invalid username");
-    cy.get("[data-testid=submit]").should("be.disabled");
-    cy.get("[data-testid=name]").type("valid name");
-    cy.get("[data-testid=submit]").should("be.disabled");
-    cy.get("[data-testid=email]").type("allan1@someemail.com");
-    cy.get("[data-testid=submit]").should("be.disabled");
-    cy.get("[data-testid=password]").type("MyPassword123&&");
-    cy.get("[data-testid=submit]").should("be.disabled");
-    cy.get("[data-testid=username]").find("input").clear();
-    cy.get("[data-testid=username]").type("validusername");
-    cy.get("[data-testid=submit]").should("not.be.disabled");
+    cy.get("[data-testid=name]").type("a".repeat(65));
+    cy.get("[data-testid=email]").type("invalid@email");
+    cy.get("[data-testid=password]").type("weakpassword");
+    cy.get("[data-testid=submit]").click();
+    cy.contains("Invalid username");
+    cy.contains("Invalid name");
+    cy.contains("Invalid email");
+    cy.contains("Password not strong enough");
   });
 
   it("redirects to login page on account creation", () => {

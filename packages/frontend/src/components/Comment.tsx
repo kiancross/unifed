@@ -19,12 +19,7 @@ const styles = {
 
 const Comment = (props: PostValues): JSX.Element => {
   return (
-    <Grid item container spacing={2}>
-      <Grid item xs={1} container justify="flex-end">
-        <Box paddingTop="1rem">
-          <UserIcon username={props.username} small />
-        </Box>
-      </Grid>
+    <Grid item container direction="row-reverse" spacing={2}>
       <Grid item xs={11} container direction="column">
         <Box borderLeft={4} borderColor={theme.palette.primary.main}>
           <Card elevation={1} square style={{ textAlign: "left" }}>
@@ -37,6 +32,11 @@ const Comment = (props: PostValues): JSX.Element => {
               </Typography>
             </CardContent>
           </Card>
+        </Box>
+      </Grid>
+      <Grid item xs={1} container justify="flex-end">
+        <Box paddingTop="1rem">
+          <UserIcon username={props.username} small />
         </Box>
       </Grid>
     </Grid>
