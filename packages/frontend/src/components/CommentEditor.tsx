@@ -3,7 +3,7 @@ import Editor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
 import { gql, useMutation } from "@apollo/client";
 import { Formik, Form } from "formik";
-import { Grid, Button } from "@material-ui/core";
+import { Grid, Button, Typography } from "@material-ui/core";
 import MarkdownViewer from "./MarkdownViewer";
 
 interface Props {
@@ -59,7 +59,11 @@ export default function CommentEditor(props: Props) {
             style={{
               height: " 170px",
             }}
-            renderHTML={(text) => <MarkdownViewer>{text}</MarkdownViewer>}
+            renderHTML={(text) => (
+              <Typography variant="body2" style={{ textAlign: "left" }}>
+                <MarkdownViewer>{text}</MarkdownViewer>
+              </Typography>
+            )}
           />
           <Button
             color="primary"

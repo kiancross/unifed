@@ -32,7 +32,9 @@ const Comment = (props: PostValues): JSX.Element => {
               <Typography variant="body2" gutterBottom>
                 <Link href={"/user/" + props.username}>{props.username}</Link>
               </Typography>
-              <MarkdownViewer>{props.text}</MarkdownViewer>
+              <Typography variant="body2">
+                <MarkdownViewer>{props.text}</MarkdownViewer>
+              </Typography>
             </CardContent>
           </Card>
         </Box>

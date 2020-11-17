@@ -3,7 +3,6 @@ import { errorMessageBehavesCorrectlyFor } from "./utils/errorMessageBehaviour";
 context("Actions", () => {
   it("renders errors on invalid input", () => {
     cy.visit("/register");
-    cy.contains("Hello!");
     errorMessageBehavesCorrectlyFor("username", "invalid username", "Invalid username");
     errorMessageBehavesCorrectlyFor("name", "a".repeat(65), "Invalid name");
     errorMessageBehavesCorrectlyFor("email", "invalid@email", "Invalid email");
@@ -34,6 +33,6 @@ context("Actions", () => {
     cy.get("[data-testid=email]").type("allan1@someemail.com");
     cy.get("[data-testid=password]").type("MyPassword123&&");
     cy.get("[data-testid=submit]").click();
-    cy.url().should("eq", Cypress.config().baseUrl + "/");
+    cy.url().should("eq", Cypress.config().baseUrl + "/login");
   });
 });

@@ -10,7 +10,7 @@ const Header = (): JSX.Element => {
       <Toolbar variant="dense">
         <Box component="span" m={1}>
           <Link to="/">
-            <img src={logo} alt="st andrews logo" height="50"></img>
+            <img src={logo} alt="Unifed" height="50"></img>
           </Link>
         </Box>
         <Typography variant="h5">UNIFED</Typography>

@@ -1,108 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import logo from "./../images/unifed.svg";
-import { Link, BrowserRouter, Redirect } from "react-router-dom";
-import { Formik, Form, Field } from "formik";
-import { accountsClient } from "../utils/accounts";
-import { GraphQLErrorList } from "@accounts/graphql-client";
-import { validateEmail, validatePassword } from "unifed-shared";
-import { Button, TextField } from "@material-ui/core";
-
-interface Values {
-  email: string;
-  password: string;
-}
-
-async function loginUser(values: Values) {
-  try {
-    await accountsClient.loginWithService("password", {
-      user: {
-        email: values.email,
-      },
-      password: values.password,
-    });
-    console.log("logged in");
-  } catch (err) {
-    if (err instanceof GraphQLErrorList) {
-      // TODO present error if account is not verified
-      console.log(err.message);
-    }
-  }
-}
-
-function validate({ email, password }: Values) {
-  const errors: Partial<Values> = {};
-  if (!validateEmail(email)) {
-    errors.email = "Invalid email";
-  }
-  if (!validatePassword(password).valid) {
-    errors.password = "Password not strong enough";
-  }
-  return errors;
-}
+import LoginCard from "../components/LoginCard";
+import { Button, Container, Grid } from "@material-ui/core";
 
 const LoginForm = (): JSX.Element => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
-    <div className="container">
-      <img src={logo} alt="st andrews logo" width="250" height="300"></img>
-      <h1>Welcome Back!</h1>
-      <Formik
-        initialValues={{
-          email: "",
-          password: "",
-        }}
-        validate={validate}
-        validateOnBlur={true}
-        onSubmit={(values) => {
-          loginUser(values);
-          setIsLoggedIn(true);
-        }}
-      >
-        {({ values, errors, touched }) => (
-          <Form>
-            <div>
-              <Field
-                name="email"
-                as={TextField}
-                label="Email"
-                color="primary"
-                helperText={values.email && errors.email}
-                error={!!values.email && !!errors.email}
-                data-testid="email"
-              />
-            </div>
-            <div>
-              <Field
-                name="password"
-                as={TextField}
-                label="Password"
-                color="primary"
-                helperText={values.password && errors.password}
-                error={!!values.password && !!errors.password}
-                data-testid="password"
-              />
-            </div>
-            <Button
-              type="submit"
-              variant="contained"
-              style={{ margin: "20px" }}
-              disabled={!touched.email || !!errors.email}
-              data-testid="submit"
-            >
-              Login
+    <Container style={{ paddingTop: window.innerHeight / 4 }} maxWidth="lg">
+      <Grid container spacing={5}>
+        <Grid item xs={6}>
+          <img src={logo} alt="st andrews logo" width="225" height="270"></img>
+        </Grid>
+        <Grid item container direction="column" spacing={2} xs={5}>
+          <LoginCard />
+          <Grid item>
+            <Button href="/register" fullWidth color="primary" variant="contained">
+              Register an account
             </Button>
-          </Form>
-        )}
-      </Formik>
-      <BrowserRouter>
-        <Link to="/reset-password" style={{ textDecoration: "none" }}>
-          <Button type="submit" variant="contained">
-            Forgot Password?
-          </Button>
-        </Link>
-      </BrowserRouter>
-      {isLoggedIn ? <Redirect to="/" /> : null}
-    </div>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 

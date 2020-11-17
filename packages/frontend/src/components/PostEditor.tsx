@@ -5,6 +5,7 @@ import { gql, useMutation } from "@apollo/client";
 import { Formik, Form, Field } from "formik";
 import { Redirect } from "react-router-dom";
 import MarkdownViewer from "./MarkdownViewer";
+import { Button, Card, CardContent, Grid, TextField, Typography } from "@material-ui/core";
 
 interface Params {
   server: string;
@@ -55,32 +56,48 @@ export default function App(props: Params) {
   };
 
   return (
-    <div id="postEditor">
-      <Formik
-        initialValues={initialValues}
-        onSubmit={(values: any) => {
-          handleClick(values);
-        }}
-      >
-        <Form style={{ display: "block" }}>
-          <div style={{ margin: "20px", color: "black" }}>
-            <label htmlFor="title">Title: </label>
-            <Field name="title" />
-          </div>
-
-          <Editor
-            ref={mdEditor}
-            style={{
-              height: "300px",
+    <Grid item id="postEditor">
+      <Card>
+        <CardContent>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={(values: any) => {
+              handleClick(values);
             }}
-            renderHTML={(text: string) => <MarkdownViewer>{text}</MarkdownViewer>}
-          />
+          >
+            <Form style={{ display: "block" }}>
+              <div style={{ margin: "0px 0px 10px 0px", color: "black" }}>
+                <Field
+                  name="title"
+                  as={TextField}
+                  label="Title"
+                  multiline
+                  fullWidth
+                  rows={3}
+                  variant="outlined"
+                  size="small"
+                />
+              </div>
 
-          <button className="Submit-button" type="submit">
-            Submit Post
-          </button>
-        </Form>
-      </Formik>
-    </div>
+              <Editor
+                ref={mdEditor}
+                style={{
+                  height: "400px",
+                }}
+                renderHTML={(text: string) => (
+                  <Typography variant="body2" style={{ textAlign: "left" }}>
+                    <MarkdownViewer>{text}</MarkdownViewer>
+                  </Typography>
+                )}
+              />
+
+              <Button variant="contained" color="primary" fullWidth type="submit">
+                Submit Post
+              </Button>
+            </Form>
+          </Formik>
+        </CardContent>
+      </Card>
+    </Grid>
   );
 }
