@@ -15,7 +15,13 @@ const LoginForm = (props: LoginProps): JSX.Element => {
   return (
     <NonAuthenticatedTemplate>
       <LoginCard onLogin={props.onLogin} />
-      <Button href="/register" fullWidth color="primary" variant="contained" style={{marginTop: "16px"}}>
+      <Button
+        href="/register"
+        fullWidth
+        color="primary"
+        variant="contained"
+        style={{ marginTop: "16px" }}
+      >
         Register an account
       </Button>
     </NonAuthenticatedTemplate>

@@ -11,7 +11,13 @@ const ResetPassword = (): JSX.Element => {
   return (
     <NonAuthenticatedTemplate>
       <ResetPasswordCard />
-      <Button href="/login" fullWidth color="primary" variant="contained" style={{marginTop: "16px"}}>
+      <Button
+        href="/login"
+        fullWidth
+        color="primary"
+        variant="contained"
+        style={{ marginTop: "16px" }}
+      >
         Return To Login
       </Button>
     </NonAuthenticatedTemplate>
