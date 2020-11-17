@@ -71,9 +71,9 @@ export default function App(props: Params) {
                   name="title"
                   as={TextField}
                   label="Title"
+                  required
                   multiline
                   fullWidth
-                  rows={3}
                   variant="outlined"
                   size="small"
                 />

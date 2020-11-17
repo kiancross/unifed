@@ -21,6 +21,7 @@ const useStyles = makeStyles({
   root: {
     backgroundColor: "#ffffff",
     color: "#000000",
+    textAlign: "center",
   },
 });
 
