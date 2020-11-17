@@ -23,6 +23,15 @@ context("Actions", () => {
     cy.get(`[data-testid=email]`).type("allan1@someemail.com");
     cy.get(`[data-testid=password]`).type("MyPassword123&&");
     cy.get("[data-testid=submit").click();
-    cy.url().should("eq", Cypress.config().baseUrl + "/");
+
+    const matches = Cypress.config().baseUrl.match(/^https?:\/\/(.*)/);
+    if (!matches) {
+      throw new Error("Invalid baseUrl");
+    }
+
+    cy.url().should(
+      "eq",
+      `${Cypress.config().baseUrl}/instances/${matches[1]}/communities/all/posts`,
+    );
   });
 });

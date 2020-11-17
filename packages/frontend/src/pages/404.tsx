@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Container, Typography } from "@material-ui/core";
-import "./../App.scss";
 
 const PageNotFound = (): JSX.Element => {
   return (

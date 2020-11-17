@@ -1,7 +1,6 @@
 import React from "react";
 import PostEditor from "../components/PostEditor";
 import { useParams } from "react-router-dom";
-import "./../App.scss";
 import { Button, Container, Grid } from "@material-ui/core";
 
 interface Params {

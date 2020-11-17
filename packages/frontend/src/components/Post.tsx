@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, CardContent, Grid, Link, Typography } from "@material-ui/core";
-import "fontsource-roboto";
 import MarkdownViewer from "./MarkdownViewer";
 
 interface PostValues {
