@@ -10,6 +10,10 @@ interface Values {
   password: string;
 }
 
+interface LoginProps {
+  onLogin(): void;
+}
+
 function loginUser(values: Values) {
   return accountsClient.loginWithService("password", {
     user: {
@@ -30,10 +34,10 @@ function validate({ email, password }: Values) {
   return errors;
 }
 
-const LoginCard = (): JSX.Element => {
+const LoginCard = (props: LoginProps): JSX.Element => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   if (isLoggedIn) {
-    console.log("asdkljf");
+    props.onLogin();
     return <Redirect to="/" />;
   }
   return (

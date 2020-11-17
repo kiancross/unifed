@@ -51,7 +51,7 @@ function Unifed(): JSX.Element {
 
           <Route exact path="/">{ loggedIn ? redirectHome : redirectLogin }</Route>
 
-          <Route exact path="/login" component={LoginForm}>{ loggedIn ? redirectHome : null }</Route>
+          <Route exact path="/login">{ loggedIn ? redirectHome : <LoginForm onLogin={() => setLoggedIn(true) } /> }</Route>
 
           <Route exact path="/reset-password" component={ResetPasswordRequest} >{ loggedIn ? redirectHome : null }</Route>
           <Route exact path="/reset-password/:token" component={ResetPassword}>{ loggedIn ? redirectHome : null }</Route>
