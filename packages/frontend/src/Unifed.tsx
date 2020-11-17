@@ -39,41 +39,42 @@ function Unifed(): JSX.Element {
 
   if (loggedIn === null) return <div/>;
 
+  const homePath = `/instances/${window.location.host}/communities/all/posts`;
+  const redirectHome = <Redirect to={homePath} />;
+  const redirectLogin = <Redirect to="/login" />;
+
   return (
     <Router>
       {loggedIn ? <Header /> : null}
       <Box className="App-header">
         <Switch>
 
-          <Route exact path="/">
-            { loggedIn ?
-              <Redirect to={`/instances/${window.location.host}/communities/all/posts`} /> :
-              <Redirect to="/login" /> 
-            }
-          </Route>
+          <Route exact path="/">{ loggedIn ? redirectHome : redirectLogin }</Route>
 
-          <Route exact path="/login" component={LoginForm} />
-          <Route exact path="/reset-password" component={ResetPasswordRequest} />
-          <Route exact path="/reset-password/:token" component={ResetPassword} />
-          <Route exact path="/account" component={AccountSettingsPage} />
-          <Route exact path="/register" component={RegisterForm} />
-          <Route exact path="/user/:username" component={PublicUserProfile} />
-          <Route exact path="/verify-email/:token" component={VerifyEmailPage} />
+          <Route exact path="/login" component={LoginForm}>{ loggedIn ? redirectHome : null }</Route>
+
+          <Route exact path="/reset-password" component={ResetPasswordRequest} >{ loggedIn ? redirectHome : null }</Route>
+          <Route exact path="/reset-password/:token" component={ResetPassword}>{ loggedIn ? redirectHome : null }</Route>
+          <Route exact path="/register" component={RegisterForm}>{ loggedIn ? redirectHome : null }</Route>
+          <Route exact path="/verify-email/:token" component={VerifyEmailPage}>{ loggedIn ? redirectHome : null }</Route>
+
+          <Route exact path="/account" component={AccountSettingsPage}>{ !loggedIn ? redirectLogin : null }</Route>
+          <Route exact path="/user/:username" component={PublicUserProfile}>{ !loggedIn ? redirectLogin : null }</Route>
           <Route
             exact
             path="/instances/:server/communities/:community/posts"
             component={CommunityPostsPage}
-          />
+          >{ !loggedIn ? redirectLogin : null }</Route>
           <Route
             exact
             path="/instances/:server/communities/:community/posts/create"
             component={MakePost}
-          />
+          >{ !loggedIn ? redirectLogin : null }</Route>
           <Route
             exact
             path="/instances/:server/communities/:community/posts/:post"
             component={PostPage}
-          />
+          >{ !loggedIn ? redirectLogin : null }</Route>
           <Route component={PageNotFound} />
         </Switch>
       </Box>
