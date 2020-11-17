@@ -62,6 +62,7 @@ const ResetPassword = (): JSX.Element => {
                     <Field
                       name="newPass"
                       as={TextField}
+                      type="password"
                       fullWidth
                       size="small"
                       variant="outlined"
@@ -76,6 +77,7 @@ const ResetPassword = (): JSX.Element => {
                     <Field
                       name="retyped"
                       as={TextField}
+                      type="password"
                       fullWidth
                       size="small"
                       margin="dense"

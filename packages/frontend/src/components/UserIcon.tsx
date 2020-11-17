@@ -7,7 +7,7 @@ interface userInfo {
 }
 
 const UserIcon = (props: userInfo): JSX.Element => {
-  const smallSize = "30px";
+  const smallSize = "28px";
   const smallStyle = {
     height: smallSize,
     width: smallSize,

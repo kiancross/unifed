@@ -11,7 +11,7 @@ const UserInfoCard = (props: userInfo): JSX.Element => {
   const userIcon = <UserIcon username={props.username} />;
   return (
     <Grid item>
-      <Card>
+      <Card style={{ textAlign: "center" }}>
         <CardHeader
           data-testid="user-info-card-header"
           avatar={userIcon}

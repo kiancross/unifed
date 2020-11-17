@@ -121,6 +121,7 @@ const SignupForm = (): JSX.Element => {
                 <Field
                   name="password"
                   as={TextField}
+                  type="password"
                   fullWidth
                   size="small"
                   margin="dense"

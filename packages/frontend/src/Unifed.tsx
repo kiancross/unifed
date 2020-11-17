@@ -23,10 +23,13 @@ import { Box } from "@material-ui/core";
 
 function Unifed(): JSX.Element {
   const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
+  const [username, setUsername] = useState<string>("");
 
-  async function isUserLoggedIn() {
-    const result = await accountsClient.getUser();
-    setLoggedIn(result !== null);
+  function isUserLoggedIn() {
+    accountsClient.getUser().then((res) => {
+      if (res && res.username) setUsername(res.username);
+      setLoggedIn(res !== null);
+    });
   }
 
   isUserLoggedIn();
@@ -36,10 +39,13 @@ function Unifed(): JSX.Element {
   const homePath = `/instances/${window.location.host}/communities/all/posts`;
   const redirectHome = <Redirect to={homePath} />;
   const redirectLogin = <Redirect to="/login" />;
+  const logOut = () => {
+    accountsClient.logout().then(() => setLoggedIn(false));
+  };
 
   return (
     <Router>
-      {loggedIn ? <Header /> : null}
+      {loggedIn ? <Header username={username} onLogout={logOut} /> : null}
       <Box className="App-header">
         <Switch>
           <Route exact path="/">
