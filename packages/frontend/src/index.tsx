@@ -5,6 +5,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
+
 import App from "./App";
 import * as serviceWorker from "./service-worker";
 import { ApolloProvider } from "@apollo/client";
