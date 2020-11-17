@@ -50,3 +50,12 @@
 .container label {
   font-size: 25px;
 }
+
+.reactMarkdown p {
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
+
+pre code {
+  white-space: pre-wrap;
+}

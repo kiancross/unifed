@@ -3,7 +3,6 @@ import { errorMessageBehavesCorrectlyFor } from "./utils/errorMessageBehaviour";
 context("Actions", () => {
   it("renders errors on invalid input", () => {
     cy.visit("/login");
-    cy.contains("Welcome Back!");
     errorMessageBehavesCorrectlyFor("email", "invalid@email", "Invalid email");
     errorMessageBehavesCorrectlyFor("password", "weakpassword", "Password not strong enough");
   });

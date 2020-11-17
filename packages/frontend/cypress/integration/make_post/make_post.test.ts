@@ -20,7 +20,7 @@ describe("Make Post Test", () => {
 
   it("Should make post", () => {
     cy.visit("/instances/localhost:8080/communities/all/posts/create")
-      .get('input[name="title"]')
+      .get('textarea[name="title"]')
       .clear()
       .type("Cypress Title")
       .get('textarea[name="textarea"]')

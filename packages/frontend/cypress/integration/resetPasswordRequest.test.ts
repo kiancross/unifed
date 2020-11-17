@@ -18,6 +18,6 @@ context("Actions", () => {
     cy.get("[data-testid=email]").find("input").clear();
     cy.get("[data-testid=email]").type("valid@email.com");
     cy.get("[data-testid=submit]").click();
-    cy.url().should("eq", Cypress.config().baseUrl + "/");
+    cy.url().should("eq", Cypress.config().baseUrl + "/login");
   });
 });
