@@ -4,6 +4,7 @@
 
 import React from "react";
 import math from "remark-math";
+import gfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 import TeX from "@matejmazur/react-katex";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -24,7 +25,7 @@ const renderers = {
 };
 
 const MarkdownViewer = (props: any) => (
-  <ReactMarkdown plugins={[math]} renderers={renderers}>
+  <ReactMarkdown plugins={[math, gfm]} renderers={renderers}>
     {props.children}
   </ReactMarkdown>
 );
