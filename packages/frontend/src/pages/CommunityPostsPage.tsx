@@ -5,6 +5,7 @@ import PostPreview from "../components/PostPreview";
 import { gql, useQuery } from "@apollo/client";
 import CommunityDesc from "../components/CommunityDesc";
 import CommunityHeader from "../components/CommunityHeader";
+import LoadingPage from "../components/LoadingPage";
 
 interface Params {
   server: string;
@@ -39,7 +40,7 @@ const HomePage = () => {
   });
 
   if (error) return <h1 style={{ color: "black" }}>Error! </h1>;
-  if (loading) return <h1 style={{ color: "black" }}>Loading community...</h1>;
+  if (loading) return <LoadingPage />;
 
   return (
     <div>

@@ -2,6 +2,7 @@ import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import Comment from "./Comment";
 import { Grid } from "@material-ui/core";
+import LoadingComponent from "./LoadingComponent";
 
 interface CommentParams {
   server: string;
@@ -30,8 +31,8 @@ const Comments = (props: CommentParams) => {
     variables: { id: parentId, server },
   });
 
-  if (loading) return <h1>Loading...</h1>;
   if (error) return <h1>Error! ${error.message} </h1>;
+  if (loading) return <LoadingComponent />;
 
   const commentPosts = data.getPost.children;
 

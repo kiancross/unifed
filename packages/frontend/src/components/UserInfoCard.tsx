@@ -12,7 +12,7 @@ const UserInfoCard = (props: userInfo): JSX.Element => {
   return (
     <Grid item>
       <Card style={{ textAlign: "center" }}>
-        <CardActionArea>
+        <CardActionArea href={"/user/" + props.username}>
           <CardHeader
             data-testid="user-info-card-header"
             avatar={userIcon}
