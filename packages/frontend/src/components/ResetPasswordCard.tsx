@@ -1,9 +1,14 @@
+/*
+ * CS3099 Group A3
+ */
+
 import React, { useState } from "react";
 import { passwordClient } from "../utils/accounts";
 import { Redirect, useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
-import { TextField, Button, Card, CardContent, Grid } from "@material-ui/core";
+import { TextField, Button, Card, CardContent, Grid, Snackbar, Link } from "@material-ui/core";
 import { validatePassword } from "unifed-shared";
+import { Alert } from '@material-ui/lab';
 
 interface Params {
   token: string;
@@ -102,12 +107,20 @@ const ResetPassword = (): JSX.Element => {
                   </Button>
                 </Form>
                 {isReset ? <Redirect to="/" /> : null}
-                {isInternalServerError ? <div>INTERNAL SERVER ERROR</div> : null}
               </>
             )}
           </Formik>
         </CardContent>
       </Card>
+      
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={isInternalServerError}>
+        <Alert severity="error">
+          Your password reset token has expired.&nbsp;
+          <Link href="/reset-password">Get another reset link.</Link>
+        </Alert>
+      </Snackbar>
     </Grid>
   );
 };

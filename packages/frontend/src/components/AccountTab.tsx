@@ -104,7 +104,7 @@ const AccountTab = (props: AccountTabParams): JSX.Element => {
         <ListItemText primary={props.email} secondary="Email" />
       </ListItem>
       <ListItem>
-        <ListItemText primary="***" secondary="Password" />
+        <ListItemText primary="********" secondary="Password" />
         <ListItemSecondaryAction>
           <IconButton
             id="change-password-button"

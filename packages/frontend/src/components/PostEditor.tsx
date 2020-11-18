@@ -92,7 +92,7 @@ export default function App(props: Params) {
                 )}
               />
 
-              <Button variant="contained" color="primary" fullWidth type="submit">
+              <Button variant="contained" color="primary" fullWidth type="submit" style={{marginTop: "8px"}}>
                 Submit Post
               </Button>
             </Form>

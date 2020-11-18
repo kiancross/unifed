@@ -1,9 +1,13 @@
+/*
+ * CS3099 Group A3
+ */
+
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { passwordClient } from "../utils/accounts";
-import { Button, Card, CardContent, Grid, TextField } from "@material-ui/core";
+import { Button, Card, CardContent, Grid, TextField, Snackbar, Link } from "@material-ui/core";
 import { validateEmail } from "unifed-shared";
-import { Redirect } from "react-router";
+import { Alert } from '@material-ui/lab';
 
 interface Values {
   email: string;
@@ -62,9 +66,16 @@ const ResetPasswordRequestCard = (): JSX.Element => {
               </Form>
             )}
           </Formik>
-          {isRequested ? <Redirect to="/" /> : null}
         </CardContent>
       </Card>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={isRequested}>
+        <Alert severity="success">
+          If an account with this email exists, we have sent a password reset link.&nbsp;
+          <Link href="/login">Return to login</Link>
+        </Alert>
+      </Snackbar>
     </Grid>
   );
 };
