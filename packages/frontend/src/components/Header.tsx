@@ -1,20 +1,21 @@
+/*
+ * CS3099 Group A3
+ */
+
 import React from "react";
-import { AppBar, Box, ButtonGroup, IconButton, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Box, ButtonGroup, IconButton, Toolbar } from "@material-ui/core";
 import logo from "./../images/unifed.svg";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
 import UserIcon from "./UserIcon";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import SearchInput from "../components/SearchInput";
 
 interface HeaderProps {
   username: string;
   onLogout: () => void;
 }
-
-const buttonGroupStyles = {
-  marginLeft: "auto",
-};
 
 const Header = (props: HeaderProps): JSX.Element => {
   return (
@@ -25,10 +26,13 @@ const Header = (props: HeaderProps): JSX.Element => {
             <img src={logo} alt="Unifed" className={styles.logo}></img>
           </Link>
         </Box>
-        <Typography variant="h5" className={styles.logoText}>
-          Unifed
-        </Typography>
-        <ButtonGroup size="small" style={buttonGroupStyles}>
+        <div className={styles.logoText}>Unifed</div>
+
+        <div className={styles.searchContainer}>
+          <SearchInput />
+        </div>
+
+        <ButtonGroup size="small" className={styles.buttonGroupStyles}>
           <IconButton href={"/user/" + props.username}>
             <UserIcon username={props.username} small />
           </IconButton>
