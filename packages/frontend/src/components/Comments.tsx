@@ -42,8 +42,8 @@ const Comments = (props: CommentParams) => {
         const username = post.author.id;
         const text = post.body;
         return (
-          <div style={{paddingTop: "4px"}}>
-            <Comment key={post.id} username={username} text={text} title="" id={post.id} />
+          <div key={post.id} style={{ paddingTop: "4px" }}>
+            <Comment username={username} text={text} title="" id={post.id} />
           </div>
         );
       })}

@@ -72,7 +72,7 @@ export default function CommentEditor(props: Props) {
             variant="contained"
             className="Submit-button"
             type="submit"
-            style={{marginTop: "8px"}}
+            style={{ marginTop: "8px" }}
           >
             SEND
           </Button>
