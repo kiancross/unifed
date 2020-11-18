@@ -7,7 +7,9 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   TextField,
+  Snackbar,
 } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
 import { useFormik } from "formik";
@@ -28,6 +30,8 @@ const useStyles = makeStyles({
 
 const AccountTab = (props: AccountTabParams): JSX.Element => {
   const [passOpen, setPassOpen] = React.useState(false);
+  const [displayError, setDisplayError] = React.useState(false);
+  const [displaySuccess, setDisplaySuccess] = React.useState(false);
 
   const handlePassClickOpen = () => {
     setPassOpen(!passOpen);
@@ -45,10 +49,12 @@ const AccountTab = (props: AccountTabParams): JSX.Element => {
           passwordClient
             .changePassword(values.oldPassword, values.newPassword)
             .then(() => {
-              alert("Password Changed Successfully");
+              setDisplayError(false);
+              setDisplaySuccess(true);
             })
             .catch(() => {
-              alert("Password Change Failed");
+              setDisplayError(true);
+              setDisplaySuccess(false);
             });
         }
       },
@@ -96,28 +102,36 @@ const AccountTab = (props: AccountTabParams): JSX.Element => {
 
   const classes = useStyles();
   return (
-    <List classes={classes}>
-      <ListItem>
-        <ListItemText primary={props.username} secondary="Username" />
-      </ListItem>
-      <ListItem>
-        <ListItemText primary={props.email} secondary="Email" />
-      </ListItem>
-      <ListItem>
-        <ListItemText primary="***" secondary="Password" />
-        <ListItemSecondaryAction>
-          <IconButton
-            id="change-password-button"
-            onClick={handlePassClickOpen}
-            color="primary"
-            edge="end"
-          >
-            <EditIcon />
-          </IconButton>
-        </ListItemSecondaryAction>
-      </ListItem>
-      {passOpen && <PassChangeForm />}
-    </List>
+    <>
+      <List classes={classes}>
+        <ListItem>
+          <ListItemText primary={props.username} secondary="Username" />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary={props.email} secondary="Email" />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="********" secondary="Password" />
+          <ListItemSecondaryAction>
+            <IconButton
+              id="change-password-button"
+              onClick={handlePassClickOpen}
+              color="primary"
+              edge="end"
+            >
+              <EditIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+        {passOpen && <PassChangeForm />}
+      </List>
+      <Snackbar anchorOrigin={{ vertical: "top", horizontal: "center" }} open={displayError}>
+        <Alert severity="error">There was an error changing your password</Alert>
+      </Snackbar>
+      <Snackbar anchorOrigin={{ vertical: "top", horizontal: "center" }} open={displaySuccess}>
+        <Alert severity="success">Password successfully changed</Alert>
+      </Snackbar>
+    </>
   );
 };
 

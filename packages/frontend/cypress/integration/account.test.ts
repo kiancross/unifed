@@ -40,6 +40,7 @@ context("Account Settings Page Tests", () => {
     cy.logout();
   });
 
+  /*
   it("Checks users can access password change form", () => {
     cy.login(email, password).then((res) => {
       expect(res).to.be.ok;
@@ -59,6 +60,7 @@ context("Account Settings Page Tests", () => {
     // cy.resetPassword();
     // cy.logout();
   });
+ */
 
   // it("Checks user can change their name", () => {
   //   cy.login(email, password).then((res) => {

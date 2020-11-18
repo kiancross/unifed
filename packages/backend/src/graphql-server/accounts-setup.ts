@@ -79,6 +79,7 @@ const server = new AccountsServer(
     db: accountsDatabase,
     tokenSecret: config.jwtSecret,
     siteUrl: config.siteUrl,
+    ambiguousErrorMessages: false,
     /*
     createJwtPayload: async (data, user) => {
       console.log(data, user);
