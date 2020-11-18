@@ -128,7 +128,6 @@ const SearchInput = (): JSX.Element => {
               placeholder="Find a community"
               className={styles.autocompleteInput}
               inputProps={params.inputProps}
-              //onKeyDown={(e) => console.log(e)}
               endAdornment={(
                 <React.Fragment>
                   {showSpinner ? <CircularProgress color="inherit" size={20} /> : null}
