@@ -41,7 +41,11 @@ const Comments = (props: CommentParams) => {
       {commentPosts.map((post: any) => {
         const username = post.author.id;
         const text = post.body;
-        return <Comment key={post.id} username={username} text={text} title="" />;
+        return (
+          <div key={post.id} style={{ paddingTop: "4px" }}>
+            <Comment username={username} text={text} title="" id={post.id} />
+          </div>
+        );
       })}
     </Grid>
   );

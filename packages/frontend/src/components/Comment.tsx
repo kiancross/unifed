@@ -8,6 +8,7 @@ interface PostValues {
   username: string;
   text: string;
   title: string;
+  id: string;
 }
 
 const styles = {
@@ -26,6 +27,8 @@ const Comment = (props: PostValues): JSX.Element => {
             <CardContent style={styles.cardcontent}>
               <Typography variant="body2" gutterBottom>
                 <Link href={"/user/" + props.username}>{props.username}</Link>
+                &nbsp; &#8212; &nbsp;
+                <Link href={props.id}>View Replies</Link>
               </Typography>
               <Typography variant="body2">
                 <MarkdownViewer>{props.text}</MarkdownViewer>
