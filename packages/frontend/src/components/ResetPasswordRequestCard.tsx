@@ -7,7 +7,7 @@ import { Formik, Form, Field } from "formik";
 import { passwordClient } from "../utils/accounts";
 import { Button, Card, CardContent, Grid, TextField, Snackbar, Link } from "@material-ui/core";
 import { validateEmail } from "unifed-shared";
-import { Alert } from '@material-ui/lab';
+import { Alert } from "@material-ui/lab";
 
 interface Values {
   email: string;
@@ -68,9 +68,7 @@ const ResetPasswordRequestCard = (): JSX.Element => {
           </Formik>
         </CardContent>
       </Card>
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={isRequested}>
+      <Snackbar anchorOrigin={{ vertical: "top", horizontal: "center" }} open={isRequested}>
         <Alert severity="success">
           If an account with this email exists, we have sent a password reset link.&nbsp;
           <Link href="/login">Return to login</Link>

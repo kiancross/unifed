@@ -7,9 +7,16 @@ import { BrowserRouter, Redirect } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { accountsClient } from "../utils/accounts";
 import { validateEmail, validatePassword } from "unifed-shared";
-import { Button, Card, CardContent, Link, TextField, Typography, Snackbar } from "@material-ui/core";
-import { Alert } from '@material-ui/lab';
-
+import {
+  Button,
+  Card,
+  CardContent,
+  Link,
+  TextField,
+  Typography,
+  Snackbar,
+} from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 
 interface Values {
   email: string;
@@ -123,9 +130,7 @@ const LoginCard = (props: LoginProps): JSX.Element => {
           </BrowserRouter>
         </CardContent>
       </Card>
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={displayLoginError}>
+      <Snackbar anchorOrigin={{ vertical: "top", horizontal: "center" }} open={displayLoginError}>
         <Alert severity="error">
           The email address and/or password you have entered is incorrect
         </Alert>

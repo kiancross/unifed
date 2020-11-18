@@ -8,7 +8,7 @@ import { passwordClient } from "../utils/accounts";
 import { validateUsername, validateName, validateEmail, validatePassword } from "unifed-shared";
 import { Button, Card, CardContent, TextField, Snackbar } from "@material-ui/core";
 import { Redirect } from "react-router";
-import { Alert } from '@material-ui/lab';
+import { Alert } from "@material-ui/lab";
 
 interface Values {
   username: string;
@@ -53,7 +53,7 @@ const SignupForm = (): JSX.Element => {
     } catch (err) {
       setErrorMessage(err.message);
     }
-  }
+  };
 
   return (
     <>
@@ -151,7 +151,8 @@ const SignupForm = (): JSX.Element => {
       </Card>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={errorMessage !== null}>
+        open={errorMessage !== null}
+      >
         <Alert severity="error">
           There was an error when creating your account: {errorMessage}.
         </Alert>

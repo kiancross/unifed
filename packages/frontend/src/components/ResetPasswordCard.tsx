@@ -8,7 +8,7 @@ import { Redirect, useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { TextField, Button, Card, CardContent, Grid, Snackbar, Link } from "@material-ui/core";
 import { validatePassword } from "unifed-shared";
-import { Alert } from '@material-ui/lab';
+import { Alert } from "@material-ui/lab";
 
 interface Params {
   token: string;
@@ -112,10 +112,11 @@ const ResetPassword = (): JSX.Element => {
           </Formik>
         </CardContent>
       </Card>
-      
+
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={isInternalServerError}>
+        open={isInternalServerError}
+      >
         <Alert severity="error">
           Your password reset token has expired.&nbsp;
           <Link href="/reset-password">Get another reset link.</Link>
