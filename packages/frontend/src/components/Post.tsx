@@ -16,7 +16,7 @@ const Post = (props: PostValues): JSX.Element => {
           <Typography variant="body2" gutterBottom>
             <Link href={"/user/" + props.username}>{props.username}</Link>
           </Typography>
-          <Typography variant="h6">{props.title}</Typography>
+          <Typography variant="h6">{props.title ? props.title : "Comment"}</Typography>
           <Typography variant="body2">
             <MarkdownViewer>{props.text}</MarkdownViewer>
           </Typography>
