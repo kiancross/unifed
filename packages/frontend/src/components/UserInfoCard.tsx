@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, CardActions, CardHeader, Divider, Grid } from "@material-ui/core";
+import { Card, CardActionArea, CardHeader, Grid } from "@material-ui/core";
 import UserIcon from "./UserIcon";
 
 interface userInfo {
@@ -12,23 +12,14 @@ const UserInfoCard = (props: userInfo): JSX.Element => {
   return (
     <Grid item>
       <Card style={{ textAlign: "center" }}>
-        <CardHeader
-          data-testid="user-info-card-header"
-          avatar={userIcon}
-          title={props.name}
-          subheader={props.username}
-        />
-        <Divider />
-        <Grid container justify="center">
-          <CardActions>
-            <Button size="small" disabled>
-              Follow
-            </Button>
-            <Button size="small" disabled>
-              Message
-            </Button>
-          </CardActions>
-        </Grid>
+        <CardActionArea>
+          <CardHeader
+            data-testid="user-info-card-header"
+            avatar={userIcon}
+            title={props.name}
+            subheader={props.username}
+          />
+        </CardActionArea>
       </Card>
     </Grid>
   );

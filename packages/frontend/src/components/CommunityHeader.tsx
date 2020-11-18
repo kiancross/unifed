@@ -1,4 +1,4 @@
-import { Box, Button, CardActions, CardHeader, Container, Paper } from "@material-ui/core";
+import { Box, CardActions, CardHeader, Container, Paper } from "@material-ui/core";
 import React from "react";
 
 interface Props {
@@ -12,11 +12,7 @@ const CommunityHeader = (props: Props): JSX.Element => {
       <Paper elevation={0} style={{ textAlign: "left" }}>
         <Container maxWidth="lg">
           <CardHeader title={props.title} subheader={props.server} />
-          <CardActions>
-            <Button disabled variant="outlined" size="small" color="primary">
-              Joined
-            </Button>
-          </CardActions>
+          <CardActions />
         </Container>
       </Paper>
     </Box>

@@ -65,13 +65,14 @@ const SignupForm = (): JSX.Element => {
             password: "",
           }}
           validate={validate}
-          validateOnBlur={true}
+          validateOnBlur={false}
+          validateOnChange={false}
           onSubmit={(values) => {
             registerUser(values);
             setIsAccountCreated(true);
           }}
         >
-          {({ values, errors, touched }) => (
+          {({ errors }) => (
             <Form>
               <div>
                 <Field
@@ -82,8 +83,8 @@ const SignupForm = (): JSX.Element => {
                   variant="outlined"
                   label="Username"
                   color="primary"
-                  helperText={values.username && errors.username}
-                  error={!!values.username && !!errors.username}
+                  helperText={errors.username}
+                  error={!!errors.username}
                   data-testid="username"
                 />
               </div>
@@ -97,8 +98,8 @@ const SignupForm = (): JSX.Element => {
                   variant="outlined"
                   label="Name"
                   color="primary"
-                  helperText={values.name && errors.name}
-                  error={!!values.name && !!errors.name}
+                  helperText={errors.name}
+                  error={!!errors.name}
                   data-testid="name"
                 />
               </div>
@@ -112,8 +113,8 @@ const SignupForm = (): JSX.Element => {
                   variant="outlined"
                   label="Email"
                   color="primary"
-                  helperText={values.email && errors.email}
-                  error={!!values.email && !!errors.email}
+                  helperText={errors.email}
+                  error={!!errors.email}
                   data-testid="email"
                 />
               </div>
@@ -128,8 +129,8 @@ const SignupForm = (): JSX.Element => {
                   variant="outlined"
                   label="Password"
                   color="primary"
-                  helperText={values.password && errors.password}
-                  error={!!values.password && !!errors.password}
+                  helperText={errors.password}
+                  error={!!errors.password}
                   data-testid="password"
                 />
               </div>
@@ -139,13 +140,6 @@ const SignupForm = (): JSX.Element => {
                 color="primary"
                 style={{ margin: "1rem 0rem" }}
                 fullWidth
-                disabled={
-                  (!touched.username && !touched.name && !touched.email && !touched.password) ||
-                  !!errors.username ||
-                  !!errors.name ||
-                  !!errors.email ||
-                  !!errors.password
-                }
                 data-testid="submit"
               >
                 Create Account
