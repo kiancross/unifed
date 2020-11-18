@@ -26,13 +26,14 @@ const ResetPasswordRequestCard = (): JSX.Element => {
           <Formik
             initialValues={{ email: "" }}
             validate={validate}
-            validateOnBlur={true}
+            validateOnBlur={false}
+            validateOnChange={false}
             onSubmit={async (values: Values) => {
               await passwordClient.requestPasswordReset(values.email);
               setIsRequested(true);
             }}
           >
-            {({ values, errors }) => (
+            {({ errors }) => (
               <Form>
                 <div>
                   <Field
@@ -43,8 +44,8 @@ const ResetPasswordRequestCard = (): JSX.Element => {
                     variant="outlined"
                     label="Email"
                     color="primary"
-                    helperText={values.email && errors.email}
-                    error={values.email && !!errors.email}
+                    helperText={errors.email}
+                    error={!!errors.email}
                     data-testid="email"
                   />
                 </div>
@@ -54,7 +55,6 @@ const ResetPasswordRequestCard = (): JSX.Element => {
                   color="primary"
                   style={{ margin: "1rem 0rem" }}
                   fullWidth
-                  disabled={!!errors.email}
                   data-testid="submit"
                 >
                   Send Email

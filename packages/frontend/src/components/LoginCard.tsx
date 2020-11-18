@@ -49,7 +49,8 @@ const LoginCard = (props: LoginProps): JSX.Element => {
             password: "",
           }}
           validate={validate}
-          validateOnBlur={true}
+          validateOnBlur={false}
+          validateOnChange={false}
           onSubmit={(values) => {
             loginUser(values)
               .then((res) => {
@@ -61,7 +62,7 @@ const LoginCard = (props: LoginProps): JSX.Element => {
               });
           }}
         >
-          {({ values, errors, touched }) => (
+          {({ errors }) => (
             <Form>
               <div>
                 <Field
@@ -72,8 +73,8 @@ const LoginCard = (props: LoginProps): JSX.Element => {
                   variant="outlined"
                   label="Email"
                   color="primary"
-                  helperText={values.email && errors.email}
-                  error={!!values.email && !!errors.email}
+                  helperText={errors.email}
+                  error={!!errors.email}
                   data-testid="email"
                 />
               </div>
@@ -88,8 +89,8 @@ const LoginCard = (props: LoginProps): JSX.Element => {
                   variant="outlined"
                   label="Password"
                   color="primary"
-                  helperText={values.password && errors.password}
-                  error={!!values.password && !!errors.password}
+                  helperText={errors.password}
+                  error={!!errors.password}
                   data-testid="password"
                 />
               </div>
@@ -99,7 +100,6 @@ const LoginCard = (props: LoginProps): JSX.Element => {
                 color="primary"
                 style={{ margin: "1rem 0rem" }}
                 fullWidth
-                disabled={!touched.email || !!errors.email}
                 data-testid="submit"
               >
                 Login

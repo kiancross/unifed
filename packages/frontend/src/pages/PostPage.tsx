@@ -6,6 +6,7 @@ import CommentEditor from "./../components/CommentEditor";
 import { gql, useQuery } from "@apollo/client";
 import Comments from "../components/Comments";
 import UserInfoCard from "./../components/UserInfoCard";
+import LoadingPage from "../components/LoadingPage";
 
 interface PostParams {
   server: string;
@@ -32,8 +33,8 @@ const PostPage = (): JSX.Element => {
     variables: { id: post, host: server },
   });
 
-  if (loading) return <h1 style={{ color: "black" }}>Loading...</h1>;
   if (error) return <h1 style={{ color: "black" }}>Error! ${error.message} </h1>;
+  if (loading) return <LoadingPage />;
 
   const postData = data.getPost;
   const username = postData.author.id;

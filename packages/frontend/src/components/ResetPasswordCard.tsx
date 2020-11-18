@@ -44,7 +44,8 @@ const ResetPassword = (): JSX.Element => {
               retyped: "",
             }}
             validate={validate}
-            validateOnBlur={true}
+            validateOnBlur={false}
+            validateOnChange={false}
             onSubmit={async (values) => {
               try {
                 await passwordClient.resetPassword(token, values.newPass);
@@ -55,7 +56,7 @@ const ResetPassword = (): JSX.Element => {
               }
             }}
           >
-            {({ values, errors, touched }) => (
+            {({ errors }) => (
               <>
                 <Form>
                   <div>
@@ -68,8 +69,8 @@ const ResetPassword = (): JSX.Element => {
                       variant="outlined"
                       label="Password"
                       color="primary"
-                      helperText={values.newPass && errors.newPass}
-                      error={values.newPass && !!errors.newPass}
+                      helperText={errors.newPass}
+                      error={!!errors.newPass}
                       data-testid="newPass"
                     />
                   </div>
@@ -84,8 +85,8 @@ const ResetPassword = (): JSX.Element => {
                       variant="outlined"
                       label="Retype"
                       color="primary"
-                      helperText={values.newPass && errors.newPass}
-                      error={values.newPass && !!errors.newPass}
+                      helperText={errors.newPass}
+                      error={!!errors.newPass}
                       data-testid="retyped"
                     />
                   </div>
@@ -95,9 +96,6 @@ const ResetPassword = (): JSX.Element => {
                     color="primary"
                     style={{ margin: "1rem 0rem" }}
                     fullWidth
-                    disabled={
-                      (!touched.newPass && !touched.retyped) || !!errors.newPass || !!errors.retyped
-                    }
                     data-testid="submit"
                   >
                     Change Password
