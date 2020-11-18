@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, {} from "react";
+import React from "react";
 import { AppBar, Box, ButtonGroup, IconButton, Toolbar } from "@material-ui/core";
 import logo from "./../images/unifed.svg";
 import { Link } from "react-router-dom";
@@ -29,7 +29,7 @@ const Header = (props: HeaderProps): JSX.Element => {
         <div className={styles.logoText}>Unifed</div>
 
         <div className={styles.searchContainer}>
-          <SearchInput/>
+          <SearchInput />
         </div>
 
         <ButtonGroup size="small" className={styles.buttonGroupStyles}>
