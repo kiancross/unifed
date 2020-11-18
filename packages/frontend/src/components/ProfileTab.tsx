@@ -55,6 +55,8 @@ const ProfileTab = (props: ProfileTabParams): JSX.Element => {
       <form onSubmit={formik.handleSubmit}>
         <TextField
           name="name"
+          label="New Name"
+          required
           inputProps={{ "data-testid": "name" }}
           onChange={formik.handleChange}
           value={formik.values.name}
