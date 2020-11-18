@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Paper from "@material-ui/core/Paper";
@@ -36,6 +36,7 @@ const SearchInput = (): JSX.Element => {
     }
   `;
 
+  const history = useHistory();
   const [open, setOpen] = React.useState(false);
   const [host, setHost] = React.useState("");
   const [selectedCommunity, setSelectedCommunity] = React.useState<Community | null>(null);
@@ -99,46 +100,42 @@ const SearchInput = (): JSX.Element => {
   const loadingText = showSpinner ? "Searching..." : "No communities found";
 
   if (selectedCommunity) {
-    return (
-      <Redirect
-        to={`/instances/${selectedCommunity.host}/communities/${selectedCommunity.id}/posts`}
-      />
-    );
-  } else {
-    return (
-      <Paper className={styles.searchRoot}>
-        <Autocomplete
-          freeSolo
-          disableClearable
-          className={styles.autocomplete}
-          open={open}
-          onOpen={() => setOpen(true)}
-          onClose={onOpen}
-          getOptionLabel={getOptionLabel}
-          filterOptions={optionsFilter}
-          options={options}
-          loading={openLoader}
-          loadingText={loadingText}
-          onChange={onSelectChange}
-          onInputChange={onInputChange}
-          renderInput={(params) => (
-            <InputBase
-              ref={params.InputProps.ref}
-              placeholder="Find a community"
-              className={styles.autocompleteInput}
-              inputProps={params.inputProps}
-              endAdornment={
-                <React.Fragment>
-                  {showSpinner ? <CircularProgress color="inherit" size={20} /> : null}
-                  {params.InputProps.endAdornment}
-                </React.Fragment>
-              }
-            />
-          )}
-        />
-      </Paper>
-    );
+    history.push(`/instances/${selectedCommunity.host}/communities/${selectedCommunity.id}/posts`);
   }
+
+  return (
+    <Paper className={styles.searchRoot}>
+      <Autocomplete
+        freeSolo
+        disableClearable
+        className={styles.autocomplete}
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={onOpen}
+        getOptionLabel={getOptionLabel}
+        filterOptions={optionsFilter}
+        options={options}
+        loading={openLoader}
+        loadingText={loadingText}
+        onChange={onSelectChange}
+        onInputChange={onInputChange}
+        renderInput={(params) => (
+          <InputBase
+            ref={params.InputProps.ref}
+            placeholder="Find a community"
+            className={styles.autocompleteInput}
+            inputProps={params.inputProps}
+            endAdornment={
+              <React.Fragment>
+                {showSpinner ? <CircularProgress color="inherit" size={20} /> : null}
+                {params.InputProps.endAdornment}
+              </React.Fragment>
+            }
+          />
+        )}
+      />
+    </Paper>
+  );
 };
 
 export default SearchInput;
