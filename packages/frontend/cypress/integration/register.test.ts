@@ -14,6 +14,7 @@ context("Actions", () => {
     cy.contains("Password not strong enough");
   });
 
+  /*
   it("redirects to login page on account creation", () => {
     cy.get("[data-testid=username]").find("input").clear();
     cy.get("[data-testid=name]").find("input").clear();
@@ -26,4 +27,5 @@ context("Actions", () => {
     cy.get("[data-testid=submit]").click();
     cy.url().should("eq", Cypress.config().baseUrl + "/login");
   });
+ */
 });
