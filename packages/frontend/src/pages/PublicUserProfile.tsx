@@ -11,7 +11,6 @@ interface PublicUserProfileParams {
 }
 
 const PublicUserProfile = (): JSX.Element => {
-
   const GET_POSTS = gql`
     query($community: String!, $host: String!) {
       getPosts(community: { id: $community, host: $host }) {
@@ -31,14 +30,14 @@ const PublicUserProfile = (): JSX.Element => {
       host: window.location.host,
     },
   });
-  
+
   const all = useQuery(GET_POSTS, {
     variables: {
       community: "all",
       host: window.location.host,
     },
   });
-  
+
   const elections = useQuery(GET_POSTS, {
     variables: {
       community: "elections",
@@ -48,8 +47,9 @@ const PublicUserProfile = (): JSX.Element => {
 
   const { username } = useParams<PublicUserProfileParams>();
   const name = username;
-  
-  if (elections.error || all.error || general.error) return <h1 style={{ color: "black" }}>Error! </h1>;
+
+  if (elections.error || all.error || general.error)
+    return <h1 style={{ color: "black" }}>Error! </h1>;
   if (elections.loading || all.loading || general.loading) return <LoadingPage />;
 
   return (
@@ -58,21 +58,48 @@ const PublicUserProfile = (): JSX.Element => {
         <Grid item container xs={8} direction="column" spacing={2}>
           {elections.data.getPosts.map((post: any) => {
             if (post.title && post.author.id === username) {
-              return <PostPreview key={post.id} postId={post.id} server={post.host} community="elections" username={username} title={post.title} />
+              return (
+                <PostPreview
+                  key={post.id}
+                  postId={post.id}
+                  server={post.host}
+                  community="elections"
+                  username={username}
+                  title={post.title}
+                />
+              );
             } else {
               return null;
             }
           })}
           {general.data.getPosts.map((post: any) => {
             if (post.title && post.author.id === username) {
-              return <PostPreview key={post.id} postId={post.id} server={post.host} community="general" username={username} title={post.title} />
+              return (
+                <PostPreview
+                  key={post.id}
+                  postId={post.id}
+                  server={post.host}
+                  community="general"
+                  username={username}
+                  title={post.title}
+                />
+              );
             } else {
               return null;
             }
           })}
           {all.data.getPosts.map((post: any) => {
             if (post.title && post.author.id === username) {
-              return <PostPreview key={post.id} postId={post.id} server={post.host} community="all" username={username} title={post.title} />
+              return (
+                <PostPreview
+                  key={post.id}
+                  postId={post.id}
+                  server={post.host}
+                  community="all"
+                  username={username}
+                  title={post.title}
+                />
+              );
             } else {
               return null;
             }
