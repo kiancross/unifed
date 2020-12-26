@@ -4,20 +4,19 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.scss";
-
-import Unifed from "./Unifed";
-import * as serviceWorker from "./service-worker";
-import { ApolloProvider } from "@apollo/client";
-import { apolloClient } from "./utils/apollo-client";
 import { ThemeProvider } from "@material-ui/core/styles";
-import theme from "./utils/theme";
+import { ApolloProvider } from "@apollo/client";
+import * as serviceWorker from "./service-worker";
+import "./index.scss";
+import App from "components/App";
+import { apolloClient } from "utils/apollo-client";
+import theme from "utils/theme";
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={apolloClient}>
       <ThemeProvider theme={theme}>
-        <Unifed />
+        <App />
       </ThemeProvider>
     </ApolloProvider>
   </React.StrictMode>,

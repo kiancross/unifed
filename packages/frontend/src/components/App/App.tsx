@@ -3,25 +3,24 @@
  */
 
 import React, { useState } from "react";
-import { accountsClient } from "./utils/accounts";
+import { Box } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
-import ResetPasswordRequest from "./pages/ResetPasswordRequest";
-import ResetPassword from "./pages/ResetPassword";
-import PageNotFound from "./pages/404";
-import LoginForm from "./pages/Login";
-import RegisterForm from "./pages/Register";
-import VerifyEmailPage from "./pages/VerifyEmail";
-import PublicUserProfile from "./pages/PublicUserProfile";
-import CommunityPostsPage from "./pages/CommunityPostsPage";
-import AccountSettingsPage from "./pages/AccountSettings";
-import MakePost from "./pages/MakePost";
-import PostPage from "./pages/PostPage";
+import { accountsClient } from "utils/accounts";
+import ResetPasswordRequest from "pages/ResetPasswordRequest";
+import ResetPassword from "pages/ResetPassword";
+import PageNotFound from "pages/404";
+import LoginForm from "pages/Login";
+import RegisterForm from "pages/Register";
+import VerifyEmailPage from "pages/VerifyEmail";
+import PublicUserProfile from "pages/PublicUserProfile";
+import CommunityPostsPage from "pages/CommunityPostsPage";
+import AccountSettingsPage from "pages/AccountSettings";
+import MakePost from "pages/MakePost";
+import PostPage from "pages/PostPage";
+import Header from "components/Header";
 
-import Header from "./components/Header";
-import { Box } from "@material-ui/core";
-
-function Unifed(): JSX.Element {
+const App = (): JSX.Element => {
   const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
   const [username, setUsername] = useState<string>("");
 
@@ -103,4 +102,4 @@ function Unifed(): JSX.Element {
   );
 }
 
-export default Unifed;
+export default App;
