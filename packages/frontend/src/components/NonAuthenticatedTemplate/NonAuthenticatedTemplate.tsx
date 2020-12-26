@@ -4,10 +4,14 @@
 
 import React from "react";
 import { Container, Grid } from "@material-ui/core";
-import logo from "./../assets/unifed.svg";
+import logo from "assets/unifed.svg";
 import styles from "./NonAuthenticatedTemplate.module.scss";
 
-const NonAuthenticatedTemplate = (prop: any): JSX.Element => {
+interface NonAuthenticatedTemplateProps {
+  children: React.ReactNode;
+}
+
+const NonAuthenticatedTemplate = (prop: NonAuthenticatedTemplateProps): JSX.Element => {
   return (
     <Container maxWidth="lg" className={styles.container}>
       <Grid
