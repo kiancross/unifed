@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-d
 import { accountsClient } from "utils/accounts";
 import ResetPasswordRequest from "pages/ResetPasswordRequest";
 import ResetPassword from "pages/ResetPassword";
-import PageNotFound from "pages/PageNotFound";
+import PageNotFoundPage from "pages/PageNotFoundPage";
 import LoginForm from "pages/Login";
 import RegisterForm from "pages/Register";
 import VerifyEmailPage from "pages/VerifyEmail";
@@ -95,7 +95,7 @@ const App = (): JSX.Element => {
           >
             {!loggedIn ? redirectLogin : null}
           </Route>
-          <Route component={PageNotFound} />
+          <Route component={PageNotFoundPage} />
         </Switch>
       </Box>
     </Router>

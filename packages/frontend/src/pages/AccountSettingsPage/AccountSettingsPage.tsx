@@ -41,7 +41,7 @@ const GET_USER = {
   `,
 };
 
-class AccountSettings extends React.Component<unknown, State> {
+class AccountSettingsPage extends React.Component<unknown, State> {
   constructor(props: unknown) {
     super(props);
 
@@ -104,4 +104,4 @@ class AccountSettings extends React.Component<unknown, State> {
   }
 }
 
-export default AccountSettings;
+export default AccountSettingsPage;

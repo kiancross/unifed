@@ -4,9 +4,9 @@
 
 import React from "react";
 import { Button, Container, Typography } from "@material-ui/core";
-import styles from "./PageNotFound.module.scss";
+import styles from "./PageNotFoundPage.module.scss";
 
-const PageNotFound = (): JSX.Element => {
+const PageNotFoundPage = (): JSX.Element => {
   return (
     <Container className={styles.container}>
       <Typography variant="h6" gutterBottom>
@@ -19,4 +19,4 @@ const PageNotFound = (): JSX.Element => {
   );
 };
 
-export default PageNotFound;
+export default PageNotFoundPage;
