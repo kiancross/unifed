@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { Box } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
-import { accountsClient } from "utils/accounts";
+import { accountsClient } from "helpers/accounts";
 import AccountSettingsPage from "pages/AccountSettingsPage";
 import LoginPage from "pages/LoginPage";
 import PageNotFoundPage from "pages/PageNotFoundPage";

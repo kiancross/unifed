@@ -3,7 +3,7 @@
  */
 
 import React, { useState } from "react";
-import { passwordClient } from "../utils/accounts";
+import { passwordClient } from "../helpers/accounts";
 import { Redirect, useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { TextField, Button, Card, CardContent, Grid, Snackbar, Link } from "@material-ui/core";

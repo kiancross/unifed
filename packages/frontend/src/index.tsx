@@ -8,8 +8,8 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { ApolloProvider } from "@apollo/client";
 import * as serviceWorker from "./service-worker";
 import App from "components/App";
-import { apolloClient } from "utils/apollo-client";
-import { standardTheme } from "utils/themes";
+import { apolloClient } from "helpers/apollo-client";
+import { standardTheme } from "helpers/themes";
 
 ReactDOM.render(
   <React.StrictMode>

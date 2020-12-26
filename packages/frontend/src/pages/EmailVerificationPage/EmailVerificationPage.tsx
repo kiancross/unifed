@@ -4,7 +4,7 @@
 
 import React from "react";
 import { Link, Redirect, useParams } from "react-router-dom";
-import { passwordClient } from "utils/accounts";
+import { passwordClient } from "helpers/accounts";
 
 interface Params {
   token: string;

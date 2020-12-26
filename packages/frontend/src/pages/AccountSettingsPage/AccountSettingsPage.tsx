@@ -8,7 +8,7 @@ import { Redirect } from "react-router";
 import { AppBar, Container, Tab, Tabs } from "@material-ui/core";
 import AccountTab from "components/AccountTab";
 import ProfileTab from "components/ProfileTab";
-import { apolloClient } from "utils/apollo-client";
+import { apolloClient } from "helpers/apollo-client";
 import style from "./AccountSettingsPage.module.scss";
 
 enum UserStatus {
