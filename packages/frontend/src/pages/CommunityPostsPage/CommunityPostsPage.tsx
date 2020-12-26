@@ -16,7 +16,7 @@ interface Params {
   community: string;
 }
 
-const HomePage = () => {
+const CommunityPostsPage = () => {
   const { community, server } = useParams<Params>();
 
   const GET_POSTS = gql`
@@ -88,4 +88,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default CommunityPostsPage;
