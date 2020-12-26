@@ -4,13 +4,13 @@
 
 import React from "react";
 import { Link, Redirect, useParams } from "react-router-dom";
-import { passwordClient } from "../utils/accounts";
+import { passwordClient } from "utils/accounts";
 
 interface Params {
   token: string;
 }
 
-const VerifyEmail = (): JSX.Element => {
+const EmailVerificationPage = (): JSX.Element => {
   const { token } = useParams<Params>();
   let isTokenValid = false;
   try {
@@ -36,4 +36,4 @@ const VerifyEmail = (): JSX.Element => {
   );
 };
 
-export default VerifyEmail;
+export default EmailVerificationPage;

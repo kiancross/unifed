@@ -13,7 +13,7 @@ import PageNotFoundPage from "pages/PageNotFoundPage";
 import RegistrationPage from "pages/RegistrationPage";
 import ResetPasswordRequest from "pages/ResetPasswordRequest";
 import ResetPassword from "pages/ResetPassword";
-import VerifyEmailPage from "pages/VerifyEmail";
+import EmailVerificationPage from "pages/EmailVerificationPage";
 import PublicUserProfile from "pages/PublicUserProfile";
 import CommunityPostsPage from "pages/CommunityPostsPage";
 import MakePost from "pages/MakePost";
@@ -64,7 +64,7 @@ const App = (): JSX.Element => {
           <Route exact path="/register" component={RegistrationPage}>
             {loggedIn ? redirectHome : null}
           </Route>
-          <Route exact path="/verify-email/:token" component={VerifyEmailPage}>
+          <Route exact path="/verify-email/:token" component={EmailVerificationPage}>
             {loggedIn ? redirectHome : null}
           </Route>
 
