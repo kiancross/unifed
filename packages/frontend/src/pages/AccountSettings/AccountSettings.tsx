@@ -3,12 +3,13 @@
  */
 
 import React from "react";
-import { AppBar, Container, Tab, Tabs } from "@material-ui/core";
-import AccountTab from "../components/AccountTab";
-import ProfileTab from "../components/ProfileTab";
-import { Redirect } from "react-router";
 import { gql } from "@apollo/client";
-import { apolloClient } from "../utils/apollo-client";
+import { Redirect } from "react-router";
+import { AppBar, Container, Tab, Tabs } from "@material-ui/core";
+import AccountTab from "components/AccountTab";
+import ProfileTab from "components/ProfileTab";
+import { apolloClient } from "utils/apollo-client";
+import style from "./AccountSettings.module.scss";
 
 enum UserStatus {
   FETCHING,
@@ -87,7 +88,7 @@ class AccountSettings extends React.Component<unknown, State> {
     if (this.state.gotUser === UserStatus.LOGGED_OUT) return <Redirect to="/" />;
 
     return (
-      <Container style={{ paddingTop: "1.5rem" }} maxWidth="sm">
+      <Container className={style.container} maxWidth="sm">
         <AppBar position="static">
           <Tabs value={this.state.selectedTab} onChange={this.handleTabChange}>
             <Tab label="ACCOUNT" />
