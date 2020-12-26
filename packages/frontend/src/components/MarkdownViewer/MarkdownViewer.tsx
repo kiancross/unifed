@@ -11,8 +11,8 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import "katex/dist/katex.min.css";
 
 interface MarkdownViewerProps {
-  children: React.ReactNode
-};
+  children: React.ReactNode;
+}
 
 const renderers = {
   inlineMath({ value }: { value: string }) {
