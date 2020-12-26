@@ -25,14 +25,13 @@
     ]
   },
   "scripts": {
-    "start": "react-scripts -r @cypress/instrument-cra start",
+    "start": "react-scripts start",
     "build": "yarn workspace unifed-shared build && react-scripts build",
     "test:unit": "react-scripts test --coverage --coverageReporters html json text --watchAll=false",
-    "test:integration": "cypress run",
-    "test:integration:open": "cypress open",
-    "clean": "rm -rf coverage .nyc_output build cypress/videos cypress/screenshots",
-    "lint": "eslint --ext .js,.ts,.tsx src/ cypress/",
-    "fix": "eslint --ext .js,ts,tsx --fix src/ cypress/"
+    "test:integration": "true",
+    "clean": "rm -rf coverage .nyc_output build",
+    "lint": "eslint --ext .js,.ts,.tsx src/",
+    "fix": "eslint --ext .js,ts,tsx --fix src/"
   },
   "dependencies": {
     "@accounts/apollo-link": "^0.29.0",
@@ -50,8 +49,6 @@
     "@types/react-syntax-highlighter": "^13.5.0",
     "@types/testing-library__jest-dom": "^5.9.5",
     "apollo-client": "^2.6.10",
-    "cypress": "^5.6.0",
-    "cypress-react-selector": "^2.2.0",
     "formik": "^2.2.3",
     "graphql": "^15.4.0",
     "react": "^16.14.0",
@@ -67,8 +64,6 @@
     "use-debounce": "^5.1.0"
   },
   "devDependencies": {
-    "@cypress/code-coverage": "^3.8.3",
-    "@cypress/instrument-cra": "^1.4.0",
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/user-event": "^7.1.2",
     "@types/node": "^14.11.2",
