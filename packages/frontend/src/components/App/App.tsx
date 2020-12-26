@@ -11,13 +11,13 @@ import AccountSettingsPage from "pages/AccountSettingsPage";
 import LoginPage from "pages/LoginPage";
 import PageNotFoundPage from "pages/PageNotFoundPage";
 import RegistrationPage from "pages/RegistrationPage";
-import ResetPasswordRequest from "pages/ResetPasswordRequest";
-import ResetPassword from "pages/ResetPassword";
 import EmailVerificationPage from "pages/EmailVerificationPage";
 import CommunityPostsPage from "pages/CommunityPostsPage";
 import CreatePostPage from "pages/CreatePostPage";
 import PostPage from "pages/PostPage";
 import UserProfilePage from "pages/UserProfilePage";
+import PasswordResetRequestPage from "pages/PasswordResetRequestPage";
+import PasswordResetPage from "pages/PasswordResetPage";
 import Header from "components/Header";
 
 const App = (): JSX.Element => {
@@ -55,10 +55,10 @@ const App = (): JSX.Element => {
             {loggedIn ? redirectHome : <LoginPage onLogin={() => setLoggedIn(true)} />}
           </Route>
 
-          <Route exact path="/reset-password" component={ResetPasswordRequest}>
+          <Route exact path="/reset-password" component={PasswordResetRequestPage}>
             {loggedIn ? redirectHome : null}
           </Route>
-          <Route exact path="/reset-password/:token" component={ResetPassword}>
+          <Route exact path="/reset-password/:token" component={PasswordResetPage}>
             {loggedIn ? redirectHome : null}
           </Route>
           <Route exact path="/register" component={RegistrationPage}>
