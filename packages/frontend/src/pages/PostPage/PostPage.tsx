@@ -4,13 +4,14 @@
 
 import React from "react";
 import { Container, Grid } from "@material-ui/core";
-import Post from "./../components/Post";
 import { useParams } from "react-router-dom";
-import CommentEditor from "./../components/CommentEditor";
 import { gql, useQuery } from "@apollo/client";
-import Comments from "../components/Comments";
-import UserInfoCard from "./../components/UserInfoCard";
-import LoadingPage from "../components/LoadingPage";
+import Post from "components/Post";
+import CommentEditor from "components/CommentEditor";
+import Comments from "components/Comments";
+import UserInfoCard from "components/UserInfoCard";
+import LoadingPage from "components/LoadingPage";
+import style from "./PostPage.module.scss";
 
 interface PostParams {
   server: string;
@@ -46,7 +47,7 @@ const PostPage = (): JSX.Element => {
   const title = postData.title;
 
   return (
-    <Container style={{ paddingTop: "1.5rem" }}>
+    <Container className={style.container}>
       <Grid container spacing={3}>
         <Grid item container xs={8} direction="column" spacing={2}>
           <Post username={username} text={body} title={title} />
