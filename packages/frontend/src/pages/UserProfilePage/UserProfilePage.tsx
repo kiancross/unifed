@@ -3,18 +3,18 @@
  */
 
 import React from "react";
-import { Container, Grid } from "@material-ui/core";
-import UserInfoCard from "./../components/UserInfoCard";
 import { useParams } from "react-router-dom";
-import PostPreview from "../components/PostPreview";
+import { Container, Grid } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
-import LoadingPage from "../components/LoadingPage";
+import UserInfoCard from "components/UserInfoCard";
+import PostPreview from "components/PostPreview";
+import LoadingPage from "components/LoadingPage";
 
 interface PublicUserProfileParams {
   username: string;
 }
 
-const PublicUserProfile = (): JSX.Element => {
+const UserProfilePage = (): JSX.Element => {
   const GET_POSTS = gql`
     query($community: String!, $host: String!) {
       getPosts(community: { id: $community, host: $host }) {
@@ -117,4 +117,4 @@ const PublicUserProfile = (): JSX.Element => {
   );
 };
 
-export default PublicUserProfile;
+export default UserProfilePage;

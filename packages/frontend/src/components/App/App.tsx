@@ -16,8 +16,8 @@ import ResetPassword from "pages/ResetPassword";
 import EmailVerificationPage from "pages/EmailVerificationPage";
 import CommunityPostsPage from "pages/CommunityPostsPage";
 import CreatePostPage from "pages/CreatePostPage";
-import PublicUserProfile from "pages/PublicUserProfile";
 import PostPage from "pages/PostPage";
+import UserProfilePage from "pages/UserProfilePage";
 import Header from "components/Header";
 
 const App = (): JSX.Element => {
@@ -71,7 +71,7 @@ const App = (): JSX.Element => {
           <Route exact path="/account" component={AccountSettingsPage}>
             {!loggedIn ? redirectLogin : null}
           </Route>
-          <Route exact path="/user/:username" component={PublicUserProfile}>
+          <Route exact path="/user/:username" component={UserProfilePage}>
             {!loggedIn ? redirectLogin : null}
           </Route>
           <Route
