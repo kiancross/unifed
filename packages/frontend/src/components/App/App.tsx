@@ -7,15 +7,15 @@ import { Box } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
 import { accountsClient } from "utils/accounts";
+import AccountSettingsPage from "pages/AccountSettingsPage";
+import LoginPage from "pages/LoginPage";
+import PageNotFoundPage from "pages/PageNotFoundPage";
+import RegisterationPage from "pages/RegistrationPage";
 import ResetPasswordRequest from "pages/ResetPasswordRequest";
 import ResetPassword from "pages/ResetPassword";
-import PageNotFoundPage from "pages/PageNotFoundPage";
-import LoginPage from "pages/LoginPage";
-import RegisterForm from "pages/Register";
 import VerifyEmailPage from "pages/VerifyEmail";
 import PublicUserProfile from "pages/PublicUserProfile";
 import CommunityPostsPage from "pages/CommunityPostsPage";
-import AccountSettingsPage from "pages/AccountSettingsPage";
 import MakePost from "pages/MakePost";
 import PostPage from "pages/PostPage";
 import Header from "components/Header";
@@ -61,7 +61,7 @@ const App = (): JSX.Element => {
           <Route exact path="/reset-password/:token" component={ResetPassword}>
             {loggedIn ? redirectHome : null}
           </Route>
-          <Route exact path="/register" component={RegisterForm}>
+          <Route exact path="/register" component={RegistrationPage}>
             {loggedIn ? redirectHome : null}
           </Route>
           <Route exact path="/verify-email/:token" component={VerifyEmailPage}>

@@ -4,10 +4,11 @@
 
 import React from "react";
 import { Button } from "@material-ui/core";
-import RegisterCard from "../components/RegisterCard";
-import NonAuthenticatedTemplate from "../components/NonAuthenticatedTemplate";
+import RegisterCard from "components/RegisterCard";
+import NonAuthenticatedTemplate from "components/NonAuthenticatedTemplate";
+import style from "./RegistrationPage.module.scss";
 
-const SignupForm = (): JSX.Element => {
+const RegistrationPage = (): JSX.Element => {
   return (
     <NonAuthenticatedTemplate>
       <RegisterCard />
@@ -16,7 +17,7 @@ const SignupForm = (): JSX.Element => {
         fullWidth
         color="primary"
         variant="contained"
-        style={{ marginTop: "16px" }}
+        className={style.button}
       >
         Already a user? Login
       </Button>
@@ -24,4 +25,4 @@ const SignupForm = (): JSX.Element => {
   );
 };
 
-export default SignupForm;
+export default RegistrationPage;
