@@ -3,7 +3,7 @@
  */
 
 import test from "ava";
-import { getFederatedApiEndpoint, isStringArray, RemoteResponseError } from "../utils";
+import { getFederatedApiEndpoint, isStringArray, RemoteResponseError } from "../helpers";
 
 test("RemoteResponseError", (t) => {
   const error = new RemoteResponseError("foo");

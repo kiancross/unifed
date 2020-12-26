@@ -6,8 +6,8 @@ import "reflect-metadata";
 import express from "express";
 import mongoose from "mongoose";
 import { routes } from "./routes";
-import { config } from "./utils";
-import { createDefaults, logger } from "./utils";
+import { config } from "./helpers";
+import { createDefaults, logger } from "./helpers";
 
 (async () => {
   const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true };

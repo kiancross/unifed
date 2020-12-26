@@ -5,7 +5,7 @@
 import got from "got";
 import { plainToClass } from "class-transformer";
 import { validate } from "class-validator";
-import { getFederatedApiEndpoint, isStringArray, RemoteResponseError } from "./utils";
+import { getFederatedApiEndpoint, isStringArray, RemoteResponseError } from "./helpers";
 import { Community } from "../../models";
 
 export class CommunityNotFoundError extends Error {

@@ -4,9 +4,9 @@
 
 import got from "got";
 import { plainToClass } from "class-transformer";
-import { getFederatedApiEndpoint } from "./utils";
+import { getFederatedApiEndpoint } from "./helpers";
 import { Post, User } from "../../models";
-import { config } from "../../utils";
+import { config } from "../../helpers";
 
 export async function createPost(
   host: string,

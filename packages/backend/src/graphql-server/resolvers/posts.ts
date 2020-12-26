@@ -11,7 +11,7 @@ import {
   Root,
   Arg,
 } from "type-graphql";
-import { CurrentUser } from "./utils";
+import { CurrentUser } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
 import { Post, User } from "../../models";
 import { CreatePostInput, RemoteReferenceInput } from "./inputs";

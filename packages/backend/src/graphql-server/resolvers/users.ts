@@ -3,7 +3,7 @@
  */
 
 import { Resolver, Mutation, FieldResolver, ResolverInterface, Root, Arg } from "type-graphql";
-import { CurrentUser } from "./utils";
+import { CurrentUser } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
 import { User, UserModel } from "../../models";
 import { UserProfileInput } from "./inputs";

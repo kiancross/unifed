@@ -10,7 +10,7 @@ import { AccountsPassword } from "@accounts/password";
 import { AccountsModule } from "@accounts/graphql-api";
 import { mergeResolvers, mergeTypeDefs } from "@graphql-tools/merge";
 import { validateUsername, validateName, validatePassword } from "unifed-shared";
-import { config, emailTransporter } from "../utils";
+import { config, emailTransporter } from "../helpers";
 
 class EmailNotVerifiedError extends Error {
   constructor() {

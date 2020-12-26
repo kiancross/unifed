@@ -6,7 +6,7 @@ import { Application, Router } from "express";
 import { ApolloServer } from "apollo-server-express";
 import { accountsContext } from "./accounts-setup";
 import { schema } from "./schema";
-import { config } from "../utils";
+import { config } from "../helpers";
 
 export const routes = (async (): Promise<Router> => {
   const router: Router = Router();

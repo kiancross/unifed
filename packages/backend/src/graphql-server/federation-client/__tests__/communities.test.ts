@@ -5,7 +5,7 @@
 import test from "ava";
 import nock from "nock";
 import { getCommunities, getCommunity, CommunityNotFoundError } from "../communities";
-import { RemoteResponseError } from "../utils";
+import { RemoteResponseError } from "../helpers";
 import { RemoteReference } from "../../../models";
 
 test("getCommunities none", async (t) => {
