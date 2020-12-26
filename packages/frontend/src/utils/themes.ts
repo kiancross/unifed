@@ -1,6 +1,10 @@
+/*
+ * CS3099 Group A3
+ */
+
 import { createMuiTheme } from "@material-ui/core/styles";
 
-const theme = createMuiTheme({
+export const standardTheme = createMuiTheme({
   palette: {
     primary: {
       main: "#00539b",
@@ -10,5 +14,3 @@ const theme = createMuiTheme({
     },
   },
 });
-
-export default theme;

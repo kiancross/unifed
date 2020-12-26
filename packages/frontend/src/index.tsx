@@ -10,12 +10,12 @@ import * as serviceWorker from "./service-worker";
 import "./index.scss";
 import App from "components/App";
 import { apolloClient } from "utils/apollo-client";
-import theme from "utils/theme";
+import { standardTheme } from "utils/themes";
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={apolloClient}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={standardTheme}>
         <App />
       </ThemeProvider>
     </ApolloProvider>
