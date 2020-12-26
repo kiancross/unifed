@@ -10,6 +10,10 @@ import TeX from "@matejmazur/react-katex";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import "katex/dist/katex.min.css";
 
+interface MarkdownViewerProps {
+  children: React.ReactNode
+};
+
 const renderers = {
   inlineMath({ value }: { value: string }) {
     return <TeX math={value} />;
@@ -24,7 +28,7 @@ const renderers = {
   },
 };
 
-const MarkdownViewer = (props: any) => (
+const MarkdownViewer = (props: MarkdownViewerProps) => (
   <ReactMarkdown plugins={[math, gfm]} renderers={renderers}>
     {props.children}
   </ReactMarkdown>
