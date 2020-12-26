@@ -15,7 +15,7 @@ import RegisterForm from "pages/Register";
 import VerifyEmailPage from "pages/VerifyEmail";
 import PublicUserProfile from "pages/PublicUserProfile";
 import CommunityPostsPage from "pages/CommunityPostsPage";
-import AccountSettingsPage from "pages/AccountSettings";
+import AccountSettingsPage from "pages/AccountSettingsPage";
 import MakePost from "pages/MakePost";
 import PostPage from "pages/PostPage";
 import Header from "components/Header";

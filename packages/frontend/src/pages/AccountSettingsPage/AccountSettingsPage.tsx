@@ -9,7 +9,7 @@ import { AppBar, Container, Tab, Tabs } from "@material-ui/core";
 import AccountTab from "components/AccountTab";
 import ProfileTab from "components/ProfileTab";
 import { apolloClient } from "utils/apollo-client";
-import style from "./AccountSettings.module.scss";
+import style from "./AccountSettingsPage.module.scss";
 
 enum UserStatus {
   FETCHING,
