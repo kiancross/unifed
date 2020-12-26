@@ -10,7 +10,7 @@ import { accountsClient } from "utils/accounts";
 import ResetPasswordRequest from "pages/ResetPasswordRequest";
 import ResetPassword from "pages/ResetPassword";
 import PageNotFoundPage from "pages/PageNotFoundPage";
-import LoginForm from "pages/Login";
+import LoginPage from "pages/LoginPage";
 import RegisterForm from "pages/Register";
 import VerifyEmailPage from "pages/VerifyEmail";
 import PublicUserProfile from "pages/PublicUserProfile";
@@ -52,7 +52,7 @@ const App = (): JSX.Element => {
           </Route>
 
           <Route exact path="/login">
-            {loggedIn ? redirectHome : <LoginForm onLogin={() => setLoggedIn(true)} />}
+            {loggedIn ? redirectHome : <LoginPage onLogin={() => setLoggedIn(true)} />}
           </Route>
 
           <Route exact path="/reset-password" component={ResetPasswordRequest}>

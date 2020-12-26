@@ -4,14 +4,15 @@
 
 import React from "react";
 import { Button } from "@material-ui/core";
-import LoginCard from "../components/LoginCard";
-import NonAuthenticatedTemplate from "../components/NonAuthenticatedTemplate";
+import LoginCard from "components/LoginCard";
+import NonAuthenticatedTemplate from "components/NonAuthenticatedTemplate";
+import style from "./LoginPage.module.scss";
 
-interface LoginProps {
+interface LoginPageProps {
   onLogin(): void;
 }
 
-const LoginForm = (props: LoginProps): JSX.Element => {
+const LoginPage = (props: LoginPageProps): JSX.Element => {
   return (
     <NonAuthenticatedTemplate>
       <LoginCard onLogin={props.onLogin} />
@@ -20,7 +21,7 @@ const LoginForm = (props: LoginProps): JSX.Element => {
         fullWidth
         color="primary"
         variant="contained"
-        style={{ marginTop: "16px" }}
+        className={style.button}
       >
         Register an account
       </Button>
@@ -28,4 +29,4 @@ const LoginForm = (props: LoginProps): JSX.Element => {
   );
 };
 
-export default LoginForm;
+export default LoginPage;
