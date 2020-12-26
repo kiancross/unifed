@@ -1,3 +1,7 @@
+/*
+ * CS3099 Group A3
+ */
+
 import { Avatar, Typography } from "@material-ui/core";
 import React from "react";
 

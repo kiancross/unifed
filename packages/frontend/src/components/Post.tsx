@@ -1,3 +1,7 @@
+/*
+ * CS3099 Group A3
+ */
+
 import React from "react";
 import { Card, CardContent, Grid, Link, Typography } from "@material-ui/core";
 import MarkdownViewer from "./MarkdownViewer";

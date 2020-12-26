@@ -1,3 +1,7 @@
+/*
+ * CS3099 Group A3
+ */
+
 import React from "react";
 import PostEditor from "../components/PostEditor";
 import { useParams } from "react-router-dom";

@@ -1,3 +1,7 @@
+/*
+ * CS3099 Group A3
+ */
+
 import React from "react";
 import { Backdrop, CircularProgress } from "@material-ui/core";
 

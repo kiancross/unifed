@@ -1,3 +1,7 @@
+/*
+ * CS3099 Group A3
+ */
+
 import React from "react";
 import { Card, CardActionArea, CardContent, Grid, Link, Typography } from "@material-ui/core";
 import UserIcon from "./UserIcon";

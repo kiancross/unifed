@@ -1,3 +1,7 @@
+/*
+ * CS3099 Group A3
+ */
+
 import React from "react";
 import { AppBar, Container, Tab, Tabs } from "@material-ui/core";
 import AccountTab from "../components/AccountTab";
