@@ -26,9 +26,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "yarn workspace unifed-shared build && react-scripts build",
+    "build": "react-scripts build",
     "test:unit": "react-scripts test --coverage --coverageReporters html json text --watchAll=false",
-    "test:integration": "true",
     "clean": "rm -rf coverage .nyc_output build",
     "ts:lint": "eslint --ext .js,.ts,.tsx src/",
     "ts:fix": "eslint --ext .js,ts,tsx --fix src/",
