@@ -10,7 +10,7 @@ import { accountsClient } from "utils/accounts";
 import AccountSettingsPage from "pages/AccountSettingsPage";
 import LoginPage from "pages/LoginPage";
 import PageNotFoundPage from "pages/PageNotFoundPage";
-import RegisterationPage from "pages/RegistrationPage";
+import RegistrationPage from "pages/RegistrationPage";
 import ResetPasswordRequest from "pages/ResetPasswordRequest";
 import ResetPassword from "pages/ResetPassword";
 import VerifyEmailPage from "pages/VerifyEmail";

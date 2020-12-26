@@ -12,13 +12,7 @@ const RegistrationPage = (): JSX.Element => {
   return (
     <NonAuthenticatedTemplate>
       <RegisterCard />
-      <Button
-        href="/login"
-        fullWidth
-        color="primary"
-        variant="contained"
-        className={style.button}
-      >
+      <Button href="/login" fullWidth color="primary" variant="contained" className={style.button}>
         Already a user? Login
       </Button>
     </NonAuthenticatedTemplate>
