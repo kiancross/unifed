@@ -4,10 +4,11 @@
 
 import React from "react";
 import { Button, Container, Typography } from "@material-ui/core";
+import styles from "./PageNotFound.module.scss";
 
 const PageNotFound = (): JSX.Element => {
   return (
-    <Container style={{ textAlign: "center", paddingTop: "10rem" }}>
+    <Container className={styles.container}>
       <Typography variant="h6" gutterBottom>
         404 Page Not Found
       </Typography>

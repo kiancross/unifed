@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { useTheme } from '@material-ui/core/styles';
+import { useTheme } from "@material-ui/core/styles";
 import { Box, Card, CardContent, Grid, Link, Typography } from "@material-ui/core";
 import UserIcon from "./UserIcon";
 import MarkdownViewer from "./MarkdownViewer";
@@ -23,7 +23,6 @@ const styles = {
 };
 
 const Comment = (props: PostValues): JSX.Element => {
-
   const theme = useTheme();
 
   return (
