@@ -4,7 +4,7 @@
 
 import React from "react";
 import { AppBar, Box, ButtonGroup, IconButton, Toolbar } from "@material-ui/core";
-import logo from "./../images/unifed.svg";
+import logo from "./../assets/unifed.svg";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
 import UserIcon from "./UserIcon";
