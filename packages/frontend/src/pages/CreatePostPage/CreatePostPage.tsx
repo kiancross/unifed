@@ -3,21 +3,22 @@
  */
 
 import React from "react";
-import PostEditor from "../components/PostEditor";
 import { useParams } from "react-router-dom";
 import { Button, Container, Grid } from "@material-ui/core";
+import PostEditor from "components/PostEditor";
+import style from "./CreatePostPage.module.scss";
 
 interface Params {
   server: string;
   community: string;
 }
 
-const MakePost = () => {
+const CreatePostPage = () => {
   const { community, server } = useParams<Params>();
   const href = "/instances/" + server + "/communities/" + community + "/posts";
 
   return (
-    <Container style={{ paddingTop: "1.5rem" }} maxWidth="lg">
+    <Container className={style.container} maxWidth="lg">
       <Grid container direction="column" spacing={3}>
         <PostEditor community={community} server={server} />
         <Grid item>
@@ -30,4 +31,4 @@ const MakePost = () => {
   );
 };
 
-export default MakePost;
+export default CreatePostPage;

@@ -14,9 +14,9 @@ import RegistrationPage from "pages/RegistrationPage";
 import ResetPasswordRequest from "pages/ResetPasswordRequest";
 import ResetPassword from "pages/ResetPassword";
 import EmailVerificationPage from "pages/EmailVerificationPage";
-import PublicUserProfile from "pages/PublicUserProfile";
 import CommunityPostsPage from "pages/CommunityPostsPage";
-import MakePost from "pages/MakePost";
+import CreatePostPage from "pages/CreatePostPage";
+import PublicUserProfile from "pages/PublicUserProfile";
 import PostPage from "pages/PostPage";
 import Header from "components/Header";
 
@@ -84,7 +84,7 @@ const App = (): JSX.Element => {
           <Route
             exact
             path="/instances/:server/communities/:community/posts/create"
-            component={MakePost}
+            component={CreatePostPage}
           >
             {!loggedIn ? redirectLogin : null}
           </Route>
