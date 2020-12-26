@@ -7,7 +7,6 @@ import ReactDOM from "react-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { ApolloProvider } from "@apollo/client";
 import * as serviceWorker from "./service-worker";
-import "./index.scss";
 import App from "components/App";
 import { apolloClient } from "utils/apollo-client";
 import { standardTheme } from "utils/themes";

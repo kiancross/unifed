@@ -32,7 +32,7 @@ const Header = (props: HeaderProps): JSX.Element => {
           <SearchInput />
         </div>
 
-        <ButtonGroup size="small" className={styles.buttonGroupStyles}>
+        <ButtonGroup size="small" className={styles.buttonGroup}>
           <IconButton href={"/user/" + props.username}>
             <UserIcon username={props.username} small />
           </IconButton>
