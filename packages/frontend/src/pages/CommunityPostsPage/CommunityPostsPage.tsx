@@ -3,13 +3,13 @@
  */
 
 import React from "react";
-import { Container, Grid, Button } from "@material-ui/core";
 import { useParams } from "react-router-dom";
-import PostPreview from "../components/PostPreview";
+import { Container, Grid, Button } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
-import CommunityDesc from "../components/CommunityDesc";
-import CommunityHeader from "../components/CommunityHeader";
-import LoadingPage from "../components/LoadingPage";
+import PostPreview from "components/PostPreview";
+import CommunityDesc from "components/CommunityDesc";
+import CommunityHeader from "components/CommunityHeader";
+import LoadingPage from "components/LoadingPage";
 
 interface Params {
   server: string;
