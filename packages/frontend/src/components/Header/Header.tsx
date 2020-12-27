@@ -3,14 +3,14 @@
  */
 
 import React from "react";
-import { AppBar, Box, ButtonGroup, IconButton, Toolbar } from "@material-ui/core";
-import logo from "./../assets/unifed.svg";
 import { Link } from "react-router-dom";
-import styles from "./Header.module.scss";
-import UserIcon from "./UserIcon";
+import { AppBar, Box, ButtonGroup, IconButton, Toolbar } from "@material-ui/core";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import SearchInput from "../components/SearchInput";
+import logo from "assets/unifed.svg";
+import styles from "./Header.module.scss";
+import UserIcon from "components/UserIcon";
+import SearchInput from "./SearchInput";
 
 interface HeaderProps {
   username: string;
