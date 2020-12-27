@@ -17,7 +17,7 @@ import { Alert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
 import { useFormik } from "formik";
-import { passwordClient } from "../helpers/accounts";
+import { passwordClient } from "helpers/accounts";
 
 interface AccountTabParams {
   username: string;

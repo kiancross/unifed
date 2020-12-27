@@ -6,8 +6,8 @@ import React from "react";
 import { gql } from "@apollo/client";
 import { Redirect } from "react-router";
 import { AppBar, Container, Tab, Tabs } from "@material-ui/core";
-import AccountTab from "components/AccountTab";
-import ProfileTab from "components/ProfileTab";
+import AccountTab from "./AccountTab";
+import ProfileTab from "./ProfileTab";
 import { apolloClient } from "helpers/apollo-client";
 import style from "./AccountSettingsPage.module.scss";
 
