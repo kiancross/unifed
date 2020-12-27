@@ -7,7 +7,7 @@ import { Container, Grid } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 import Post from "components/Post";
-import CommentEditor from "components/CommentEditor";
+import CommentEditor from "./CommentEditor";
 import Comments from "components/Comments";
 import UserInfoCard from "components/UserInfoCard";
 import CenteredLoader from "components/CenteredLoader";
