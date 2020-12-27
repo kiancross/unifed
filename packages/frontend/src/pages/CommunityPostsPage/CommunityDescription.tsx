@@ -9,7 +9,7 @@ interface Props {
   desc: string;
 }
 
-const CommunityDesc = (props: Props): JSX.Element => {
+const CommunityDescription = (props: Props): JSX.Element => {
   return (
     <Grid item>
       <Card>
@@ -25,4 +25,4 @@ const CommunityDesc = (props: Props): JSX.Element => {
   );
 };
 
-export default CommunityDesc;
+export default CommunityDescription;

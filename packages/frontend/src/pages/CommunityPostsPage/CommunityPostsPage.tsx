@@ -7,8 +7,8 @@ import { useParams } from "react-router-dom";
 import { Container, Grid, Button } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
 import PostPreview from "components/PostPreview";
-import CommunityDesc from "components/CommunityDesc";
-import CommunityHeader from "components/CommunityHeader";
+import CommunityDescription from "./CommunityDescription";
+import CommunityHeader from "./CommunityHeader";
 import CenteredLoader from "components/CenteredLoader";
 
 interface Params {
@@ -80,7 +80,7 @@ const CommunityPostsPage = () => {
                 Make Post{" "}
               </Button>
             </Grid>
-            <CommunityDesc desc={data.getCommunity.description} />
+            <CommunityDescription desc={data.getCommunity.description} />
           </Grid>
         </Grid>
       </Container>
