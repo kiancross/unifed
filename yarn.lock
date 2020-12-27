@@ -19902,6 +19902,31 @@ typescript@^4.0.3:
   languageName: node
   linkType: hard
 
+"unifed-backend-federation-client@^0.1.0, unifed-backend-federation-client@workspace:packages/backend-federation-client":
+  version: 0.0.0-use.local
+  resolution: "unifed-backend-federation-client@workspace:packages/backend-federation-client"
+  dependencies:
+    "@istanbuljs/nyc-config-typescript": ^1.0.1
+    "@types/node": ^14.14.6
+    "@typescript-eslint/eslint-plugin": ^4.4.1
+    "@typescript-eslint/parser": ^4.4.1
+    ava: ^3.13.0
+    class-transformer: ^0.3.1
+    class-validator: ^0.12.2
+    eslint: ^7.11.0
+    eslint-config-prettier: ^6.13.0
+    eslint-plugin-prettier: ^3.1.4
+    got: ^11.8.0
+    nock: ^13.0.5
+    nyc: ^15.1.0
+    prettier: ^2.1.2
+    source-map-support: ^0.5.19
+    ts-node: ^9.0.0
+    typescript: ^4.0.3
+    unifed-backend-models: ^0.1.0
+  languageName: unknown
+  linkType: soft
+
 "unifed-backend-models@^0.1.0, unifed-backend-models@workspace:packages/backend-models":
   version: 0.0.0-use.local
   resolution: "unifed-backend-models@workspace:packages/backend-models"
@@ -19925,6 +19950,7 @@ typescript@^4.0.3:
     prettier: ^2.1.2
     reflect-metadata: ^0.1.13
     source-map-support: ^0.5.19
+    ts-node: ^9.0.0
     type-graphql: ^1.1.0
     typescript: ^4.0.3
     uuid: ^8.3.1
@@ -19972,6 +19998,7 @@ typescript@^4.0.3:
     ts-node: ^9.0.0
     type-graphql: ^1.1.0
     typescript: ^4.0.3
+    unifed-backend-federation-client: ^0.1.0
     unifed-backend-models: ^0.1.0
     unifed-shared: ^0.1.0
     uuid: ^8.3.1

@@ -6,7 +6,6 @@ import got from "got";
 import { plainToClass } from "class-transformer";
 import { getFederatedApiEndpoint } from "./helpers";
 import { Post, User } from "unifed-backend-models";
-import { config } from "../../helpers";
 
 export async function createPost(
   host: string,
@@ -25,7 +24,7 @@ export async function createPost(
           contentType: "markdown",
           author: {
             id: user.username,
-            host: config.siteHost,
+            host: "TODO", // TODO
           },
         },
       })

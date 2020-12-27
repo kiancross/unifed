@@ -15,7 +15,7 @@ import { CurrentUser } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
 import { Post, User } from "unifed-backend-models";
 import { CreatePostInput, RemoteReferenceInput } from "./inputs";
-import { postsClient } from "../federation-client";
+import { postsClient } from "unifed-backend-federation-client";
 
 @Resolver(Post)
 export class PostsResolver implements ResolverInterface<Post> {
