@@ -10,7 +10,7 @@ import { Formik, Form, Field } from "formik";
 import { Redirect } from "react-router-dom";
 import MarkdownViewer from "./MarkdownViewer";
 import { Button, Card, CardContent, Grid, TextField, Typography } from "@material-ui/core";
-import LoadingComponent from "./LoadingComponent";
+import CenteredLoader from "./CenteredLoader";
 
 interface Params {
   server: string;
@@ -30,7 +30,7 @@ export default function App(props: Params) {
 
   const [makePost, { loading, error, data }] = useMutation(MAKE_POST);
 
-  if (loading) return <LoadingComponent />;
+  if (loading) return <CenteredLoader />;
   if (error) return <p>Error :(</p>;
   if (data) {
     const url = `/instances/${props.server}/communities/${props.community}/posts/${data.createPost.id}`;

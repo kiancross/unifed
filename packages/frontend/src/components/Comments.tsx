@@ -2,7 +2,7 @@ import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import Comment from "./Comment";
 import { Grid } from "@material-ui/core";
-import LoadingComponent from "./LoadingComponent";
+import CenteredLoader from "./CenteredLoader";
 
 interface CommentParams {
   server: string;
@@ -32,7 +32,7 @@ const Comments = (props: CommentParams) => {
   });
 
   if (error) return <h1>Error! ${error.message} </h1>;
-  if (loading) return <LoadingComponent />;
+  if (loading) return <CenteredLoader />;
 
   const commentPosts = data.getPost.children;
 

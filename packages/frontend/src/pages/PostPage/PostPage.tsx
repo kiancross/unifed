@@ -10,7 +10,7 @@ import Post from "components/Post";
 import CommentEditor from "components/CommentEditor";
 import Comments from "components/Comments";
 import UserInfoCard from "components/UserInfoCard";
-import LoadingComponent from "components/LoadingComponent";
+import CenteredLoader from "components/CenteredLoader";
 import style from "./PostPage.module.scss";
 
 interface PostParams {
@@ -39,7 +39,7 @@ const PostPage = (): JSX.Element => {
   });
 
   if (error) return <h1 style={{ color: "black" }}>Error! ${error.message} </h1>;
-  if (loading) return <LoadingComponent />;
+  if (loading) return <CenteredLoader />;
 
   const postData = data.getPost;
   const username = postData.author.id;

@@ -8,7 +8,7 @@ import { Container, Grid } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
 import UserInfoCard from "components/UserInfoCard";
 import PostPreview from "components/PostPreview";
-import LoadingComponent from "components/LoadingComponent";
+import CenteredLoader from "components/CenteredLoader";
 
 interface PublicUserProfileParams {
   username: string;
@@ -54,7 +54,7 @@ const UserProfilePage = (): JSX.Element => {
 
   if (elections.error || all.error || general.error)
     return <h1 style={{ color: "black" }}>Error! </h1>;
-  if (elections.loading || all.loading || general.loading) return <LoadingComponent />;
+  if (elections.loading || all.loading || general.loading) return <CenteredLoader />;
 
   return (
     <Container style={{ paddingTop: "1.5rem" }}>

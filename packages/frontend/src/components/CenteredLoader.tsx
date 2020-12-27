@@ -5,7 +5,7 @@
 import React from "react";
 import { CircularProgress, Grid } from "@material-ui/core";
 
-const LoadingComponent = (): JSX.Element => {
+const CenteredLoader = (): JSX.Element => {
   return (
     <Grid container justify="center" xs={12} item>
       <CircularProgress />
@@ -13,4 +13,4 @@ const LoadingComponent = (): JSX.Element => {
   );
 };
 
-export default LoadingComponent;
+export default CenteredLoader;
