@@ -14,7 +14,7 @@ import {
   accountsDatabase,
 } from "./accounts-setup";
 import { UsersResolver, PostsResolver, CommunitiesResolver, CreateUserInput } from "./resolvers";
-import { User } from "../models";
+import { User } from "unifed-backend-models";
 
 export const schema = (async (): Promise<GraphQLSchema> => {
   await accountsDatabase.setupIndexes();

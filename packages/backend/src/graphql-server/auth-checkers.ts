@@ -3,7 +3,7 @@
  */
 
 import { createMethodDecorator } from "type-graphql";
-import { User } from "../models";
+import { User } from "unifed-backend-models";
 
 export function AuthoriseUser() {
   return createMethodDecorator<{ user: User }>(async ({ context }, next) => {

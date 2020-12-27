@@ -3,7 +3,7 @@
  */
 
 import { createParamDecorator } from "type-graphql";
-import { User } from "../../models";
+import { User } from "unifed-backend-models";
 
 export function CurrentUser() {
   return createParamDecorator<{ user: User }>(({ context }) => context.user);

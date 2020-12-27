@@ -4,7 +4,7 @@
 
 import { Response, Request, NextFunction } from "express";
 import { AsyncRouter } from "express-async-router";
-import { CommunityModel, Post } from "../models";
+import { CommunityModel, Post } from "unifed-backend-models";
 
 async function getCommunity(req: Request, res: Response, next: NextFunction) {
   const community = await CommunityModel.findById(req.params.id);

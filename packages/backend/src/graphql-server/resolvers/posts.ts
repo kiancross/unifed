@@ -13,7 +13,7 @@ import {
 } from "type-graphql";
 import { CurrentUser } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
-import { Post, User } from "../../models";
+import { Post, User } from "unifed-backend-models";
 import { CreatePostInput, RemoteReferenceInput } from "./inputs";
 import { postsClient } from "../federation-client";
 

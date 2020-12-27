@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { CommunityModel } from "../models";
+import { CommunityModel } from "unifed-backend-models";
 import { logger } from "./logging";
 
 export const creators = [

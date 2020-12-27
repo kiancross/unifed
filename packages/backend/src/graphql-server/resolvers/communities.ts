@@ -5,7 +5,7 @@
 import { Resolver, FieldResolver, ResolverInterface, Root, Query, Arg } from "type-graphql";
 import { communitiesClient, postsClient } from "../federation-client";
 import { RemoteReferenceInput } from "./inputs";
-import { Community, Post } from "../../models";
+import { Community, Post } from "unifed-backend-models";
 
 @Resolver(Community)
 export class CommunitiesResolver implements ResolverInterface<Community> {
