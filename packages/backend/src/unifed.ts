@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-import "reflect-metadata";
 import express from "express";
 import mongoose from "mongoose";
 import { routes } from "./routes";

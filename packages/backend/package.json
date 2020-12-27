@@ -32,7 +32,6 @@
     "@graphql-modules/core": "^0.7.17",
     "@graphql-tools/merge": "^6.2.5",
     "@graphql-tools/schema": "^7.0.0",
-    "@typegoose/typegoose": "^7.4.1",
     "apollo-server-express": "^2.18.2",
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
