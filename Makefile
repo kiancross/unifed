@@ -52,7 +52,7 @@ coverage:
 
 .PHONY: clean
 clean:
-	yarn workspaces run clean
+	yarn workspaces foreach run clean
 	rm -rf coverage
 
 .PHONY: clean

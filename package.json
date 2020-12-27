@@ -3,18 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "license": "UNLICENSED",
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ],
-    "nohoist": [
-      "**/jest",
-      "**/testing-library**"
-    ]
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "nyc": "^15.1.0"
-  },
-  "dependencies": {}
+  }
 }
