@@ -4,13 +4,13 @@
 
 import React from "react";
 import { Button } from "@material-ui/core";
-import ResetPasswordCard from "components/ResetPasswordCard";
 import NonAuthenticatedTemplate from "components/NonAuthenticatedTemplate";
+import PasswordResetCard from "./PasswordResetCard";
 
 const PasswordResetPage = (): JSX.Element => {
   return (
     <NonAuthenticatedTemplate>
-      <ResetPasswordCard />
+      <PasswordResetCard />
       <Button
         href="/login"
         fullWidth

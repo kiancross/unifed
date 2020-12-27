@@ -4,7 +4,7 @@
 
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import { passwordClient } from "../helpers/accounts";
+import { passwordClient } from "helpers/accounts";
 import { validateUsername, validateName, validateEmail, validatePassword } from "unifed-shared";
 import { Button, Card, CardContent, TextField, Snackbar } from "@material-ui/core";
 import { Redirect } from "react-router";
@@ -34,7 +34,7 @@ function validate({ username, name, email, password }: Values) {
   return errors;
 }
 
-const SignupForm = (): JSX.Element => {
+const RegistrationCard = (): JSX.Element => {
   const [isAccountCreated, setIsAccountCreated] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -161,4 +161,4 @@ const SignupForm = (): JSX.Element => {
   );
 };
 
-export default SignupForm;
+export default RegistrationCard;

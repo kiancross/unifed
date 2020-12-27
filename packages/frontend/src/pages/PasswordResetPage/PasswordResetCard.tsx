@@ -3,7 +3,7 @@
  */
 
 import React, { useState } from "react";
-import { passwordClient } from "../helpers/accounts";
+import { passwordClient } from "helpers/accounts";
 import { Redirect, useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { TextField, Button, Card, CardContent, Grid, Snackbar, Link } from "@material-ui/core";
@@ -35,7 +35,7 @@ function validate({ newPass, retyped }: Values) {
   }
   return errors;
 }
-const ResetPassword = (): JSX.Element => {
+const PasswordResetCard = (): JSX.Element => {
   const { token } = useParams<Params>();
   const [isReset, setIsReset] = useState(false);
   const [isInternalServerError, setIsInternalServerError] = useState(false);
@@ -126,4 +126,4 @@ const ResetPassword = (): JSX.Element => {
   );
 };
 
-export default ResetPassword;
+export default PasswordResetCard;

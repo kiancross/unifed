@@ -4,7 +4,7 @@
 
 import React from "react";
 import { Button } from "@material-ui/core";
-import LoginCard from "components/LoginCard";
+import LoginCard from "./LoginCard";
 import NonAuthenticatedTemplate from "components/NonAuthenticatedTemplate";
 import style from "./LoginPage.module.scss";
 
