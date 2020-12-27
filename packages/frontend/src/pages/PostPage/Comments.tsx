@@ -1,8 +1,12 @@
+/*
+ * CS3099 Group A3
+ */
+
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import Comment from "./Comment";
 import { Grid } from "@material-ui/core";
-import CenteredLoader from "./CenteredLoader";
+import CenteredLoader from "components/CenteredLoader";
 
 interface CommentParams {
   server: string;

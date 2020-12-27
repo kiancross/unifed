@@ -4,7 +4,7 @@
 
 import React from "react";
 import { Card, CardContent, Grid, Link, Typography } from "@material-ui/core";
-import MarkdownViewer from "./MarkdownViewer";
+import MarkdownViewer from "components/MarkdownViewer";
 
 interface PostValues {
   username: string;
