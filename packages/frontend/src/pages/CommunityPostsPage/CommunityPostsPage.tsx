@@ -9,7 +9,7 @@ import { gql, useQuery } from "@apollo/client";
 import PostPreview from "components/PostPreview";
 import CommunityDesc from "components/CommunityDesc";
 import CommunityHeader from "components/CommunityHeader";
-import LoadingPage from "components/LoadingPage";
+import LoadingComponent from "components/LoadingComponent";
 
 interface Params {
   server: string;
@@ -44,7 +44,7 @@ const CommunityPostsPage = () => {
   });
 
   if (error) return <h1 style={{ color: "black" }}>Error! </h1>;
-  if (loading) return <LoadingPage />;
+  if (loading) return <LoadingComponent />;
 
   return (
     <div>
