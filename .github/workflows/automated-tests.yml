@@ -1,0 +1,57 @@
+#
+# CS3099 Group A3
+#
+
+name: Automated Tests
+
+on:
+  pull_request: master
+
+jobs:
+  checks:
+    name: Checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    strategy:
+      matrix:
+        component: [shared, frontend, backend]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      
+      - run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+        id: yarn-cache-dir-path
+
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - run: npm install -g yarn      
+
+      - name: Install Dependencies 🏗️
+        run: yarn workspaces focus unifed-${{ matrix.component }}
+
+      - name: Code Style 👠
+        run: yarn workspaces foreach -vp --include "unifed-${{ matrix.component }}*" run lint
+
+      - name: Build ⛏️
+        run: yarn workspaces foreach -vpt --include unifed-shared --include "unifed-${{ matrix.component }}*" run build
+      
+      - name: Test 📝
+        run: yarn workspaces foreach -vpt --include "unifed-${{ matrix.component }}*" run test
+
+      - name: Upload Coverage Report 📊
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: ${{ matrix.component }}
+          directory: packages
+          fail_ci_if_error: true
+          verbose: true

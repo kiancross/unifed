@@ -25,12 +25,11 @@
     "zxcvbn": "^4.4.2"
   },
   "scripts": {
-    "test:unit": "nyc ava",
-    "test:integration": "true",
+    "unit": "nyc ava",
     "build": "tsc",
     "clean": "rm -rf coverage .nyc_output build",
-    "ts:lint": "eslint . --ext .ts",
-    "ts:fix": "eslint . --ext .ts --fix"
+    "lint": "eslint . --ext .ts",
+    "fix": "eslint . --ext .ts --fix"
   },
   "ava": {
     "timeout": "1m",

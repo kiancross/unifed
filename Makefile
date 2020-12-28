@@ -31,20 +31,19 @@ endif
 restart: stop start
 
 .PHONY: checks
-checks: lint test build
-
-.PHONY: test
-test:
-	yarn workspaces run test:unit
-	yarn workspaces run test:integration
+checks: lint build test
 
 .PHONY: lint
 lint:
-	yarn workspaces run lint
+	yarn workspaces foreach -vp --exclude unifed run lint
 
 .PHONY: build
 build:
-	yarn workspaces run build
+	yarn workspaces foreach -vpt --exclude unifed run build
+
+.PHONY: test
+test:
+	yarn workspaces foreach -vp --exclude unifed run test
 
 .PHONY: coverage
 coverage:
@@ -52,9 +51,9 @@ coverage:
 
 .PHONY: clean
 clean:
-	yarn workspaces foreach run clean
+	yarn workspaces foreach -vp --exclude unifed run clean
 	rm -rf coverage
 
-.PHONY: clean
+.PHONY: clean-all
 clean-all: clean
 	rm -rf node_modules packages/**/node_modules

@@ -28,12 +28,11 @@
     "unifed-backend-models": "^0.1.0"
   },
   "scripts": {
-    "test:unit": "nyc ava 'src/**/*.test.ts'",
-    "test:integration": "true",
+    "test": "nyc ava 'src/**/*.test.ts'",
     "build": "tsc",
     "clean": "rm -rf coverage build .nyc_output",
-    "ts:lint": "eslint . --ext .ts",
-    "ts:fix": "eslint . --ext .ts --fix"
+    "lint": "eslint . --ext .ts",
+    "fix": "eslint . --ext .ts --fix"
   },
   "ava": {
     "timeout": "1m",

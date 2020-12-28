@@ -27,8 +27,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test:unit": "react-scripts test --coverage --coverageReporters html json text --watchAll=false",
+    "unit": "react-scripts test --coverage --coverageReporters html json text --watchAll=false",
     "clean": "rm -rf coverage .nyc_output build",
+    "lint": "yarn ts:lint && yarn scss:lint",
+    "fix": "yarn ts:fix && yarn scss:fix",
     "ts:lint": "eslint --ext .js,.ts,.tsx src/",
     "ts:fix": "eslint --ext .js,ts,tsx --fix src/",
     "scss:lint": "stylelint \"src/**/*.scss\"",
