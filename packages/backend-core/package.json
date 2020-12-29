@@ -1,5 +1,5 @@
 {
-  "name": "unifed-backend-models",
+  "name": "unifed-backend-core",
   "version": "0.1.0",
   "private": true,
   "license": "UNLICENSED",
@@ -33,7 +33,7 @@
     "uuid": "^8.3.1"
   },
   "scripts": {
-    "unit": "nyc ava 'src/**/*.test.ts'",
+    "test": "nyc ava 'src/**/*.test.ts'",
     "build": "tsc",
     "clean": "rm -rf coverage build .nyc_output",
     "lint": "eslint . --ext .ts",

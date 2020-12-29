@@ -4,7 +4,7 @@
 
 import { prop as Property, getModelForClass, Ref } from "@typegoose/typegoose";
 import { ObjectType, Field } from "type-graphql";
-import { dateToUnixTimestamp } from "./helpers/date";
+import { dateToUnixTimestamp } from "./helpers";
 import { Base, getIdFromRef } from "./base";
 import { Community } from "./community";
 import { RemoteReference } from "./remote-reference";

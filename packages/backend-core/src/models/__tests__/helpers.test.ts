@@ -3,7 +3,7 @@
  */
 
 import test from "ava";
-import { dateToUnixTimestamp } from "../date";
+import { dateToUnixTimestamp } from "../helpers";
 
 test("Example 1", (t) => {
   t.is(dateToUnixTimestamp(new Date("2020-11-10T19:34:53+00:00")), 1605036893);
