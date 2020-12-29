@@ -4,9 +4,9 @@
 
 import { Application, Router } from "express";
 import { ApolloServer } from "apollo-server-express";
+import { config } from "unifed-backend-core";
 import { accountsContext } from "./accounts-setup";
 import { schema } from "./schema";
-import { config } from "../helpers";
 
 export const routes = (async (): Promise<Router> => {
   const router: Router = Router();

@@ -25,7 +25,7 @@
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
     "got": "^11.8.0",
-    "unifed-backend-models": "^0.1.0"
+    "unifed-backend-core": "^0.1.0"
   },
   "scripts": {
     "test": "nyc ava 'src/**/*.test.ts'",
