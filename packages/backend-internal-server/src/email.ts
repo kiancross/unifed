@@ -3,7 +3,7 @@
  */
 
 import { createTransport } from "nodemailer";
-import { config } from "./config";
+import { config } from "unifed-backend-core";
 
 export const emailTransporter = createTransport({
   host: config.smtpHost,

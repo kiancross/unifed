@@ -17,7 +17,6 @@
     "eslint-config-prettier": "^6.13.0",
     "eslint-plugin-prettier": "^3.1.4",
     "mongodb-memory-server-global": "^6.9.2",
-    "nock": "^13.0.5",
     "nodemon": "^2.0.6",
     "nyc": "^15.1.0",
     "prettier": "^2.1.2",
@@ -42,17 +41,15 @@
     "graphql": "^15.4.0",
     "mongoose": "^5.10.9",
     "nodemailer": "^6.4.14",
-    "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.0",
     "unifed-backend-core": "^0.1.0",
     "unifed-backend-federation-client": "^0.1.0",
     "unifed-shared": "^0.1.0",
-    "uuid": "^8.3.1",
-    "winston": "^3.3.3"
+    "uuid": "^8.3.1"
   },
   "scripts": {
-    "start": "nyc node build/unifed.js",
-    "start:watch": "nodemon --exec nyc ts-node src/unifed.ts",
+    "start": "nyc node build/app.js",
+    "start:watch": "nodemon --exec nyc ts-node src/app.ts",
     "test": "yarn test:unit && yarn test:integration",
     "test:unit": "nyc ava 'src/**/*.test.ts'",
     "test:integration": "ava 'integration/**/*.test.ts'",

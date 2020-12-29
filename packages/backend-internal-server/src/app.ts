@@ -4,9 +4,8 @@
 
 import express from "express";
 import mongoose from "mongoose";
+import { config, logger } from "unifed-backend-core";
 import { routes } from "./routes";
-import { config } from "./helpers";
-import { createDefaults, logger } from "./helpers";
 
 (async () => {
   const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true };
@@ -28,8 +27,6 @@ import { createDefaults, logger } from "./helpers";
       res.json({ coverage: global.__coverage__ });
     });
   }
-
-  await createDefaults();
 
   app.use("/", await routes);
   const serverPort = 8080;
