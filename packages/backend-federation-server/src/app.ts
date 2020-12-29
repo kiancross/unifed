@@ -28,7 +28,8 @@ import { routes } from "./routes";
     });
   }
 
-  app.use("/", await routes);
+  app.use("/", routes);
+
   const serverPort = 8080;
   app.listen(serverPort, () => logger.info(`Server running on http://localhost:${serverPort}`));
 })();
