@@ -5,7 +5,7 @@
 import got from "got";
 import { plainToClass } from "class-transformer";
 import { getFederatedApiEndpoint } from "./helpers";
-import { Post, User } from "unifed-backend-models";
+import { Post, User } from "unifed-backend-core";
 
 export async function createPost(
   host: string,

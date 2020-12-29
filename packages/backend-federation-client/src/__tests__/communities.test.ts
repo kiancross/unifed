@@ -6,7 +6,7 @@ import test from "ava";
 import nock from "nock";
 import { getCommunities, getCommunity, CommunityNotFoundError } from "../communities";
 import { RemoteResponseError } from "../helpers";
-import { RemoteReference } from "unifed-backend-models";
+import { RemoteReference } from "unifed-backend-core";
 
 test("getCommunities none", async (t) => {
   const scope = nock("http://getCommunitiesNone").get("/fed/communities").reply(200, []);
