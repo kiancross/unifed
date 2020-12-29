@@ -6,7 +6,7 @@ SHELL:=/bin/bash
 
 DOCKER_COMPOSE_COMMAND:=docker-compose \
 	--env-file configs/config.env \
-  -f <(./scripts/generate-docker-compose) \
+  -f configs/docker-compose.yml \
   --project-directory .
 
 .PHONY: start
