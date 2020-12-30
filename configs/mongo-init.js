@@ -2,11 +2,15 @@
  * CS3099 Group A3
  */
 
-db.createUser({
-  user: "user",
-  pwd: "pass",
-  roles:[{
-    role: "readWrite",
-    db: "unifed"
-  }]
+const databaseNames = ["unifed-internal", "unifed-federation"];
+
+databaseNames.forEach((name) => {
+  db.getSiblingDB(name).createUser({
+    user: "user",
+    pwd: "pass",
+    roles:[{
+      role: "readWrite",
+      db: name
+    }]
+  });
 });
