@@ -41,6 +41,7 @@
     "graphql": "^15.4.0",
     "mongoose": "^5.10.9",
     "nodemailer": "^6.4.14",
+    "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.0",
     "unifed-backend-core": "^0.1.0",
     "unifed-backend-federation-client": "^0.1.0",
@@ -48,8 +49,8 @@
     "uuid": "^8.3.1"
   },
   "scripts": {
-    "start": "nyc node build/app.js",
-    "start:watch": "nodemon --exec nyc ts-node src/app.ts",
+    "start": "node build/app.js",
+    "start:watch": "nodemon --exec nyc ts-node --files src/app.ts",
     "test": "yarn test:unit && yarn test:integration",
     "test:unit": "nyc ava 'src/**/*.test.ts'",
     "test:integration": "ava 'integration/**/*.test.ts'",
