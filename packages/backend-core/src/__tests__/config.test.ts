@@ -173,6 +173,21 @@ test("siteUrl Format", (t) => {
   t.is(config.siteUrl, "http://sitehost");
 });
 
+test("SERVER_PORT = undefined", (t) => {
+  delete process.env.SERVER_PORT;
+  t.throws(() => config.serverPort);
+});
+
+test("SERVER_PORT = string", (t) => {
+  process.env.SERVER_PORT = "119-string";
+  t.throws(() => config.serverPort);
+});
+
+test("SERVER_PORT = number", (t) => {
+  process.env.SERVER_PORT = "27017";
+  t.is(config.serverPort, 27017);
+});
+
 test("APPLICATION_NAME = undefined", (t) => {
   delete process.env.APPLICATION_NAME;
   t.throws(() => config.applicationName);

@@ -26,59 +26,63 @@ class Config {
   }
 
   static get smtpHost(): string {
-    return throwIfUndefined(process.env.SMTP_HOST);
+    return throwIfUndefined(process.env.UNIFED_SMTP_HOST);
   }
 
   static get smtpPort(): number {
-    return getInteger(throwIfUndefined(process.env.SMTP_PORT));
+    return getInteger(throwIfUndefined(process.env.UNIFED_SMTP_PORT));
   }
 
   static get smtpUsername(): string {
-    return throwIfUndefined(process.env.SMTP_USERNAME);
+    return throwIfUndefined(process.env.UNIFED_SMTP_USERNAME);
   }
 
   static get smtpPassword(): string {
-    return throwIfUndefined(process.env.SMTP_PASSWORD);
+    return throwIfUndefined(process.env.UNIFED_SMTP_PASSWORD);
   }
 
   static get mongoHostname(): string {
-    return throwIfUndefined(process.env.MONGO_HOSTNAME);
+    return throwIfUndefined(process.env.UNIFED_MONGO_HOSTNAME);
   }
 
   static get mongoPort(): number {
-    return getInteger(throwIfUndefined(process.env.MONGO_PORT));
+    return getInteger(throwIfUndefined(process.env.UNIFED_MONGO_PORT));
   }
 
   static get mongoDatabase(): string {
-    return throwIfUndefined(process.env.MONGO_DATABASE);
+    return throwIfUndefined(process.env.UNIFED_MONGO_DATABASE);
   }
 
   static get mongoUsername(): string {
-    return throwIfUndefined(process.env.MONGO_USERNAME);
+    return throwIfUndefined(process.env.UNIFED_MONGO_USERNAME);
   }
 
   static get mongoPassword(): string {
-    return throwIfUndefined(process.env.MONGO_PASSWORD);
+    return throwIfUndefined(process.env.UNIFED_MONGO_PASSWORD);
   }
 
   static get jwtSecret(): string {
-    return throwIfUndefined(process.env.JWT_SECRET);
+    return throwIfUndefined(process.env.UNIFED_JWT_SECRET);
   }
 
   static get siteHost(): string {
-    return throwIfUndefined(process.env.SITE_HOST);
+    return throwIfUndefined(process.env.UNIFED_SITE_HOST);
   }
 
   static get siteProtocol(): string {
-    return throwIfUndefined(process.env.SITE_PROTOCOL);
+    return throwIfUndefined(process.env.UNIFED_SITE_PROTOCOL);
   }
 
   static get siteUrl(): string {
     return `${this.siteProtocol}://${this.siteHost}`;
   }
+  
+  static get serverPort(): number {
+    return getInteger(throwIfUndefined(process.env.UNIFED_SERVER_PORT));
+  }
 
   static get applicationName(): string {
-    return throwIfUndefined(process.env.APPLICATION_NAME);
+    return throwIfUndefined(process.env.UNIFED_APPLICATION_NAME);
   }
 }
 
