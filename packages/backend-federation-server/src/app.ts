@@ -28,6 +28,11 @@ import { routes } from "./routes";
     });
   }
 
+  app.use(function(req, _, next) {
+    logger.debug(`Received request: ${req.path}`);
+    next();
+  });
+
   app.use("/", routes);
 
   app.listen(config.serverPort, () => logger.info(`Server running on http://localhost:${config.serverPort}`));
