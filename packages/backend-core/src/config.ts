@@ -76,13 +76,17 @@ class Config {
   static get siteUrl(): string {
     return `${this.siteProtocol}://${this.siteHost}`;
   }
-  
+
   static get serverPort(): number {
     return getInteger(throwIfUndefined(process.env.UNIFED_SERVER_PORT));
   }
 
   static get applicationName(): string {
     return throwIfUndefined(process.env.UNIFED_APPLICATION_NAME);
+  }
+
+  static get loggingLevel(): string {
+    return throwIfUndefined(process.env.UNIFED_LOGGING_LEVEL);
   }
 }
 

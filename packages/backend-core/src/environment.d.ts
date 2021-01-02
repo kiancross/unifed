@@ -19,6 +19,7 @@ declare global {
       UNIFED_SITE_PROTOCOL?: string;
       UNIFED_APPLICATION_NAME?: string;
       UNIFED_SERVER_PORT?: string;
+      UNIFED_LOG_LEVEL?: string;
       NODE_ENV?: string;
     }
   }
