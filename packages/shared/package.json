@@ -26,7 +26,7 @@
     "zxcvbn": "^4.4.2"
   },
   "scripts": {
-    "unit": "nyc ava",
+    "test": "nyc ava",
     "build": "tsc",
     "clean": "rm -rf coverage .nyc_output build",
     "lint": "eslint . --ext .ts",
