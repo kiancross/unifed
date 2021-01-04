@@ -9,5 +9,8 @@
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "nyc": "^15.1.0"
+  },
+  "resolutions": {
+    "sass-loader": "^10.0.5"
   }
 }
