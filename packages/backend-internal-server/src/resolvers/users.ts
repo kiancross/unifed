@@ -5,7 +5,7 @@
 import { Resolver, Mutation, FieldResolver, ResolverInterface, Root, Arg } from "type-graphql";
 import { CurrentUser } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
-import { User, UserModel } from "unifed-backend-core";
+import { User, UserModel } from "@unifed/backend-core";
 import { UserProfileInput } from "./inputs";
 
 @Resolver(User)

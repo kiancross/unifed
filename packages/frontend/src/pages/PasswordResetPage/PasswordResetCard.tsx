@@ -7,7 +7,7 @@ import { passwordClient } from "helpers/accounts";
 import { Redirect, useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { TextField, Button, Card, CardContent, Grid, Snackbar, Link } from "@material-ui/core";
-import { validatePassword } from "unifed-shared";
+import { validatePassword } from "@unifed/shared";
 import { Alert } from "@material-ui/lab";
 
 interface Params {

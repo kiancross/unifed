@@ -6,7 +6,7 @@ import got from "got";
 import { plainToClass } from "class-transformer";
 import { validate } from "class-validator";
 import { getFederatedApiEndpoint, isStringArray, RemoteResponseError } from "./helpers";
-import { Community } from "unifed-backend-core";
+import { Community } from "@unifed/backend-core";
 
 export class CommunityNotFoundError extends Error {
   constructor(id: string) {

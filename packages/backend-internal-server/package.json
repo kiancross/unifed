@@ -1,5 +1,5 @@
 {
-  "name": "unifed-backend-internal-server",
+  "name": "@unifed/backend-internal-server",
   "version": "0.1.0",
   "private": true,
   "license": "UNLICENSED",
@@ -20,7 +20,6 @@
     "nodemon": "^2.0.6",
     "nyc": "^15.1.0",
     "prettier": "^2.1.2",
-    "source-map-support": "^0.5.19",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.3"
   },
@@ -32,6 +31,9 @@
     "@graphql-modules/core": "^0.7.17",
     "@graphql-tools/merge": "^6.2.5",
     "@graphql-tools/schema": "^7.0.0",
+    "@unifed/backend-core": "^0.1.0",
+    "@unifed/backend-federation-client": "^0.1.0",
+    "@unifed/shared": "^0.1.0",
     "apollo-server-express": "^2.18.2",
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
@@ -43,9 +45,6 @@
     "nodemailer": "^6.4.14",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.0",
-    "unifed-backend-core": "^0.1.0",
-    "unifed-backend-federation-client": "^0.1.0",
-    "unifed-shared": "^0.1.0",
     "uuid": "^8.3.1"
   },
   "scripts": {

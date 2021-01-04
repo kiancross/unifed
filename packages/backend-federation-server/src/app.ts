@@ -4,7 +4,7 @@
 
 import express from "express";
 import mongoose from "mongoose";
-import { config, logger } from "unifed-backend-core";
+import { config, logger } from "@unifed/backend-core";
 import { routes } from "./routes";
 
 (async () => {

@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { passwordClient } from "helpers/accounts";
 import { Button, Card, CardContent, Grid, TextField, Snackbar, Link } from "@material-ui/core";
-import { validateEmail } from "unifed-shared";
+import { validateEmail } from "@unifed/shared";
 import { Alert } from "@material-ui/lab";
 
 interface Values {

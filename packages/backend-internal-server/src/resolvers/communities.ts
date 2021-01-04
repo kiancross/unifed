@@ -3,9 +3,9 @@
  */
 
 import { Resolver, FieldResolver, ResolverInterface, Root, Query, Arg } from "type-graphql";
-import { communitiesClient, postsClient } from "unifed-backend-federation-client";
+import { communitiesClient, postsClient } from "@unifed/backend-federation-client";
 import { RemoteReferenceInput } from "./inputs";
-import { Community, Post } from "unifed-backend-core";
+import { Community, Post } from "@unifed/backend-core";
 
 @Resolver(Community)
 export class CommunitiesResolver implements ResolverInterface<Community> {

@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { BrowserRouter, Redirect } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { accountsClient } from "helpers/accounts";
-import { validateEmail, validatePassword } from "unifed-shared";
+import { validateEmail, validatePassword } from "@unifed/shared";
 import {
   Button,
   Card,

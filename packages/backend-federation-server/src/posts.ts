@@ -5,7 +5,7 @@
 import { plainToClass } from "class-transformer";
 import { Response, Request, NextFunction, json as jsonBodyParser } from "express";
 import { AsyncRouter } from "express-async-router";
-import { Post, PostModel, CommunityModel } from "unifed-backend-core";
+import { Post, PostModel, CommunityModel } from "@unifed/backend-core";
 
 async function getPost(req: Request, res: Response, next: NextFunction) {
   const post = await PostModel.findById(req.params.id);
