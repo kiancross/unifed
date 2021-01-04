@@ -12,12 +12,10 @@ COPY package.json .
 COPY packages/shared/package.json packages/shared/package.json
 COPY packages/frontend/package.json packages/frontend/package.json
 
-RUN yarn workspaces focus unifed-frontend
-
+RUN yarn workspaces focus @unifed/frontend
 ADD . .
-
-RUN yarn workspaces foreach -vpt --include unifed-shared run build
+RUN yarn workspace @unifed/shared build
 
 ENV CI=true
-CMD [ "yarn", "workspace", "unifed-frontend", "start" ]
+CMD [ "yarn", "workspace", "@unifed/frontend", "start" ]
 EXPOSE 3000

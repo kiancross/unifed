@@ -50,7 +50,7 @@
   },
   "scripts": {
     "start": "node build/app.js",
-    "start:watch": "tsc-watch -b --onSuccess 'yarn start'",
+    "start:watch": "tsc-watch -b --noClear --onSuccess 'yarn start'",
     "test": "yarn test:unit && yarn test:integration",
     "test:unit": "nyc ava 'src/**/*.test.ts'",
     "test:integration": "ava 'integration/**/*.test.ts'",

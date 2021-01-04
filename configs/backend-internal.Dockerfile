@@ -14,11 +14,9 @@ COPY packages/backend-core/package.json packages/backend-core/package.json
 COPY packages/backend-federation-client/package.json packages/backend-federation-client/package.json
 COPY packages/backend-internal-server/package.json packages/backend-internal-server/package.json
 
-RUN yarn workspaces focus unifed-backend-internal-server
-
 ADD . .
+RUN yarn workspaces focus @unifed/backend-internal-server
 
-RUN yarn workspaces foreach -vpt --include unifed-shared --include unifed-backend-core --include unifed-backend-federation-client --include unifed-backend-internal-server run build
-
-CMD [ "yarn", "workspace", "unifed-backend-internal-server", "start:watch" ]
+#CMD [ "yarn", "workspace", "@unifed/backend-internal-server", "start:watch" ]
+CMD [ "sleep", "1000" ]
 EXPOSE 8080
