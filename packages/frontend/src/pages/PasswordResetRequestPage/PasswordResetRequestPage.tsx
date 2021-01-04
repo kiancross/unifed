@@ -4,7 +4,7 @@
 
 import React from "react";
 import { Button } from "@material-ui/core";
-import NonAuthenticatedTemplate from "components/NonAuthenticatedTemplate";
+import NonAuthenticatedTemplate from "../../components/NonAuthenticatedTemplate";
 import PasswordResetRequestCard from "./PasswordResetRequestCard";
 
 const PasswordResetRequestPage = (): JSX.Element => {

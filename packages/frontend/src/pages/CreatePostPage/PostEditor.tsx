@@ -8,9 +8,9 @@ import "react-markdown-editor-lite/lib/index.css";
 import { gql, useMutation } from "@apollo/client";
 import { Formik, Form, Field } from "formik";
 import { Redirect } from "react-router-dom";
-import MarkdownViewer from "components/MarkdownViewer";
+import MarkdownViewer from "../../components/MarkdownViewer";
 import { Button, Card, CardContent, Grid, TextField, Typography } from "@material-ui/core";
-import CenteredLoader from "components/CenteredLoader";
+import CenteredLoader from "../../components/CenteredLoader";
 
 interface Params {
   server: string;

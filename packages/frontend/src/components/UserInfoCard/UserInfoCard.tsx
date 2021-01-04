@@ -4,7 +4,7 @@
 
 import React from "react";
 import { Card, CardActionArea, CardHeader, Grid } from "@material-ui/core";
-import UserIcon from "components/UserIcon";
+import UserIcon from "../../components/UserIcon";
 
 interface userInfo {
   username: string;

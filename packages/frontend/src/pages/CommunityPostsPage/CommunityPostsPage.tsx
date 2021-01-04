@@ -6,10 +6,10 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { Container, Grid, Button } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
-import PostPreview from "components/PostPreview";
+import PostPreview from "../../components/PostPreview";
 import CommunityDescription from "./CommunityDescription";
 import CommunityHeader from "./CommunityHeader";
-import CenteredLoader from "components/CenteredLoader";
+import CenteredLoader from "../../components/CenteredLoader";
 
 interface Params {
   server: string;

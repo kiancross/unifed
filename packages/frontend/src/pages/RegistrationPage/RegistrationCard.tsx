@@ -4,7 +4,7 @@
 
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import { passwordClient } from "helpers/accounts";
+import { passwordClient } from "../../helpers/accounts";
 import { validateUsername, validateName, validateEmail, validatePassword } from "@unifed/shared";
 import { Button, Card, CardContent, TextField, Snackbar } from "@material-ui/core";
 import { Redirect } from "react-router";

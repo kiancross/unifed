@@ -9,8 +9,8 @@ import { gql, useQuery } from "@apollo/client";
 import Post from "./Post";
 import CommentEditor from "./CommentEditor";
 import Comments from "./Comments";
-import UserInfoCard from "components/UserInfoCard";
-import CenteredLoader from "components/CenteredLoader";
+import UserInfoCard from "../../components/UserInfoCard";
+import CenteredLoader from "../../components/CenteredLoader";
 import style from "./PostPage.module.scss";
 
 interface PostParams {

@@ -2,23 +2,23 @@
  * CS3099 Group A3
  */
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { Box } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
-import { accountsClient } from "helpers/accounts";
-import AccountSettingsPage from "pages/AccountSettingsPage";
-import LoginPage from "pages/LoginPage";
-import PageNotFoundPage from "pages/PageNotFoundPage";
-import RegistrationPage from "pages/RegistrationPage";
-import EmailVerificationPage from "pages/EmailVerificationPage";
-import CommunityPostsPage from "pages/CommunityPostsPage";
-import CreatePostPage from "pages/CreatePostPage";
-import PostPage from "pages/PostPage";
-import UserProfilePage from "pages/UserProfilePage";
-import PasswordResetRequestPage from "pages/PasswordResetRequestPage";
-import PasswordResetPage from "pages/PasswordResetPage";
-import Header from "components/Header";
+import { accountsClient } from "../../helpers/accounts";
+import AccountSettingsPage from "../../pages/AccountSettingsPage";
+import LoginPage from "../../pages/LoginPage";
+import PageNotFoundPage from "../../pages/PageNotFoundPage";
+import RegistrationPage from "../../pages/RegistrationPage";
+import EmailVerificationPage from "../../pages/EmailVerificationPage";
+import CommunityPostsPage from "../../pages/CommunityPostsPage";
+import CreatePostPage from "../../pages/CreatePostPage";
+import PostPage from "../../pages/PostPage";
+import UserProfilePage from "../../pages/UserProfilePage";
+import PasswordResetRequestPage from "../../pages/PasswordResetRequestPage";
+import PasswordResetPage from "../../pages/PasswordResetPage";
+import Header from "../../components/Header";
 
 const App = (): JSX.Element => {
   const [loggedIn, setLoggedIn] = useState<boolean | null>(null);

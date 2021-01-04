@@ -9,7 +9,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import logo from "assets/unifed.svg";
 import styles from "./Header.module.scss";
-import UserIcon from "components/UserIcon";
+import UserIcon from "../../components/UserIcon";
 import SearchInput from "./SearchInput";
 
 interface HeaderProps {

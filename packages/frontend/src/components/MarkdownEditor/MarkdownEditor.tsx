@@ -6,7 +6,7 @@ import React from "react";
 import Editor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
 import { Typography } from "@material-ui/core";
-import MarkdownViewer from "components/MarkdownViewer";
+import MarkdownViewer from "../../components/MarkdownViewer";
 
 interface MarkdownEditorProps {
   onChange?: (

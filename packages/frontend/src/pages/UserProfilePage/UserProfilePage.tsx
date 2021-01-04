@@ -6,9 +6,9 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { Container, Grid } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
-import UserInfoCard from "components/UserInfoCard";
-import PostPreview from "components/PostPreview";
-import CenteredLoader from "components/CenteredLoader";
+import UserInfoCard from "../../components/UserInfoCard";
+import PostPreview from "../../components/PostPreview";
+import CenteredLoader from "../../components/CenteredLoader";
 
 interface PublicUserProfileParams {
   username: string;

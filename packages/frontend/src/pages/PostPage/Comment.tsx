@@ -5,8 +5,8 @@
 import React from "react";
 import { useTheme } from "@material-ui/core/styles";
 import { Box, Card, CardContent, Grid, Link, Typography } from "@material-ui/core";
-import UserIcon from "components/UserIcon";
-import MarkdownViewer from "components/MarkdownViewer";
+import UserIcon from "../../components/UserIcon";
+import MarkdownViewer from "../../components/MarkdownViewer";
 
 interface PostValues {
   username: string;

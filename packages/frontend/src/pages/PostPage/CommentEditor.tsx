@@ -8,7 +8,7 @@ import "react-markdown-editor-lite/lib/index.css";
 import { gql, useMutation } from "@apollo/client";
 import { Formik, Form } from "formik";
 import { Grid, Button, Typography } from "@material-ui/core";
-import MarkdownViewer from "components/MarkdownViewer";
+import MarkdownViewer from "../../components/MarkdownViewer";
 
 interface Props {
   server: string;
