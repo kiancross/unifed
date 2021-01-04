@@ -1,1 +1,28 @@
-../../configs/tsconfig-non-react.json
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "composite": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2018",
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "lib": ["es2018", "esnext.asynciterable"],
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "strict": true,
+    "experimentalDecorators": true,
+    "declaration": true,
+    "rootDir": "src",
+    "outDir": "build"
+  },
+  "include": ["src"],
+  "exclude" : ["src/**/*.test.ts"]
+}
