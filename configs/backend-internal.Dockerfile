@@ -14,9 +14,8 @@ COPY packages/backend-core/package.json packages/backend-core/package.json
 COPY packages/backend-federation-client/package.json packages/backend-federation-client/package.json
 COPY packages/backend-internal-server/package.json packages/backend-internal-server/package.json
 
-ADD . .
 RUN yarn workspaces focus @unifed/backend-internal-server
+ADD . .
 
-#CMD [ "yarn", "workspace", "@unifed/backend-internal-server", "start:watch" ]
-CMD [ "sleep", "1000" ]
+CMD [ "yarn", "workspace", "@unifed/backend-internal-server", "start:watch" ]
 EXPOSE 8080
