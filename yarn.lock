@@ -5,36 +5,25 @@ __metadata:
   version: 4
   cacheKey: 7
 
-"@accounts/apollo-link@npm:^0.29.0":
-  version: 0.29.0
-  resolution: "@accounts/apollo-link@npm:0.29.0"
+"@accounts/apollo-link@npm:^0.30.0":
+  version: 0.30.0
+  resolution: "@accounts/apollo-link@npm:0.30.0"
   dependencies:
     tslib: 2.0.0
   peerDependencies:
     "@apollo/client": ^3.0.0
-  checksum: b49c0ed24ebfdcfc4ae968941404d99b381e3a431452a750a9608c3e76325b825e0f331d8686c5316214e840c67d53f3b8a8748d99c2e7cdc90e092c0a251cbd
+  checksum: 3c8b2023bcbc4f4a641b82191506d845e90951dd98b24b00833b1b2e08ccaba67d880c4e48aeb93038d7c5ac7c8b2b177c6cd0e8745b48d8f16a8b4ec369da54
   languageName: node
   linkType: hard
 
-"@accounts/client-password@npm:^0.29.0":
-  version: 0.29.0
-  resolution: "@accounts/client-password@npm:0.29.0"
+"@accounts/client-password@npm:^0.30.0":
+  version: 0.30.0
+  resolution: "@accounts/client-password@npm:0.30.0"
   dependencies:
-    "@accounts/client": ^0.29.0
-    "@accounts/types": ^0.29.0
+    "@accounts/client": ^0.30.0
+    "@accounts/types": ^0.30.0
     tslib: 2.0.0
-  checksum: 54686ec0429b34d123868e52f870d8cecb9e24572c7b4244b879d0da852723b69ba45bd567f40099b43bcc9f3ec4420b78a801aa1698dd61a67703f0e82edd2c
-  languageName: node
-  linkType: hard
-
-"@accounts/client@npm:^0.29.0":
-  version: 0.29.0
-  resolution: "@accounts/client@npm:0.29.0"
-  dependencies:
-    "@accounts/types": ^0.29.0
-    jwt-decode: 2.2.0
-    tslib: 2.0.0
-  checksum: e15d7a9c36a2fd0c7fbeb03b166225b312c22096a0b4394ef1cb9dd896652c78e5c89202244f7aa2fd8447d0bf52edf1dd4b4745ba49b93370ad00fa14563f63
+  checksum: bb6ec87ad212640474a04c2a2a57a76f7487e6cce0bc44954e051d06072cb88e1fab2cb5ed7106fb05cc6459ac3eb5ef24efa7664ead2fd8ed597048398d93a4
   languageName: node
   linkType: hard
 
@@ -67,17 +56,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@accounts/graphql-client@npm:^0.29.0":
-  version: 0.29.0
-  resolution: "@accounts/graphql-client@npm:0.29.0"
+"@accounts/graphql-client@npm:^0.30.0":
+  version: 0.30.0
+  resolution: "@accounts/graphql-client@npm:0.30.0"
   dependencies:
-    "@accounts/client": ^0.29.0
-    "@accounts/types": ^0.29.0
+    "@accounts/client": ^0.30.0
+    "@accounts/types": ^0.30.0
     "@graphql-typed-document-node/core": 0.0.1
     tslib: 2.0.0
   peerDependencies:
     graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0
-  checksum: d38a561650b5c42e4a8c02002bf3be8ac353172416bfa58ff9ed8bf264c5887c46a8942b1d0361fdb8fa9a2d5720e5dde1a4714c0f0e1636bb4faae5573c8745
+  checksum: 9c740c2bf93dd34808878eabe3bddb1b139fc70e0f4f9b1cbf2daaae317797436a69a976a43cbf56b8415f1a92318d50d5d10108935dadaa383f7d38efe6e2df
   languageName: node
   linkType: hard
 
@@ -130,15 +119,6 @@ __metadata:
     speakeasy: ^2.0.0
     tslib: 2.0.0
   checksum: b5b2a41acc465e8a0316f3d1edf668555129aa8c5f0df7f1db2515f17ab1429ce5ae6edea24be15107af2861103be0c85f6f9ac474a79de648033be5b1c6ebaa
-  languageName: node
-  linkType: hard
-
-"@accounts/types@npm:^0.29.0":
-  version: 0.29.0
-  resolution: "@accounts/types@npm:0.29.0"
-  dependencies:
-    tslib: 2.0.0
-  checksum: 6b0c83893ea33a0f55ed775f0d3652f79eac9d7d9cc8140cb4650571a081f9b6cb29461d85249f5ad8a56180868b16a0d8acf22cd3aef1581eeb7ab7cae067c6
   languageName: node
   linkType: hard
 
@@ -3802,7 +3782,7 @@ __metadata:
     "@types/uuid": ^8.3.0
     "@typescript-eslint/eslint-plugin": ^4.12.0
     "@typescript-eslint/parser": ^4.12.0
-    ava: ^3.13.0
+    ava: ^3.15.0
     class-transformer: ^0.3.1
     class-validator: ^0.12.2
     eslint: ^7.17.0
@@ -3813,10 +3793,10 @@ __metadata:
     nyc: ^15.1.0
     prettier: ^2.2.1
     reflect-metadata: ^0.1.13
-    ts-node: ^9.0.0
+    ts-node: ^9.1.1
     type-graphql: ^1.1.0
     typescript: ^4.1.3
-    uuid: ^8.3.1
+    uuid: ^8.3.2
     winston: ^3.3.3
   languageName: unknown
   linkType: soft
@@ -3830,7 +3810,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^4.12.0
     "@typescript-eslint/parser": ^4.12.0
     "@unifed/backend-core": ^0.1.0
-    ava: ^3.13.0
+    ava: ^3.15.0
     class-transformer: ^0.3.1
     class-validator: ^0.12.2
     eslint: ^7.17.0
@@ -3840,7 +3820,7 @@ __metadata:
     nock: ^13.0.5
     nyc: ^15.1.0
     prettier: ^2.2.1
-    ts-node: ^9.0.0
+    ts-node: ^9.1.1
     typescript: ^4.1.3
   languageName: unknown
   linkType: soft
@@ -3856,7 +3836,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^4.12.0
     "@typescript-eslint/parser": ^4.12.0
     "@unifed/backend-core": ^0.1.0
-    ava: ^3.13.0
+    ava: ^3.15.0
     class-transformer: ^0.3.1
     eslint: ^7.17.0
     eslint-config-prettier: ^7.1.0
@@ -3867,7 +3847,7 @@ __metadata:
     nodemon: ^2.0.6
     nyc: ^15.1.0
     prettier: ^2.2.1
-    ts-node: ^9.0.0
+    ts-node: ^9.1.1
     tsc-watch: ^4.2.9
     typescript: ^4.1.3
   languageName: unknown
@@ -3896,7 +3876,7 @@ __metadata:
     "@unifed/backend-federation-client": ^0.1.0
     "@unifed/shared": ^0.1.0
     apollo-server-express: ^2.18.2
-    ava: ^3.13.0
+    ava: ^3.15.0
     class-transformer: ^0.3.1
     class-validator: ^0.12.2
     eslint: ^7.17.0
@@ -3917,8 +3897,8 @@ __metadata:
     ts-node: ^9.1.1
     tsc-watch: ^4.2.9
     type-graphql: ^1.1.0
-    typescript: ^4.0.3
-    uuid: ^8.3.1
+    typescript: ^4.1.3
+    uuid: ^8.3.2
   languageName: unknown
   linkType: soft
 
@@ -3926,10 +3906,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@unifed/frontend@workspace:packages/frontend"
   dependencies:
-    "@accounts/apollo-link": ^0.29.0
+    "@accounts/apollo-link": ^0.30.0
     "@accounts/client": ^0.30.0
-    "@accounts/client-password": ^0.29.0
-    "@accounts/graphql-client": ^0.29.0
+    "@accounts/client-password": ^0.30.0
+    "@accounts/graphql-client": ^0.30.0
     "@apollo/client": ^3.2.5
     "@matejmazur/react-katex": ^3.1.3
     "@material-ui/core": ^4.11.0
@@ -3970,7 +3950,7 @@ __metadata:
     stylelint: ^13.8.0
     stylelint-config-sass-guidelines: ^7.1.0
     typescript: ^4.1.3
-    use-debounce: ^5.1.0
+    use-debounce: ^5.2.0
     web-vitals: ^1.0.1
   languageName: unknown
   linkType: soft
@@ -3993,15 +3973,15 @@ __metadata:
     "@types/zxcvbn": ^4.4.0
     "@typescript-eslint/eslint-plugin": ^4.12.0
     "@typescript-eslint/parser": ^4.12.0
-    ava: ^3.13.0
+    ava: ^3.15.0
     eslint: ^7.17.0
     eslint-config-prettier: ^7.1.0
     eslint-plugin-prettier: ^3.3.1
     nyc: ^15.1.0
     prettier: ^2.2.1
-    ts-node: ^9.0.0
+    ts-node: ^9.1.1
     typescript: ^4.1.3
-    validator: ^13.1.17
+    validator: ^13.5.2
     zxcvbn: ^4.4.2
   languageName: unknown
   linkType: soft
@@ -5105,7 +5085,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ava@npm:^3.13.0":
+"ava@npm:^3.15.0":
   version: 3.15.0
   resolution: "ava@npm:3.15.0"
   dependencies:
@@ -19469,7 +19449,7 @@ resolve@1.18.1:
   languageName: node
   linkType: hard
 
-"ts-node@npm:^9.0.0, ts-node@npm:^9.1.1":
+"ts-node@npm:^9.1.1":
   version: 9.1.1
   resolution: "ts-node@npm:9.1.1"
   dependencies:
@@ -19717,7 +19697,7 @@ resolve@1.18.1:
   languageName: node
   linkType: hard
 
-"typescript@^4.0.3, typescript@^4.1.3":
+typescript@^4.1.3:
   version: 4.1.3
   resolution: "typescript@npm:4.1.3"
   bin:
@@ -19727,7 +19707,7 @@ resolve@1.18.1:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.0.3#builtin<compat/typescript>, typescript@patch:typescript@^4.1.3#builtin<compat/typescript>":
+"typescript@patch:typescript@^4.1.3#builtin<compat/typescript>":
   version: 4.1.3
   resolution: "typescript@patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=cc6730"
   bin:
@@ -20063,7 +20043,7 @@ resolve@1.18.1:
   languageName: node
   linkType: hard
 
-"use-debounce@npm:^5.1.0":
+"use-debounce@npm:^5.2.0":
   version: 5.2.0
   resolution: "use-debounce@npm:5.2.0"
   peerDependencies:
@@ -20167,7 +20147,7 @@ resolve@1.18.1:
   languageName: node
   linkType: hard
 
-"uuid@npm:^8.0.0, uuid@npm:^8.3.0, uuid@npm:^8.3.1":
+"uuid@npm:^8.0.0, uuid@npm:^8.3.0, uuid@npm:^8.3.2":
   version: 8.3.2
   resolution: "uuid@npm:8.3.2"
   bin:
@@ -20211,7 +20191,7 @@ resolve@1.18.1:
   languageName: node
   linkType: hard
 
-"validator@npm:^13.1.17":
+"validator@npm:^13.5.2":
   version: 13.5.2
   resolution: "validator@npm:13.5.2"
   checksum: 6da12682ad43456cb3a97d23b35cad0b438d9027a6c6fd824d5c86fead42c28f4e38c67590d8f56ab44e6c612979cbaa5f5cc670cc5fcc5a39d5032fcb642296
