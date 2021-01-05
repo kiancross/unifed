@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@accounts/apollo-link": "^0.29.0",
-    "@accounts/client": "^0.29.0",
+    "@accounts/client": "^0.30.0",
     "@accounts/client-password": "^0.29.0",
     "@accounts/graphql-client": "^0.29.0",
     "@apollo/client": "^3.2.5",
