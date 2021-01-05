@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Box } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
