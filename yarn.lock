@@ -3290,7 +3290,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^14.14.19, @types/node@npm:^14.14.6":
+"@types/node@npm:*, @types/node@npm:^14.14.20":
   version: 14.14.20
   resolution: "@types/node@npm:14.14.20"
   checksum: 84a9fd73de978967723f951173ff4d07dca259941d3e37c7a3dbb236c09b3f2294bb2098678a806afe6fd6cac39a7d0a1d399f602378c951bd5d01ede535d570
@@ -3778,7 +3778,7 @@ __metadata:
     "@istanbuljs/nyc-config-typescript": ^1.0.1
     "@typegoose/typegoose": ^7.4.6
     "@types/mongoose": ^5
-    "@types/node": ^14.14.19
+    "@types/node": ^14.14.20
     "@types/uuid": ^8.3.0
     "@typescript-eslint/eslint-plugin": ^4.12.0
     "@typescript-eslint/parser": ^4.12.0
@@ -3806,7 +3806,7 @@ __metadata:
   resolution: "@unifed/backend-federation-client@workspace:packages/backend-federation-client"
   dependencies:
     "@istanbuljs/nyc-config-typescript": ^1.0.1
-    "@types/node": ^14.14.19
+    "@types/node": ^14.14.20
     "@typescript-eslint/eslint-plugin": ^4.12.0
     "@typescript-eslint/parser": ^4.12.0
     "@unifed/backend-core": ^0.1.0
@@ -3832,7 +3832,7 @@ __metadata:
     "@istanbuljs/nyc-config-typescript": ^1.0.1
     "@types/express": ^4.17.8
     "@types/mongoose": ^5
-    "@types/node": ^14.14.19
+    "@types/node": ^14.14.20
     "@typescript-eslint/eslint-plugin": ^4.12.0
     "@typescript-eslint/parser": ^4.12.0
     "@unifed/backend-core": ^0.1.0
@@ -3867,7 +3867,7 @@ __metadata:
     "@istanbuljs/nyc-config-typescript": ^1.0.1
     "@types/express": ^4.17.8
     "@types/mongoose": ^5.7.36
-    "@types/node": ^14.14.6
+    "@types/node": ^14.14.20
     "@types/nodemailer": ^6.4.0
     "@types/uuid": ^8.3.0
     "@typescript-eslint/eslint-plugin": ^4.12.0
@@ -3919,7 +3919,7 @@ __metadata:
     "@testing-library/jest-dom": ^5.11.6
     "@testing-library/react": ^11.2.2
     "@types/eslint-plugin-prettier": ^3.1.0
-    "@types/node": ^14.14.19
+    "@types/node": ^14.14.20
     "@types/prettier": ^2.1.6
     "@types/react": ^17.0.0
     "@types/react-dom": ^17.0.0
