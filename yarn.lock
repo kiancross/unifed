@@ -3888,7 +3888,7 @@ __metadata:
     graphql: ^15.4.0
     graphql-tag: ^2.11.0
     mongodb-memory-server-global: ^6.9.2
-    mongoose: 5.10.9
+    mongoose: 5.10.18
     nodemailer: ^6.4.17
     nodemon: ^2.0.6
     nyc: ^15.1.0
@@ -13800,25 +13800,6 @@ fsevents@~2.1.2:
     sift: 7.0.1
     sliced: 1.0.1
   checksum: 35108c634b42d4efa96800f0413b9b028de46714260d894ac83386a05760fda23d369b708279722271374e8849de189e060f73379a306af99b0a9b1b4b979a1c
-  languageName: node
-  linkType: hard
-
-"mongoose@npm:5.10.9":
-  version: 5.10.9
-  resolution: "mongoose@npm:5.10.9"
-  dependencies:
-    bson: ^1.1.4
-    kareem: 2.3.1
-    mongodb: 3.6.2
-    mongoose-legacy-pluralize: 1.0.2
-    mpath: 0.7.0
-    mquery: 3.2.2
-    ms: 2.1.2
-    regexp-clone: 1.0.0
-    safe-buffer: 5.2.1
-    sift: 7.0.1
-    sliced: 1.0.1
-  checksum: fbf77bc7546c8bb6f69624dca1e3c615a1736cf7ded0cc07862bfcc797bf65101eb6b2da5c23b9d41541a5e49ccb0a391aa3d33bef8dc8fd701a9775c3557436
   languageName: node
   linkType: hard
 
