@@ -31,8 +31,14 @@ stop:
 
 .PHONY: logs
 logs:
-	$(PODMAN_COMMAND) logs $$($(PODMAN_COMMAND) ps | \
-		grep "localhost/unifed-backend.*unifed-backend" | awk '{print $$1}')
+	@$(PODMAN_COMMAND) logs -n $$($(PODMAN_COMMAND) ps | \
+		grep "localhost/unifed-.*unifed-.*" | awk '{print $$1}') | \
+		awk '{ \
+					if ($$1 == "unifed-frontend") {printf "\033[0;31m"}; \
+					if ($$1 == "unifed-backend-internal") {printf "\033[0;34m"}; \
+					if ($$1 == "unifed-backend-federation") {printf "\033[0;32m"}; \
+		      printf $$1 "\033[0m"; $$1 = ""; print $$0 \
+				}'
 
 .PHONY: yarn-install
 yarn-install:
