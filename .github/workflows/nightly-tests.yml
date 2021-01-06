@@ -2,7 +2,7 @@
 # CS3099 Group A3
 #
 
-name: Test Coverage
+name: Nightly Tests
 
 on:
   workflow_dispatch:
