@@ -11,6 +11,7 @@ DOCKER_COMPOSE_COMMAND:=docker-compose \
 
 .PHONY: start
 start:
+	yarn install
 	$(DOCKER_COMPOSE_COMMAND) up --build -d
 
 .PHONY: stop

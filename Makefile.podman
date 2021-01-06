@@ -11,7 +11,7 @@ POD_NAME:=unifed
 PODMAN_COMMAND:=podman
 
 .PHONY: start
-start: unifed-backend-internal unifed-backend-federation unifed-frontend reset
+start: yarn-install unifed-backend-internal unifed-backend-federation unifed-frontend reset
 	@# Podman doesn't support passing an environment file :(
 	$(PODMAN_COMMAND) play kube <(source ./$(CONFIG_PATH); \
 		variable_names=$$(grep -v '^\s*#.*$$' $(CONFIG_PATH) | grep -v '^\s*$$' | cut -f1 -d=); \
@@ -31,15 +31,12 @@ stop:
 
 .PHONY: logs
 logs:
-	@echo "Not supported on Podman"
-	@echo 'Use `make logs-<component>` where <component> is one of:'
-	@echo "  backend-internal"
-	@echo "  backend-federation"
-	@echo "  frontend"
-
-logs-%:
 	$(PODMAN_COMMAND) logs $$($(PODMAN_COMMAND) ps | \
 		grep "localhost/unifed-backend.*unifed-backend" | awk '{print $$1}')
+
+.PHONY: yarn-install
+yarn-install:
+	yarn install
 
 .PHONY: unifed-backend-internal
 unifed-backend-internal:
