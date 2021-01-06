@@ -28,12 +28,14 @@ import { routes } from "./routes";
     });
   }
 
-  app.use(function(req, _, next) {
+  app.use(function (req, _, next) {
     logger.debug(`Received request: ${req.path}`);
     next();
   });
 
   app.use("/", await routes);
 
-  app.listen(config.serverPort, () => logger.info(`Server running on http://localhost:${config.serverPort}`));
+  app.listen(config.serverPort, () =>
+    logger.info(`Server running on http://localhost:${config.serverPort}`),
+  );
 })();
