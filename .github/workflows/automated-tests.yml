@@ -166,14 +166,14 @@ jobs:
           fail_ci_if_error: true
           verbose: true
 
-      - name: Upload Coverage Report (backend-federation-server) 3️⃣ 📊
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: backend-federation-server
-          directory: packages/backend-federation-server
-          fail_ci_if_error: true
-          verbose: true
+#      - name: Upload Coverage Report (backend-federation-server) 3️⃣ 📊
+#        uses: codecov/codecov-action@v1
+#        with:
+#          token: ${{ secrets.CODECOV_TOKEN }}
+#          flags: backend-federation-server
+#          directory: packages/backend-federation-server
+#          fail_ci_if_error: true
+#          verbose: true
 
       - name: Upload Coverage Report (backend-internal-server) 4️⃣ 📊
         uses: codecov/codecov-action@v1
