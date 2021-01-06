@@ -8,8 +8,14 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    labels:
+      - dependencies
+      - typescript
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
+    labels:
+      - dependencies
+      - action
