@@ -8,7 +8,7 @@
     "lint": "yarn workspaces foreach -vp run lint",
     "build": "yarn workspaces foreach -vpt run build",
     "test": "yarn workspaces foreach -vp run test",
-    "lint": "yarn workspaces foreach -vp run fix",
+    "fix": "yarn workspaces foreach -vp run fix",
     "coverage": "./scripts/generate-coverage-report",
     "container:start": "make -C scripts start",
     "container:stop": "make -C scripts stop",
