@@ -20,6 +20,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 12
+
+      - run: rm packages/{backend-*,frontend}/package.json
       
       - run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
         id: yarn-cache-dir-path
@@ -67,6 +69,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 12
+
+      - run: rm packages/backend-*/package.json
       
       - run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
         id: yarn-cache-dir-path
@@ -144,11 +148,38 @@ jobs:
       - name: Test 📝
         run: yarn workspaces foreach -vp --include '@unifed/backend-*' run test
 
-      - name: Upload Coverage Report 📊
+      - name: Upload Coverage Report (backend-core) 1️⃣ 📊
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          flags: frontend
-          directory: packages
+          flags: backend-core
+          directory: packages/backend-core
+          fail_ci_if_error: true
+          verbose: true
+
+      - name: Upload Coverage Report (backend-federation-client) 2️⃣ 📊
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: backend-federation-client
+          directory: packages/backend-federation-client
+          fail_ci_if_error: true
+          verbose: true
+
+      - name: Upload Coverage Report (backend-federation-server) 3️⃣ 📊
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: backend-federation-server
+          directory: packages/backend-federation-server
+          fail_ci_if_error: true
+          verbose: true
+
+      - name: Upload Coverage Report (backend-internal-server) 4️⃣ 📊
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: backend-internal-server
+          directory: packages/backend-internal-server
           fail_ci_if_error: true
           verbose: true
