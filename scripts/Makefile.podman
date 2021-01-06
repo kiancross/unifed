@@ -11,7 +11,7 @@ POD_NAME:=unifed
 PODMAN_COMMAND:=podman
 
 .PHONY: start
-start: unifed-backend unifed-frontend reset
+start: yarn-install unifed-backend-internal unifed-backend-federation unifed-frontend reset
 	@# Podman doesn't support passing an environment file :(
 	$(PODMAN_COMMAND) play kube <(source ./$(CONFIG_PATH); \
 		variable_names=$$(grep -v '^\s*#.*$$' $(CONFIG_PATH) | grep -v '^\s*$$' | cut -f1 -d=); \
@@ -31,13 +31,27 @@ stop:
 
 .PHONY: logs
 logs:
-	$(PODMAN_COMMAND) logs $$($(PODMAN_COMMAND) ps | \
-		grep "localhost/unifed-backend.*unifed-backend" | awk '{print $$1}')
+	@$(PODMAN_COMMAND) logs -n $$($(PODMAN_COMMAND) ps | \
+		grep "localhost/unifed-.*unifed-.*" | awk '{print $$1}') | \
+		awk '{ \
+					if ($$1 == "unifed-frontend") {printf "\033[0;31m"}; \
+					if ($$1 == "unifed-backend-internal") {printf "\033[0;34m"}; \
+					if ($$1 == "unifed-backend-federation") {printf "\033[0;32m"}; \
+		      printf $$1 "\033[0m"; $$1 = ""; print $$0 \
+				}'
 
-.PHONY: unifed-backend
-unifed-backend:
-	$(PODMAN_COMMAND) build -f Dockerfile.backend -t unifed-backend .
+.PHONY: yarn-install
+yarn-install:
+	yarn install
+
+.PHONY: unifed-backend-internal
+unifed-backend-internal:
+	$(PODMAN_COMMAND) build -f configs/backend-internal.Dockerfile -t unifed-backend-internal .
+
+.PHONY: unifed-backend-federation
+unifed-backend-federation:
+	$(PODMAN_COMMAND) build -f configs/backend-federation.Dockerfile -t unifed-backend-federation .
 
 .PHONY: unifed-frontend
 unifed-frontend:
-	$(PODMAN_COMMAND) build -f Dockerfile.frontend -t unifed-frontend .
+	$(PODMAN_COMMAND) build -f configs/frontend.Dockerfile -t unifed-frontend .

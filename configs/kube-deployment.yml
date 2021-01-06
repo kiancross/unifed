@@ -15,7 +15,8 @@ spec:
   hostAliases:
   - ip: "127.0.0.1"
     hostnames:
-      - "backend"
+      - "backend-internal"
+      - "backend-federation"
       - "frontend"
       - "mongo"
 
@@ -30,8 +31,6 @@ spec:
           value: ${MONGO_ADMIN_USERNAME}
         - name: MONGO_INITDB_ROOT_PASSWORD
           value: ${MONGO_ADMIN_PASSWORD}
-        - name: MONGO_INITDB_DATABASE
-          value: ${MONGO_DATABASE}
     
     - name: nginx
       image: docker.io/corfr/nginx-dnsmasq
@@ -61,45 +60,91 @@ spec:
         - name: ME_CONFIG_BASICAUTH_PASSWORD
           value: ${MONGO_INSPECT_PASSWORD}
   
-    - name: backend
-      image: localhost/unifed-backend
+    - name: backend-internal
+      image: localhost/unifed-backend-internal
       volumeMounts:
-        - mountPath: /usr/src/unifed/packages/backend/src
-          name: backend
+        - mountPath: /usr/src/unifed/packages/backend-internal-server/src
+          name: backend-internal-server
+        - mountPath: /usr/src/unifed/packages/backend-core/src
+          name: backend-core
+        - mountPath: /usr/src/unifed/packages/backend-federation-client/src
+          name: backend-federation-client
+        - mountPath: /usr/src/unifed/packages/shared/src
+          name: shared
       env:
-        - name: SMTP_USERNAME
+        - name: UNIFED_SMTP_USERNAME
           value: ${SMTP_USERNAME}
-        - name: SMTP_PASSWORD
+        - name: UNIFED_SMTP_PASSWORD
           value: ${SMTP_PASSWORD}
-        - name: SMTP_HOST
+        - name: UNIFED_SMTP_HOST
           value: ${SMTP_HOST}
-        - name: SMTP_PORT
+        - name: UNIFED_SMTP_PORT
           value: ${SMTP_PORT}
-        - name: MONGO_HOSTNAME
+        - name: UNIFED_MONGO_HOSTNAME
           value: mongo
-        - name: MONGO_PORT
+        - name: UNIFED_MONGO_PORT
           value: 27017
-        - name: MONGO_DATABASE
-          value: ${MONGO_DATABASE}
-        - name: MONGO_USERNAME
+        - name: UNIFED_MONGO_DATABASE
+          value: unifed-internal
+        - name: UNIFED_MONGO_USERNAME
           value: user
-        - name: MONGO_PASSWORD
+        - name: UNIFED_MONGO_PASSWORD
           value: pass
-        - name: JWT_SECRET
+        - name: UNIFED_JWT_SECRET
           value: ${JWT_SECRET}
-        - name: SITE_HOST
+        - name: UNIFED_SITE_HOST
           value: ${SITE_HOST}
-        - name: SITE_PROTOCOL
+        - name: UNIFED_SITE_PROTOCOL
           value: ${SITE_PROTOCOL}
-        - name: APPLICATION_NAME
+        - name: UNIFED_APPLICATION_NAME
           value: ${APPLICATION_NAME}
+        - name: UNIFED_LOGGING_LEVEL
+          value: ${LOGGING_LEVEL}
+        - name: UNIFED_SERVER_PORT
+          value: 7080
+        - name: NODE_ENV
+          value: ${NODE_ENV}
 
+    - name: backend-federation
+      image: localhost/unifed-backend-federation
+      volumeMounts:
+        - mountPath: /usr/src/unifed/packages/backend-federation-server/src
+          name: backend-federation-server
+        - mountPath: /usr/src/unifed/packages/backend-core/src
+          name: backend-core
+        - mountPath: /usr/src/unifed/packages/shared/src
+          name: shared
+      env:
+        - name: UNIFED_MONGO_HOSTNAME
+          value: mongo
+        - name: UNIFED_MONGO_PORT
+          value: 27017
+        - name: UNIFED_MONGO_DATABASE
+          value: unifed-federation
+        - name: UNIFED_MONGO_USERNAME
+          value: user
+        - name: UNIFED_MONGO_PASSWORD
+          value: pass
+        - name: UNIFED_SITE_HOST
+          value: ${SITE_HOST}
+        - name: UNIFED_SITE_PROTOCOL
+          value: ${SITE_PROTOCOL}
+        - name: UNIFED_APPLICATION_NAME
+          value: ${APPLICATION_NAME}
+        - name: UNIFED_LOGGING_LEVEL
+          value: ${LOGGING_LEVEL}
+        - name: UNIFED_SERVER_PORT
+          value: 7081
+        - name: NODE_ENV
+          value: ${NODE_ENV}
     
     - name: frontend
       image: localhost/unifed-frontend
       volumeMounts:
         - mountPath: /usr/src/unifed/packages/frontend/src
           name: frontend
+        - mountPath: /usr/src/unifed/packages/shared/src
+          name: shared
 
   volumes:
     - name: frontend
@@ -107,9 +152,29 @@ spec:
         path: ./packages/frontend/src
         type: Directory
 
-    - name: backend
+    - name: shared
+      hostPath:
+        path: ./packages/shared/src
+        type: Directory
+
+    - name: backend-internal-server
       hostpath:
-        path: ./packages/backend/src
+        path: ./packages/backend-internal-server/src
+        type: Directory
+    
+    - name: backend-federation-server
+      hostpath:
+        path: ./packages/backend-federation-server/src
+        type: Directory
+
+    - name: backend-federation-client
+      hostpath:
+        path: ./packages/backend-federation-client/src
+        type: Directory
+
+    - name: backend-core
+      hostpath:
+        path: ./packages/backend-core/src
         type: Directory
     
     - name: nginx-conf
