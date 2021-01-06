@@ -25,13 +25,18 @@ jobs:
         with:
           node-version: 12
 
-      - run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-        id: yarn-cache-dir-path
+      - run: |
+          echo "::set-output name=cache::$(yarn config get cacheFolder)"
+          echo "::set-output name=install::$(yarn config get installStatePath)"
+          echo "::set-output name=build::$(yarn config get bstatePath)"
+        id: yarn-paths
 
       - uses: actions/cache@v2
         with:
           path: |
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+            ${{ steps.yarn-paths.outputs.cache }}
+            ${{ steps.yarn-paths.outputs.install }}
+            ${{ steps.yarn-paths.outputs.build }}
             .pnp.js
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: |
@@ -73,13 +78,18 @@ jobs:
         with:
           node-version: 12
 
-      - run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-        id: yarn-cache-dir-path
+      - run: |
+          echo "::set-output name=cache::$(yarn config get cacheFolder)"
+          echo "::set-output name=install::$(yarn config get installStatePath)"
+          echo "::set-output name=build::$(yarn config get bstatePath)"
+        id: yarn-paths
 
       - uses: actions/cache@v2
         with:
           path: |
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+            ${{ steps.yarn-paths.outputs.cache }}
+            ${{ steps.yarn-paths.outputs.install }}
+            ${{ steps.yarn-paths.outputs.build }}
             .pnp.js
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: |
@@ -123,13 +133,18 @@ jobs:
         with:
           node-version: 12
       
-      - run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-        id: yarn-cache-dir-path
+      - run: |
+          echo "::set-output name=cache::$(yarn config get cacheFolder)"
+          echo "::set-output name=install::$(yarn config get installStatePath)"
+          echo "::set-output name=build::$(yarn config get bstatePath)"
+        id: yarn-paths
 
       - uses: actions/cache@v2
         with:
           path: |
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+            ${{ steps.yarn-paths.outputs.cache }}
+            ${{ steps.yarn-paths.outputs.install }}
+            ${{ steps.yarn-paths.outputs.build }}
             .pnp.js
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: |
