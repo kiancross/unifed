@@ -3,6 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "license": "UNLICENSED",
+  "scripts": {
+    "checks": "yarn lint && yarn build && yarn test",
+    "lint": "yarn workspaces foreach -vp run lint",
+    "build": "yarn workspaces foreach -vpt run build",
+    "test": "yarn workspaces foreach -vp run test",
+    "fix": "yarn workspaces foreach -vp run fix",
+    "coverage": "./scripts/generate-coverage-report",
+    "container:start": "make -C scripts start",
+    "container:stop": "make -C scripts stop",
+    "container:restart": "make -C scripts restart",
+    "container:reset": "make -C scripts reset",
+    "clean": "yarn workspaces foreach -vp run clean && rm -rf coverage && rm -rf packages/**/node_modules"
+  },
   "workspaces": [
     "packages/*"
   ],

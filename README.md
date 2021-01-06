@@ -22,7 +22,7 @@ We use [Codecov](https://codecov.io/) to generate a test coverage report. In
 order to access the report, you should log into Codecov using your GitHub
 account.
 
-**Always run `make checks` before making or pushing code to a pull request
+**Always run `yarn checks` before making or pushing code to a pull request
 and ensure the checks pass. This preserves our limited GitHub action minutes.**
 
 ## Synchronisation to School's GitLab
