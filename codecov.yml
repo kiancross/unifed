@@ -1,0 +1,13 @@
+#
+# CS3099 Group A3
+#
+
+coverage:
+  status:
+    project:
+      default:
+        informational: true
+        only_pulls: true
+
+comment:
+  layout: "reach, diff, flags"

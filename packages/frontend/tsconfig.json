@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "src",
     "rootDir": ".",
     "outDir": "build",
     "target": "es5",
@@ -19,7 +20,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "noImplicitThis": true,
@@ -33,5 +34,8 @@
     "experimentalDecorators": true
   },
   "include": ["src"],
-  "exclude" : ["src/**/*.test.ts"]
+  "exclude" : ["src/**/*.test.ts"],
+  "references": [
+    { "path": "../shared" }
+  ]
 }

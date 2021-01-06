@@ -2,9 +2,9 @@
 # CS3099 Group A3
 #
 
-node_modules
+.git
+**/node_modules/
 npm-debug.log
-build
-coverage
-*.js
-!_*.js
+**/build
+**/coverage
+**/tsconfig.tsbuildinfo

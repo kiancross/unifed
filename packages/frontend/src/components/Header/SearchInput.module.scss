@@ -1,0 +1,17 @@
+/*
+ * CS3099 Group A3
+ */
+
+.search-root {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  padding: 2px 16px;
+  width: 50%;
+}
+
+.autocomplete,
+.autocomplete-input {
+  width: 100%;
+}
+

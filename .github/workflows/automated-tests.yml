@@ -1,0 +1,185 @@
+#
+# CS3099 Group A3
+#
+
+name: Automated Tests
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  shared:
+    name: Shared
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+
+      - run: rm packages/{backend-*,frontend}/package.json
+      
+      - run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+        id: yarn-cache-dir-path
+
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}-
+            ${{ runner.os }}-yarn-
+      
+      - run: npm install -g yarn
+
+      - name: Install Dependencies 🏗️
+        run: yarn workspaces focus @unifed/shared
+
+      - name: Code Style 👠
+        run: yarn workspace @unifed/shared run lint
+
+      - name: Build ⛏️
+        run: yarn workspace @unifed/shared run build
+      
+      - name: Test 📝
+        run: yarn workspace @unifed/shared run test
+
+      - name: Upload Coverage Report 📊
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: shared
+          directory: packages
+          fail_ci_if_error: true
+          verbose: true
+
+  frontend:
+    name: Frontend
+    needs: shared
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+
+      - run: rm packages/backend-*/package.json
+      
+      - run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+        id: yarn-cache-dir-path
+
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}-
+            ${{ runner.os }}-yarn-
+      
+      - run: npm install -g yarn
+
+      - name: Install Dependencies 🏗️
+        run: yarn workspaces focus @unifed/frontend
+
+      - name: Code Style 👠
+        run: yarn workspace @unifed/frontend run lint
+
+      - name: Build ⛏️
+        run: yarn workspaces foreach -vpt --include '@unifed/{shared,frontend}' run build
+        env:
+          CI: false
+      
+      - name: Test 📝
+        run: yarn workspace @unifed/frontend run test
+
+      - name: Upload Coverage Report 📊
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: frontend
+          directory: packages
+          fail_ci_if_error: true
+          verbose: true
+
+  backend:
+    name: Backend
+    needs: shared
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+      
+      - run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+        id: yarn-cache-dir-path
+
+      - run: rm packages/frontend/package.json
+
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}-
+            ${{ runner.os }}-yarn-
+      
+      - run: npm install -g yarn
+
+      - name: Install Dependencies 🏗️
+        run: yarn install
+
+      - name: Code Style 👠
+        run: yarn workspaces foreach -vp --include '@unifed/backend-*' run lint
+
+      - name: Build ⛏️
+        run: yarn workspaces foreach -vpt --include '@unifed/backend-*' run build
+      
+      - name: Test 📝
+        run: yarn workspaces foreach -vp --include '@unifed/backend-*' run test
+
+      - name: Upload Coverage Report (backend-core) 1️⃣ 📊
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: backend-core
+          directory: packages/backend-core
+          fail_ci_if_error: true
+          verbose: true
+
+      - name: Upload Coverage Report (backend-federation-client) 2️⃣ 📊
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: backend-federation-client
+          directory: packages/backend-federation-client
+          fail_ci_if_error: true
+          verbose: true
+
+#      - name: Upload Coverage Report (backend-federation-server) 3️⃣ 📊
+#        uses: codecov/codecov-action@v1
+#        with:
+#          token: ${{ secrets.CODECOV_TOKEN }}
+#          flags: backend-federation-server
+#          directory: packages/backend-federation-server
+#          fail_ci_if_error: true
+#          verbose: true
+
+      - name: Upload Coverage Report (backend-internal-server) 4️⃣ 📊
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: backend-internal-server
+          directory: packages/backend-internal-server
+          fail_ci_if_error: true
+          verbose: true

@@ -1,0 +1,28 @@
+/*
+ * CS3099 Group A3
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap');
+
+$height: 2.5em;
+
+.search-container {
+  display: flex;
+  height: $height;
+  justify-content: center;
+  width: 100%;
+}
+
+.logo {
+  height: $height;
+}
+
+.logo-text {
+  font-family: 'Roboto Mono', monospace;
+  font-size: $height * 0.8;
+}
+
+.button-group {
+  margin-left: auto;
+}
+
