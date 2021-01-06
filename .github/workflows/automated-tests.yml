@@ -29,6 +29,7 @@ jobs:
           echo "::set-output name=cache::$(yarn config get cacheFolder)"
           echo "::set-output name=install::$(yarn config get installStatePath)"
           echo "::set-output name=build::$(yarn config get bstatePath)"
+          echo "::set-output name=unplugged::$(yarn config get pnpUnpluggedFolder)"
         id: yarn-paths
 
       - uses: actions/cache@v2
@@ -37,6 +38,7 @@ jobs:
             ${{ steps.yarn-paths.outputs.cache }}
             ${{ steps.yarn-paths.outputs.install }}
             ${{ steps.yarn-paths.outputs.build }}
+            ${{ steps.yarn-paths.outputs.unplugged }}
             .pnp.js
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: |
@@ -82,6 +84,7 @@ jobs:
           echo "::set-output name=cache::$(yarn config get cacheFolder)"
           echo "::set-output name=install::$(yarn config get installStatePath)"
           echo "::set-output name=build::$(yarn config get bstatePath)"
+          echo "::set-output name=unplugged::$(yarn config get pnpUnpluggedFolder)"
         id: yarn-paths
 
       - uses: actions/cache@v2
@@ -90,6 +93,7 @@ jobs:
             ${{ steps.yarn-paths.outputs.cache }}
             ${{ steps.yarn-paths.outputs.install }}
             ${{ steps.yarn-paths.outputs.build }}
+            ${{ steps.yarn-paths.outputs.unplugged }}
             .pnp.js
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: |
@@ -137,6 +141,7 @@ jobs:
           echo "::set-output name=cache::$(yarn config get cacheFolder)"
           echo "::set-output name=install::$(yarn config get installStatePath)"
           echo "::set-output name=build::$(yarn config get bstatePath)"
+          echo "::set-output name=unplugged::$(yarn config get pnpUnpluggedFolder)"
         id: yarn-paths
 
       - uses: actions/cache@v2
@@ -145,6 +150,7 @@ jobs:
             ${{ steps.yarn-paths.outputs.cache }}
             ${{ steps.yarn-paths.outputs.install }}
             ${{ steps.yarn-paths.outputs.build }}
+            ${{ steps.yarn-paths.outputs.unplugged }}
             .pnp.js
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: |
