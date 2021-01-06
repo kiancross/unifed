@@ -5,6 +5,7 @@
 name: School GitLab Mirror
 
 on:
+  workflow_dispatch:
   schedule:
     # Everyday at 6am
     - cron:  "0 6 */1 * *"

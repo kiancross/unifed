@@ -1,6 +1,7 @@
 # Unifed
 
 [![Automated Tests](https://github.com/kiancross/unifed/workflows/Automated%20Tests/badge.svg)](https://github.com/kiancross/unifed/actions?query=workflow%3A%22Automated+Tests%22)
+[![Nightly Tests](https://github.com/kiancross/unifed/workflows/Nightly%20Tests/badge.svg)](https://github.com/kiancross/unifed/actions?query=workflow%3A%22Nightly+Tests%22)
 [![School GitLab Mirror](https://github.com/kiancross/unifed/workflows/School%20GitLab%20Mirror/badge.svg)](https://github.com/kiancross/unifed/actions?query=workflow%3A%22School+GitLab+Mirror%22)
 [![codecov](https://codecov.io/gh/kiancross/unifed/branch/master/graph/badge.svg?token=FI52RC1RQV)](https://codecov.io/gh/kiancross/unifed)
 
