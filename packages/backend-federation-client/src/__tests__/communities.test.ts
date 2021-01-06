@@ -2,6 +2,8 @@
  * CS3099 Group A3
  */
 
+process.env.UNIFED_LOGGING_LEVEL = "warn";
+
 import test from "ava";
 import nock from "nock";
 import { getCommunities, getCommunity, CommunityNotFoundError } from "../communities";
