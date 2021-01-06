@@ -4,11 +4,11 @@
 
 SHELL:=/bin/bash
 
-CONFIG_PATH:=../configs/config.env
-KUBE_PATH:=../configs/kube-deployment.yml
+CONFIG_PATH:=configs/config.env
+KUBE_PATH:=configs/kube-deployment.yml
 POD_NAME:=unifed
 
-PODMAN_COMMAND:=podman
+PODMAN_COMMAND:=cd .. && podman
 
 .PHONY: start
 start: yarn-install unifed-backend-internal unifed-backend-federation unifed-frontend reset
