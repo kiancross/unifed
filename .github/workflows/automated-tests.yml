@@ -47,7 +47,6 @@ jobs:
         run: yarn workspace @unifed/shared run test
 
       - name: Upload Coverage Report 📊
-        if: false
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
