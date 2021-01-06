@@ -9,18 +9,15 @@ on:
     branches: [ master ]
 
 jobs:
-  checks:
-    name: Checks
+  shared:
+    name: Shared
     runs-on: ubuntu-latest
-    timeout-minutes: 7
-    strategy:
-      matrix:
-        component: [shared, frontend, backend]
+    timeout-minutes: 5
 
     steps:
       - uses: actions/checkout@v2
 
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
           node-version: 12
       
@@ -34,30 +31,25 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       
-      - uses: actions/cache@v2
-        with:
-          path: ~/.cache/mongodb-binaries
-          key: ${{ runner.os }}-mongodb
-
       - run: npm install -g yarn      
 
       - name: Install Dependencies 🏗️
-        run: yarn workspaces focus unifed-${{ matrix.component }}
+        run: yarn workspaces focus @unifed/shared
 
       - name: Code Style 👠
-        run: yarn workspaces foreach -vp --include "unifed-${{ matrix.component }}*" run lint
+        run: yarn workspace @unifed/shared run lint
 
       - name: Build ⛏️
-        run: yarn workspaces foreach -vpt --include unifed-shared --include "unifed-${{ matrix.component }}*" run build
+        run: yarn workspace @unifed/shared run build
       
       - name: Test 📝
-        run: yarn workspaces foreach -vpt --include "unifed-${{ matrix.component }}*" run test
+        run: yarn workspace @unifed/shared run test
 
       - name: Upload Coverage Report 📊
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          flags: ${{ matrix.component }}
+          flags: shared
           directory: packages
           fail_ci_if_error: true
           verbose: true
