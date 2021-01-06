@@ -26,7 +26,7 @@
     "class-transformer": "^0.3.1",
     "express": "^4.17.1",
     "express-async-router": "^0.1.15",
-    "mongoose": "5.10.18"
+    "mongoose": "5.11.10"
   },
   "scripts": {
     "start": "node build/app.js",

@@ -43,7 +43,7 @@
     "got": "^11.8.1",
     "graphql": "^15.4.0",
     "graphql-tag": "^2.11.0",
-    "mongoose": "5.10.18",
+    "mongoose": "5.11.10",
     "nodemailer": "^6.4.17",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.1",
