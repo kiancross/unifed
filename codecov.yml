@@ -8,3 +8,6 @@ coverage:
       default:
         informational: true
         only_pulls: true
+
+comment:
+  layout: "reach, diff, flags"
