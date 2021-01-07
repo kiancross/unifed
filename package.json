@@ -21,7 +21,6 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "nyc": "^15.1.0"
   },
   "resolutions": {
