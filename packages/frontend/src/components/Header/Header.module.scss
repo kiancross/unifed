@@ -6,7 +6,7 @@
 
 $height: 2.5em;
 
-.search-container {
+.searchContainer {
   display: flex;
   height: $height;
   justify-content: center;
@@ -17,12 +17,12 @@ $height: 2.5em;
   height: $height;
 }
 
-.logo-text {
+.logoText {
   font-family: 'Roboto Mono', monospace;
   font-size: $height * 0.8;
 }
 
-.button-group {
+.buttonGroup {
   margin-left: auto;
 }
 
