@@ -34,7 +34,7 @@ services:
   backend-internal:
     build:
       context: "."
-      dockerfile: configs/backend-internal.Dockerfile
+      dockerfile: configs/backend-internal.dockerfile
     restart: unless-stopped
     networks:
       - proxy
@@ -67,7 +67,7 @@ services:
   backend-federation:
     build:
       context: "."
-      dockerfile: configs/backend-federation.Dockerfile
+      dockerfile: configs/backend-federation.dockerfile
     restart: unless-stopped
     networks:
       - proxy
@@ -108,7 +108,7 @@ services:
   frontend:
     build:
       context: "."
-      dockerfile: configs/frontend.Dockerfile
+      dockerfile: configs/frontend.dockerfile
     restart: unless-stopped
     networks:
       - proxy

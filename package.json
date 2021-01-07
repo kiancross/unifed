@@ -10,11 +10,11 @@
     "test": "yarn workspaces foreach -vp run test",
     "fix": "yarn workspaces foreach -vp run fix",
     "coverage": "./scripts/generate-coverage-report",
-    "container:start": "make -C scripts -f entry.Makefile start",
-    "container:stop": "make -C scripts -f entry.Makefile stop",
-    "container:restart": "make -C scripts -f entry.Makefile restart",
-    "container:reset": "make -C scripts -f entry.Makefile reset",
-    "container:logs": "make -C scripts -f entry.Makefile logs",
+    "container:start": "make -C scripts -f entry.mk start",
+    "container:stop": "make -C scripts -f entry.mk stop",
+    "container:restart": "make -C scripts -f entry.mk restart",
+    "container:reset": "make -C scripts -f entry.mk reset",
+    "container:logs": "make -C scripts -f entry.mk logs",
     "clean": "yarn workspaces foreach -vp run clean && rm -rf coverage && rm -rf packages/**/node_modules"
   },
   "workspaces": [
