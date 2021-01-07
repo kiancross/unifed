@@ -145,6 +145,9 @@ spec:
           name: frontend
         - mountPath: /usr/src/unifed/packages/shared/src
           name: shared
+      env:
+        - name: REACT_APP_INTERNAL_GRAPHQL_ENDPOINT:
+          value: "${SITE_PROTOCOL}://${SITE_HOST}/internal"
 
   volumes:
     - name: frontend
