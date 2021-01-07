@@ -4,10 +4,10 @@
 
 SHELL:=/bin/bash
 
-DOCKER_COMPOSE_COMMAND:=docker-compose \
+DOCKER_COMPOSE_COMMAND:=cd .. && docker-compose \
 	--env-file configs/config.env \
-  -f ../configs/docker-compose.yml \
-  --project-directory ..
+  -f configs/docker-compose.yml \
+  --project-directory .
 
 .PHONY: start
 start:
