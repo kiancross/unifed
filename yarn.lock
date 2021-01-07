@@ -3389,13 +3389,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-router@npm:*, @types/react-router@npm:^5.1.9":
+"@types/react-router@npm:*":
   version: 5.1.9
   resolution: "@types/react-router@npm:5.1.9"
   dependencies:
     "@types/history": "*"
     "@types/react": "*"
   checksum: b37352ca71da3eb265987f1b9470fbafbf8a3bc620af142ac62299a2c1150194a5b144ace3ac510d75defc9e744ae764d173e82516bdbf009907c4cf053f4c6b
+  languageName: node
+  linkType: hard
+
+"@types/react-router@npm:^5.1.10":
+  version: 5.1.10
+  resolution: "@types/react-router@npm:5.1.10"
+  dependencies:
+    "@types/history": "*"
+    "@types/react": "*"
+  checksum: 070c68d33ab437833d51aaf6017c86fd25c8debb89bbc89ce7c335ceb32822103627879645023365a4233913a86f284ce9c2e73a7af4c541b160ee6f9521cf47
   languageName: node
   linkType: hard
 
@@ -3469,7 +3479,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/source-map-support@npm:^0":
+"@types/source-map-support@npm:^0.5.3":
   version: 0.5.3
   resolution: "@types/source-map-support@npm:0.5.3"
   dependencies:
@@ -3788,7 +3798,7 @@ __metadata:
     "@typegoose/typegoose": ^7.4.6
     "@types/mongoose": ^5.10.3
     "@types/node": ^14.14.20
-    "@types/source-map-support": ^0
+    "@types/source-map-support": ^0.5.3
     "@types/uuid": ^8.3.0
     "@typescript-eslint/eslint-plugin": ^4.12.0
     "@typescript-eslint/parser": ^4.12.0
@@ -3818,7 +3828,7 @@ __metadata:
   dependencies:
     "@istanbuljs/nyc-config-typescript": ^1.0.1
     "@types/node": ^14.14.20
-    "@types/source-map-support": ^0
+    "@types/source-map-support": ^0.5.3
     "@typescript-eslint/eslint-plugin": ^4.12.0
     "@typescript-eslint/parser": ^4.12.0
     "@unifed/backend-core": ^0.1.0
@@ -3846,7 +3856,7 @@ __metadata:
     "@types/express": ^4.17.9
     "@types/mongoose": ^5.10.3
     "@types/node": ^14.14.20
-    "@types/source-map-support": ^0
+    "@types/source-map-support": ^0.5.3
     "@typescript-eslint/eslint-plugin": ^4.12.0
     "@typescript-eslint/parser": ^4.12.0
     "@unifed/backend-core": ^0.1.0
@@ -3883,7 +3893,7 @@ __metadata:
     "@types/mongoose": ^5.10.3
     "@types/node": ^14.14.20
     "@types/nodemailer": ^6.4.0
-    "@types/source-map-support": ^0
+    "@types/source-map-support": ^0.5.3
     "@types/uuid": ^8.3.0
     "@typescript-eslint/eslint-plugin": ^4.12.0
     "@typescript-eslint/parser": ^4.12.0
@@ -3938,7 +3948,7 @@ __metadata:
     "@types/prettier": ^2.1.6
     "@types/react": ^17.0.0
     "@types/react-dom": ^17.0.0
-    "@types/react-router": ^5.1.9
+    "@types/react-router": ^5.1.10
     "@types/react-router-dom": ^5.1.7
     "@types/react-syntax-highlighter": ^13.5.0
     "@typescript-eslint/eslint-plugin": ^4.12.0
@@ -3968,7 +3978,7 @@ __metadata:
     react-syntax-highlighter: ^15.4.3
     remark-gfm: ^1.0.0
     remark-math: ^4.0.0
-    sass: ^1.32.0
+    sass: ^1.32.2
     stylelint: ^13.8.0
     stylelint-config-sass-guidelines: ^7.1.0
     typescript: ^4.1.3
@@ -3990,7 +4000,7 @@ __metadata:
   resolution: "@unifed/shared@workspace:packages/shared"
   dependencies:
     "@istanbuljs/nyc-config-typescript": ^1.0.1
-    "@types/source-map-support": ^0
+    "@types/source-map-support": ^0.5.3
     "@types/validator": ^13.1.2
     "@types/zxcvbn": ^4.4.0
     "@typescript-eslint/eslint-plugin": ^4.12.0
@@ -17640,14 +17650,14 @@ resolve@1.18.1:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.32.0":
-  version: 1.32.0
-  resolution: "sass@npm:1.32.0"
+"sass@npm:^1.32.2":
+  version: 1.32.2
+  resolution: "sass@npm:1.32.2"
   dependencies:
     chokidar: ">=2.0.0 <4.0.0"
   bin:
     sass: sass.js
-  checksum: 3d18acd93805431e32061484007b9fd1cc2f216f629f2f33bd97fabcbd875d3d62a1d717a5de226f24d27247b485edbd9cd4cd1d7ef653326f7b5de2b928d35f
+  checksum: 4e5b89eb673aa1b4d2f805ee6e352e40b296ebbcf528cd25fbb90f3d3e6ecd6fd0b9b7f6ef94190e39cb0b18d3942e30b08396246e45509500750c1879a295bd
   languageName: node
   linkType: hard
 
