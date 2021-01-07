@@ -33,6 +33,7 @@ jobs:
         id: yarn-paths
 
       - uses: actions/cache@v2
+        id: cache
         with:
           path: |
             ${{ steps.yarn-paths.outputs.cache }}
@@ -47,6 +48,7 @@ jobs:
       - run: npm install -g yarn
 
       - name: Install Dependencies 🏗️
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
       - name: Code Style 👠
@@ -88,6 +90,7 @@ jobs:
         id: yarn-paths
 
       - uses: actions/cache@v2
+        id: cache
         with:
           path: |
             ${{ steps.yarn-paths.outputs.cache }}
@@ -102,6 +105,7 @@ jobs:
       - run: npm install -g yarn
 
       - name: Install Dependencies 🏗️
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
       - name: Code Style 👠
@@ -145,6 +149,7 @@ jobs:
         id: yarn-paths
 
       - uses: actions/cache@v2
+        id: cache
         with:
           path: |
             ${{ steps.yarn-paths.outputs.cache }}
@@ -159,6 +164,7 @@ jobs:
       - run: npm install -g yarn
 
       - name: Install Dependencies 🏗️
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
       - name: Code Style 👠
