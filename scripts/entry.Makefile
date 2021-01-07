@@ -16,10 +16,10 @@ ifeq ($(shell which podman),)
 ifeq ($(shell which docker-compose),)
 	$(error Requires Podman or docker-compose to be installed)
 else
-include Makefile.docker
+include docker.Makefile
 endif
 else
-include Makefile.podman
+include podman.Makefile
 endif
 
 .PHONY: restart
