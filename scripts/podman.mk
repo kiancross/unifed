@@ -54,12 +54,12 @@ yarn-install:
 
 .PHONY: unifed-backend-internal
 unifed-backend-internal:
-	$(PODMAN_COMMAND) build -f configs/backend-internal.Dockerfile -t unifed-backend-internal .
+	$(PODMAN_COMMAND) build -f configs/backend-internal.dockerfile -t unifed-backend-internal .
 
 .PHONY: unifed-backend-federation
 unifed-backend-federation:
-	$(PODMAN_COMMAND) build -f configs/backend-federation.Dockerfile -t unifed-backend-federation .
+	$(PODMAN_COMMAND) build -f configs/backend-federation.dockerfile -t unifed-backend-federation .
 
 .PHONY: unifed-frontend
 unifed-frontend:
-	$(PODMAN_COMMAND) build -f configs/frontend.Dockerfile -t unifed-frontend .
+	$(PODMAN_COMMAND) build -f configs/frontend.dockerfile -t unifed-frontend .
