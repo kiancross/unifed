@@ -12,8 +12,14 @@ import {
 import { accountsLink } from "@accounts/apollo-link";
 import { accountsClient } from "./accounts";
 
+let graphqlApiEndpoint = process.env.REACT_APP_INTERNAL_GRAPHQL_ENDPOINT;
+
+if (graphqlApiEndpoint === undefined) {
+  graphqlApiEndpoint = "http://localhost:8080/internal";
+}
+
 const authLink = accountsLink(() => accountsClient);
-const httpLink = new HttpLink({ uri: "http://localhost:8080/internal" });
+const httpLink = new HttpLink({ uri: graphqlApiEndpoint });
 
 export const apolloClient: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   link: ApolloLink.from([authLink, httpLink]),

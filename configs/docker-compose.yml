@@ -115,6 +115,8 @@ services:
     volumes:
       - "./packages/shared/src:/usr/src/unifed/packages/shared/src:ro"
       - "./packages/frontend/src:/usr/src/unifed/packages/frontend/src:ro"
+    environment:
+      REACT_APP_INTERNAL_GRAPHQL_ENDPOINT: "${SITE_PROTOCOL}://${SITE_HOST}/internal"
 
 networks:
   proxy:
