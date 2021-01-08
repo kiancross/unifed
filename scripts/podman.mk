@@ -10,7 +10,7 @@ POD_NAME:=unifed
 
 PODMAN_COMMAND:=cd .. && podman
 
-ifneq ($(shell podman --version | awk '{print $3}'),2.1.0)
+ifneq ($(shell podman --version | awk '{print $3}'),2.1.1)
 define n
 
 
