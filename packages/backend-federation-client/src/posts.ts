@@ -24,7 +24,6 @@ export async function createPost(
           contentType: "markdown",
           author: {
             id: user.username,
-            host: "TODO", // TODO
           },
         },
       })
@@ -34,8 +33,6 @@ export async function createPost(
     post.host = host;
 
     return post;
-
-    // insert ref into db
   } catch (error) {
     if (error.response.statusCode === 400) {
       return null;
