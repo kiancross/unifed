@@ -15,6 +15,7 @@
     "eslint": "^7.17.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-prettier": "^3.3.1",
+    "mongodb-memory-server-core": "^6.9.2",
     "nyc": "^15.1.0",
     "prettier": "^2.2.1",
     "source-map-support": "^0.5.19",
@@ -32,9 +33,7 @@
   "scripts": {
     "start": "node build/app.js",
     "start:watch": "tsc-watch --noClear -b --onSuccess 'yarn start'",
-    "test": "true",
-    "test:unit": "nyc ava 'src/**/*.test.ts'",
-    "test:integration": "ava 'integration/**/*.test.ts'",
+    "test": "nyc ava 'src/**/*.test.ts'",
     "build": "tsc -b",
     "clean": "rm -rf coverage build .nyc_output",
     "lint": "eslint . --ext .ts",

@@ -147,9 +147,9 @@ jobs:
           echo "::set-output name=build::$(yarn config get bstatePath)"
           echo "::set-output name=unplugged::$(yarn config get pnpUnpluggedFolder)"
         id: yarn-paths
-
+      
       - uses: actions/cache@v2
-        id: cache
+        id: yarn-cache
         with:
           path: |
             ${{ steps.yarn-paths.outputs.cache }}
@@ -160,11 +160,17 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+
+      - uses: actions/cache@v2
+        id: mongo-cache
+        with:
+          path: ~/.cache/mongodb-binaries
+          key: ${{ runner.os }}-mongodb
       
       - run: npm install -g yarn
 
       - name: Install Dependencies 🏗️
-        if: steps.cache.outputs.cache-hit != 'true'
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn install
 
       - name: Code Style 👠
@@ -194,14 +200,14 @@ jobs:
           fail_ci_if_error: true
           verbose: true
 
-#      - name: Upload Coverage Report (backend-federation-server) 3️⃣ 📊
-#        uses: codecov/codecov-action@v1
-#        with:
-#          token: ${{ secrets.CODECOV_TOKEN }}
-#          flags: backend-federation-server
-#          directory: packages/backend-federation-server
-#          fail_ci_if_error: true
-#          verbose: true
+      - name: Upload Coverage Report (backend-federation-server) 3️⃣ 📊
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: backend-federation-server
+          directory: packages/backend-federation-server
+          fail_ci_if_error: true
+          verbose: true
 
       - name: Upload Coverage Report (backend-internal-server) 4️⃣ 📊
         uses: codecov/codecov-action@v1

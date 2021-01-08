@@ -3867,6 +3867,7 @@ __metadata:
     eslint-plugin-prettier: ^3.3.1
     express: ^4.17.1
     express-async-router: ^0.1.15
+    mongodb-memory-server-core: ^6.9.2
     mongoose: 5.10.18
     nyc: ^15.1.0
     prettier: ^2.2.1
@@ -3912,7 +3913,6 @@ __metadata:
     got: ^11.8.1
     graphql: ^15.4.0
     graphql-tag: ^2.11.0
-    mongodb-memory-server-global: ^6.9.2
     mongoose: 5.10.18
     nodemailer: ^6.4.17
     nyc: ^15.1.0
@@ -13700,7 +13700,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"mongodb-memory-server-core@npm:6.9.2":
+"mongodb-memory-server-core@npm:^6.9.2":
   version: 6.9.2
   resolution: "mongodb-memory-server-core@npm:6.9.2"
   dependencies:
@@ -13725,25 +13725,6 @@ fsevents@~2.1.2:
     mongodb:
       optional: true
   checksum: ebe0eec2e5b501998f64680a9d0d1621ce2f2698fca0bde9e2cc1593de5c5d143cd526ccdf48a8ae33f73b58c98644f8c4321d3b37377ad8c657c5ebf081954f
-  languageName: node
-  linkType: hard
-
-"mongodb-memory-server-global@npm:^6.9.2":
-  version: 6.9.2
-  resolution: "mongodb-memory-server-global@npm:6.9.2"
-  dependencies:
-    mongodb-memory-server: 6.9.2
-    os: ^0.1.1
-  checksum: e73dc30efa66f024f9200562d2cc00658c2bcc9b71b83f37f8dd7382582fd693869da9bf5f6c734283d959ce8d531bbc8270fc9678468b6547006a07773120dd
-  languageName: node
-  linkType: hard
-
-"mongodb-memory-server@npm:6.9.2":
-  version: 6.9.2
-  resolution: "mongodb-memory-server@npm:6.9.2"
-  dependencies:
-    mongodb-memory-server-core: 6.9.2
-  checksum: 3f7179601e0f1bbd41d5d08c3b240074f7ca5c33d90543dd21f7e84414985b1883f36702d56bf0c16e45dcedc3b11ec54d95d7c82372625a9b61286c34b32712
   languageName: node
   linkType: hard
 
@@ -14597,13 +14578,6 @@ fsevents@~2.1.2:
   version: 0.3.0
   resolution: "os-browserify@npm:0.3.0"
   checksum: f547c038810977579e11f35ff9aec4c6ac557369af7f4946d054da9e0dc180ffc1b5ef37c8c09b6004487c88c4a500c49ba9a109fbeab7dcb890fe1346b5f9b7
-  languageName: node
-  linkType: hard
-
-"os@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "os@npm:0.1.1"
-  checksum: 624f0f7d385b22d00d1f5f020409e6035795eaf8665a3a9e02aa56fc96430b2091136f761eea763302e7f0ebac63b15a2db6fd9570e0bdd938dce375711d751c
   languageName: node
   linkType: hard
 
