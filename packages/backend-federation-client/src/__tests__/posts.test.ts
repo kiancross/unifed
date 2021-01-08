@@ -8,9 +8,11 @@ import test from "ava";
 import nock from "nock";
 import { getPosts } from "../posts";
 
-
 test("getPosts none", async (t) => {
-  const scope = nock("http://getPostsNone").get("/fed/posts").query({ community: "foo" }).reply(200, []);
+  const scope = nock("http://getPostsNone")
+    .get("/fed/posts")
+    .query({ community: "foo" })
+    .reply(200, []);
 
   t.deepEqual(await getPosts("getPostsNone", "foo"), []);
 
