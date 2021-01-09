@@ -3230,6 +3230,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/long@npm:4.0.0":
+  version: 4.0.0
+  resolution: "@types/long@npm:4.0.0"
+  checksum: cb3dfe4c6b27f3ee4f9d76afad3d20fc96d510a156d77b01bd78b36af8ff6c93e726843b99efc47bc6a3c76730157d6d6d21f35085630b8b92b73dab458071d4
+  languageName: node
+  linkType: hard
+
 "@types/long@npm:^4.0.0":
   version: 4.0.1
   resolution: "@types/long@npm:4.0.1"
