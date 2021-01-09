@@ -3005,6 +3005,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/events@npm:*":
+  version: 3.0.0
+  resolution: "@types/events@npm:3.0.0"
+  checksum: 1407d79d6d5291caa89f27ef0f180eb133bc5a12f11886bd68f9ef9cffb962a575571d1b4d02d30a7329fe9b85d29b7c10543ed6dc516ad20f9a1e89c1e9c9b8
+  languageName: node
+  linkType: hard
+
 "@types/express-serve-static-core@npm:*, @types/express-serve-static-core@npm:4.17.17":
   version: 4.17.17
   resolution: "@types/express-serve-static-core@npm:4.17.17"
@@ -3267,6 +3274,16 @@ __metadata:
     "@types/bson": "*"
     "@types/node": "*"
   checksum: 2ccf239c496ad5a36ff014211a073a28878ddeda7f8a73c7e2f75a9587c295dec60fff57b6036b789c9e37d74923ddfb66e1d2f70c659b3f61c9382d2bff6b38
+  languageName: node
+  linkType: hard
+
+"@types/mongodb@npm:3.5.33":
+  version: 3.5.33
+  resolution: "@types/mongodb@npm:3.5.33"
+  dependencies:
+    "@types/bson": "*"
+    "@types/node": "*"
+  checksum: 4a1b916dea1f94ce4b5e8a95601bc42b828e3d3ce177a1620a8ba16c011ad62c76a4d04a81272acfc5faca6c96c0f038fed221c4392a01b3800fbdf73bcacef2
   languageName: node
   linkType: hard
 
@@ -3594,6 +3611,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/ws@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "@types/ws@npm:5.1.2"
+  dependencies:
+    "@types/events": "*"
+    "@types/node": "*"
+  checksum: 1256d17f84f99c29ae5c9341778cc339112039f797e598b395b3c55d06021fb1cc285dfbb4a4001d34563ea03685770acd8372d6993507d1b07608341e94e0f2
+  languageName: node
+  linkType: hard
+
 "@types/ws@npm:^7.0.0":
   version: 7.4.0
   resolution: "@types/ws@npm:7.4.0"
@@ -3886,6 +3913,7 @@ __metadata:
     "@accounts/mongo": ^0.30.0
     "@accounts/password": ^0.30.0
     "@accounts/server": ^0.30.0
+    "@accounts/types": ^0.30.0
     "@graphql-modules/core": ^0.7.17
     "@graphql-tools/merge": ^6.2.6
     "@graphql-tools/schema": ^7.1.2
