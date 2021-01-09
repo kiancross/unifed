@@ -2811,16 +2811,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/react@npm:^11.2.2":
-  version: 11.2.2
-  resolution: "@testing-library/react@npm:11.2.2"
+"@testing-library/react@npm:^11.2.3":
+  version: 11.2.3
+  resolution: "@testing-library/react@npm:11.2.3"
   dependencies:
     "@babel/runtime": ^7.12.5
     "@testing-library/dom": ^7.28.1
   peerDependencies:
     react: "*"
     react-dom: "*"
-  checksum: b2061c140201ab179a8cc3294ebc58f9a7ea5ffdb83ee246d59cb0ecfe4c2c99cdeedef66c280a52773453477f03866388ba7b36d2b144a3e646250c3f8efbc9
+  checksum: a310ca61cd6668d8825c366c33febef024538d6e03b25a161d69ad0c9ec4a0336f189eb8a9400327f47b8f1127811ccac04b57646ca8f0a3d48d8a16a2988603
   languageName: node
   linkType: hard
 
@@ -3423,13 +3423,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-router@npm:^5.1.10":
-  version: 5.1.10
-  resolution: "@types/react-router@npm:5.1.10"
+"@types/react-router@npm:^5.1.11":
+  version: 5.1.11
+  resolution: "@types/react-router@npm:5.1.11"
   dependencies:
     "@types/history": "*"
     "@types/react": "*"
-  checksum: 070c68d33ab437833d51aaf6017c86fd25c8debb89bbc89ce7c335ceb32822103627879645023365a4233913a86f284ce9c2e73a7af4c541b160ee6f9521cf47
+  checksum: 330389d79802c516d9217ae3dd959425cd7104fba9cf7ab84bf4ee706ab3f0a4f8dc1d9deb0cef63519f7da068c53ac79590cac2755170c7c9fcb67d603ffe08
   languageName: node
   linkType: hard
 
@@ -3977,13 +3977,13 @@ __metadata:
     "@material-ui/lab": ^4.0.0-alpha.57
     "@rushstack/eslint-patch": ^1.0.6
     "@testing-library/jest-dom": ^5.11.8
-    "@testing-library/react": ^11.2.2
+    "@testing-library/react": ^11.2.3
     "@types/eslint-plugin-prettier": ^3.1.0
     "@types/node": ^14.14.20
     "@types/prettier": ^2.1.6
     "@types/react": ^17.0.0
     "@types/react-dom": ^17.0.0
-    "@types/react-router": ^5.1.10
+    "@types/react-router": ^5.1.11
     "@types/react-router-dom": ^5.1.7
     "@types/react-syntax-highlighter": ^13.5.0
     "@typescript-eslint/eslint-plugin": ^4.12.0
