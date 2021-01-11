@@ -35,7 +35,7 @@ const App = (): JSX.Element => {
 
   if (loggedIn === null) return <div />;
 
-  const homePath = `/instances/${window.location.host}/communities/all/posts`;
+  const homePath = "/instances/this/communities/all/posts";
   const redirectHome = <Redirect to={homePath} />;
   const redirectLogin = <Redirect to="/login" />;
   const logOut = () => {

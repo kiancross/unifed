@@ -31,21 +31,21 @@ const UserProfilePage = (): JSX.Element => {
   const general = useQuery(GET_POSTS, {
     variables: {
       community: "general",
-      host: window.location.host,
+      host: "this",
     },
   });
 
   const all = useQuery(GET_POSTS, {
     variables: {
       community: "all",
-      host: window.location.host,
+      host: "this",
     },
   });
 
   const elections = useQuery(GET_POSTS, {
     variables: {
       community: "elections",
-      host: window.location.host,
+      host: "this",
     },
   });
 
