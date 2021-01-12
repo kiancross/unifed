@@ -29,11 +29,6 @@ import { routes } from "./routes";
     });
   }
 
-  app.use(function (req, _, next) {
-    logger.debug(`Received request: ${req.path}`);
-    next();
-  });
-
   app.use("/", await routes);
 
   app.listen(config.serverPort, () =>
