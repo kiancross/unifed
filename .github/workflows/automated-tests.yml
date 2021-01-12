@@ -103,7 +103,7 @@ jobs:
           directory: packages/backend-internal-server
           fail_ci_if_error: true
       
-      - name: Upload Coverage Report (frontend)5️⃣ 📊 
+      - name: Upload Coverage Report (frontend) 5️⃣ 📊 
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -111,7 +111,7 @@ jobs:
           directory: packages/frontend
           fail_ci_if_error: true
 
-      - name: Upload Coverage Report (shared)6️⃣ 📊
+      - name: Upload Coverage Report (shared) 6️⃣ 📊
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
