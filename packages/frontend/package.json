@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI=false react-scripts build",
     "test": "react-scripts test --coverage --coverageReporters html json text --watchAll=false",
     "clean": "rm -rf coverage .nyc_output build",
     "lint": "yarn ts:lint && yarn scss:lint",
