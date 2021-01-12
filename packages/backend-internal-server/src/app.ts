@@ -2,6 +2,7 @@
  * CS3099 Group A3
  */
 
+import "reflect-metadata";
 import express from "express";
 import mongoose from "mongoose";
 import { config, logger } from "@unifed/backend-core";

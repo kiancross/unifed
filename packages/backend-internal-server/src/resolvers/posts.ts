@@ -11,21 +11,25 @@ import {
   Root,
   Arg,
 } from "type-graphql";
+import { Service } from "typedi";
 import { CurrentUser } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
 import { Post, User } from "@unifed/backend-core";
 import { CreatePostInput, RemoteReferenceInput } from "./inputs";
-import { postsClient } from "@unifed/backend-federation-client";
+import { PostsService } from "../services";
 
+@Service()
 @Resolver(Post)
 export class PostsResolver implements ResolverInterface<Post> {
+  constructor(private readonly postsService: PostsService) {}
+
   @AuthoriseUser()
   @Mutation(() => Post, { nullable: true })
   async createPost(
     @Arg("post") post: CreatePostInput,
     @CurrentUser() user: User,
   ): Promise<Post | null> {
-    return await postsClient.createPost(
+    return await this.postsService.create(
       post.parent.host,
       user,
       post.parent.id,
@@ -36,12 +40,12 @@ export class PostsResolver implements ResolverInterface<Post> {
 
   @Query(() => [Post])
   async getPosts(@Arg("community") community: RemoteReferenceInput): Promise<Post[]> {
-    return await postsClient.getPosts(community.host, community.id);
+    return await this.postsService.getByCommunity(community.host, community.id);
   }
 
   @Query(() => Post)
   async getPost(@Arg("post") post: RemoteReferenceInput): Promise<Post> {
-    return await postsClient.getPost(post.host, post.id);
+    return await this.postsService.getById(post.host, post.id);
   }
 
   @FieldResolver()
@@ -56,7 +60,7 @@ export class PostsResolver implements ResolverInterface<Post> {
       for (const id of post.children) {
         let childPost;
         if (typeof id === "string") {
-          childPost = await postsClient.getPost(post.host, id);
+          childPost = await this.postsService.getById(post.host, id);
         } else if (id instanceof Post) {
           childPost = id;
         } else {
