@@ -3948,6 +3948,7 @@ __metadata:
     got: ^11.8.1
     graphql: ^15.4.0
     graphql-tag: ^2.11.0
+    ipaddr.js: ^2.0.0
     mongoose: 5.10.18
     nodemailer: ^6.4.17
     nyc: ^15.1.0
@@ -10911,6 +10912,13 @@ fsevents@~2.1.2:
   version: 1.9.1
   resolution: "ipaddr.js@npm:1.9.1"
   checksum: de15bc7e63973d960abc43c9fbbf19589c726774f59d157d1b29382a1e86ae87c68cbd8b5c78a1712a87fc4fcd91e10762c7671950c66a1a19040ff4fd2f9c9b
+  languageName: node
+  linkType: hard
+
+"ipaddr.js@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "ipaddr.js@npm:2.0.0"
+  checksum: c14a0aaac9b3383be5226ea8b0b7707d9d6b021d5a8b04c6cdd9f6cea29583089d93718e10a8352460ed63becd834c7b93b62dbd46d2db4595086c9dc880630b
   languageName: node
   linkType: hard
 
