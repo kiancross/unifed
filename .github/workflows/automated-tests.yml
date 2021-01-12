@@ -71,9 +71,11 @@ jobs:
 
   frontend:
     name: Frontend
-    needs: shared
+    needs:
+      - shared
+      - backend
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 7
 
     steps:
       - uses: actions/checkout@v2
@@ -104,6 +106,12 @@ jobs:
       
       - run: npm install -g yarn
 
+      - name: Download GraphQL Schema 📜
+        uses: actions/download-artifact@v2
+        with:
+          name: graphql-schema
+          path: packages/frontend
+
       - name: Install Dependencies 🏗️
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
@@ -132,7 +140,7 @@ jobs:
     name: Backend
     needs: shared
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 7
 
     steps:
       - uses: actions/checkout@v2
@@ -182,6 +190,9 @@ jobs:
       - name: Test 📝
         run: yarn workspaces foreach -vp --include '@unifed/backend-*' run test
 
+      - name: Generate GraphQL Schema ⚙️
+        run: yarn workspace @unifed/backend-internal-server ts-node scripts/generate-schema.ts
+
       - name: Upload Coverage Report (backend-core) 1️⃣ 📊
         uses: codecov/codecov-action@v1
         with:
@@ -217,3 +228,10 @@ jobs:
           directory: packages/backend-internal-server
           fail_ci_if_error: true
           verbose: true
+
+      - name: Upload GraphQL Schema5️⃣ 📜
+        uses: actions/upload-artifact@v2
+        with:
+          name: graphql-schema
+          path: packages/backend-internal-server/.schema.graphql 
+          if-no-files-found: error
