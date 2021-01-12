@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-process.env.UNIFED_LOGGING_LEVEL = "info";
 process.env.UNIFED_SMTP_HOST = "smtp.ethereal.email";
 process.env.UNIFED_SMTP_PORT = "587";
 process.env.UNIFED_SMTP_USERNAME = "rogers.price3@ethereal.email";
