@@ -3,6 +3,7 @@
  */
 
 import * as path from "path";
+import { Container } from "typedi";
 import { GraphQLSchema } from "graphql";
 import { buildTypeDefsAndResolvers, emitSchemaDefinitionFile } from "type-graphql";
 import { makeExecutableSchema } from "@graphql-tools/schema";
@@ -22,6 +23,7 @@ export const schema = (async (): Promise<GraphQLSchema> => {
   const { typeDefs, resolvers } = await buildTypeDefsAndResolvers({
     resolvers: [UsersResolver, PostsResolver, CommunitiesResolver],
     orphanedTypes: [CreateUserInput, User],
+    container: Container,
     validate: true,
   });
 
