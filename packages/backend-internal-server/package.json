@@ -54,9 +54,7 @@
   "scripts": {
     "start": "node build/app.js",
     "start:watch": "tsc-watch -b --noClear --onSuccess 'yarn start'",
-    "test": "yarn test:unit",
-    "test:unit": "nyc ava 'src/**/*.test.ts'",
-    "test:integration": "ava 'integration/**/*.test.ts'",
+    "test": "nyc ava 'src/**/*.test.ts'",
     "build": "tsc -b",
     "clean": "rm -rf coverage build .nyc_output",
     "lint": "eslint . --ext .ts",
