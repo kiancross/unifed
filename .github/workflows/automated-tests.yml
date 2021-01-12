@@ -57,6 +57,9 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
+      - name: Build ⛏️
+        run: yarn build
+
       - name: Generate GraphQL Schema ⚙️
         run: |
           yarn workspace @unifed/backend-internal-server ts-node scripts/generate-schema.ts
@@ -65,9 +68,6 @@ jobs:
       - name: Code Style 👠
         run: yarn lint
 
-      - name: Build ⛏️
-        run: yarn build
-      
       - name: Test 📝
         run: yarn test
 
