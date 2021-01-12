@@ -9,7 +9,9 @@ services:
     image: mongo:4
     restart: unless-stopped
     networks:
-      - database
+      - internal-network
+      - federation-network
+      - inspect-network
     volumes:
       - mongo_data:/data/db
       - "./configs/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
@@ -21,7 +23,9 @@ services:
     image: nginx:stable-alpine
     restart: unless-stopped
     networks:
-      - proxy
+      - internal-network
+      - federation-network
+      - frontend-network
     depends_on:
       - backend-internal
       - backend-federation
@@ -37,8 +41,7 @@ services:
       dockerfile: configs/backend-internal.dockerfile
     restart: unless-stopped
     networks:
-      - proxy
-      - database
+      - internal-network
     depends_on:
       - mongo
     volumes:
@@ -70,8 +73,7 @@ services:
       dockerfile: configs/backend-federation.dockerfile
     restart: unless-stopped
     networks:
-      - proxy
-      - database
+      - federation-network
     depends_on:
       - mongo
     volumes:
@@ -95,7 +97,7 @@ services:
     image: mongo-express
     restart: unless-stopped
     networks:
-      - database
+      - inspect-network
     ports:
       - "${MONGO_INSPECT_PORT}:8081"
     environment:
@@ -111,7 +113,7 @@ services:
       dockerfile: configs/frontend.dockerfile
     restart: unless-stopped
     networks:
-      - proxy
+      - frontend-network
     volumes:
       - "./packages/shared/src:/usr/src/unifed/packages/shared/src:ro"
       - "./packages/frontend/src:/usr/src/unifed/packages/frontend/src:ro"
@@ -119,9 +121,13 @@ services:
       REACT_APP_INTERNAL_GRAPHQL_ENDPOINT: "${SITE_PROTOCOL}://${SITE_HOST}/internal"
 
 networks:
-  proxy:
+  internal-network:
     driver: bridge
-  database:
+  federation-network:
+    driver: bridge
+  inspect-network:
+    driver: bridge
+  frontend-network:
     driver: bridge
  
 volumes:
