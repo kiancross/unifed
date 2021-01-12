@@ -13,10 +13,10 @@ on:
     - cron:  "0 6 */2 * *"
 
 jobs:
-  shared:
-    name: Shared
+  checks:
+    name: Checks
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
 
     steps:
       - uses: actions/checkout@v2
@@ -25,139 +25,15 @@ jobs:
         with:
           node-version: 12
 
-      - run: |
+      - id: yarn-paths
+        run: |
           echo "::set-output name=cache::$(yarn config get cacheFolder)"
           echo "::set-output name=install::$(yarn config get installStatePath)"
           echo "::set-output name=build::$(yarn config get bstatePath)"
           echo "::set-output name=unplugged::$(yarn config get pnpUnpluggedFolder)"
-        id: yarn-paths
 
       - uses: actions/cache@v2
         id: cache
-        with:
-          path: |
-            ${{ steps.yarn-paths.outputs.cache }}
-            ${{ steps.yarn-paths.outputs.install }}
-            ${{ steps.yarn-paths.outputs.build }}
-            ${{ steps.yarn-paths.outputs.unplugged }}
-            .pnp.js
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      
-      - run: npm install -g yarn
-
-      - name: Install Dependencies 🏗️
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn install
-
-      - name: Code Style 👠
-        run: yarn workspace @unifed/shared run lint
-
-      - name: Build ⛏️
-        run: yarn workspace @unifed/shared run build
-      
-      - name: Test 📝
-        run: yarn workspace @unifed/shared run test
-
-      - name: Upload Coverage Report 📊
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: shared
-          directory: packages
-          fail_ci_if_error: true
-          verbose: true
-
-  frontend:
-    name: Frontend
-    needs:
-      - shared
-      - backend
-    runs-on: ubuntu-latest
-    timeout-minutes: 7
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 12
-
-      - run: |
-          echo "::set-output name=cache::$(yarn config get cacheFolder)"
-          echo "::set-output name=install::$(yarn config get installStatePath)"
-          echo "::set-output name=build::$(yarn config get bstatePath)"
-          echo "::set-output name=unplugged::$(yarn config get pnpUnpluggedFolder)"
-        id: yarn-paths
-
-      - uses: actions/cache@v2
-        id: cache
-        with:
-          path: |
-            ${{ steps.yarn-paths.outputs.cache }}
-            ${{ steps.yarn-paths.outputs.install }}
-            ${{ steps.yarn-paths.outputs.build }}
-            ${{ steps.yarn-paths.outputs.unplugged }}
-            .pnp.js
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      
-      - run: npm install -g yarn
-
-      - name: Download GraphQL Schema 📜
-        uses: actions/download-artifact@v2
-        with:
-          name: graphql-schema
-          path: packages/frontend
-
-      - name: Install Dependencies 🏗️
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn install
-
-      - name: Code Style 👠
-        run: yarn workspace @unifed/frontend run lint
-
-      - name: Build ⛏️
-        run: yarn workspaces foreach -vpt --include '@unifed/{shared,frontend}' run build
-        env:
-          CI: false
-      
-      - name: Test 📝
-        run: yarn workspace @unifed/frontend run test
-
-      - name: Upload Coverage Report 📊
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: frontend
-          directory: packages
-          fail_ci_if_error: true
-          verbose: true
-
-  backend:
-    name: Backend
-    needs: shared
-    runs-on: ubuntu-latest
-    timeout-minutes: 7
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 12
-      
-      - run: |
-          echo "::set-output name=cache::$(yarn config get cacheFolder)"
-          echo "::set-output name=install::$(yarn config get installStatePath)"
-          echo "::set-output name=build::$(yarn config get bstatePath)"
-          echo "::set-output name=unplugged::$(yarn config get pnpUnpluggedFolder)"
-        id: yarn-paths
-      
-      - uses: actions/cache@v2
-        id: yarn-cache
         with:
           path: |
             ${{ steps.yarn-paths.outputs.cache }}
@@ -174,24 +50,26 @@ jobs:
         with:
           path: ~/.cache/mongodb-binaries
           key: ${{ runner.os }}-mongodb
-      
+
       - run: npm install -g yarn
 
       - name: Install Dependencies 🏗️
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
+      - name: Generate GraphQL Schema ⚙️
+        run: |
+          yarn workspace @unifed/backend-internal-server ts-node scripts/generate-schema.ts
+          cp packages/backend-internal-server/.schema.graphql packages/frontend/
+
       - name: Code Style 👠
-        run: yarn workspaces foreach -vp --include '@unifed/backend-*' run lint
+        run: yarn lint
 
       - name: Build ⛏️
-        run: yarn workspaces foreach -vpt --include '@unifed/backend-*' run build
+        run: yarn build
       
       - name: Test 📝
-        run: yarn workspaces foreach -vp --include '@unifed/backend-*' run test
-
-      - name: Generate GraphQL Schema ⚙️
-        run: yarn workspace @unifed/backend-internal-server ts-node scripts/generate-schema.ts
+        run: yarn test
 
       - name: Upload Coverage Report (backend-core) 1️⃣ 📊
         uses: codecov/codecov-action@v1
@@ -200,7 +78,6 @@ jobs:
           flags: backend-core
           directory: packages/backend-core
           fail_ci_if_error: true
-          verbose: true
 
       - name: Upload Coverage Report (backend-federation-client) 2️⃣ 📊
         uses: codecov/codecov-action@v1
@@ -209,7 +86,6 @@ jobs:
           flags: backend-federation-client
           directory: packages/backend-federation-client
           fail_ci_if_error: true
-          verbose: true
 
       - name: Upload Coverage Report (backend-federation-server) 3️⃣ 📊
         uses: codecov/codecov-action@v1
@@ -218,7 +94,6 @@ jobs:
           flags: backend-federation-server
           directory: packages/backend-federation-server
           fail_ci_if_error: true
-          verbose: true
 
       - name: Upload Coverage Report (backend-internal-server) 4️⃣ 📊
         uses: codecov/codecov-action@v1
@@ -227,11 +102,19 @@ jobs:
           flags: backend-internal-server
           directory: packages/backend-internal-server
           fail_ci_if_error: true
-          verbose: true
-
-      - name: Upload GraphQL Schema5️⃣ 📜
-        uses: actions/upload-artifact@v2
+      
+      - name: Upload Coverage Report (frontend)5️⃣ 📊 
+        uses: codecov/codecov-action@v1
         with:
-          name: graphql-schema
-          path: packages/backend-internal-server/.schema.graphql 
-          if-no-files-found: error
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: frontend
+          directory: packages/frontend
+          fail_ci_if_error: true
+
+      - name: Upload Coverage Report (shared)6️⃣ 📊
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: shared
+          directory: packages/shared
+          fail_ci_if_error: true
