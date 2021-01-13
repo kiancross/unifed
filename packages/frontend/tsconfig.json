@@ -9,6 +9,9 @@
       "dom.iterable",
       "esnext"
     ],
+    "types": [
+      "@types/jest"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -34,7 +37,6 @@
     "experimentalDecorators": true
   },
   "include": ["src"],
-  "exclude" : ["src/**/*.test.ts"],
   "references": [
     { "path": "../shared" }
   ]
