@@ -2971,9 +2971,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/jest-dom@npm:^5.11.8":
-  version: 5.11.8
-  resolution: "@testing-library/jest-dom@npm:5.11.8"
+"@testing-library/jest-dom@npm:^5.11.9":
+  version: 5.11.9
+  resolution: "@testing-library/jest-dom@npm:5.11.9"
   dependencies:
     "@babel/runtime": ^7.9.2
     "@types/testing-library__jest-dom": ^5.9.1
@@ -2983,7 +2983,7 @@ __metadata:
     css.escape: ^1.5.1
     lodash: ^4.17.15
     redent: ^3.0.0
-  checksum: 4b44e8f2c8cdb7bd47c14d1f2013d1b87227a23d8ecedece388d63d548e92b100e8ac63dc52818f0b342d41a86c916fb56c6da80b505ef3ff328b2da7e56fd9a
+  checksum: c285c044edf42b9c4daffbeddd5489564af1c9d625f0ef3781e2e9864688239ccc2521badec9147fea66685c60b736c922e35ea69011aa577eabc156c0e1f5b6
   languageName: node
   linkType: hard
 
@@ -3000,9 +3000,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typegoose/typegoose@npm:^7.4.6":
-  version: 7.4.6
-  resolution: "@typegoose/typegoose@npm:7.4.6"
+"@typegoose/typegoose@npm:^7.4.7":
+  version: 7.4.7
+  resolution: "@typegoose/typegoose@npm:7.4.7"
   dependencies:
     lodash: ^4.17.20
     loglevel: ^1.7.0
@@ -3012,7 +3012,7 @@ __metadata:
   peerDependencies:
     "@types/mongoose": ^5.10.2
     mongoose: 5.10.0 - 5.10.18
-  checksum: 8a12680947fd41dd2125cf48250be372d31fa3c90fe9aa882aa593f9e8b08fe74dcc54fb097d3d13a11889ef903c6068fed3e92e44f3185a3570ad4a76a38467
+  checksum: c31049d665f1a53f3e97bba5ab748bc3c9adf97c99e9c2c3e1f83103c9c216bca7d77e3babfe2662641060f3d66ed6bd61d381475d147f1c08869c37a8515923
   languageName: node
   linkType: hard
 
@@ -4131,7 +4131,7 @@ __metadata:
   resolution: "@unifed/backend-core@workspace:packages/backend-core"
   dependencies:
     "@istanbuljs/nyc-config-typescript": ^1.0.1
-    "@typegoose/typegoose": ^7.4.6
+    "@typegoose/typegoose": ^7.4.7
     "@types/mongoose": ^5.10.3
     "@types/node": ^14.14.20
     "@types/source-map-support": ^0.5.3
@@ -4279,7 +4279,7 @@ __metadata:
     "@material-ui/icons": ^4.11.2
     "@material-ui/lab": ^4.0.0-alpha.57
     "@rushstack/eslint-patch": ^1.0.6
-    "@testing-library/jest-dom": ^5.11.8
+    "@testing-library/jest-dom": ^5.11.9
     "@testing-library/react": ^11.2.3
     "@types/eslint-plugin-prettier": ^3.1.0
     "@types/node": ^14.14.20
