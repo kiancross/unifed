@@ -16,11 +16,13 @@ interface MarkdownEditorProps {
     },
     event?: React.ChangeEvent<HTMLTextAreaElement>,
   ) => void;
+  style?: React.CSSProperties;
 }
 
 const MarkdownEditor = (props: MarkdownEditorProps): ReactElement => {
   return (
     <Editor
+      style={props.style}
       onChange={props.onChange}
       renderHTML={(text) => (
         <Typography variant="body2">
