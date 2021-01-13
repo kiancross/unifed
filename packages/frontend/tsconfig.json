@@ -9,9 +9,6 @@
       "dom.iterable",
       "esnext"
     ],
-    "types": [
-      "@types/jest"
-    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
