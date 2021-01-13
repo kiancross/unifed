@@ -12,4 +12,3 @@ test("Render", () => {
 
   expect(tree).toMatchSnapshot();
 });
-
