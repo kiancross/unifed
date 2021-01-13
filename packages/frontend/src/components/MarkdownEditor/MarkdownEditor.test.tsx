@@ -7,8 +7,7 @@ import MarkdownEditor from "./MarkdownEditor";
 import renderer from "react-test-renderer";
 
 test("Render", () => {
-  const onChange = jest.fn();
-  const component = renderer.create(<MarkdownEditor onChange={onChange} />);
+  const component = renderer.create(<MarkdownEditor />);
   const tree = component.toJSON();
 
   expect(tree).toMatchSnapshot();
