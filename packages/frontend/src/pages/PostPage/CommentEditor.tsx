@@ -2,13 +2,11 @@
  * CS3099 Group A3
  */
 
-import React from "react";
-import Editor from "react-markdown-editor-lite";
-import "react-markdown-editor-lite/lib/index.css";
+import React, { ReactElement, useState } from "react";
+import MarkdownEditor from "../../components/MarkdownEditor";
 import { gql, useMutation } from "@apollo/client";
 import { Formik, Form } from "formik";
-import { Grid, Button, Typography } from "@material-ui/core";
-import MarkdownViewer from "../../components/MarkdownViewer";
+import { Grid, Button } from "@material-ui/core";
 
 interface Props {
   server: string;
@@ -16,8 +14,8 @@ interface Props {
   parentTitle: string;
 }
 
-export default function CommentEditor(props: Props) {
-  const mdEditor = React.useRef<Editor>(null);
+export default function CommentEditor(props: Props): ReactElement {
+  const [content, setContent] = useState("");
 
   const MAKE_COMMENTS = gql`
     mutation CREATE_POST($title: String!, $parentId: String!, $body: String!, $server: String!) {
@@ -36,16 +34,12 @@ export default function CommentEditor(props: Props) {
   };
 
   const handleClick = () => {
-    if (mdEditor.current) {
-      const body = mdEditor.current.getMdValue();
-
-      try {
-        makePost({
-          variables: { title: "", parentId: props.parentId, body: body, server: props.server },
-        });
-      } catch (err) {
-        alert("Post could not be made");
-      }
+    try {
+      makePost({
+        variables: { title: "", parentId: props.parentId, body: content, server: props.server },
+      });
+    } catch (err) {
+      alert("Post could not be made");
     }
   };
 
@@ -58,17 +52,7 @@ export default function CommentEditor(props: Props) {
         }}
       >
         <Form>
-          <Editor
-            ref={mdEditor}
-            style={{
-              height: " 170px",
-            }}
-            renderHTML={(text) => (
-              <Typography variant="body2" style={{ textAlign: "left" }}>
-                <MarkdownViewer>{text}</MarkdownViewer>
-              </Typography>
-            )}
-          />
+          <MarkdownEditor style={{ height: "170px" }} onChange={({ text }) => setContent(text)} />
           <Button
             color="primary"
             disableElevation
