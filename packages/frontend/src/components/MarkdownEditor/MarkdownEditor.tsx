@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React from "react";
+import React, { ReactElement } from "react";
 import Editor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
 import { Typography } from "@material-ui/core";
@@ -18,7 +18,7 @@ interface MarkdownEditorProps {
   ) => void;
 }
 
-const MarkdownEditor = (props: MarkdownEditorProps) => {
+const MarkdownEditor = (props: MarkdownEditorProps): ReactElement => {
   return (
     <Editor
       onChange={props.onChange}

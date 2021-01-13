@@ -1,0 +1,1205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render 1`] = `
+<div
+  className="rc-md-editor "
+  onDrop={[Function]}
+  onKeyDown={[Function]}
+>
+  <div
+    className="rc-md-navigation visible"
+  >
+    <div
+      className="navigation-nav left"
+    >
+      <div
+        className="button-wrap"
+      >
+        <span
+          className="button button-type-header"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          title="Header"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-font-size"
+          />
+          <div
+            className="drop-wrap hidden"
+            onClick={[Function]}
+          >
+            <ul
+              className="header-list"
+            >
+              <li
+                className="list-item"
+              >
+                <h1
+                  onClick={[Function]}
+                >
+                  H1
+                </h1>
+              </li>
+              <li
+                className="list-item"
+              >
+                <h2
+                  onClick={[Function]}
+                >
+                  H2
+                </h2>
+              </li>
+              <li
+                className="list-item"
+              >
+                <h3
+                  onClick={[Function]}
+                >
+                  H3
+                </h3>
+              </li>
+              <li
+                className="list-item"
+              >
+                <h4
+                  onClick={[Function]}
+                >
+                  H4
+                </h4>
+              </li>
+              <li
+                className="list-item"
+              >
+                <h5
+                  onClick={[Function]}
+                >
+                  H5
+                </h5>
+              </li>
+              <li
+                className="list-item"
+              >
+                <h6
+                  onClick={[Function]}
+                >
+                  H6
+                </h6>
+              </li>
+            </ul>
+          </div>
+        </span>
+        <span
+          className="button button-type-bold"
+          onClick={[Function]}
+          title="Bold"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-bold"
+          />
+        </span>
+        <span
+          className="button button-type-italic"
+          onClick={[Function]}
+          title="Italic"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-italic"
+          />
+        </span>
+        <span
+          className="button button-type-underline"
+          onClick={[Function]}
+          title="Underline"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-underline"
+          />
+        </span>
+        <span
+          className="button button-type-strikethrough"
+          onClick={[Function]}
+          title="Strikethrough"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-strikethrough"
+          />
+        </span>
+        <span
+          className="button button-type-unordered"
+          onClick={[Function]}
+          title="Unordered list"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-list-unordered"
+          />
+        </span>
+        <span
+          className="button button-type-ordered"
+          onClick={[Function]}
+          title="Ordered list"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-list-ordered"
+          />
+        </span>
+        <span
+          className="button button-type-quote"
+          onClick={[Function]}
+          title="Quote"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-quote"
+          />
+        </span>
+        <span
+          className="button button-type-wrap"
+          onClick={[Function]}
+          title="Line break"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-wrap"
+          />
+        </span>
+        <span
+          className="button button-type-code-inline"
+          onClick={[Function]}
+          title="Inline code"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-code"
+          />
+        </span>
+        <span
+          className="button button-type-code-block"
+          onClick={[Function]}
+          title="Code"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-code-block"
+          />
+        </span>
+        <span
+          className="button button-type-table"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          title="Table"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-grid"
+          />
+          <div
+            className="drop-wrap hidden"
+            onClick={[Function]}
+          >
+            <ul
+              className="table-list wrap"
+              style={
+                Object {
+                  "height": "89px",
+                  "width": "135px",
+                }
+              }
+            >
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "0px",
+                    "top": "0px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "23px",
+                    "top": "0px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "46px",
+                    "top": "0px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "69px",
+                    "top": "0px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "92px",
+                    "top": "0px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "115px",
+                    "top": "0px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "0px",
+                    "top": "23px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "23px",
+                    "top": "23px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "46px",
+                    "top": "23px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "69px",
+                    "top": "23px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "92px",
+                    "top": "23px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "115px",
+                    "top": "23px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "0px",
+                    "top": "46px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "23px",
+                    "top": "46px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "46px",
+                    "top": "46px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "69px",
+                    "top": "46px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "92px",
+                    "top": "46px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "115px",
+                    "top": "46px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "0px",
+                    "top": "69px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "23px",
+                    "top": "69px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "46px",
+                    "top": "69px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "69px",
+                    "top": "69px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "92px",
+                    "top": "69px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "115px",
+                    "top": "69px",
+                  }
+                }
+              />
+            </ul>
+          </div>
+        </span>
+        <span
+          className="button button-type-image"
+          onClick={[Function]}
+          style={
+            Object {
+              "position": "relative",
+            }
+          }
+          title="Image"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-image"
+          />
+          <input
+            accept=""
+            onChange={[Function]}
+            style={
+              Object {
+                "height": 0,
+                "left": 0,
+                "opacity": 0,
+                "position": "absolute",
+                "top": 0,
+                "width": 0,
+                "zIndex": -1,
+              }
+            }
+            type="file"
+          />
+        </span>
+        <span
+          className="button button-type-link"
+          onClick={[Function]}
+          title="Link"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-link"
+          />
+        </span>
+        <span
+          className="button button-type-clear"
+          onClick={[Function]}
+          title="Clear"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-delete"
+          />
+        </span>
+        <span
+          className="button button-type-undo disabled"
+          onClick={[Function]}
+          title="Undo"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-undo"
+          />
+        </span>
+        <span
+          className="button button-type-redo disabled"
+          onClick={[Function]}
+          title="Redo"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-redo"
+          />
+        </span>
+      </div>
+    </div>
+    <div
+      className="navigation-nav right"
+    >
+      <div
+        className="button-wrap"
+      >
+        <span
+          className="button button-type-mode"
+          onClick={[Function]}
+          title="Only display editor"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-keyboard"
+          />
+        </span>
+        <span
+          className="button button-type-fullscreen"
+          onClick={[Function]}
+          title="Full screen"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-fullscreen"
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    className="editor-container"
+  >
+    <section
+      className="section sec-md visible"
+    >
+      <textarea
+        className="section-container input "
+        name="textarea"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onMouseOver={[Function]}
+        onPaste={[Function]}
+        onScroll={[Function]}
+        value=""
+        wrap="hard"
+      />
+    </section>
+    <section
+      className="section sec-html visible"
+    >
+      <div
+        className="section-container html-wrap"
+        onMouseOver={[Function]}
+        onScroll={[Function]}
+      >
+        <div
+          className="custom-html-style"
+        >
+          <p
+            className="MuiTypography-root MuiTypography-body2"
+          />
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+`;
+
+exports[`Renders markdown 1`] = `
+<div
+  className="rc-md-editor "
+  onDrop={[Function]}
+  onKeyDown={[Function]}
+>
+  <div
+    className="rc-md-navigation visible"
+  >
+    <div
+      className="navigation-nav left"
+    >
+      <div
+        className="button-wrap"
+      >
+        <span
+          className="button button-type-header"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          title="Header"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-font-size"
+          />
+          <div
+            className="drop-wrap hidden"
+            onClick={[Function]}
+          >
+            <ul
+              className="header-list"
+            >
+              <li
+                className="list-item"
+              >
+                <h1
+                  onClick={[Function]}
+                >
+                  H1
+                </h1>
+              </li>
+              <li
+                className="list-item"
+              >
+                <h2
+                  onClick={[Function]}
+                >
+                  H2
+                </h2>
+              </li>
+              <li
+                className="list-item"
+              >
+                <h3
+                  onClick={[Function]}
+                >
+                  H3
+                </h3>
+              </li>
+              <li
+                className="list-item"
+              >
+                <h4
+                  onClick={[Function]}
+                >
+                  H4
+                </h4>
+              </li>
+              <li
+                className="list-item"
+              >
+                <h5
+                  onClick={[Function]}
+                >
+                  H5
+                </h5>
+              </li>
+              <li
+                className="list-item"
+              >
+                <h6
+                  onClick={[Function]}
+                >
+                  H6
+                </h6>
+              </li>
+            </ul>
+          </div>
+        </span>
+        <span
+          className="button button-type-bold"
+          onClick={[Function]}
+          title="Bold"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-bold"
+          />
+        </span>
+        <span
+          className="button button-type-italic"
+          onClick={[Function]}
+          title="Italic"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-italic"
+          />
+        </span>
+        <span
+          className="button button-type-underline"
+          onClick={[Function]}
+          title="Underline"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-underline"
+          />
+        </span>
+        <span
+          className="button button-type-strikethrough"
+          onClick={[Function]}
+          title="Strikethrough"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-strikethrough"
+          />
+        </span>
+        <span
+          className="button button-type-unordered"
+          onClick={[Function]}
+          title="Unordered list"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-list-unordered"
+          />
+        </span>
+        <span
+          className="button button-type-ordered"
+          onClick={[Function]}
+          title="Ordered list"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-list-ordered"
+          />
+        </span>
+        <span
+          className="button button-type-quote"
+          onClick={[Function]}
+          title="Quote"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-quote"
+          />
+        </span>
+        <span
+          className="button button-type-wrap"
+          onClick={[Function]}
+          title="Line break"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-wrap"
+          />
+        </span>
+        <span
+          className="button button-type-code-inline"
+          onClick={[Function]}
+          title="Inline code"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-code"
+          />
+        </span>
+        <span
+          className="button button-type-code-block"
+          onClick={[Function]}
+          title="Code"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-code-block"
+          />
+        </span>
+        <span
+          className="button button-type-table"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          title="Table"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-grid"
+          />
+          <div
+            className="drop-wrap hidden"
+            onClick={[Function]}
+          >
+            <ul
+              className="table-list wrap"
+              style={
+                Object {
+                  "height": "89px",
+                  "width": "135px",
+                }
+              }
+            >
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "0px",
+                    "top": "0px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "23px",
+                    "top": "0px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "46px",
+                    "top": "0px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "69px",
+                    "top": "0px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "92px",
+                    "top": "0px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "115px",
+                    "top": "0px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "0px",
+                    "top": "23px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "23px",
+                    "top": "23px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "46px",
+                    "top": "23px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "69px",
+                    "top": "23px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "92px",
+                    "top": "23px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "115px",
+                    "top": "23px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "0px",
+                    "top": "46px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "23px",
+                    "top": "46px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "46px",
+                    "top": "46px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "69px",
+                    "top": "46px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "92px",
+                    "top": "46px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "115px",
+                    "top": "46px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "0px",
+                    "top": "69px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "23px",
+                    "top": "69px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "46px",
+                    "top": "69px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "69px",
+                    "top": "69px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "92px",
+                    "top": "69px",
+                  }
+                }
+              />
+              <li
+                className="list-item "
+                onClick={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "left": "115px",
+                    "top": "69px",
+                  }
+                }
+              />
+            </ul>
+          </div>
+        </span>
+        <span
+          className="button button-type-image"
+          onClick={[Function]}
+          style={
+            Object {
+              "position": "relative",
+            }
+          }
+          title="Image"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-image"
+          />
+          <input
+            accept=""
+            onChange={[Function]}
+            style={
+              Object {
+                "height": 0,
+                "left": 0,
+                "opacity": 0,
+                "position": "absolute",
+                "top": 0,
+                "width": 0,
+                "zIndex": -1,
+              }
+            }
+            type="file"
+          />
+        </span>
+        <span
+          className="button button-type-link"
+          onClick={[Function]}
+          title="Link"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-link"
+          />
+        </span>
+        <span
+          className="button button-type-clear"
+          onClick={[Function]}
+          title="Clear"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-delete"
+          />
+        </span>
+        <span
+          className="button button-type-undo disabled"
+          onClick={[Function]}
+          title="Undo"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-undo"
+          />
+        </span>
+        <span
+          className="button button-type-redo disabled"
+          onClick={[Function]}
+          title="Redo"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-redo"
+          />
+        </span>
+      </div>
+    </div>
+    <div
+      className="navigation-nav right"
+    >
+      <div
+        className="button-wrap"
+      >
+        <span
+          className="button button-type-mode"
+          onClick={[Function]}
+          title="Only display editor"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-keyboard"
+          />
+        </span>
+        <span
+          className="button button-type-fullscreen"
+          onClick={[Function]}
+          title="Full screen"
+        >
+          <i
+            className="rmel-iconfont rmel-icon-fullscreen"
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    className="editor-container"
+  >
+    <section
+      className="section sec-md visible"
+    >
+      <textarea
+        className="section-container input "
+        name="textarea"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onMouseOver={[Function]}
+        onPaste={[Function]}
+        onScroll={[Function]}
+        value=""
+        wrap="hard"
+      />
+    </section>
+    <section
+      className="section sec-html visible"
+    >
+      <div
+        className="section-container html-wrap"
+        onMouseOver={[Function]}
+        onScroll={[Function]}
+      >
+        <div
+          className="custom-html-style"
+        >
+          <p
+            className="MuiTypography-root MuiTypography-body2"
+          />
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+`;
