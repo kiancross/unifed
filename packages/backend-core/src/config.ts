@@ -86,7 +86,13 @@ class Config {
   }
 
   static get loggingLevel(): string {
-    return throwIfUndefined(process.env.UNIFED_LOGGING_LEVEL);
+    return process.env.UNIFED_LOGGING_LEVEL === undefined
+      ? "info"
+      : process.env.UNIFED_LOGGING_LEVEL;
+  }
+
+  static get federationHost(): string {
+    return throwIfUndefined(process.env.UNIFED_FEDERATION_HOST);
   }
 }
 

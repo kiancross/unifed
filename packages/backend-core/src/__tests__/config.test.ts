@@ -200,10 +200,20 @@ test("APPLICATION_NAME = string", (t) => {
 
 test("LOGGING_LEVEL = undefined", (t) => {
   delete process.env.UNIFED_LOGGING_LEVEL;
-  t.throws(() => config.loggingLevel);
+  t.is(config.loggingLevel, "info");
 });
 
 test("LOGGING_LEVEL = string", (t) => {
   process.env.UNIFED_LOGGING_LEVEL = "debug";
   t.is(config.loggingLevel, "debug");
+});
+
+test("FEDERATION_HOST = undefined", (t) => {
+  delete process.env.UNIFED_FEDERATION_HOST;
+  t.throws(() => config.federationHost);
+});
+
+test("FEDERATION_HOST = string", (t) => {
+  process.env.UNIFED_FEDERATION_HOST = "proxy:80";
+  t.is(config.federationHost, "proxy:80");
 });
