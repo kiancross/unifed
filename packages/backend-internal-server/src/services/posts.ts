@@ -5,15 +5,16 @@
 import { Service } from "typedi";
 import { Post, User } from "@unifed/backend-core";
 import { postsClient } from "@unifed/backend-federation-client";
+import { translateHost } from "./helpers";
 
 @Service()
 export class PostsService {
   async getByCommunity(host: string, id: string): Promise<Post[]> {
-    return await postsClient.getPosts(host, id);
+    return await postsClient.getPosts(await translateHost(host), id);
   }
 
   async getById(host: string, id: string): Promise<Post> {
-    return await postsClient.getPost(host, id);
+    return await postsClient.getPost(await translateHost(host), id);
   }
 
   async create(
@@ -23,6 +24,6 @@ export class PostsService {
     title: string,
     body: string,
   ): Promise<Post | null> {
-    return await postsClient.createPost(host, user, id, title, body);
+    return await postsClient.createPost(await translateHost(host), user, id, title, body);
   }
 }

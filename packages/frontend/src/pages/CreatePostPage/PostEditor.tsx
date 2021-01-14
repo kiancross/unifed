@@ -2,14 +2,12 @@
  * CS3099 Group A3
  */
 
-import React from "react";
-import Editor from "react-markdown-editor-lite";
-import "react-markdown-editor-lite/lib/index.css";
+import React, { useState, ReactElement } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Formik, Form, Field } from "formik";
 import { Redirect } from "react-router-dom";
-import MarkdownViewer from "../../components/MarkdownViewer";
-import { Button, Card, CardContent, Grid, TextField, Typography } from "@material-ui/core";
+import MarkdownEditor from "../../components/MarkdownEditor";
+import { Button, Card, CardContent, Grid, TextField } from "@material-ui/core";
 import CenteredLoader from "../../components/CenteredLoader";
 
 interface Params {
@@ -17,8 +15,8 @@ interface Params {
   community: string;
 }
 
-export default function App(props: Params) {
-  const mdEditor = React.useRef<Editor>(null);
+const PostEditor = (props: Params): ReactElement => {
+  const [content, setContent] = useState("");
 
   const MAKE_POST = gql`
     mutation CREATE_POST($title: String!, $body: String!, $community: String!, $host: String!) {
@@ -46,17 +44,19 @@ export default function App(props: Params) {
   }
 
   const handleClick = (values: postValues) => {
-    if (mdEditor.current) {
-      const title = values.title;
-      const body = mdEditor.current.getMdValue();
+    const title = values.title;
 
-      try {
-        makePost({
-          variables: { title: title, body: body, community: props.community, host: props.server },
-        });
-      } catch (e) {
-        alert("Post could not be made");
-      }
+    try {
+      makePost({
+        variables: {
+          title: title,
+          body: content,
+          community: props.community,
+          host: props.server,
+        },
+      });
+    } catch (e) {
+      alert("Post could not be made");
     }
   };
 
@@ -84,16 +84,9 @@ export default function App(props: Params) {
                 />
               </div>
 
-              <Editor
-                ref={mdEditor}
-                style={{
-                  height: "400px",
-                }}
-                renderHTML={(text: string) => (
-                  <Typography variant="body2" style={{ textAlign: "left" }}>
-                    <MarkdownViewer>{text}</MarkdownViewer>
-                  </Typography>
-                )}
+              <MarkdownEditor
+                style={{ height: "400px" }}
+                onChange={({ text }) => setContent(text)}
               />
 
               <Button
@@ -111,4 +104,6 @@ export default function App(props: Params) {
       </Card>
     </Grid>
   );
-}
+};
+
+export default PostEditor;
