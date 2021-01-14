@@ -4140,7 +4140,7 @@ __metadata:
     "@typescript-eslint/parser": ^4.13.0
     ava: ^3.15.0
     class-transformer: ^0.3.1
-    class-validator: ^0.13.0
+    class-validator: ^0.13.1
     eslint: ^7.17.0
     eslint-config-prettier: ^7.1.0
     eslint-plugin-prettier: ^3.3.1
@@ -4170,7 +4170,7 @@ __metadata:
     "@unifed/backend-core": ^0.1.0
     ava: ^3.15.0
     class-transformer: ^0.3.1
-    class-validator: ^0.13.0
+    class-validator: ^0.13.1
     eslint: ^7.17.0
     eslint-config-prettier: ^7.1.0
     eslint-plugin-prettier: ^3.3.1
@@ -4203,7 +4203,7 @@ __metadata:
     eslint-plugin-prettier: ^3.3.1
     express: ^4.17.1
     express-async-router: ^0.1.15
-    mongodb-memory-server-core: ^6.9.2
+    mongodb-memory-server-core: ^6.9.3
     mongoose: 5.10.18
     nyc: ^15.1.0
     prettier: ^2.2.1
@@ -4241,7 +4241,7 @@ __metadata:
     apollo-server-express: ^2.19.1
     ava: ^3.15.0
     class-transformer: ^0.3.1
-    class-validator: ^0.13.0
+    class-validator: ^0.13.1
     eslint: ^7.17.0
     eslint-config-prettier: ^7.1.0
     eslint-plugin-prettier: ^3.3.1
@@ -4323,7 +4323,7 @@ __metadata:
     stylelint-config-sass-guidelines: ^7.1.0
     typescript: ^4.1.3
     use-debounce: ^5.2.0
-    web-vitals: ^1.0.1
+    web-vitals: ^1.1.0
   languageName: unknown
   linkType: soft
 
@@ -6690,13 +6690,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"class-validator@npm:^0.13.0":
-  version: 0.13.0
-  resolution: "class-validator@npm:0.13.0"
+"class-validator@npm:^0.13.1":
+  version: 0.13.1
+  resolution: "class-validator@npm:0.13.1"
   dependencies:
-    libphonenumber-js: ^1.7.57
-    validator: ^13.1.1
-  checksum: 0157a629fc0e9004630c4c797964c04a08af364d869e72600f0de2b5c1bdc0c2308e92e0e244f72b2fd8f59600d9ac742522cc32de0eda5c67833c7d396da625
+    "@types/validator": ^13.1.3
+    libphonenumber-js: ^1.9.7
+    validator: ^13.5.2
+  checksum: 09a7d83213ac40b2c57502790701277b323f0977d0e1d5597c1a5a0990a8c9ee04ab75b8e2395a39063c0ee9dd196e1cb900a420ff5808b8a1923de2b8c705fe
   languageName: node
   linkType: hard
 
@@ -13094,7 +13095,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"libphonenumber-js@npm:^1.7.57":
+"libphonenumber-js@npm:^1.9.7":
   version: 1.9.7
   resolution: "libphonenumber-js@npm:1.9.7"
   checksum: 68b573fb4db1f134a27ff8fe98da848ebdac69d82f4ec8a1dcb6e7ca69c2d217f8785bfa2bd4630e0eee069c1b3ad671c66fca9bae8c22f0239d7d4e57c94a90
@@ -14193,9 +14194,9 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"mongodb-memory-server-core@npm:^6.9.2":
-  version: 6.9.2
-  resolution: "mongodb-memory-server-core@npm:6.9.2"
+"mongodb-memory-server-core@npm:^6.9.3":
+  version: 6.9.3
+  resolution: "mongodb-memory-server-core@npm:6.9.3"
   dependencies:
     "@types/tmp": ^0.2.0
     camelcase: ^6.0.0
@@ -14217,7 +14218,7 @@ fsevents@~2.1.2:
   dependenciesMeta:
     mongodb:
       optional: true
-  checksum: ebe0eec2e5b501998f64680a9d0d1621ce2f2698fca0bde9e2cc1593de5c5d143cd526ccdf48a8ae33f73b58c98644f8c4321d3b37377ad8c657c5ebf081954f
+  checksum: f7e9fc9eac6706b5794f2e609d7956ed2f089a1d319b738ec10d087123797ccf810cfc59468506e246ff67f147ff0c643218ce44154668c4b8d1cb045eb24236
   languageName: node
   linkType: hard
 
@@ -20635,7 +20636,7 @@ typescript@^4.1.3:
   languageName: node
   linkType: hard
 
-"validator@npm:^13.1.1, validator@npm:^13.5.2":
+"validator@npm:^13.5.2":
   version: 13.5.2
   resolution: "validator@npm:13.5.2"
   checksum: 6da12682ad43456cb3a97d23b35cad0b438d9027a6c6fd824d5c86fead42c28f4e38c67590d8f56ab44e6c612979cbaa5f5cc670cc5fcc5a39d5032fcb642296
@@ -20774,10 +20775,10 @@ typescript@^4.1.3:
   languageName: node
   linkType: hard
 
-"web-vitals@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "web-vitals@npm:1.0.1"
-  checksum: 2c6de484c233b45f267b75ae81daab614e61ea1d8ece57c4bde373d71be919993248f4d203d9f49618971c48857ba4988e7a37cc5337708c6329e5651fc2aaa8
+"web-vitals@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "web-vitals@npm:1.1.0"
+  checksum: b75f7929f0b0bbd055c67eab95024c16038dcc808873dd7406225318c79491f011d9c2cf7c8cf68109c21fb0e9fa292eee3977b9ac780626d17ad25b36cd2ffe
   languageName: node
   linkType: hard
 
