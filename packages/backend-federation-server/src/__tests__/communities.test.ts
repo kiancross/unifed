@@ -4,31 +4,11 @@
 
 import test from "ava";
 import request from "supertest";
-import { setup } from "./helpers";
+import { setup, generateCommunities, generateCommunity } from "./helpers";
 import { app } from "../app";
-import { lorem, random } from "faker";
-import { Community, CommunityModel } from "@unifed/backend-core";
+import { CommunityModel } from "@unifed/backend-core";
 
 setup(test);
-
-const generateCommunity = (): Community => {
-  const community = new Community();
-  community.id = random.word();
-  community.title = lorem.words();
-  community.description = lorem.sentence();
-
-  return community;
-};
-
-const generateCommunities = (n: number): Community[] => {
-  const communities = [];
-
-  for (let i = 0; i < n; i++) {
-    communities.push(generateCommunity());
-  }
-
-  return communities;
-};
 
 test.serial("Get communities", async (t) => {
   const communities = generateCommunities(5);
@@ -48,7 +28,7 @@ test.serial("Get communities", async (t) => {
 
 test.serial("Get non-existing community", async (t) => {
   const { body } = await request(app)
-    .get(`/communities/${lorem.word()}`)
+    .get(`/communities/foo`)
     .expect(404)
     .expect("Content-Type", /json/);
 
