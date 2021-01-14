@@ -102,6 +102,8 @@ spec:
           value: ${LOGGING_LEVEL}
         - name: UNIFED_SERVER_PORT
           value: 7080
+        - name: UNIFED_FEDERATION_HOST
+          value: proxy:80
         - name: NODE_ENV
           value: ${NODE_ENV}
 
