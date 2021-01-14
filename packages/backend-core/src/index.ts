@@ -3,5 +3,5 @@
  */
 
 export * from "./models";
-export * from "./config";
-export * from "./logging";
+export { config } from "./config";
+export { logger } from "./logger";
