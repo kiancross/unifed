@@ -3365,6 +3365,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/jest@npm:^26.0.20":
+  version: 26.0.20
+  resolution: "@types/jest@npm:26.0.20"
+  dependencies:
+    jest-diff: ^26.0.0
+    pretty-format: ^26.0.0
+  checksum: 221e39c7c9ce8d71ae4b2ba6abeef1a5b04f1cd96419b9fbbb65534bef4c4215b650561183073dcf47584ff1888d1f4fa7d2af2a38492b7feb9a3bfdcd24c44f
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:*, @types/json-schema@npm:^7.0.3, @types/json-schema@npm:^7.0.5, @types/json-schema@npm:^7.0.6":
   version: 7.0.6
   resolution: "@types/json-schema@npm:7.0.6"
@@ -3638,6 +3648,15 @@ __metadata:
   dependencies:
     "@types/react": "*"
   checksum: b60ed533fac6dec09a1040bacd019f5fa4f0f23daa65a1b62337c2a81671569807c8b991dd3f639d498e43f804ed36189ea2d1c545b0007c2a53b553f354fd44
+  languageName: node
+  linkType: hard
+
+"@types/react-test-renderer@npm:^17":
+  version: 17.0.0
+  resolution: "@types/react-test-renderer@npm:17.0.0"
+  dependencies:
+    "@types/react": "*"
+  checksum: 4931f75cfd17a43d257e9b6a021d1b01f8c859e8ee76353ab881cc3a8f6842c238b68ed643cfd69998193a16536b31f9dae329d8beca1e7c8425f6663f853750
   languageName: node
   linkType: hard
 
@@ -4283,6 +4302,7 @@ __metadata:
     "@testing-library/jest-dom": ^5.11.9
     "@testing-library/react": ^11.2.3
     "@types/eslint-plugin-prettier": ^3.1.0
+    "@types/jest": ^26.0.20
     "@types/node": ^14.14.20
     "@types/prettier": ^2.1.6
     "@types/react": ^17.0.0
@@ -4290,6 +4310,7 @@ __metadata:
     "@types/react-router": ^5.1.11
     "@types/react-router-dom": ^5.1.7
     "@types/react-syntax-highlighter": ^13.5.0
+    "@types/react-test-renderer": ^17
     "@typescript-eslint/eslint-plugin": ^4.13.0
     "@typescript-eslint/parser": ^4.13.0
     "@unifed/shared": ^0.1.0
@@ -4317,6 +4338,7 @@ __metadata:
     react-router-dom: ^5.2.0
     react-scripts: 4.0.1
     react-syntax-highlighter: ^15.4.3
+    react-test-renderer: ^17.0.1
     remark-gfm: ^1.0.0
     remark-math: ^4.0.0
     sass: ^1.32.4
@@ -17073,17 +17095,17 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"react-is@npm:^16.12.0 || ^17.0.0, react-is@npm:^16.8.0 || ^17.0.0, react-is@npm:^17.0.1":
+  version: 17.0.1
+  resolution: "react-is@npm:17.0.1"
+  checksum: 5a83dfc78e7adcb93d632bf367b0733db650e3abd2e9c57c33b87e50d201212c1884b0d7bcf13e692f1556189fa1b87f9f3e0ba10fe858fd6aebe83ed4fcd1ea
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.6.0, react-is@npm:^16.7.0, react-is@npm:^16.8.1, react-is@npm:^16.8.6":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 11bcf1267a314a522615f626f3ce3727a3a24cdbf61c4d452add3550a7875326669631326cfb1ba3e92b6f72244c32ffecf93ad21c0cad8455d3e169d0e3f060
-  languageName: node
-  linkType: hard
-
-"react-is@npm:^16.8.0 || ^17.0.0, react-is@npm:^17.0.1":
-  version: 17.0.1
-  resolution: "react-is@npm:17.0.1"
-  checksum: 5a83dfc78e7adcb93d632bf367b0733db650e3abd2e9c57c33b87e50d201212c1884b0d7bcf13e692f1556189fa1b87f9f3e0ba10fe858fd6aebe83ed4fcd1ea
   languageName: node
   linkType: hard
 
@@ -17240,6 +17262,18 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"react-shallow-renderer@npm:^16.13.1":
+  version: 16.14.1
+  resolution: "react-shallow-renderer@npm:16.14.1"
+  dependencies:
+    object-assign: ^4.1.1
+    react-is: ^16.12.0 || ^17.0.0
+  peerDependencies:
+    react: ^16.0.0 || ^17.0.0
+  checksum: d52cb869e25605b00d4a67ff16598dbbf2826b0f09535de499b2f21a339cabf8b954d4b8855e0e6bdaf0a95603a2b6702e2b47eca8797a7d6bf7e6170ab8b2f3
+  languageName: node
+  linkType: hard
+
 "react-syntax-highlighter@npm:^15.4.3":
   version: 15.4.3
   resolution: "react-syntax-highlighter@npm:15.4.3"
@@ -17252,6 +17286,20 @@ fsevents@~2.1.2:
   peerDependencies:
     react: ">= 0.14.0"
   checksum: 99866d865279aebc93946c07bf9ff471c890adcd6b620ffea84bb57e6efabba3b06c815e47b1064d05e0038f7827e032e47670cd005cbfb4cc96af60950699e6
+  languageName: node
+  linkType: hard
+
+"react-test-renderer@npm:^17.0.1":
+  version: 17.0.1
+  resolution: "react-test-renderer@npm:17.0.1"
+  dependencies:
+    object-assign: ^4.1.1
+    react-is: ^17.0.1
+    react-shallow-renderer: ^16.13.1
+    scheduler: ^0.20.1
+  peerDependencies:
+    react: 17.0.1
+  checksum: 6ec269430beea4356180d90868a9959399781a03ae8de6a29f2edc29d6ca41432653d4103991467ebcc47be5bd2d9197789411e913da66369c2aa2f13311105f
   languageName: node
   linkType: hard
 

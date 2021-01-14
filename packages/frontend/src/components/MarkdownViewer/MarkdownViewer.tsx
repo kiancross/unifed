@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React from "react";
+import React, { ReactElement } from "react";
 import math from "remark-math";
 import gfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
@@ -28,7 +28,7 @@ const renderers = {
   },
 };
 
-const MarkdownViewer = (props: MarkdownViewerProps) => (
+const MarkdownViewer = (props: MarkdownViewerProps): ReactElement => (
   <ReactMarkdown plugins={[math, gfm]} renderers={renderers}>
     {props.children}
   </ReactMarkdown>
