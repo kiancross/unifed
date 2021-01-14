@@ -2,31 +2,25 @@
  * CS3099 Group A3
  */
 
-import os from "os";
 import test from "ava";
-import mongoose from "mongoose";
 import request from "supertest";
+import { setup } from "./helpers";
 import { app } from "../app";
 import { lorem, random } from "faker";
-import { MongoMemoryServer } from "mongodb-memory-server-core";
 import { Community, CommunityModel } from "@unifed/backend-core";
 
-const mongod = new MongoMemoryServer({
-  binary: {
-    downloadDir: `${os.homedir()}/.cache/mongodb-binaries`,
-  },
-});
+setup(test);
 
-function generateCommunity(): Community {
+const generateCommunity = (): Community => {
   const community = new Community();
   community.id = random.word();
   community.title = lorem.words();
   community.description = lorem.sentence();
 
   return community;
-}
+};
 
-function generateCommunities(n: number): Community[] {
+const generateCommunities = (n: number): Community[] => {
   const communities = [];
 
   for (let i = 0; i < n; i++) {
@@ -34,24 +28,7 @@ function generateCommunities(n: number): Community[] {
   }
 
   return communities;
-}
-
-test.before(async () => {
-  const uri = await mongod.getUri();
-  await mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-});
-
-test.beforeEach(async () => {
-  await CommunityModel.deleteMany({});
-});
-
-test.after.always(async () => {
-  mongoose.disconnect();
-  mongod.stop();
-});
+};
 
 test.serial("Get communities", async (t) => {
   const communities = generateCommunities(5);
