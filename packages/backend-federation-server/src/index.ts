@@ -6,12 +6,12 @@ import mongoose from "mongoose";
 import { config, logger } from "@unifed/backend-core";
 import { app } from "./app";
 
-(async () => {
-  const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true };
-  const mongoUri =
-    `mongodb://${config.mongoUsername}:${config.mongoPassword}@` +
-    `${config.mongoHostname}:${config.mongoPort}/${config.mongoDatabase}`;
+const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+const mongoUri =
+  `mongodb://${config.mongoUsername}:${config.mongoPassword}@` +
+  `${config.mongoHostname}:${config.mongoPort}/${config.mongoDatabase}`;
 
+(async () => {
   await mongoose.connect(mongoUri, mongoOptions);
 
   logger.info("Connected to database");

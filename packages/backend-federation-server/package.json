@@ -35,7 +35,7 @@
     "mongoose": "5.10.18"
   },
   "scripts": {
-    "start": "node build/app.js",
+    "start": "node build/index.js",
     "start:watch": "tsc-watch --noClear -b --onSuccess 'yarn start'",
     "test": "nyc ava 'src/**/*.test.ts'",
     "build": "tsc -b",
