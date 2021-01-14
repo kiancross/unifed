@@ -2971,9 +2971,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/jest-dom@npm:^5.11.8":
-  version: 5.11.8
-  resolution: "@testing-library/jest-dom@npm:5.11.8"
+"@testing-library/jest-dom@npm:^5.11.9":
+  version: 5.11.9
+  resolution: "@testing-library/jest-dom@npm:5.11.9"
   dependencies:
     "@babel/runtime": ^7.9.2
     "@types/testing-library__jest-dom": ^5.9.1
@@ -2983,7 +2983,7 @@ __metadata:
     css.escape: ^1.5.1
     lodash: ^4.17.15
     redent: ^3.0.0
-  checksum: 4b44e8f2c8cdb7bd47c14d1f2013d1b87227a23d8ecedece388d63d548e92b100e8ac63dc52818f0b342d41a86c916fb56c6da80b505ef3ff328b2da7e56fd9a
+  checksum: c285c044edf42b9c4daffbeddd5489564af1c9d625f0ef3781e2e9864688239ccc2521badec9147fea66685c60b736c922e35ea69011aa577eabc156c0e1f5b6
   languageName: node
   linkType: hard
 
@@ -3000,9 +3000,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typegoose/typegoose@npm:^7.4.6":
-  version: 7.4.6
-  resolution: "@typegoose/typegoose@npm:7.4.6"
+"@typegoose/typegoose@npm:^7.4.7":
+  version: 7.4.7
+  resolution: "@typegoose/typegoose@npm:7.4.7"
   dependencies:
     lodash: ^4.17.20
     loglevel: ^1.7.0
@@ -3012,7 +3012,7 @@ __metadata:
   peerDependencies:
     "@types/mongoose": ^5.10.2
     mongoose: 5.10.0 - 5.10.18
-  checksum: 8a12680947fd41dd2125cf48250be372d31fa3c90fe9aa882aa593f9e8b08fe74dcc54fb097d3d13a11889ef903c6068fed3e92e44f3185a3570ad4a76a38467
+  checksum: c31049d665f1a53f3e97bba5ab748bc3c9adf97c99e9c2c3e1f83103c9c216bca7d77e3babfe2662641060f3d66ed6bd61d381475d147f1c08869c37a8515923
   languageName: node
   linkType: hard
 
@@ -3188,7 +3188,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express-serve-static-core@npm:*, @types/express-serve-static-core@npm:4.17.17":
+"@types/express-serve-static-core@npm:*, @types/express-serve-static-core@npm:^4.17.18":
+  version: 4.17.18
+  resolution: "@types/express-serve-static-core@npm:4.17.18"
+  dependencies:
+    "@types/node": "*"
+    "@types/qs": "*"
+    "@types/range-parser": "*"
+  checksum: 329d5ded5c6b77c40bbed136ddf34f6fbae1ec3c43dadb5309fa60cedc3de9508a78fcba756c54e0d6362127d29b114afe4fcc75dc42a44909d48a7114315dc4
+  languageName: node
+  linkType: hard
+
+"@types/express-serve-static-core@npm:4.17.17":
   version: 4.17.17
   resolution: "@types/express-serve-static-core@npm:4.17.17"
   dependencies:
@@ -3199,7 +3210,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express@npm:*, @types/express@npm:4.17.9, @types/express@npm:^4.16.0":
+"@types/express@npm:*, @types/express@npm:^4.16.0":
   version: 4.17.9
   resolution: "@types/express@npm:4.17.9"
   dependencies:
@@ -3208,6 +3219,18 @@ __metadata:
     "@types/qs": "*"
     "@types/serve-static": "*"
   checksum: 80cd74784e9b40495b683b6b285be58bd7515f3b86923a72483fb8a6dec15ef159e651c460a215e9ad4e9620deec7345020fe33535c4eb12d81152b74b0278d0
+  languageName: node
+  linkType: hard
+
+"@types/express@npm:4.17.11":
+  version: 4.17.11
+  resolution: "@types/express@npm:4.17.11"
+  dependencies:
+    "@types/body-parser": "*"
+    "@types/express-serve-static-core": ^4.17.18
+    "@types/qs": "*"
+    "@types/serve-static": "*"
+  checksum: 2818120a0fd8b7982215864929cdc6cd14942dd44849f93054fe2a90b4233dff67aadc34c73b5937922a02c688b0263d00a4807aa2e59307ac859a1458d73669
   languageName: node
   linkType: hard
 
@@ -4108,7 +4131,7 @@ __metadata:
   resolution: "@unifed/backend-core@workspace:packages/backend-core"
   dependencies:
     "@istanbuljs/nyc-config-typescript": ^1.0.1
-    "@typegoose/typegoose": ^7.4.6
+    "@typegoose/typegoose": ^7.4.7
     "@types/mongoose": ^5.10.3
     "@types/node": ^14.14.20
     "@types/source-map-support": ^0.5.3
@@ -4117,7 +4140,7 @@ __metadata:
     "@typescript-eslint/parser": ^4.13.0
     ava: ^3.15.0
     class-transformer: ^0.3.1
-    class-validator: ^0.13.0
+    class-validator: ^0.13.1
     eslint: ^7.17.0
     eslint-config-prettier: ^7.1.0
     eslint-plugin-prettier: ^3.3.1
@@ -4147,7 +4170,7 @@ __metadata:
     "@unifed/backend-core": ^0.1.0
     ava: ^3.15.0
     class-transformer: ^0.3.1
-    class-validator: ^0.13.0
+    class-validator: ^0.13.1
     eslint: ^7.17.0
     eslint-config-prettier: ^7.1.0
     eslint-plugin-prettier: ^3.3.1
@@ -4166,7 +4189,7 @@ __metadata:
   resolution: "@unifed/backend-federation-server@workspace:packages/backend-federation-server"
   dependencies:
     "@istanbuljs/nyc-config-typescript": ^1.0.1
-    "@types/express": 4.17.9
+    "@types/express": 4.17.11
     "@types/mongoose": ^5.10.3
     "@types/node": ^14.14.20
     "@types/source-map-support": ^0.5.3
@@ -4180,7 +4203,7 @@ __metadata:
     eslint-plugin-prettier: ^3.3.1
     express: ^4.17.1
     express-async-router: ^0.1.15
-    mongodb-memory-server-core: ^6.9.2
+    mongodb-memory-server-core: ^6.9.3
     mongoose: 5.10.18
     nyc: ^15.1.0
     prettier: ^2.2.1
@@ -4204,7 +4227,7 @@ __metadata:
     "@graphql-tools/merge": ^6.2.6
     "@graphql-tools/schema": ^7.1.2
     "@istanbuljs/nyc-config-typescript": ^1.0.1
-    "@types/express": 4.17.9
+    "@types/express": 4.17.11
     "@types/mongoose": ^5.10.3
     "@types/node": ^14.14.20
     "@types/nodemailer": ^6.4.0
@@ -4218,7 +4241,7 @@ __metadata:
     apollo-server-express: ^2.19.1
     ava: ^3.15.0
     class-transformer: ^0.3.1
-    class-validator: ^0.13.0
+    class-validator: ^0.13.1
     eslint: ^7.17.0
     eslint-config-prettier: ^7.1.0
     eslint-plugin-prettier: ^3.3.1
@@ -4256,7 +4279,7 @@ __metadata:
     "@material-ui/icons": ^4.11.2
     "@material-ui/lab": ^4.0.0-alpha.57
     "@rushstack/eslint-patch": ^1.0.6
-    "@testing-library/jest-dom": ^5.11.8
+    "@testing-library/jest-dom": ^5.11.9
     "@testing-library/react": ^11.2.3
     "@types/eslint-plugin-prettier": ^3.1.0
     "@types/node": ^14.14.20
@@ -4300,7 +4323,7 @@ __metadata:
     stylelint-config-sass-guidelines: ^7.1.0
     typescript: ^4.1.3
     use-debounce: ^5.2.0
-    web-vitals: ^1.0.1
+    web-vitals: ^1.1.0
   languageName: unknown
   linkType: soft
 
@@ -6667,13 +6690,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"class-validator@npm:^0.13.0":
-  version: 0.13.0
-  resolution: "class-validator@npm:0.13.0"
+"class-validator@npm:^0.13.1":
+  version: 0.13.1
+  resolution: "class-validator@npm:0.13.1"
   dependencies:
-    libphonenumber-js: ^1.7.57
-    validator: ^13.1.1
-  checksum: 0157a629fc0e9004630c4c797964c04a08af364d869e72600f0de2b5c1bdc0c2308e92e0e244f72b2fd8f59600d9ac742522cc32de0eda5c67833c7d396da625
+    "@types/validator": ^13.1.3
+    libphonenumber-js: ^1.9.7
+    validator: ^13.5.2
+  checksum: 09a7d83213ac40b2c57502790701277b323f0977d0e1d5597c1a5a0990a8c9ee04ab75b8e2395a39063c0ee9dd196e1cb900a420ff5808b8a1923de2b8c705fe
   languageName: node
   linkType: hard
 
@@ -10456,15 +10480,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"graphql@npm:14.6.0":
-  version: 14.6.0
-  resolution: "graphql@npm:14.6.0"
-  dependencies:
-    iterall: ^1.2.2
-  checksum: 24cab2758cea2ce592c59af28cac0fc80d2f2eac2f2441ce0152ce3c5a3a2416394aadf71b2d8db58f46c44ca3d20747eb168f58502f6eadafab0f11dea13791
-  languageName: node
-  linkType: hard
-
 "graphql@npm:^15.3.0, graphql@npm:^15.4.0":
   version: 15.4.0
   resolution: "graphql@npm:15.4.0"
@@ -12027,7 +12042,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"iterall@npm:^1.1.3, iterall@npm:^1.2.1, iterall@npm:^1.2.2, iterall@npm:^1.3.0":
+"iterall@npm:^1.1.3, iterall@npm:^1.2.1, iterall@npm:^1.3.0":
   version: 1.3.0
   resolution: "iterall@npm:1.3.0"
   checksum: 25ae2d07cf97fc35d43fa7af814839689416b83d3ade0fec97a62c58b7b9fad5ff89dd0ede99f2d67cae2697ffa6987f0ab10876f40ae6466e802609a05b1006
@@ -13080,7 +13095,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"libphonenumber-js@npm:^1.7.57":
+"libphonenumber-js@npm:^1.9.7":
   version: 1.9.7
   resolution: "libphonenumber-js@npm:1.9.7"
   checksum: 68b573fb4db1f134a27ff8fe98da848ebdac69d82f4ec8a1dcb6e7ca69c2d217f8785bfa2bd4630e0eee069c1b3ad671c66fca9bae8c22f0239d7d4e57c94a90
@@ -14179,9 +14194,9 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"mongodb-memory-server-core@npm:^6.9.2":
-  version: 6.9.2
-  resolution: "mongodb-memory-server-core@npm:6.9.2"
+"mongodb-memory-server-core@npm:^6.9.3":
+  version: 6.9.3
+  resolution: "mongodb-memory-server-core@npm:6.9.3"
   dependencies:
     "@types/tmp": ^0.2.0
     camelcase: ^6.0.0
@@ -14203,7 +14218,7 @@ fsevents@~2.1.2:
   dependenciesMeta:
     mongodb:
       optional: true
-  checksum: ebe0eec2e5b501998f64680a9d0d1621ce2f2698fca0bde9e2cc1593de5c5d143cd526ccdf48a8ae33f73b58c98644f8c4321d3b37377ad8c657c5ebf081954f
+  checksum: f7e9fc9eac6706b5794f2e609d7956ed2f089a1d319b738ec10d087123797ccf810cfc59468506e246ff67f147ff0c643218ce44154668c4b8d1cb045eb24236
   languageName: node
   linkType: hard
 
@@ -20621,7 +20636,7 @@ typescript@^4.1.3:
   languageName: node
   linkType: hard
 
-"validator@npm:^13.1.1, validator@npm:^13.5.2":
+"validator@npm:^13.5.2":
   version: 13.5.2
   resolution: "validator@npm:13.5.2"
   checksum: 6da12682ad43456cb3a97d23b35cad0b438d9027a6c6fd824d5c86fead42c28f4e38c67590d8f56ab44e6c612979cbaa5f5cc670cc5fcc5a39d5032fcb642296
@@ -20760,10 +20775,10 @@ typescript@^4.1.3:
   languageName: node
   linkType: hard
 
-"web-vitals@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "web-vitals@npm:1.0.1"
-  checksum: 2c6de484c233b45f267b75ae81daab614e61ea1d8ece57c4bde373d71be919993248f4d203d9f49618971c48857ba4988e7a37cc5337708c6329e5651fc2aaa8
+"web-vitals@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "web-vitals@npm:1.1.0"
+  checksum: b75f7929f0b0bbd055c67eab95024c16038dcc808873dd7406225318c79491f011d9c2cf7c8cf68109c21fb0e9fa292eee3977b9ac780626d17ad25b36cd2ffe
   languageName: node
   linkType: hard
 
