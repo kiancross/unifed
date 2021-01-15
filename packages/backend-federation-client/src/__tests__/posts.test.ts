@@ -19,7 +19,7 @@ test("getPosts none", async (t) => {
     .query({ community: "foo" })
     .reply(200, []);
 
-  t.deepEqual(await postsService.getAll("getPostsNone", "foo"), []);
+  t.deepEqual(await postsService.getByCommunity("getPostsNone", "foo"), []);
 
   scope.done();
 });
