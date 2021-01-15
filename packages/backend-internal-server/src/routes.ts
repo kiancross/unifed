@@ -6,13 +6,13 @@ import { Application, Router } from "express";
 import { ApolloServer } from "apollo-server-express";
 import { config } from "@unifed/backend-core";
 import { accountsContext } from "./accounts-setup";
-import { schema } from "./schema";
+import { getMergedSchema } from "./schema";
 
 export const routes = (async (): Promise<Router> => {
   const router: Router = Router();
 
   const server = new ApolloServer({
-    schema: await schema,
+    schema: await getMergedSchema,
     playground: config.debug,
     context: accountsContext,
   });

@@ -13,36 +13,44 @@ process.env.UNIFED_SMTP_USERNAME = "rogers.price3@ethereal.email";
 process.env.UNIFED_SMTP_PASSWORD = "YwgzQrmK2gemUfR63g";
 
 import "reflect-metadata";
-import test from "ava";
-import { graphql } from "graphql";
+import rawTest, { TestInterface } from "ava";
+import { graphql, GraphQLSchema } from "graphql";
 import { Container } from "typedi";
-import { setup, generateCommunities } from "@unifed/backend-testing";
-import { schema } from "../schema";
+import { setup } from "@unifed/backend-testing";
+import { getMergedSchema } from "../schema";
 import { CommunitiesService } from "@unifed/backend-federation-client";
 import { Community } from "@unifed/backend-core";
 
-setup(test);
-
 class CommunitiesServiceStub {
-  constructor(private communities: { [host: string]: Community[] }) {}
+  communities: { [host: string]: Community[] } = {};
 
   async getAll(host: string) {
-    return this.communities[host];
+    return this.communities[host] || [];
   }
 }
 
-test("t", async (t) => {
-  const communities = generateCommunities(5);
+interface Context {
+  schema: GraphQLSchema;
+  communitiesService: CommunitiesServiceStub;
+}
 
-  Container.set(
-    CommunitiesService,
-    new CommunitiesServiceStub({
-      localhost: communities,
-    }),
-  );
+const test = rawTest as TestInterface<Context>;
 
-  const r = await graphql(
-    await schema,
+setup(test);
+
+test.beforeEach(async (t) => {
+  const container = Container.of(t.title);
+  const communitiesService = new CommunitiesServiceStub();
+
+  container.set(CommunitiesService, communitiesService);
+
+  t.context.schema = await getMergedSchema(container);
+  t.context.communitiesService = communitiesService;
+});
+
+test("Communities empty", async (t) => {
+  const response = await graphql(
+    t.context.schema,
     `
       query {
         getCommunities(host: "localhost") {
@@ -54,5 +62,6 @@ test("t", async (t) => {
     `,
   );
 
-  t.pass();
+  t.not(response.data, null);
+  response.data && t.deepEqual(response.data.getCommunities, []);
 });
