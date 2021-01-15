@@ -4309,6 +4309,7 @@ __metadata:
     graphql: ^15.4.0
     graphql-tag: ^2.11.0
     ipaddr.js: ^2.0.0
+    mongodb-memory-server-core: ^6.9.3
     mongoose: 5.10.18
     nodemailer: ^6.4.17
     nyc: ^15.1.0
