@@ -3,6 +3,10 @@
  */
 
 process.env.UNIFED_LOGGING_LEVEL = "info";
+process.env.UNIFED_APPLICATION_NAME = "info";
+process.env.UNIFED_JWT_SECRET = "info";
+process.env.UNIFED_SITE_PROTOCOL = "info";
+process.env.UNIFED_SITE_HOST = "info";
 
 import "reflect-metadata";
 import { AccountsModule } from "@accounts/graphql-api";
