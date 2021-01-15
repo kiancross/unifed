@@ -9,7 +9,7 @@ import { getFederatedApiEndpoint } from "./helpers";
 import { Post, User } from "@unifed/backend-core";
 
 @Service()
-export class PostsHttpService {
+export class PostsService {
   async create(host: string, user: User, parent: string, title: string, body: string) {
     try {
       const rawPost = await got

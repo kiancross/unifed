@@ -5,12 +5,12 @@
 import test from "ava";
 import nock from "nock";
 import { Container } from "typedi";
-import { PostsHttpService } from "../posts";
+import { PostsService } from "../posts";
 
-let postsHttpService: PostsHttpService;
+let postsService: PostsService;
 
 test.beforeEach(() => {
-  postsHttpService = Container.get(PostsHttpService);
+  postsService = Container.get(PostsService);
 });
 
 test("getPosts none", async (t) => {
@@ -19,7 +19,7 @@ test("getPosts none", async (t) => {
     .query({ community: "foo" })
     .reply(200, []);
 
-  t.deepEqual(await postsHttpService.getAll("getPostsNone", "foo"), []);
+  t.deepEqual(await postsService.getAll("getPostsNone", "foo"), []);
 
   scope.done();
 });

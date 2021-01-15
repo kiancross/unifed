@@ -16,7 +16,7 @@ export class CommunityNotFoundError extends Error {
 }
 
 @Service()
-export class CommunitiesHttpService {
+export class CommunitiesService {
   async getAll(host: string): Promise<Community[]> {
     const communityIds: string[] = await got(getFederatedApiEndpoint(host, ["communities"])).json();
     if (!isStringArray(communityIds)) {

@@ -5,20 +5,20 @@
 import test from "ava";
 import nock from "nock";
 import { Container } from "typedi";
-import { CommunitiesHttpService, CommunityNotFoundError } from "../communities";
+import { CommunitiesService, CommunityNotFoundError } from "../communities";
 import { RemoteResponseError, HTTPError } from "../helpers";
 import { RemoteReference } from "@unifed/backend-core";
 
-let communitiesHttpService: CommunitiesHttpService;
+let communitiesService: CommunitiesService;
 
 test.beforeEach(() => {
-  communitiesHttpService = Container.get(CommunitiesHttpService);
+  communitiesService = Container.get(CommunitiesService);
 });
 
 test("getCommunities none", async (t) => {
   const scope = nock("http://getCommunitiesNone").get("/fed/communities").reply(200, []);
 
-  t.deepEqual(await communitiesHttpService.getAll("getCommunitiesNone"), []);
+  t.deepEqual(await communitiesService.getAll("getCommunitiesNone"), []);
 
   scope.done();
 });
@@ -30,7 +30,7 @@ test("getCommunities missing", async (t) => {
     .get("/fed/communities/foo")
     .reply(404);
 
-  await t.throwsAsync(async () => await communitiesHttpService.getAll("getCommunitiesMissing"), {
+  await t.throwsAsync(async () => await communitiesService.getAll("getCommunitiesMissing"), {
     instanceOf: CommunityNotFoundError,
   });
 
@@ -42,7 +42,7 @@ test("getCommunities not array", async (t) => {
     .get("/fed/communities")
     .reply(200, JSON.stringify("foo"));
 
-  await t.throwsAsync(async () => await communitiesHttpService.getAll("getCommunitiesNotArray"), {
+  await t.throwsAsync(async () => await communitiesService.getAll("getCommunitiesNotArray"), {
     instanceOf: RemoteResponseError,
   });
 
@@ -54,12 +54,9 @@ test("getCommunities not string array", async (t) => {
     .get("/fed/communities")
     .reply(200, [true]);
 
-  await t.throwsAsync(
-    async () => await communitiesHttpService.getAll("getCommunitiesNotStringArray"),
-    {
-      instanceOf: RemoteResponseError,
-    },
-  );
+  await t.throwsAsync(async () => await communitiesService.getAll("getCommunitiesNotStringArray"), {
+    instanceOf: RemoteResponseError,
+  });
 
   scope.done();
 });
@@ -84,7 +81,7 @@ test("getCommunities valid", async (t) => {
 
   t.plan(1);
 
-  const receivedCommunities = await communitiesHttpService.getAll("getCommunitiesValid");
+  const receivedCommunities = await communitiesService.getAll("getCommunitiesValid");
 
   for (const receivedCommunity of receivedCommunities) {
     t.like(receivedCommunity, community);
@@ -96,7 +93,7 @@ test("getCommunities valid", async (t) => {
 test("getCommunity missing", async (t) => {
   const scope = nock("http://getCommunityMissing").get("/fed/communities/foo").reply(404);
 
-  t.is(await communitiesHttpService.getOne("getCommunityMissing", "foo"), null);
+  t.is(await communitiesService.getOne("getCommunityMissing", "foo"), null);
 
   scope.done();
 });
@@ -105,7 +102,7 @@ test("getCommunity serverError", async (t) => {
   const scope = nock("http://getCommunityServerError").get("/fed/communities/foo").reply(403);
 
   await t.throwsAsync(
-    async () => await communitiesHttpService.getOne("getCommunityServerError", "foo"),
+    async () => await communitiesService.getOne("getCommunityServerError", "foo"),
     {
       instanceOf: HTTPError,
     },
@@ -128,7 +125,7 @@ test("getCommunity valid", async (t) => {
 
   const scope = nock("http://getCommunityValid").get("/fed/communities/foo").reply(200, community);
 
-  t.like(await communitiesHttpService.getOne("getCommunityValid", "foo"), community);
+  t.like(await communitiesService.getOne("getCommunityValid", "foo"), community);
 
   scope.done();
 });
@@ -144,12 +141,9 @@ test("getCommunity invalid", async (t) => {
     .get("/fed/communities/foo")
     .reply(200, community);
 
-  await t.throwsAsync(
-    async () => await communitiesHttpService.getOne("getCommunityInvalid", "foo"),
-    {
-      instanceOf: RemoteResponseError,
-    },
-  );
+  await t.throwsAsync(async () => await communitiesService.getOne("getCommunityInvalid", "foo"), {
+    instanceOf: RemoteResponseError,
+  });
 
   scope.done();
 });
