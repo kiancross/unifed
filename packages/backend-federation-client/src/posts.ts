@@ -52,7 +52,7 @@ export class PostsService {
     return posts;
   }
 
-  async getOne(host: string, id: string): Promise<Post> {
+  async getById(host: string, id: string): Promise<Post> {
     const rawPost = await got(getFederatedApiEndpoint(host, ["posts", id])).json();
 
     const post = plainToClass(Post, rawPost as Post);
