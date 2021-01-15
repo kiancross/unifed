@@ -2,30 +2,59 @@
  * CS3099 Group A3
  */
 
-import os from "os";
 import test from "ava";
-import { MongoMemoryServer } from "mongodb-memory-server-core";
-import mongoose from "mongoose";
+import request from "supertest";
+import { setup, generateCommunities, generateCommunity } from "./helpers";
+import { app } from "../app";
+import { CommunityModel } from "@unifed/backend-core";
 
-const mongod = new MongoMemoryServer({
-  binary: {
-    downloadDir: `${os.homedir()}/.cache/mongodb-binaries`,
-  },
+setup(test);
+
+test.serial("Get communities", async (t) => {
+  const communities = generateCommunities(5);
+  await CommunityModel.create(communities);
+
+  const { body } = await request(app)
+    .get("/communities")
+    .expect(200)
+    .expect("Content-Type", /json/);
+
+  t.is(body.length, communities.length);
+
+  for (const community of communities) {
+    t.true(body.includes(community.id));
+  }
 });
 
-test.before(async () => {
-  const uri = await mongod.getUri();
-  await mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+test.serial("Get non-existing community", async (t) => {
+  const { body } = await request(app)
+    .get(`/communities/foo`)
+    .expect(404)
+    .expect("Content-Type", /json/);
+
+  t.true(typeof body.error === "string");
 });
 
-test.serial("litmus get user", async (t) => {
-  t.pass();
+test.serial("Get existing community", async (t) => {
+  const community = generateCommunity();
+  await CommunityModel.create(community);
+
+  const { body } = await request(app)
+    .get(`/communities/${community.id}`)
+    .expect(200)
+    .expect("Content-Type", /json/);
+
+  t.deepEqual(body, community.toJSON());
 });
 
-test.after.always(async () => {
-  mongoose.disconnect();
-  mongod.stop();
+test.serial("Get timestamps empty", async (t) => {
+  const community = generateCommunity();
+  await CommunityModel.create(community);
+
+  const { body } = await request(app)
+    .get(`/communities/${community.id}/timestamps`)
+    .expect(200)
+    .expect("Content-Type", /json/);
+
+  t.is(body.length, 0);
 });
