@@ -54,7 +54,7 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "start": "node build/app.js",
+    "start": "node build/index.js",
     "start:watch": "tsc-watch -b --noClear --onSuccess 'yarn start'",
     "test": "nyc ava 'src/**/*.test.ts'",
     "build": "tsc -b",
