@@ -142,7 +142,7 @@ class DatabaseStub implements DatabaseInterface {
   const accountsResolvers = mergeResolvers([graphModule.resolvers]);
   const accountsSchemaDirectives = graphModule.schemaDirectives;
 
-  const { typeDefs, resolvers } = await getInternalSchema(Container);
+  const { typeDefs, resolvers } = await getInternalSchema(Container.of());
 
   const schema = makeExecutableSchema({
     typeDefs: mergeTypeDefs([accountsTypeDefs, typeDefs]),

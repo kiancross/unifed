@@ -4,6 +4,7 @@
 
 import { Application, Router } from "express";
 import { ApolloServer } from "apollo-server-express";
+import { Container } from "typedi";
 import { config } from "@unifed/backend-core";
 import { accountsContext } from "./accounts-setup";
 import { getMergedSchema } from "./schema";
@@ -12,7 +13,7 @@ export const routes = (async (): Promise<Router> => {
   const router: Router = Router();
 
   const server = new ApolloServer({
-    schema: await getMergedSchema,
+    schema: await getMergedSchema(Container.of()),
     playground: config.debug,
     context: accountsContext,
   });
