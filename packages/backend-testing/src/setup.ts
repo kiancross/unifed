@@ -6,8 +6,6 @@ import test from "ava";
 import os from "os";
 import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server-core";
-import { lorem, random } from "faker";
-import { Community } from "@unifed/backend-core";
 
 type TestType = typeof test;
 
@@ -20,6 +18,9 @@ const mongod = new MongoMemoryServer({
 export const setup = (test: TestType): void => {
   test.before(async () => {
     const uri = await mongod.getUri();
+
+    console.info(`Database URI ${uri}`);
+
     await mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -34,23 +35,4 @@ export const setup = (test: TestType): void => {
     mongoose.disconnect();
     mongod.stop();
   });
-};
-
-export const generateCommunity = (): Community => {
-  const community = new Community();
-  community.id = random.word();
-  community.title = lorem.words();
-  community.description = lorem.sentence();
-
-  return community;
-};
-
-export const generateCommunities = (n: number): Community[] => {
-  const communities = [];
-
-  for (let i = 0; i < n; i++) {
-    communities.push(generateCommunity());
-  }
-
-  return communities;
 };

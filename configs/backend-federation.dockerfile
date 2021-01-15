@@ -9,6 +9,7 @@ COPY yarn.lock .
 COPY .yarnrc.yml .
 ADD .yarn .yarn
 COPY package.json .
+COPY packages/backend-testing/package.json packages/backend-testing/package.json
 COPY packages/backend-core/package.json packages/backend-core/package.json
 COPY packages/backend-federation-server/package.json packages/backend-federation-server/package.json
 

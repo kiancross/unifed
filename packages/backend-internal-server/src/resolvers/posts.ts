@@ -16,7 +16,7 @@ import { CurrentUser } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
 import { Post, User } from "@unifed/backend-core";
 import { CreatePostInput, RemoteReferenceInput } from "./inputs";
-import { PostsService } from "../services";
+import { PostsService } from "@unifed/backend-federation-client";
 
 @Service()
 @Resolver(Post)

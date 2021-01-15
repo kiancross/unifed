@@ -3,6 +3,10 @@
  */
 
 process.env.UNIFED_LOGGING_LEVEL = "info";
+process.env.UNIFED_APPLICATION_NAME = "info";
+process.env.UNIFED_JWT_SECRET = "info";
+process.env.UNIFED_SITE_PROTOCOL = "info";
+process.env.UNIFED_SITE_HOST = "info";
 
 import "reflect-metadata";
 import { AccountsModule } from "@accounts/graphql-api";
@@ -13,7 +17,8 @@ import { mergeResolvers, mergeTypeDefs } from "@graphql-tools/merge";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import * as path from "path";
 import { emitSchemaDefinitionFile } from "type-graphql";
-import { internalSchema } from "../src/internal-schema";
+import { Container } from "typedi";
+import { getInternalSchema } from "../src/schema";
 
 class DatabaseStub implements DatabaseInterface {
   public async setupIndexes(): Promise<void> {
@@ -141,9 +146,11 @@ class DatabaseStub implements DatabaseInterface {
   const accountsResolvers = mergeResolvers([graphModule.resolvers]);
   const accountsSchemaDirectives = graphModule.schemaDirectives;
 
+  const { typeDefs, resolvers } = await getInternalSchema(Container.of());
+
   const schema = makeExecutableSchema({
-    typeDefs: mergeTypeDefs([accountsTypeDefs, (await internalSchema).typeDefs]),
-    resolvers: mergeResolvers([accountsResolvers, (await internalSchema).resolvers]),
+    typeDefs: mergeTypeDefs([accountsTypeDefs, typeDefs]),
+    resolvers: mergeResolvers([accountsResolvers, resolvers]),
     schemaDirectives: {
       ...accountsSchemaDirectives,
     },
