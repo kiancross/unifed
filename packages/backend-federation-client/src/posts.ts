@@ -39,7 +39,7 @@ export class PostsService {
     }
   }
 
-  async getAll(host: string, community: string): Promise<Post[]> {
+  async getByCommunity(host: string, community: string): Promise<Post[]> {
     const rawPosts = await got(getFederatedApiEndpoint(host, ["posts"]), {
       searchParams: {
         community,
