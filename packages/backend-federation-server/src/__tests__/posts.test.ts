@@ -4,7 +4,7 @@
 
 import test from "ava";
 import request from "supertest";
-import { setup } from "@unifed/backend-testing"
+import { setup } from "@unifed/backend-testing";
 import { app } from "../app";
 
 setup(test);
