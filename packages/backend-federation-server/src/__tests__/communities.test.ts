@@ -4,7 +4,7 @@
 
 import test from "ava";
 import request from "supertest";
-import { setup, generateCommunities, generateCommunity } from "./helpers";
+import { setup, generateCommunities, generateCommunity } from "@unifed/backend-testing";
 import { app } from "../app";
 import { CommunityModel } from "@unifed/backend-core";
 
