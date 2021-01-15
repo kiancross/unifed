@@ -26,15 +26,15 @@ router.use(jsonBodyParser());
 
 router.get("/", async (req, res) => {
   const limit = typeof req.query.limit === "string" ? Number(req.query.limit) : 0;
-  const minDate = typeof req.query.min_date === "string" ? Number(req.query.min_date) : null;
+  const minDate = typeof req.query.minDate === "string" ? Number(req.query.minDate) : null;
 
-  if (isNaN(limit)) {
-    res.status(400).json({ error: "If 'limit' is set it must be a number" });
+  if (isNaN(limit) || limit < 0) {
+    res.status(400).json({ error: "If 'limit' is set it must be a positive number" });
     return;
   }
 
-  if (minDate !== null && isNaN(minDate)) {
-    res.status(400).json({ error: "If 'min_date' is set it must be a number (unix timestamp)" });
+  if (minDate !== null && (isNaN(minDate) || minDate < 0)) {
+    res.status(400).json({ error: "If 'minDate' is set it must be a number (unix timestamp)" });
     return;
   }
 
