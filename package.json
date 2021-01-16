@@ -15,6 +15,7 @@
     "container:restart": "make -C scripts -f entry.mk restart",
     "container:reset": "make -C scripts -f entry.mk reset",
     "container:logs": "make -C scripts -f entry.mk logs",
+    "container:devdb": "make -C scripts -f entry.mk devdb",
     "clean": "yarn workspaces foreach -vp run clean && rm -rf coverage && rm -rf packages/**/node_modules"
   },
   "workspaces": [

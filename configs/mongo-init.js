@@ -14,3 +14,11 @@ databaseNames.forEach((name) => {
     }]
   });
 });
+
+db = db.getSiblingDB("unifed-federation");
+
+db.communities.insert({
+  _id: "all",
+  title: "All",
+  description: "Home page"
+});
