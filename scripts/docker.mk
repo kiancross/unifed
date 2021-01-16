@@ -25,3 +25,15 @@ reset:
 .PHONY: logs
 logs:
 	$(DOCKER_COMPOSE_COMMAND) logs
+
+.PHONY: devdb
+devdb:
+	@id=$$($(DOCKER_COMPOSE_COMMAND) ps -q mongo); \
+	if [ -z "$$(docker ps -q --filter id=$$id)" ]; then \
+		>&2 echo "The mongodb container is not running"; \
+		exit 1; \
+	else \
+		username=$$(grep MONGO_ADMIN_USERNAME ../configs/config.env | cut -d '=' -f2); \
+		password=$$(grep MONGO_ADMIN_PASSWORD ../configs/config.env | cut -d '=' -f2); \
+		docker exec -i $$id /usr/bin/mongo admin -u "$$username" -p "$$password" --eval "$$(cat ../configs/mongo-dev.js)"; \
+	fi;
