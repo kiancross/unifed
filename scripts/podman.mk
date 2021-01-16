@@ -10,7 +10,7 @@ POD_NAME:=unifed
 
 PODMAN_COMMAND:=cd .. && podman
 
-ifneq ($(shell podman --version | awk '{print $3}'),2.1.1)
+ifneq ($(shell podman --version | awk '{print $$3}'),2.1.1)
 define n
 
 
@@ -47,6 +47,18 @@ logs:
 					if ($$1 == "unifed-backend-federation") {printf "\033[0;32m"}; \
 		      printf $$1 "\033[0m"; $$1 = ""; print $$0 \
 				}'
+
+.PHONY: devdb
+devdb:
+	@id=$$(podman ps -q --filter name=unifed-mongo\$$); \
+	if [ -z "$$id" ]; then \
+		>&2 echo "The mongodb container is not running"; \
+		exit 1; \
+	else \
+		username=$$(grep MONGO_ADMIN_USERNAME ../configs/config.env | cut -d '=' -f2); \
+		password=$$(grep MONGO_ADMIN_PASSWORD ../configs/config.env | cut -d '=' -f2); \
+		podman exec -i $$id /usr/bin/mongo admin -u "$$username" -p "$$password" --eval "$$(cat ../configs/mongo-dev.js)"; \
+	fi;
 
 .PHONY: yarn-install
 yarn-install:
