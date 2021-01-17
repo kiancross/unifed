@@ -16,6 +16,7 @@ import { CurrentUser } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
 import { Post, User } from "@unifed/backend-core";
 import { CreatePostInput, RemoteReferenceInput } from "./inputs";
+import { translateHost } from "./helpers";
 import { PostsService } from "@unifed/backend-federation-client";
 
 @Service()
@@ -30,7 +31,7 @@ export class PostsResolver implements ResolverInterface<Post> {
     @CurrentUser() user: User,
   ): Promise<Post | null> {
     return await this.postsService.create(
-      post.parent.host,
+      await translateHost(post.parent.host),
       user,
       post.parent.id,
       post.title,
@@ -40,12 +41,15 @@ export class PostsResolver implements ResolverInterface<Post> {
 
   @Query(() => [Post])
   async getPosts(@Arg("community") community: RemoteReferenceInput): Promise<Post[]> {
-    return await this.postsService.getByCommunity(community.host, community.id);
+    return await this.postsService.getByCommunity(
+      await translateHost(community.host),
+      community.id,
+    );
   }
 
   @Query(() => Post)
   async getPost(@Arg("post") post: RemoteReferenceInput): Promise<Post> {
-    return await this.postsService.getById(post.host, post.id);
+    return await this.postsService.getById(await translateHost(post.host), post.id);
   }
 
   @FieldResolver()
@@ -60,7 +64,7 @@ export class PostsResolver implements ResolverInterface<Post> {
       for (const id of post.children) {
         let childPost;
         if (typeof id === "string") {
-          childPost = await this.postsService.getById(post.host, id);
+          childPost = await this.postsService.getById(await translateHost(post.host), id);
         } else if (id instanceof Post) {
           childPost = id;
         } else {
