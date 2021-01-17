@@ -9,6 +9,8 @@ import * as ipaddr from "ipaddr.js";
 
 export const localAlias = "this";
 
+export class HostNotSetError extends Error {}
+
 function isLocalAlias(host: string): boolean {
   return host === localAlias;
 }
@@ -50,6 +52,10 @@ async function isHostLocal(host: string): Promise<boolean> {
 }
 
 export async function normaliseHost(host: string): Promise<string> {
+  if (!host) {
+    throw new HostNotSetError();
+  }
+
   if (isLocalAlias(host) || (await isHostLocal(host))) {
     return localAlias;
   } else {
@@ -58,6 +64,10 @@ export async function normaliseHost(host: string): Promise<string> {
 }
 
 export function getAddressableHost(host: string): string {
+  if (!host) {
+    throw new HostNotSetError();
+  }
+
   if (isLocalAlias(host)) {
     return config.federationHost;
   } else {

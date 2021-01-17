@@ -4,7 +4,7 @@
 
 import test from "ava";
 
-import { normaliseHost, getAddressableHost, translateHost } from "./host";
+import { normaliseHost, getAddressableHost, translateHost, HostNotSetError } from "./host";
 
 test("localHost (this)", async (t) => {
   t.is(await normaliseHost("this"), "this");
@@ -44,6 +44,18 @@ test("Internal IP address with port", async (t) => {
 
 test("Invalid host", async (t) => {
   t.is(await normaliseHost("thisisinvalid"), "thisisinvalid");
+});
+
+test("normaliseHost unset host", async (t) => {
+  await t.throwsAsync(async () => await normaliseHost(""), { instanceOf: HostNotSetError });
+});
+
+test("getAddressableHost unset host", async (t) => {
+  t.throws(() => getAddressableHost(""), { instanceOf: HostNotSetError });
+});
+
+test("translateHost unset host", async (t) => {
+  await t.throwsAsync(async () => await translateHost(""), { instanceOf: HostNotSetError });
 });
 
 test("External addressable host", async (t) => {
