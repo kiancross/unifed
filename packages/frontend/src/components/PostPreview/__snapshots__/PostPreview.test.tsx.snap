@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render 1`] = `
+<div
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-item"
+>
+  <div
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-justify-xs-flex-end MuiGrid-grid-xs-1"
+  >
+    <div
+      className="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
+      style={
+        Object {
+          "height": "28px",
+          "width": "28px",
+        }
+      }
+    >
+      <p
+        className="MuiTypography-root MuiTypography-body2"
+      >
+        T
+      </p>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-grid-xs-11"
+  >
+    <div
+      className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+      style={
+        Object {
+          "textAlign": "left",
+        }
+      }
+    >
+      <a
+        aria-disabled={false}
+        className="MuiButtonBase-root MuiCardActionArea-root"
+        href="/instances/Test Server/communities/Test Community/posts/1"
+        onBlur={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+      >
+        <div
+          className="MuiCardContent-root"
+        >
+          <p
+            className="MuiTypography-root MuiTypography-body2 MuiTypography-gutterBottom"
+          >
+            <a
+              className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+              href="/user/Test Name"
+              onBlur={[Function]}
+              onFocus={[Function]}
+            >
+              Test Name
+            </a>
+          </p>
+          <p
+            className="MuiTypography-root MuiTypography-body1"
+          >
+            Test Title
+          </p>
+        </div>
+        <span
+          className="MuiCardActionArea-focusHighlight"
+        />
+      </a>
+    </div>
+  </div>
+</div>
+`;
