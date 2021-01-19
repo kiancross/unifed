@@ -2,7 +2,8 @@
  * CS3099 Group A3
  */
 
-import { Parser, Messages } from "./parser";
+import { Parser } from "./parser";
+import { Message } from "./message";
 import { readZipFile } from "./helpers";
 
 export class SmsParser extends Parser {
@@ -10,9 +11,9 @@ export class SmsParser extends Parser {
     super();
   }
 
-  private parseData(data: string): Messages {
+  private parseData(data: string): Message[] {
     const lines = data.split("\n");
-    const messages: Messages = { spam: [], ham: [] };
+    const messages: Message[] = [];
 
     for (const line of lines) {
       if (!line) {
@@ -21,21 +22,22 @@ export class SmsParser extends Parser {
 
       const splitLine = line.split("\t");
       const type = splitLine[0];
-      const message = splitLine[1];
+      const body = splitLine[1];
 
-      if (type === "ham") {
-        messages.ham.push(message);
-      } else if (type === "spam") {
-        messages.spam.push(message);
-      } else {
+      if (!["ham", "spam"].includes(type)) {
         throw new Error("Unrecognised SMS type");
       }
+
+      messages.push({
+        body,
+        spam: type === "spam",
+      });
     }
 
     return messages;
   }
 
-  async getMessages(): Promise<Messages> {
+  async getMessages(): Promise<Message[]> {
     const file = (await readZipFile(this.path).next()).value;
 
     if (file.path !== "sms") {

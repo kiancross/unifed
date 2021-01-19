@@ -2,11 +2,8 @@
  * CS3099 Group A3
  */
 
-export interface Messages {
-  spam: string[];
-  ham: string[];
-}
+import { Message } from "./message";
 
 export abstract class Parser {
-  abstract getMessages(): Promise<Messages>;
+  abstract getMessages(): Promise<Message[]>;
 }

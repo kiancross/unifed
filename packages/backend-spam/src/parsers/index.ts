@@ -6,4 +6,5 @@ export * from "./parser";
 export * from "./sms-parser";
 export * from "./enron-parser";
 export * from "./spam-assasin-parser";
+export { Message } from "./message";
 export { mergeMessageSets } from "./helpers";

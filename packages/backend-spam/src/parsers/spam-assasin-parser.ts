@@ -2,7 +2,8 @@
  * CS3099 Group A3
  */
 
-import { Parser, Messages } from "./parser";
+import { Parser } from "./parser";
+import { Message } from "./message";
 import { simpleParser } from "mailparser";
 import { readZipFile } from "./helpers";
 
@@ -23,27 +24,26 @@ export class SpamAssasinParser extends Parser {
     });
   }
 
-  private async parse(): Promise<Messages> {
-    const messages: Messages = { ham: [], spam: [] };
+  private async parse(): Promise<Message[]> {
+    const messages: Message[] = [];
 
     for await (const file of readZipFile(this.path)) {
       const body = await this.getBody(file.data);
 
-      if (body === undefined) {
+      if (body === undefined || !(file.path.includes("ham") && file.path.includes("spam"))) {
         continue;
       }
 
-      if (file.path.includes("ham")) {
-        messages.ham.push(body);
-      } else if (file.path.includes("spam")) {
-        messages.spam.push(body);
-      }
+      messages.push({
+        body,
+        spam: file.path.includes("spam"),
+      });
     }
 
     return messages;
   }
 
-  async getMessages(): Promise<Messages> {
+  async getMessages(): Promise<Message[]> {
     return await this.parse();
   }
 }

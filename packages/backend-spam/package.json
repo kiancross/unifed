@@ -28,7 +28,7 @@
     "node-stream-zip": "^1.12.0"
   },
   "scripts": {
-    "start": "node build/index.js",
+    "start": "node --max-old-space-size=8192 build/index.js",
     "test": "nyc ava 'src/**/*.test.ts'",
     "build": "tsc",
     "clean": "rm -rf coverage build .nyc_output tsconfig.tsbuildinfo",

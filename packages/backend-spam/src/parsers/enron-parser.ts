@@ -2,7 +2,8 @@
  * CS3099 Group A3
  */
 
-import { Parser, Messages } from "./parser";
+import { Parser } from "./parser";
+import { Message } from "./message";
 import { readZipFile } from "./helpers";
 
 export class EnronParser extends Parser {
@@ -24,21 +25,24 @@ export class EnronParser extends Parser {
     throw new Error("Email has no body: " + data);
   }
 
-  private async parse(): Promise<Messages> {
-    const messages: Messages = { ham: [], spam: [] };
+  private async parse(): Promise<Message[]> {
+    const messages: Message[] = [];
 
     for await (const file of readZipFile(this.path)) {
-      if (file.path.includes("ham")) {
-        messages.ham.push(this.getBody(file.data));
-      } else if (file.path.includes("spam")) {
-        messages.spam.push(this.getBody(file.data));
+      if (!file.path.includes("ham") && !file.path.includes("spam")) {
+        continue;
       }
+
+      messages.push({
+        body: this.getBody(file.data),
+        spam: file.path.includes("spam"),
+      });
     }
 
     return messages;
   }
 
-  async getMessages(): Promise<Messages> {
+  async getMessages(): Promise<Message[]> {
     return await this.parse();
   }
 }

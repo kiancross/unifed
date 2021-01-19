@@ -3,7 +3,7 @@
  */
 
 import StreamZip from "node-stream-zip";
-import { Messages } from "./parser";
+import { Message } from "./message";
 
 export interface ZipFileEntry {
   readonly path: string;
@@ -33,12 +33,11 @@ export async function* readZipFile(path: string): AsyncGenerator<ZipFileEntry> {
   }
 }
 
-export function mergeMessageSets(messageSets: Messages[]): Messages {
-  const messages: Messages = { spam: [], ham: [] };
+export function mergeMessageSets(messageSets: Message[][]): Message[] {
+  const messages: Message[] = [];
 
   for (const set of messageSets) {
-    messages.spam.push(...set.spam);
-    messages.ham.push(...set.ham);
+    messages.push(...set);
   }
 
   return messages;

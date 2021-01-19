@@ -2,34 +2,46 @@
  * CS3099 Group A3
  */
 
-import { layers, sequential, train } from "@tensorflow/tfjs-node";
-import { SmsParser, EnronParser, SpamAssasinParser, mergeMessageSets } from "./parsers";
-
-const model = sequential();
-
-const vocabSize = 10000;
-const maxLength = 1000;
-const embeddingDimension = 16;
-
-model.add(
-  layers.embedding({ inputDim: vocabSize, outputDim: embeddingDimension, inputLength: maxLength }),
-);
-model.add(layers.flatten());
-model.add(layers.dense({ units: 6, activation: "relu" }));
-model.add(layers.dense({ units: 1, activation: "sigmoid" }));
-
-model.compile({ optimizer: train.adam(), loss: "binaryCrossentropy", metrics: ["accuracy"] });
-
-model.summary();
+import { tensor2d } from "@tensorflow/tfjs-node";
+import { model } from "./model";
+import { Message } from "./parsers";
+import { Tokenizer } from "./tokenizer";
+import { getTensors, getData, flattenMessages, padSequences } from "./tensors";
+import { epochs } from "./constants";
+import { vocabSize, trainingRatio, maxSequenceLength } from "./constants";
 
 (async () => {
-  const sms = new SmsParser("data/sms.zip");
-  const enron = new EnronParser("data/enron.zip");
-  const spamAssasin = new SpamAssasinParser("data/spam-assasin.zip");
+  const data = await getData();
 
-  const smsMessages = await sms.getMessages();
-  const enronMessages = await enron.getMessages();
-  const spamAssasinMessages = await spamAssasin.getMessages();
+  const index = data.length * trainingRatio;
 
-  const mergedMessages = mergeMessageSets([smsMessages, enronMessages, spamAssasinMessages]);
+  const trainingMessages: Message[] = data.slice(0, index);
+  const testingMessages: Message[] = data.slice(index);
+
+  const trainingMapping = flattenMessages(trainingMessages);
+  const testingMapping = flattenMessages(testingMessages);
+
+  const tokenizer = new Tokenizer(vocabSize);
+  tokenizer.fitOnTexts(trainingMapping.sentences);
+
+  const [trainingSentencesTensor, trainingLabelsTensor] = getTensors(trainingMapping, tokenizer);
+  const [testingSentencesTensor, testingLabelsTensor] = getTensors(testingMapping, tokenizer);
+
+  model.fit(trainingSentencesTensor, trainingLabelsTensor, {
+    epochs,
+    validationData: [testingSentencesTensor, testingLabelsTensor],
+  });
+
+  await model.save(`file://${__dirname}/model`);
+
+  const testMessage = "This is not spam!!!";
+
+  const sequence = tokenizer.textsToSequences([testMessage]);
+  const paddedSequence = padSequences(sequence, maxSequenceLength);
+
+  const result = model.predict(
+    tensor2d(paddedSequence, [paddedSequence.length, maxSequenceLength]),
+  );
+
+  console.log(result);
 })();
