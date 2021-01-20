@@ -3,7 +3,11 @@
  */
 
 import StreamZip from "node-stream-zip";
-import { Message } from "./message";
+
+export interface Message {
+  readonly body: string;
+  readonly spam: boolean;
+}
 
 export interface ZipFileEntry {
   readonly path: string;

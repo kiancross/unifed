@@ -3,8 +3,7 @@
  */
 
 import { Parser } from "./parser";
-import { Message } from "./message";
-import { readZipFile } from "./helpers";
+import { Message, readZipFile } from "./helpers";
 
 export class SmsParser extends Parser {
   constructor(private path: string) {

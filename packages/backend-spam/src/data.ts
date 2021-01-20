@@ -2,28 +2,12 @@
  * CS3099 Group A3
  */
 
-import { tensor2d, tidy, util, Tensor } from "@tensorflow/tfjs-node";
+import { util } from "@tensorflow/tfjs-node";
 import { SmsParser, EnronParser, SpamAssasinParser, Message, mergeMessageSets } from "./parsers";
-import { Tokenizer } from "./tokenizer";
-import { maxSequenceLength } from "./constants";
 
 export interface SentenceMapping {
   readonly sentences: string[];
   readonly labels: number[];
-}
-
-export function padSequences(sequences: number[][], maxLength: number): number[][] {
-  for (const sequence of sequences) {
-    const sequenceDelta = maxLength - sequence.length;
-
-    if (sequenceDelta < 0) {
-      sequence.splice(maxLength);
-    } else if (sequenceDelta > 0) {
-      sequence.push(...new Array(sequenceDelta).fill(0));
-    }
-  }
-
-  return sequences;
 }
 
 export function flattenMessages(data: Message[]): SentenceMapping {
@@ -35,6 +19,15 @@ export function flattenMessages(data: Message[]): SentenceMapping {
   }
 
   return mapping;
+}
+
+export function ratioSplitMessages(data: Message[], ratio: number): [Message[], Message[]] {
+  const index = data.length * ratio;
+
+  const trainingMessages: Message[] = data.slice(0, index);
+  const testingMessages: Message[] = data.slice(index);
+
+  return [trainingMessages, testingMessages];
 }
 
 export async function getData(): Promise<Message[]> {
@@ -51,16 +44,4 @@ export async function getData(): Promise<Message[]> {
   util.shuffle(mergedMessages);
 
   return mergedMessages;
-}
-
-export function getTensors(mapping: SentenceMapping, tokenizer: Tokenizer): [Tensor, Tensor] {
-  const sequences = tokenizer.textsToSequences(mapping.sentences);
-  const paddedSequences = padSequences(sequences, maxSequenceLength);
-
-  return tidy(() => {
-    const sentencesTensor = tensor2d(paddedSequences, [paddedSequences.length, maxSequenceLength]);
-    const labelsTensor = tensor2d(mapping.labels, [mapping.labels.length, 1]);
-
-    return [sentencesTensor, labelsTensor];
-  });
 }

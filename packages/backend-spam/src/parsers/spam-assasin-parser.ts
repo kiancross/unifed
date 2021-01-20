@@ -2,10 +2,9 @@
  * CS3099 Group A3
  */
 
-import { Parser } from "./parser";
-import { Message } from "./message";
 import { simpleParser } from "mailparser";
-import { readZipFile } from "./helpers";
+import { Parser } from "./parser";
+import { Message, readZipFile } from "./helpers";
 
 export class SpamAssasinParser extends Parser {
   constructor(private path: string) {

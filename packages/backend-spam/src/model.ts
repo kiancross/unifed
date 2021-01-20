@@ -2,8 +2,12 @@
  * CS3099 Group A3
  */
 
+// Model taken from:
+// https://towardsdatascience.com/nlp-spam-detection-in-sms-text-data-using-deep-learning-b8632db85cc8
+
 import { layers, sequential, train } from "@tensorflow/tfjs-node";
 import { vocabSize, embeddingDimension, maxSequenceLength } from "./constants";
+
 export const model = sequential();
 
 model.add(
