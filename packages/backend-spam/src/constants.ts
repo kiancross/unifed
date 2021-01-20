@@ -2,8 +2,13 @@
  * CS3099 Group A3
  */
 
+// The raw vocabSize   =144892
 export const vocabSize = 10000;
+
+// Average length for all      =  212
+// Average excluding SMS       =  241
 export const maxSequenceLength = 2000;
+
 export const embeddingDimension = 16;
 export const trainingRatio = 0.8;
 export const epochs = 50;

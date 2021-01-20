@@ -32,7 +32,7 @@ import { vocabSize, trainingRatio, modelExportPath, tokenizerExportPath } from "
     testingLabelsTensor,
   );
 
-  console.log(history.toString());
+  console.log(history.history.toString());
 
   await model.save(`file://${modelExportPath}`);
   await tokenizer.save(tokenizerExportPath);
