@@ -17,6 +17,8 @@ import { vocabSize, tokenizerImportPath, modelImportPath } from "./constants";
       "The dog is in the garden.",
       "Contact our HR firm to earn money from home.",
       "You have won a prize!",
+      "I am going to sell you something today.",
+      "Contact us to win",
     ],
     tokenizer,
   );
