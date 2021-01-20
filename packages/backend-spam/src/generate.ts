@@ -25,12 +25,14 @@ import { vocabSize, trainingRatio, modelExportPath, tokenizerExportPath } from "
   const testingSentencesTensor = getSentencesTensor(testingMapping.sentences, tokenizer);
   const testingLabelsTensor = getLabelsTensor(testingMapping.labels);
 
-  await fitModel(
+  const history = await fitModel(
     trainingSentencesTensor,
     trainingLabelsTensor,
     testingSentencesTensor,
     testingLabelsTensor,
   );
+
+  console.log(history.toString());
 
   await model.save(`file://${modelExportPath}`);
   await tokenizer.save(tokenizerExportPath);

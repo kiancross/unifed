@@ -43,6 +43,5 @@ export async function getData(): Promise<Message[]> {
 
   util.shuffle(mergedMessages);
 
-  //return mergedMessages;
-  return smsMessages;
+  return mergedMessages;
 }

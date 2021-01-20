@@ -13,11 +13,7 @@ import { vocabSize, tokenizerImportPath, modelImportPath } from "./constants";
   await tokenizer.load(tokenizerImportPath);
 
   const sentencesTensor = getSentencesTensor(
-    [
-      "You are awarded a Nikon Digital Camera. Call now",
-      "You have won a free holiday to disneyland. Click here.",
-      "my name is kian and I like cheese.",
-    ],
+    ["The dog is in the garden.", "Contact our HR firm to earn money from home."],
     tokenizer,
   );
 

@@ -2,9 +2,9 @@
  * CS3099 Group A3
  */
 
-import { model } from "./ltsm";
+import { model } from "./dense";
 import { EarlyStopping, History, Tensor } from "@tensorflow/tfjs-node-gpu";
-import { epochs } from "../constants";
+import { epochs, patience } from "../constants";
 
 export { model };
 
@@ -15,8 +15,8 @@ export async function fitModel(
   testingLabels: Tensor,
 ): Promise<History> {
   const earlyStop = new EarlyStopping({
-    monitor: "valLoss",
-    patience: 2,
+    monitor: "val_loss",
+    patience,
   });
 
   return await model.fit(trainingSentences, trainingLabels, {

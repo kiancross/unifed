@@ -6,7 +6,7 @@
 // https://towardsdatascience.com/nlp-spam-detection-in-sms-text-data-using-deep-learning-b8632db85cc8
 
 import { layers, sequential, train } from "@tensorflow/tfjs-node-gpu";
-import { vocabSize, embeddingDimension, maxSequenceLength } from "../constants";
+import { lstmUnits, dropout, vocabSize, embeddingDimension, maxSequenceLength } from "../constants";
 
 export const model = sequential();
 
@@ -19,15 +19,15 @@ model.add(
 );
 model.add(
   layers.lstm({
-    units: 20,
-    dropout: 0.2,
+    units: lstmUnits,
+    dropout,
     returnSequences: true,
   }),
 );
 model.add(
   layers.lstm({
-    units: 20,
-    dropout: 0.2,
+    units: lstmUnits,
+    dropout,
     returnSequences: false,
   }),
 );
