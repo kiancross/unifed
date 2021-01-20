@@ -11,7 +11,6 @@ const fs = require("fs");
 const config = {
   extends: [
     "eslint:recommended",
-    "react-app",
     "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended",
