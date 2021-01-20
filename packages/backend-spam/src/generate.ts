@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { model, fitModel } from "./model";
+import { model, fitModel } from "./models";
 import { Tokenizer } from "./tokenizer";
 import { getData, flattenMessages, ratioSplitMessages } from "./data";
 import { getSentencesTensor, getLabelsTensor } from "./tensor";
