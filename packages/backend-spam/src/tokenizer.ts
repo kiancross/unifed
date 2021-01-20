@@ -22,6 +22,8 @@ export class Tokenizer {
     text = text.toLowerCase();
     return text
       .replace(/[\\.,/#!$%^&*;:{}=\-_`~()]/g, "")
+      .replace(/[0-9]+/g, "<<!!__NUMBER__!!>>")
+      .replace(/[^\x00-\x7F]/g, "") // eslint-disable-line no-control-regex
       .replace(/\s{2,}/g, " ")
       .split(" ");
   }
@@ -38,7 +40,11 @@ export class Tokenizer {
 
     Object.entries(wordCounts)
       .sort((a: [string, number], b: [string, number]) => b[1] - a[1])
-      .forEach(([word], i) => (this.wordIndex[word] = i + 1 > this.vocabSize - 1 ? 0 : i + 1));
+      .forEach(([word], i) => {
+        if (i + 1 < this.vocabSize) {
+          this.wordIndex[word] = i + 1;
+        }
+      });
   }
 
   textToSequence(text: string): Sequence {

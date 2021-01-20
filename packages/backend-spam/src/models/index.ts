@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { model } from "./dense";
+import { model } from "./twilio-dense";
 import { EarlyStopping, History, Tensor } from "@tensorflow/tfjs-node-gpu";
 import { epochs, patience } from "../constants";
 

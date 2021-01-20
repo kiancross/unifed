@@ -13,7 +13,11 @@ import { vocabSize, tokenizerImportPath, modelImportPath } from "./constants";
   await tokenizer.load(tokenizerImportPath);
 
   const sentencesTensor = getSentencesTensor(
-    ["The dog is in the garden.", "Contact our HR firm to earn money from home."],
+    [
+      "The dog is in the garden.",
+      "Contact our HR firm to earn money from home.",
+      "You have won a prize!",
+    ],
     tokenizer,
   );
 
