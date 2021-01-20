@@ -18,9 +18,6 @@ function padSequence(sequence: Sequence, maxLength: number): void {
 
 export function getSentencesTensor(sentences: string[], tokenizer: Tokenizer): Tensor {
   const sequences = sentences.map((sentence) => tokenizer.textToSequence(sentence));
-
-  console.log(sequences);
-
   sequences.forEach((sequence) => padSequence(sequence, maxSequenceLength));
 
   return tidy(() => {

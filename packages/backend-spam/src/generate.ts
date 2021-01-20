@@ -2,17 +2,11 @@
  * CS3099 Group A3
  */
 
-import { model } from "./model";
+import { model, fitModel } from "./model";
 import { Tokenizer } from "./tokenizer";
 import { getData, flattenMessages, ratioSplitMessages } from "./data";
 import { getSentencesTensor, getLabelsTensor } from "./tensor";
-import {
-  vocabSize,
-  trainingRatio,
-  epochs,
-  modelExportPath,
-  tokenizerExportPath,
-} from "./constants";
+import { vocabSize, trainingRatio, modelExportPath, tokenizerExportPath } from "./constants";
 
 (async () => {
   const data = await getData();
@@ -31,10 +25,12 @@ import {
   const testingSentencesTensor = getSentencesTensor(testingMapping.sentences, tokenizer);
   const testingLabelsTensor = getLabelsTensor(testingMapping.labels);
 
-  await model.fit(trainingSentencesTensor, trainingLabelsTensor, {
-    epochs,
-    validationData: [testingSentencesTensor, testingLabelsTensor],
-  });
+  await fitModel(
+    trainingSentencesTensor,
+    trainingLabelsTensor,
+    testingSentencesTensor,
+    testingLabelsTensor,
+  );
 
   await model.save(`file://${modelExportPath}`);
   await tokenizer.save(tokenizerExportPath);
