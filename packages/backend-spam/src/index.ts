@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { loadLayersModel } from "@tensorflow/tfjs-node";
+import { loadLayersModel } from "@tensorflow/tfjs-node-gpu";
 import { Tokenizer } from "./tokenizer";
 import { getSentencesTensor } from "./tensor";
 import { vocabSize, tokenizerImportPath, modelImportPath } from "./constants";

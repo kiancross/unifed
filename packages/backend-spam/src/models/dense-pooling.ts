@@ -5,7 +5,14 @@
 // Model taken from:
 // https://towardsdatascience.com/nlp-detecting-spam-messages-with-tensorflow-part-ii-77826c8f1abf
 
-import { EarlyStopping, History, Tensor, layers, sequential, train } from "@tensorflow/tfjs-node";
+import {
+  EarlyStopping,
+  History,
+  Tensor,
+  layers,
+  sequential,
+  train,
+} from "@tensorflow/tfjs-node-gpu";
 import { epochs, vocabSize, embeddingDimension, maxSequenceLength } from "../constants";
 
 export const model = sequential();

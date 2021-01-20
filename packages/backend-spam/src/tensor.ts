@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { tensor2d, tidy, Tensor } from "@tensorflow/tfjs-node";
+import { tensor2d, tidy, Tensor } from "@tensorflow/tfjs-node-gpu";
 import { Sequence, Tokenizer } from "./tokenizer";
 import { maxSequenceLength } from "./constants";
 

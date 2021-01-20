@@ -3,7 +3,7 @@
  */
 
 import { model } from "./ltsm";
-import { EarlyStopping, History, Tensor } from "@tensorflow/tfjs-node";
+import { EarlyStopping, History, Tensor } from "@tensorflow/tfjs-node-gpu";
 import { epochs } from "../constants";
 
 export { model };

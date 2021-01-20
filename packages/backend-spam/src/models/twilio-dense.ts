@@ -5,7 +5,7 @@
 // Model taken from:
 // https://www.twilio.com/blog/spam-deep-learning-detection-sms-keras-python-twilio
 
-import { layers, sequential, train } from "@tensorflow/tfjs-node";
+import { layers, sequential, train } from "@tensorflow/tfjs-node-gpu";
 import { vocabSize, embeddingDimension, maxSequenceLength } from "../constants";
 
 export const model = sequential();

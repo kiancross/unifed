@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { util } from "@tensorflow/tfjs-node";
+import { util } from "@tensorflow/tfjs-node-gpu";
 import { SmsParser, EnronParser, SpamAssasinParser, Message, mergeMessageSets } from "./parsers";
 
 export interface SentenceMapping {
