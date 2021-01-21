@@ -5,55 +5,63 @@
 // Derived from
 // https://gist.github.com/dlebech/5bbabaece36753f8a29e7921d8e5bfc7
 
-import test from "ava";
-import Tokenizer from "./tokenizer";
+import rawTest, { TestInterface } from "ava";
+import { Tokenizer } from "../tokenizer";
 
-test("should respect the lower flag", (t) => {
-  const texts = ["hello hello Hello"];
+interface Context {
+  tokenizer: Tokenizer;
+}
 
-  // Test the default assumption
-  let tokenizer = new Tokenizer();
-  tokenizer.fitOnTexts(texts);
-  expect(tokenizer.wordIndex).toEqual({ hello: 1 });
+const test = rawTest as TestInterface<Context>;
 
-  // Test the lowercase flag
-  tokenizer = new Tokenizer({ lower: false });
-  tokenizer.fitOnTexts(texts);
-  expect(tokenizer.wordIndex).toEqual({ hello: 1, Hello: 2 });
+test.beforeEach((t) => {
+  t.context.tokenizer = new Tokenizer(10000);
 });
 
-it("should tokenize texts and store metadata for the texts", () => {
-  const tokenizer = new Tokenizer();
-  const texts = [
-    "hello hello .,/#!$%^&*;:{}= \\ -_`~() hello Hello world world world",
-    "great success .,/#!$%^&*;:{}=\\-_`~()   Success",
-  ];
-  tokenizer.fitOnTexts(texts);
-  const sequences = tokenizer.textsToSequences(texts);
+test("fitOnTexts empty", (t) => {
+  const tokenizer = t.context.tokenizer;
 
-  expect(tokenizer.wordIndex).toEqual({
-    hello: 1,
-    world: 2,
-    success: 3,
-    great: 4,
-  });
+  tokenizer.fitOnTexts([]);
 
-  expect(tokenizer.indexWord).toEqual({
-    1: "hello",
-    2: "world",
-    3: "success",
-    4: "great",
-  });
+  t.deepEqual(tokenizer.wordIndex, {});
+});
 
-  expect(tokenizer.wordCounts).toEqual({
-    hello: 4,
-    world: 3,
-    success: 2,
-    great: 1,
-  });
+test("fitOnTexts number", (t) => {
+  const tokenizer = t.context.tokenizer;
 
-  expect(sequences).toEqual([
-    [1, 1, 1, 1, 2, 2, 2],
-    [4, 3, 3],
-  ]);
+  tokenizer.fitOnTexts(["00112233445566778899"]);
+
+  t.deepEqual(tokenizer.wordIndex, { "<<!!__NUMBER__!!>>": 1 });
+});
+
+test("fitOnTexts url with protocol", (t) => {
+  const tokenizer = t.context.tokenizer;
+
+  tokenizer.fitOnTexts(["http://test.com"]);
+
+  t.deepEqual(tokenizer.wordIndex, { "<<!!__URL__!!>>": 1 });
+});
+
+test("fitOnTexts url with protocol and path", (t) => {
+  const tokenizer = t.context.tokenizer;
+
+  tokenizer.fitOnTexts(["http://test.com/foo"]);
+
+  t.deepEqual(tokenizer.wordIndex, { "<<!!__URL__!!>>": 1 });
+});
+
+test("fitOnTexts url without protocol", (t) => {
+  const tokenizer = t.context.tokenizer;
+
+  tokenizer.fitOnTexts(["test.com"]);
+
+  t.deepEqual(tokenizer.wordIndex, { "<<!!__URL__!!>>": 1 });
+});
+
+test("fitOnTexts url without protocol and path", (t) => {
+  const tokenizer = t.context.tokenizer;
+
+  tokenizer.fitOnTexts(["test.com/foo"]);
+
+  t.deepEqual(tokenizer.wordIndex, { "<<!!__URL__!!>>": 1 });
 });
