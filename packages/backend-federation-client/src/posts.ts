@@ -60,4 +60,8 @@ export class PostsService {
 
     return post;
   }
+
+  async delete(host: string, id: string): Promise<void> {
+    await got.delete(getFederatedApiEndpoint(host, ["posts", id]));
+  }
 }
