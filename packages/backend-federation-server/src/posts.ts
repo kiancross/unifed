@@ -91,8 +91,8 @@ router.put("/:id", getPost, (_, res) => {
   res.status(501);
 });
 
-router.delete("/:id", getPost, (_, res) => {
-  res.status(501);
+router.delete("/:id", getPost, async (_, res) => {
+  await res.locals.post.delete();
 });
 
 export { router as routes };
