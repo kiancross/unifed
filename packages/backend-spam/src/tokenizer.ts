@@ -20,14 +20,19 @@ export class Tokenizer {
 
   private cleanText(text: string): string[] {
     text = text.toLowerCase();
-    return text
-      .replace(/[\\.,/#!$%^&*;:{}=\-_`~()]/g, "")
-      .replace(/[^\x00-\x7F]/g, "") // eslint-disable-line no-control-regex
-      .replace(/[0-9]+/g, "<<!!__NUMBER__!!>>")
-      // Taken from https://stackoverflow.com/a/3809435/3250233
-      .replace(/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g, "<<!!__URL__!!>>")
-      .replace(/\s{2,}/g, " ")
-      .split(" ");
+    return (
+      text
+        .replace(/[\\.,/#!$%^&*;:{}=\-_`~()]/g, "")
+        .replace(/[^\x00-\x7F]/g, "") // eslint-disable-line no-control-regex
+        .replace(/[0-9]+/g, "<<!!__NUMBER__!!>>")
+        // Taken from https://stackoverflow.com/a/3809435/3250233
+        .replace(
+          /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/g,
+          "<<!!__URL__!!>>",
+        )
+        .replace(/\s{2,}/g, " ")
+        .split(" ")
+    );
   }
 
   fitOnTexts(texts: string[]): void {
