@@ -23,3 +23,12 @@ test("getPosts none", async (t) => {
 
   scope.done();
 });
+
+test("deletePost", async (t) => {
+  const scope = nock("http://deletePost").delete("/fed/posts/foo").reply(200);
+
+  await postsService.delete("deletePost", "foo");
+
+  t.pass();
+  scope.done();
+});
