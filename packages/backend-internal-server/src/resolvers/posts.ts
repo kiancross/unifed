@@ -39,6 +39,13 @@ export class PostsResolver implements ResolverInterface<Post> {
     );
   }
 
+  @AuthoriseUser()
+  @Mutation(() => Boolean)
+  async deletePost(@Arg("post") post: RemoteReferenceInput): Promise<boolean> {
+    await this.postsService.delete(await translateHost(post.host), post.id);
+    return true;
+  }
+
   @Query(() => [Post])
   async getPosts(@Arg("community") community: RemoteReferenceInput): Promise<Post[]> {
     return await this.postsService.getByCommunity(

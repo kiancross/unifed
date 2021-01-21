@@ -21,6 +21,7 @@ export class PostsService {
             contentType: "markdown",
             author: {
               id: user.username,
+              host: host,
             },
           },
         })
@@ -59,5 +60,9 @@ export class PostsService {
     post.host = host;
 
     return post;
+  }
+
+  async delete(host: string, id: string): Promise<void> {
+    await got.delete(getFederatedApiEndpoint(host, ["posts", id]));
   }
 }
