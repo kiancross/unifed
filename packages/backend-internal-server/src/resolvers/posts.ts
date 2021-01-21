@@ -52,6 +52,11 @@ export class PostsResolver implements ResolverInterface<Post> {
     return await this.postsService.getById(await translateHost(post.host), post.id);
   }
 
+  @Query()
+  async deletePost(@Arg("post") post: RemoteReferenceInput): Promise<void> {
+    return await this.postsService.delete(await translateHost(post.host), post.id);
+  }
+
   @FieldResolver()
   async children(@Root() post: Post): Promise<Post[]> {
     if (post.host === undefined) {
