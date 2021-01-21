@@ -92,6 +92,7 @@ router.put("/:id", getPost, (_, res) => {
 });
 
 router.delete("/:id", getPost, async (_, res) => {
+  // TODO Check user
   await res.locals.post.delete();
 });
 

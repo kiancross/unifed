@@ -21,6 +21,7 @@ export class PostsService {
             contentType: "markdown",
             author: {
               id: user.username,
+              host: host,
             },
           },
         })
