@@ -15,7 +15,7 @@ import { Service } from "typedi";
 import { CurrentUser } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
 import { Post, User } from "@unifed/backend-core";
-import { CreatePostInput, RemoteReferenceInput } from "./inputs";
+import { CreatePostInput, UpdatePostInput, RemoteReferenceInput } from "./inputs";
 import { translateHost } from "./helpers";
 import { PostsService } from "@unifed/backend-federation-client";
 
@@ -43,6 +43,21 @@ export class PostsResolver implements ResolverInterface<Post> {
   @Mutation(() => Boolean)
   async deletePost(@Arg("post") post: RemoteReferenceInput): Promise<boolean> {
     await this.postsService.delete(await translateHost(post.host), post.id);
+    return true;
+  }
+
+  @AuthoriseUser()
+  @Mutation(() => Boolean)
+  async updatePost(
+    @Arg("post") post: RemoteReferenceInput,
+    @Arg("content") content: UpdatePostInput,
+  ): Promise<boolean> {
+    await this.postsService.update(
+      await translateHost(post.host),
+      post.id,
+      content.title,
+      content.body,
+    );
     return true;
   }
 
