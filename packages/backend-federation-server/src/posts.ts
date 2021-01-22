@@ -3,9 +3,20 @@
  */
 
 import { plainToClass } from "class-transformer";
+import { DocumentType } from "@typegoose/typegoose";
 import { Response, Request, NextFunction, json as jsonBodyParser } from "express";
 import { AsyncRouter } from "express-async-router";
 import { Post, PostModel, CommunityModel } from "@unifed/backend-core";
+
+interface Locals {
+  post: DocumentType<Post>;
+}
+
+declare module "express" {
+  export interface Response {
+    locals: Locals;
+  }
+}
 
 async function getPost(req: Request, res: Response, next: NextFunction) {
   const post = await PostModel.findById(req.params.id);
@@ -87,13 +98,21 @@ router.get("/:id", getPost, async (_, res) => {
   res.json(await res.locals.post.populate("children").execPopulate());
 });
 
-router.put("/:id", getPost, (_, res) => {
-  res.status(501);
+router.put("/:id", getPost, async (req, res) => {
+  // TODO Check user
+  const postRaw = req.body;
+  postRaw.author = res.locals.post.author;
+  postRaw.community = res.locals.post.community;
+  postRaw.parentPost = res.locals.post.parentPost;
+
+  const post = plainToClass(Post, postRaw as Post);
+
+  await res.locals.post.updateOne(post);
 });
 
 router.delete("/:id", getPost, async (_, res) => {
   // TODO Check user
-  await res.locals.post.delete();
+  await res.locals.post.deleteOne();
 });
 
 export { router as routes };
