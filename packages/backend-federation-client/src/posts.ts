@@ -65,4 +65,13 @@ export class PostsService {
   async delete(host: string, id: string): Promise<void> {
     await got.delete(getFederatedApiEndpoint(host, ["posts", id]));
   }
+
+  async update(host: string, id: string, title: string, body: string): Promise<void> {
+    await got.put(getFederatedApiEndpoint(host, ["posts", id]), {
+      json: {
+        title,
+        body,
+      },
+    });
+  }
 }
