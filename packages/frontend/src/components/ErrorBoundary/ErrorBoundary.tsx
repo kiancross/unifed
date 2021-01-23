@@ -1,7 +1,7 @@
 // Makes use of https://reactjs.org/docs/error-boundaries.html
 
 import React, { ErrorInfo } from "react";
-import ErrorPage from "../../pages/ErrorPage/ErrorPage";
+import ErrorPage from "../../pages/ErrorPage";
 
 interface PropsType {
   hasError?: boolean;
@@ -17,13 +17,13 @@ class ErrorBoundary extends React.Component<PropsType, StateTypes> {
     this.state = { hasError: false };
   }
 
-  componentDidCatch(error: Error, info: ErrorInfo) {
+  componentDidCatch(error: Error, info: ErrorInfo): void {
     console.log(error);
     console.log(info);
     this.setState({ hasError: true });
   }
 
-  render() {
+  render(): React.ReactNode {
     if (this.state.hasError) {
       return (
         <ErrorPage message="Something went wrong. Please try again and let us know if the problem persists" />
