@@ -4268,6 +4268,7 @@ __metadata:
   resolution: "@unifed/backend-federation-server@workspace:packages/backend-federation-server"
   dependencies:
     "@istanbuljs/nyc-config-typescript": ^1.0.1
+    "@typegoose/typegoose": ^7.4.8
     "@types/express": 4.17.11
     "@types/mongoose": ^5.10.3
     "@types/node": ^14.14.21
