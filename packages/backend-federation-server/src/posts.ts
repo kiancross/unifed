@@ -3,11 +3,20 @@
  */
 
 import { plainToClass } from "class-transformer";
+import { DocumentType } from "@typegoose/typegoose";
 import { Response, Request, NextFunction, json as jsonBodyParser } from "express";
 import { AsyncRouter } from "express-async-router";
 import { Post, PostModel, CommunityModel } from "@unifed/backend-core";
 
-async function getPost(req: Request, res: Response, next: NextFunction) {
+interface Locals {
+  post: DocumentType<Post>;
+}
+
+interface CustomResponse extends Response {
+  locals: Locals;
+}
+
+async function getPost(req: Request, res: CustomResponse, next: NextFunction) {
   const post = await PostModel.findById(req.params.id);
 
   if (post === null) {
@@ -87,13 +96,18 @@ router.get("/:id", getPost, async (_, res) => {
   res.json(await res.locals.post.populate("children").execPopulate());
 });
 
-router.put("/:id", getPost, (_, res) => {
-  res.status(501);
+router.put("/:id", getPost, async (req, res) => {
+  // TODO Check user
+
+  res.locals.post.title = req.body.title;
+  res.locals.post.body = req.body.body;
+
+  await res.locals.post.save();
 });
 
 router.delete("/:id", getPost, async (_, res) => {
   // TODO Check user
-  await res.locals.post.delete();
+  await res.locals.post.deleteOne();
 });
 
 export { router as routes };

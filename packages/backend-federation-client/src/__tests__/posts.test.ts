@@ -32,3 +32,12 @@ test("deletePost", async (t) => {
   t.pass();
   scope.done();
 });
+
+test("updatePost", async (t) => {
+  const scope = nock("http://updatePost").put("/fed/posts/foo").reply(200);
+
+  await postsService.update("updatePost", "foo", "title", "body");
+
+  t.pass();
+  scope.done();
+});
