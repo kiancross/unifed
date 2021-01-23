@@ -9,7 +9,6 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-d
 import { accountsClient } from "../../helpers/accounts";
 import AccountSettingsPage from "../../pages/AccountSettingsPage";
 import LoginPage from "../../pages/LoginPage";
-import PageNotFoundPage from "../../pages/PageNotFoundPage";
 import RegistrationPage from "../../pages/RegistrationPage";
 import EmailVerificationPage from "../../pages/EmailVerificationPage";
 import CommunityPostsPage from "../../pages/CommunityPostsPage";
@@ -20,6 +19,7 @@ import PasswordResetRequestPage from "../../pages/PasswordResetRequestPage";
 import PasswordResetPage from "../../pages/PasswordResetPage";
 import Header from "../../components/Header";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
+import ErrorPage from "../../pages/ErrorPage";
 
 const App = (): JSX.Element => {
   const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
@@ -97,7 +97,7 @@ const App = (): JSX.Element => {
             >
               {!loggedIn ? redirectLogin : null}
             </Route>
-            <Route component={PageNotFoundPage} />
+            <Route component={() => <ErrorPage message="404 Page Not Found" />} />
           </Switch>
         </Box>
       </Router>

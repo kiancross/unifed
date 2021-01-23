@@ -1,6 +1,7 @@
+// Makes use of https://reactjs.org/docs/error-boundaries.html
+
 import React, { ErrorInfo } from "react";
-import { Button, Container, Typography } from "@material-ui/core";
-import styles from "./ErrorBoundary.module.scss";
+import ErrorPage from "../../pages/ErrorPage/ErrorPage";
 
 interface PropsType {
   hasError?: boolean;
@@ -25,14 +26,7 @@ class ErrorBoundary extends React.Component<PropsType, StateTypes> {
   render() {
     if (this.state.hasError) {
       return (
-        <Container className={styles.container}>
-          <Typography variant="h6" gutterBottom>
-            Something went wrong. Please try again and if the problem persists let us know!
-          </Typography>
-          <Button color="primary" variant="contained" href="/">
-            Return Home
-          </Button>
-        </Container>
+        <ErrorPage message="Something went wrong. Please try again and let us know if the problem persists" />
       );
     }
     return this.props.children;
