@@ -30,7 +30,7 @@ class ErrorBoundary extends React.Component<PropsType, StateTypes> {
   render(): React.ReactNode {
     if (this.state.hasError) {
       return (
-        <ErrorPage message="Something went wrong. Please try again and let us know if the problem persists" />
+        <ErrorPage message="Something went wrong. Please try again and let us know if the problem persists." />
       );
     }
     return this.props.children;
