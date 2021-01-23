@@ -3,10 +3,19 @@
  */
 
 import { Response, Request, NextFunction } from "express";
+import { DocumentType, isDocumentArray } from "@typegoose/typegoose";
 import { AsyncRouter } from "express-async-router";
-import { CommunityModel, Post } from "@unifed/backend-core";
+import { Community, CommunityModel, Post } from "@unifed/backend-core";
 
-async function getCommunity(req: Request, res: Response, next: NextFunction) {
+interface CustomLocals {
+  community: DocumentType<Community>;
+}
+
+interface CustomResponse extends Response {
+  locals: CustomLocals;
+}
+
+async function getCommunity(req: Request, res: CustomResponse, next: NextFunction) {
   const community = await CommunityModel.findById(req.params.id);
 
   if (community === null) {
@@ -31,16 +40,20 @@ router.get("/:id", getCommunity, (_, res) => {
 });
 
 router.get("/:id/timestamps", getCommunity, async (_, res) => {
-  const populatedCommunity = await res.locals.community.populate("posts").execPopulate();
+  await res.locals.community.populate("posts").execPopulate();
 
-  res.json(
-    populatedCommunity.posts?.map((post: Post) => {
-      return {
-        id: post.id,
-        modified: post.updatedAtUnixTimestamp,
-      };
-    }),
-  );
+  if (isDocumentArray(res.locals.community.posts)) {
+    res.json(
+      res.locals.community.posts.map((post: Post) => {
+        return {
+          id: post.id,
+          modified: post.updatedAtUnixTimestamp,
+        };
+      }),
+    );
+  } else {
+    throw new Error("Failed to populate");
+  }
 });
 
 export { router as routes };

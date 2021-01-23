@@ -9,7 +9,7 @@ import { routes } from "./routes";
 export const app = express();
 
 app.use(function (req, _, next) {
-  logger.debug(`Received request: ${req.path}`);
+  logger.debug(`Received request: ${req.method} ${req.path}`);
   next();
 });
 
