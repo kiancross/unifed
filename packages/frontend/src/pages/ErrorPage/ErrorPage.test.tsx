@@ -7,5 +7,5 @@ test("Renders Error Message", () => {
   const message = "Test Message";
   const { getByText } = render(<ErrorPage message={message} />);
 
-  expect(getByText("Test Message")).not.toBeNull();
+  getByText("Test Message");
 });
