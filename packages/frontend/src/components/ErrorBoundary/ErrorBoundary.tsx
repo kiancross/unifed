@@ -1,3 +1,7 @@
+/*
+ * CS3099 Group A3
+ */
+
 // Makes use of https://reactjs.org/docs/error-boundaries.html
 
 import React, { ErrorInfo } from "react";
