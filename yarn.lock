@@ -4416,6 +4416,7 @@ __metadata:
     eslint-plugin-react-hooks: ^4.2.0
     formik: ^2.2.6
     graphql: ^15.4.0
+    identity-obj-proxy: ^3.0.0
     katex: ^0.12.0
     prettier: ^2.2.1
     react: ^17.0.1
@@ -11259,7 +11260,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"identity-obj-proxy@npm:3.0.0":
+"identity-obj-proxy@npm:3.0.0, identity-obj-proxy@npm:^3.0.0":
   version: 3.0.0
   resolution: "identity-obj-proxy@npm:3.0.0"
   dependencies:
