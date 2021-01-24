@@ -5,7 +5,7 @@ import Popup from "./Popup";
 
 test("Popup renders", () => {
   const message = "Test Message";
-  const { getByText } = render(<Popup message={message} open={true} />);
+  const { getByText } = render(<Popup message={message} />);
 
   getByText("Test Message");
 });
