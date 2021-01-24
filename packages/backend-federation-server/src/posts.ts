@@ -6,7 +6,7 @@ import { plainToClass } from "class-transformer";
 import { DocumentType } from "@typegoose/typegoose";
 import { Response, Request, NextFunction, json as jsonBodyParser } from "express";
 import { AsyncRouter } from "express-async-router";
-import { Post, PostModel, CommunityModel } from "@unifed/backend-core";
+import { Post, PostModel } from "@unifed/backend-core";
 
 interface Locals {
   post: DocumentType<Post>;
@@ -70,22 +70,6 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   const postRaw = req.body;
   const post = plainToClass(Post, postRaw as Post);
-
-  const parentPost = await PostModel.findById(postRaw.parent);
-
-  if (parentPost) {
-    post.community = parentPost.community;
-    post.parentPost = parentPost;
-  } else {
-    const community = await CommunityModel.findById(postRaw.parent);
-
-    if (community) {
-      post.community = community;
-    } else {
-      res.status(400).json({ error: "Invalid field: 'parent'" });
-      return;
-    }
-  }
 
   // TODO validate
 

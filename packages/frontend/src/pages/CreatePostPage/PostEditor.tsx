@@ -21,7 +21,7 @@ const PostEditor = (props: Params): ReactElement => {
 
   const MAKE_POST = gql`
     mutation CREATE_POST($title: String!, $body: String!, $community: String!, $host: String!) {
-      createPost(post: { parent: { id: $community, host: $host }, title: $title, body: $body }) {
+      createPost(post: { community: { id: $community, host: $host }, title: $title, body: $body }) {
         id
       }
     }
