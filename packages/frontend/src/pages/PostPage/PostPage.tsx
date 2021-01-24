@@ -20,7 +20,7 @@ interface PostParams {
 }
 
 const PostPage = (): JSX.Element => {
-  const { post, server } = useParams<PostParams>();
+  const { post, server, community } = useParams<PostParams>();
 
   const GET_POST = gql`
     query GET_POST($id: String!, $host: String!) {
@@ -51,7 +51,12 @@ const PostPage = (): JSX.Element => {
       <Grid container spacing={3}>
         <Grid item container xs={8} direction="column" spacing={2}>
           <Post username={username} text={body} title={title} />
-          <CommentEditor parentId={post} parentTitle={title} server={server} />
+          <CommentEditor
+            parentId={post}
+            parentTitle={title}
+            server={server}
+            community={community}
+          />
           <Comments parentId={post} server={server} />
         </Grid>
 

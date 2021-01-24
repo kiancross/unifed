@@ -9,5 +9,8 @@ import { UpdatePostInput } from "./update-post";
 @InputType()
 export class CreatePostInput extends UpdatePostInput {
   @Field(() => RemoteReferenceInput)
-  parent!: RemoteReferenceInput;
+  community!: RemoteReferenceInput;
+
+  @Field({ nullable: true })
+  parentPost!: string;
 }
