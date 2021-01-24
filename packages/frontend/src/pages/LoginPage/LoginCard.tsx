@@ -41,7 +41,8 @@ function validate({ email, password }: Values) {
 
 const LoginCard = (props: LoginProps): JSX.Element => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [displayLoginError, setDisplayLoginError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const loginErrorMessage = "The email address and/or password you have entered is incorrect";
 
   if (isLoggedIn) {
     props.onLogin();
@@ -63,10 +64,10 @@ const LoginCard = (props: LoginProps): JSX.Element => {
               loginUser(values)
                 .then((res) => {
                   if (res) setIsLoggedIn(true);
-                  else setDisplayLoginError(true);
+                  else setErrorMessage(loginErrorMessage);
                 })
                 .catch(() => {
-                  setDisplayLoginError(true);
+                  setErrorMessage(loginErrorMessage);
                 });
             }}
           >
@@ -122,10 +123,7 @@ const LoginCard = (props: LoginProps): JSX.Element => {
           </BrowserRouter>
         </CardContent>
       </Card>
-      <Popup
-        message="The email address and/or password you have entered is incorrect"
-        open={displayLoginError}
-      />
+      <Popup message={errorMessage} />
     </div>
   );
 };
