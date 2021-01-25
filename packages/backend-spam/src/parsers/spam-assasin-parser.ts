@@ -12,14 +12,8 @@ export class SpamAssasinParser extends Parser {
   }
 
   private async getBody(data: string): Promise<string | undefined> {
-    return new Promise((resolve, reject) => {
-      simpleParser(data, (error, email) => {
-        if (error) {
-          return reject(error);
-        }
-
-        resolve(email.text);
-      });
+    return new Promise((resolve) => {
+      simpleParser(data, (_, email) => resolve(email.text));
     });
   }
 
@@ -29,12 +23,12 @@ export class SpamAssasinParser extends Parser {
     for await (const file of readZipFile(this.path)) {
       const body = await this.getBody(file.data);
 
-      if (body === undefined || !(file.path.includes("ham") && file.path.includes("spam"))) {
+      if (body === undefined) {
         continue;
       }
 
       messages.push({
-        body,
+        body: body.trim(),
         spam: file.path.includes("spam"),
       });
     }
