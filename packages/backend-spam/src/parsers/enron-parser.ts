@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { Parser } from "./parser";
+import { Parser, InvalidFileError } from "./parser";
 import { Message, readZipFile } from "./helpers";
 
 export class EnronParser extends Parser {
@@ -17,11 +17,15 @@ export class EnronParser extends Parser {
       const line = lines[i];
 
       if (line.startsWith("Subject:")) {
-        return lines.splice(i + 1).join("\n");
+        return lines
+          .splice(i + 1)
+          .map((line) => line.trim())
+          .filter((line) => !!line)
+          .join("\n");
       }
     }
 
-    throw new Error("Email has no body: " + data);
+    throw new InvalidFileError();
   }
 
   private async parse(): Promise<Message[]> {
