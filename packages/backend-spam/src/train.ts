@@ -78,6 +78,7 @@ async function trainModels(
   for (const trainedModel of trainedModels) {
     const path = getModelPath(trainedModel.name);
 
+    await fs.mkdir(constants.modelsPath);
     await trainedModel.model.save(`file://${path}`);
     await fs.writeFile(`${path}/${constants.historyName}`, JSON.stringify(trainedModel.history));
     await fs.writeFile(`${path}/${constants.configName}`, JSON.stringify(config));
