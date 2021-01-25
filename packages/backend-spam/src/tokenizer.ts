@@ -19,6 +19,8 @@ export class Tokenizer {
   constructor(private readonly vocabSize: number) {}
 
   private cleanText(text: string): string[] {
+    const urlToken = "\x80";
+
     return (
       text
         .toLowerCase()
@@ -26,10 +28,11 @@ export class Tokenizer {
         // Taken from https://stackoverflow.com/a/3809435/3250233
         .replace(
           /(?:https?:\/\/)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b[-a-zA-Z0-9()@:%_+.~#?&//=]*/g,
-          "",
+          urlToken,
         )
         .replace(/[\\.,/#!$%^&*;:{}=\-_`~()]/g, "")
         .replace(/[0-9]+/g, "<<!!__NUMBER__!!>>")
+        .replace(urlToken, "<<!!__URL__!!>>")
         .replace(/\s{2,}/g, " ")
         .split(" ")
     );
