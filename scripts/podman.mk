@@ -62,11 +62,11 @@ devdb:
 
 .PHONY: train
 train:
-	@echo "Training is not supported on Podman"
+	>&2 @echo "Training is not supported on Podman"
 
 .PHONY: train-build
 train-build:
-	@echo "Training is not supported on Podman"
+	>&2 @echo "Training is not supported on Podman"
 
 .PHONY: yarn-install
 yarn-install:
