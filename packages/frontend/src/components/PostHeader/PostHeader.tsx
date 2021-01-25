@@ -2,13 +2,27 @@ import React from "react";
 import style from "./PostHeader.module.scss";
 import { CardHeader, IconButton, Menu, MenuItem, Typography, Link } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import { gql, useMutation } from "@apollo/client";
+import CenteredLoader from "../CenteredLoader";
+//import ErrorPage from "../../pages/ErrorPage";
+import { Redirect } from "react-router";
 
 interface PropsTypes {
   username: string;
+  id: string;
+  host: string;
 }
 
 const PostHeader = (props: PropsTypes): JSX.Element => {
   const [anchorEl, setAnchorEl] = React.useState<(EventTarget & Element) | null>(null);
+
+  const DELETE_POST = gql`
+    mutation($id: String!, $host: String!) {
+      deletePost(post: { id: $id, host: $host })
+    }
+  `;
+
+  const [deletePost] = useMutation(DELETE_POST);
 
   const handleClick = (e: React.MouseEvent) => {
     setAnchorEl(e.currentTarget);
@@ -25,12 +39,17 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
     handleClose();
   };
 
+  //fix redirect
   const handleDelete = () => {
-    //call mutation using id and host
-    //delete comments?
-    //go to community page
-    console.log("delete");
-    handleClose();
+    deletePost({ variables: { id: props.id, host: props.host } }).then((data) => {
+      if (data) {
+        console.log("here");
+        return <Redirect to="/" />;
+      } else {
+        console.log("Eroor");
+        return <CenteredLoader />;
+      }
+    });
   };
 
   return (
