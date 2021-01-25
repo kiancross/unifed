@@ -12,16 +12,18 @@ export class PostsService {
   async create(
     host: string,
     user: User,
-    parent: string,
+    community: string,
     title: string,
     body: string,
+    parentPost?: string,
   ): Promise<Post | null> {
     const httpClient = new FederationHttpClient(host);
 
     try {
       const rawPost: Post = await httpClient.post("posts", {
         json: {
-          parent,
+          community,
+          parentPost,
           title,
           body,
           contentType: "markdown",
