@@ -4,7 +4,7 @@ import { CardHeader, IconButton, Menu, MenuItem, Typography, Link } from "@mater
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { gql, useMutation } from "@apollo/client";
 import CenteredLoader from "../CenteredLoader";
-//import ErrorPage from "../../pages/ErrorPage";
+import ErrorPage from "../../pages/ErrorPage";
 import { Redirect } from "react-router";
 
 interface PropsTypes {
@@ -22,7 +22,10 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
     }
   `;
 
-  const [deletePost] = useMutation(DELETE_POST);
+  const [deletePost, { loading, data, error }] = useMutation(DELETE_POST);
+  if (loading) return <CenteredLoader />;
+  if (error) return <ErrorPage message="Post could not be deleted." />;
+  if (data) return <Redirect to="/" />;
 
   const handleClick = (e: React.MouseEvent) => {
     setAnchorEl(e.currentTarget);
@@ -39,17 +42,8 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
     handleClose();
   };
 
-  //fix redirect
   const handleDelete = () => {
-    deletePost({ variables: { id: props.id, host: props.host } }).then((data) => {
-      if (data) {
-        console.log("here");
-        return <Redirect to="/" />;
-      } else {
-        console.log("Eroor");
-        return <CenteredLoader />;
-      }
-    });
+    deletePost({ variables: { id: props.id, host: props.host } });
   };
 
   return (

@@ -47,18 +47,14 @@ const PostEditor = (props: Params): ReactElement => {
   const handleClick = (values: postValues) => {
     const title = values.title;
 
-    try {
-      makePost({
-        variables: {
-          title: title,
-          body: content,
-          community: props.community,
-          host: props.server,
-        },
-      });
-    } catch (e) {
-      alert("Post could not be made");
-    }
+    makePost({
+      variables: {
+        title: title,
+        body: content,
+        community: props.community,
+        host: props.server,
+      },
+    });
   };
 
   return (
