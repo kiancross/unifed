@@ -3,7 +3,8 @@
  */
 
 import test from "ava";
-import { SmsParser, InvalidFileError } from "../sms-parser";
+import { InvalidFileError } from "../parser";
+import { SmsParser } from "../sms-parser";
 
 test("Parse valid", async (t) => {
   const parser = new SmsParser(`${__dirname}/data/sms-valid.zip`);

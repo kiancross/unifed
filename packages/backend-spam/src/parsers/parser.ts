@@ -4,6 +4,8 @@
 
 import { Message } from "./helpers";
 
+export class InvalidFileError extends Error {}
+
 export abstract class Parser {
   abstract getMessages(): Promise<Message[]>;
 }

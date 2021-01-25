@@ -2,10 +2,8 @@
  * CS3099 Group A3
  */
 
-import { Parser } from "./parser";
+import { Parser, InvalidFileError } from "./parser";
 import { Message, readZipFile } from "./helpers";
-
-export class InvalidFileError extends Error {}
 
 export class SmsParser extends Parser {
   constructor(private path: string) {
