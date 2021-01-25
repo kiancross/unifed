@@ -60,6 +60,14 @@ devdb:
 		podman exec -i $$id /usr/bin/mongo admin -u "$$username" -p "$$password" --eval "$$(cat ../configs/mongo-dev.js)"; \
 	fi;
 
+.PHONY: train
+train:
+	@echo "Training is not supported on Podman"
+
+.PHONY: train-build
+train-build:
+	@echo "Training is not supported on Podman"
+
 .PHONY: yarn-install
 yarn-install:
 	yarn install

@@ -11,6 +11,7 @@ help:
 	@echo "    stop     Stop the application"
 	@echo "    reset    Reset the application's data files"
 	@echo "    logs     Output the log files from the application"
+	@echo "    train    Train an AI model"
 
 ifeq ($(shell which podman),)
 ifeq ($(shell which docker-compose),)
