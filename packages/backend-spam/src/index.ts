@@ -2,15 +2,30 @@
  * CS3099 Group A3
  */
 
+import { promises as fs } from "fs";
 import { loadLayersModel } from "@tensorflow/tfjs-node-gpu";
-import { Tokenizer } from "./tokenizer";
+import { Tokenizer, StringNumberMapping } from "./tokenizer";
 import { getSentencesTensor } from "./tensor";
-import { vocabSize, tokenizerImportPath, modelImportPath } from "./constants";
+import { Config } from "./config";
+import { getModelPath, constants } from "./constants";
+
+const modelName = "dense";
 
 (async () => {
-  const model = await loadLayersModel(`file://${modelImportPath}`);
-  const tokenizer = new Tokenizer(vocabSize);
-  await tokenizer.load(tokenizerImportPath);
+  const path = getModelPath(modelName);
+
+  const model = await loadLayersModel(`file://${path}/${constants.modelName}`);
+
+  const config: Config = JSON.parse(
+    (await fs.readFile(`${path}/${constants.configName}`)).toString(),
+  );
+
+  const tokenizerData: StringNumberMapping = JSON.parse(
+    (await fs.readFile(`${path}/${constants.tokenizerName}`)).toString(),
+  );
+
+  const tokenizer = new Tokenizer(config.vocabSize);
+  tokenizer.fromJSON(tokenizerData);
 
   const sentencesTensor = getSentencesTensor(
     [
@@ -21,6 +36,7 @@ import { vocabSize, tokenizerImportPath, modelImportPath } from "./constants";
       "Contact us to win",
     ],
     tokenizer,
+    config.maxSequenceLength,
   );
 
   const result = model.predict(sentencesTensor);

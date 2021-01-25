@@ -15,6 +15,7 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "moduleResolution": "node",
+    "types": ["node"],
     "lib": ["es2018", "esnext.asynciterable"],
     "sourceMap": true,
     "emitDecoratorMetadata": true,

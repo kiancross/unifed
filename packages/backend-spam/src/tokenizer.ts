@@ -2,14 +2,12 @@
  * CS3099 Group A3
  */
 
-import { promises as fs } from "fs";
-
 // Derived from
 // https://gist.github.com/dlebech/5bbabaece36753f8a29e7921d8e5bfc7
 
 export type Sequence = number[];
 
-interface StringNumberMapping {
+export interface StringNumberMapping {
   [key: string]: number;
 }
 
@@ -59,15 +57,6 @@ export class Tokenizer {
 
   textToSequence(text: string): Sequence {
     return this.cleanText(text).map((word) => this.wordIndex[word] || 0);
-  }
-
-  async save(path: string): Promise<void> {
-    await fs.writeFile(path, JSON.stringify(this));
-  }
-
-  async load(path: string): Promise<void> {
-    const data = (await fs.readFile(path)).toString();
-    this.fromJSON(JSON.parse(data));
   }
 
   fromJSON(wordIndex: StringNumberMapping): void {

@@ -4,7 +4,6 @@
 
 import { tensor2d, tidy, Tensor } from "@tensorflow/tfjs-node-gpu";
 import { Sequence, Tokenizer } from "./tokenizer";
-import { maxSequenceLength } from "./constants";
 
 function padSequence(sequence: Sequence, maxLength: number): void {
   const sequenceDelta = maxLength - sequence.length;
@@ -16,7 +15,11 @@ function padSequence(sequence: Sequence, maxLength: number): void {
   }
 }
 
-export function getSentencesTensor(sentences: string[], tokenizer: Tokenizer): Tensor {
+export function getSentencesTensor(
+  sentences: string[],
+  tokenizer: Tokenizer,
+  maxSequenceLength: number,
+): Tensor {
   const sequences = sentences.map((sentence) => tokenizer.textToSequence(sentence));
   sequences.forEach((sequence) => padSequence(sequence, maxSequenceLength));
 
