@@ -5,6 +5,8 @@
 import { Parser } from "./parser";
 import { Message, readZipFile } from "./helpers";
 
+export class InvalidFileError extends Error {}
+
 export class SmsParser extends Parser {
   constructor(private path: string) {
     super();
@@ -24,7 +26,7 @@ export class SmsParser extends Parser {
       const body = splitLine[1];
 
       if (!["ham", "spam"].includes(type)) {
-        throw new Error("Unrecognised SMS type");
+        throw new InvalidFileError();
       }
 
       messages.push({
@@ -40,7 +42,7 @@ export class SmsParser extends Parser {
     const file = (await readZipFile(this.path).next()).value;
 
     if (file.path !== "sms") {
-      throw new Error("Unexpected path in SMS zip file");
+      throw new InvalidFileError();
     }
 
     return this.parseData(file.data);
