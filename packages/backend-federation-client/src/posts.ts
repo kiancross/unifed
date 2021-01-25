@@ -10,17 +10,26 @@ import { Post, User } from "@unifed/backend-core";
 
 @Service()
 export class PostsService {
-  async create(host: string, user: User, parent: string, title: string, body: string) {
+  async create(
+    host: string,
+    user: User,
+    community: string,
+    title: string,
+    body: string,
+    parentPost?: string,
+  ): Promise<Post | null> {
     try {
       const rawPost = await got
         .post(getFederatedApiEndpoint(host, ["posts"]), {
           json: {
-            parent,
+            community,
+            parentPost,
             title,
             body,
             contentType: "markdown",
             author: {
               id: user.username,
+              host: host,
             },
           },
         })
@@ -59,5 +68,18 @@ export class PostsService {
     post.host = host;
 
     return post;
+  }
+
+  async delete(host: string, id: string): Promise<void> {
+    await got.delete(getFederatedApiEndpoint(host, ["posts", id]));
+  }
+
+  async update(host: string, id: string, title: string, body: string): Promise<void> {
+    await got.put(getFederatedApiEndpoint(host, ["posts", id]), {
+      json: {
+        title,
+        body,
+      },
+    });
   }
 }

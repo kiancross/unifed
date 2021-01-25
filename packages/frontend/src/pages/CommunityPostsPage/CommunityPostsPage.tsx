@@ -10,6 +10,7 @@ import PostPreview from "../../components/PostPreview";
 import CommunityDescription from "./CommunityDescription";
 import CommunityHeader from "./CommunityHeader";
 import CenteredLoader from "../../components/CenteredLoader";
+import ErrorPage from "../ErrorPage";
 
 interface Params {
   server: string;
@@ -43,7 +44,7 @@ const CommunityPostsPage = () => {
     },
   });
 
-  if (error) return <h1 style={{ color: "black" }}>Error! </h1>;
+  if (error) return <ErrorPage message="The posts from this community could not be retrieved." />;
   if (loading) return <CenteredLoader />;
 
   return (

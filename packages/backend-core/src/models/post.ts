@@ -5,20 +5,23 @@
 import { prop as Property, getModelForClass, Ref } from "@typegoose/typegoose";
 import { ObjectType, Field } from "type-graphql";
 import { dateToUnixTimestamp } from "./helpers";
-import { Base, getIdFromRef } from "./base";
+import { Base } from "./base";
+import { getIdFromRef } from "./helpers";
 import { Community } from "./community";
 import { RemoteReference } from "./remote-reference";
 
 @ObjectType()
 export class Post extends Base {
+  @Field(() => Community)
   @Property({ ref: "Community", type: String })
   community!: Ref<Community>;
 
+  @Field(() => Post, { nullable: true })
   @Property({ ref: "Post", type: String })
   parentPost?: Ref<Post>;
 
   @Field()
-  @Property({})
+  @Property()
   title!: string;
 
   @Field()
@@ -42,18 +45,19 @@ export class Post extends Base {
   })
   children?: Ref<Post>[];
 
-  get updatedAtUnixTimestamp() {
+  get updatedAtUnixTimestamp(): number | undefined {
     return this.updatedAt ? dateToUnixTimestamp(this.updatedAt) : undefined;
   }
 
-  get createdAtUnixTimestamp() {
+  get createdAtUnixTimestamp(): number | undefined {
     return this.createdAt ? dateToUnixTimestamp(this.createdAt) : undefined;
   }
 
   toJSON(): { [key: string]: any } {
     return {
       ...super.toJSON(),
-      parent: getIdFromRef(this.parentPost === undefined ? this.community : this.parentPost),
+      parentPost: getIdFromRef(this.parentPost),
+      community: getIdFromRef(this.community),
       children: (this.children || []).map(getIdFromRef),
       title: this.title,
       contentType: this.contentType,
