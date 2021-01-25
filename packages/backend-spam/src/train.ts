@@ -9,8 +9,9 @@ import { getData, flattenMessages, ratioSplitMessages } from "./data";
 import { getSentencesTensor, getLabelsTensor } from "./tensor";
 import { defaultConfig as config } from "./config";
 import { getModelPath, constants } from "./constants";
+import { getLengthFrequencies, arrayToCsv } from "./helpers";
 
-type NamedTrainedModel = TrainedModel & { name: string };
+type NamedTrainedModel = TrainedModel & { name: string; sentences: string[] };
 
 async function trainModels(
   modelNames: string[],
@@ -55,7 +56,7 @@ async function trainModels(
       config,
     );
 
-    trainedModels.push({ ...trainedModel, name: modelName });
+    trainedModels.push({ ...trainedModel, name: modelName, sentences: trainingMapping.sentences });
   }
 
   return trainedModels;
@@ -75,10 +76,38 @@ async function trainModels(
 
   const trainedModels = await trainModels(allModels ? models : selectedModelNames, tokenizer);
 
+  const sentences = trainedModels[0].sentences;
+  const infiniteTokenizer = new Tokenizer(-1);
+  infiniteTokenizer.fitOnTexts(sentences);
+
+  const wordFrequencies = Object.entries(infiniteTokenizer.wordIndex).sort((a, b) => a[1] - b[1]);
+  const wordFrequenciesCsv = arrayToCsv(wordFrequencies);
+
+  const sentenceLengths = getLengthFrequencies(sentences);
+  const sentenceLengthsCsv = arrayToCsv(
+    Object.entries(sentenceLengths).sort((a, b) => a[1] - b[1]),
+  );
+
+  try {
+    await fs.mkdir(constants.modelsPath);
+  } catch (error) {
+    if (error.code !== "EEXIST") {
+      throw error;
+    }
+  }
+
+  await fs.writeFile(
+    `${constants.modelsPath}/${constants.wordFrequenciesName}`,
+    wordFrequenciesCsv,
+  );
+  await fs.writeFile(
+    `${constants.modelsPath}/${constants.sentenceLengthsName}`,
+    sentenceLengthsCsv,
+  );
+
   for (const trainedModel of trainedModels) {
     const path = getModelPath(trainedModel.name);
 
-    await fs.mkdir(constants.modelsPath);
     await trainedModel.model.save(`file://${path}`);
     await fs.writeFile(`${path}/${constants.historyName}`, JSON.stringify(trainedModel.history));
     await fs.writeFile(`${path}/${constants.configName}`, JSON.stringify(config));

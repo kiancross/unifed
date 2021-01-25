@@ -49,7 +49,7 @@ export class Tokenizer {
     Object.entries(wordCounts)
       .sort((a: [string, number], b: [string, number]) => b[1] - a[1])
       .forEach(([word], i) => {
-        if (i + 1 < this.vocabSize) {
+        if (i + 1 < this.vocabSize || this.vocabSize < 0) {
           this.wordIndex[word] = i + 1;
         }
       });

@@ -8,6 +8,8 @@ export const constants = {
   historyName: "history.json",
   modelName: "model.json",
   tokenizerName: "tokenizer.json",
+  sentenceLengthsName: "sentence-lengths.csv",
+  wordFrequenciesName: "word-frequencies.csv",
 };
 
 export function getModelPath(modelName: string): string {
