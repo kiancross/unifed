@@ -17,7 +17,7 @@ interface Params {
   community: string;
 }
 
-const CommunityPostsPage = () => {
+const CommunityPostsPage = (): JSX.Element => {
   const { community, server } = useParams<Params>();
 
   const GET_POSTS = gql`

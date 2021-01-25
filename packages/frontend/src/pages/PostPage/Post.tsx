@@ -3,18 +3,10 @@
  */
 
 import React from "react";
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  Grid,
-  IconButton,
-  Link,
-  Typography,
-} from "@material-ui/core";
+import { Card, CardContent, Grid, Typography } from "@material-ui/core";
 import MarkdownViewer from "../../components/MarkdownViewer";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import style from "./PostPage.module.scss";
+import PostHeader from "../../components/PostHeader";
 
 interface PostValues {
   username: string;
@@ -23,33 +15,10 @@ interface PostValues {
 }
 
 const Post = (props: PostValues): JSX.Element => {
-  //const [menuOpen, setMenuOpen] = React.useState(null);
-  //const open = Boolean(menuOpen);
-
-  const handleClick = () => {
-    console.log("clicked");
-  };
-  /*
-  const handleClose = () => {
-    setMenuOpen(null);
-  };*/
-
   return (
     <Grid item xs={12}>
       <Card style={{ textAlign: "left" }}>
-        <CardHeader
-          className={style.cardHeader}
-          action={
-            <IconButton color="inherit" edge="end" size="small" onClick={handleClick}>
-              <MoreHorizIcon />
-            </IconButton>
-          }
-          title={
-            <Typography variant="h5" gutterBottom>
-              <Link href={"/user/" + props.username}>{props.username}</Link>
-            </Typography>
-          }
-        />
+        <PostHeader username={props.username} />
         <CardContent className={style.cardContent}>
           <Typography variant="h6">{props.title ? props.title : "Comment"}</Typography>
           <Typography variant="body2">
