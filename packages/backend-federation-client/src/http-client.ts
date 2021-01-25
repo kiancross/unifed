@@ -3,6 +3,7 @@
  */
 
 import got, { Got, OptionsOfJSONResponseBody, HTTPAlias } from "got";
+import { config } from "@unifed/backend-core";
 
 type Endpoints = string | string[];
 
@@ -12,6 +13,9 @@ export class FederationHttpClient {
   constructor(hostname: string) {
     this.httpClient = got.extend({
       prefixUrl: `http://${hostname}/fed`,
+      headers: {
+        "Client-Host": config.siteHost,
+      },
     });
   }
 
