@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import MarkdownViewer from "../../components/MarkdownViewer";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import style from "./PostPage.module.scss";
 
 interface PostValues {
@@ -38,9 +38,10 @@ const Post = (props: PostValues): JSX.Element => {
     <Grid item xs={12}>
       <Card style={{ textAlign: "left" }}>
         <CardHeader
+          className={style.cardHeader}
           action={
             <IconButton color="inherit" edge="end" size="small" onClick={handleClick}>
-              <MoreVertIcon />
+              <MoreHorizIcon />
             </IconButton>
           }
           title={
