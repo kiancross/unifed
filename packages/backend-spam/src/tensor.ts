@@ -23,13 +23,6 @@ export function getSentencesTensor(
   const sequences = sentences.map((sentence) => tokenizer.textToSequence(sentence));
   sequences.forEach((sequence) => padSequence(sequence, maxSequenceLength));
 
-  sequences.forEach((seq) => {
-    if (Math.max(...seq) > 5000) {
-      console.error(tokenizer.wordIndex);
-      console.error(seq);
-    }
-  });
-
   return tidy(() => {
     return tensor2d(sequences, [sequences.length, maxSequenceLength]);
   });
