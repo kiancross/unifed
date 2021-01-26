@@ -21,4 +21,4 @@ RUN npm install -g yarn
 RUN yarn workspaces focus @unifed/backend-ml
 ADD . .
 
-CMD [ "yarn", "workspace", "@unifed/backend-ai", "train", "*" ]
+CMD [ "yarn", "workspace", "@unifed/backend-ml", "train", "'*'" ]

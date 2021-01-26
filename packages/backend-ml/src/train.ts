@@ -113,7 +113,7 @@ export async function* trainModels(
 if (require.main === module) {
   (async () => {
     const selectedModelNames = process.argv.slice(2);
-    const missingModel = selectedModelNames.find((name) => !models.includes(name));
+    const missingModel = selectedModelNames.find((name) => ![...models, "*"].includes(name));
     const allModels = selectedModelNames.find((name) => name === "*");
 
     if (selectedModelNames.length === 0 || missingModel) {
