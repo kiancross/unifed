@@ -13,6 +13,7 @@ export interface StringNumberMapping {
 
 export class Tokenizer {
   wordIndex: StringNumberMapping = {};
+  wordCounts: StringNumberMapping = {};
 
   constructor(private readonly vocabSize: number) {}
 
@@ -39,16 +40,14 @@ export class Tokenizer {
   }
 
   fitOnTexts(texts: string[]): void {
-    const wordCounts: StringNumberMapping = {};
-
     for (const text of texts) {
       const cleanedText = Tokenizer.cleanText(text);
       for (const word of cleanedText) {
-        wordCounts[word] = (wordCounts[word] || 0) + 1;
+        this.wordCounts[word] = (this.wordCounts[word] || 0) + 1;
       }
     }
 
-    Object.entries(wordCounts)
+    Object.entries(this.wordCounts)
       .sort((a: [string, number], b: [string, number]) => b[1] - a[1])
       .forEach(([word], i) => {
         if (i + 1 < this.vocabSize || this.vocabSize < 0) {

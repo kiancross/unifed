@@ -42,12 +42,21 @@ test("cleanText url without protocol and path", (t) => {
   t.deepEqual(text, ["<<!!__URL__!!>>"]);
 });
 
+test("fitOnTexts wordCounts", (t) => {
+  const tokenizer = new Tokenizer(3);
+
+  tokenizer.fitOnTexts(["foo bar", "bar baz"]);
+
+  t.deepEqual(tokenizer.wordCounts, { bar: 2, foo: 1, baz: 1 });
+});
+
 test("fitOnTexts vocabSize", (t) => {
   const tokenizer = new Tokenizer(3);
 
   tokenizer.fitOnTexts(["foo bar", "bar baz"]);
 
   t.deepEqual(tokenizer.wordIndex, { bar: 1, foo: 2 });
+  t.deepEqual(tokenizer.wordCounts, { bar: 2, foo: 1, baz: 1 });
 });
 
 test("fitOnTexts toJSON", (t) => {
