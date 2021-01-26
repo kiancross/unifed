@@ -7,13 +7,11 @@
 
 export type Sequence = number[];
 
-export interface StringNumberMapping {
-  [key: string]: number;
-}
+export type StringNumberMapping = [string, number][];
 
 export class Tokenizer {
-  wordIndex: StringNumberMapping = {};
-  wordCounts: StringNumberMapping = {};
+  wordIndex = new Map<string, number>();
+  wordCounts = new Map<string, number>();
 
   constructor(private readonly vocabSize: number) {}
 
@@ -43,28 +41,28 @@ export class Tokenizer {
     for (const text of texts) {
       const cleanedText = Tokenizer.cleanText(text);
       for (const word of cleanedText) {
-        this.wordCounts[word] = (this.wordCounts[word] || 0) + 1;
+        this.wordCounts.set(word, (this.wordCounts.get(word) || 0) + 1);
       }
     }
 
-    Object.entries(this.wordCounts)
+    Array.from(this.wordCounts.entries())
       .sort((a: [string, number], b: [string, number]) => b[1] - a[1])
       .forEach(([word], i) => {
         if (i + 1 < this.vocabSize || this.vocabSize < 0) {
-          this.wordIndex[word] = i + 1;
+          this.wordIndex.set(word, i + 1);
         }
       });
   }
 
   textToSequence(text: string): Sequence {
-    return Tokenizer.cleanText(text).map((word) => this.wordIndex[word] || 0);
+    return Tokenizer.cleanText(text).map((word) => this.wordIndex.get(word) || 0);
   }
 
   fromJSON(wordIndex: StringNumberMapping): void {
-    this.wordIndex = wordIndex;
+    this.wordIndex = new Map(wordIndex);
   }
 
   toJSON(): StringNumberMapping {
-    return this.wordIndex;
+    return Array.from(this.wordIndex.entries());
   }
 }

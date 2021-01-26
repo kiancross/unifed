@@ -47,7 +47,11 @@ test("fitOnTexts wordCounts", (t) => {
 
   tokenizer.fitOnTexts(["foo bar", "bar baz"]);
 
-  t.deepEqual(tokenizer.wordCounts, { bar: 2, foo: 1, baz: 1 });
+  t.deepEqual(Array.from(tokenizer.wordCounts.entries()), [
+    ["foo", 1],
+    ["bar", 2],
+    ["baz", 1],
+  ]);
 });
 
 test("fitOnTexts vocabSize", (t) => {
@@ -55,8 +59,15 @@ test("fitOnTexts vocabSize", (t) => {
 
   tokenizer.fitOnTexts(["foo bar", "bar baz"]);
 
-  t.deepEqual(tokenizer.wordIndex, { bar: 1, foo: 2 });
-  t.deepEqual(tokenizer.wordCounts, { bar: 2, foo: 1, baz: 1 });
+  t.deepEqual(Array.from(tokenizer.wordIndex.entries()), [
+    ["bar", 1],
+    ["foo", 2],
+  ]);
+  t.deepEqual(Array.from(tokenizer.wordCounts.entries()), [
+    ["foo", 1],
+    ["bar", 2],
+    ["baz", 1],
+  ]);
 });
 
 test("fitOnTexts toJSON", (t) => {
@@ -64,7 +75,10 @@ test("fitOnTexts toJSON", (t) => {
 
   tokenizer.fitOnTexts(["foo bar", "bar baz"]);
 
-  t.deepEqual(tokenizer.toJSON(), { bar: 1, foo: 2 });
+  t.deepEqual(tokenizer.toJSON(), [
+    ["bar", 1],
+    ["foo", 2],
+  ]);
 });
 
 test("fitOnTexts fromJSON", (t) => {
@@ -77,7 +91,10 @@ test("fitOnTexts fromJSON", (t) => {
   const newTokenizer = new Tokenizer(3);
   newTokenizer.fromJSON(json);
 
-  t.deepEqual(newTokenizer.wordIndex, { bar: 1, foo: 2 });
+  t.deepEqual(newTokenizer.toJSON(), [
+    ["bar", 1],
+    ["foo", 2],
+  ]);
 });
 
 test("textToSequence empty", (t) => {
@@ -102,4 +119,12 @@ test("textToSequence whitespace", (t) => {
   tokenizer.fitOnTexts(["foo bar", "bar baz"]);
 
   t.deepEqual(tokenizer.textToSequence("foo bar\n\n\n"), [2, 1]);
+});
+
+test("textToSequence reserved word", (t) => {
+  const tokenizer = new Tokenizer(1);
+
+  tokenizer.fitOnTexts(["constructor"]);
+
+  t.deepEqual(tokenizer.textToSequence("constructor"), [0]);
 });
