@@ -4607,9 +4607,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@unifed/backend-spam@workspace:packages/backend-spam":
+"@unifed/backend-ml@workspace:packages/backend-ml":
   version: 0.0.0-use.local
-  resolution: "@unifed/backend-spam@workspace:packages/backend-spam"
+  resolution: "@unifed/backend-ml@workspace:packages/backend-ml"
   dependencies:
     "@istanbuljs/nyc-config-typescript": ^1.0.1
     "@tensorflow/tfjs-node-gpu": ^2.8.5
