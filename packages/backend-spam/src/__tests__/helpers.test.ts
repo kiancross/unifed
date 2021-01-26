@@ -7,39 +7,12 @@ import os from "os";
 import fs, { promises as fsPromises } from "fs";
 import { Parser, Message } from "../parsers";
 import {
-  getLengthFrequencies,
   arrayToCsv,
   flattenMessages,
   ratioSplitMessages,
   mergeParsers,
   createDirectory,
 } from "../helpers";
-
-test("getLengthFrequencies empty", (t) => {
-  t.deepEqual(getLengthFrequencies([]), {});
-});
-
-test("getLengthFrequencies valid", (t) => {
-  const sentences = [
-    "one",
-    "two two",
-    "two two",
-    "three three three",
-    "three three three",
-    "three three three",
-    "four four four four",
-    "four four four four",
-  ];
-
-  const frequencies = getLengthFrequencies(sentences);
-
-  t.deepEqual(frequencies, {
-    1: 1,
-    2: 2,
-    3: 3,
-    4: 2,
-  });
-});
 
 test("arrayToCsv empty", (t) => {
   t.is(arrayToCsv([]), "");

@@ -4,7 +4,6 @@
 
 import { promises as fs } from "fs";
 import { Parser, Message } from "./parsers";
-import { Tokenizer } from "./tokenizer";
 
 export interface SentenceMapping {
   readonly sentences: string[];
@@ -29,16 +28,6 @@ export async function mergeParsers(parsers: Parser[]): Promise<Message[]> {
   }
 
   return messages;
-}
-
-export function getLengthFrequencies(sentences: string[]): { [key: number]: number } {
-  return sentences
-    .map((sentence) => Tokenizer.cleanText(sentence))
-    .map((sentence) => sentence.length)
-    .reduce((ret, n) => {
-      ret[n] = (ret[n] || 0) + 1;
-      return ret;
-    }, {} as { [key: number]: number });
 }
 
 export function arrayToCsv<T, R extends Array<T>>(values: R[]): string {
