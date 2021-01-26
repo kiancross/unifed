@@ -86,3 +86,11 @@ test("textToSequence valid", (t) => {
 
   t.deepEqual(tokenizer.textToSequence("foo bar baz"), [2, 1, 0]);
 });
+
+test("textToSequence whitespace", (t) => {
+  const tokenizer = new Tokenizer(3);
+
+  tokenizer.fitOnTexts(["foo bar", "bar baz"]);
+
+  t.deepEqual(tokenizer.textToSequence("foo bar\n\n\n"), [2, 1]);
+});

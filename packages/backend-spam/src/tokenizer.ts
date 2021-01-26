@@ -33,6 +33,7 @@ export class Tokenizer {
         .replace(urlToken, "<<!!__URL__!!>>")
         .replace(/\s{2,}/g, " ")
         .split(" ")
+        .map((value) => value.trim())
         .filter((value) => value !== "")
     );
   }
