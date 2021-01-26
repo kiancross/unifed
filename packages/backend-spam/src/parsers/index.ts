@@ -6,4 +6,4 @@ export * from "./parser";
 export * from "./sms-parser";
 export * from "./enron-parser";
 export * from "./spam-assasin-parser";
-export * from "./helpers";
+export { Message } from "./helpers";

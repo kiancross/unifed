@@ -37,9 +37,9 @@ export class SmsParser extends Parser {
   }
 
   async getMessages(): Promise<Message[]> {
-    const file = (await readZipFile(this.path).next()).value;
+    const { value: file } = await readZipFile(this.path).next();
 
-    if (file.path !== "sms") {
+    if (!file || file.path !== "sms") {
       throw new InvalidFileError();
     }
 

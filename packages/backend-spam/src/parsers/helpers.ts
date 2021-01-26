@@ -14,7 +14,7 @@ export interface ZipFileEntry {
   readonly data: string;
 }
 
-export async function* readZipFile(path: string): AsyncGenerator<ZipFileEntry> {
+export async function* readZipFile(path: string): AsyncGenerator<ZipFileEntry, void> {
   const zip: StreamZip = await new Promise((resolve, reject) => {
     const zip = new StreamZip({
       file: path,
@@ -35,14 +35,4 @@ export async function* readZipFile(path: string): AsyncGenerator<ZipFileEntry> {
       data: zip.entryDataSync(entry.name).toString("utf8"),
     };
   }
-}
-
-export function mergeMessageSets(messageSets: Message[][]): Message[] {
-  const messages: Message[] = [];
-
-  for (const set of messageSets) {
-    messages.push(...set);
-  }
-
-  return messages;
 }

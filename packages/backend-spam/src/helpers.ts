@@ -2,12 +2,33 @@
  * CS3099 Group A3
  */
 
-import { Message } from "./parsers";
+import { promises as fs } from "fs";
+import { Parser, Message } from "./parsers";
 import { Tokenizer } from "./tokenizer";
 
 export interface SentenceMapping {
   readonly sentences: string[];
   readonly labels: number[];
+}
+
+export async function createDirectory(path: string): Promise<void> {
+  try {
+    await fs.mkdir(path);
+  } catch (error) {
+    if (error.code !== "EEXIST") {
+      throw error;
+    }
+  }
+}
+
+export async function mergeParsers(parsers: Parser[]): Promise<Message[]> {
+  const messages: Message[] = [];
+
+  for (const parser of parsers) {
+    messages.push(...(await parser.getMessages()));
+  }
+
+  return messages;
 }
 
 export function getLengthFrequencies(sentences: string[]): { [key: number]: number } {

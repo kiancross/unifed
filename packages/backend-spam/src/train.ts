@@ -2,45 +2,73 @@
  * CS3099 Group A3
  */
 
-import { util } from "@tensorflow/tfjs-node-gpu";
 import { promises as fs } from "fs";
+import { util } from "@tensorflow/tfjs-node-gpu";
 import { TrainedModel, models, getModel, fitModel } from "./models";
 import { Tokenizer } from "./tokenizer";
 import { getSentencesTensor, getLabelsTensor } from "./tensor";
-import { SmsParser, EnronParser, SpamAssasinParser, Message, mergeMessageSets } from "./parsers";
-import { defaultConfig as config } from "./config";
+import { SmsParser, EnronParser, SpamAssasinParser, Message } from "./parsers";
+import { Config, defaultConfig } from "./config";
 import { getModelPath, constants } from "./constants";
-import { getLengthFrequencies, arrayToCsv, flattenMessages, ratioSplitMessages } from "./helpers";
+import {
+  getLengthFrequencies,
+  arrayToCsv,
+  flattenMessages,
+  ratioSplitMessages,
+  mergeParsers,
+  createDirectory,
+} from "./helpers";
 
-type NamedTrainedModel = TrainedModel & { name: string; sentences: string[] };
+type ModelMeta = {
+  tokenizer: Tokenizer;
+  config: Config;
+  trainingSentences: string[];
+  name: string;
+};
+type TrainedModelWithMeta = TrainedModel & ModelMeta;
 
-export async function getData(): Promise<Message[]> {
-  const sms = new SmsParser("data/sms.zip");
-  const enron = new EnronParser("data/enron.zip");
-  const spamAssasin = new SpamAssasinParser("data/spam-assasin.zip");
+async function saveModel(trainedModel: TrainedModelWithMeta): Promise<void> {
+  const path = getModelPath(trainedModel.name);
 
-  const smsMessages = await sms.getMessages();
-  const enronMessages = await enron.getMessages();
-  const spamAssasinMessages = await spamAssasin.getMessages();
-
-  const mergedMessages = mergeMessageSets([smsMessages, enronMessages, spamAssasinMessages]);
-
-  util.shuffle(mergedMessages);
-
-  return mergedMessages;
+  await trainedModel.model.save(`file://${path}`);
+  await fs.writeFile(`${path}/${constants.historyName}`, JSON.stringify(trainedModel.history));
+  await fs.writeFile(`${path}/${constants.configName}`, JSON.stringify(trainedModel.config));
+  await fs.writeFile(`${path}/${constants.tokenizerName}`, JSON.stringify(trainedModel.tokenizer));
 }
 
-async function trainModels(
-  modelNames: string[],
-  tokenizer: Tokenizer,
-): Promise<NamedTrainedModel[]> {
-  const data = await getData();
+async function saveMeta(sentences: string[]): Promise<void> {
+  const infiniteTokenizer = new Tokenizer(-1);
+  infiniteTokenizer.fitOnTexts(sentences);
 
+  const wordFrequencies = Object.entries(infiniteTokenizer.wordIndex).sort((a, b) => a[1] - b[1]);
+  const wordFrequenciesCsv = arrayToCsv(wordFrequencies);
+
+  const sentenceLengths = getLengthFrequencies(sentences);
+  const sentenceLengthsCsv = arrayToCsv(
+    Object.entries(sentenceLengths).sort((a, b) => a[1] - b[1]),
+  );
+
+  await fs.writeFile(
+    `${constants.modelsPath}/${constants.wordFrequenciesName}`,
+    wordFrequenciesCsv,
+  );
+  await fs.writeFile(
+    `${constants.modelsPath}/${constants.sentenceLengthsName}`,
+    sentenceLengthsCsv,
+  );
+}
+
+export async function* trainModels(
+  modelNames: string[],
+  data: Message[],
+  config: Config,
+): AsyncGenerator<TrainedModelWithMeta, void> {
   const [trainingMessages, testingMessages] = ratioSplitMessages(data, config.trainingRatio);
 
   const trainingMapping = flattenMessages(trainingMessages);
   const testingMapping = flattenMessages(testingMessages);
 
+  const tokenizer = new Tokenizer(config.vocabSize);
   tokenizer.fitOnTexts(trainingMapping.sentences);
 
   const trainingSentencesTensor = getSentencesTensor(
@@ -57,8 +85,6 @@ async function trainModels(
   );
   const testingLabelsTensor = getLabelsTensor(testingMapping.labels);
 
-  const trainedModels: NamedTrainedModel[] = [];
-
   for (const modelName of modelNames) {
     const model = getModel(modelName, config);
 
@@ -73,61 +99,48 @@ async function trainModels(
       config,
     );
 
-    trainedModels.push({ ...trainedModel, name: modelName, sentences: trainingMapping.sentences });
+    yield {
+      ...trainedModel,
+      config,
+      tokenizer,
+      trainingSentences: trainingMapping.sentences,
+      name: modelName,
+    };
   }
-
-  return trainedModels;
 }
 
-(async () => {
-  const selectedModelNames = process.argv.slice(2);
-  const missingModel = selectedModelNames.find((name) => !models.includes(name));
-  const allModels = selectedModelNames.find((name) => name === "*");
+if (require.main === module) {
+  (async () => {
+    const selectedModelNames = process.argv.slice(2);
+    const missingModel = selectedModelNames.find((name) => !models.includes(name));
+    const allModels = selectedModelNames.find((name) => name === "*");
 
-  if (selectedModelNames.length === 0 || missingModel) {
-    console.error(`Please select from any of the following models: ${["*", ...models].join(", ")}`);
-    process.exit(1);
-  }
-
-  const tokenizer = new Tokenizer(config.vocabSize);
-
-  const trainedModels = await trainModels(allModels ? models : selectedModelNames, tokenizer);
-
-  const sentences = trainedModels[0].sentences;
-  const infiniteTokenizer = new Tokenizer(-1);
-  infiniteTokenizer.fitOnTexts(sentences);
-
-  const wordFrequencies = Object.entries(infiniteTokenizer.wordIndex).sort((a, b) => a[1] - b[1]);
-  const wordFrequenciesCsv = arrayToCsv(wordFrequencies);
-
-  const sentenceLengths = getLengthFrequencies(sentences);
-  const sentenceLengthsCsv = arrayToCsv(
-    Object.entries(sentenceLengths).sort((a, b) => a[1] - b[1]),
-  );
-
-  try {
-    await fs.mkdir(constants.modelsPath);
-  } catch (error) {
-    if (error.code !== "EEXIST") {
-      throw error;
+    if (selectedModelNames.length === 0 || missingModel) {
+      console.error(
+        `Please select from any of the following models: ${["*", ...models].join(", ")}`,
+      );
+      process.exit(1);
     }
-  }
 
-  await fs.writeFile(
-    `${constants.modelsPath}/${constants.wordFrequenciesName}`,
-    wordFrequenciesCsv,
-  );
-  await fs.writeFile(
-    `${constants.modelsPath}/${constants.sentenceLengthsName}`,
-    sentenceLengthsCsv,
-  );
+    const data = await mergeParsers([
+      new SmsParser("data/sms.zip"),
+      new EnronParser("data/enron.zip"),
+      new SpamAssasinParser("data/spam-assasin.zip"),
+    ]);
 
-  for (const trainedModel of trainedModels) {
-    const path = getModelPath(trainedModel.name);
+    util.shuffle(data);
 
-    await trainedModel.model.save(`file://${path}`);
-    await fs.writeFile(`${path}/${constants.historyName}`, JSON.stringify(trainedModel.history));
-    await fs.writeFile(`${path}/${constants.configName}`, JSON.stringify(config));
-    await fs.writeFile(`${path}/${constants.tokenizerName}`, JSON.stringify(tokenizer));
-  }
-})();
+    await createDirectory(constants.modelsPath);
+
+    const trainedModels = trainModels(allModels ? models : selectedModelNames, data, defaultConfig);
+    let firstModel = true;
+
+    for await (const trainedModel of trainedModels) {
+      if (firstModel) {
+        saveMeta(trainedModel.trainingSentences);
+        firstModel = true;
+      }
+      await saveModel(trainedModel);
+    }
+  })();
+}
