@@ -2,16 +2,33 @@
  * CS3099 Group A3
  */
 
+import { util } from "@tensorflow/tfjs-node-gpu";
 import { promises as fs } from "fs";
 import { TrainedModel, models, getModel, fitModel } from "./models";
 import { Tokenizer } from "./tokenizer";
-import { getData, flattenMessages, ratioSplitMessages } from "./data";
 import { getSentencesTensor, getLabelsTensor } from "./tensor";
+import { SmsParser, EnronParser, SpamAssasinParser, Message, mergeMessageSets } from "./parsers";
 import { defaultConfig as config } from "./config";
 import { getModelPath, constants } from "./constants";
-import { getLengthFrequencies, arrayToCsv } from "./helpers";
+import { getLengthFrequencies, arrayToCsv, flattenMessages, ratioSplitMessages } from "./helpers";
 
 type NamedTrainedModel = TrainedModel & { name: string; sentences: string[] };
+
+export async function getData(): Promise<Message[]> {
+  const sms = new SmsParser("data/sms.zip");
+  const enron = new EnronParser("data/enron.zip");
+  const spamAssasin = new SpamAssasinParser("data/spam-assasin.zip");
+
+  const smsMessages = await sms.getMessages();
+  const enronMessages = await enron.getMessages();
+  const spamAssasinMessages = await spamAssasin.getMessages();
+
+  const mergedMessages = mergeMessageSets([smsMessages, enronMessages, spamAssasinMessages]);
+
+  util.shuffle(mergedMessages);
+
+  return mergedMessages;
+}
 
 async function trainModels(
   modelNames: string[],
