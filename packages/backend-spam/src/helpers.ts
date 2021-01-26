@@ -3,6 +3,7 @@
  */
 
 import { Message } from "./parsers";
+import { Tokenizer } from "./tokenizer";
 
 export interface SentenceMapping {
   readonly sentences: string[];
@@ -11,6 +12,7 @@ export interface SentenceMapping {
 
 export function getLengthFrequencies(sentences: string[]): { [key: number]: number } {
   return sentences
+    .map((sentence) => Tokenizer.cleanText(sentence))
     .map((sentence) => sentence.length)
     .reduce((ret, n) => {
       ret[n] = (ret[n] || 0) + 1;
@@ -34,7 +36,7 @@ export function flattenMessages(data: Message[]): SentenceMapping {
 }
 
 export function ratioSplitMessages(data: Message[], ratio: number): [Message[], Message[]] {
-  const index = data.length * ratio;
+  const index = Math.floor(data.length * ratio);
 
   const trainingMessages: Message[] = data.slice(0, index);
   const testingMessages: Message[] = data.slice(index);
