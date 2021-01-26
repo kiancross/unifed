@@ -50,8 +50,7 @@ train:
 	    --ulimit memlock=-1 \
 	    --ulimit stack=67108864 \
 	    --runtime=nvidia \
-	    --rm \
-	    -it \
+	    -d \
 	    $(TRAINING_IMAGE) || \
 	        printf "\n\nRun 'yarn container:train:build' first\n\n"
 
