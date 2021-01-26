@@ -7,11 +7,10 @@ import { promises as fs } from "fs";
 import { TrainedModel, models, getModel, fitModel } from "./models";
 import { Tokenizer } from "./tokenizer";
 import { getSentencesTensor, getLabelsTensor } from "./tensor";
-import { /*SmsParser, EnronParser,*/ SpamAssasinParser, Message } from "./parsers";
+import { SmsParser, EnronParser, SpamAssasinParser, Message } from "./parsers";
 import { Config, defaultConfig } from "./config";
 import { getModelPath, constants } from "./constants";
 import {
-  getLengthFrequencies,
   arrayToCsv,
   flattenMessages,
   ratioSplitMessages,
@@ -40,14 +39,12 @@ async function saveMeta(sentences: string[]): Promise<void> {
   const infiniteTokenizer = new Tokenizer(-1);
   infiniteTokenizer.fitOnTexts(sentences);
 
-  const wordFrequencies = Object.entries(infiniteTokenizer.wordIndex).sort((a, b) => a[1] - b[1]);
-  const wordFrequenciesCsv = arrayToCsv(wordFrequencies); // fix line breaks
+  const wordFrequenciesCsv = arrayToCsv(
+    Object.values(infiniteTokenizer.wordCounts).map((value) => [value]),
+  );
 
-  const sentenceLengths = getLengthFrequencies(sentences);
   const sentenceLengthsCsv = arrayToCsv(
-    ((Object.entries(sentenceLengths) as [unknown, number][]) as [number, number][]).sort(
-      (a, b) => a[0] - b[0],
-    ),
+    sentences.map((sentence) => Tokenizer.cleanText(sentence)).map((tokens) => [tokens.length]),
   );
 
   await fs.writeFile(
@@ -87,51 +84,27 @@ export async function* trainModels(
   );
   const testingLabelsTensor = getLabelsTensor(testingMapping.labels);
 
-  try {
-    for (const modelName of modelNames) {
-      const model = getModel(modelName, config);
+  for (const modelName of modelNames) {
+    const model = getModel(modelName, config);
 
-      model.summary();
+    model.summary();
 
-      const trainedModel = await fitModel(
-        model,
-        trainingSentencesTensor,
-        trainingLabelsTensor,
-        testingSentencesTensor,
-        testingLabelsTensor,
-        config,
-      );
+    const trainedModel = await fitModel(
+      model,
+      trainingSentencesTensor,
+      trainingLabelsTensor,
+      testingSentencesTensor,
+      testingLabelsTensor,
+      config,
+    );
 
-      yield {
-        ...trainedModel,
-        config,
-        tokenizer,
-        trainingSentences: trainingMapping.sentences,
-        name: modelName,
-      };
-    }
-  } catch (error) {
-    trainingSentencesTensor.dataSync().forEach((value: number) => {
-      if (value > 5000 || value < 0) {
-        throw new Error();
-      }
-    });
-    testingSentencesTensor.dataSync().forEach((value: number) => {
-      if (value > 5000 || value < 0) {
-        throw new Error();
-      }
-    });
-    testingLabelsTensor.dataSync().forEach((value: number) => {
-      if (value > 5000 || value < 0) {
-        throw new Error();
-      }
-    });
-    trainingLabelsTensor.dataSync().forEach((value: number) => {
-      if (value > 5000 || value < 0) {
-        throw new Error();
-      }
-    });
-    throw error;
+    yield {
+      ...trainedModel,
+      config,
+      tokenizer,
+      trainingSentences: trainingMapping.sentences,
+      name: modelName,
+    };
   }
 }
 
@@ -148,38 +121,13 @@ if (require.main === module) {
       process.exit(1);
     }
 
-    function sfc32(a: number, b: number, c: number, d: number) {
-      return function () {
-        a >>>= 0;
-        b >>>= 0;
-        c >>>= 0;
-        d >>>= 0;
-        let t = (a + b) | 0;
-        a = b ^ (b >>> 9);
-        b = (c + (c << 3)) | 0;
-        c = (c << 21) | (c >>> 11);
-        d = (d + 1) | 0;
-        t = (t + d) | 0;
-        c = (c + t) | 0;
-        return (t >>> 0) / 4294967296;
-      };
-    }
-
-    function shuffleArray<T>(array: T[]) {
-      const rand = sfc32(0x9e3779b9, 0x243f6a88, 0xb7e15162, 13 ^ 0xdeadbeef);
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(rand() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-    }
-
-    //new EnronParser("data/enron.zip");
-    //new SmsParser("data/sms.zip");
-
-    const data = await mergeParsers([new SpamAssasinParser("data/spam-assasin.zip")]);
+    const data = await mergeParsers([
+      new SmsParser("data/sms.zip"),
+      new EnronParser("data/enron.zip"),
+      new SpamAssasinParser("data/spam-assasin.zip"),
+    ]);
 
     //util.shuffle(data);
-    shuffleArray(data);
 
     await createDirectory(constants.modelsPath);
 

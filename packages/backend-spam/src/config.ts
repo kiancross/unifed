@@ -17,11 +17,7 @@ export const defaultConfig: Config = {
   // The raw vocabSize    144892
   // Occurs more than once  3792
   vocabSize: 5000,
-
-  // Average length for all         212
-  // Average excluding SMS          241
   maxSequenceLength: 1000,
-
   embeddingDimension: 16,
   trainingRatio: 0.8,
   epochs: 50,
