@@ -112,13 +112,14 @@ export async function* trainModels(
 
 if (require.main === module) {
   (async () => {
+    const selectAllToken = "+";
     const selectedModelNames = process.argv.slice(2);
-    const missingModel = selectedModelNames.find((name) => ![...models, "*"].includes(name));
-    const allModels = selectedModelNames.find((name) => name === "*");
+    const missingModel = selectedModelNames.find((name) => ![...models, selectAllToken].includes(name));
+    const allModels = selectedModelNames.find((name) => name === selectAllToken);
 
     if (selectedModelNames.length === 0 || missingModel) {
       console.error(
-        `Please select from any of the following models: ${["*", ...models].join(", ")}`,
+        `Please select from any of the following models: ${[selectAllToken, ...models].join(", ")}`,
       );
       process.exit(1);
     }
