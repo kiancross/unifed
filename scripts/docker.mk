@@ -56,4 +56,5 @@ train:
 
 .PHONY: train-build
 train-build:
+	docker rm -f $(TRAINING_IMAGE)
 	docker build -f ../configs/backend-ml.dockerfile -t $(TRAINING_IMAGE) ..
