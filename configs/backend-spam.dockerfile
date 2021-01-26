@@ -21,4 +21,4 @@ RUN npm install -g yarn
 RUN yarn workspaces focus @unifed/backend-spam
 ADD . .
 
-CMD [ "yarn", "workspace", "@unifed/backend-spam", "train" ]
+CMD [ "yarn", "workspace", "@unifed/backend-spam", "train", "dense" ]
