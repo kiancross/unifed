@@ -5,63 +5,84 @@
 // Derived from
 // https://gist.github.com/dlebech/5bbabaece36753f8a29e7921d8e5bfc7
 
-import rawTest, { TestInterface } from "ava";
+import test from "ava";
 import { Tokenizer } from "../tokenizer";
 
-interface Context {
-  tokenizer: Tokenizer;
-}
-
-const test = rawTest as TestInterface<Context>;
-
-test.beforeEach((t) => {
-  t.context.tokenizer = new Tokenizer(10000);
+test("cleanText empty", (t) => {
+  t.deepEqual(Tokenizer.cleanText(""), []);
 });
 
-test("fitOnTexts empty", (t) => {
-  const tokenizer = t.context.tokenizer;
+test("cleanText number", (t) => {
+  const text = Tokenizer.cleanText("00112233445566778899");
 
-  tokenizer.fitOnTexts([]);
-
-  t.deepEqual(tokenizer.wordIndex, {});
+  t.deepEqual(text, ["<<!!__NUMBER__!!>>"]);
 });
 
-test("fitOnTexts number", (t) => {
-  const tokenizer = t.context.tokenizer;
+test("cleanText url with protocol", (t) => {
+  const text = Tokenizer.cleanText("http://test.com");
 
-  tokenizer.fitOnTexts(["00112233445566778899"]);
-
-  t.deepEqual(tokenizer.wordIndex, { "<<!!__NUMBER__!!>>": 1 });
+  t.deepEqual(text, ["<<!!__URL__!!>>"]);
 });
 
-test("fitOnTexts url with protocol", (t) => {
-  const tokenizer = t.context.tokenizer;
+test("cleanText url with protocol and path", (t) => {
+  const text = Tokenizer.cleanText("http://test.com/foo");
 
-  tokenizer.fitOnTexts(["http://test.com"]);
-
-  t.deepEqual(tokenizer.wordIndex, { "<<!!__URL__!!>>": 1 });
+  t.deepEqual(text, ["<<!!__URL__!!>>"]);
 });
 
-test("fitOnTexts url with protocol and path", (t) => {
-  const tokenizer = t.context.tokenizer;
+test("cleanText url without protocol", (t) => {
+  const text = Tokenizer.cleanText("test.com");
 
-  tokenizer.fitOnTexts(["http://test.com/foo"]);
-
-  t.deepEqual(tokenizer.wordIndex, { "<<!!__URL__!!>>": 1 });
+  t.deepEqual(text, ["<<!!__URL__!!>>"]);
 });
 
-test("fitOnTexts url without protocol", (t) => {
-  const tokenizer = t.context.tokenizer;
+test("cleanText url without protocol and path", (t) => {
+  const text = Tokenizer.cleanText("test.com/foo");
 
-  tokenizer.fitOnTexts(["test.com"]);
-
-  t.deepEqual(tokenizer.wordIndex, { "<<!!__URL__!!>>": 1 });
+  t.deepEqual(text, ["<<!!__URL__!!>>"]);
 });
 
-test("fitOnTexts url without protocol and path", (t) => {
-  const tokenizer = t.context.tokenizer;
+test("fitOnTexts vocabSize", (t) => {
+  const tokenizer = new Tokenizer(3);
 
-  tokenizer.fitOnTexts(["test.com/foo"]);
+  tokenizer.fitOnTexts(["foo bar", "bar baz"]);
 
-  t.deepEqual(tokenizer.wordIndex, { "<<!!__URL__!!>>": 1 });
+  t.deepEqual(tokenizer.wordIndex, { bar: 1, foo: 2 });
+});
+
+test("fitOnTexts toJSON", (t) => {
+  const tokenizer = new Tokenizer(3);
+
+  tokenizer.fitOnTexts(["foo bar", "bar baz"]);
+
+  t.deepEqual(tokenizer.toJSON(), { bar: 1, foo: 2 });
+});
+
+test("fitOnTexts fromJSON", (t) => {
+  const tokenizer = new Tokenizer(3);
+
+  tokenizer.fitOnTexts(["foo bar", "bar baz"]);
+
+  const json = tokenizer.toJSON();
+
+  const newTokenizer = new Tokenizer(3);
+  newTokenizer.fromJSON(json);
+
+  t.deepEqual(newTokenizer.wordIndex, { bar: 1, foo: 2 });
+});
+
+test("textToSequence empty", (t) => {
+  const tokenizer = new Tokenizer(3);
+
+  tokenizer.fitOnTexts(["foo bar", "bar baz"]);
+
+  t.deepEqual(tokenizer.textToSequence(""), []);
+});
+
+test("textToSequence valid", (t) => {
+  const tokenizer = new Tokenizer(3);
+
+  tokenizer.fitOnTexts(["foo bar", "bar baz"]);
+
+  t.deepEqual(tokenizer.textToSequence("foo bar baz"), [2, 1, 0]);
 });

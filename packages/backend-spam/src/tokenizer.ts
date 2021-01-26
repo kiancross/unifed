@@ -16,7 +16,7 @@ export class Tokenizer {
 
   constructor(private readonly vocabSize: number) {}
 
-  private cleanText(text: string): string[] {
+  static cleanText(text: string): string[] {
     const urlToken = "\x80";
 
     return (
@@ -33,6 +33,7 @@ export class Tokenizer {
         .replace(urlToken, "<<!!__URL__!!>>")
         .replace(/\s{2,}/g, " ")
         .split(" ")
+        .filter((value) => value !== "")
     );
   }
 
@@ -40,7 +41,7 @@ export class Tokenizer {
     const wordCounts: StringNumberMapping = {};
 
     for (const text of texts) {
-      const cleanedText = this.cleanText(text);
+      const cleanedText = Tokenizer.cleanText(text);
       for (const word of cleanedText) {
         wordCounts[word] = (wordCounts[word] || 0) + 1;
       }
@@ -56,7 +57,7 @@ export class Tokenizer {
   }
 
   textToSequence(text: string): Sequence {
-    return this.cleanText(text).map((word) => this.wordIndex[word] || 0);
+    return Tokenizer.cleanText(text).map((word) => this.wordIndex[word] || 0);
   }
 
   fromJSON(wordIndex: StringNumberMapping): void {
