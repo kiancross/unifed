@@ -9,7 +9,7 @@ DOCKER_COMPOSE_COMMAND:=cd .. && docker-compose \
   -f configs/docker-compose.yml \
   --project-directory .
 
-TRAINING_IMAGE:=unifed-backend-spam
+TRAINING_IMAGE:=unifed-backend-ml
 
 .PHONY: start
 start:
@@ -56,4 +56,4 @@ train:
 
 .PHONY: train-build
 train-build:
-	docker build -f ../configs/backend-spam.dockerfile -t $(TRAINING_IMAGE) ..
+	docker build -f ../configs/backend-ml.dockerfile -t $(TRAINING_IMAGE) ..

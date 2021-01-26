@@ -11,14 +11,14 @@ COPY yarn.lock .
 COPY .yarnrc.yml .
 ADD .yarn .yarn
 COPY package.json .
-COPY packages/backend-spam/package.json packages/backend-spam/package.json
+COPY packages/backend-ai/package.json packages/backend-ai/package.json
 
 RUN apt-get update
 RUN apt-get install -y curl tar
 RUN curl -sL https://nodejs.org/download/release/v12.6.0/node-v12.6.0-linux-x64.tar.gz | tar -C / --strip-components=1 -kxzf -
 RUN npm install -g yarn
 
-RUN yarn workspaces focus @unifed/backend-spam
+RUN yarn workspaces focus @unifed/backend-ai
 ADD . .
 
-CMD [ "yarn", "workspace", "@unifed/backend-spam", "train", "dense" ]
+CMD [ "yarn", "workspace", "@unifed/backend-ai", "train", "*" ]

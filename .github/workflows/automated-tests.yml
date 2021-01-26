@@ -105,12 +105,12 @@ jobs:
           directory: packages/backend-internal-server
           fail_ci_if_error: true
 
-      - name: Upload Coverage Report (backend-spam) 5️⃣ 📊
+      - name: Upload Coverage Report (backend-ml) 5️⃣ 📊
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          flags: backend-spam
-          directory: packages/backend-spam
+          flags: backend-ml
+          directory: packages/backend-ml
           fail_ci_if_error: true
       
       - name: Upload Coverage Report (frontend) 6️⃣ 📊
