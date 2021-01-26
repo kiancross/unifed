@@ -3,7 +3,7 @@
  */
 
 import { promises as fs } from "fs";
-//import { util } from "@tensorflow/tfjs-node-gpu";
+import { util } from "@tensorflow/tfjs-node-gpu";
 import { TrainedModel, models, getModel, fitModel } from "./models";
 import { Tokenizer } from "./tokenizer";
 import { getSentencesTensor, getLabelsTensor } from "./tensor";
@@ -40,21 +40,23 @@ async function saveMeta(sentences: string[]): Promise<void> {
   infiniteTokenizer.fitOnTexts(sentences);
 
   const wordFrequenciesCsv = arrayToCsv(
-    Object.values(infiniteTokenizer.wordCounts).map((value) => [value]),
+    Array.from(infiniteTokenizer.wordCounts.values())
+      .sort((a, b) => a - b)
+      .map((value) => [value]),
   );
 
   const sentenceLengthsCsv = arrayToCsv(
-    sentences.map((sentence) => Tokenizer.cleanText(sentence)).map((tokens) => [tokens.length]),
+    sentences
+      .map((sentence) => Tokenizer.cleanText(sentence))
+      .map((tokens) => tokens.length)
+      .sort((a, b) => a - b)
+      .map((length) => [length]),
   );
 
-  await fs.writeFile(
-    `${constants.modelsPath}/${constants.wordFrequenciesName}`,
-    wordFrequenciesCsv,
-  );
-  await fs.writeFile(
-    `${constants.modelsPath}/${constants.sentenceLengthsName}`,
-    sentenceLengthsCsv,
-  );
+  await createDirectory(constants.metaPath);
+
+  await fs.writeFile(`${constants.metaPath}/${constants.wordFrequenciesName}`, wordFrequenciesCsv);
+  await fs.writeFile(`${constants.metaPath}/${constants.sentenceLengthsName}`, sentenceLengthsCsv);
 }
 
 export async function* trainModels(
@@ -127,7 +129,7 @@ if (require.main === module) {
       new SpamAssasinParser("data/spam-assasin.zip"),
     ]);
 
-    //util.shuffle(data);
+    util.shuffle(data);
 
     await createDirectory(constants.modelsPath);
 
