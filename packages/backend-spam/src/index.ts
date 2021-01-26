@@ -3,42 +3,42 @@
  */
 
 import { promises as fs } from "fs";
-import { loadLayersModel } from "@tensorflow/tfjs-node-gpu";
+import { loadLayersModel, Tensor } from "@tensorflow/tfjs-node-gpu";
 import { Tokenizer, StringNumberMapping } from "./tokenizer";
 import { getSentencesTensor } from "./tensor";
 import { Config } from "./config";
 import { getModelPath, constants } from "./constants";
 
 const modelName = "dense";
+const path = getModelPath(modelName);
 
-(async () => {
-  const path = getModelPath(modelName);
+const config = (async () => {
+  return JSON.parse((await fs.readFile(`${path}/${constants.configName}`)).toString()) as Config;
+})();
 
-  const model = await loadLayersModel(`file://${path}/${constants.modelName}`);
-
-  const config: Config = JSON.parse(
-    (await fs.readFile(`${path}/${constants.configName}`)).toString(),
-  );
-
+const tokenizer = (async () => {
   const tokenizerData: StringNumberMapping = JSON.parse(
     (await fs.readFile(`${path}/${constants.tokenizerName}`)).toString(),
   );
 
-  const tokenizer = new Tokenizer(config.vocabSize);
+  const tokenizer = new Tokenizer((await config).vocabSize);
   tokenizer.fromJSON(tokenizerData);
 
-  const sentencesTensor = getSentencesTensor(
-    [
-      "The dog is in the garden.",
-      "Contact our HR firm to earn money from home.",
-      "You have won a prize!",
-      "I am going to sell you something today.",
-      "Contact us to win",
-    ],
-    tokenizer,
-    config.maxSequenceLength,
+  return tokenizer;
+})();
+
+const model = (async () => {
+  return await loadLayersModel(`file://${path}/${constants.modelName}`);
+})();
+
+export const getSpamFactor = async (sentence: string): Promise<number> => {
+  const sentenceTensor = getSentencesTensor(
+    [sentence],
+    await tokenizer,
+    (await config).maxSequenceLength,
   );
 
-  const result = model.predict(sentencesTensor);
-  console.log(result.toString());
-})();
+  const result = (await model).predict(sentenceTensor) as Tensor;
+
+  return (await result.data())[0];
+};
