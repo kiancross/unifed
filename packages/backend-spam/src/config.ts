@@ -14,8 +14,6 @@ export interface Config {
 }
 
 export const defaultConfig: Config = {
-  // The raw vocabSize    144892
-  // Occurs more than once  3792
   vocabSize: 5000,
   maxSequenceLength: 1000,
   embeddingDimension: 16,
