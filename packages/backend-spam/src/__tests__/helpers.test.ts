@@ -3,8 +3,17 @@
  */
 
 import test from "ava";
-import { Message } from "../parsers";
-import { getLengthFrequencies, arrayToCsv, flattenMessages, ratioSplitMessages } from "../helpers";
+import os from "os";
+import fs, { promises as fsPromises } from "fs";
+import { Parser, Message } from "../parsers";
+import {
+  getLengthFrequencies,
+  arrayToCsv,
+  flattenMessages,
+  ratioSplitMessages,
+  mergeParsers,
+  createDirectory,
+} from "../helpers";
 
 test("getLengthFrequencies empty", (t) => {
   t.deepEqual(getLengthFrequencies([]), {});
@@ -85,4 +94,32 @@ test("ratioSplitMessages floor", (t) => {
   };
 
   t.deepEqual(ratioSplitMessages([message1, message2], 0.99), [[message1], [message2]]);
+});
+
+test("Merge messages", async (t) => {
+  const message1: Message = { body: "a", spam: true };
+  const message2: Message = { body: "b", spam: false };
+
+  class TestParser implements Parser {
+    getMessages(): Promise<Message[]> {
+      return new Promise((resolve) => resolve([message1, message2]));
+    }
+  }
+
+  const merged = await mergeParsers([new TestParser(), new TestParser()]);
+
+  t.deepEqual(merged, [message1, message2, message1, message2]);
+});
+
+test("createDirectory new", async (t) => {
+  const path = await fsPromises.mkdtemp(os.tmpdir() + "/");
+  fs.rmdirSync(path);
+  await createDirectory(path);
+  t.true(fs.existsSync(path));
+});
+
+test("createDirectory already exists", async (t) => {
+  const path = await fsPromises.mkdtemp(os.tmpdir() + "/");
+  await createDirectory(path);
+  t.true(fs.existsSync(path));
 });
