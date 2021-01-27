@@ -18,8 +18,8 @@ export const defaultConfig: Config = {
   maxSequenceLength: 1000,
   embeddingDimension: 16,
   trainingRatio: 0.8,
-  epochs: 50,
+  epochs: 20,
   patience: 3,
-  lstmUnits: 20,
+  lstmUnits: 10,
   dropout: 0.2,
 };
