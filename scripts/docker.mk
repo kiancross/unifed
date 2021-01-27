@@ -51,7 +51,7 @@ train:
 	    --ulimit stack=67108864 \
 	    --runtime=nvidia \
 	    -d \
-	    $(TRAINING_IMAGE) || \
+	    $(TRAINING_IMAGE) $(COMMAND) || \
 	        printf "\n\nRun 'yarn container:train:build' first\n\n"
 
 .PHONY: train-build
