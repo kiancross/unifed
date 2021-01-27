@@ -10,6 +10,7 @@ interface PropsTypes {
   username: string;
   id: string;
   host: string;
+  post: boolean;
 }
 
 const PostHeader = (props: PropsTypes): JSX.Element => {
@@ -39,7 +40,13 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
   ] = useMutation(DELETE_POST);
   if (deleteLoading) return <CenteredLoader />;
   if (deleteError) return <ErrorPage message="Post could not be deleted." />;
-  if (deleteData) return <Redirect to="/" />;
+  if (deleteData) {
+    if (props.post) {
+      return <Redirect to="/" />;
+    } else {
+      window.location.reload();
+    }
+  }
 
   const handleClick = (e: React.MouseEvent) => {
     setAnchorEl(e.currentTarget);
@@ -74,9 +81,17 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
         </div>
       }
       title={
-        <Typography variant="h5">
-          <Link href={"/user/" + props.username}>{props.username}</Link>
-        </Typography>
+        props.post ? (
+          <Typography variant="h5">
+            <Link href={"/user/" + props.username}>{props.username}</Link>
+          </Typography>
+        ) : (
+          <Typography variant="body2" gutterBottom>
+            <Link href={"/user/" + props.username}>{props.username}</Link>
+            &nbsp; &#8212; &nbsp;
+            <Link href={props.id}>View Replies</Link>
+          </Typography>
+        )
       }
     />
   );

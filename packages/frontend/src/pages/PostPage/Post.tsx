@@ -20,7 +20,7 @@ const Post = (props: PostValues): JSX.Element => {
   return (
     <Grid item xs={12}>
       <Card style={{ textAlign: "left" }}>
-        <PostHeader id={props.id} host={props.host} username={props.username} />
+        <PostHeader post={true} id={props.id} host={props.host} username={props.username} />
         <CardContent className={style.cardContent}>
           <Typography variant="h6">{props.title ? props.title : "Comment"}</Typography>
           <Typography variant="body2">

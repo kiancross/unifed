@@ -27,7 +27,12 @@ const PostPreview = (props: PostValues): JSX.Element => {
             disableRipple
             href={`/instances/${props.server}/communities/${props.community}/posts/${props.postId}`}
           >
-            <PostHeader username={props.username} id={props.postId} host={props.server} />
+            <PostHeader
+              post={true}
+              username={props.username}
+              id={props.postId}
+              host={props.server}
+            />
             <CardContent>
               <Typography variant="body1">{props.title}</Typography>
             </CardContent>
