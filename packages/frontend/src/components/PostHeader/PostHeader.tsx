@@ -1,5 +1,4 @@
 import React from "react";
-import style from "./PostHeader.module.scss";
 import { CardHeader, IconButton, Menu, MenuItem, Typography, Link } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { gql, useMutation } from "@apollo/client";
@@ -22,10 +21,25 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
     }
   `;
 
-  const [deletePost, { loading, data, error }] = useMutation(DELETE_POST);
-  if (loading) return <CenteredLoader />;
-  if (error) return <ErrorPage message="Post could not be deleted." />;
-  if (data) return <Redirect to="/" />;
+  /*
+  const EDIT_POST = gql`
+    mutation($id: String!, $host: String!, $body: String!, $title: String!) {
+      updatePost(content: { body: $body, title: $title }, post: { id: $id, host: $host })
+    }
+  `;
+
+  const [editPost, { loading: editLoading, data: editData, error: editError }] = useMutation(
+    EDIT_POST,
+  );
+    */
+
+  const [
+    deletePost,
+    { loading: deleteLoading, data: deleteData, error: deleteError },
+  ] = useMutation(DELETE_POST);
+  if (deleteLoading) return <CenteredLoader />;
+  if (deleteError) return <ErrorPage message="Post could not be deleted." />;
+  if (deleteData) return <Redirect to="/" />;
 
   const handleClick = (e: React.MouseEvent) => {
     setAnchorEl(e.currentTarget);
@@ -48,7 +62,6 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
 
   return (
     <CardHeader
-      className={style.cardHeader}
       action={
         <div>
           <IconButton color="inherit" edge="end" size="small" onClick={(e) => handleClick(e)}>
@@ -61,7 +74,7 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
         </div>
       }
       title={
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h5">
           <Link href={"/user/" + props.username}>{props.username}</Link>
         </Typography>
       }

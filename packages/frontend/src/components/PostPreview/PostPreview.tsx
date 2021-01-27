@@ -3,8 +3,9 @@
  */
 
 import React from "react";
-import { Card, CardActionArea, CardContent, Grid, Link, Typography } from "@material-ui/core";
+import { Card, CardActionArea, CardContent, Grid, Typography } from "@material-ui/core";
 import UserIcon from "../../components/UserIcon";
+import PostHeader from "../PostHeader";
 
 interface PostValues {
   username: string;
@@ -26,10 +27,8 @@ const PostPreview = (props: PostValues): JSX.Element => {
             disableRipple
             href={`/instances/${props.server}/communities/${props.community}/posts/${props.postId}`}
           >
+            <PostHeader username={props.username} id={props.postId} host={props.server} />
             <CardContent>
-              <Typography variant="body2" gutterBottom>
-                <Link href={"/user/" + props.username}>{props.username}</Link>
-              </Typography>
               <Typography variant="body1">{props.title}</Typography>
             </CardContent>
           </CardActionArea>
