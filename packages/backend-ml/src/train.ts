@@ -114,7 +114,9 @@ if (require.main === module) {
   (async () => {
     const selectAllToken = "+";
     const selectedModelNames = process.argv.slice(2);
-    const missingModel = selectedModelNames.find((name) => ![...models, selectAllToken].includes(name));
+    const missingModel = selectedModelNames.find(
+      (name) => ![...models, selectAllToken].includes(name),
+    );
     const allModels = selectedModelNames.find((name) => name === selectAllToken);
 
     if (selectedModelNames.length === 0 || missingModel) {
