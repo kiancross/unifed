@@ -5,7 +5,7 @@
 // Model taken from:
 // https://towardsdatascience.com/nlp-spam-detection-in-sms-text-data-using-deep-learning-b8632db85cc8
 
-import { Sequential, layers, sequential, train } from "@tensorflow/tfjs-node-gpu";
+import { Sequential, RNN, layers, sequential, train } from "@tensorflow/tfjs-node-gpu";
 import { Config } from "../config";
 
 export const getModel = (config: Config): Sequential => {
@@ -23,7 +23,7 @@ export const getModel = (config: Config): Sequential => {
       layer: layers.lstm({
         units: config.lstmUnits,
         dropout: config.dropout,
-      }) as any, // https://github.com/tensorflow/tfjs/issues/4578
+      }) as RNN,
     }),
   );
   model.add(layers.dense({ units: 1, activation: "sigmoid" }));
