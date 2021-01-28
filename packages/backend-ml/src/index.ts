@@ -7,10 +7,10 @@ import { loadLayersModel, Tensor } from "@tensorflow/tfjs-node-gpu";
 import { Tokenizer, StringNumberMapping } from "./tokenizer";
 import { getSentencesTensor } from "./tensor";
 import { Config } from "./config";
-import { getModelPath, constants } from "./constants";
+import { constants } from "./constants";
 
 const modelName = "dense";
-const path = getModelPath(modelName);
+const path = `${constants.modelsPath}/${modelName}`;
 
 const config = (async () => {
   return JSON.parse((await fs.readFile(`${path}/${constants.configName}`)).toString()) as Config;

@@ -12,7 +12,3 @@ export const constants = {
   sentenceLengthsName: "sentence-lengths.dat",
   wordFrequenciesName: "word-frequencies.dat",
 };
-
-export function getModelPath(modelName: string): string {
-  return `${constants.modelsPath}/${modelName}`;
-}

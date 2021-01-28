@@ -9,7 +9,7 @@ import { Tokenizer } from "./tokenizer";
 import { getSentencesTensor, getLabelsTensor } from "./tensor";
 import { SmsParser, EnronParser, SpamAssasinParser, Message } from "./parsers";
 import { Config, defaultConfig } from "./config";
-import { getModelPath, constants } from "./constants";
+import { constants } from "./constants";
 import {
   arrayToCsv,
   flattenMessages,
@@ -24,10 +24,13 @@ type ModelMeta = {
   trainingSentences: string[];
   name: string;
 };
-type TrainedModelWithMeta = TrainedModel & ModelMeta;
+export type TrainedModelWithMeta = TrainedModel & ModelMeta;
 
-async function saveModel(trainedModel: TrainedModelWithMeta): Promise<void> {
-  const path = getModelPath(trainedModel.name);
+export async function saveModel(
+  trainedModel: TrainedModelWithMeta,
+  modelsPath: string,
+): Promise<void> {
+  const path = `${modelsPath}/${trainedModel.name}`;
 
   await trainedModel.model.save(`file://${path}`);
   await fs.writeFile(`${path}/${constants.historyName}`, JSON.stringify(trainedModel.history));
@@ -35,7 +38,7 @@ async function saveModel(trainedModel: TrainedModelWithMeta): Promise<void> {
   await fs.writeFile(`${path}/${constants.tokenizerName}`, JSON.stringify(trainedModel.tokenizer));
 }
 
-async function saveMeta(sentences: string[]): Promise<void> {
+export async function saveMeta(sentences: string[], path: string): Promise<void> {
   const infiniteTokenizer = new Tokenizer(-1);
   infiniteTokenizer.fitOnTexts(sentences);
 
@@ -53,10 +56,8 @@ async function saveMeta(sentences: string[]): Promise<void> {
       .map((length) => [length]),
   );
 
-  await createDirectory(constants.metaPath);
-
-  await fs.writeFile(`${constants.metaPath}/${constants.wordFrequenciesName}`, wordFrequenciesCsv);
-  await fs.writeFile(`${constants.metaPath}/${constants.sentenceLengthsName}`, sentenceLengthsCsv);
+  await fs.writeFile(`${path}/${constants.wordFrequenciesName}`, wordFrequenciesCsv);
+  await fs.writeFile(`${path}/${constants.sentenceLengthsName}`, sentenceLengthsCsv);
 }
 
 export async function* trainModels(
@@ -141,10 +142,11 @@ if (require.main === module) {
 
     for await (const trainedModel of trainedModels) {
       if (firstModel) {
-        saveMeta(trainedModel.trainingSentences);
-        firstModel = true;
+        await createDirectory(constants.metaPath);
+        saveMeta(trainedModel.trainingSentences, constants.metaPath);
+        firstModel = false;
       }
-      await saveModel(trainedModel);
+      await saveModel(trainedModel, constants.modelsPath);
     }
   })();
 }
