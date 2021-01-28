@@ -15,7 +15,7 @@ interface Props {
   community: string;
 }
 
-export default function CommentEditor(props: Props): ReactElement {
+export default function CommentCreator(props: Props): ReactElement {
   const [content, setContent] = useState("");
 
   const MAKE_COMMENTS = gql`

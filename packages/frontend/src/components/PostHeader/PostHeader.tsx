@@ -1,38 +1,39 @@
-import React from "react";
-import { CardHeader, IconButton, Menu, MenuItem, Typography, Link } from "@material-ui/core";
+import React, { useState } from "react";
+import {
+  Button,
+  CardHeader,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography,
+  Link,
+} from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { gql, useMutation } from "@apollo/client";
 import CenteredLoader from "../CenteredLoader";
 import ErrorPage from "../../pages/ErrorPage";
 import { Redirect } from "react-router";
+import PostEditor from "./PostEditor";
+import CommentEditor from "./CommentEditor";
 
 interface PropsTypes {
   username: string;
   id: string;
   host: string;
-  post: boolean;
+  isPost: boolean;
+  title: string;
+  body: string;
 }
 
 const PostHeader = (props: PropsTypes): JSX.Element => {
-  const [anchorEl, setAnchorEl] = React.useState<(EventTarget & Element) | null>(null);
+  const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
+  const [editorOpen, setEditorOpen] = useState(false);
 
   const DELETE_POST = gql`
     mutation($id: String!, $host: String!) {
       deletePost(post: { id: $id, host: $host })
     }
   `;
-
-  /*
-  const EDIT_POST = gql`
-    mutation($id: String!, $host: String!, $body: String!, $title: String!) {
-      updatePost(content: { body: $body, title: $title }, post: { id: $id, host: $host })
-    }
-  `;
-
-  const [editPost, { loading: editLoading, data: editData, error: editError }] = useMutation(
-    EDIT_POST,
-  );
-    */
 
   const [
     deletePost,
@@ -41,7 +42,7 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
   if (deleteLoading) return <CenteredLoader />;
   if (deleteError) return <ErrorPage message="Post could not be deleted." />;
   if (deleteData) {
-    if (props.post) {
+    if (props.isPost) {
       return <Redirect to="/" />;
     } else {
       window.location.reload();
@@ -57,8 +58,7 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
   };
 
   const handleEdit = () => {
-    //open editor and make mutation using host and id
-    //reload page
+    setEditorOpen(true);
     console.log("edit");
     handleClose();
   };
@@ -67,33 +67,58 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
     deletePost({ variables: { id: props.id, host: props.host } });
   };
 
+  const chosenEditor = props.isPost ? (
+    <PostEditor body={props.body} title={props.title} server={props.host} id={props.id} />
+  ) : (
+    <CommentEditor server={props.host} id={props.id} body={props.body} />
+  );
+
+  const editor = editorOpen ? (
+    <div style={{ paddingTop: "7px" }}>
+      {chosenEditor}{" "}
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        type="submit"
+        style={{ marginTop: "8px" }}
+        onClick={() => setEditorOpen(false)}
+      >
+        Cancel
+      </Button>{" "}
+    </div>
+  ) : null;
+
   return (
-    <CardHeader
-      action={
-        <div>
-          <IconButton color="inherit" edge="end" size="small" onClick={(e) => handleClick(e)}>
-            <MoreHorizIcon />
-          </IconButton>
-          <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-            <MenuItem onClick={handleEdit}> Edit </MenuItem>
-            <MenuItem onClick={handleDelete}> Delete </MenuItem>
-          </Menu>
-        </div>
-      }
-      title={
-        props.post ? (
-          <Typography variant="h5">
-            <Link href={"/user/" + props.username}>{props.username}</Link>
-          </Typography>
-        ) : (
-          <Typography variant="body2" gutterBottom>
-            <Link href={"/user/" + props.username}>{props.username}</Link>
-            &nbsp; &#8212; &nbsp;
-            <Link href={props.id}>View Replies</Link>
-          </Typography>
-        )
-      }
-    />
+    <div>
+      {editor}
+      <CardHeader
+        action={
+          <div>
+            <IconButton color="inherit" edge="end" size="small" onClick={(e) => handleClick(e)}>
+              <MoreHorizIcon />
+            </IconButton>
+            <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+              <MenuItem onClick={handleEdit}> Edit </MenuItem>
+              <MenuItem onClick={handleDelete}> Delete </MenuItem>
+            </Menu>
+          </div>
+        }
+        title={
+          props.isPost ? (
+            <Typography variant="h5">
+              <Link href={"/user/" + props.username}>{props.username}</Link>
+            </Typography>
+          ) : (
+            <Typography variant="body2" gutterBottom>
+              <Link href={"/user/" + props.username}>{props.username}</Link>
+              &nbsp; &#8212; &nbsp;
+              <Link href={props.id}>View Replies</Link>
+            </Typography>
+          )
+        }
+      />
+    </div>
   );
 };
 

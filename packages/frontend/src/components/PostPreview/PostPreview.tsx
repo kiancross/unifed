@@ -28,10 +28,12 @@ const PostPreview = (props: PostValues): JSX.Element => {
             href={`/instances/${props.server}/communities/${props.community}/posts/${props.postId}`}
           >
             <PostHeader
-              post={true}
+              title={props.title}
+              isPost={true}
               username={props.username}
               id={props.postId}
               host={props.server}
+              body=""
             />
             <CardContent>
               <Typography variant="body1">{props.title}</Typography>

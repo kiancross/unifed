@@ -5,7 +5,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { Button, Container, Grid } from "@material-ui/core";
-import PostEditor from "./PostEditor";
+import PostCreator from "./PostCreator";
 import style from "./CreatePostPage.module.scss";
 
 interface Params {
@@ -20,7 +20,7 @@ const CreatePostPage = () => {
   return (
     <Container className={style.container} maxWidth="lg">
       <Grid container direction="column" spacing={3}>
-        <PostEditor community={community} server={server} />
+        <PostCreator community={community} server={server} />
         <Grid item>
           <Button href={href} variant="contained" color="primary">
             Cancel Post

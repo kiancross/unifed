@@ -32,7 +32,14 @@ const Comment = (props: PostValues): JSX.Element => {
       <Grid item xs={11} container direction="column">
         <Box borderLeft={4} borderColor={theme.palette.primary.main}>
           <Card elevation={1} square style={{ textAlign: "left" }}>
-            <PostHeader post={false} username={props.username} id={props.id} host={props.host} />
+            <PostHeader
+              body={props.text}
+              title="title"
+              isPost={false}
+              username={props.username}
+              id={props.id}
+              host={props.host}
+            />
             <CardContent style={styles.cardcontent}>
               <Typography variant="body2">
                 <MarkdownViewer>{props.text}</MarkdownViewer>

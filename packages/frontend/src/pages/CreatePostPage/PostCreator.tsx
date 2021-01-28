@@ -16,7 +16,7 @@ interface Params {
   community: string;
 }
 
-const PostEditor = (props: Params): ReactElement => {
+const PostCreator = (props: Params): ReactElement => {
   const [content, setContent] = useState("");
 
   const MAKE_POST = gql`
@@ -96,4 +96,4 @@ const PostEditor = (props: Params): ReactElement => {
   );
 };
 
-export default PostEditor;
+export default PostCreator;
