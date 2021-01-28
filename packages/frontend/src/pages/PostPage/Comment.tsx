@@ -35,7 +35,7 @@ const Comment = (props: PostValues): JSX.Element => {
             <PostHeader
               body={props.text}
               title="title"
-              isPost={false}
+              isComment={true}
               username={props.username}
               id={props.id}
               host={props.host}

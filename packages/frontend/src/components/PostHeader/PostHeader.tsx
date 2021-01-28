@@ -20,7 +20,7 @@ interface PropsTypes {
   username: string;
   id: string;
   host: string;
-  isPost: boolean;
+  isComment: boolean;
   title: string;
   body: string;
 }
@@ -42,10 +42,10 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
   if (deleteLoading) return <CenteredLoader />;
   if (deleteError) return <ErrorPage message="Post could not be deleted." />;
   if (deleteData) {
-    if (props.isPost) {
-      return <Redirect to="/" />;
-    } else {
+    if (props.isComment) {
       window.location.reload();
+    } else {
+      return <Redirect to="/" />;
     }
   }
 
@@ -67,10 +67,10 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
     deletePost({ variables: { id: props.id, host: props.host } });
   };
 
-  const chosenEditor = props.isPost ? (
-    <PostEditor body={props.body} title={props.title} server={props.host} id={props.id} />
-  ) : (
+  const chosenEditor = props.isComment ? (
     <CommentEditor server={props.host} id={props.id} body={props.body} />
+  ) : (
+    <PostEditor body={props.body} title={props.title} server={props.host} id={props.id} />
   );
 
   const editor = editorOpen ? (
@@ -105,15 +105,15 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
           </div>
         }
         title={
-          props.isPost ? (
-            <Typography variant="h5">
-              <Link href={"/user/" + props.username}>{props.username}</Link>
-            </Typography>
-          ) : (
+          props.isComment ? (
             <Typography variant="body2" gutterBottom>
               <Link href={"/user/" + props.username}>{props.username}</Link>
               &nbsp; &#8212; &nbsp;
               <Link href={props.id}>View Replies</Link>
+            </Typography>
+          ) : (
+            <Typography variant="h5">
+              <Link href={"/user/" + props.username}>{props.username}</Link>
             </Typography>
           )
         }

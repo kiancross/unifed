@@ -29,7 +29,7 @@ const PostPreview = (props: PostValues): JSX.Element => {
           >
             <PostHeader
               title={props.title}
-              isPost={true}
+              isComment={false}
               username={props.username}
               id={props.postId}
               host={props.server}
