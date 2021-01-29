@@ -68,8 +68,10 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const postRaw = req.body;
-  const post = plainToClass(Post, postRaw as Post);
+  const rawPost = req.body;
+  rawPost.author = { id: rawPost.author, host: req.get("client-host") };
+
+  const post = plainToClass(Post, rawPost as Post);
 
   // TODO validate
 
