@@ -20,9 +20,9 @@ interface PropsTypes {
   username: string;
   id: string;
   server: string;
-  isComment: boolean;
   title: string;
   body: string;
+  isComment?: boolean;
 }
 
 const PostHeader = (props: PropsTypes): JSX.Element => {
@@ -71,7 +71,6 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
 
   const handleEdit = () => {
     setEditorOpen(true);
-    console.log("edit");
     handleClose();
   };
 
@@ -79,7 +78,7 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
     deletePost({ variables: { id: props.id, host: props.server } });
   };
 
-  const action = isUserAuthor ? (
+  const headerAction = isUserAuthor ? (
     <div>
       <IconButton color="inherit" edge="end" size="small" onClick={(e) => handleClick(e)}>
         <MoreHorizIcon />
@@ -113,29 +112,22 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
     </div>
   ) : null;
 
-  //create action const and assign it null if user is not author or admin of community
-  //get current user name. If same as props.username then render button
-  //get administrator
+  const headerTitle = props.isComment ? (
+    <Typography variant="body2" gutterBottom>
+      <Link href={"/user/" + props.username}>{props.username}</Link>
+      &nbsp; &#8212; &nbsp;
+      <Link href={props.id}>View Replies</Link>
+    </Typography>
+  ) : (
+    <Typography variant="body2">
+      <Link href={"/user/" + props.username}>{props.username}</Link>
+    </Typography>
+  );
 
   return (
     <div>
       {editor}
-      <CardHeader
-        action={action}
-        title={
-          props.isComment ? (
-            <Typography variant="body2" gutterBottom>
-              <Link href={"/user/" + props.username}>{props.username}</Link>
-              &nbsp; &#8212; &nbsp;
-              <Link href={props.id}>View Replies</Link>
-            </Typography>
-          ) : (
-            <Typography variant="h5">
-              <Link href={"/user/" + props.username}>{props.username}</Link>
-            </Typography>
-          )
-        }
-      />
+      <CardHeader action={headerAction} title={headerTitle} />
     </div>
   );
 };

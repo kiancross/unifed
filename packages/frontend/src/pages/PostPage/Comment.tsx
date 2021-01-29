@@ -34,8 +34,8 @@ const Comment = (props: PostValues): JSX.Element => {
           <Card elevation={1} square style={{ textAlign: "left" }}>
             <PostHeader
               body={props.text}
-              title="title"
-              isComment={true}
+              title=""
+              isComment
               username={props.username}
               id={props.id}
               server={props.host}

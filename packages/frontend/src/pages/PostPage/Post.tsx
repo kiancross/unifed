@@ -23,7 +23,6 @@ const Post = (props: PostValues): JSX.Element => {
         <PostHeader
           body={props.text}
           title={props.title}
-          isComment={false}
           id={props.id}
           server={props.host}
           username={props.username}
