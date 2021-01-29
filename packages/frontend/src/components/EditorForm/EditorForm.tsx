@@ -44,7 +44,11 @@ const EditorForm = (props: PropsTypes): JSX.Element => {
     >
       <Form style={{ display: "block" }}>
         {titleField}
-        <MarkdownEditor style={{ height: height }} onChange={({ text }) => setContent(text)} />
+        <MarkdownEditor
+          title="Markdown Editor"
+          style={{ height: height }}
+          onChange={({ text }) => setContent(text)}
+        />
 
         <Button
           variant="contained"
