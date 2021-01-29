@@ -9,7 +9,7 @@ import {
   Link,
 } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import CenteredLoader from "../CenteredLoader";
 import ErrorPage from "../../pages/ErrorPage";
 import { Redirect } from "react-router";
@@ -19,7 +19,7 @@ import CommentEditor from "./CommentEditor";
 interface PropsTypes {
   username: string;
   id: string;
-  host: string;
+  server: string;
   isComment: boolean;
   title: string;
   body: string;
@@ -28,6 +28,17 @@ interface PropsTypes {
 const PostHeader = (props: PropsTypes): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
   const [editorOpen, setEditorOpen] = useState(false);
+
+  const GET_USER = gql`
+    query GET_USER {
+      getUser {
+        username
+      }
+    }
+  `;
+
+  const { data: userData } = useQuery(GET_USER);
+  const isUserAuthor = userData.getUser.username == props.username;
 
   const DELETE_POST = gql`
     mutation($id: String!, $host: String!) {
@@ -39,6 +50,7 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
     deletePost,
     { loading: deleteLoading, data: deleteData, error: deleteError },
   ] = useMutation(DELETE_POST);
+
   if (deleteLoading) return <CenteredLoader />;
   if (deleteError) return <ErrorPage message="Post could not be deleted." />;
   if (deleteData) {
@@ -64,13 +76,25 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
   };
 
   const handleDelete = () => {
-    deletePost({ variables: { id: props.id, host: props.host } });
+    deletePost({ variables: { id: props.id, host: props.server } });
   };
 
+  const action = isUserAuthor ? (
+    <div>
+      <IconButton color="inherit" edge="end" size="small" onClick={(e) => handleClick(e)}>
+        <MoreHorizIcon />
+      </IconButton>
+      <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+        <MenuItem onClick={handleEdit}> Edit </MenuItem>
+        <MenuItem onClick={handleDelete}> Delete </MenuItem>
+      </Menu>
+    </div>
+  ) : null;
+
   const chosenEditor = props.isComment ? (
-    <CommentEditor server={props.host} id={props.id} body={props.body} />
+    <CommentEditor server={props.server} id={props.id} body={props.body} />
   ) : (
-    <PostEditor body={props.body} title={props.title} server={props.host} id={props.id} />
+    <PostEditor body={props.body} title={props.title} server={props.server} id={props.id} />
   );
 
   const editor = editorOpen ? (
@@ -89,21 +113,15 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
     </div>
   ) : null;
 
+  //create action const and assign it null if user is not author or admin of community
+  //get current user name. If same as props.username then render button
+  //get administrator
+
   return (
     <div>
       {editor}
       <CardHeader
-        action={
-          <div>
-            <IconButton color="inherit" edge="end" size="small" onClick={(e) => handleClick(e)}>
-              <MoreHorizIcon />
-            </IconButton>
-            <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-              <MenuItem onClick={handleEdit}> Edit </MenuItem>
-              <MenuItem onClick={handleDelete}> Delete </MenuItem>
-            </Menu>
-          </div>
-        }
+        action={action}
         title={
           props.isComment ? (
             <Typography variant="body2" gutterBottom>

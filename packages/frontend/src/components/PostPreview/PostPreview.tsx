@@ -32,7 +32,7 @@ const PostPreview = (props: PostValues): JSX.Element => {
               isComment={false}
               username={props.username}
               id={props.postId}
-              host={props.server}
+              server={props.server}
               body=""
             />
             <CardContent>

@@ -25,7 +25,7 @@ const Post = (props: PostValues): JSX.Element => {
           title={props.title}
           isComment={false}
           id={props.id}
-          host={props.host}
+          server={props.host}
           username={props.username}
         />
         <CardContent className={style.cardContent}>

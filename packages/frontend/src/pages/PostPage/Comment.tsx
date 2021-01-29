@@ -38,7 +38,7 @@ const Comment = (props: PostValues): JSX.Element => {
               isComment={true}
               username={props.username}
               id={props.id}
-              host={props.host}
+              server={props.host}
             />
             <CardContent style={styles.cardcontent}>
               <Typography variant="body2">
