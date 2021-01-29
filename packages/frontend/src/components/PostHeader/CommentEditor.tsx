@@ -5,6 +5,8 @@
 import React, { ReactElement } from "react";
 import { gql, useMutation } from "@apollo/client";
 import EditorForm from "../EditorForm";
+import CenteredLoader from "../CenteredLoader";
+import ErrorPage from "../../pages/ErrorPage";
 
 interface Props {
   server: string;
@@ -19,8 +21,10 @@ export default function CommentEditor(props: Props): ReactElement {
     }
   `;
 
-  const [editComment, { data }] = useMutation(EDIT_COMMENT);
+  const [editComment, { data, loading, error }] = useMutation(EDIT_COMMENT);
 
+  if (loading) return <CenteredLoader />;
+  if (error) return <ErrorPage message="Could not edit comment. Please try again later." />;
   if (data) window.location.reload();
 
   const handleClick = (content: string) => {
