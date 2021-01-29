@@ -2,11 +2,10 @@
  * CS3099 Group A3
  */
 
-import got from "got";
 import { Service } from "typedi";
 import { plainToClass } from "class-transformer";
-import { getFederatedApiEndpoint } from "./helpers";
 import { Post, User } from "@unifed/backend-core";
+import { FederationHttpClient } from "./http-client";
 
 @Service()
 export class PostsService {
@@ -18,24 +17,21 @@ export class PostsService {
     body: string,
     parentPost?: string,
   ): Promise<Post | null> {
-    try {
-      const rawPost = await got
-        .post(getFederatedApiEndpoint(host, ["posts"]), {
-          json: {
-            community,
-            parentPost,
-            title,
-            body,
-            contentType: "markdown",
-            author: {
-              id: user.username,
-              host: host,
-            },
-          },
-        })
-        .json();
+    const httpClient = new FederationHttpClient(host);
 
-      const post = plainToClass(Post, rawPost as Post);
+    try {
+      const rawPost: Post = await httpClient.post("posts", {
+        json: {
+          community,
+          parentPost,
+          title,
+          body,
+          contentType: "markdown",
+          author: user.username,
+        },
+      });
+
+      const post = plainToClass(Post, rawPost);
       post.host = host;
 
       return post;
@@ -49,33 +45,41 @@ export class PostsService {
   }
 
   async getByCommunity(host: string, community: string): Promise<Post[]> {
-    const rawPosts = await got(getFederatedApiEndpoint(host, ["posts"]), {
+    const httpClient = new FederationHttpClient(host);
+
+    const rawPosts: Post[] = await httpClient.get("posts", {
       searchParams: {
         community,
       },
-    }).json();
+    });
 
-    const posts = plainToClass(Post, rawPosts as Post[]);
+    const posts = plainToClass(Post, rawPosts);
     posts.forEach((element) => (element.host = host));
 
     return posts;
   }
 
   async getById(host: string, id: string): Promise<Post> {
-    const rawPost = await got(getFederatedApiEndpoint(host, ["posts", id])).json();
+    const httpClient = new FederationHttpClient(host);
 
-    const post = plainToClass(Post, rawPost as Post);
+    const rawPost: Post = await httpClient.get(["posts", id]);
+
+    const post = plainToClass(Post, rawPost);
     post.host = host;
 
     return post;
   }
 
   async delete(host: string, id: string): Promise<void> {
-    await got.delete(getFederatedApiEndpoint(host, ["posts", id]));
+    const httpClient = new FederationHttpClient(host);
+
+    await httpClient.delete(["posts", id]);
   }
 
   async update(host: string, id: string, title: string, body: string): Promise<void> {
-    await got.put(getFederatedApiEndpoint(host, ["posts", id]), {
+    const httpClient = new FederationHttpClient(host);
+
+    await httpClient.put(["posts", id], {
       json: {
         title,
         body,

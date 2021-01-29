@@ -2,12 +2,12 @@
  * CS3099 Group A3
  */
 
-import got from "got";
 import { Service } from "typedi";
 import { plainToClass } from "class-transformer";
 import { validate } from "class-validator";
-import { getFederatedApiEndpoint, isStringArray, RemoteResponseError } from "./helpers";
 import { Community } from "@unifed/backend-core";
+import { isStringArray, RemoteResponseError } from "./helpers";
+import { FederationHttpClient } from "./http-client";
 
 export class CommunityNotFoundError extends Error {
   constructor(id: string) {
@@ -18,7 +18,10 @@ export class CommunityNotFoundError extends Error {
 @Service()
 export class CommunitiesService {
   async getAll(host: string): Promise<Community[]> {
-    const communityIds: string[] = await got(getFederatedApiEndpoint(host, ["communities"])).json();
+    const httpClient = new FederationHttpClient(host);
+
+    const communityIds: string[] = await httpClient.get("communities");
+
     if (!isStringArray(communityIds)) {
       throw new RemoteResponseError(communityIds);
     }
@@ -39,9 +42,11 @@ export class CommunitiesService {
   }
 
   async getOne(host: string, id: string): Promise<Community | null> {
+    const httpClient = new FederationHttpClient(host);
+
     try {
-      const rawCommunity = await got(getFederatedApiEndpoint(host, ["communities", id])).json();
-      const community = plainToClass(Community, rawCommunity as Community);
+      const rawCommunity: Community = await httpClient.get(["communities", id]);
+      const community = plainToClass(Community, rawCommunity);
       community.host = host;
 
       const validation = await validate(community);
