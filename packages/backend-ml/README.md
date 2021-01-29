@@ -14,4 +14,5 @@ This package is currently used for spam detection machine learning.
 The `models` directory contains the trained models. All configuration information is stored
 within here.
 
-The `stats` directory contains statistics about the training data, used in the report.
+The `meta` directory contains statistics about the training data, used in the report.
+This directory is not committed, as it contained hundreds of thousands of lines.
