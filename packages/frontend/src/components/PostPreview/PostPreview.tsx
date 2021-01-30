@@ -43,6 +43,7 @@ const PostPreview = (props: PostValues): JSX.Element => {
             username={props.username}
             id={props.id}
             server={props.server}
+            isPreview
           />
           <CardActionArea
             disableRipple

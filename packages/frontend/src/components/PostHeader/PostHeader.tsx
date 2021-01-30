@@ -12,6 +12,7 @@ interface PropsTypes {
   server: string;
   title?: string;
   isComment?: boolean;
+  isPreview?: boolean;
   onToggleEdit: () => void;
 }
 
@@ -48,6 +49,8 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
   if (deleteData) {
     if (props.isComment) {
       window.location.reload();
+    } else if (props.isPreview) {
+      window.location.reload();
     } else {
       return <Redirect to="/" />;
     }
@@ -62,8 +65,8 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
   };
 
   const handleEdit = () => {
-    props.onToggleEdit();
     handleClose();
+    props.onToggleEdit();
   };
 
   const handleDelete = () => {
