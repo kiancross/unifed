@@ -104,8 +104,16 @@ jobs:
           flags: backend-internal-server
           directory: packages/backend-internal-server
           fail_ci_if_error: true
+
+      - name: Upload Coverage Report (backend-ml) 5️⃣ 📊
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: backend-ml
+          directory: packages/backend-ml
+          fail_ci_if_error: true
       
-      - name: Upload Coverage Report (frontend) 5️⃣ 📊 
+      - name: Upload Coverage Report (frontend) 6️⃣ 📊
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -113,7 +121,7 @@ jobs:
           directory: packages/frontend
           fail_ci_if_error: true
 
-      - name: Upload Coverage Report (shared) 6️⃣ 📊
+      - name: Upload Coverage Report (shared) 7️⃣ 📊
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
