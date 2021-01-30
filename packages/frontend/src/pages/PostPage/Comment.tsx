@@ -2,16 +2,17 @@
  * CS3099 Group A3
  */
 
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "@material-ui/core/styles";
 import { Box, Card, CardContent, Grid, Typography } from "@material-ui/core";
 import UserIcon from "../../components/UserIcon";
 import MarkdownViewer from "../../components/MarkdownViewer";
 import PostHeader from "../../components/PostHeader";
+import CommentEditor from "../../components/PostHeader/CommentEditor";
 
 interface PostValues {
   username: string;
-  text: string;
+  body: string;
   title: string;
   id: string;
   host: string;
@@ -26,15 +27,23 @@ const styles = {
 
 const Comment = (props: PostValues): JSX.Element => {
   const theme = useTheme();
+  const [editorOpen, setEditorOpen] = useState(false);
 
-  return (
+  const content = editorOpen ? (
+    <CommentEditor
+      onClose={() => setEditorOpen(false)}
+      server={props.host}
+      id={props.id}
+      body={props.body}
+    />
+  ) : (
     <Grid item container direction="row-reverse" spacing={2}>
       <Grid item xs={11} container direction="column">
         <Box borderLeft={4} borderColor={theme.palette.primary.main}>
           <Card elevation={1} square style={{ textAlign: "left" }}>
             <PostHeader
-              body={props.text}
-              title=""
+              onToggleEdit={() => setEditorOpen(true)}
+              body={props.body}
               isComment
               username={props.username}
               id={props.id}
@@ -42,7 +51,7 @@ const Comment = (props: PostValues): JSX.Element => {
             />
             <CardContent style={styles.cardcontent}>
               <Typography variant="body2">
-                <MarkdownViewer>{props.text}</MarkdownViewer>
+                <MarkdownViewer>{props.body}</MarkdownViewer>
               </Typography>
             </CardContent>
           </Card>
@@ -55,6 +64,8 @@ const Comment = (props: PostValues): JSX.Element => {
       </Grid>
     </Grid>
   );
+
+  return content;
 };
 
 export default Comment;

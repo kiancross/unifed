@@ -28,6 +28,7 @@ const CommunityPostsPage = (): JSX.Element => {
         author {
           id
         }
+        body
       }
       getCommunity(community: { id: $community, host: $host }) {
         id
@@ -58,10 +59,11 @@ const CommunityPostsPage = (): JSX.Element => {
               .map((post: any) => {
                 return (
                   <PostPreview
+                    body={post.body}
                     key={post.id}
                     username={post.author.id}
                     title={post.title}
-                    postId={post.id}
+                    id={post.id}
                     server={server}
                     community={community}
                   />

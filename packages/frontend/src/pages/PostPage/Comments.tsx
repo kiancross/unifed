@@ -47,7 +47,7 @@ const Comments = (props: CommentParams) => {
         const text = post.body;
         return (
           <div key={post.id} style={{ paddingTop: "4px" }}>
-            <Comment host={server} username={username} text={text} title="" id={post.id} />
+            <Comment host={server} username={username} body={text} title="" id={post.id} />
           </div>
         );
       })}

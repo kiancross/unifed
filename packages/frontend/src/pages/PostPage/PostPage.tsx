@@ -50,7 +50,7 @@ const PostPage = (): JSX.Element => {
     <Container className={style.container}>
       <Grid container spacing={3}>
         <Grid item container xs={8} direction="column" spacing={2}>
-          <Post id={post} host={server} username={username} text={body} title={title} />
+          <Post id={post} server={server} username={username} body={body} title={title} />
           <CommentCreator
             parentId={post}
             parentTitle={title}

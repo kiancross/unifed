@@ -7,12 +7,14 @@ import { gql, useMutation } from "@apollo/client";
 import CenteredLoader from "../CenteredLoader";
 import ErrorPage from "../../pages/ErrorPage";
 import EditorForm from "../EditorForm";
+import { Button } from "@material-ui/core";
 
 interface Params {
   server: string;
   id: string;
   title: string;
   body: string;
+  onClose: () => void;
 }
 
 const PostEditor = (props: Params): ReactElement => {
@@ -40,12 +42,24 @@ const PostEditor = (props: Params): ReactElement => {
   };
 
   return (
-    <EditorForm
-      title={props.title}
-      onSubmit={handleClick}
-      body={props.body}
-      buttonMessage="Edit Post"
-    />
+    <div>
+      <EditorForm
+        title={props.title}
+        onSubmit={handleClick}
+        body={props.body}
+        buttonMessage="Edit Post"
+      />
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        type="submit"
+        style={{ marginTop: "8px" }}
+        onClick={() => props.onClose()}
+      >
+        Cancel
+      </Button>
+    </div>
   );
 };
 

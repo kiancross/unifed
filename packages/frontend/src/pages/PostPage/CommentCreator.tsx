@@ -5,7 +5,7 @@
 import React, { ReactElement } from "react";
 import { gql, useMutation } from "@apollo/client";
 import EditorForm from "../../components/EditorForm";
-import CenteredLoader from "../../components/CenteredLoader";
+import ErrorPage from "../ErrorPage";
 
 interface Props {
   server: string;
@@ -36,9 +36,9 @@ export default function CommentCreator(props: Props): ReactElement {
     }
   `;
 
-  const [makePost, { data, loading }] = useMutation(MAKE_COMMENTS);
+  const [makePost, { data, error }] = useMutation(MAKE_COMMENTS);
 
-  if (loading) return <CenteredLoader />;
+  if (error) return <ErrorPage message="Could not make comment. Please try again later" />;
   if (data) window.location.reload();
 
   const handleClick = (content: string) => {

@@ -1,33 +1,23 @@
 import React, { useState } from "react";
-import {
-  Button,
-  CardHeader,
-  IconButton,
-  Menu,
-  MenuItem,
-  Typography,
-  Link,
-} from "@material-ui/core";
+import { CardHeader, IconButton, Menu, MenuItem, Typography, Link } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import CenteredLoader from "../CenteredLoader";
 import ErrorPage from "../../pages/ErrorPage";
 import { Redirect } from "react-router";
-import PostEditor from "./PostEditor";
-import CommentEditor from "./CommentEditor";
 
 interface PropsTypes {
   username: string;
   id: string;
   server: string;
-  title: string;
+  title?: string;
   body: string;
   isComment?: boolean;
+  onToggleEdit: () => void;
 }
 
 const PostHeader = (props: PropsTypes): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
-  const [editorOpen, setEditorOpen] = useState(false);
 
   const GET_USER = gql`
     query GET_USER {
@@ -70,7 +60,7 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
   };
 
   const handleEdit = () => {
-    setEditorOpen(true);
+    props.onToggleEdit();
     handleClose();
   };
 
@@ -90,28 +80,6 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
     </div>
   ) : null;
 
-  const chosenEditor = props.isComment ? (
-    <CommentEditor server={props.server} id={props.id} body={props.body} />
-  ) : (
-    <PostEditor body={props.body} title={props.title} server={props.server} id={props.id} />
-  );
-
-  const editor = editorOpen ? (
-    <div style={{ paddingTop: "7px" }}>
-      {chosenEditor}{" "}
-      <Button
-        variant="contained"
-        color="primary"
-        fullWidth
-        type="submit"
-        style={{ marginTop: "8px" }}
-        onClick={() => setEditorOpen(false)}
-      >
-        Cancel
-      </Button>{" "}
-    </div>
-  ) : null;
-
   const headerTitle = props.isComment ? (
     <Typography variant="body2" gutterBottom>
       <Link href={"/user/" + props.username}>{props.username}</Link>
@@ -124,12 +92,7 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
     </Typography>
   );
 
-  return (
-    <div>
-      {editor}
-      <CardHeader action={headerAction} title={headerTitle} />
-    </div>
-  );
+  return <CardHeader action={headerAction} title={headerTitle} />;
 };
 
 export default PostHeader;

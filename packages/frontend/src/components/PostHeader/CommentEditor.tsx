@@ -7,11 +7,13 @@ import { gql, useMutation } from "@apollo/client";
 import EditorForm from "../EditorForm";
 import CenteredLoader from "../CenteredLoader";
 import ErrorPage from "../../pages/ErrorPage";
+import { Button } from "@material-ui/core";
 
 interface Props {
   server: string;
   id: string;
   body: string;
+  onClose: () => void;
 }
 
 export default function CommentEditor(props: Props): ReactElement {
@@ -39,12 +41,24 @@ export default function CommentEditor(props: Props): ReactElement {
   };
 
   return (
-    <EditorForm
-      isComment={true}
-      title=""
-      onSubmit={handleClick}
-      body={props.body}
-      buttonMessage="Edit Comment"
-    />
+    <div>
+      <EditorForm
+        isComment={true}
+        title=""
+        onSubmit={handleClick}
+        body={props.body}
+        buttonMessage="Edit Comment"
+      />
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        type="submit"
+        style={{ marginTop: "8px" }}
+        onClick={() => props.onClose()}
+      >
+        Cancel
+      </Button>
+    </div>
   );
 }
