@@ -42,7 +42,7 @@ const PostEditor = (props: Params): ReactElement => {
   return (
     <EditorForm
       title={props.title}
-      submitFunc={handleClick}
+      onSubmit={handleClick}
       body={props.body}
       buttonMessage="Edit Post"
     />

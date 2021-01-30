@@ -53,5 +53,5 @@ export default function CommentCreator(props: Props): ReactElement {
     });
   };
 
-  return <EditorForm submitFunc={handleClick} buttonMessage="Make Comment" isComment />;
+  return <EditorForm onSubmit={handleClick} buttonMessage="Make Comment" isComment />;
 }

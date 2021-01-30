@@ -5,14 +5,14 @@ import { Button, TextField } from "@material-ui/core";
 
 interface PropsTypes {
   title?: string;
-  submitFunc: (content: string, values: any) => void;
+  onSubmit: (content: string, values: any) => void;
   body?: string;
   buttonMessage: string;
   isComment?: boolean;
 }
 
 const EditorForm = (props: PropsTypes): JSX.Element => {
-  const [content, setContent] = useState(props.body || "");
+  const [content, setContent] = useState("");
 
   const initialValues = {
     title: props.title,
@@ -39,12 +39,16 @@ const EditorForm = (props: PropsTypes): JSX.Element => {
     <Formik
       initialValues={initialValues}
       onSubmit={(values: any) => {
-        props.submitFunc(content, values);
+        props.onSubmit(content, values);
       }}
     >
       <Form style={{ display: "block" }}>
         {titleField}
-        <MarkdownEditor style={{ height: height }} onChange={({ text }) => setContent(text)} />
+        <MarkdownEditor
+          defaultValue={props.body}
+          style={{ height: height }}
+          onChange={({ text }) => setContent(text)}
+        />
 
         <Button
           variant="contained"

@@ -9,7 +9,7 @@ test("Post Editor renders", async () => {
   const title = "Test Title";
 
   const { getByText } = render(
-    <EditorForm title={title} submitFunc={submitFunc} buttonMessage={buttonMessage} />,
+    <EditorForm title={title} onSubmit={submitFunc} buttonMessage={buttonMessage} />,
   );
 
   getByText(buttonMessage);
@@ -22,7 +22,7 @@ test("Post Editor renders", async () => {
 
 test("Comment Editor renders", () => {
   const { getByText } = render(
-    <EditorForm isComment submitFunc={submitFunc} buttonMessage={buttonMessage} />,
+    <EditorForm isComment onSubmit={submitFunc} buttonMessage={buttonMessage} />,
   );
 
   getByText(buttonMessage);

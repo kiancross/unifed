@@ -42,7 +42,7 @@ export default function CommentEditor(props: Props): ReactElement {
     <EditorForm
       isComment={true}
       title=""
-      submitFunc={handleClick}
+      onSubmit={handleClick}
       body={props.body}
       buttonMessage="Edit Comment"
     />

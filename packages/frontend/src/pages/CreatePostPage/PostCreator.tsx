@@ -49,7 +49,7 @@ const PostCreator = (props: Params): ReactElement => {
     });
   };
 
-  return <EditorForm submitFunc={handleClick} buttonMessage="Submit Post" />;
+  return <EditorForm onSubmit={handleClick} buttonMessage="Submit Post" />;
 };
 
 export default PostCreator;
