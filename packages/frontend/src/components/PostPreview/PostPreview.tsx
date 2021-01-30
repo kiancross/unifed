@@ -47,7 +47,6 @@ const PostPreview = (props: PostValues): JSX.Element => {
               username={props.username}
               id={props.id}
               server={props.server}
-              body=""
             />
             <CardContent>
               <Typography variant="body1">{props.title}</Typography>

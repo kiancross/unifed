@@ -11,7 +11,6 @@ interface PropsTypes {
   id: string;
   server: string;
   title?: string;
-  body: string;
   isComment?: boolean;
   onToggleEdit: () => void;
 }

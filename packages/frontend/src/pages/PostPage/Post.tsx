@@ -35,7 +35,6 @@ const Post = (props: PostValues): JSX.Element => {
       <Card style={{ textAlign: "left" }}>
         <PostHeader
           onToggleEdit={() => setEditorOpen(true)}
-          body={props.body}
           title={props.title}
           id={props.id}
           server={props.server}

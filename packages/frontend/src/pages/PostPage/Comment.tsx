@@ -43,7 +43,6 @@ const Comment = (props: PostValues): JSX.Element => {
           <Card elevation={1} square style={{ textAlign: "left" }}>
             <PostHeader
               onToggleEdit={() => setEditorOpen(true)}
-              body={props.body}
               isComment
               username={props.username}
               id={props.id}
