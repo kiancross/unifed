@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { CardHeader, IconButton, Menu, MenuItem, Typography, Link } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import CenteredLoader from "../CenteredLoader";
 import ErrorPage from "../../pages/ErrorPage";
 import { Redirect } from "react-router";
+import { UserContext } from "../../components/App/UserContext";
 
 interface PropsTypes {
   username: string;
@@ -18,26 +19,13 @@ interface PropsTypes {
 
 const PostHeader = (props: PropsTypes): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
-
-  const GET_USER = gql`
-    query GET_USER {
-      getUser {
-        username
-      }
-    }
-  `;
+  const loggedInUser = useContext(UserContext);
 
   const DELETE_POST = gql`
     mutation($id: String!, $host: String!) {
       deletePost(post: { id: $id, host: $host })
     }
   `;
-
-  let isUserAuthor;
-  const { data: userData, error: userError } = useQuery(GET_USER);
-
-  if (userError) return <ErrorPage message="Could not get the active user" />;
-  if (userData.getUser != null) isUserAuthor = userData.getUser.username == props.username;
 
   const [
     deletePost,
@@ -74,17 +62,18 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
     deletePost({ variables: { id: props.id, host: props.server } });
   };
 
-  const headerAction = isUserAuthor ? (
-    <div>
-      <IconButton color="inherit" edge="end" size="small" onClick={(e) => handleClick(e)}>
-        <MoreHorizIcon />
-      </IconButton>
-      <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-        <MenuItem onClick={handleEdit}> Edit </MenuItem>
-        <MenuItem onClick={handleDelete}> Delete </MenuItem>
-      </Menu>
-    </div>
-  ) : null;
+  const headerAction =
+    loggedInUser == props.username ? (
+      <div>
+        <IconButton color="inherit" edge="end" size="small" onClick={(e) => handleClick(e)}>
+          <MoreHorizIcon />
+        </IconButton>
+        <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+          <MenuItem onClick={handleEdit}> Edit </MenuItem>
+          <MenuItem onClick={handleDelete}> Delete </MenuItem>
+        </Menu>
+      </div>
+    ) : null;
 
   const headerTitle = props.isComment ? (
     <Typography variant="body2" gutterBottom>
