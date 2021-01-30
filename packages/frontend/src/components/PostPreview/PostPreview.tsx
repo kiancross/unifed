@@ -37,17 +37,17 @@ const PostPreview = (props: PostValues): JSX.Element => {
       </Grid>
       <Grid item xs={11} container direction="column" justify="flex-start">
         <Card style={{ textAlign: "left" }}>
+          <PostHeader
+            onToggleEdit={() => setEditorOpen(true)}
+            title={props.title}
+            username={props.username}
+            id={props.id}
+            server={props.server}
+          />
           <CardActionArea
             disableRipple
             href={`/instances/${props.server}/communities/${props.community}/posts/${props.id}`}
           >
-            <PostHeader
-              onToggleEdit={() => setEditorOpen(true)}
-              title={props.title}
-              username={props.username}
-              id={props.id}
-              server={props.server}
-            />
             <CardContent>
               <Typography variant="body1">{props.title}</Typography>
             </CardContent>
