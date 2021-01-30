@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CardHeader, IconButton, Menu, MenuItem, Typography, Link } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 import CenteredLoader from "../CenteredLoader";
 import ErrorPage from "../../pages/ErrorPage";
 import { Redirect } from "react-router";
@@ -26,14 +26,17 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
     }
   `;
 
-  const { data: userData } = useQuery(GET_USER);
-  const isUserAuthor = userData.getUser.username == props.username;
-
   const DELETE_POST = gql`
     mutation($id: String!, $host: String!) {
       deletePost(post: { id: $id, host: $host })
     }
   `;
+
+  let isUserAuthor;
+  const { data: userData, error: userError } = useQuery(GET_USER);
+
+  if (userError) return <ErrorPage message="Could not get the active user" />;
+  if (userData.getUser != null) isUserAuthor = userData.getUser.username == props.username;
 
   const [
     deletePost,
@@ -64,6 +67,7 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
   };
 
   const handleDelete = () => {
+    handleClose();
     deletePost({ variables: { id: props.id, host: props.server } });
   };
 
