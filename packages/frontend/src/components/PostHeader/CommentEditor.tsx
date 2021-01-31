@@ -16,13 +16,13 @@ interface Props {
   onClose: () => void;
 }
 
-export default function CommentEditor(props: Props): ReactElement {
-  const EDIT_COMMENT = gql`
-    mutation($id: String!, $host: String!, $body: String!, $title: String!) {
-      updatePost(content: { body: $body, title: $title }, post: { id: $id, host: $host })
-    }
-  `;
+export const EDIT_COMMENT = gql`
+  mutation($id: String!, $host: String!, $body: String!, $title: String!) {
+    updatePost(content: { body: $body, title: $title }, post: { id: $id, host: $host })
+  }
+`;
 
+export default function CommentEditor(props: Props): ReactElement {
   const [editComment, { data, loading, error }] = useMutation(EDIT_COMMENT);
 
   if (loading) return <CenteredLoader />;
@@ -46,7 +46,7 @@ export default function CommentEditor(props: Props): ReactElement {
   return (
     <div>
       <EditorForm
-        isComment={true}
+        isComment
         title=""
         onSubmit={handleClick}
         body={props.body}
