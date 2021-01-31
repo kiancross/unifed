@@ -27,9 +27,12 @@ export default function CommentEditor(props: Props): ReactElement {
 
   if (loading) return <CenteredLoader />;
   if (error) return <ErrorPage message="Could not edit comment. Please try again later." />;
-  if (data) window.location.reload();
+  if (data) window.location.assign(window.location.href);
 
   const handleClick = (content: string) => {
+    if (content == "") {
+      content = props.body;
+    }
     editComment({
       variables: {
         id: props.id,

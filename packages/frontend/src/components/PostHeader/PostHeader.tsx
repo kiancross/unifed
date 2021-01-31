@@ -17,28 +17,23 @@ interface PropsTypes {
   onToggleEdit: () => void;
 }
 
+export const DELETE_POST = gql`
+  mutation($id: String!, $host: String!) {
+    deletePost(post: { id: $id, host: $host })
+  }
+`;
+
 const PostHeader = (props: PropsTypes): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
   const loggedInUser = useContext(UserContext);
 
-  const DELETE_POST = gql`
-    mutation($id: String!, $host: String!) {
-      deletePost(post: { id: $id, host: $host })
-    }
-  `;
+  const [deletePost, { loading, data, error }] = useMutation(DELETE_POST);
 
-  const [
-    deletePost,
-    { loading: deleteLoading, data: deleteData, error: deleteError },
-  ] = useMutation(DELETE_POST);
-
-  if (deleteLoading) return <CenteredLoader />;
-  if (deleteError) return <ErrorPage message="Post could not be deleted." />;
-  if (deleteData) {
-    if (props.isComment) {
-      window.location.reload();
-    } else if (props.isPreview) {
-      window.location.reload();
+  if (loading) return <CenteredLoader />;
+  if (error) return <ErrorPage message="Post could not be deleted." />;
+  if (data) {
+    if (props.isComment || props.isPreview) {
+      window.location.assign(window.location.href);
     } else {
       return <Redirect to="/" />;
     }
@@ -65,7 +60,13 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
   const headerAction =
     loggedInUser == props.username ? (
       <div>
-        <IconButton color="inherit" edge="end" size="small" onClick={(e) => handleClick(e)}>
+        <IconButton
+          data-testid="icon-button"
+          color="inherit"
+          edge="end"
+          size="small"
+          onClick={(e) => handleClick(e)}
+        >
           <MoreHorizIcon />
         </IconButton>
         <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>

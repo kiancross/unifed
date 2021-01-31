@@ -28,9 +28,12 @@ const PostEditor = (props: Params): ReactElement => {
 
   if (loading) return <CenteredLoader />;
   if (error) return <ErrorPage message="The post could not be edited. Please try again later." />;
-  if (data) window.location.reload();
+  if (data) window.location.assign(window.location.href);
 
   const handleClick = (content: string, values: any) => {
+    if (content == "") {
+      content = props.body;
+    }
     editPost({
       variables: {
         id: props.id,
