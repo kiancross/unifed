@@ -58,19 +58,17 @@ test("action menu does not render with invalid user", async () => {
 
 test("comment deletes", async () => {
   const { getByText, getByTestId } = render(
-    <BrowserRouter>
-      <UserContext.Provider value={username}>
-        <MockedProvider mocks={[deletePostMock]} addTypename={false}>
-          <PostHeader
-            isComment
-            username={username}
-            id={id}
-            server={host}
-            onToggleEdit={() => void 0}
-          />
-        </MockedProvider>
-      </UserContext.Provider>
-    </BrowserRouter>,
+    <UserContext.Provider value={username}>
+      <MockedProvider mocks={[deletePostMock]} addTypename={false}>
+        <PostHeader
+          isComment
+          username={username}
+          id={id}
+          server={host}
+          onToggleEdit={() => void 0}
+        />
+      </MockedProvider>
+    </UserContext.Provider>,
   );
 
   getByText(username);
@@ -83,19 +81,17 @@ test("comment deletes", async () => {
 
 test("preview deletes", async () => {
   const { getByText, getByTestId } = render(
-    <BrowserRouter>
-      <UserContext.Provider value={username}>
-        <MockedProvider mocks={[deletePostMock]} addTypename={false}>
-          <PostHeader
-            isPreview
-            username={username}
-            id={id}
-            server={host}
-            onToggleEdit={() => void 0}
-          />
-        </MockedProvider>
-      </UserContext.Provider>
-    </BrowserRouter>,
+    <UserContext.Provider value={username}>
+      <MockedProvider mocks={[deletePostMock]} addTypename={false}>
+        <PostHeader
+          isPreview
+          username={username}
+          id={id}
+          server={host}
+          onToggleEdit={() => void 0}
+        />
+      </MockedProvider>
+    </UserContext.Provider>,
   );
 
   getByText(username);

@@ -592,7 +592,7 @@ exports[`Render 1`] = `
         <div
           className="custom-html-style"
         >
-          <p
+          <span
             className="MuiTypography-root MuiTypography-body2"
           />
         </div>
