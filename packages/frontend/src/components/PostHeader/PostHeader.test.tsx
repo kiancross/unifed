@@ -4,7 +4,6 @@ import PostHeader, { DELETE_POST } from "./PostHeader";
 import { MockedProvider } from "@apollo/client/testing";
 import { UserContext } from "../App/UserContext";
 import { BrowserRouter, Route } from "react-router-dom";
-import { GraphQLError } from "graphql";
 
 const username = "testuser";
 const id = "123";
@@ -20,14 +19,6 @@ const deletePostMock = {
       deletePost: true,
     },
   },
-};
-
-const deletePostMockError = {
-  request: {
-    query: DELETE_POST,
-    variables: { id: id, host: host },
-  },
-  error: new GraphQLError("fuck"),
 };
 
 test("edit and delete succeed with valid user", async () => {
@@ -114,24 +105,3 @@ test("preview deletes", async () => {
     await new Promise((resolve) => setTimeout(resolve, 0));
   });
 });
-
-/*
-test("delete error", async () => {
-  const { getByText, getByTestId } = render(
-    <BrowserRouter>
-      <UserContext.Provider value={username}>
-        <MockedProvider mocks={[deletePostMockError]} addTypename={false}>
-          <PostHeader username={username} id={id} server={host} onToggleEdit={() => void 0} />
-        </MockedProvider>
-      </UserContext.Provider>
-    </BrowserRouter>,
-  );
-
-  fireEvent.click(getByTestId("icon-button"));
-
-  await act(async () => {
-    fireEvent.click(getByText("Delete"));
-    await new Promise((resolve) => setTimeout(resolve, 0));
-  });
-});
-*/
