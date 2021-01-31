@@ -27,7 +27,7 @@ const MarkdownEditor = (props: MarkdownEditorProps): ReactElement => {
       style={props.style}
       onChange={props.onChange}
       renderHTML={(text) => (
-        <Typography variant="body2">
+        <Typography component={"span"} variant="body2">
           <MarkdownViewer>{text}</MarkdownViewer>
         </Typography>
       )}
