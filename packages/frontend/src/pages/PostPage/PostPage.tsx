@@ -57,7 +57,7 @@ const PostPage = (): JSX.Element => {
             server={server}
             community={community}
           />
-          <Comments parentId={post} server={server} />
+          <Comments parentId={post} server={server} grids={11} />
         </Grid>
 
         <Grid item container xs={4} direction="column" spacing={2}>

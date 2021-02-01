@@ -11,6 +11,7 @@ import AccountSettingsPage from "../../pages/AccountSettingsPage";
 import LoginPage from "../../pages/LoginPage";
 import RegistrationPage from "../../pages/RegistrationPage";
 import EmailVerificationPage from "../../pages/EmailVerificationPage";
+import HomePage from "../../pages/HomePage/HomePage";
 import CommunityPostsPage from "../../pages/CommunityPostsPage";
 import CreatePostPage from "../../pages/CreatePostPage";
 import PostPage from "../../pages/PostPage";
@@ -50,7 +51,7 @@ const App = (): JSX.Element => {
         <Box className="App-header">
           <Switch>
             <Route exact path="/">
-              {loggedIn ? redirectHome : redirectLogin}
+              {loggedIn ? <HomePage /> : redirectLogin}
             </Route>
 
             <Route exact path="/login">

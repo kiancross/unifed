@@ -4,13 +4,11 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { AppBar, Box, ButtonGroup, IconButton, Toolbar } from "@material-ui/core";
-import SettingsIcon from "@material-ui/icons/Settings";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { AppBar, Box, ButtonGroup, Toolbar } from "@material-ui/core";
 import logo from "assets/unifed.svg";
 import styles from "./Header.module.scss";
-import UserIcon from "../../components/UserIcon";
 import SearchInput from "./SearchInput";
+import AccountMenu from "./AccountMenu";
 
 interface HeaderProps {
   username: string;
@@ -33,15 +31,7 @@ const Header = (props: HeaderProps): JSX.Element => {
         </div>
 
         <ButtonGroup size="small" className={styles.buttonGroup}>
-          <IconButton href={"/user/" + props.username}>
-            <UserIcon username={props.username} small />
-          </IconButton>
-          <IconButton href="/account" color="inherit">
-            <SettingsIcon />
-          </IconButton>
-          <IconButton onClick={props.onLogout} color="inherit">
-            <ExitToAppIcon />
-          </IconButton>
+          <AccountMenu username={props.username} onLogout={props.onLogout} />
         </ButtonGroup>
       </Toolbar>
     </AppBar>

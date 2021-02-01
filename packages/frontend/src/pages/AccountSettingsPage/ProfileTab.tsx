@@ -4,6 +4,10 @@
 
 import {
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   IconButton,
   List,
   ListItem,
@@ -53,19 +57,32 @@ const ProfileTab = (props: ProfileTabParams): JSX.Element => {
       },
       onSubmit: (values) => {
         changeName({ variables: { name: values.name } });
+        handleNameClickOpen();
       },
     });
     return (
-      <form onSubmit={formik.handleSubmit}>
-        <TextField
-          name="name"
-          label="New Name"
-          required
-          inputProps={{ "data-testid": "name" }}
-          onChange={formik.handleChange}
-          value={formik.values.name}
-        />
-        <Button type="submit">Update</Button>
+      <form id="name-form" onSubmit={formik.handleSubmit}>
+        <Dialog open={nameOpen} onClose={handleNameClickOpen}>
+          <DialogTitle>Change Name</DialogTitle>
+          <DialogContent dividers>
+            <TextField
+              name="name"
+              label="New Name"
+              required
+              fullWidth
+              variant="outlined"
+              margin="dense"
+              inputProps={{ "data-testid": "name", form: "name-form" }}
+              onChange={formik.handleChange}
+              value={formik.values.name}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button form="name-form" color="primary" type="submit">
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
       </form>
     );
   };
