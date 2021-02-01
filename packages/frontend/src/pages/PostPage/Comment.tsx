@@ -13,6 +13,7 @@ interface PostValues {
   text: string;
   title: string;
   id: string;
+  grids: 8 | 9 | 10 | 11;
 }
 
 const styles = {
@@ -26,8 +27,8 @@ const Comment = (props: PostValues): JSX.Element => {
   const theme = useTheme();
 
   return (
-    <Grid item container direction="row-reverse" spacing={2}>
-      <Grid item xs={11} container direction="column">
+    <Grid item container direction="row-reverse" style={{ padding: "4px 0px" }}>
+      <Grid item xs={props.grids} container direction="column">
         <Box borderLeft={4} borderColor={theme.palette.primary.main}>
           <Card elevation={1} square style={{ textAlign: "left" }}>
             <CardContent style={styles.cardcontent}>
@@ -44,7 +45,7 @@ const Comment = (props: PostValues): JSX.Element => {
         </Box>
       </Grid>
       <Grid item xs={1} container justify="flex-end">
-        <Box paddingTop="1rem">
+        <Box paddingTop="0.5rem" paddingRight="0.5rem">
           <UserIcon username={props.username} small />
         </Box>
       </Grid>
