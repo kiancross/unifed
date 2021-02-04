@@ -7,7 +7,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 const username = "testuser";
 const id = "123";
-const host = "testserver";
+const host = "this";
 
 const deletePostMock = {
   request: {
