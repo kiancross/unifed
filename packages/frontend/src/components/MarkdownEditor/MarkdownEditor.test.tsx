@@ -12,3 +12,12 @@ test("Render", () => {
 
   expect(tree).toMatchSnapshot();
 });
+
+test("Render default value", () => {
+  const value = `# Hello World\n` + `**Bold Text**`;
+
+  const component = renderer.create(<MarkdownEditor value={value} />);
+  const tree = component.toJSON();
+
+  expect(tree).toMatchSnapshot();
+});

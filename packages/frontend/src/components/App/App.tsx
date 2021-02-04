@@ -19,7 +19,8 @@ import PasswordResetRequestPage from "../../pages/PasswordResetRequestPage";
 import PasswordResetPage from "../../pages/PasswordResetPage";
 import Header from "../../components/Header";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
-import ErrorPage from "../../pages/ErrorPage";
+import ErrorMessage from "../ErrorMessage";
+import UserContext from "../UserContext";
 
 const App = (): JSX.Element => {
   const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
@@ -45,62 +46,65 @@ const App = (): JSX.Element => {
 
   return (
     <ErrorBoundary>
-      <Router>
-        {loggedIn ? <Header username={username} onLogout={logOut} /> : null}
-        <Box className="App-header">
-          <Switch>
-            <Route exact path="/">
-              {loggedIn ? redirectHome : redirectLogin}
-            </Route>
+      <UserContext.Provider value={username}>
+        <Router>
+          {loggedIn ? <Header username={username} onLogout={logOut} /> : null}
+          <Box className="App-header">
+            <Switch>
+              <Route exact path="/">
+                {loggedIn ? redirectHome : redirectLogin}
+              </Route>
 
-            <Route exact path="/login">
-              {loggedIn ? redirectHome : <LoginPage onLogin={() => setLoggedIn(true)} />}
-            </Route>
+              <Route exact path="/login">
+                {loggedIn ? redirectHome : <LoginPage onLogin={() => setLoggedIn(true)} />}
+              </Route>
 
-            <Route exact path="/reset-password" component={PasswordResetRequestPage}>
-              {loggedIn ? redirectHome : null}
-            </Route>
-            <Route exact path="/reset-password/:token" component={PasswordResetPage}>
-              {loggedIn ? redirectHome : null}
-            </Route>
-            <Route exact path="/register" component={RegistrationPage}>
-              {loggedIn ? redirectHome : null}
-            </Route>
-            <Route exact path="/verify-email/:token" component={EmailVerificationPage}>
-              {loggedIn ? redirectHome : null}
-            </Route>
+              <Route exact path="/reset-password" component={PasswordResetRequestPage}>
+                {loggedIn ? redirectHome : null}
+              </Route>
+              <Route exact path="/reset-password/:token" component={PasswordResetPage}>
+                {loggedIn ? redirectHome : null}
+              </Route>
+              <Route exact path="/register" component={RegistrationPage}>
+                {loggedIn ? redirectHome : null}
+              </Route>
+              <Route exact path="/verify-email/:token" component={EmailVerificationPage}>
+                {loggedIn ? redirectHome : null}
+              </Route>
 
-            <Route exact path="/account" component={AccountSettingsPage}>
-              {!loggedIn ? redirectLogin : null}
-            </Route>
-            <Route exact path="/user/:username" component={UserProfilePage}>
-              {!loggedIn ? redirectLogin : null}
-            </Route>
-            <Route
-              exact
-              path="/instances/:server/communities/:community/posts"
-              component={CommunityPostsPage}
-            >
-              {!loggedIn ? redirectLogin : null}
-            </Route>
-            <Route
-              exact
-              path="/instances/:server/communities/:community/posts/create"
-              component={CreatePostPage}
-            >
-              {!loggedIn ? redirectLogin : null}
-            </Route>
-            <Route
-              exact
-              path="/instances/:server/communities/:community/posts/:post"
-              component={PostPage}
-            >
-              {!loggedIn ? redirectLogin : null}
-            </Route>
-            <Route component={() => <ErrorPage message="404 Page Not Found" />} />
-          </Switch>
-        </Box>
-      </Router>
+              <Route exact path="/account" component={AccountSettingsPage}>
+                {!loggedIn ? redirectLogin : null}
+              </Route>
+              <Route exact path="/user/:username" component={UserProfilePage}>
+                {!loggedIn ? redirectLogin : null}
+              </Route>
+              <Route
+                exact
+                path="/instances/:server/communities/:community/posts"
+                component={CommunityPostsPage}
+              >
+                {!loggedIn ? redirectLogin : null}
+              </Route>
+
+              <Route
+                exact
+                path="/instances/:server/communities/:community/posts/create"
+                component={CreatePostPage}
+              >
+                {!loggedIn ? redirectLogin : null}
+              </Route>
+              <Route
+                exact
+                path="/instances/:server/communities/:community/posts/:post"
+                component={PostPage}
+              >
+                {!loggedIn ? redirectLogin : null}
+              </Route>
+              <Route component={() => <ErrorMessage message="404 Page Not Found" />} />
+            </Switch>
+          </Box>
+        </Router>
+      </UserContext.Provider>
     </ErrorBoundary>
   );
 };
