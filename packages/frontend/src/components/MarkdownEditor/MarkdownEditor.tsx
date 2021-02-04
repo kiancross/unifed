@@ -17,13 +17,13 @@ interface MarkdownEditorProps {
     event?: React.ChangeEvent<HTMLTextAreaElement>,
   ) => void;
   style?: React.CSSProperties;
-  defaultValue?: string;
+  value?: string;
 }
 
 const MarkdownEditor = (props: MarkdownEditorProps): ReactElement => {
   return (
     <Editor
-      defaultValue={props.defaultValue}
+      value={props.value}
       style={props.style}
       onChange={props.onChange}
       renderHTML={(text) => (

@@ -2,7 +2,7 @@ import React from "react";
 import { render, fireEvent, act, screen } from "@testing-library/react";
 import PostHeader, { DELETE_POST } from "./PostHeader";
 import { MockedProvider } from "@apollo/client/testing";
-import { UserContext } from "../App/UserContext";
+import UserContext from "../UserContext";
 import { BrowserRouter, Route } from "react-router-dom";
 
 const username = "testuser";

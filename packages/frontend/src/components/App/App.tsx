@@ -19,8 +19,8 @@ import PasswordResetRequestPage from "../../pages/PasswordResetRequestPage";
 import PasswordResetPage from "../../pages/PasswordResetPage";
 import Header from "../../components/Header";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
-import ErrorPage from "../../pages/ErrorPage";
-import { UserContext } from "./UserContext";
+import ErrorMessage from "../ErrorMessage";
+import UserContext from "../UserContext";
 
 const App = (): JSX.Element => {
   const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
@@ -100,7 +100,7 @@ const App = (): JSX.Element => {
               >
                 {!loggedIn ? redirectLogin : null}
               </Route>
-              <Route component={() => <ErrorPage message="404 Page Not Found" />} />
+              <Route component={() => <ErrorMessage message="404 Page Not Found" />} />
             </Switch>
           </Box>
         </Router>

@@ -4,11 +4,11 @@
 
 import React, { useState } from "react";
 import { useTheme } from "@material-ui/core/styles";
-import { Box, Card, CardContent, Grid, Typography } from "@material-ui/core";
+import { Box, Card, CardContent, Grid, Typography, Button } from "@material-ui/core";
 import UserIcon from "../../components/UserIcon";
 import MarkdownViewer from "../../components/MarkdownViewer";
 import PostHeader from "../../components/PostHeader";
-import CommentEditor from "../../components/PostHeader/CommentEditor";
+import PostEditor from "../../components/PostEditor";
 
 interface PostValues {
   username: string;
@@ -30,12 +30,22 @@ const Comment = (props: PostValues): JSX.Element => {
   const [editorOpen, setEditorOpen] = useState(false);
 
   const content = editorOpen ? (
-    <CommentEditor
-      onClose={() => setEditorOpen(false)}
-      server={props.host}
-      id={props.id}
-      body={props.body}
-    />
+    <>
+      <PostEditor
+        server={props.host}
+        id={props.id}
+        body={props.body}
+        submitButtonText="Save Comment"
+      />
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        type="submit"
+        style={{ marginTop: "8px" }}
+        onClick={() => setEditorOpen(false)}
+      />
+    </>
   ) : (
     <Grid item container direction="row-reverse" spacing={2}>
       <Grid item xs={11} container direction="column">

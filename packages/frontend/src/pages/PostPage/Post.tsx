@@ -3,11 +3,11 @@
  */
 
 import React, { useState } from "react";
-import { Card, CardContent, Grid, Typography } from "@material-ui/core";
+import { Card, CardContent, Grid, Typography, Button } from "@material-ui/core";
 import MarkdownViewer from "../../components/MarkdownViewer";
 import style from "./PostPage.module.scss";
 import PostHeader from "../../components/PostHeader";
-import PostEditor from "../../components/PostHeader/PostEditor";
+import PostEditor from "../../components/PostEditor";
 
 interface PostValues {
   username: string;
@@ -23,11 +23,20 @@ const Post = (props: PostValues): JSX.Element => {
   const content = editorOpen ? (
     <div>
       <PostEditor
-        onClose={() => setEditorOpen(false)}
         body={props.body}
         title={props.title}
         server={props.server}
         id={props.id}
+        submitButtonText="Save Post"
+        onSuccess={() => window.location.assign(window.location.href)}
+      />
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        type="submit"
+        style={{ marginTop: "8px" }}
+        onClick={() => setEditorOpen(false)}
       />
     </div>
   ) : (

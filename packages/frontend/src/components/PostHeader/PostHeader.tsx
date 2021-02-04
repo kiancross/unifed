@@ -1,11 +1,15 @@
+/*
+ * CS3099 Group A3
+ */
+
 import React, { useState, useContext } from "react";
+import { Redirect } from "react-router";
 import { CardHeader, IconButton, Menu, MenuItem, Typography, Link } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { gql, useMutation } from "@apollo/client";
 import CenteredLoader from "../CenteredLoader";
-import ErrorPage from "../../pages/ErrorPage";
-import { Redirect } from "react-router";
-import { UserContext } from "../../components/App/UserContext";
+import ErrorMessage from "../ErrorMessage";
+import UserContext from "../UserContext";
 
 interface PropsTypes {
   username: string;
@@ -30,7 +34,7 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
   const [deletePost, { loading, data, error }] = useMutation(DELETE_POST);
 
   if (loading) return <CenteredLoader />;
-  if (error) return <ErrorPage message="Post could not be deleted." />;
+  if (error) return <ErrorMessage message="Post could not be deleted." />;
   if (data) {
     if (props.isComment || props.isPreview) {
       window.location.assign(window.location.href);
@@ -58,7 +62,7 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
   };
 
   const headerAction =
-    loggedInUser == props.username ? (
+    loggedInUser === props.username && props.server === "this" ? (
       <div>
         <IconButton
           data-testid="icon-button"
