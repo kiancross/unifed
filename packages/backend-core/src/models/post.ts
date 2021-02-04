@@ -20,7 +20,7 @@ export class Post extends Base {
   @Property({ ref: "Post", type: String })
   parentPost?: Ref<Post>;
 
-  @Field()
+  @Field({ nullable: true })
   @Property()
   title!: string;
 
