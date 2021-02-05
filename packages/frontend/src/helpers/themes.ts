@@ -2,10 +2,11 @@
  * CS3099 Group A3
  */
 
-import { createMuiTheme } from "@material-ui/core/styles";
+import { PaletteType } from "@material-ui/core";
 
-export const standardTheme = createMuiTheme({
+export const standardTheme = {
   palette: {
+    type: "light" as PaletteType,
     primary: {
       main: "#00539b",
     },
@@ -13,4 +14,10 @@ export const standardTheme = createMuiTheme({
       main: "#ffffff",
     },
   },
-});
+};
+
+export const darkTheme = {
+  palette: {
+    type: "dark" as PaletteType,
+  },
+};

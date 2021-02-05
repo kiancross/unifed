@@ -4,19 +4,15 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { ThemeProvider } from "@material-ui/core/styles";
 import { ApolloProvider } from "@apollo/client";
 import reportWebVitals from "./reportWebVitals";
 import App from "./components/App";
 import { apolloClient } from "./helpers/apollo-client";
-import { standardTheme } from "./helpers/themes";
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={apolloClient}>
-      <ThemeProvider theme={standardTheme}>
-        <App />
-      </ThemeProvider>
+      <App />
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root"),

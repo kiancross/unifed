@@ -11,13 +11,18 @@ import logo from "assets/unifed.svg";
 import styles from "./Header.module.scss";
 import UserIcon from "../../components/UserIcon";
 import SearchInput from "./SearchInput";
+import Brightness7Icon from "@material-ui/icons/Brightness7";
+import Brightness3Icon from "@material-ui/icons/Brightness3";
 
 interface HeaderProps {
   username: string;
   onLogout: () => void;
+  onThemeChange: () => void;
+  isDarkMode: boolean;
 }
 
 const Header = (props: HeaderProps): JSX.Element => {
+  console.log(props.isDarkMode);
   return (
     <AppBar color="primary" position="sticky">
       <Toolbar variant="dense">
@@ -33,6 +38,13 @@ const Header = (props: HeaderProps): JSX.Element => {
         </div>
 
         <ButtonGroup size="small" className={styles.buttonGroup}>
+          <IconButton onClick={props.onThemeChange}>
+            {props.isDarkMode ? (
+              <Brightness7Icon />
+            ) : (
+              <Brightness3Icon style={{ color: "white" }} />
+            )}
+          </IconButton>
           <IconButton href={"/user/" + props.username}>
             <UserIcon username={props.username} small />
           </IconButton>
