@@ -72,10 +72,6 @@ class DatabaseStub implements DatabaseInterface {
     return new Promise((resolve) => resolve());
   }
 
-  public get setResetPassword(): DatabaseInterface["setResetPassword"] {
-    return () => new Promise((resolve) => resolve());
-  }
-
   public async removeAllResetPasswordTokens(): Promise<void> {
     return new Promise((resolve) => resolve());
   }
