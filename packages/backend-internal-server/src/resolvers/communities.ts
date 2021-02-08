@@ -7,7 +7,7 @@ import { Service } from "typedi";
 import { Community, Post } from "@unifed/backend-core";
 import { RemoteReferenceInput } from "./inputs";
 import { translateHost } from "./helpers";
-import { CommunitiesService, PostsService } from "@unifed/backend-federation-client";
+import { CommunitiesService, PostsService } from "../services";
 
 @Service()
 @Resolver(Community)
