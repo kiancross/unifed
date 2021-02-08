@@ -22,7 +22,6 @@ interface HeaderProps {
 }
 
 const Header = (props: HeaderProps): JSX.Element => {
-  console.log(props.isDarkMode);
   return (
     <AppBar color="primary" position="sticky">
       <Toolbar variant="dense">

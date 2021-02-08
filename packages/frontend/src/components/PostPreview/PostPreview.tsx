@@ -7,6 +7,7 @@ import { Card, CardActionArea, CardContent, Grid, Typography, Button } from "@ma
 import UserIcon from "../../components/UserIcon";
 import PostHeader from "../PostHeader";
 import PostEditor from "../../components/PostEditor";
+import { useTheme } from "@material-ui/core/styles";
 
 interface PostValues {
   username: string;
@@ -19,6 +20,7 @@ interface PostValues {
 
 const PostPreview = (props: PostValues): JSX.Element => {
   const [editorOpen, setEditorOpen] = useState(false);
+  const theme = useTheme();
 
   const content = editorOpen ? (
     <div>
@@ -49,7 +51,7 @@ const PostPreview = (props: PostValues): JSX.Element => {
         <UserIcon username={props.username} small />
       </Grid>
       <Grid item xs={11} container direction="column" justify="flex-start">
-        <Card style={{ textAlign: "left" }}>
+        <Card style={{ textAlign: "left", background: theme.palette.secondary.main }}>
           <PostHeader
             onToggleEdit={() => setEditorOpen(true)}
             title={props.title}

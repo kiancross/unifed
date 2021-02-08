@@ -28,7 +28,16 @@ import UserContext from "../UserContext";
 const App = (): JSX.Element => {
   const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
   const [username, setUsername] = useState<string>("");
-  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [darkMode, setDarkMode] = useState(localStorage.getItem("darkMode") == "true");
+
+  function updateTheme() {
+    if (localStorage.getItem("darkMode") == "false") {
+      localStorage.setItem("darkMode", "true");
+    } else if (localStorage.getItem("darkMode") == "true") {
+      localStorage.setItem("darkMode", "false");
+    }
+    setDarkMode(!darkMode);
+  }
 
   const theme = createMuiTheme(darkMode ? darkTheme : standardTheme);
 
@@ -60,7 +69,7 @@ const App = (): JSX.Element => {
                 <Header
                   username={username}
                   onLogout={logOut}
-                  onThemeChange={() => setDarkMode(!darkMode)}
+                  onThemeChange={() => updateTheme()}
                   isDarkMode={darkMode}
                 />
               ) : null}
