@@ -8,14 +8,14 @@ import { CommunitiesFederationService } from "@unifed/backend-federation-client"
 
 @Service()
 export class CommunitiesService extends CommunitiesFederationService {
-  async create(user: string, id: string, title: string, description: string): Promise<boolean> {
+  async create(username: string, id: string, title: string, description: string): Promise<boolean> {
     await CommunityModel.create({
       _id: id,
       title,
       description,
       admins: [
         {
-          id: user,
+          id: username,
           host: "this",
         },
       ],

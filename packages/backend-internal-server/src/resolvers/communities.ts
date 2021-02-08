@@ -35,7 +35,7 @@ export class CommunitiesResolver implements ResolverInterface<Community> {
     @Arg("description") description: string,
     @CurrentUser() user: User,
   ): Promise<boolean> {
-    return await this.communitiesService.create(user.id, id, title, description);
+    return await this.communitiesService.create(user.username, id, title, description);
   }
 
   @Query(() => [Community])
