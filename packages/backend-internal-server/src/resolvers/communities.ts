@@ -2,9 +2,19 @@
  * CS3099 Group A3
  */
 
-import { Resolver, FieldResolver, ResolverInterface, Root, Query, Arg } from "type-graphql";
+import {
+  Resolver,
+  FieldResolver,
+  ResolverInterface,
+  Root,
+  Query,
+  Mutation,
+  Arg,
+} from "type-graphql";
 import { Service } from "typedi";
-import { Community, Post } from "@unifed/backend-core";
+import { Community, Post, User } from "@unifed/backend-core";
+import { CurrentUser } from "./helpers";
+import { AuthoriseUser } from "../auth-checkers";
 import { RemoteReferenceInput } from "./inputs";
 import { translateHost } from "./helpers";
 import { CommunitiesService, PostsService } from "../services";
@@ -16,6 +26,17 @@ export class CommunitiesResolver implements ResolverInterface<Community> {
     private readonly communitiesService: CommunitiesService,
     private readonly postsService: PostsService,
   ) {}
+
+  @AuthoriseUser()
+  @Mutation(() => Boolean)
+  async createCommunity(
+    @Arg("id") id: string,
+    @Arg("title") title: string,
+    @Arg("description") description: string,
+    @CurrentUser() user: User,
+  ): Promise<boolean> {
+    return await this.communitiesService.create(user.id, id, title, description);
+  }
 
   @Query(() => [Community])
   async getCommunities(@Arg("host") host: string): Promise<Community[]> {
