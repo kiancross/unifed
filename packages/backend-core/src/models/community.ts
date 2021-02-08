@@ -45,7 +45,7 @@ export class Community extends Base {
       ...super.toJSON(),
       title: this.title,
       description: this.description,
-      admins: [],
+      admins: this.admins || [],
     };
   }
 }
