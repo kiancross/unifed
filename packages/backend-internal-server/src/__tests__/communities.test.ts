@@ -18,7 +18,7 @@ import { graphql, GraphQLSchema } from "graphql";
 import { Container } from "typedi";
 import { setup } from "@unifed/backend-testing";
 import { getMergedSchema } from "../schema";
-import { CommunitiesService } from "@unifed/backend-federation-client";
+import { CommunitiesService } from "../services";
 import { Community } from "@unifed/backend-core";
 
 class CommunitiesServiceStub {
