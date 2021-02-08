@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-d
 
 import { accountsClient } from "../../helpers/accounts";
 import AccountSettingsPage from "../../pages/AccountSettingsPage";
+import HomePage from "../../pages/HomePage";
 import LoginPage from "../../pages/LoginPage";
 import RegistrationPage from "../../pages/RegistrationPage";
 import EmailVerificationPage from "../../pages/EmailVerificationPage";
@@ -37,7 +38,7 @@ const App = (): JSX.Element => {
 
   if (loggedIn === null) return <div />;
 
-  const homePath = "/instances/this/communities/all/posts";
+  const homePath = "/";
   const redirectHome = <Redirect to={homePath} />;
   const redirectLogin = <Redirect to="/login" />;
   const logOut = () => {
@@ -52,7 +53,7 @@ const App = (): JSX.Element => {
           <Box className="App-header">
             <Switch>
               <Route exact path="/">
-                {loggedIn ? redirectHome : redirectLogin}
+                {loggedIn ? <HomePage /> : redirectLogin}
               </Route>
 
               <Route exact path="/login">
