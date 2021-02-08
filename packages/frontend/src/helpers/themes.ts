@@ -3,7 +3,7 @@
  */
 
 import { PaletteType } from "@material-ui/core";
-import { indigo, grey } from "@material-ui/core/colors";
+import { indigo } from "@material-ui/core/colors";
 
 export const standardTheme = {
   palette: {
@@ -21,10 +21,11 @@ export const darkTheme = {
   palette: {
     type: "dark" as PaletteType,
     primary: {
-      main: indigo[500],
+      main: indigo[800],
     },
     secondary: {
-      main: grey[600],
+      main: "#707070",
+      dark: indigo[500],
     },
   },
 };

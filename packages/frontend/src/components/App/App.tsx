@@ -63,7 +63,7 @@ const App = (): JSX.Element => {
     <ErrorBoundary>
       <ThemeProvider theme={theme}>
         <UserContext.Provider value={username}>
-          <Paper>
+          <Paper square style={{ height: "1000px" }}>
             <Router>
               {loggedIn ? (
                 <Header

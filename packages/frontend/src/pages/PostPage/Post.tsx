@@ -8,6 +8,7 @@ import MarkdownViewer from "../../components/MarkdownViewer";
 import style from "./PostPage.module.scss";
 import PostHeader from "../../components/PostHeader";
 import PostEditor from "../../components/PostEditor";
+import { useTheme } from "@material-ui/core/styles";
 
 interface PostValues {
   username: string;
@@ -19,6 +20,7 @@ interface PostValues {
 
 const Post = (props: PostValues): JSX.Element => {
   const [editorOpen, setEditorOpen] = useState(false);
+  const theme = useTheme();
 
   const content = editorOpen ? (
     <div>
@@ -35,13 +37,15 @@ const Post = (props: PostValues): JSX.Element => {
         color="primary"
         fullWidth
         type="submit"
-        style={{ marginTop: "8px" }}
+        style={{ marginTop: "8px", marginBottom: "8px" }}
         onClick={() => setEditorOpen(false)}
-      />
+      >
+        Cancel
+      </Button>
     </div>
   ) : (
     <Grid item xs={12}>
-      <Card style={{ textAlign: "left" }}>
+      <Card color="primary" style={{ background: theme.palette.secondary.main, textAlign: "left" }}>
         <PostHeader
           onToggleEdit={() => setEditorOpen(true)}
           title={props.title}

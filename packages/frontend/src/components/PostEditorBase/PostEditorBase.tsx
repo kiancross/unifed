@@ -46,7 +46,9 @@ const PostEditorBase = (props: Props): JSX.Element => {
             <MarkdownEditor
               onChange={({ text }) => field.onChange(field.name)(text)}
               value={field.value}
-              style={{ height: props.isComment ? "170px" : "400px" }}
+              style={{
+                height: props.isComment ? "170px" : "400px",
+              }}
             />
           )}
         </Field>
