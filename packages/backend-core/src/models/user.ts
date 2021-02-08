@@ -5,6 +5,7 @@
 import { prop as Property, getModelForClass } from "@typegoose/typegoose";
 import { ObjectType, Field } from "type-graphql";
 import { Base } from "./base";
+import { RemoteReference } from "./remote-reference";
 
 @ObjectType()
 export class UserProfile {
@@ -37,6 +38,10 @@ export class User extends Base {
   @Field()
   @Property({ _id: false, required: true })
   profile!: UserProfile;
+
+  @Field(() => [RemoteReference])
+  @Property({ id: false, required: true })
+  subscriptions!: RemoteReference[];
 }
 
 export const UserModel = getModelForClass(User);
