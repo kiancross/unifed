@@ -18,31 +18,37 @@ const SUBSCRIBE = gql`
   }
 `;
 
+const UNSUBSCRIBE = gql`
+  mutation($id: String!, $host: String!) {
+    unsubscribe(community: { id: $id, host: $host })
+  }
+`;
+
 const SubscribeButton = (props: Props): JSX.Element => {
-  const [subscribe, { loading, error, data }] = useMutation(SUBSCRIBE);
-  let isSubscribed = props.isSubscribed;
+  const [subscribed, setSubscribed] = React.useState(props.isSubscribed);
+  const [mutation, { loading, error, data }] = useMutation(subscribed ? UNSUBSCRIBE : SUBSCRIBE);
 
   if (loading) {
     return (
       <Button disabled variant="contained" color="primary">
-        {isSubscribed ? "Subscribe" : "Subscribed"}
+        {subscribed ? "Subscribe" : "Subscribed"}
       </Button>
     );
   }
   if (error) return <div />;
-  if (data) isSubscribed = data?.subscribe || !data?.unsubscribe;
+  if (data && (data?.subscribe || !data?.unsubscribe) != subscribed)
+    setSubscribed(data?.subscribe || !data?.unsubscribe);
 
   return (
     <Button
       onClick={() => {
-        if (isSubscribed) subscribe({ variables: { id: props.id, host: props.server } });
-        else subscribe({ variables: { id: props.id, host: props.server } }); // update to unsubscribe call
+        mutation({ variables: { id: props.id, host: props.server } });
       }}
       variant="contained"
-      color={isSubscribed ? "secondary" : "primary"}
+      color={subscribed ? "secondary" : "primary"}
       disableElevation
     >
-      {isSubscribed ? "Subscribed" : "Subscribe"}
+      {subscribed ? "Subscribed" : "Subscribe"}
     </Button>
   );
 };

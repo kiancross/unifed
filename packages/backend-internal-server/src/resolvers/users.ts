@@ -34,6 +34,15 @@ export class UsersResolver implements ResolverInterface<User> {
   }
 
   @AuthoriseUser()
+  @Mutation(() => Boolean)
+  async unsubscribe(
+    @Arg("community") community: RemoteReferenceInput,
+    @CurrentUser() user: User,
+  ): Promise<boolean> {
+    return this.usersService.unsubscribe(user.id, await translateHost(community.host), community.id);
+  }
+
+  @AuthoriseUser()
   @Query(() => [RemoteReference])
   async getSubscriptions(@CurrentUser() user: User): Promise<RemoteReference[]> {
     return this.usersService.getSubscriptions(user.id);

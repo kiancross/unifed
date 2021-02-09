@@ -8,6 +8,11 @@ import { prop as Property } from "@typegoose/typegoose";
 
 @ObjectType()
 export class RemoteReference {
+  constructor(id: string, host: string) {
+    this.id = id;
+    this.host = host;
+  }
+
   @IsNotEmpty()
   @IsString()
   @Field()
