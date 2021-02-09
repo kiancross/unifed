@@ -17,15 +17,17 @@ interface MarkdownEditorProps {
     event?: React.ChangeEvent<HTMLTextAreaElement>,
   ) => void;
   style?: React.CSSProperties;
+  value?: string;
 }
 
 const MarkdownEditor = (props: MarkdownEditorProps): ReactElement => {
   return (
     <Editor
+      value={props.value}
       style={props.style}
       onChange={props.onChange}
       renderHTML={(text) => (
-        <Typography variant="body2">
+        <Typography component={"span"} variant="body2">
           <MarkdownViewer>{text}</MarkdownViewer>
         </Typography>
       )}

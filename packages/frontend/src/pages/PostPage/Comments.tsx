@@ -77,8 +77,9 @@ const Comments = (props: CommentParams) => {
           <React.Fragment>
             <Comment
               key={post.id}
+              host={server}
               username={username}
-              text={text}
+              body={text}
               title=""
               id={post.id}
               grids={props.grids}

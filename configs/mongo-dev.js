@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-db = db.getSiblingDB("unifed-internal");
+db = db.getSiblingDB("unifed");
 
 db.users.insert({
   _id: "45bc8036-0af7-403b-a174-34dbf735c038",
