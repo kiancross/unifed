@@ -31,9 +31,14 @@ const CommunityPostsPage = (): JSX.Element => {
         body
       }
       getCommunity(community: { id: $community, host: $host }) {
+        host
         id
         title
         description
+      }
+      getSubscriptions {
+        id
+        host
       }
     }
   `;
@@ -50,9 +55,19 @@ const CommunityPostsPage = (): JSX.Element => {
   }
   if (loading) return <CenteredLoader />;
 
+  console.log(data.getSubscriptions);
+  const isSubscribed = data.getSubscriptions.some(
+    (e: { host: string; id: string }) => e.host === data.getCommunity.host && e.id === community,
+  );
+
   return (
     <div>
-      <CommunityHeader title={data.getCommunity.title} server={server} />
+      <CommunityHeader
+        id={data.getCommunity.id}
+        title={data.getCommunity.title}
+        server={server}
+        isSubscribed={isSubscribed}
+      />
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           <Grid item container xs={8} direction="column" spacing={2}>

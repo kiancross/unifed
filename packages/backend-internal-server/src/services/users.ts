@@ -23,7 +23,7 @@ export class UsersService {
         };
       }
     }
-    if (await UserModel.exists({ _id: u_id, subscriptions: community })) return false;
+    if (await UserModel.exists({ _id: u_id, subscriptions: community })) return true;
     return (await UserModel.findByIdAndUpdate({ _id: u_id }, { $push: { subscriptions: community } } ) != null)
   }
 

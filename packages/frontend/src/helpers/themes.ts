@@ -10,7 +10,7 @@ export const standardTheme = createMuiTheme({
       main: "#00539b",
     },
     secondary: {
-      main: "#ffffff",
+      main: "#e6e6e6",
     },
   },
 });
