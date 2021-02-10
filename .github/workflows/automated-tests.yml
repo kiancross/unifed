@@ -9,8 +9,8 @@ on:
   pull_request:
     branches: [ master ]
   schedule:
-    # Every other day at 6am
-    - cron:  "0 6 */2 * *"
+    # Everyday at 6am
+    - cron:  "0 6 */1 * *"
 
 jobs:
   checks:
@@ -34,7 +34,7 @@ jobs:
           echo "::set-output name=build::$(yarn config get bstatePath)"
           echo "::set-output name=unplugged::$(yarn config get pnpUnpluggedFolder)"
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v2.1.4
         id: cache
         with:
           path: |
@@ -47,7 +47,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v2.1.4
         id: mongo-cache
         with:
           path: ~/.cache/mongodb-binaries
@@ -104,8 +104,16 @@ jobs:
           flags: backend-internal-server
           directory: packages/backend-internal-server
           fail_ci_if_error: true
+
+      - name: Upload Coverage Report (backend-ml) 5️⃣ 📊
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: backend-ml
+          directory: packages/backend-ml
+          fail_ci_if_error: true
       
-      - name: Upload Coverage Report (frontend) 5️⃣ 📊 
+      - name: Upload Coverage Report (frontend) 6️⃣ 📊
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -113,7 +121,7 @@ jobs:
           directory: packages/frontend
           fail_ci_if_error: true
 
-      - name: Upload Coverage Report (shared) 6️⃣ 📊
+      - name: Upload Coverage Report (shared) 7️⃣ 📊
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

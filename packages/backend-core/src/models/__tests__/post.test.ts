@@ -21,7 +21,8 @@ test("toJSON - community", (t) => {
 
   t.like(post.toJSON(), {
     id: "someid",
-    parent: "somecomm",
+    parentPost: null,
+    community: "somecomm",
     title: "A title",
     contentType: "markdown",
     body: "This is a post body",
@@ -51,7 +52,8 @@ test("toJSON - post", (t) => {
 
   t.like(post.toJSON(), {
     id: "someid",
-    parent: "parentpost",
+    parentPost: "parentpost",
+    community: "somecomm",
     title: "A title",
     contentType: "markdown",
     body: "This is a post body",

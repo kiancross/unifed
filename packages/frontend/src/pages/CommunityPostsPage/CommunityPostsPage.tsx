@@ -10,13 +10,14 @@ import PostPreview from "../../components/PostPreview";
 import CommunityDescription from "./CommunityDescription";
 import CommunityHeader from "./CommunityHeader";
 import CenteredLoader from "../../components/CenteredLoader";
+import ErrorMessage from "../../components/ErrorMessage";
 
 interface Params {
   server: string;
   community: string;
 }
 
-const CommunityPostsPage = () => {
+const CommunityPostsPage = (): JSX.Element => {
   const { community, server } = useParams<Params>();
 
   const GET_POSTS = gql`
@@ -27,6 +28,7 @@ const CommunityPostsPage = () => {
         author {
           id
         }
+        body
       }
       getCommunity(community: { id: $community, host: $host }) {
         id
@@ -43,7 +45,9 @@ const CommunityPostsPage = () => {
     },
   });
 
-  if (error) return <h1 style={{ color: "black" }}>Error! </h1>;
+  if (error) {
+    return <ErrorMessage message="The posts from this community could not be retrieved." />;
+  }
   if (loading) return <CenteredLoader />;
 
   return (
@@ -57,10 +61,11 @@ const CommunityPostsPage = () => {
               .map((post: any) => {
                 return (
                   <PostPreview
+                    body={post.body}
                     key={post.id}
                     username={post.author.id}
                     title={post.title}
-                    postId={post.id}
+                    id={post.id}
                     server={server}
                     community={community}
                   />

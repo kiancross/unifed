@@ -7,7 +7,7 @@ import { Container, Grid } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 import Post from "./Post";
-import CommentEditor from "./CommentEditor";
+import PostCreator from "../../components/PostCreator";
 import Comments from "./Comments";
 import UserInfoCard from "../../components/UserInfoCard";
 import CenteredLoader from "../../components/CenteredLoader";
@@ -20,7 +20,7 @@ interface PostParams {
 }
 
 const PostPage = (): JSX.Element => {
-  const { post, server } = useParams<PostParams>();
+  const { post, server, community } = useParams<PostParams>();
 
   const GET_POST = gql`
     query GET_POST($id: String!, $host: String!) {
@@ -50,8 +50,15 @@ const PostPage = (): JSX.Element => {
     <Container className={style.container}>
       <Grid container spacing={3}>
         <Grid item container xs={8} direction="column" spacing={2}>
-          <Post username={username} text={body} title={title} />
-          <CommentEditor parentId={post} parentTitle={title} server={server} />
+          <Post id={post} server={server} username={username} body={body} title={title} />
+          <PostCreator
+            isComment
+            parentId={post}
+            server={server}
+            community={community}
+            submitButtonText="Add Comment"
+            onSuccess={() => window.location.assign(window.location.href)}
+          />
           <Comments parentId={post} server={server} />
         </Grid>
 
