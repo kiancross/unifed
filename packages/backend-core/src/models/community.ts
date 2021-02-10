@@ -7,6 +7,7 @@ import { Type } from "class-transformer";
 import { prop as Property, getModelForClass, Ref } from "@typegoose/typegoose";
 import { ObjectType, Field } from "type-graphql";
 import { RemoteReference } from "./remote-reference";
+import { JSONMap } from "../types";
 import { Base } from "./base";
 import { Post } from "./post";
 
@@ -40,7 +41,7 @@ export class Community extends Base {
   @Property({ _id: false, required: true })
   admins?: RemoteReference[];
 
-  toJSON(): { [key: string]: any } {
+  toJSON(): JSONMap {
     return {
       ...super.toJSON(),
       title: this.title,
