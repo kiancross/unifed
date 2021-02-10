@@ -6,9 +6,9 @@ import { IsArray, IsString, IsNotEmpty, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 import { prop as Property, getModelForClass, Ref } from "@typegoose/typegoose";
 import { ObjectType, Field } from "type-graphql";
+import { RemoteReference } from "./remote-reference";
 import { Base } from "./base";
 import { Post } from "./post";
-import { RemoteReference } from "./remote-reference";
 
 @ObjectType()
 export class Community extends Base {
