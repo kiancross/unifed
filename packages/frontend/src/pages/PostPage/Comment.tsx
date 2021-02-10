@@ -13,7 +13,6 @@ import PostEditor from "../../components/PostEditor";
 interface PostValues {
   username: string;
   body: string;
-  title: string;
   id: string;
   grids: 8 | 9 | 10 | 11;
   host: string;
@@ -62,7 +61,7 @@ const Comment = (props: PostValues): JSX.Element => {
               server={props.host}
             />
             <CardContent style={styles.cardcontent}>
-              <Typography variant="body2">
+              <Typography variant="subtitle2">
                 <MarkdownViewer>{props.body}</MarkdownViewer>
               </Typography>
             </CardContent>

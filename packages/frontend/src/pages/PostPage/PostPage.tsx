@@ -19,21 +19,20 @@ interface PostParams {
   post: string;
 }
 
-const PostPage = (): JSX.Element => {
-  const { post, server, community } = useParams<PostParams>();
-
-  const GET_POST = gql`
-    query GET_POST($id: String!, $host: String!) {
-      getPost(post: { id: $id, host: $host }) {
-        title
-        body
-        author {
-          id
-        }
+export const GET_POST = gql`
+  query GET_POST($id: String!, $host: String!) {
+    getPost(post: { id: $id, host: $host }) {
+      title
+      body
+      author {
+        id
       }
     }
-  `;
+  }
+`;
 
+const PostPage = (): JSX.Element => {
+  const { post, server, community } = useParams<PostParams>();
   const { loading, error, data } = useQuery(GET_POST, {
     variables: { id: post, host: server },
   });
