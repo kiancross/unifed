@@ -11,6 +11,8 @@ import logo from "assets/unifed.svg";
 import styles from "./Header.module.scss";
 import UserIcon from "../../components/UserIcon";
 import SearchInput from "./SearchInput";
+import SimpleModal from "../SimpleModal";
+import CommunityCreationCard from "./CommunityCreationCard";
 
 interface HeaderProps {
   username: string;
@@ -36,6 +38,7 @@ const Header = (props: HeaderProps): JSX.Element => {
           <IconButton href={"/user/" + props.username}>
             <UserIcon username={props.username} small />
           </IconButton>
+          <SimpleModal body={<CommunityCreationCard />} />
           <IconButton href="/account" color="inherit">
             <SettingsIcon />
           </IconButton>
