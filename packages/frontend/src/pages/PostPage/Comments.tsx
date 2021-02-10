@@ -22,23 +22,23 @@ interface PostParams {
   };
 }
 
-const Comments = (props: CommentParams) => {
-  const parentId = props.parentId;
-  const server = props.server;
-
-  const GET_COMMENTS = gql`
-    query GET_COMMENTS($id: String!, $server: String!) {
-      getPost(post: { id: $id, host: $server }) {
-        children {
+export const GET_COMMENTS = gql`
+  query GET_COMMENTS($id: String!, $server: String!) {
+    getPost(post: { id: $id, host: $server }) {
+      children {
+        id
+        body
+        author {
           id
-          body
-          author {
-            id
-          }
         }
       }
     }
-  `;
+  }
+`;
+
+const Comments = (props: CommentParams) => {
+  const parentId = props.parentId;
+  const server = props.server;
 
   const decrement = (grids: 8 | 9 | 10 | 11): 8 | 9 | 10 | 11 => {
     switch (grids) {

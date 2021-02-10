@@ -21,8 +21,8 @@ interface PostValues {
 
 const styles = {
   cardcontent: {
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingTop: 0,
+    paddingBottom: 0,
   },
 };
 
@@ -31,7 +31,7 @@ const Comment = (props: PostValues): JSX.Element => {
   const [editorOpen, setEditorOpen] = useState(false);
 
   const content = editorOpen ? (
-    <>
+    <Grid item>
       <PostEditor
         server={props.host}
         id={props.id}
@@ -45,8 +45,10 @@ const Comment = (props: PostValues): JSX.Element => {
         type="submit"
         style={{ marginTop: "8px" }}
         onClick={() => setEditorOpen(false)}
-      />
-    </>
+      >
+        {"Cancel"}
+      </Button>
+    </Grid>
   ) : (
     <Grid item container direction="row-reverse" style={{ padding: "4px 0px" }}>
       <Grid item xs={props.grids} container direction="column">
