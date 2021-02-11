@@ -10,6 +10,7 @@ import { gql, useMutation } from "@apollo/client";
 import CenteredLoader from "../CenteredLoader";
 import ErrorMessage from "../ErrorMessage";
 import UserContext from "../UserContext";
+import styles from "./PostHeader.module.scss";
 
 interface PropsTypes {
   username: string;
@@ -26,12 +27,6 @@ export const DELETE_POST = gql`
     deletePost(post: { id: $id, host: $host })
   }
 `;
-
-const styles = {
-  commentheader: {
-    paddingBottom: "0em",
-  },
-};
 
 const PostHeader = (props: PropsTypes): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
@@ -114,8 +109,7 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
 
   return (
     <CardHeader
-      style={props.isComment ? styles.commentheader : {}}
-      className={props.isComment ? "CommentHeader" : ""}
+      className={props.isComment ? styles.commentHeader : ""}
       action={headerAction}
       title={headerTitle}
     />
