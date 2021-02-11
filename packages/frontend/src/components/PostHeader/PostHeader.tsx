@@ -115,6 +115,7 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
   return (
     <CardHeader
       style={props.isComment ? styles.commentheader : {}}
+      className={props.isComment ? "CommentHeader" : ""}
       action={headerAction}
       title={headerTitle}
     />

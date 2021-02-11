@@ -7,22 +7,18 @@ import Comments, { GET_COMMENTS } from "./Comments";
 import { MockedProvider } from "@apollo/client/testing";
 import { render, waitFor } from "@testing-library/react";
 
-const id1 = "001"; // main post
-const id2 = "002"; // first comment
-const id3 = "003"; // second level nested comment
-const id4 = "004"; // third level nested comment
-const id5 = "005"; // fourth level nested comment
-const id6 = "006"; // fifth level nested comment (max nest allowed is 4)
-const body2 = "first comment";
-const body3 = "nested comment to first";
-const body4 = "third level nested comment";
-const body5 = "fourth level nested comment";
-const body6 = "fifth level nested comment";
-const auth2 = "user2";
-const auth3 = "user3";
-const auth4 = "user4";
-const auth5 = "user5";
-const auth6 = "user6";
+// 001 represents the main post
+// 002-006 represent the comments
+const ids = ["001", "002", "003", "004", "005", "006"];
+const bodies = [
+  "",
+  "first comment",
+  "nested comment to first",
+  "third level nested comment",
+  "fourth level nested comment",
+  "fifth level nested comment",
+];
+const users = ["", "user2", "user3", "user4", "user5", "user6"];
 const server = "testserver";
 
 test("Display comments", async () => {
@@ -56,15 +52,15 @@ test("Display comments", async () => {
     };
   };
   const getCommentsMocks = [
-    reqres(id1, server, id2, body2, auth2),
-    reqres(id2, server, id3, body3, auth3),
-    reqres(id3, server, id4, body4, auth4),
-    reqres(id4, server, id5, body5, auth5),
-    reqres(id5, server, id6, body6, auth6),
+    reqres(ids[0], server, ids[1], bodies[1], users[1]),
+    reqres(ids[1], server, ids[2], bodies[2], users[2]),
+    reqres(ids[2], server, ids[3], bodies[3], users[3]),
+    reqres(ids[3], server, ids[4], bodies[4], users[4]),
+    reqres(ids[4], server, ids[5], bodies[5], users[5]),
     {
       request: {
         query: GET_COMMENTS,
-        variables: { id: id6, server: server },
+        variables: { id: ids[5], server: server },
       },
       result: {
         data: {
@@ -78,28 +74,28 @@ test("Display comments", async () => {
 
   const { getByText } = render(
     <MockedProvider mocks={getCommentsMocks} addTypename={false}>
-      <Comments parentId={id1} server={server} grids={11} />
+      <Comments parentId={ids[0]} server={server} grids={11} />
     </MockedProvider>,
   );
 
   await waitFor(() => {
-    getByText(auth2);
-    getByText(body2);
+    getByText(users[1]);
+    getByText(bodies[1]);
   });
   await waitFor(() => {
-    getByText(auth3);
-    getByText(body3);
+    getByText(users[2]);
+    getByText(bodies[2]);
   });
   await waitFor(() => {
-    getByText(auth4);
-    getByText(body4);
+    getByText(users[3]);
+    getByText(bodies[3]);
   });
   await waitFor(() => {
-    getByText(auth5);
-    getByText(body5);
+    getByText(users[4]);
+    getByText(bodies[4]);
   });
   await waitFor(() => {
-    getByText(auth6);
-    getByText(body6);
+    getByText(users[5]);
+    getByText(bodies[5]);
   });
 });
