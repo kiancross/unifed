@@ -9,6 +9,7 @@ import UserIcon from "../../components/UserIcon";
 import MarkdownViewer from "../../components/MarkdownViewer";
 import PostHeader from "../../components/PostHeader";
 import PostEditor from "../../components/PostEditor";
+import style from "./PostPage.module.scss";
 
 interface PostValues {
   username: string;
@@ -17,13 +18,6 @@ interface PostValues {
   grids: GridSize;
   host: string;
 }
-
-const styles = {
-  cardcontent: {
-    paddingTop: 0,
-    paddingBottom: 0,
-  },
-};
 
 const Comment = (props: PostValues): JSX.Element => {
   const theme = useTheme();
@@ -60,7 +54,7 @@ const Comment = (props: PostValues): JSX.Element => {
               id={props.id}
               server={props.host}
             />
-            <CardContent style={styles.cardcontent}>
+            <CardContent className={style.commentBody}>
               <Typography variant="subtitle2">
                 <MarkdownViewer>{props.body}</MarkdownViewer>
               </Typography>
