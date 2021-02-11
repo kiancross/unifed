@@ -78,24 +78,10 @@ test("Display comments", async () => {
     </MockedProvider>,
   );
 
-  await waitFor(() => {
-    getByText(users[1]);
-    getByText(bodies[1]);
-  });
-  await waitFor(() => {
-    getByText(users[2]);
-    getByText(bodies[2]);
-  });
-  await waitFor(() => {
-    getByText(users[3]);
-    getByText(bodies[3]);
-  });
-  await waitFor(() => {
-    getByText(users[4]);
-    getByText(bodies[4]);
-  });
-  await waitFor(() => {
-    getByText(users[5]);
-    getByText(bodies[5]);
-  });
+  for (let i = 1; i < users.length; i++) {
+    await waitFor(() => {
+      getByText(users[i]);
+      getByText(bodies[i]);
+    });
+  }
 });

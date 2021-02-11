@@ -5,13 +5,13 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import Comment from "./Comment";
-import { Grid } from "@material-ui/core";
+import { Grid, GridSize } from "@material-ui/core";
 import CenteredLoader from "../../components/CenteredLoader";
 
 interface CommentParams {
   server: string;
   parentId: string;
-  grids: 8 | 9 | 10 | 11;
+  grids: GridSize;
 }
 
 interface PostParams {
@@ -40,20 +40,11 @@ const Comments = (props: CommentParams) => {
   const parentId = props.parentId;
   const server = props.server;
 
-  const decrement = (grids: 8 | 9 | 10 | 11): 8 | 9 | 10 | 11 => {
-    switch (grids) {
-      case 11:
-        return 10;
-        break;
-      case 10:
-        return 9;
-        break;
-      case 9:
-        return 8;
-        break;
-      default:
-        return grids;
-        break;
+  const decrement = (grids: number): GridSize => {
+    if (grids >= 9) {
+      return (grids - 1) as GridSize;
+    } else {
+      return grids as GridSize;
     }
   };
 
@@ -82,7 +73,11 @@ const Comments = (props: CommentParams) => {
               id={post.id}
               grids={props.grids}
             />
-            <Comments parentId={post.id} server={props.server} grids={decrement(props.grids)} />
+            <Comments
+              parentId={post.id}
+              server={props.server}
+              grids={decrement(props.grids as number)}
+            />
           </React.Fragment>
         );
       })}
