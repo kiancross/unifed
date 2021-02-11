@@ -11,7 +11,6 @@ import AccountSettingsPage from "../../pages/AccountSettingsPage";
 import LoginPage from "../../pages/LoginPage";
 import RegistrationPage from "../../pages/RegistrationPage";
 import EmailVerificationPage from "../../pages/EmailVerificationPage";
-import HomePage from "../../pages/HomePage/HomePage";
 import CommunityPostsPage from "../../pages/CommunityPostsPage";
 import CreatePostPage from "../../pages/CreatePostPage";
 import PostPage from "../../pages/PostPage";
