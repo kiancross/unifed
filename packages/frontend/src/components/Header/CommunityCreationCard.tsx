@@ -33,7 +33,7 @@ function validate({ name, description, id }: Values) {
   if (!validateCommunityDescription(description)) {
     errors.description = "Invalid description";
   }
-  if (validateCommunityID(id)) {
+  if (!validateCommunityID(id)) {
     errors.id = "invalid ID";
   }
   return errors;
