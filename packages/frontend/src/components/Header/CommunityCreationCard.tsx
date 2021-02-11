@@ -5,19 +5,27 @@
 import React from "react";
 // import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import { validateCommunityName, validateCommunityDescription } from "@unifed/shared";
+import {
+  validateCommunityName,
+  validateCommunityDescription,
+  validateCommunityID,
+} from "@unifed/shared";
 import { Button, Card, CardContent, TextField } from "@material-ui/core";
+import { gql, useMutation } from "@apollo/client";
+import CenteredLoader from "../CenteredLoader";
+import ErrorMessage from "../ErrorMessage";
 // import { Alert } from "@material-ui/lab";
 // import { Redirect } from "react-router-dom";
 
 interface Values {
   name: string;
   description: string;
+  id: string;
 }
 
 // async function createCommunity() {}
 
-function validate({ name, description }: Values) {
+function validate({ name, description, id }: Values) {
   const errors: Partial<Values> = {};
   if (!validateCommunityName(name)) {
     errors.name = "Invalid name";
@@ -25,10 +33,34 @@ function validate({ name, description }: Values) {
   if (!validateCommunityDescription(description)) {
     errors.description = "Invalid description";
   }
+  if (validateCommunityID(id)) {
+    errors.id = "invalid ID";
+  }
   return errors;
 }
 
-const CommunityCreationCard = (): JSX.Element => {
+interface Values {
+  name: string;
+  description: string;
+  id: string;
+}
+
+interface Props {
+  onSuccess?: (id: string) => void;
+}
+
+export const createCommunityQuery = gql`
+  mutation CREATE_COMMUNITY($name: String!, $description: String!, $id: String!) {
+    createCommunity(name: $name, description: $description, id: $id)
+  }
+`;
+
+const CommunityCreationCard = (props: Props): JSX.Element => {
+  const [createCommunity, { loading, error, data }] = useMutation(createCommunityQuery);
+
+  if (loading) return <CenteredLoader />;
+  if (error) return <ErrorMessage message="Could not create community. Please try again later." />;
+  if (data && props.onSuccess) props.onSuccess(data.createCommunity.id);
   // const [isCommunityCreated, setIsCommunityCreated] = useState(false);
   // const [displayCommunityCreationError, setDisplayCommunityCreationError] = useState(false);
 
@@ -43,11 +75,19 @@ const CommunityCreationCard = (): JSX.Element => {
             initialValues={{
               name: "",
               description: "",
+              id: "",
             }}
             validate={validate}
             validateOnBlur={false}
             validateOnChange={false}
-            onSubmit={() => {
+            onSubmit={(values: Values) => {
+              createCommunity({
+                variables: {
+                  name: values.name,
+                  description: values.description,
+                  id: values.id,
+                },
+              });
               // createCommunity(values)
               //   .then((res) => {
               //     if (res) setIsCommunityCreated(true);
@@ -87,6 +127,21 @@ const CommunityCreationCard = (): JSX.Element => {
                     helperText={errors.description}
                     error={!!errors.description}
                     data-testid="description"
+                  />
+                </div>
+                <div>
+                  <Field
+                    name="id"
+                    as={TextField}
+                    fullWidth
+                    size="large"
+                    margin="dense"
+                    variant="outlined"
+                    label="ID"
+                    color="primary"
+                    helperText={errors.description}
+                    error={!!errors.description}
+                    data-testid="id"
                   />
                 </div>
                 <Button
