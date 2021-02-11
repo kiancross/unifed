@@ -38,7 +38,7 @@ export class Community extends Base {
   @IsArray()
   @ValidateNested()
   @Type(() => RemoteReference)
-  @Property({ _id: false, required: true })
+  @Property({ _id: false, type: RemoteReference, required: true })
   admins?: RemoteReference[];
 
   toJSON(): JSONMap {
