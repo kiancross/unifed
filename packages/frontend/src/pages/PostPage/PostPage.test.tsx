@@ -81,7 +81,7 @@ test("Display comments", async () => {
       <Comments parentId={id1} server={server} grids={11} />
     </MockedProvider>,
   );
-  
+
   await waitFor(() => {
     getByText(auth2);
     getByText(body2);
