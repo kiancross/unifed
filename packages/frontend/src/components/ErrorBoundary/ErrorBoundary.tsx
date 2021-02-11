@@ -5,7 +5,7 @@
 // Makes use of https://reactjs.org/docs/error-boundaries.html
 
 import React, { ErrorInfo } from "react";
-import ErrorPage from "../../pages/ErrorPage";
+import ErrorMessage from "../ErrorMessage";
 
 interface PropsType {
   hasError?: boolean;
@@ -30,7 +30,7 @@ class ErrorBoundary extends React.Component<PropsType, StateTypes> {
   render(): React.ReactNode {
     if (this.state.hasError) {
       return (
-        <ErrorPage message="Something went wrong. Please try again and let us know if the problem persists." />
+        <ErrorMessage message="Something went wrong. Please try again and let us know if the problem persists." />
       );
     }
     return this.props.children;

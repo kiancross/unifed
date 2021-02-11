@@ -8,7 +8,7 @@ import { Post, User } from "@unifed/backend-core";
 import { FederationHttpClient } from "./http-client";
 
 @Service()
-export class PostsService {
+export class PostsFederationService {
   async create(
     host: string,
     user: User,

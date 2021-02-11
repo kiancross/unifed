@@ -2,32 +2,64 @@
  * CS3099 Group A3
  */
 
-import React from "react";
-import { Card, CardContent, Grid, Link, Typography } from "@material-ui/core";
+import React, { useState } from "react";
+import { Card, CardContent, Grid, Typography, Button } from "@material-ui/core";
 import MarkdownViewer from "../../components/MarkdownViewer";
+import style from "./PostPage.module.scss";
+import PostHeader from "../../components/PostHeader";
+import PostEditor from "../../components/PostEditor";
 
 interface PostValues {
   username: string;
-  text: string;
+  body: string;
   title: string;
+  id: string;
+  server: string;
 }
 
 const Post = (props: PostValues): JSX.Element => {
-  return (
+  const [editorOpen, setEditorOpen] = useState(false);
+
+  const content = editorOpen ? (
+    <div>
+      <PostEditor
+        body={props.body}
+        title={props.title}
+        server={props.server}
+        id={props.id}
+        submitButtonText="Save Post"
+        onSuccess={() => window.location.assign(window.location.href)}
+      />
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        type="submit"
+        style={{ marginTop: "8px" }}
+        onClick={() => setEditorOpen(false)}
+      />
+    </div>
+  ) : (
     <Grid item xs={12}>
       <Card style={{ textAlign: "left" }}>
-        <CardContent>
-          <Typography variant="body2" gutterBottom>
-            <Link href={"/user/" + props.username}>{props.username}</Link>
-          </Typography>
+        <PostHeader
+          onToggleEdit={() => setEditorOpen(true)}
+          title={props.title}
+          id={props.id}
+          server={props.server}
+          username={props.username}
+        />
+        <CardContent className={style.cardContent}>
           <Typography variant="h6">{props.title ? props.title : "Comment"}</Typography>
           <Typography variant="body2">
-            <MarkdownViewer>{props.text}</MarkdownViewer>
+            <MarkdownViewer>{props.body}</MarkdownViewer>
           </Typography>
         </CardContent>
       </Card>
     </Grid>
   );
+
+  return content;
 };
 
 export default Post;

@@ -2,17 +2,15 @@
  * CS3099 Group A3
  */
 
-process.env.UNIFED_SITE_HOST = "localhost:8080";
-
 import test from "ava";
 import nock from "nock";
 import { Container } from "typedi";
-import { PostsService } from "../posts";
+import { PostsFederationService } from "../posts";
 
-let postsService: PostsService;
+let postsService: PostsFederationService;
 
 test.beforeEach(() => {
-  postsService = Container.get(PostsService);
+  postsService = Container.get(PostsFederationService);
 });
 
 test("getPosts none", async (t) => {

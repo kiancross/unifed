@@ -1,12 +1,16 @@
+/*
+ * CS3099 Group A3
+ */
+
 import React from "react";
 import { Button, Container, Typography } from "@material-ui/core";
-import styles from "./ErrorPage.module.scss";
+import styles from "./ErrorMessage.module.scss";
 
-interface ErrorPageProps {
+interface ErrorMessageProps {
   message: string;
 }
 
-const ErrorPage = (props: ErrorPageProps): JSX.Element => {
+const ErrorMessage = (props: ErrorMessageProps): JSX.Element => {
   return (
     <Container className={styles.container}>
       <Typography variant="h6" gutterBottom>
@@ -19,4 +23,4 @@ const ErrorPage = (props: ErrorPageProps): JSX.Element => {
   );
 };
 
-export default ErrorPage;
+export default ErrorMessage;
