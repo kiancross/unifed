@@ -63,7 +63,7 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
   };
 
   const headerAction =
-    loggedInUser === props.username && props.server === "this" ? (
+    loggedInUser === props.username && props.server === process.env.REACT_APP_INTERNAL_REFERENCE ? (
       <React.Fragment>
         <IconButton
           data-testid="icon-button"
