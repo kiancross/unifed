@@ -27,22 +27,22 @@ interface Values {
 
 function validate({ name, description, id }: Values) {
   const errors: Partial<Values> = {};
+  if (!validateCommunityID(id)) {
+    errors.id = "invalid ID";
+  }
   if (!validateCommunityName(name)) {
     errors.name = "Invalid name";
   }
   if (!validateCommunityDescription(description)) {
     errors.description = "Invalid description";
   }
-  if (!validateCommunityID(id)) {
-    errors.id = "invalid ID";
-  }
   return errors;
 }
 
 interface Values {
+  id: string;
   name: string;
   description: string;
-  id: string;
 }
 
 interface Props {
@@ -50,8 +50,10 @@ interface Props {
 }
 
 export const createCommunityQuery = gql`
-  mutation CREATE_COMMUNITY($name: String!, $description: String!, $id: String!) {
-    createCommunity(name: $name, description: $description, id: $id)
+  mutation CREATE_COMMUNITY($id: String!, $title: String!, $description: String!) {
+    createCommunity(id: $id, title: $title, description: $description) {
+      id
+    }
   }
 `;
 
@@ -73,9 +75,9 @@ const CommunityCreationCard = (props: Props): JSX.Element => {
         <CardContent>
           <Formik
             initialValues={{
+              id: "",
               name: "",
               description: "",
-              id: "",
             }}
             validate={validate}
             validateOnBlur={false}
@@ -83,9 +85,9 @@ const CommunityCreationCard = (props: Props): JSX.Element => {
             onSubmit={(values: Values) => {
               createCommunity({
                 variables: {
-                  name: values.name,
-                  description: values.description,
                   id: values.id,
+                  title: values.name,
+                  description: values.description,
                 },
               });
               // createCommunity(values)
@@ -100,6 +102,21 @@ const CommunityCreationCard = (props: Props): JSX.Element => {
           >
             {({ errors }) => (
               <Form>
+                <div>
+                  <Field
+                    name="id"
+                    as={TextField}
+                    fullWidth
+                    size="large"
+                    margin="dense"
+                    variant="outlined"
+                    label="ID"
+                    color="primary"
+                    helperText={errors.description}
+                    error={!!errors.description}
+                    data-testid="id"
+                  />
+                </div>
                 <div>
                   <Field
                     name="name"
@@ -127,21 +144,6 @@ const CommunityCreationCard = (props: Props): JSX.Element => {
                     helperText={errors.description}
                     error={!!errors.description}
                     data-testid="description"
-                  />
-                </div>
-                <div>
-                  <Field
-                    name="id"
-                    as={TextField}
-                    fullWidth
-                    size="large"
-                    margin="dense"
-                    variant="outlined"
-                    label="ID"
-                    color="primary"
-                    helperText={errors.description}
-                    error={!!errors.description}
-                    data-testid="id"
                   />
                 </div>
                 <Button

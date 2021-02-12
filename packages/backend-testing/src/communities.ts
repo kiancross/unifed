@@ -8,7 +8,7 @@ import { Community } from "@unifed/backend-core";
 export const generateCommunity = (): Community => {
   const community = new Community();
   community.id = random.word();
-  community.title = lorem.words();
+  community.name = lorem.words();
   community.description = lorem.sentence();
 
   return community;

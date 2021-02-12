@@ -70,7 +70,7 @@ test("getCommunities valid", async (t) => {
 
   const community = {
     id: "cs3099",
-    title: "CS3099: Group Project",
+    name: "CS3099: Group Project",
     description: "CS3099 community for discussion, tutorials and quizzes!",
     admins: [admin],
   };
@@ -120,7 +120,7 @@ test("getCommunity valid", async (t) => {
 
   const community = {
     id: "cs3099",
-    title: "CS3099: Group Project",
+    name: "CS3099: Group Project",
     description: "CS3099 community for discussion, tutorials and quizzes!",
     admins: [admin],
   };

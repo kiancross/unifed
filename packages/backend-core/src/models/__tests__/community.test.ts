@@ -8,7 +8,7 @@ import { Community } from "../community";
 test("toJSON", (t) => {
   const community = new Community();
   community.id = "someid";
-  community.title = "Some title";
+  community.name = "Some title";
   community.description = "Some description";
   t.deepEqual(community.toJSON(), {
     id: "someid",

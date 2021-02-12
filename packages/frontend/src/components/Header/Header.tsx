@@ -28,14 +28,11 @@ const Header = (props: HeaderProps): JSX.Element => {
   const { server } = useParams<Params>();
   const [redirect, setRedirect] = useState<string | undefined>();
 
-  const href = "/instances/" + server + "/communities/";
-
   const onSuccess = (communityID: string) => {
-    setRedirect(href + "/" + communityID + "/posts");
+    setRedirect("/instances/" + server + "/communities/" + communityID + "/posts");
   };
 
   if (redirect) return <Redirect to={redirect} />;
-
   return (
     <AppBar color="primary" position="sticky">
       <Toolbar variant="dense">

@@ -16,7 +16,7 @@ export class Community extends Base {
   @IsString()
   @Field()
   @Property({ required: true })
-  title!: string;
+  name!: string;
 
   @IsNotEmpty()
   @IsString()
@@ -43,7 +43,7 @@ export class Community extends Base {
   toJSON(): { [key: string]: any } {
     return {
       ...super.toJSON(),
-      title: this.title,
+      name: this.name,
       description: this.description,
       admins: this.admins || [],
     };
