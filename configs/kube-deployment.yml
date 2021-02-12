@@ -26,6 +26,8 @@ spec:
       volumeMounts:
         - mountPath: /docker-entrypoint-initdb.d/mongo-init.js
           name: mongo-init
+        - mountPath: /data/db
+          name: mongo-data
       env:
         - name: MONGO_INITDB_ROOT_USERNAME
           value: ${MONGO_ADMIN_USERNAME}
@@ -199,3 +201,7 @@ spec:
       hostpath:
         path: ./configs/mongo-init.js
         type: File
+
+    - name: mongo-data
+      persistentVolumeClaim:
+        claimName: unifed-mongo-data
