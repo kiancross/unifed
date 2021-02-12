@@ -10,12 +10,12 @@ POD_NAME:=unifed
 
 PODMAN_COMMAND:=cd .. && podman
 
-ifneq ($(shell podman --version | awk '{print $$3}'),2.1.1)
+ifneq ($(shell podman --version | awk '{print $$3}'),3.0.0-rc3)
 define n
 
 
 endef
-$(error $n Requires Podman version 2.1.1. See $n https://github.com/kiancross/unifed/wiki/Installation#step-3---setup-a-container-service $n)
+$(error $n Requires Podman version 3.0.0-rc3. See $n https://github.com/kiancross/unifed/wiki/Installation#step-3---setup-a-container-service $n)
 endif
 
 .PHONY: start
