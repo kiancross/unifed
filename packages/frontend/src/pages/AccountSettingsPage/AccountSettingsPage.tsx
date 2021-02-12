@@ -25,21 +25,19 @@ interface State {
   name: string;
 }
 
-const GET_USER = {
-  query: gql`
-    query {
-      getUser {
-        emails {
-          address
-        }
-        username
-        profile {
-          name
-        }
+export const GET_USER = gql`
+  query {
+    getUser {
+      emails {
+        address
+      }
+      username
+      profile {
+        name
       }
     }
-  `,
-};
+  }
+`;
 
 class AccountSettingsPage extends React.Component<unknown, State> {
   constructor(props: unknown) {
@@ -63,7 +61,7 @@ class AccountSettingsPage extends React.Component<unknown, State> {
   }
 
   setDetails(): void {
-    apolloClient.query(GET_USER).then((res) => {
+    apolloClient.query({ query: GET_USER }).then((res) => {
       const userInfo = res.data.getUser;
       if (userInfo) {
         this.setState(() => ({
