@@ -31,7 +31,7 @@ export class User extends Base {
   username!: string;
 
   @Field(() => [EmailRecord])
-  @Property({ id: false, required: true })
+  @Property({ type: EmailRecord, id: false, required: true })
   emails!: EmailRecord[];
 
   @Field()
