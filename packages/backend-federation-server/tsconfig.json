@@ -25,6 +25,7 @@
   "include": ["src"],
   "exclude" : ["src/**/*.test.ts"],
   "references": [
+    { "path": "../backend-testing" },
     { "path": "../backend-core" }
   ]
 }
