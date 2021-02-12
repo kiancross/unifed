@@ -42,7 +42,7 @@
     "fix": "eslint . --ext .ts --fix"
   },
   "ava": {
-    "timeout": "1m",
+    "timeout": "2m",
     "files": [
       "!build/**/*"
     ],
