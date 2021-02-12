@@ -19,8 +19,6 @@ export const setup = (test: TestType): void => {
   test.before(async () => {
     const uri = await mongod.getUri();
 
-    console.info(`Database URI ${uri}`);
-
     await mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,

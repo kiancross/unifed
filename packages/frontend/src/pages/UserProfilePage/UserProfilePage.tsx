@@ -32,21 +32,21 @@ const UserProfilePage = (): JSX.Element => {
   const general = useQuery(GET_POSTS, {
     variables: {
       community: "general",
-      host: "this",
+      host: process.env.REACT_APP_INTERNAL_REFERENCE,
     },
   });
 
   const all = useQuery(GET_POSTS, {
     variables: {
       community: "all",
-      host: "this",
+      host: process.env.REACT_APP_INTERNAL_REFERENCE,
     },
   });
 
   const elections = useQuery(GET_POSTS, {
     variables: {
       community: "elections",
-      host: "this",
+      host: process.env.REACT_APP_INTERNAL_REFERENCE,
     },
   });
 
