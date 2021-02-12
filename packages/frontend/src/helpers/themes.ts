@@ -3,9 +3,17 @@
  */
 
 import { PaletteType } from "@material-ui/core";
-import { indigo } from "@material-ui/core/colors";
 
 export const standardTheme = {
+  overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        body: {
+          "background-color": "#F1F2F6",
+        },
+      },
+    },
+  },
   palette: {
     type: "light" as PaletteType,
     primary: {
@@ -18,14 +26,26 @@ export const standardTheme = {
 };
 
 export const darkTheme = {
+  overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        body: {
+          "background-color": "#303030",
+          color: "#2bff00",
+        },
+      },
+    },
+  },
   palette: {
     type: "dark" as PaletteType,
     primary: {
-      main: indigo[800],
+      main: "#04001c",
     },
     secondary: {
-      main: "#707070",
-      dark: indigo[500],
+      main: "#606060",
+    },
+    text: {
+      primary: "#ffffff",
     },
   },
 };

@@ -26,7 +26,7 @@ const styles = {
 };
 
 const Comment = (props: PostValues): JSX.Element => {
-  const theme = useTheme();
+  const theme = useTheme().palette;
   const [editorOpen, setEditorOpen] = useState(false);
 
   const content = editorOpen ? (
@@ -49,8 +49,12 @@ const Comment = (props: PostValues): JSX.Element => {
   ) : (
     <Grid item container direction="row-reverse" spacing={2}>
       <Grid item xs={11} container direction="column">
-        <Box borderLeft={4} borderColor={theme.palette.primary.main}>
-          <Card elevation={1} square style={{ textAlign: "left" }}>
+        <Box borderLeft={4} borderColor={theme.primary.main}>
+          <Card
+            elevation={1}
+            square
+            style={{ background: theme.secondary.main, textAlign: "left" }}
+          >
             <PostHeader
               onToggleEdit={() => setEditorOpen(true)}
               isComment

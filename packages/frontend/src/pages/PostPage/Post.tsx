@@ -20,7 +20,7 @@ interface PostValues {
 
 const Post = (props: PostValues): JSX.Element => {
   const [editorOpen, setEditorOpen] = useState(false);
-  const theme = useTheme();
+  const theme = useTheme().palette;
 
   const content = editorOpen ? (
     <div>
@@ -45,7 +45,7 @@ const Post = (props: PostValues): JSX.Element => {
     </div>
   ) : (
     <Grid item xs={12}>
-      <Card color="primary" style={{ background: theme.palette.secondary.main, textAlign: "left" }}>
+      <Card color="primary" style={{ background: theme.secondary.main, textAlign: "left" }}>
         <PostHeader
           onToggleEdit={() => setEditorOpen(true)}
           title={props.title}
