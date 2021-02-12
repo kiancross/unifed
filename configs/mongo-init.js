@@ -2,15 +2,17 @@
  * CS3099 Group A3
  */
 
-const databaseNames = ["unifed-internal", "unifed-federation"];
+db.createUser({
+  user: "user",
+  pwd: "pass",
+  roles:[{
+    role: "readWrite",
+    db: "unifed"
+  }]
+});
 
-databaseNames.forEach((name) => {
-  db.getSiblingDB(name).createUser({
-    user: "user",
-    pwd: "pass",
-    roles:[{
-      role: "readWrite",
-      db: name
-    }]
-  });
+db.communities.insert({
+  _id: "all",
+  title: "All",
+  description: "Home page"
 });

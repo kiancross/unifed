@@ -1,0 +1,23 @@
+#
+# CS3099 Group A3
+#
+
+codecov:
+  allow_coverage_offsets: true
+
+coverage:
+  status:
+    project:
+      default:
+        informational: true
+        only_pulls: true
+    patch:
+      default:
+        informational: true
+        only_pulls: true
+
+comment:
+  layout: "reach, diff, flags"
+
+ignore:
+  - "**/scripts/"

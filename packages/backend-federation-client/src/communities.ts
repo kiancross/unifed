@@ -2,11 +2,12 @@
  * CS3099 Group A3
  */
 
-import got from "got";
+import { Service } from "typedi";
 import { plainToClass } from "class-transformer";
 import { validate } from "class-validator";
-import { getFederatedApiEndpoint, isStringArray, RemoteResponseError } from "./helpers";
 import { Community } from "@unifed/backend-core";
+import { isStringArray, RemoteResponseError } from "./helpers";
+import { FederationHttpClient } from "./http-client";
 
 export class CommunityNotFoundError extends Error {
   constructor(id: string) {
@@ -14,44 +15,52 @@ export class CommunityNotFoundError extends Error {
   }
 }
 
-export async function getCommunities(host: string): Promise<Community[]> {
-  const communityIds: string[] = await got(getFederatedApiEndpoint(host, ["communities"])).json();
-  if (!isStringArray(communityIds)) {
-    throw new RemoteResponseError(communityIds);
-  }
+@Service()
+export class CommunitiesFederationService {
+  async getAll(host: string): Promise<Community[]> {
+    const httpClient = new FederationHttpClient(host);
 
-  const communities = [];
+    const communityIds: string[] = await httpClient.get("communities");
 
-  for (const communityId of communityIds) {
-    const community = await getCommunity(host, communityId);
-
-    if (community === null) {
-      throw new CommunityNotFoundError(communityId);
+    if (!isStringArray(communityIds)) {
+      throw new RemoteResponseError(communityIds);
     }
 
-    communities.push(community);
-  }
+    const communities = [];
 
-  return communities;
-}
+    for (const communityId of communityIds) {
+      const community = await this.getOne(host, communityId);
 
-export async function getCommunity(host: string, id: string): Promise<Community | null> {
-  try {
-    const rawCommunity = await got(getFederatedApiEndpoint(host, ["communities", id])).json();
-    const community = plainToClass(Community, rawCommunity as Community);
-    community.host = host;
+      if (community === null) {
+        throw new CommunityNotFoundError(communityId);
+      }
 
-    const validation = await validate(community);
-    if (validation.length !== 0) {
-      throw new RemoteResponseError(rawCommunity);
+      communities.push(community);
     }
 
-    return community;
-  } catch (error) {
-    if (error?.response?.statusCode === 404) {
-      return null;
-    } else {
-      throw error;
+    return communities;
+  }
+
+  async getOne(host: string, id: string): Promise<Community | null> {
+    const httpClient = new FederationHttpClient(host);
+
+    try {
+      const rawCommunity: Community = await httpClient.get(["communities", id]);
+      const community = plainToClass(Community, rawCommunity);
+      community.host = host;
+
+      const validation = await validate(community);
+      if (validation.length !== 0) {
+        throw new RemoteResponseError(rawCommunity);
+      }
+
+      return community;
+    } catch (error) {
+      if (error?.response?.statusCode === 404) {
+        return null;
+      } else {
+        throw error;
+      }
     }
   }
 }

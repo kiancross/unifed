@@ -6,11 +6,11 @@ version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/"
+    open-pull-requests-limit: 0
     schedule:
       interval: "daily"
     labels:
       - dependencies
-      - typescript
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -18,4 +18,3 @@ updates:
       interval: "daily"
     labels:
       - dependencies
-      - action

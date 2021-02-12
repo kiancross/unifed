@@ -11,7 +11,7 @@ import { AccountsModule } from "@accounts/graphql-api";
 import { mergeResolvers, mergeTypeDefs } from "@graphql-tools/merge";
 import { validateUsername, validateName, validatePassword } from "@unifed/shared";
 import { config } from "@unifed/backend-core";
-import { emailTransporter } from "./email";
+import { getEmailTransporter } from "./email";
 
 class EmailNotVerifiedError extends Error {
   constructor() {
@@ -88,7 +88,7 @@ const server = new AccountsServer(
     },
    */
     sendMail: (params) => {
-      return emailTransporter.sendMail(params);
+      return getEmailTransporter().sendMail(params);
     },
   },
   { password: passwordStrategy },

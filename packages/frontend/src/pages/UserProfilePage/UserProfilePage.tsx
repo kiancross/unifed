@@ -24,6 +24,7 @@ const UserProfilePage = (): JSX.Element => {
         author {
           id
         }
+        body
       }
     }
   `;
@@ -31,21 +32,21 @@ const UserProfilePage = (): JSX.Element => {
   const general = useQuery(GET_POSTS, {
     variables: {
       community: "general",
-      host: window.location.host,
+      host: process.env.REACT_APP_INTERNAL_REFERENCE,
     },
   });
 
   const all = useQuery(GET_POSTS, {
     variables: {
       community: "all",
-      host: window.location.host,
+      host: process.env.REACT_APP_INTERNAL_REFERENCE,
     },
   });
 
   const elections = useQuery(GET_POSTS, {
     variables: {
       community: "elections",
-      host: window.location.host,
+      host: process.env.REACT_APP_INTERNAL_REFERENCE,
     },
   });
 
@@ -64,8 +65,9 @@ const UserProfilePage = (): JSX.Element => {
             if (post.title && post.author.id === username) {
               return (
                 <PostPreview
+                  body={post.body}
                   key={post.id}
-                  postId={post.id}
+                  id={post.id}
                   server={post.host}
                   community="elections"
                   username={username}
@@ -80,8 +82,9 @@ const UserProfilePage = (): JSX.Element => {
             if (post.title && post.author.id === username) {
               return (
                 <PostPreview
+                  body={post.body}
                   key={post.id}
-                  postId={post.id}
+                  id={post.id}
                   server={post.host}
                   community="general"
                   username={username}
@@ -96,8 +99,9 @@ const UserProfilePage = (): JSX.Element => {
             if (post.title && post.author.id === username) {
               return (
                 <PostPreview
+                  body={post.body}
                   key={post.id}
-                  postId={post.id}
+                  id={post.id}
                   server={post.host}
                   community="all"
                   username={username}

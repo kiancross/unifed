@@ -1,0 +1,3 @@
+/.yarn/** linguist-vendored
+yarn.lock linguist-generated
+*.snap linguist-generated

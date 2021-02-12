@@ -2,5 +2,7 @@
  * CS3099 Group A3
  */
 
-export * as communitiesClient from "./communities";
-export * as postsClient from "./posts";
+import "reflect-metadata";
+export * from "./communities";
+export * from "./posts";
+export { HTTPError, RemoteResponseError } from "./helpers";

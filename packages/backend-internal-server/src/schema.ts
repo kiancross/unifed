@@ -2,39 +2,44 @@
  * CS3099 Group A3
  */
 
-import * as path from "path";
+import { ContainerInstance } from "typedi";
 import { GraphQLSchema } from "graphql";
-import { buildTypeDefsAndResolvers, emitSchemaDefinitionFile } from "type-graphql";
+import { User } from "@unifed/backend-core";
+import { buildTypeDefsAndResolvers, ResolversMap } from "type-graphql";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { mergeResolvers, mergeTypeDefs } from "@graphql-tools/merge";
+import { UsersResolver, PostsResolver, CommunitiesResolver, CreateUserInput } from "./resolvers";
 import {
   accountsTypeDefs,
   accountsResolvers,
   accountsSchemaDirectives,
   accountsDatabase,
 } from "./accounts-setup";
-import { UsersResolver, PostsResolver, CommunitiesResolver, CreateUserInput } from "./resolvers";
-import { User } from "@unifed/backend-core";
 
-export const schema = (async (): Promise<GraphQLSchema> => {
-  await accountsDatabase.setupIndexes();
-
-  const { typeDefs, resolvers } = await buildTypeDefsAndResolvers({
+export const getInternalSchema = async (
+  container: ContainerInstance,
+): Promise<{ typeDefs: string; resolvers: ResolversMap }> =>
+  await buildTypeDefsAndResolvers({
     resolvers: [UsersResolver, PostsResolver, CommunitiesResolver],
     orphanedTypes: [CreateUserInput, User],
+    container: container,
     validate: true,
   });
 
+export const getMergedSchema = async (container: ContainerInstance): Promise<GraphQLSchema> => {
+  await accountsDatabase.setupIndexes();
+
+  const { typeDefs: internalTypeDefs, resolvers: internalResolvers } = await getInternalSchema(
+    container,
+  );
+
   const schema = makeExecutableSchema({
-    typeDefs: mergeTypeDefs([accountsTypeDefs, typeDefs]),
-    resolvers: mergeResolvers([accountsResolvers, resolvers]),
+    typeDefs: mergeTypeDefs([accountsTypeDefs, internalTypeDefs]),
+    resolvers: mergeResolvers([accountsResolvers, internalResolvers]),
     schemaDirectives: {
       ...accountsSchemaDirectives,
     },
   });
 
-  const schemaOutputPath = path.resolve(__dirname, "../../build/schema.graphql");
-  await emitSchemaDefinitionFile(schemaOutputPath, schema);
-
   return schema;
-})();
+};

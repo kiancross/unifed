@@ -2,67 +2,88 @@
  * CS3099 Group A3
  */
 
-import got from "got";
+import { Service } from "typedi";
 import { plainToClass } from "class-transformer";
-import { getFederatedApiEndpoint } from "./helpers";
 import { Post, User } from "@unifed/backend-core";
+import { FederationHttpClient } from "./http-client";
 
-export async function createPost(
-  host: string,
-  user: User,
-  parent: string,
-  title: string,
-  body: string,
-) {
-  try {
-    const rawPost = await got
-      .post(getFederatedApiEndpoint(host, ["posts"]), {
+@Service()
+export class PostsFederationService {
+  async create(
+    host: string,
+    user: User,
+    community: string,
+    title: string,
+    body: string,
+    parentPost?: string,
+  ): Promise<Post | null> {
+    const httpClient = new FederationHttpClient(host);
+
+    try {
+      const rawPost: Post = await httpClient.post("posts", {
         json: {
-          parent,
+          community,
+          parentPost,
           title,
           body,
           contentType: "markdown",
-          author: {
-            id: user.username,
-            host: "TODO", // TODO
-          },
+          author: user.username,
         },
-      })
-      .json();
+      });
 
-    const post = plainToClass(Post, rawPost as Post);
+      const post = plainToClass(Post, rawPost);
+      post.host = host;
+
+      return post;
+    } catch (error) {
+      if (error.response.statusCode === 400) {
+        return null;
+      } else {
+        throw error;
+      }
+    }
+  }
+
+  async getByCommunity(host: string, community: string): Promise<Post[]> {
+    const httpClient = new FederationHttpClient(host);
+
+    const rawPosts: Post[] = await httpClient.get("posts", {
+      searchParams: {
+        community,
+      },
+    });
+
+    const posts = plainToClass(Post, rawPosts);
+    posts.forEach((element) => (element.host = host));
+
+    return posts;
+  }
+
+  async getById(host: string, id: string): Promise<Post> {
+    const httpClient = new FederationHttpClient(host);
+
+    const rawPost: Post = await httpClient.get(["posts", id]);
+
+    const post = plainToClass(Post, rawPost);
     post.host = host;
 
     return post;
-
-    // insert ref into db
-  } catch (error) {
-    if (error.response.statusCode === 400) {
-      return null;
-    } else {
-      throw error;
-    }
   }
-}
 
-export async function getPosts(host: string, community: string): Promise<Post[]> {
-  const rawPosts = await got(getFederatedApiEndpoint(host, ["posts"]), {
-    searchParams: {
-      community,
-    },
-  }).json();
+  async delete(host: string, id: string): Promise<void> {
+    const httpClient = new FederationHttpClient(host);
 
-  const posts = plainToClass(Post, rawPosts as Post[]);
-  posts.forEach((element) => (element.host = host));
+    await httpClient.delete(["posts", id]);
+  }
 
-  return posts;
-}
+  async update(host: string, id: string, title: string, body: string): Promise<void> {
+    const httpClient = new FederationHttpClient(host);
 
-export async function getPost(host: string, id: string): Promise<Post> {
-  const rawPost = await got(getFederatedApiEndpoint(host, ["posts", id])).json();
-
-  const post = plainToClass(Post, rawPost as Post);
-  post.host = host;
-
-  return post;
+    await httpClient.put(["posts", id], {
+      json: {
+        title,
+        body,
+      },
+    });
+  }
 }

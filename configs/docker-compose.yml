@@ -9,19 +9,24 @@ services:
     image: mongo:4
     restart: unless-stopped
     networks:
-      - database
+      - internal-network
+      - federation-network
+      - inspect-network
     volumes:
       - mongo_data:/data/db
       - "./configs/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
     environment:
       MONGO_INITDB_ROOT_USERNAME: "${MONGO_ADMIN_USERNAME}"
       MONGO_INITDB_ROOT_PASSWORD: "${MONGO_ADMIN_PASSWORD}"
+      MONGO_INITDB_DATABASE: unifed
 
   proxy:
     image: nginx:stable-alpine
     restart: unless-stopped
     networks:
-      - proxy
+      - internal-network
+      - federation-network
+      - frontend-network
     depends_on:
       - backend-internal
       - backend-federation
@@ -34,11 +39,10 @@ services:
   backend-internal:
     build:
       context: "."
-      dockerfile: configs/backend-internal.Dockerfile
+      dockerfile: configs/backend-internal.dockerfile
     restart: unless-stopped
     networks:
-      - proxy
-      - database
+      - internal-network
     depends_on:
       - mongo
     volumes:
@@ -53,25 +57,26 @@ services:
       UNIFED_SMTP_PORT: "${SMTP_PORT}"
       UNIFED_MONGO_HOSTNAME: mongo
       UNIFED_MONGO_PORT: '27017'
-      UNIFED_MONGO_DATABASE: unifed-internal
+      UNIFED_MONGO_DATABASE: unifed
       UNIFED_MONGO_USERNAME: user
       UNIFED_MONGO_PASSWORD: pass
       UNIFED_JWT_SECRET: "${JWT_SECRET}"
       UNIFED_SITE_HOST: "${SITE_HOST}"
+      UNIFED_INTERNAL_REFERENCE: "${INTERNAL_REFERENCE}"
       UNIFED_SITE_PROTOCOL: "${SITE_PROTOCOL}"
       UNIFED_APPLICATION_NAME: "${APPLICATION_NAME}"
       UNIFED_SERVER_PORT: 7080
       UNIFED_LOGGING_LEVEL: "${LOGGING_LEVEL}"
+      UNIFED_FEDERATION_HOST: proxy:80
       NODE_ENV: "${NODE_ENV}"
   
   backend-federation:
     build:
       context: "."
-      dockerfile: configs/backend-federation.Dockerfile
+      dockerfile: configs/backend-federation.dockerfile
     restart: unless-stopped
     networks:
-      - proxy
-      - database
+      - federation-network
     depends_on:
       - mongo
     volumes:
@@ -81,12 +86,13 @@ services:
     environment:
       UNIFED_MONGO_HOSTNAME: mongo
       UNIFED_MONGO_PORT: '27017'
-      UNIFED_MONGO_DATABASE: unifed-federation
+      UNIFED_MONGO_DATABASE: unifed
       UNIFED_MONGO_USERNAME: user
       UNIFED_MONGO_PASSWORD: pass
       UNIFED_SITE_HOST: "${SITE_HOST}"
       UNIFED_SITE_PROTOCOL: "${SITE_PROTOCOL}"
       UNIFED_APPLICATION_NAME: "${APPLICATION_NAME}"
+      UNIFED_INTERNAL_REFERENCE: "${INTERNAL_REFERENCE}"
       UNIFED_SERVER_PORT: 7081
       UNIFED_LOGGING_LEVEL: "${LOGGING_LEVEL}"
       NODE_ENV: "${NODE_ENV}"
@@ -95,7 +101,7 @@ services:
     image: mongo-express
     restart: unless-stopped
     networks:
-      - database
+      - inspect-network
     ports:
       - "${MONGO_INSPECT_PORT}:8081"
     environment:
@@ -108,18 +114,25 @@ services:
   frontend:
     build:
       context: "."
-      dockerfile: configs/frontend.Dockerfile
+      dockerfile: configs/frontend.dockerfile
     restart: unless-stopped
     networks:
-      - proxy
+      - frontend-network
     volumes:
       - "./packages/shared/src:/usr/src/unifed/packages/shared/src:ro"
       - "./packages/frontend/src:/usr/src/unifed/packages/frontend/src:ro"
+    environment:
+      REACT_APP_INTERNAL_GRAPHQL_ENDPOINT: "${SITE_PROTOCOL}://${SITE_HOST}/internal"
+      REACT_APP_INTERNAL_REFERENCE: "${INTERNAL_REFERENCE}"
 
 networks:
-  proxy:
+  internal-network:
     driver: bridge
-  database:
+  federation-network:
+    driver: bridge
+  inspect-network:
+    driver: bridge
+  frontend-network:
     driver: bridge
  
 volumes:
