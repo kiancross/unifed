@@ -36,10 +36,10 @@ const Comment = (props: PostValues): JSX.Element => {
         color="primary"
         fullWidth
         type="submit"
-        style={{ marginTop: "8px" }}
+        style={{ marginTop: "8px", marginBottom: "8px" }}
         onClick={() => setEditorOpen(false)}
       >
-        {"Cancel"}
+        Cancel
       </Button>
     </Grid>
   ) : (
