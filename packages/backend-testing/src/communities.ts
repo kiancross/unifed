@@ -15,10 +15,16 @@ export const generateCommunity = (): Community => {
 };
 
 export const generateCommunities = (n: number): Community[] => {
-  const communities = [];
+  const communities: Community[] = [];
 
   for (let i = 0; i < n; i++) {
-    communities.push(generateCommunity());
+    const community = generateCommunity();
+
+    if (communities.find((value) => value.id === community.id)) {
+      i--;
+    } else {
+      communities.push(community);
+    }
   }
 
   return communities;
