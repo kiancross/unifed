@@ -7,7 +7,7 @@ import { InvalidFileError } from "../parser";
 import { EnronParser } from "../enron-parser";
 
 test("Parse valid", async (t) => {
-  const parser = new EnronParser(`${__dirname}/data/enron-valid.zip`);
+  const parser = new EnronParser(`${__dirname}/../../../test-data/enron-valid.zip`);
   const messages = await parser.getMessages();
 
   t.deepEqual(messages, [
@@ -17,7 +17,7 @@ test("Parse valid", async (t) => {
 });
 
 test("Parse invalid", async (t) => {
-  const parser = new EnronParser(`${__dirname}/data/enron-invalid.zip`);
+  const parser = new EnronParser(`${__dirname}/../../../test-data/enron-invalid.zip`);
 
   await t.throwsAsync(async () => await parser.getMessages(), {
     instanceOf: InvalidFileError,

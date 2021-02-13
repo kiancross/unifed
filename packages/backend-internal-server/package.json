@@ -63,7 +63,7 @@
     "fix": "eslint . --ext .ts --fix"
   },
   "ava": {
-    "timeout": "1m",
+    "timeout": "2m",
     "files": [
       "!build/**/*"
     ],
@@ -72,6 +72,17 @@
     ],
     "require": [
       "ts-node/register"
-    ]
+    ],
+    "environmentVariables": {
+      "UNIFED_FEDERATION_HOST": "proxy:80",
+      "UNIFED_APPLICATION_NAME": "Something",
+      "UNIFED_SITE_PROTOCOL": "http",
+      "UNIFED_SITE_HOST": "localhost",
+      "UNIFED_JWT_SECRET": "Something",
+      "UNIFED_SMTP_HOST": "smtp.ethereal.email",
+      "UNIFED_SMTP_PORT": "587",
+      "UNIFED_SMTP_USERNAME": "rogers.price3@ethereal.email",
+      "UNIFED_SMTP_PASSWORD": "YwgzQrmK2gemUfR63g"
+    }
   }
 }

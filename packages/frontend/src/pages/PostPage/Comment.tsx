@@ -4,33 +4,27 @@
 
 import React, { useState } from "react";
 import { useTheme } from "@material-ui/core/styles";
-import { Box, Card, CardContent, Grid, Typography, Button } from "@material-ui/core";
+import { Box, Card, CardContent, Grid, Typography, Button, GridSize } from "@material-ui/core";
 import UserIcon from "../../components/UserIcon";
 import MarkdownViewer from "../../components/MarkdownViewer";
 import PostHeader from "../../components/PostHeader";
 import PostEditor from "../../components/PostEditor";
+import style from "./PostPage.module.scss";
 
 interface PostValues {
   username: string;
   body: string;
-  title: string;
   id: string;
+  grids: GridSize;
   host: string;
 }
-
-const styles = {
-  cardcontent: {
-    paddingTop: 10,
-    paddingBottom: 10,
-  },
-};
 
 const Comment = (props: PostValues): JSX.Element => {
   const theme = useTheme();
   const [editorOpen, setEditorOpen] = useState(false);
 
   const content = editorOpen ? (
-    <>
+    <Grid item>
       <PostEditor
         server={props.host}
         id={props.id}
@@ -42,13 +36,15 @@ const Comment = (props: PostValues): JSX.Element => {
         color="primary"
         fullWidth
         type="submit"
-        style={{ marginTop: "8px" }}
+        style={{ marginTop: "8px", marginBottom: "8px" }}
         onClick={() => setEditorOpen(false)}
-      />
-    </>
+      >
+        Cancel
+      </Button>
+    </Grid>
   ) : (
-    <Grid item container direction="row-reverse" spacing={2}>
-      <Grid item xs={11} container direction="column">
+    <Grid item container direction="row-reverse" style={{ padding: "4px 0px" }}>
+      <Grid item xs={props.grids} container direction="column">
         <Box borderLeft={4} borderColor={theme.palette.primary.main}>
           <Card elevation={1} square style={{ textAlign: "left" }}>
             <PostHeader
@@ -58,8 +54,8 @@ const Comment = (props: PostValues): JSX.Element => {
               id={props.id}
               server={props.host}
             />
-            <CardContent style={styles.cardcontent}>
-              <Typography variant="body2">
+            <CardContent className={style.commentBody}>
+              <Typography variant="subtitle2">
                 <MarkdownViewer>{props.body}</MarkdownViewer>
               </Typography>
             </CardContent>
@@ -67,7 +63,7 @@ const Comment = (props: PostValues): JSX.Element => {
         </Box>
       </Grid>
       <Grid item xs={1} container justify="flex-end">
-        <Box paddingTop="1rem">
+        <Box paddingTop="0.5rem" paddingRight="0.5rem">
           <UserIcon username={props.username} small />
         </Box>
       </Grid>

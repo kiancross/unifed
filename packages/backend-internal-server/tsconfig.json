@@ -26,6 +26,7 @@
   "exclude" : ["src/**/*.test.ts"],
   "references": [
     { "path": "../shared" },
+    { "path": "../backend-testing" },
     { "path": "../backend-core" },
     { "path": "../backend-federation-client" }
   ]

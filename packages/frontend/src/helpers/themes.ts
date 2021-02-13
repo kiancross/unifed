@@ -13,4 +13,13 @@ export const standardTheme = createMuiTheme({
       main: "#e6e6e6",
     },
   },
+  typography: {
+    subtitle2: {
+      fontFamily: "'Roboto', 'Helvetica', 'Arial', 'sans-serif'",
+      fontWeight: 400,
+      fontSize: "0.875rem",
+      lineHeight: 1.43,
+      letterSpacing: "0.01071em",
+    },
+  },
 });

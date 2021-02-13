@@ -6,6 +6,7 @@ import { IsString, IsNotEmpty } from "class-validator";
 import { prop as Property, defaultClasses } from "@typegoose/typegoose";
 import { ObjectType, Field, ID } from "type-graphql";
 import { v4 as uuidv4 } from "uuid";
+import { JSONMap } from "../types";
 
 export type EntityID = string;
 
@@ -32,7 +33,7 @@ export abstract class Base extends defaultClasses.TimeStamps {
     this._id = id;
   }
 
-  toJSON(): { [key: string]: any } {
+  toJSON(): JSONMap {
     return {
       id: this.id,
     };

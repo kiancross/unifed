@@ -38,7 +38,7 @@
     "fix": "eslint . --ext .ts --fix"
   },
   "ava": {
-    "timeout": "1m",
+    "timeout": "2m",
     "files": [
       "!build/**/*"
     ],
@@ -47,6 +47,10 @@
     ],
     "require": [
       "ts-node/register"
-    ]
+    ],
+    "environmentVariables": {
+      "UNIFED_SITE_HOST": "localhost:8080",
+      "UNIFED_INTERNAL_REFERENCE": "this"
+    }
   }
 }
