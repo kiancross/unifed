@@ -3,7 +3,7 @@
  */
 
 import React, { useState } from "react";
-import { Link, Redirect, useParams } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { AppBar, Box, ButtonGroup, IconButton, Toolbar } from "@material-ui/core";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -19,19 +19,11 @@ interface HeaderProps {
   onLogout: () => void;
 }
 
-interface Params {
-  community: string;
-  server: string;
-}
-
 const Header = (props: HeaderProps): JSX.Element => {
-  const { server } = useParams<Params>();
   const [redirect, setRedirect] = useState<string | undefined>();
 
-  const href = "/instances/" + server + "/communities/";
-
   const onSuccess = (communityID: string) => {
-    setRedirect(href + "/" + communityID + "/posts");
+    setRedirect("/instances/this/communities/" + communityID + "/posts");
   };
 
   if (redirect) return <Redirect to={redirect} />;

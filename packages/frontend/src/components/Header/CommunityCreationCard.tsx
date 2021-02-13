@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React from "react";
+import React, { useState } from "react";
 // import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import {
@@ -50,17 +50,18 @@ interface Props {
 }
 
 export const createCommunityQuery = gql`
-  mutation CREATE_COMMUNITY($name: String!, $description: String!, $id: String!) {
-    createCommunity(name: $name, description: $description, id: $id)
+  mutation CREATE_COMMUNITY($title: String!, $description: String!, $id: String!) {
+    createCommunity(title: $title, description: $description, id: $id)
   }
 `;
 
 const CommunityCreationCard = (props: Props): JSX.Element => {
   const [createCommunity, { loading, error, data }] = useMutation(createCommunityQuery);
+  const [id, setId] = useState("");
 
   if (loading) return <CenteredLoader />;
   if (error) return <ErrorMessage message="Could not create community. Please try again later." />;
-  if (data && props.onSuccess) props.onSuccess(data.createCommunity.id);
+  if (data && props.onSuccess) props.onSuccess(id);
   // const [isCommunityCreated, setIsCommunityCreated] = useState(false);
   // const [displayCommunityCreationError, setDisplayCommunityCreationError] = useState(false);
 
@@ -83,11 +84,12 @@ const CommunityCreationCard = (props: Props): JSX.Element => {
             onSubmit={(values: Values) => {
               createCommunity({
                 variables: {
-                  name: values.name,
+                  title: values.name,
                   description: values.description,
                   id: values.id,
                 },
               });
+              setId(values.id);
               // createCommunity(values)
               //   .then((res) => {
               //     if (res) setIsCommunityCreated(true);
