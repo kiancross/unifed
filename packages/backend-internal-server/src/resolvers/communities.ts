@@ -31,11 +31,11 @@ export class CommunitiesResolver implements ResolverInterface<Community> {
   @Mutation(() => Boolean)
   async createCommunity(
     @Arg("id") id: string,
-    @Arg("title") title: string,
+    @Arg("name") name: string,
     @Arg("description") description: string,
     @CurrentUser() user: User,
-  ): Promise<boolean> {
-    return await this.communitiesService.create(user.username, id, title, description);
+  ): Promise<Boolean> {
+    return await this.communitiesService.create(user.username, id, name, description);
   }
 
   @Query(() => [Community])

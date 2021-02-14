@@ -27,7 +27,6 @@ const Header = (props: HeaderProps): JSX.Element => {
   };
 
   if (redirect) return <Redirect to={redirect} />;
-
   return (
     <AppBar color="primary" position="sticky">
       <Toolbar variant="dense">
