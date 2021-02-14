@@ -9,6 +9,7 @@ import { accountsClient } from "../../helpers/accounts";
 interface Context {
   details?: null | { username: string };
   refetch: () => Promise<void>;
+  login: (email: string, password: string) => Promise<boolean>;
   logout: () => Promise<void>;
 }
 
@@ -25,6 +26,9 @@ export const defaultContext: Context = {
   refetch: async () => {
     return;
   },
+  login: async () => {
+    return false;
+  },
   logout: async () => {
     return;
   },
@@ -39,6 +43,28 @@ export const UserProvider = (props: { children: ReactElement }): ReactElement =>
     await refetchQuery();
   };
 
+  const login = async (email: string, password: string) => {
+    try {
+      if (
+        await accountsClient.loginWithService("password", {
+          user: { email },
+          password,
+        })
+      ) {
+        await refetch();
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      if (error.message === "User not found") {
+        return false;
+      } else {
+        throw error;
+      }
+    }
+  };
+
   const logout = async () => {
     await accountsClient.logout();
     await refetch();
@@ -47,7 +73,7 @@ export const UserProvider = (props: { children: ReactElement }): ReactElement =>
   const details = loading ? undefined : error ? null : data.getUser;
 
   return (
-    <UserContext.Provider value={{ refetch, logout, details }}>
+    <UserContext.Provider value={{ refetch, login, logout, details }}>
       {props.children}
     </UserContext.Provider>
   );
