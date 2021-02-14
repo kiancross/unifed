@@ -45,17 +45,14 @@ export const UserProvider = (props: { children: ReactElement }): ReactElement =>
 
   const login = async (email: string, password: string) => {
     try {
-      if (
-        await accountsClient.loginWithService("password", {
-          user: { email },
-          password,
-        })
-      ) {
-        await refetch();
-        return true;
-      } else {
-        return false;
-      }
+      await accountsClient.loginWithService("password", {
+        user: { email },
+        password,
+      });
+
+      await refetch();
+
+      return true;
     } catch (error) {
       if (error.message === "User not found") {
         return false;
