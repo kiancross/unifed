@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { Avatar, Typography } from "@material-ui/core";
+import { Avatar, Typography, useTheme } from "@material-ui/core";
 import React from "react";
 
 interface userInfo {
@@ -11,6 +11,7 @@ interface userInfo {
 }
 
 const UserIcon = (props: userInfo): JSX.Element => {
+  const theme = useTheme().palette;
   const smallSize = "28px";
   const smallStyle = {
     height: smallSize,
@@ -18,7 +19,7 @@ const UserIcon = (props: userInfo): JSX.Element => {
   };
   return (
     <Avatar alt={props.username} style={props.small ? smallStyle : {}}>
-      <Typography variant={props.small ? "body2" : "h6"}>
+      <Typography variant={props.small ? "body2" : "h6"} style={{ color: theme.text.primary }}>
         {props.username.charAt(0).toUpperCase()}
       </Typography>
     </Avatar>
