@@ -3,11 +3,13 @@
  */
 
 import React, { ReactElement } from "react";
+import { Typography, TypographyVariant } from "@material-ui/core";
 import math from "remark-math";
 import gfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 import TeX from "@matejmazur/react-katex";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import "react-markdown-editor-lite/lib/index.css";
 import "katex/dist/katex.min.css";
 
 interface MarkdownViewerProps {
@@ -26,10 +28,16 @@ const renderers = {
 
     return <SyntaxHighlighter language={language}>{value}</SyntaxHighlighter>;
   },
+  paragraph({ children }: { children: ReactElement }) {
+    return <Typography variant="body1">{children}</Typography>;
+  },
+  heading({ children, level }: { children: ReactElement; level: number }) {
+    return <Typography variant={`h${level}` as TypographyVariant}>{children}</Typography>;
+  },
 };
 
 const MarkdownViewer = (props: MarkdownViewerProps): ReactElement => (
-  <ReactMarkdown plugins={[math, gfm]} renderers={renderers}>
+  <ReactMarkdown plugins={[math, gfm]} renderers={renderers} className="custom-html-style">
     {props.children}
   </ReactMarkdown>
 );

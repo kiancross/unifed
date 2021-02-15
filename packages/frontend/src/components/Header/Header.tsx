@@ -4,7 +4,7 @@
 
 import React, { ReactElement, useContext } from "react";
 import { Link } from "react-router-dom";
-import { AppBar, Box, ButtonGroup, IconButton, Toolbar } from "@material-ui/core";
+import { AppBar, Box, IconButton, Toolbar } from "@material-ui/core";
 import { UserContext } from "../../contexts/user";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -32,17 +32,15 @@ const Header = (): ReactElement | null => {
           <SearchInput />
         </div>
 
-        <ButtonGroup size="small" className={styles.buttonGroup}>
-          <IconButton href={"/user/" + user.details.username}>
-            <UserIcon username={user.details.username} small />
-          </IconButton>
-          <IconButton href="/account" color="inherit">
-            <SettingsIcon />
-          </IconButton>
-          <IconButton onClick={user.logout} color="inherit">
-            <ExitToAppIcon />
-          </IconButton>
-        </ButtonGroup>
+        <IconButton href={"/user/" + user.details.username}>
+          <UserIcon username={user.details.username} small />
+        </IconButton>
+        <IconButton href="/account" color="inherit">
+          <SettingsIcon />
+        </IconButton>
+        <IconButton onClick={user.logout} color="inherit">
+          <ExitToAppIcon />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );

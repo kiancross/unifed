@@ -1,10 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Block maths 1`] = `
-Array [
-  <p>
+<div
+  className="custom-html-style"
+>
+  <p
+    className="MuiTypography-root MuiTypography-body1"
+  >
     This is some maths:
-  </p>,
+  </p>
   <div
     dangerouslySetInnerHTML={
       Object {
@@ -13,68 +17,56 @@ Array [
 \\\\lim_{x\\\\to 0}{\\\\frac{e^x}{2}}={\\\\frac{1}{2}}</annotation></semantics></math></span><span class=\\"katex-html\\" aria-hidden=\\"true\\"><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:2.3222009999999997em;vertical-align:-0.7443310000000001em;\\"></span><span class=\\"mop op-limits\\"><span class=\\"vlist-t vlist-t2\\"><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:0.69444em;\\"><span style=\\"top:-2.382892em;margin-left:0em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"sizing reset-size6 size3 mtight\\"><span class=\\"mord mtight\\"><span class=\\"mord mathnormal mtight\\">x</span><span class=\\"mrel mtight\\">→</span><span class=\\"mord mtight\\">0</span></span></span></span><span style=\\"top:-3em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span><span class=\\"mop\\">lim</span></span></span></span><span class=\\"vlist-s\\">​</span></span><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:0.717108em;\\"><span></span></span></span></span></span><span class=\\"mspace\\" style=\\"margin-right:0.16666666666666666em;\\"></span><span class=\\"mord\\"><span class=\\"mord\\"><span class=\\"mopen nulldelimiter\\"></span><span class=\\"mfrac\\"><span class=\\"vlist-t vlist-t2\\"><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:1.341392em;\\"><span style=\\"top:-2.314em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"mord\\"><span class=\\"mord\\">2</span><span class=\\"mord mathnormal\\">x</span></span></span><span style=\\"top:-3.23em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"frac-line\\" style=\\"border-bottom-width:0.04em;\\"></span></span><span style=\\"top:-3.677em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"mord\\"><span class=\\"mord\\"><span class=\\"mord mathnormal\\">e</span><span class=\\"msupsub\\"><span class=\\"vlist-t\\"><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:0.664392em;\\"><span style=\\"top:-3.063em;margin-right:0.05em;\\"><span class=\\"pstrut\\" style=\\"height:2.7em;\\"></span><span class=\\"sizing reset-size6 size3 mtight\\"><span class=\\"mord mathnormal mtight\\">x</span></span></span></span></span></span></span></span><span class=\\"mspace\\" style=\\"margin-right:0.2222222222222222em;\\"></span><span class=\\"mbin\\">−</span><span class=\\"mspace\\" style=\\"margin-right:0.2222222222222222em;\\"></span><span class=\\"mord\\">1</span></span></span></span><span class=\\"vlist-s\\">​</span></span><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:0.686em;\\"><span></span></span></span></span></span><span class=\\"mclose nulldelimiter\\"></span></span></span><span class=\\"mord\\"><span class=\\"mop op-limits\\"><span class=\\"vlist-t vlist-t2\\"><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:1.5778699999999999em;\\"><span style=\\"top:-3em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span><span class=\\"mop\\"><span class=\\"mrel\\"><span class=\\"mop op-limits\\"><span class=\\"vlist-t vlist-t2\\"><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:0.3668699999999998em;\\"><span style=\\"top:-2.355669em;margin-left:0em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"sizing reset-size6 size3 mtight\\"><span class=\\"mord mtight\\"><span class=\\"mord mtight\\"><span class=\\"mord mathrm mtight\\">H</span></span></span></span></span><span style=\\"top:-3em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span><span class=\\"mop\\">=</span></span></span></span><span class=\\"vlist-s\\">​</span></span><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:0.7443310000000001em;\\"><span></span></span></span></span></span></span></span></span></span><span style=\\"top:-3.7803699999999996em;margin-left:0em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"sizing reset-size6 size3 mtight\\"><span class=\\"mord mtight\\"><span class=\\"minner mtight\\"><span class=\\"mopen sizing reset-size3 size6 mtight delimcenter\\" style=\\"top:0.07500000000000001em;\\"><span class=\\"mtight\\">[</span></span><span class=\\"mord mtight\\"><span class=\\"mopen nulldelimiter sizing reset-size3 size6\\"></span><span class=\\"mfrac\\"><span class=\\"vlist-t vlist-t2\\"><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:0.8443142857142858em;\\"><span style=\\"top:-2.656em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"sizing reset-size3 size1 mtight\\"><span class=\\"mord mtight\\"><span class=\\"mord mtight\\">0</span></span></span></span><span style=\\"top:-3.2255000000000003em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"frac-line mtight\\" style=\\"border-bottom-width:0.049em;\\"></span></span><span style=\\"top:-3.384em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"sizing reset-size3 size1 mtight\\"><span class=\\"mord mtight\\"><span class=\\"mord mtight\\">0</span></span></span></span></span><span class=\\"vlist-s\\">​</span></span><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:0.344em;\\"><span></span></span></span></span></span><span class=\\"mclose nulldelimiter sizing reset-size3 size6\\"></span></span><span class=\\"mclose sizing reset-size3 size6 mtight delimcenter\\" style=\\"top:0.07500000000000001em;\\"><span class=\\"mtight\\">]</span></span></span></span></span></span></span><span class=\\"vlist-s\\">​</span></span><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:0.7443310000000001em;\\"><span></span></span></span></span></span></span><span class=\\"mspace\\" style=\\"margin-right:0.16666666666666666em;\\"></span><span class=\\"mop op-limits\\"><span class=\\"vlist-t vlist-t2\\"><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:0.69444em;\\"><span style=\\"top:-2.382892em;margin-left:0em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"sizing reset-size6 size3 mtight\\"><span class=\\"mord mtight\\"><span class=\\"mord mathnormal mtight\\">x</span><span class=\\"mrel mtight\\">→</span><span class=\\"mord mtight\\">0</span></span></span></span><span style=\\"top:-3em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span><span class=\\"mop\\">lim</span></span></span></span><span class=\\"vlist-s\\">​</span></span><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:0.717108em;\\"><span></span></span></span></span></span><span class=\\"mspace\\" style=\\"margin-right:0.16666666666666666em;\\"></span><span class=\\"mord\\"><span class=\\"mord\\"><span class=\\"mopen nulldelimiter\\"></span><span class=\\"mfrac\\"><span class=\\"vlist-t vlist-t2\\"><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:1.341392em;\\"><span style=\\"top:-2.314em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"mord\\"><span class=\\"mord\\">2</span></span></span><span style=\\"top:-3.23em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"frac-line\\" style=\\"border-bottom-width:0.04em;\\"></span></span><span style=\\"top:-3.677em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"mord\\"><span class=\\"mord\\"><span class=\\"mord mathnormal\\">e</span><span class=\\"msupsub\\"><span class=\\"vlist-t\\"><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:0.664392em;\\"><span style=\\"top:-3.063em;margin-right:0.05em;\\"><span class=\\"pstrut\\" style=\\"height:2.7em;\\"></span><span class=\\"sizing reset-size6 size3 mtight\\"><span class=\\"mord mathnormal mtight\\">x</span></span></span></span></span></span></span></span></span></span></span><span class=\\"vlist-s\\">​</span></span><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:0.686em;\\"><span></span></span></span></span></span><span class=\\"mclose nulldelimiter\\"></span></span></span><span class=\\"mspace\\" style=\\"margin-right:0.2777777777777778em;\\"></span><span class=\\"mrel\\">=</span><span class=\\"mspace\\" style=\\"margin-right:0.2777777777777778em;\\"></span></span><span class=\\"base\\"><span class=\\"strut\\" style=\\"height:2.00744em;vertical-align:-0.686em;\\"></span><span class=\\"mord\\"><span class=\\"mord\\"><span class=\\"mopen nulldelimiter\\"></span><span class=\\"mfrac\\"><span class=\\"vlist-t vlist-t2\\"><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:1.32144em;\\"><span style=\\"top:-2.314em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"mord\\"><span class=\\"mord\\">2</span></span></span><span style=\\"top:-3.23em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"frac-line\\" style=\\"border-bottom-width:0.04em;\\"></span></span><span style=\\"top:-3.677em;\\"><span class=\\"pstrut\\" style=\\"height:3em;\\"></span><span class=\\"mord\\"><span class=\\"mord\\">1</span></span></span></span><span class=\\"vlist-s\\">​</span></span><span class=\\"vlist-r\\"><span class=\\"vlist\\" style=\\"height:0.686em;\\"><span></span></span></span></span></span><span class=\\"mclose nulldelimiter\\"></span></span></span></span></span></span></span>",
       }
     }
-  />,
-]
+  />
+</div>
 `;
 
-exports[`Empty code block 1`] = `null`;
+exports[`Empty code block 1`] = `
+<div
+  className="custom-html-style"
+/>
+`;
 
 exports[`Inline maths 1`] = `
-<p>
-  This is some inline maths: 
-  <span
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "",
+<div
+  className="custom-html-style"
+>
+  <p
+    className="MuiTypography-root MuiTypography-body1"
+  >
+    This is some inline maths: 
+    <span
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "",
+        }
       }
-    }
-  />
-</p>
+    />
+  </p>
+</div>
 `;
 
 exports[`Python syntax highlighting 1`] = `
-<pre
-  style={
-    Object {
-      "MozHyphens": "none",
-      "MozTabSize": "4",
-      "OTabSize": "4",
-      "WebkitHyphens": "none",
-      "background": "#f5f2f0",
-      "color": "black",
-      "fontFamily": "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
-      "fontSize": "1em",
-      "hyphens": "none",
-      "lineHeight": "1.5",
-      "margin": ".5em 0",
-      "msHyphens": "none",
-      "overflow": "auto",
-      "padding": "1em",
-      "tabSize": "4",
-      "textAlign": "left",
-      "textShadow": "0 1px white",
-      "whiteSpace": "pre",
-      "wordBreak": "normal",
-      "wordSpacing": "normal",
-      "wordWrap": "normal",
-    }
-  }
+<div
+  className="custom-html-style"
 >
-  <code
-    className="language-python"
+  <pre
     style={
       Object {
         "MozHyphens": "none",
         "MozTabSize": "4",
         "OTabSize": "4",
         "WebkitHyphens": "none",
-        "background": "none",
+        "background": "#f5f2f0",
         "color": "black",
         "fontFamily": "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
         "fontSize": "1em",
         "hyphens": "none",
         "lineHeight": "1.5",
+        "margin": ".5em 0",
         "msHyphens": "none",
+        "overflow": "auto",
+        "padding": "1em",
         "tabSize": "4",
         "textAlign": "left",
         "textShadow": "0 1px white",
@@ -85,236 +77,254 @@ exports[`Python syntax highlighting 1`] = `
       }
     }
   >
-    <span
-      className="token"
+    <code
+      className="language-python"
       style={
         Object {
-          "color": "#07a",
+          "MozHyphens": "none",
+          "MozTabSize": "4",
+          "OTabSize": "4",
+          "WebkitHyphens": "none",
+          "background": "none",
+          "color": "black",
+          "fontFamily": "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
+          "fontSize": "1em",
+          "hyphens": "none",
+          "lineHeight": "1.5",
+          "msHyphens": "none",
+          "tabSize": "4",
+          "textAlign": "left",
+          "textShadow": "0 1px white",
+          "whiteSpace": "pre",
+          "wordBreak": "normal",
+          "wordSpacing": "normal",
+          "wordWrap": "normal",
         }
       }
     >
-      import
-    </span>
-    <span
-      style={Object {}}
-    >
-       something
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#07a",
+          }
+        }
+      >
+        import
+      </span>
+      <span
+        style={Object {}}
+      >
+         something
 
-    </span>
-    
-
-    <span
-      style={Object {}}
-    >
-      
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#07a",
-        }
-      }
-    >
-      def
-    </span>
-    <span
-      style={Object {}}
-    >
-       
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#DD4A68",
-        }
-      }
-    >
-      foo
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      (
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      )
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      :
-    </span>
-    <span
-      style={Object {}}
-    >
+      </span>
       
 
-    </span>
-    <span
-      style={Object {}}
-    >
-        someting
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
+      <span
+        style={Object {}}
+      >
+        
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#07a",
+          }
         }
-      }
-    >
-      .
-    </span>
-    <span
-      style={Object {}}
-    >
-      bar
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
+      >
+        def
+      </span>
+      <span
+        style={Object {}}
+      >
+         
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#DD4A68",
+          }
         }
-      }
-    >
-      (
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
+      >
+        foo
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
         }
-      }
-    >
-      )
-    </span>
-    <span
-      style={Object {}}
-    >
+      >
+        (
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        )
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        :
+      </span>
+      <span
+        style={Object {}}
+      >
+        
+
+      </span>
+      <span
+        style={Object {}}
+      >
+          someting
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        .
+      </span>
+      <span
+        style={Object {}}
+      >
+        bar
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        (
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        )
+      </span>
+      <span
+        style={Object {}}
+      >
+        
+
+      </span>
       
 
-    </span>
-    
-
-    <span
-      style={Object {}}
-    >
-      foo
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
+      <span
+        style={Object {}}
+      >
+        foo
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
         }
-      }
-    >
-      (
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
+      >
+        (
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
         }
-      }
-    >
-      )
-    </span>
-  </code>
-</pre>
+      >
+        )
+      </span>
+    </code>
+  </pre>
+</div>
 `;
 
 exports[`Standard markdown 1`] = `
-Array [
-  <h1>
+<div
+  className="custom-html-style"
+>
+  <h1
+    className="MuiTypography-root MuiTypography-h1"
+  >
     This is a title
-  </h1>,
-  <p>
+  </h1>
+  <p
+    className="MuiTypography-root MuiTypography-body1"
+  >
     Here is some 
     <strong>
       bold text
     </strong>
     .
-  </p>,
-  <p>
+  </p>
+  <p
+    className="MuiTypography-root MuiTypography-body1"
+  >
     <em>
       Italics
     </em>
-  </p>,
-]
+  </p>
+</div>
 `;
 
 exports[`Standard text 1`] = `
-<p>
-  Foo Bar
-</p>
+<div
+  className="custom-html-style"
+>
+  <p
+    className="MuiTypography-root MuiTypography-body1"
+  >
+    Foo Bar
+  </p>
+</div>
 `;
 
 exports[`TypeScript syntax highlighting 1`] = `
-<pre
-  style={
-    Object {
-      "MozHyphens": "none",
-      "MozTabSize": "4",
-      "OTabSize": "4",
-      "WebkitHyphens": "none",
-      "background": "#f5f2f0",
-      "color": "black",
-      "fontFamily": "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
-      "fontSize": "1em",
-      "hyphens": "none",
-      "lineHeight": "1.5",
-      "margin": ".5em 0",
-      "msHyphens": "none",
-      "overflow": "auto",
-      "padding": "1em",
-      "tabSize": "4",
-      "textAlign": "left",
-      "textShadow": "0 1px white",
-      "whiteSpace": "pre",
-      "wordBreak": "normal",
-      "wordSpacing": "normal",
-      "wordWrap": "normal",
-    }
-  }
+<div
+  className="custom-html-style"
 >
-  <code
-    className="language-typescript"
+  <pre
     style={
       Object {
         "MozHyphens": "none",
         "MozTabSize": "4",
         "OTabSize": "4",
         "WebkitHyphens": "none",
-        "background": "none",
+        "background": "#f5f2f0",
         "color": "black",
         "fontFamily": "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
         "fontSize": "1em",
         "hyphens": "none",
         "lineHeight": "1.5",
+        "margin": ".5em 0",
         "msHyphens": "none",
+        "overflow": "auto",
+        "padding": "1em",
         "tabSize": "4",
         "textAlign": "left",
         "textShadow": "0 1px white",
@@ -325,510 +335,536 @@ exports[`TypeScript syntax highlighting 1`] = `
       }
     }
   >
-    <span
-      className="token"
+    <code
+      className="language-typescript"
       style={
         Object {
-          "color": "#07a",
+          "MozHyphens": "none",
+          "MozTabSize": "4",
+          "OTabSize": "4",
+          "WebkitHyphens": "none",
+          "background": "none",
+          "color": "black",
+          "fontFamily": "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
+          "fontSize": "1em",
+          "hyphens": "none",
+          "lineHeight": "1.5",
+          "msHyphens": "none",
+          "tabSize": "4",
+          "textAlign": "left",
+          "textShadow": "0 1px white",
+          "whiteSpace": "pre",
+          "wordBreak": "normal",
+          "wordSpacing": "normal",
+          "wordWrap": "normal",
         }
       }
     >
-      import
-    </span>
-    <span
-      style={Object {}}
-    >
-       
-    </span>
-    <span
-      className="token imports"
-      style={
-        Object {
-          "color": "#999",
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#07a",
+          }
         }
-      }
-    >
-      {
-    </span>
-    <span
-      className="token imports"
-      style={Object {}}
-    >
-       foo 
-    </span>
-    <span
-      className="token imports"
-      style={
-        Object {
-          "color": "#999",
+      >
+        import
+      </span>
+      <span
+        style={Object {}}
+      >
+         
+      </span>
+      <span
+        className="token imports"
+        style={
+          Object {
+            "color": "#999",
+          }
         }
-      }
-    >
-      }
-    </span>
-    <span
-      style={Object {}}
-    >
-       
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#07a",
+      >
+        {
+      </span>
+      <span
+        className="token imports"
+        style={Object {}}
+      >
+         foo 
+      </span>
+      <span
+        className="token imports"
+        style={
+          Object {
+            "color": "#999",
+          }
         }
-      }
-    >
-      from
-    </span>
-    <span
-      style={Object {}}
-    >
-       
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#690",
+      >
         }
-      }
-    >
-      "bar"
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
+      </span>
+      <span
+        style={Object {}}
+      >
+         
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#07a",
+          }
         }
-      }
-    >
-      ;
-    </span>
-    <span
-      style={Object {}}
-    >
-      
-
-    </span>
-    
-
-    <span
-      style={Object {}}
-    >
-      
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#07a",
+      >
+        from
+      </span>
+      <span
+        style={Object {}}
+      >
+         
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#690",
+          }
         }
-      }
-    >
-      const
-    </span>
-    <span
-      style={Object {}}
-    >
-       
-    </span>
-    <span
-      className="token function-variable"
-      style={
-        Object {
-          "color": "#DD4A68",
+      >
+        "bar"
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
         }
-      }
-    >
-      baz
-    </span>
-    <span
-      style={Object {}}
-    >
-       
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "background": "hsla(0, 0%, 100%, .5)",
-          "color": "#9a6e3a",
-        }
-      }
-    >
-      =
-    </span>
-    <span
-      style={Object {}}
-    >
-       
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      (
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      )
-    </span>
-    <span
-      style={Object {}}
-    >
-       
-    </span>
-    <span
-      className="token arrow"
-      style={
-        Object {
-          "background": "hsla(0, 0%, 100%, .5)",
-          "color": "#9a6e3a",
-        }
-      }
-    >
-      =&gt;
-    </span>
-    <span
-      style={Object {}}
-    >
-       
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      {
-    </span>
-    <span
-      style={Object {}}
-    >
-       foo
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      .
-    </span>
-    <span
-      className="token method property-access"
-      style={
-        Object {
-          "color": "#DD4A68",
-        }
-      }
-    >
-      use
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      (
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      )
-    </span>
-    <span
-      style={Object {}}
-    >
-       
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      }
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      ;
-    </span>
-    <span
-      style={Object {}}
-    >
-      
-
-    </span>
-    
-
-    <span
-      style={Object {}}
-    >
-      
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#07a",
-        }
-      }
-    >
-      for
-    </span>
-    <span
-      style={Object {}}
-    >
-       
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      (
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#07a",
-        }
-      }
-    >
-      let
-    </span>
-    <span
-      style={Object {}}
-    >
-       i 
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "background": "hsla(0, 0%, 100%, .5)",
-          "color": "#9a6e3a",
-        }
-      }
-    >
-      =
-    </span>
-    <span
-      style={Object {}}
-    >
-       
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#905",
-        }
-      }
-    >
-      0
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      ;
-    </span>
-    <span
-      style={Object {}}
-    >
-       i 
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "background": "hsla(0, 0%, 100%, .5)",
-          "color": "#9a6e3a",
-        }
-      }
-    >
-      &lt;
-    </span>
-    <span
-      style={Object {}}
-    >
-       
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#905",
-        }
-      }
-    >
-      10
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      ;
-    </span>
-    <span
-      style={Object {}}
-    >
-       i
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "background": "hsla(0, 0%, 100%, .5)",
-          "color": "#9a6e3a",
-        }
-      }
-    >
-      ++
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      )
-    </span>
-    <span
-      style={Object {}}
-    >
-       
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      {
-    </span>
-    <span
-      style={Object {}}
-    >
-      
-
-    </span>
-    <span
-      style={Object {}}
-    >
+      >
+        ;
+      </span>
+      <span
+        style={Object {}}
+      >
         
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#DD4A68",
-        }
-      }
-    >
-      baz
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      (
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      )
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
-        }
-      }
-    >
-      ;
-    </span>
-    <span
-      style={Object {}}
-    >
+
+      </span>
       
 
-    </span>
-    <span
-      style={Object {}}
-    >
-      
-    </span>
-    <span
-      className="token"
-      style={
-        Object {
-          "color": "#999",
+      <span
+        style={Object {}}
+      >
+        
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#07a",
+          }
         }
-      }
-    >
-      }
-    </span>
-  </code>
-</pre>
+      >
+        const
+      </span>
+      <span
+        style={Object {}}
+      >
+         
+      </span>
+      <span
+        className="token function-variable"
+        style={
+          Object {
+            "color": "#DD4A68",
+          }
+        }
+      >
+        baz
+      </span>
+      <span
+        style={Object {}}
+      >
+         
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "background": "hsla(0, 0%, 100%, .5)",
+            "color": "#9a6e3a",
+          }
+        }
+      >
+        =
+      </span>
+      <span
+        style={Object {}}
+      >
+         
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        (
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        )
+      </span>
+      <span
+        style={Object {}}
+      >
+         
+      </span>
+      <span
+        className="token arrow"
+        style={
+          Object {
+            "background": "hsla(0, 0%, 100%, .5)",
+            "color": "#9a6e3a",
+          }
+        }
+      >
+        =&gt;
+      </span>
+      <span
+        style={Object {}}
+      >
+         
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        {
+      </span>
+      <span
+        style={Object {}}
+      >
+         foo
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        .
+      </span>
+      <span
+        className="token method property-access"
+        style={
+          Object {
+            "color": "#DD4A68",
+          }
+        }
+      >
+        use
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        (
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        )
+      </span>
+      <span
+        style={Object {}}
+      >
+         
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        }
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        ;
+      </span>
+      <span
+        style={Object {}}
+      >
+        
+
+      </span>
+      
+
+      <span
+        style={Object {}}
+      >
+        
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#07a",
+          }
+        }
+      >
+        for
+      </span>
+      <span
+        style={Object {}}
+      >
+         
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        (
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#07a",
+          }
+        }
+      >
+        let
+      </span>
+      <span
+        style={Object {}}
+      >
+         i 
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "background": "hsla(0, 0%, 100%, .5)",
+            "color": "#9a6e3a",
+          }
+        }
+      >
+        =
+      </span>
+      <span
+        style={Object {}}
+      >
+         
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#905",
+          }
+        }
+      >
+        0
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        ;
+      </span>
+      <span
+        style={Object {}}
+      >
+         i 
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "background": "hsla(0, 0%, 100%, .5)",
+            "color": "#9a6e3a",
+          }
+        }
+      >
+        &lt;
+      </span>
+      <span
+        style={Object {}}
+      >
+         
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#905",
+          }
+        }
+      >
+        10
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        ;
+      </span>
+      <span
+        style={Object {}}
+      >
+         i
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "background": "hsla(0, 0%, 100%, .5)",
+            "color": "#9a6e3a",
+          }
+        }
+      >
+        ++
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        )
+      </span>
+      <span
+        style={Object {}}
+      >
+         
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        {
+      </span>
+      <span
+        style={Object {}}
+      >
+        
+
+      </span>
+      <span
+        style={Object {}}
+      >
+          
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#DD4A68",
+          }
+        }
+      >
+        baz
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        (
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        )
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        ;
+      </span>
+      <span
+        style={Object {}}
+      >
+        
+
+      </span>
+      <span
+        style={Object {}}
+      >
+        
+      </span>
+      <span
+        className="token"
+        style={
+          Object {
+            "color": "#999",
+          }
+        }
+      >
+        }
+      </span>
+    </code>
+  </pre>
+</div>
 `;
