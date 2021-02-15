@@ -4,8 +4,8 @@
 
 import React, { ReactElement } from "react";
 import Editor from "react-markdown-editor-lite";
-import "react-markdown-editor-lite/lib/index.css";
 import MarkdownViewer from "../../components/MarkdownViewer";
+import "react-markdown-editor-lite/lib/index.css";
 
 interface MarkdownEditorProps {
   onChange?: (
@@ -25,6 +25,7 @@ const MarkdownEditor = (props: MarkdownEditorProps): ReactElement => {
       value={props.value}
       style={props.style}
       onChange={props.onChange}
+      htmlClass=" "
       renderHTML={(text) => <MarkdownViewer>{text}</MarkdownViewer>}
     />
   );
