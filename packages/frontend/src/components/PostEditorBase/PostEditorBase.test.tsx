@@ -60,3 +60,31 @@ test("Comment editor base with defaults", async () => {
 
   expect(onSubmitMock).toHaveBeenCalledWith({ title: undefined, body });
 });
+
+test("With cancel", async () => {
+  const onCancel = jest.fn();
+
+  const { getByText } = render(
+    <PostEditorBase
+      title="foo"
+      body="bar"
+      submitButtonText="baz"
+      onSubmit={() => null}
+      onCancel={onCancel}
+    />,
+  );
+
+  fireEvent.click(getByText("Cancel"));
+
+  await waitFor(() => {
+    expect(onCancel).toHaveBeenCalledTimes(1);
+  });
+});
+
+test("Without cancel", async () => {
+  const { queryByText } = render(
+    <PostEditorBase title="foo" body="bar" submitButtonText="baz" onSubmit={() => null} />,
+  );
+
+  expect(queryByText("Cancel")).toBeNull();
+});

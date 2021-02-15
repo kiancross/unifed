@@ -4,7 +4,7 @@
 
 import React, { useState } from "react";
 import { useTheme } from "@material-ui/core/styles";
-import { Box, Card, CardContent, Grid, Typography, Button, GridSize } from "@material-ui/core";
+import { Box, Card, CardContent, Grid, Typography, GridSize } from "@material-ui/core";
 import UserIcon from "../../components/UserIcon";
 import MarkdownViewer from "../../components/MarkdownViewer";
 import PostHeader from "../../components/PostHeader";
@@ -24,24 +24,14 @@ const Comment = (props: PostValues): JSX.Element => {
   const [editorOpen, setEditorOpen] = useState(false);
 
   const content = editorOpen ? (
-    <Grid item>
-      <PostEditor
-        server={props.host}
-        id={props.id}
-        body={props.body}
-        submitButtonText="Save Comment"
-      />
-      <Button
-        variant="contained"
-        color="primary"
-        fullWidth
-        type="submit"
-        style={{ marginTop: "8px", marginBottom: "8px" }}
-        onClick={() => setEditorOpen(false)}
-      >
-        Cancel
-      </Button>
-    </Grid>
+    <PostEditor
+      server={props.host}
+      id={props.id}
+      body={props.body}
+      submitButtonText="Save Comment"
+      onSuccess={() => setEditorOpen(false)}
+      onCancel={() => setEditorOpen(false)}
+    />
   ) : (
     <Grid item container direction="row-reverse" style={{ padding: "4px 0px" }}>
       <Grid item xs={props.grids} container direction="column">
