@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { createMuiTheme } from "@material-ui/core/styles";
+import { unstable_createMuiStrictModeTheme as createMuiTheme } from "@material-ui/core";
 
 export const standardTheme = createMuiTheme({
   palette: {
