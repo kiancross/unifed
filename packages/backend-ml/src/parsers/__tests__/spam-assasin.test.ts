@@ -6,7 +6,7 @@ import test from "ava";
 import { SpamAssasinParser } from "../spam-assasin-parser";
 
 test("Parse valid", async (t) => {
-  const parser = new SpamAssasinParser(`${__dirname}/data/spam-assasin-valid.zip`);
+  const parser = new SpamAssasinParser(`${__dirname}/../../../test-data/spam-assasin-valid.zip`);
   const messages = await parser.getMessages();
 
   t.deepEqual(messages, [
