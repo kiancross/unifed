@@ -14,7 +14,7 @@ interface Params {
   submitButtonText: string;
   parentId?: string;
   isComment?: boolean;
-  onSuccess?: (id: string) => void;
+  onSuccess: (id: string) => void;
 }
 
 export const createPostQuery = gql`
@@ -39,17 +39,16 @@ export const createPostQuery = gql`
 `;
 
 const PostCreator = (props: Params): ReactElement => {
-  const [createPost, { loading, error, data }] = useMutation(createPostQuery);
+  const [createPost, { loading, error }] = useMutation(createPostQuery);
 
   if (loading) return <CenteredLoader />;
   if (error) return <ErrorMessage message="The post could not be made. Please try again later." />;
-  if (data && props.onSuccess) props.onSuccess(data.createPost.id);
 
   return (
     <PostEditorBase
       isComment={props.isComment}
-      onSubmit={({ title, body }) => {
-        createPost({
+      onSubmit={async ({ title, body }) => {
+        const response = await createPost({
           variables: {
             title,
             body,
@@ -58,6 +57,10 @@ const PostCreator = (props: Params): ReactElement => {
             parentPost: props.parentId,
           },
         });
+
+        if (response.data?.createPost) {
+          props.onSuccess(response.data.createPost.id);
+        }
       }}
       submitButtonText={props.submitButtonText}
     />
