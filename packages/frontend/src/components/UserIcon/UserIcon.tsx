@@ -12,13 +12,15 @@ interface userInfo {
 
 const UserIcon = (props: userInfo): JSX.Element => {
   const theme = useTheme().palette;
-  const smallSize = "28px";
-  const smallStyle = {
-    height: smallSize,
-    width: smallSize,
+  const size = props.small ? "28px" : "45px";
+  const style = {
+    height: size,
+    width: size,
+    backgroundColor: "#616161",
   };
+
   return (
-    <Avatar alt={props.username} style={props.small ? smallStyle : {}}>
+    <Avatar alt={props.username} style={style}>
       <Typography variant={props.small ? "body2" : "h6"} style={{ color: theme.text.primary }}>
         {props.username.charAt(0).toUpperCase()}
       </Typography>

@@ -2,19 +2,17 @@
  * CS3099 Group A3
  */
 
-process.env.UNIFED_SITE_HOST = "localhost:8080";
-
 import test from "ava";
 import nock from "nock";
 import { Container } from "typedi";
-import { CommunitiesService, CommunityNotFoundError } from "../communities";
+import { CommunitiesFederationService, CommunityNotFoundError } from "../communities";
 import { RemoteResponseError, HTTPError } from "../helpers";
 import { RemoteReference } from "@unifed/backend-core";
 
-let communitiesService: CommunitiesService;
+let communitiesService: CommunitiesFederationService;
 
 test.beforeEach(() => {
-  communitiesService = Container.get(CommunitiesService);
+  communitiesService = Container.get(CommunitiesFederationService);
 });
 
 test("getCommunities none", async (t) => {

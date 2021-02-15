@@ -3,7 +3,7 @@
  */
 
 import React, { useState } from "react";
-import { Card, CardActionArea, CardContent, Grid, Typography, Button } from "@material-ui/core";
+import { Card, CardActionArea, CardContent, Grid, Typography } from "@material-ui/core";
 import UserIcon from "../../components/UserIcon";
 import PostHeader from "../PostHeader";
 import PostEditor from "../../components/PostEditor";
@@ -23,28 +23,15 @@ const PostPreview = (props: PostValues): JSX.Element => {
   const theme = useTheme();
 
   const content = editorOpen ? (
-    <div>
-      <>
-        <PostEditor
-          body={props.body}
-          title={props.title}
-          server={props.server}
-          id={props.id}
-          submitButtonText="Save Post"
-          onSuccess={() => window.location.assign(window.location.href)}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          type="submit"
-          style={{ marginTop: "8px" }}
-          onClick={() => setEditorOpen(false)}
-        >
-          Close
-        </Button>
-      </>
-    </div>
+    <PostEditor
+      body={props.body}
+      title={props.title}
+      server={props.server}
+      id={props.id}
+      submitButtonText="Save Post"
+      onSuccess={() => window.location.assign(window.location.href)}
+      onCancel={() => setEditorOpen(false)}
+    />
   ) : (
     <Grid item container spacing={2}>
       <Grid item xs={1} container justify="flex-end">

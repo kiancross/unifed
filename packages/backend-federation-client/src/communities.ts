@@ -16,7 +16,7 @@ export class CommunityNotFoundError extends Error {
 }
 
 @Service()
-export class CommunitiesService {
+export class CommunitiesFederationService {
   async getAll(host: string): Promise<Community[]> {
     const httpClient = new FederationHttpClient(host);
 

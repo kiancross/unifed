@@ -26,6 +26,15 @@ export const standardTheme = {
       primary: "#000000",
     },
   },
+  typography: {
+    subtitle2: {
+      fontFamily: "'Roboto', 'Helvetica', 'Arial', 'sans-serif'",
+      fontWeight: 400,
+      fontSize: "0.875rem",
+      lineHeight: 1.43,
+      letterSpacing: "0.01071em",
+    },
+  },
 };
 
 export const darkTheme = {
@@ -48,6 +57,15 @@ export const darkTheme = {
     },
     text: {
       primary: "#ffffff",
+    },
+  },
+  typography: {
+    subtitle2: {
+      fontFamily: "'Roboto', 'Helvetica', 'Arial', 'sans-serif'",
+      fontWeight: 400,
+      fontSize: "0.875rem",
+      lineHeight: 1.43,
+      letterSpacing: "0.01071em",
     },
   },
 };

@@ -2,14 +2,16 @@
  * CS3099 Group A3
  */
 
-import React, { useState } from "react";
+import React, { ReactElement, useContext, useState } from "react";
 import { Box, CssBaseline } from "@material-ui/core";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { standardTheme, darkTheme } from "../../helpers/themes";
-import { createMuiTheme } from "@material-ui/core/styles";
-
-import { accountsClient } from "../../helpers/accounts";
+import { unstable_createMuiStrictModeTheme as createMuiTheme } from "@material-ui/core";
+import { UserContext } from "../../contexts/user";
+import Header from "../../components/Header";
+import CenteredLoader from "../../components/CenteredLoader";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import AccountSettingsPage from "../../pages/AccountSettingsPage";
 import LoginPage from "../../pages/LoginPage";
 import RegistrationPage from "../../pages/RegistrationPage";
@@ -20,14 +22,11 @@ import PostPage from "../../pages/PostPage";
 import UserProfilePage from "../../pages/UserProfilePage";
 import PasswordResetRequestPage from "../../pages/PasswordResetRequestPage";
 import PasswordResetPage from "../../pages/PasswordResetPage";
-import Header from "../../components/Header";
-import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import ErrorMessage from "../ErrorMessage";
-import UserContext from "../UserContext";
 
-const App = (): JSX.Element => {
-  const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
-  const [username, setUsername] = useState<string>("");
+const App = (): ReactElement => {
+  const user = useContext(UserContext);
+
   const [darkMode, setDarkMode] = useState(localStorage.getItem("darkMode") == "true");
 
   function updateTheme() {
@@ -41,46 +40,27 @@ const App = (): JSX.Element => {
 
   const theme = createMuiTheme(darkMode ? darkTheme : standardTheme);
 
-  function isUserLoggedIn() {
-    accountsClient.getUser().then((res) => {
-      if (res && res.username) setUsername(res.username);
-      setLoggedIn(res !== null);
-    });
-  }
-
-  isUserLoggedIn();
-
-  if (loggedIn === null) return <div />;
-
-  const homePath = "/instances/this/communities/all/posts";
-  const redirectHome = <Redirect to={homePath} />;
+  const loggedIn = !!user.details;
+  const redirectHome = <Redirect to="/instances/this/communities/all/posts" />;
   const redirectLogin = <Redirect to="/login" />;
-  const logOut = () => {
-    accountsClient.logout().then(() => setLoggedIn(false));
-  };
 
   return (
     <ErrorBoundary>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <UserContext.Provider value={username}>
-          <Router>
-            {loggedIn ? (
-              <Header
-                username={username}
-                onLogout={logOut}
-                onThemeChange={() => updateTheme()}
-                isDarkMode={darkMode}
-              />
-            ) : null}
-            <Box className="App-header">
+        {user.details === undefined ? (
+          <CenteredLoader />
+        ) : (
+          <>
+            <Header onThemeChange={() => updateTheme()} isDarkMode={darkMode} />
+            <Box style={{ flexGrow: 1 }}>
               <Switch>
                 <Route exact path="/">
                   {loggedIn ? redirectHome : redirectLogin}
                 </Route>
 
                 <Route exact path="/login">
-                  {loggedIn ? redirectHome : <LoginPage onLogin={() => setLoggedIn(true)} />}
+                  {loggedIn ? redirectHome : <LoginPage />}
                 </Route>
 
                 <Route exact path="/reset-password" component={PasswordResetRequestPage}>
@@ -127,8 +107,8 @@ const App = (): JSX.Element => {
                 <Route component={() => <ErrorMessage message="404 Page Not Found" />} />
               </Switch>
             </Box>
-          </Router>
-        </UserContext.Provider>
+          </>
+        )}
       </ThemeProvider>
     </ErrorBoundary>
   );
