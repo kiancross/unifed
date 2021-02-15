@@ -2,8 +2,8 @@
  * CS3099 Group A3
  */
 
-import React, { useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { AppBar, Box, ButtonGroup, IconButton, Toolbar } from "@material-ui/core";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -11,8 +11,7 @@ import logo from "assets/unifed.svg";
 import styles from "./Header.module.scss";
 import UserIcon from "../../components/UserIcon";
 import SearchInput from "./SearchInput";
-import SimpleModal from "../SimpleModal";
-import CommunityCreationCard from "./CommunityCreationCard";
+import CreateCommunityDialog from "./CreateCommunityDialog";
 
 interface HeaderProps {
   username: string;
@@ -20,13 +19,6 @@ interface HeaderProps {
 }
 
 const Header = (props: HeaderProps): JSX.Element => {
-  const [redirect, setRedirect] = useState<string | undefined>();
-
-  const onSuccess = (communityID: string) => {
-    setRedirect("/instances/this/communities/" + communityID + "/posts");
-  };
-
-  if (redirect) return <Redirect to={redirect} />;
   return (
     <AppBar color="primary" position="sticky">
       <Toolbar variant="dense">
@@ -45,7 +37,7 @@ const Header = (props: HeaderProps): JSX.Element => {
           <IconButton href={"/user/" + props.username}>
             <UserIcon username={props.username} small />
           </IconButton>
-          <SimpleModal body={<CommunityCreationCard onSuccess={onSuccess} />} />
+          <CreateCommunityDialog />
           <IconButton href="/account" color="inherit">
             <SettingsIcon />
           </IconButton>
