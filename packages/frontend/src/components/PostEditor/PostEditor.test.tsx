@@ -123,5 +123,5 @@ test("Edit error", async () => {
     getByText(/Could not edit comment/);
   });
 
-  expect(onSuccessMock).toHaveBeenCalledTimes(1);
+  expect(onSuccessMock).toHaveBeenCalledTimes(0);
 });
