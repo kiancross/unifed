@@ -5,7 +5,6 @@
 import React, { ReactElement } from "react";
 import Editor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
-import { Typography } from "@material-ui/core";
 import MarkdownViewer from "../../components/MarkdownViewer";
 
 interface MarkdownEditorProps {
@@ -26,11 +25,7 @@ const MarkdownEditor = (props: MarkdownEditorProps): ReactElement => {
       value={props.value}
       style={props.style}
       onChange={props.onChange}
-      renderHTML={(text) => (
-        <Typography component={"span"} variant="body2">
-          <MarkdownViewer>{text}</MarkdownViewer>
-        </Typography>
-      )}
+      renderHTML={(text) => <MarkdownViewer>{text}</MarkdownViewer>}
     />
   );
 };
