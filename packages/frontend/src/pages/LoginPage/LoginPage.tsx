@@ -8,14 +8,10 @@ import LoginCard from "./LoginCard";
 import NonAuthenticatedTemplate from "../../components/NonAuthenticatedTemplate";
 import style from "./LoginPage.module.scss";
 
-interface LoginPageProps {
-  onLogin(): void;
-}
-
-const LoginPage = (props: LoginPageProps): JSX.Element => {
+const LoginPage = (): JSX.Element => {
   return (
     <NonAuthenticatedTemplate>
-      <LoginCard onLogin={props.onLogin} />
+      <LoginCard />
       <Button
         href="/register"
         fullWidth
