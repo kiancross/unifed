@@ -48,6 +48,8 @@ const PostEditorBase = (props: Props): JSX.Element => {
               value={field.value}
               style={{
                 height: props.isComment ? "170px" : "400px",
+                border: 0,
+                borderBottom: 0,
               }}
             />
           )}

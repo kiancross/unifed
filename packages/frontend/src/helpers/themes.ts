@@ -22,6 +22,9 @@ export const standardTheme = {
     secondary: {
       main: "#ffffff",
     },
+    text: {
+      primary: "#000000",
+    },
   },
 };
 
@@ -31,7 +34,6 @@ export const darkTheme = {
       "@global": {
         body: {
           "background-color": "#303030",
-          color: "#2bff00",
         },
       },
     },
