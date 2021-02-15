@@ -37,6 +37,7 @@ test("Edit post", async () => {
         title={title}
         submitButtonText="Save Post"
         onSuccess={onSuccessMock}
+        onCancel={() => null}
       />
     </MockedProvider>,
   );
@@ -75,6 +76,7 @@ test("Edit comment", async () => {
         body={body}
         submitButtonText="Save Comment"
         onSuccess={onSuccessMock}
+        onCancel={() => null}
       />
     </MockedProvider>,
   );
@@ -111,6 +113,7 @@ test("Edit error", async () => {
         body={body}
         submitButtonText="Save Comment"
         onSuccess={onSuccessMock}
+        onCancel={() => null}
       />
     </MockedProvider>,
   );
@@ -124,4 +127,29 @@ test("Edit error", async () => {
   });
 
   expect(onSuccessMock).toHaveBeenCalledTimes(0);
+});
+
+test("Cancel", async () => {
+  const onCancelMock = jest.fn();
+
+  const { getByText } = render(
+    <MockedProvider mocks={[]}>
+      <PostEditor
+        server="foo"
+        id="bar"
+        body="baz"
+        submitButtonText="Save Comment"
+        onSuccess={() => null}
+        onCancel={onCancelMock}
+      />
+    </MockedProvider>,
+  );
+
+  act(() => {
+    fireEvent.click(getByText("Cancel"));
+  });
+
+  await waitFor(() => {
+    expect(onCancelMock).toHaveBeenCalledTimes(1);
+  });
 });
