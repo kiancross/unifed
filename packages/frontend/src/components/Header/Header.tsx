@@ -23,7 +23,7 @@ const useStyles = makeStyles({
     width: "100%",
   },
   logo: {
-    height: `${logoHeight * 0.8}em`,
+    height: `${logoHeight}em`,
   },
   logoText: {
     fontFamily: "'Roboto Mono', monospace",
