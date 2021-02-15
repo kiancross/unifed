@@ -24,16 +24,12 @@ interface MarkdownEditorProps {
 const MarkdownEditor = (props: MarkdownEditorProps): ReactElement => {
   const theme = useTheme().palette;
 
-  const styleSettings =
-    `                                     
-  .rc-md-editor * {                            
-    background-color: ` +
-    theme.secondary.main +
-    `!important;      
-    color: ` +
-    theme.text.primary +
-    ` !important; 
-    scrollbar-color: black !important;
+  const styleSettings = `         
+  .rc-md-editor, .rc-md-editor * {                            
+    background-color:
+    ${theme.secondary.main} !important;      
+    color: 
+    ${theme.text.primary} !important; 
   },
   `;
   return (
