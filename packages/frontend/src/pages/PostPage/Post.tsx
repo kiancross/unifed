@@ -5,7 +5,6 @@
 import React, { useState } from "react";
 import { Card, CardContent, Grid, Typography } from "@material-ui/core";
 import MarkdownViewer from "../../components/MarkdownViewer";
-import style from "./PostPage.module.scss";
 import PostHeader from "../../components/PostHeader";
 import PostEditor from "../../components/PostEditor";
 
@@ -40,7 +39,7 @@ const Post = (props: PostValues): JSX.Element => {
           server={props.server}
           username={props.username}
         />
-        <CardContent className={style.cardContent}>
+        <CardContent style={{ paddingTop: 0 }}>
           <Typography variant="h6">{props.title ? props.title : "Comment"}</Typography>
           <MarkdownViewer>{props.body}</MarkdownViewer>
         </CardContent>

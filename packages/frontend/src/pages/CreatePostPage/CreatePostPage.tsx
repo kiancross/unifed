@@ -6,7 +6,6 @@ import React, { ReactElement, useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import { Container } from "@material-ui/core";
 import PostCreator from "../../components/PostCreator";
-import style from "./CreatePostPage.module.scss";
 
 interface Params {
   server: string;
@@ -26,7 +25,7 @@ const CreatePostPage = (): ReactElement => {
   if (redirect) return <Redirect to={redirect} />;
 
   return (
-    <Container className={style.container} maxWidth="lg">
+    <Container style={{ paddingTop: "1.5rem" }} maxWidth="lg">
       <PostCreator
         community={community}
         server={server}

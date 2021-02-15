@@ -2,15 +2,13 @@
  * CS3099 Group A3
  */
 
-import React from "react";
+import React, { ReactElement } from "react";
 import { useHistory } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import Paper from "@material-ui/core/Paper";
-import InputBase from "@material-ui/core/InputBase";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { Paper, InputBase, CircularProgress } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { gql, useQuery } from "@apollo/client";
-import styles from "./SearchInput.module.scss";
 
 interface Community {
   id: string;
@@ -18,15 +16,28 @@ interface Community {
   host: string;
 }
 
-function getOptionLabel(option: Community | string) {
+const useStyles = makeStyles({
+  root: {
+    alignItems: "center",
+    display: "flex",
+    height: "100%",
+    padding: "2px 16px",
+    width: "50%",
+  },
+  fullWidth: {
+    width: "100%",
+  },
+});
+
+const getOptionLabel = (option: Community | string) => {
   if (typeof option === "string") {
     return option;
   } else {
     return option.title;
   }
-}
+};
 
-const SearchInput = (): JSX.Element => {
+const SearchInput = (): ReactElement => {
   const getCommunities = gql`
     query($host: String!) {
       getCommunities(host: $host) {
@@ -35,6 +46,8 @@ const SearchInput = (): JSX.Element => {
       }
     }
   `;
+
+  const classes = useStyles();
 
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
@@ -104,11 +117,11 @@ const SearchInput = (): JSX.Element => {
   }
 
   return (
-    <Paper className={styles.searchRoot}>
+    <Paper className={classes.root}>
       <Autocomplete
         freeSolo
         disableClearable
-        className={styles.autocomplete}
+        className={classes.fullWidth}
         open={open}
         onOpen={() => setOpen(true)}
         onClose={onOpen}
@@ -123,7 +136,7 @@ const SearchInput = (): JSX.Element => {
           <InputBase
             ref={params.InputProps.ref}
             placeholder="Find a community"
-            className={styles.autocompleteInput}
+            className={classes.fullWidth}
             inputProps={params.inputProps}
             endAdornment={
               <React.Fragment>
