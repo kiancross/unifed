@@ -13,9 +13,10 @@ interface Props {
   id: string;
   body: string;
   title?: string;
-  onSuccess?: () => void;
   isComment?: boolean;
   submitButtonText: string;
+  onSuccess: () => void;
+  onCancel: () => void;
 }
 
 export const editPostQuery = gql`
@@ -36,6 +37,7 @@ export default function PostEditor(props: Props): ReactElement {
       isComment={props.isComment}
       body={props.body}
       title={props.title}
+      onCancel={props.onCancel}
       onSubmit={({ title, body }) => {
         editPost({
           variables: {

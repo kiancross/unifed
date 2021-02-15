@@ -14,7 +14,7 @@ interface Params {
   submitButtonText: string;
   parentId?: string;
   isComment?: boolean;
-  onSuccess?: (id: string) => void;
+  onSuccess: (id: string) => void;
 }
 
 export const createPostQuery = gql`
