@@ -1,8 +1,12 @@
+/*
+ * CS3099 Group A3
+ */
+
 import React from "react";
 import { render, fireEvent, act, screen } from "@testing-library/react";
 import PostHeader, { DELETE_POST } from "./PostHeader";
 import { MockedProvider } from "@apollo/client/testing";
-import UserContext from "../UserContext";
+import { UserContext, defaultContext } from "../../contexts/user";
 import { BrowserRouter, Route } from "react-router-dom";
 
 const username = "testuser";
@@ -21,10 +25,13 @@ const deletePostMock = {
   },
 };
 
-test("edit and delete succeed with valid user", async () => {
+test("Edit and delete succeed with valid user", async () => {
+  const userContext = { ...defaultContext };
+  userContext.details = { ...userContext.details, username };
+
   const { getByText, getByTestId } = render(
     <BrowserRouter>
-      <UserContext.Provider value={username}>
+      <UserContext.Provider value={userContext}>
         <MockedProvider mocks={[deletePostMock]} addTypename={false}>
           <PostHeader username={username} id={id} server={host} onToggleEdit={() => void 0} />
         </MockedProvider>
@@ -36,16 +43,20 @@ test("edit and delete succeed with valid user", async () => {
   fireEvent.click(getByTestId("icon-button"));
   fireEvent.click(getByText("Edit"));
   fireEvent.click(getByTestId("icon-button"));
+
   await act(async () => {
     fireEvent.click(getByText("Delete"));
-    await new Promise((resolve) => setTimeout(resolve, 0));
-    expect(screen.getByText("Home Page"));
   });
+
+  expect(screen.getByText("Home Page"));
 });
 
-test("action menu does not render with invalid user", async () => {
+test("Action menu does not render with invalid user", async () => {
+  const userContext = { ...defaultContext };
+  userContext.details = { ...userContext.details, username: "invalid" };
+
   const { getByText, queryByTestId } = render(
-    <UserContext.Provider value="invalid">
+    <UserContext.Provider value={userContext}>
       <MockedProvider mocks={[deletePostMock]} addTypename={false}>
         <PostHeader username={username} id={id} server={host} onToggleEdit={() => void 0} />
       </MockedProvider>
@@ -56,9 +67,12 @@ test("action menu does not render with invalid user", async () => {
   getByText(username);
 });
 
-test("comment deletes", async () => {
+test("Comment deletes", async () => {
+  const userContext = { ...defaultContext };
+  userContext.details = { ...userContext.details, username };
+
   const { getByText, getByTestId } = render(
-    <UserContext.Provider value={username}>
+    <UserContext.Provider value={userContext}>
       <MockedProvider mocks={[deletePostMock]} addTypename={false}>
         <PostHeader
           isComment
@@ -73,15 +87,18 @@ test("comment deletes", async () => {
 
   getByText(username);
   fireEvent.click(getByTestId("icon-button"));
+
   await act(async () => {
     fireEvent.click(getByText("Delete"));
-    await new Promise((resolve) => setTimeout(resolve, 0));
   });
 });
 
-test("preview deletes", async () => {
+test("Preview deletes", async () => {
+  const userContext = { ...defaultContext };
+  userContext.details = { ...userContext.details, username };
+
   const { getByText, getByTestId } = render(
-    <UserContext.Provider value={username}>
+    <UserContext.Provider value={userContext}>
       <MockedProvider mocks={[deletePostMock]} addTypename={false}>
         <PostHeader
           isPreview
@@ -96,8 +113,8 @@ test("preview deletes", async () => {
 
   getByText(username);
   fireEvent.click(getByTestId("icon-button"));
+
   await act(async () => {
     fireEvent.click(getByText("Delete"));
-    await new Promise((resolve) => setTimeout(resolve, 0));
   });
 });

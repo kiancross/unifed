@@ -7,9 +7,9 @@ import { Redirect } from "react-router";
 import { CardHeader, IconButton, Menu, MenuItem, Typography, Link } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { gql, useMutation } from "@apollo/client";
+import { UserContext } from "../../contexts/user";
 import CenteredLoader from "../CenteredLoader";
 import ErrorMessage from "../ErrorMessage";
-import UserContext from "../UserContext";
 import styles from "./PostHeader.module.scss";
 
 interface PropsTypes {
@@ -30,7 +30,7 @@ export const DELETE_POST = gql`
 
 const PostHeader = (props: PropsTypes): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
-  const loggedInUser = useContext(UserContext);
+  const user = useContext(UserContext);
 
   const [deletePost, { loading, data, error }] = useMutation(DELETE_POST);
 
@@ -63,7 +63,8 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
   };
 
   const headerAction =
-    loggedInUser === props.username && props.server === process.env.REACT_APP_INTERNAL_REFERENCE ? (
+    user.details?.username === props.username &&
+    props.server === process.env.REACT_APP_INTERNAL_REFERENCE ? (
       <React.Fragment>
         <IconButton
           data-testid="icon-button"

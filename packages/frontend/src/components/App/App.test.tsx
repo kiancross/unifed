@@ -2,8 +2,41 @@
  * CS3099 Group A3
  */
 
-test("renders learn react link", () => {
-  // const { getByText } = render(<App />)
-  // const linkElement = getByText(/learn react/i)
-  // expect(linkElement).toBeInTheDocument()
+import { render } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
+import { MockedProvider } from "@apollo/client/testing";
+import { UserContext, defaultContext } from "../../contexts/user";
+import App from "./App";
+
+test("Loading user", () => {
+  const { queryByText } = render(
+    <UserContext.Provider value={defaultContext}>
+      <App />
+    </UserContext.Provider>,
+  );
+
+  expect(queryByText("unifed")).toBeNull();
+});
+
+test("Loaded user", () => {
+  const userContext = { ...defaultContext };
+  userContext.details = { ...userContext.details, username: "foo" };
+
+  window.history.pushState({}, "foo", "/404");
+
+  const consoleError = console.error;
+  console.error = jest.fn();
+
+  const { getByText } = render(
+    <MockedProvider>
+      <UserContext.Provider value={userContext}>
+        <App />
+      </UserContext.Provider>
+    </MockedProvider>,
+    { wrapper: BrowserRouter },
+  );
+
+  console.error = consoleError;
+
+  getByText("404 Page Not Found");
 });
