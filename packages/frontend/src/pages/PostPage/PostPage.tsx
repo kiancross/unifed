@@ -11,7 +11,6 @@ import PostCreator from "../../components/PostCreator";
 import Comments from "./Comments";
 import UserInfoCard from "../../components/UserInfoCard";
 import CenteredLoader from "../../components/CenteredLoader";
-import style from "./PostPage.module.scss";
 
 interface PostParams {
   server: string;
@@ -46,7 +45,7 @@ const PostPage = (): JSX.Element => {
   const title = postData.title;
 
   return (
-    <Container className={style.container}>
+    <Container style={{ paddingTop: "1.5rem" }}>
       <Grid container spacing={3}>
         <Grid item container xs={8} direction="column" spacing={2}>
           <Post id={post} server={server} username={username} body={body} title={title} />

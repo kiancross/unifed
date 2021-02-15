@@ -4,15 +4,24 @@
 
 import React from "react";
 import { Button, Container, Typography } from "@material-ui/core";
-import styles from "./ErrorMessage.module.scss";
+import { makeStyles } from "@material-ui/core/styles";
 
 interface ErrorMessageProps {
   message: string;
 }
 
+const useStyles = makeStyles({
+  container: {
+    paddingTop: "10rem",
+    textAlign: "center",
+  },
+});
+
 const ErrorMessage = (props: ErrorMessageProps): JSX.Element => {
+  const classes = useStyles();
+
   return (
-    <Container className={styles.container}>
+    <Container className={classes.container}>
       <Typography variant="h6" gutterBottom>
         {props.message}
       </Typography>
