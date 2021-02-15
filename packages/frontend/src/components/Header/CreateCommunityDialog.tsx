@@ -22,7 +22,7 @@ import { validateName, validateCommunityDescription, validateUsername } from "@u
 import Popup from "../Popup";
 
 export const createCommunityQuery = gql`
-  mutation CREATE_COMMUNITY($title: String!, $description: String!, $id: String!) {
+  mutation($title: String!, $description: String!, $id: String!) {
     createCommunity(title: $title, description: $description, id: $id)
   }
 `;
@@ -65,11 +65,11 @@ const CreateCommunityDialog = (): ReactElement => {
       }
 
       if (!validateName(name)) {
-        errors.name = "Invalid name";
+        errors.name = "Invalid Name";
       }
 
       if (!validateCommunityDescription(description)) {
-        errors.description = "Invalid description";
+        errors.description = "Invalid Description";
       }
 
       return errors;
