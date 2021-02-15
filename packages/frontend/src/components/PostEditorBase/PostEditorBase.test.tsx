@@ -31,7 +31,7 @@ test("Post editor base with defaults", async () => {
     expect(onSubmitMock).toHaveBeenCalledTimes(1);
   });
 
-  expect(onSubmitMock).toHaveBeenCalledWith([{ title, body }]);
+  expect(onSubmitMock).toHaveBeenCalledWith({ title, body });
 });
 
 test("Comment editor base with defaults", async () => {
@@ -58,5 +58,5 @@ test("Comment editor base with defaults", async () => {
     expect(onSubmitMock).toHaveBeenCalledTimes(1);
   });
 
-  expect(onSubmitMock).toHaveBeenCalledWith([{ title: undefined, body }]);
+  expect(onSubmitMock).toHaveBeenCalledWith({ title: undefined, body });
 });
