@@ -55,7 +55,6 @@ const CommunityPostsPage = (): JSX.Element => {
   }
   if (loading) return <CenteredLoader />;
 
-  console.log(data.getSubscriptions);
   const isSubscribed = data.getSubscriptions.some(
     (e: { host: string; id: string }) => e.host === data.getCommunity.host && e.id === community,
   );

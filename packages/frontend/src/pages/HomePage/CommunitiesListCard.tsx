@@ -34,7 +34,6 @@ const CommunitiesListCard = () => {
 
   if (error) return <div />;
   if (loading) return <LoadingCard />;
-  console.log(data.getCommunities);
 
   return (
     <Grid item>

@@ -14,10 +14,10 @@ import {
 import { Service } from "typedi";
 import { CurrentUser } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
-import { Post, User, Community } from "@unifed/backend-core";
+import { Post, User, Community, RemoteReference } from "@unifed/backend-core";
 import { CreatePostInput, UpdatePostInput, RemoteReferenceInput } from "./inputs";
 import { translateHost } from "./helpers";
-import { PostsService, CommunitiesService } from "../services";
+import { PostsService, CommunitiesService, UsersService } from "../services";
 
 @Service()
 @Resolver(Post)
@@ -25,6 +25,7 @@ export class PostsResolver implements ResolverInterface<Post> {
   constructor(
     private readonly postsService: PostsService,
     private readonly communitiesService: CommunitiesService,
+    private readonly usersService: UsersService,
   ) {}
 
   @AuthoriseUser()
@@ -63,6 +64,16 @@ export class PostsResolver implements ResolverInterface<Post> {
       content.body,
     );
     return true;
+  }
+
+  @AuthoriseUser()
+  @Query(() => [Post])
+  async getSubscribedPosts(@CurrentUser() user: User): Promise<Post[]> {
+    const subscriptions: RemoteReference[] = await this.usersService.getSubscriptions(user.id);
+    const posts = await Promise.all(subscriptions.map(ref => {
+      return this.postsService.getByCommunity(ref.host, ref.id);
+    }))
+    return posts.flat();
   }
 
   @Query(() => [Post])
