@@ -3,13 +3,12 @@
  */
 
 import React, { useState } from "react";
-import { useTheme } from "@material-ui/core/styles";
+import { useTheme, makeStyles } from "@material-ui/core/styles";
 import { Box, Card, CardContent, Grid, Typography, GridSize } from "@material-ui/core";
 import UserIcon from "../../components/UserIcon";
 import MarkdownViewer from "../../components/MarkdownViewer";
 import PostHeader from "../../components/PostHeader";
 import PostEditor from "../../components/PostEditor";
-import style from "./PostPage.module.scss";
 
 interface PostValues {
   username: string;
@@ -19,8 +18,26 @@ interface PostValues {
   host: string;
 }
 
+const useStyles = makeStyles((theme) => ({
+  grid: {
+    padding: "4px 0px",
+  },
+  header: {
+    textAlign: "left",
+    background: theme.palette.secondary.main,
+  },
+  body: {
+    marginBottom: "14px",
+    marginTop: "14px",
+    paddingBottom: 0,
+    paddingTop: 0,
+  },
+}));
+
 const Comment = (props: PostValues): JSX.Element => {
   const theme = useTheme().palette;
+  const classes = useStyles();
+
   const [editorOpen, setEditorOpen] = useState(false);
 
   const content = editorOpen ? (
@@ -33,14 +50,10 @@ const Comment = (props: PostValues): JSX.Element => {
       onCancel={() => setEditorOpen(false)}
     />
   ) : (
-    <Grid item container direction="row-reverse" spacing={2} style={{ padding: "4px 0px" }}>
+    <Grid item container direction="row-reverse" spacing={2} className={classes.grid}>
       <Grid item xs={props.grids} container direction="column">
         <Box borderLeft={4} borderColor={theme.primary.main}>
-          <Card
-            elevation={1}
-            square
-            style={{ background: theme.secondary.main, textAlign: "left" }}
-          >
+          <Card elevation={1} square className={classes.header}>
             <PostHeader
               onToggleEdit={() => setEditorOpen(true)}
               isComment
@@ -48,7 +61,7 @@ const Comment = (props: PostValues): JSX.Element => {
               id={props.id}
               server={props.host}
             />
-            <CardContent className={style.commentBody}>
+            <CardContent className={classes.body}>
               <Typography variant="subtitle2">
                 <MarkdownViewer>{props.body}</MarkdownViewer>
               </Typography>

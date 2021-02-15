@@ -29,12 +29,8 @@
     "build": "CI=false react-scripts build",
     "test": "react-scripts test --coverage --coverageReporters html json text --watchAll=false",
     "clean": "rm -rf coverage .nyc_output build",
-    "lint": "yarn ts:lint && yarn scss:lint",
-    "fix": "yarn ts:fix && yarn scss:fix",
-    "ts:lint": "node scripts/get-schema.js && eslint --ext .js,.ts,.tsx src/",
-    "ts:fix": "eslint --ext .js,ts,tsx --fix src/",
-    "scss:lint": "stylelint \"src/**/*.scss\"",
-    "scss:fix": "stylelint --fix \"src/**/*.scss\""
+    "lint": "node scripts/get-schema.js && eslint --ext .js,.ts,.tsx src/",
+    "fix": "eslint --ext .js,ts,tsx --fix src/"
   },
   "dependencies": {
     "@accounts/apollo-link": "^0.31.1",
@@ -93,9 +89,6 @@
     "prettier": "^2.2.1",
     "react-scripts": "4.0.2",
     "react-test-renderer": "^17.0.1",
-    "sass": "^1.32.7",
-    "stylelint": "^13.10.0",
-    "stylelint-config-sass-guidelines": "^8.0.0",
     "typescript": "^4.1.5"
   }
 }
