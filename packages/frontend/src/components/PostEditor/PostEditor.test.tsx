@@ -44,7 +44,7 @@ test("Edit post", async () => {
   fireEvent.click(getByText("Save Post"));
 
   await waitFor(() => {
-    expect(onSuccessMock.mock.calls.length).toBe(1);
+    expect(onSuccessMock).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -82,7 +82,7 @@ test("Edit comment", async () => {
   fireEvent.click(getByText("Save Comment"));
 
   await waitFor(() => {
-    expect(onSuccessMock.mock.calls.length).toBe(1);
+    expect(onSuccessMock).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -123,5 +123,5 @@ test("Edit error", async () => {
     getByText(/Could not edit comment/);
   });
 
-  expect(onSuccessMock.mock.calls.length).toBe(0);
+  expect(onSuccessMock).toHaveBeenCalledTimes(0);
 });
