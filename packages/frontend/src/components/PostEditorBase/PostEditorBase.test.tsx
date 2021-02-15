@@ -28,11 +28,10 @@ test("Post editor base with defaults", async () => {
   fireEvent.click(getByText(buttonMessageText));
 
   await waitFor(() => {
-    expect(onSubmitMock.mock.calls.length).toBe(1);
+    expect(onSubmitMock).toHaveBeenCalledTimes(1);
   });
 
-  expect(onSubmitMock.mock.calls[0].length).toBe(1);
-  expect(onSubmitMock.mock.calls[0][0]).toStrictEqual({ title, body });
+  expect(onSubmitMock).toHaveBeenCalledWith([{ title, body }]);
 });
 
 test("Comment editor base with defaults", async () => {
@@ -56,9 +55,8 @@ test("Comment editor base with defaults", async () => {
   fireEvent.click(getByText(buttonMessageText));
 
   await waitFor(() => {
-    expect(onSubmitMock.mock.calls.length).toBe(1);
+    expect(onSubmitMock).toHaveBeenCalledTimes(1);
   });
 
-  expect(onSubmitMock.mock.calls[0].length).toBe(1);
-  expect(onSubmitMock.mock.calls[0][0]).toStrictEqual({ body, title: undefined });
+  expect(onSubmitMock).toHaveBeenCalledWith([{ title: undefined, body }]);
 });
