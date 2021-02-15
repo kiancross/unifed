@@ -590,10 +590,10 @@ exports[`Render 1`] = `
         onScroll={[Function]}
       >
         <div
-          className="custom-html-style"
+          className=" "
         >
-          <span
-            className="MuiTypography-root MuiTypography-body2"
+          <div
+            className="custom-html-style"
           />
         </div>
       </div>
@@ -1193,20 +1193,24 @@ exports[`Render default value 1`] = `
         onScroll={[Function]}
       >
         <div
-          className="custom-html-style"
+          className=" "
         >
-          <span
-            className="MuiTypography-root MuiTypography-body2"
+          <div
+            className="custom-html-style"
           >
-            <h1>
+            <h1
+              className="MuiTypography-root MuiTypography-h1"
+            >
               Hello World
             </h1>
-            <p>
+            <p
+              className="MuiTypography-root MuiTypography-body1"
+            >
               <strong>
                 Bold Text
               </strong>
             </p>
-          </span>
+          </div>
         </div>
       </div>
     </section>
