@@ -42,9 +42,7 @@ const Post = (props: PostValues): JSX.Element => {
         />
         <CardContent className={style.cardContent}>
           <Typography variant="h6">{props.title ? props.title : "Comment"}</Typography>
-          <Typography variant="body2">
-            <MarkdownViewer>{props.body}</MarkdownViewer>
-          </Typography>
+          <MarkdownViewer>{props.body}</MarkdownViewer>
         </CardContent>
       </Card>
     </Grid>

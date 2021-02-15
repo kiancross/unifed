@@ -35,7 +35,7 @@ const App = (): ReactElement => {
       ) : (
         <>
           <Header />
-          <Box>
+          <Box style={{ flexGrow: 1 }}>
             <Switch>
               <Route exact path="/">
                 {loggedIn ? redirectHome : redirectLogin}
