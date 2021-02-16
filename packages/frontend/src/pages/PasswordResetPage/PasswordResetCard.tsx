@@ -6,9 +6,10 @@ import React, { useState } from "react";
 import { passwordClient } from "../../helpers/accounts";
 import { Redirect, useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
-import { TextField, Button, Card, CardContent, Grid, Snackbar, Link } from "@material-ui/core";
+import { TextField, Button, Card, CardContent, Grid, Snackbar } from "@material-ui/core";
 import { validatePassword } from "@unifed/shared";
 import { Alert } from "@material-ui/lab";
+import { Link } from "../../components/Links";
 
 interface Params {
   token: string;
@@ -119,7 +120,7 @@ const PasswordResetCard = (): JSX.Element => {
       >
         <Alert severity="error">
           Your password reset token has expired.&nbsp;
-          <Link href="/reset-password">Get another reset link.</Link>
+          <Link to="/reset-password">Get another reset link.</Link>
         </Alert>
       </Snackbar>
     </Grid>

@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { Button } from "@material-ui/core";
+import { ButtonLink } from "../../components/Links";
 import LogoTemplate from "../../components/LogoTemplate";
 import PasswordResetCard from "./PasswordResetCard";
 
@@ -11,15 +11,15 @@ const PasswordResetPage = (): JSX.Element => {
   return (
     <LogoTemplate>
       <PasswordResetCard />
-      <Button
-        href="/login"
+      <ButtonLink
+        to="/login"
         fullWidth
         color="primary"
         variant="contained"
         style={{ marginTop: "16px" }}
       >
         Return To Login
-      </Button>
+      </ButtonLink>
     </LogoTemplate>
   );
 };

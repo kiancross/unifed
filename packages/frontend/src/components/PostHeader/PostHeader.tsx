@@ -4,13 +4,14 @@
 
 import React, { useState, useContext } from "react";
 import { Redirect } from "react-router";
-import { CardHeader, IconButton, Menu, MenuItem, Typography, Link, Theme } from "@material-ui/core";
+import { CardHeader, IconButton, Menu, MenuItem, Typography, Theme } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { gql, useMutation } from "@apollo/client";
 import { UserContext } from "../../contexts/user";
 import CenteredLoader from "../CenteredLoader";
 import ErrorMessage from "../ErrorMessage";
+import { Link } from "../../components/Links";
 
 interface Props {
   username: string;
@@ -103,17 +104,17 @@ const PostHeader = (props: Props): JSX.Element => {
 
   const headerTitle = props.isComment ? (
     <Typography variant="body2" gutterBottom>
-      <Link href={"/user/" + props.username} color="inherit">
+      <Link to={"/user/" + props.username} color="inherit">
         {props.username}
       </Link>
       &nbsp; &#8212; &nbsp;
-      <Link color="inherit" href={props.id}>
+      <Link color="inherit" to={props.id}>
         View Replies
       </Link>
     </Typography>
   ) : (
     <Typography variant="body2">
-      <Link color="inherit" href={"/user/" + props.username}>
+      <Link color="inherit" to={"/user/" + props.username}>
         {props.username}
       </Link>
     </Typography>

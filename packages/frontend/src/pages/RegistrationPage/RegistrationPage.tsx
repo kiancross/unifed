@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { Button } from "@material-ui/core";
+import { ButtonLink } from "../../components/Links";
 import LogoTemplate from "../../components/LogoTemplate";
 import RegistrationCard from "./RegistrationCard";
 
@@ -11,15 +11,15 @@ const RegistrationPage = (): JSX.Element => {
   return (
     <LogoTemplate>
       <RegistrationCard />
-      <Button
-        href="/login"
+      <ButtonLink
+        to="/login"
         fullWidth
         color="primary"
         variant="contained"
         style={{ marginTop: "16px" }}
       >
         Already a user? Login
-      </Button>
+      </ButtonLink>
     </LogoTemplate>
   );
 };

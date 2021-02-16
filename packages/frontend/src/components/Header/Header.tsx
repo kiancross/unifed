@@ -11,6 +11,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { UserContext } from "../../contexts/user";
 import logo from "../../assets/unifed.svg";
 import UserIcon from "../../components/UserIcon";
+import { IconButtonLink } from "../../components/Links";
 import SearchInput from "./SearchInput";
 import Brightness3Icon from "@material-ui/icons/Brightness3";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
@@ -74,12 +75,13 @@ const Header = (props: Props): ReactElement | null => {
             )}
           </IconButton>
         </Tooltip>
-        <IconButton href={"/user/" + user.details.username}>
+
+        <IconButtonLink to={"/user/" + user.details.username}>
           <UserIcon username={user.details.username} small />
-        </IconButton>
-        <IconButton href="/account" color="inherit">
+        </IconButtonLink>
+        <IconButtonLink to="/account" color="inherit">
           <SettingsIcon />
-        </IconButton>
+        </IconButtonLink>
         <IconButton onClick={user.logout} color="inherit">
           <ExitToAppIcon />
         </IconButton>
