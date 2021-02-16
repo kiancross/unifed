@@ -19,6 +19,7 @@ import PostPage from "../../pages/PostPage";
 import UserProfilePage from "../../pages/UserProfilePage";
 import PasswordResetRequestPage from "../../pages/PasswordResetRequestPage";
 import PasswordResetPage from "../../pages/PasswordResetPage";
+import PrivacyNoticePage from "../../pages/PrivacyNoticePage";
 import ErrorMessage from "../ErrorMessage";
 
 const App = (): ReactElement => {
@@ -40,6 +41,8 @@ const App = (): ReactElement => {
               <Route exact path="/">
                 {loggedIn ? redirectHome : redirectLogin}
               </Route>
+
+              <Route exact path="/privacy-notice" component={PrivacyNoticePage} />
 
               <Route exact path="/login">
                 {loggedIn ? redirectHome : <LoginPage />}
