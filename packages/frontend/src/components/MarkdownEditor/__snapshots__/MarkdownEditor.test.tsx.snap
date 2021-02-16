@@ -1218,12 +1218,12 @@ Array [
               className="custom-html-style"
             >
               <h1
-                className="MuiTypography-root MuiTypography-h1"
+                className="MuiTypography-root MuiTypography-h1 MuiTypography-colorTextPrimary"
               >
                 Hello World
               </h1>
               <p
-                className="MuiTypography-root MuiTypography-body1"
+                className="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextPrimary"
               >
                 <strong>
                   Bold Text
