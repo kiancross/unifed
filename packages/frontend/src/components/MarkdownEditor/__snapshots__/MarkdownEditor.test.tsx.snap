@@ -5,10 +5,8 @@ Array [
   <style>
              
   .rc-md-editor, .rc-md-editor * {                            
-    background-color:
-    #f50057 !important;      
-    color: 
-    rgba(0, 0, 0, 0.87) !important; 
+    background-color: #f50057 !important;      
+    color: rgba(0, 0, 0, 0.87) !important; 
   },
   
   </style>,
@@ -619,10 +617,8 @@ Array [
   <style>
              
   .rc-md-editor, .rc-md-editor * {                            
-    background-color:
-    #f50057 !important;      
-    color: 
-    rgba(0, 0, 0, 0.87) !important; 
+    background-color: #f50057 !important;      
+    color: rgba(0, 0, 0, 0.87) !important; 
   },
   
   </style>,
