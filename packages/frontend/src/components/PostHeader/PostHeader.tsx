@@ -4,15 +4,15 @@
 
 import React, { useState, useContext } from "react";
 import { Redirect } from "react-router";
-import { CardHeader, IconButton, Menu, MenuItem, Typography, Link } from "@material-ui/core";
+import { CardHeader, IconButton, Menu, MenuItem, Typography, Link, Theme } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { gql, useMutation } from "@apollo/client";
+import { UserContext } from "../../contexts/user";
 import CenteredLoader from "../CenteredLoader";
 import ErrorMessage from "../ErrorMessage";
-import UserContext from "../UserContext";
-import styles from "./PostHeader.module.scss";
 
-interface PropsTypes {
+interface Props {
   username: string;
   id: string;
   server: string;
@@ -22,15 +22,20 @@ interface PropsTypes {
   onToggleEdit: () => void;
 }
 
+const useStyles = makeStyles<Theme, Props>({
+  header: (props) => (props.isComment ? { paddingBottom: "0" } : {}),
+});
+
 export const DELETE_POST = gql`
   mutation($id: String!, $host: String!) {
     deletePost(post: { id: $id, host: $host })
   }
 `;
 
-const PostHeader = (props: PropsTypes): JSX.Element => {
+const PostHeader = (props: Props): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
-  const loggedInUser = useContext(UserContext);
+  const user = useContext(UserContext);
+  const classes = useStyles(props);
 
   const [deletePost, { loading, data, error }] = useMutation(DELETE_POST);
 
@@ -63,7 +68,8 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
   };
 
   const headerAction =
-    loggedInUser === props.username && props.server === process.env.REACT_APP_INTERNAL_REFERENCE ? (
+    user.details?.username === props.username &&
+    props.server === process.env.REACT_APP_INTERNAL_REFERENCE ? (
       <React.Fragment>
         <IconButton
           data-testid="icon-button"
@@ -107,13 +113,7 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
     </Typography>
   );
 
-  return (
-    <CardHeader
-      className={props.isComment ? styles.commentHeader : ""}
-      action={headerAction}
-      title={headerTitle}
-    />
-  );
+  return <CardHeader className={classes.header} action={headerAction} title={headerTitle} />;
 };
 
 export default PostHeader;

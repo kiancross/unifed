@@ -2,11 +2,13 @@
  * CS3099 Group A3
  */
 
-import React, { useState } from "react";
+import React, { ReactElement, useContext } from "react";
+import { Route, Redirect, Switch } from "react-router-dom";
 import { Box } from "@material-ui/core";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-
-import { accountsClient } from "../../helpers/accounts";
+import { UserContext } from "../../contexts/user";
+import Header from "../../components/Header";
+import CenteredLoader from "../../components/CenteredLoader";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import AccountSettingsPage from "../../pages/AccountSettingsPage";
 import HomePage from "../../pages/HomePage";
 import LoginPage from "../../pages/LoginPage";
@@ -18,46 +20,30 @@ import PostPage from "../../pages/PostPage";
 import UserProfilePage from "../../pages/UserProfilePage";
 import PasswordResetRequestPage from "../../pages/PasswordResetRequestPage";
 import PasswordResetPage from "../../pages/PasswordResetPage";
-import Header from "../../components/Header";
-import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import ErrorMessage from "../ErrorMessage";
-import UserContext from "../UserContext";
 
-const App = (): JSX.Element => {
-  const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
-  const [username, setUsername] = useState<string>("");
+const App = (): ReactElement => {
+  const user = useContext(UserContext);
 
-  function isUserLoggedIn() {
-    accountsClient.getUser().then((res) => {
-      if (res && res.username) setUsername(res.username);
-      setLoggedIn(res !== null);
-    });
-  }
-
-  isUserLoggedIn();
-
-  if (loggedIn === null) return <div />;
-
-  const homePath = "/";
-  const redirectHome = <Redirect to={homePath} />;
+  const loggedIn = !!user.details;
+  const redirectHome = <Redirect to="/" />;
   const redirectLogin = <Redirect to="/login" />;
-  const logOut = () => {
-    accountsClient.logout().then(() => setLoggedIn(false));
-  };
 
   return (
     <ErrorBoundary>
-      <UserContext.Provider value={username}>
-        <Router>
-          {loggedIn ? <Header username={username} onLogout={logOut} /> : null}
-          <Box className="App-header">
+      {user.details === undefined ? (
+        <CenteredLoader />
+      ) : (
+        <>
+          <Header />
+          <Box style={{ flexGrow: 1 }}>
             <Switch>
               <Route exact path="/">
                 {loggedIn ? <HomePage /> : redirectLogin}
               </Route>
 
               <Route exact path="/login">
-                {loggedIn ? redirectHome : <LoginPage onLogin={() => setLoggedIn(true)} />}
+                {loggedIn ? redirectHome : <LoginPage />}
               </Route>
 
               <Route exact path="/reset-password" component={PasswordResetRequestPage}>
@@ -104,8 +90,8 @@ const App = (): JSX.Element => {
               <Route component={() => <ErrorMessage message="404 Page Not Found" />} />
             </Switch>
           </Box>
-        </Router>
-      </UserContext.Provider>
+        </>
+      )}
     </ErrorBoundary>
   );
 };

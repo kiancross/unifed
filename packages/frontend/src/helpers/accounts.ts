@@ -5,7 +5,7 @@
 import { AccountsGraphQLClient } from "@accounts/graphql-client";
 import { AccountsClient } from "@accounts/client";
 import { AccountsClientPassword } from "@accounts/client-password";
-import { apolloClient } from "./apollo-client";
+import { apolloClient, setAccountsClient } from "./apollo-client";
 
 const accountsGraphQL = new AccountsGraphQLClient({
   graphQLClient: apolloClient,
@@ -13,3 +13,5 @@ const accountsGraphQL = new AccountsGraphQLClient({
 
 export const accountsClient = new AccountsClient({}, accountsGraphQL);
 export const passwordClient = new AccountsClientPassword(accountsClient);
+
+setAccountsClient(accountsClient);
