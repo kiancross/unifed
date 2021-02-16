@@ -55,8 +55,17 @@ const PostEditorBase = (props: Props): JSX.Element => {
           )}
         </Field>
 
-        <ButtonGroup fullWidth style={{ marginTop: "8px" }}>
-          {props.onCancel ? <Button onClick={props.onCancel}>Cancel</Button> : null}
+        <ButtonGroup fullWidth style={{ marginBottom: "8px", marginTop: "8px" }}>
+          {props.onCancel ? (
+            <Button
+              style={{ marginRight: "8px" }}
+              variant="contained"
+              color="primary"
+              onClick={props.onCancel}
+            >
+              Cancel
+            </Button>
+          ) : null}
           <Button variant="contained" color="primary" type="submit">
             {props.submitButtonText}
           </Button>
