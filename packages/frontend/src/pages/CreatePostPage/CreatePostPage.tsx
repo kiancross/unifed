@@ -4,9 +4,8 @@
 
 import React, { ReactElement, useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
-import { Button, Container, Grid } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import PostCreator from "../../components/PostCreator";
-import style from "./CreatePostPage.module.scss";
 
 interface Params {
   server: string;
@@ -26,20 +25,13 @@ const CreatePostPage = (): ReactElement => {
   if (redirect) return <Redirect to={redirect} />;
 
   return (
-    <Container className={style.container} maxWidth="lg">
-      <Grid container direction="column" spacing={3}>
-        <PostCreator
-          community={community}
-          server={server}
-          submitButtonText="Create Post"
-          onSuccess={onSuccess}
-        />
-        <Grid item>
-          <Button href={href} variant="contained" color="primary">
-            Cancel Post
-          </Button>
-        </Grid>
-      </Grid>
+    <Container style={{ paddingTop: "1.5rem" }} maxWidth="lg">
+      <PostCreator
+        community={community}
+        server={server}
+        submitButtonText="Create Post"
+        onSuccess={onSuccess}
+      />
     </Container>
   );
 };

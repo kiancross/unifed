@@ -28,11 +28,10 @@ test("Post editor base with defaults", async () => {
   fireEvent.click(getByText(buttonMessageText));
 
   await waitFor(() => {
-    expect(onSubmitMock.mock.calls.length).toBe(1);
+    expect(onSubmitMock).toHaveBeenCalledTimes(1);
   });
 
-  expect(onSubmitMock.mock.calls[0].length).toBe(1);
-  expect(onSubmitMock.mock.calls[0][0]).toStrictEqual({ title, body });
+  expect(onSubmitMock).toHaveBeenCalledWith({ title, body });
 });
 
 test("Comment editor base with defaults", async () => {
@@ -56,9 +55,36 @@ test("Comment editor base with defaults", async () => {
   fireEvent.click(getByText(buttonMessageText));
 
   await waitFor(() => {
-    expect(onSubmitMock.mock.calls.length).toBe(1);
+    expect(onSubmitMock).toHaveBeenCalledTimes(1);
   });
 
-  expect(onSubmitMock.mock.calls[0].length).toBe(1);
-  expect(onSubmitMock.mock.calls[0][0]).toStrictEqual({ body, title: undefined });
+  expect(onSubmitMock).toHaveBeenCalledWith({ title: undefined, body });
+});
+
+test("With cancel", async () => {
+  const onCancel = jest.fn();
+
+  const { getByText } = render(
+    <PostEditorBase
+      title="foo"
+      body="bar"
+      submitButtonText="baz"
+      onSubmit={() => null}
+      onCancel={onCancel}
+    />,
+  );
+
+  fireEvent.click(getByText("Cancel"));
+
+  await waitFor(() => {
+    expect(onCancel).toHaveBeenCalledTimes(1);
+  });
+});
+
+test("Without cancel", async () => {
+  const { queryByText } = render(
+    <PostEditorBase title="foo" body="bar" submitButtonText="baz" onSubmit={() => null} />,
+  );
+
+  expect(queryByText("Cancel")).toBeNull();
 });

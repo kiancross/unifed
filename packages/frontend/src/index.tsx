@@ -4,19 +4,21 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { BrowserRouter as Router } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
 import reportWebVitals from "./reportWebVitals";
-import App from "./components/App";
 import { apolloClient } from "./helpers/apollo-client";
-import { standardTheme } from "./helpers/themes";
+import { UserProvider } from "./contexts/user";
+import App from "./components/App";
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={apolloClient}>
-      <ThemeProvider theme={standardTheme}>
-        <App />
-      </ThemeProvider>
+      <UserProvider>
+        <Router>
+          <App />
+        </Router>
+      </UserProvider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root"),
