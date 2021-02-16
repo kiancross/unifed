@@ -30,16 +30,9 @@ import ErrorMessage from "../ErrorMessage";
 const App = (): ReactElement => {
   const user = useContext(UserContext);
 
-  const [darkMode, setDarkMode] = useState(localStorage.getItem("darkMode") == "true");
+  const [darkMode, setDarkMode] = useState(localStorage.getItem("darkMode") === "true");
 
-  function updateTheme() {
-    if (localStorage.getItem("darkMode") == "false") {
-      localStorage.setItem("darkMode", "true");
-    } else if (localStorage.getItem("darkMode") == "true") {
-      localStorage.setItem("darkMode", "false");
-    }
-    setDarkMode(!darkMode);
-  }
+  localStorage.setItem("darkMode", JSON.stringify(darkMode));
 
   const theme = createMuiTheme(darkMode ? darkTheme : lightTheme);
 
@@ -55,7 +48,7 @@ const App = (): ReactElement => {
           <CenteredLoader />
         ) : (
           <>
-            <Header onThemeChange={() => updateTheme()} isDarkMode={darkMode} />
+            <Header onThemeChange={(darkMode) => setDarkMode(darkMode)} darkMode={darkMode} />
             <Box style={{ flexGrow: 1 }}>
               <Switch>
                 <Route exact path="/">
