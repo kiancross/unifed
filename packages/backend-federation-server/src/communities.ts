@@ -3,9 +3,10 @@
  */
 
 import { Response, Request, NextFunction } from "express";
-import { DocumentType, isDocumentArray } from "@typegoose/typegoose";
 import { AsyncRouter } from "express-async-router";
+import { DocumentType, isDocumentArray } from "@typegoose/typegoose";
 import { Community, CommunityModel, Post } from "@unifed/backend-core";
+import { sendError } from "./error";
 
 interface CustomLocals {
   community: DocumentType<Community>;
@@ -19,9 +20,7 @@ async function getCommunity(req: Request, res: CustomResponse, next: NextFunctio
   const community = await CommunityModel.findById(req.params.id);
 
   if (community === null) {
-    res.status(404).json({
-      error: `Community not found: '${req.params.id}'`,
-    });
+    sendError(res, 404, `Community not found: '${req.params.id}'`);
   } else {
     res.locals.community = community;
     next();
@@ -52,7 +51,7 @@ router.get("/:id/timestamps", getCommunity, async (_, res) => {
       }),
     );
   } else {
-    throw new Error("Failed to populate");
+    sendError(res, 500, "Unable to populate posts from database");
   }
 });
 
