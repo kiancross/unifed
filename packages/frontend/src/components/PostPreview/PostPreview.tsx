@@ -4,10 +4,10 @@
 
 import React, { useState } from "react";
 import { Card, CardActionArea, CardContent, Grid, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import UserIcon from "../../components/UserIcon";
 import PostHeader from "../PostHeader";
 import PostEditor from "../../components/PostEditor";
-import { useTheme } from "@material-ui/core/styles";
 
 interface PostValues {
   username: string;
@@ -18,9 +18,16 @@ interface PostValues {
   body: string;
 }
 
+const useStyles = makeStyles((theme) => ({
+  card: {
+    textAlign: "left",
+    background: theme.palette.secondary.main,
+  },
+}));
+
 const PostPreview = (props: PostValues): JSX.Element => {
   const [editorOpen, setEditorOpen] = useState(false);
-  const theme = useTheme();
+  const classes = useStyles();
 
   const content = editorOpen ? (
     <PostEditor
@@ -38,7 +45,7 @@ const PostPreview = (props: PostValues): JSX.Element => {
         <UserIcon username={props.username} small />
       </Grid>
       <Grid item xs={11} container direction="column" justify="flex-start">
-        <Card style={{ textAlign: "left", background: theme.palette.secondary.main }}>
+        <Card className={classes.card}>
           <PostHeader
             onToggleEdit={() => setEditorOpen(true)}
             title={props.title}
