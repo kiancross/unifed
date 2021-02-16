@@ -34,7 +34,7 @@ const App = (): ReactElement => {
 
   localStorage.setItem("darkMode", JSON.stringify(darkMode));
 
-  const theme = createMuiTheme(darkMode ? darkTheme : lightTheme);
+  const theme = createMuiTheme(darkMode && user.details ? darkTheme : lightTheme);
 
   const loggedIn = !!user.details;
   const redirectHome = <Redirect to="/instances/this/communities/all/posts" />;
