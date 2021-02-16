@@ -3,8 +3,9 @@
  */
 
 import React from "react";
-import { Button, Container, Typography } from "@material-ui/core";
+import { Container, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { ButtonLink } from "../../components/Links";
 
 const useStyles = makeStyles({
   container: {
@@ -21,9 +22,9 @@ const PageNotFoundPage = (): JSX.Element => {
       <Typography variant="h6" gutterBottom>
         404 Page Not Found
       </Typography>
-      <Button color="primary" variant="contained" href="/">
+      <ButtonLink color="primary" variant="contained" to="/">
         Return Home
-      </Button>
+      </ButtonLink>
     </Container>
   );
 };

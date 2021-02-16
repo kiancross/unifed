@@ -4,13 +4,14 @@
 
 import React, { ReactElement, useContext } from "react";
 import { Link } from "react-router-dom";
-import { AppBar, Box, IconButton, Toolbar } from "@material-ui/core";
+import { AppBar, Box, Toolbar, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { UserContext } from "../../contexts/user";
 import logo from "../../assets/unifed.svg";
 import UserIcon from "../../components/UserIcon";
+import { IconButtonLink } from "../../components/Links";
 import SearchInput from "./SearchInput";
 
 const logoHeight = 2.5;
@@ -51,12 +52,12 @@ const Header = (): ReactElement | null => {
           <SearchInput />
         </div>
 
-        <IconButton href={"/user/" + user.details.username}>
+        <IconButtonLink to={"/user/" + user.details.username}>
           <UserIcon username={user.details.username} small />
-        </IconButton>
-        <IconButton href="/account" color="inherit">
+        </IconButtonLink>
+        <IconButtonLink to="/account" color="inherit">
           <SettingsIcon />
-        </IconButton>
+        </IconButtonLink>
         <IconButton onClick={user.logout} color="inherit">
           <ExitToAppIcon />
         </IconButton>

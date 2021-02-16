@@ -3,6 +3,7 @@
  */
 
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { Card, CardActionArea, CardHeader, Grid } from "@material-ui/core";
 import UserIcon from "../../components/UserIcon";
 
@@ -16,7 +17,7 @@ const UserInfoCard = (props: userInfo): JSX.Element => {
   return (
     <Grid item>
       <Card style={{ textAlign: "center" }}>
-        <CardActionArea href={"/user/" + props.username}>
+        <CardActionArea to={"/user/" + props.username} component={RouterLink}>
           <CardHeader
             data-testid="user-info-card-header"
             avatar={userIcon}
