@@ -16,15 +16,15 @@ import PersonIcon from "@material-ui/icons/Person";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import UserIcon from "../../components/UserIcon";
+import { UserContext } from "../../contexts/user";
 
-interface AccountMenuProps {
-  username: string;
-  onLogout: () => void;
-}
-
-const AccountMenu = (props: AccountMenuProps): JSX.Element => {
+const AccountMenu = (): JSX.Element => {
+  const user = React.useContext(UserContext);
+  const { logout } = React.useContext(UserContext);
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
+
+  if (!user.details) return <React.Fragment />;
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -52,7 +52,7 @@ const AccountMenu = (props: AccountMenuProps): JSX.Element => {
         aria-haspopup="true"
         onClick={handleToggle}
       >
-        <UserIcon username={props.username} small />
+        <UserIcon username={user.details.username} small />
       </IconButton>
       <Popper
         open={open}
@@ -73,7 +73,7 @@ const AccountMenu = (props: AccountMenuProps): JSX.Element => {
                   <MenuItem
                     dense
                     onClick={() => {
-                      location.href = "/user/" + props.username;
+                      location.href = "/user/" + user.details?.username;
                     }}
                   >
                     <PersonIcon style={{ marginRight: "10px" }} fontSize="small" />
@@ -89,7 +89,7 @@ const AccountMenu = (props: AccountMenuProps): JSX.Element => {
                     <SettingsIcon style={{ marginRight: "10px" }} fontSize="small" />
                     Settings
                   </MenuItem>
-                  <MenuItem dense onClick={props.onLogout}>
+                  <MenuItem dense onClick={logout}>
                     <ExitToAppIcon style={{ marginRight: "10px" }} fontSize="small" />
                     Logout
                   </MenuItem>
