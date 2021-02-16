@@ -2,14 +2,13 @@
  * CS3099 Group A3
  */
 
-import React, { useState } from "react";
-import { Card, CardContent, Grid, Typography } from "@material-ui/core";
+import React, { ReactElement, useState } from "react";
+import { Card, CardContent, Grid, Typography, makeStyles } from "@material-ui/core";
 import MarkdownViewer from "../../components/MarkdownViewer";
 import PostHeader from "../../components/PostHeader";
 import PostEditor from "../../components/PostEditor";
-import { useTheme } from "@material-ui/core/styles";
 
-interface PostValues {
+interface Props {
   username: string;
   body: string;
   title: string;
@@ -17,9 +16,16 @@ interface PostValues {
   server: string;
 }
 
-const Post = (props: PostValues): JSX.Element => {
+const useStyles = makeStyles((theme) => ({
+  card: {
+    background: theme.palette.secondary.main,
+    textAlign: "left",
+  },
+}));
+
+const Post = (props: Props): ReactElement => {
   const [editorOpen, setEditorOpen] = useState(false);
-  const theme = useTheme().palette;
+  const classes = useStyles();
 
   const content = editorOpen ? (
     <PostEditor
@@ -33,7 +39,7 @@ const Post = (props: PostValues): JSX.Element => {
     />
   ) : (
     <Grid item xs={12}>
-      <Card color="primary" style={{ background: theme.secondary.main, textAlign: "left" }}>
+      <Card color="primary" className={classes.card}>
         <PostHeader
           onToggleEdit={() => setEditorOpen(true)}
           title={props.title}
