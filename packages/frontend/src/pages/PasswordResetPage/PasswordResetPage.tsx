@@ -4,12 +4,12 @@
 
 import React from "react";
 import { Button } from "@material-ui/core";
-import NonAuthenticatedTemplate from "../../components/NonAuthenticatedTemplate";
+import LogoTemplate from "../../components/LogoTemplate";
 import PasswordResetCard from "./PasswordResetCard";
 
 const PasswordResetPage = (): JSX.Element => {
   return (
-    <NonAuthenticatedTemplate>
+    <LogoTemplate>
       <PasswordResetCard />
       <Button
         href="/login"
@@ -20,7 +20,7 @@ const PasswordResetPage = (): JSX.Element => {
       >
         Return To Login
       </Button>
-    </NonAuthenticatedTemplate>
+    </LogoTemplate>
   );
 };
 

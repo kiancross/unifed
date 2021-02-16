@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   },
 });
 
-const NonAuthenticatedTemplate = (prop: Props): ReactElement => {
+const LogoTemplate = (prop: Props): ReactElement => {
   const classes = useStyles();
 
   return (
@@ -54,4 +54,4 @@ const NonAuthenticatedTemplate = (prop: Props): ReactElement => {
   );
 };
 
-export default NonAuthenticatedTemplate;
+export default LogoTemplate;

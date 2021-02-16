@@ -5,11 +5,11 @@
 import React from "react";
 import { Button } from "@material-ui/core";
 import LoginCard from "./LoginCard";
-import NonAuthenticatedTemplate from "../../components/NonAuthenticatedTemplate";
+import LogoTemplate from "../../components/LogoTemplate";
 
 const LoginPage = (): JSX.Element => {
   return (
-    <NonAuthenticatedTemplate>
+    <LogoTemplate>
       <LoginCard />
       <Button
         href="/register"
@@ -20,7 +20,7 @@ const LoginPage = (): JSX.Element => {
       >
         Register an account
       </Button>
-    </NonAuthenticatedTemplate>
+    </LogoTemplate>
   );
 };
 
