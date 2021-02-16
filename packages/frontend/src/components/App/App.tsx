@@ -13,6 +13,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { lightTheme, darkTheme } from "../../helpers/themes";
 import { UserContext } from "../../contexts/user";
 import Header from "../../components/Header";
+import Footer from "./Footer";
 import CenteredLoader from "../../components/CenteredLoader";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import AccountSettingsPage from "../../pages/AccountSettingsPage";
@@ -106,6 +107,7 @@ const App = (): ReactElement => {
                 <Route component={() => <ErrorMessage message="404 Page Not Found" />} />
               </Switch>
             </Box>
+            <Footer />
           </>
         )}
       </ThemeProvider>
