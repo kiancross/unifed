@@ -9,10 +9,15 @@ import logo from "../../assets/unifed.svg";
 
 interface Props {
   children: ReactNode;
+  direction?: "horizontal" | "vertical";
 }
 
 const useStyles = makeStyles({
-  container: {
+  root: {
+    height: "100%",
+    padding: "2rem",
+  },
+  rootContainer: {
     height: "100%",
   },
   logo: {
@@ -26,31 +31,41 @@ const useStyles = makeStyles({
   },
 });
 
-const LogoTemplate = (prop: Props): ReactElement => {
-  const classes = useStyles();
+const LogoTemplate = (props: Props): ReactElement => {
+  const classes = useStyles(props);
+
+  const vertical = props.direction === "vertical";
 
   return (
-    <Container maxWidth="lg" className={classes.container}>
-      <Grid
-        container
-        justify="center"
-        alignItems="center"
-        direction="column"
-        className={classes.container}
-      >
-        <Grid container spacing={10} justify="space-evenly">
-          <Grid item container xs={4} direction="column" justify="center">
-            <div>
-              <img src={logo} alt="Unifed" className={classes.logo}></img>
-              <div className={classes.logoText}>Unifed</div>
-            </div>
-          </Grid>
-          <Grid item container xs={6} direction="column" justify="center">
-            {prop.children}
+    <div className={classes.root}>
+      <Container maxWidth="lg" className={classes.rootContainer}>
+        <Grid
+          container
+          justify="center"
+          alignItems="center"
+          direction="column"
+          className={classes.rootContainer}
+        >
+          <Grid
+            container
+            spacing={4}
+            alignItems="center"
+            justify="space-evenly"
+            direction={vertical ? "column" : "row"}
+          >
+            <Grid item container xs={4} direction="column" justify="center">
+              <div>
+                <img src={logo} alt="Unifed" className={classes.logo}></img>
+                <div className={classes.logoText}>Unifed</div>
+              </div>
+            </Grid>
+            <Grid item container xs={vertical ? 10 : 6} direction="column" justify="center">
+              {props.children}
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </div>
   );
 };
 
