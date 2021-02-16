@@ -2,9 +2,9 @@
  * CS3099 Group A3
  */
 
-import React, { ReactElement, useContext } from "react";
+import React, { ReactElement, useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { AppBar, Box, Toolbar, IconButton } from "@material-ui/core";
+import { AppBar, Box, IconButton, Toolbar, Tooltip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -13,6 +13,13 @@ import logo from "../../assets/unifed.svg";
 import UserIcon from "../../components/UserIcon";
 import { IconButtonLink } from "../../components/Links";
 import SearchInput from "./SearchInput";
+import Brightness3Icon from "@material-ui/icons/Brightness3";
+import Brightness7Icon from "@material-ui/icons/Brightness7";
+
+interface Props {
+  onThemeChange: (darkMode: boolean) => void;
+  darkMode: boolean;
+}
 
 const logoHeight = 2.5;
 
@@ -32,7 +39,9 @@ const useStyles = makeStyles({
   },
 });
 
-const Header = (): ReactElement | null => {
+const Header = (props: Props): ReactElement | null => {
+  const [darkMode, setDarkMode] = useState(props.darkMode);
+
   const user = useContext(UserContext);
   const classes = useStyles();
 
@@ -51,6 +60,21 @@ const Header = (): ReactElement | null => {
         <div className={classes.searchContainer}>
           <SearchInput />
         </div>
+
+        <Tooltip title="Dark Mode">
+          <IconButton
+            onClick={() => {
+              setDarkMode(!darkMode);
+              props.onThemeChange(!darkMode);
+            }}
+          >
+            {props.darkMode ? (
+              <Brightness7Icon style={{ color: "white" }} />
+            ) : (
+              <Brightness3Icon style={{ color: "white" }} />
+            )}
+          </IconButton>
+        </Tooltip>
 
         <IconButtonLink to={"/user/" + user.details.username}>
           <UserIcon username={user.details.username} small />

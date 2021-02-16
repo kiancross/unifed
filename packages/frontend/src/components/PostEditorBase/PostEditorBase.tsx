@@ -47,13 +47,25 @@ const PostEditorBase = (props: Props): JSX.Element => {
             <MarkdownEditor
               onChange={({ text }) => field.onChange(field.name)(text)}
               value={field.value}
-              style={{ height: props.isComment ? "170px" : "400px" }}
+              style={{
+                height: props.isComment ? "170px" : "400px",
+                border: 0,
+              }}
             />
           )}
         </Field>
 
-        <ButtonGroup fullWidth style={{ marginTop: "8px" }}>
-          {props.onCancel ? <Button onClick={props.onCancel}>Cancel</Button> : null}
+        <ButtonGroup fullWidth style={{ marginBottom: "8px", marginTop: "8px" }}>
+          {props.onCancel ? (
+            <Button
+              style={{ marginRight: "8px" }}
+              variant="contained"
+              color="primary"
+              onClick={props.onCancel}
+            >
+              Cancel
+            </Button>
+          ) : null}
           <Button variant="contained" color="primary" type="submit">
             {props.submitButtonText}
           </Button>
