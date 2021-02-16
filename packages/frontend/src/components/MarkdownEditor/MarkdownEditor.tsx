@@ -25,10 +25,8 @@ const MarkdownEditor = (props: MarkdownEditorProps): ReactElement => {
 
   const styleSettings = `         
   .rc-md-editor, .rc-md-editor * {                            
-    background-color:
-    ${theme.secondary.main} !important;      
-    color: 
-    ${theme.text.primary} !important; 
+    background-color: ${theme.secondary.main} !important;      
+    color: ${theme.text.primary} !important; 
   },
   `;
   return (
