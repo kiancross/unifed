@@ -4,12 +4,12 @@
 
 import React from "react";
 import { ButtonLink } from "../../components/Links";
-import NonAuthenticatedTemplate from "../../components/NonAuthenticatedTemplate";
+import LogoTemplate from "../../components/LogoTemplate";
 import PasswordResetCard from "./PasswordResetCard";
 
 const PasswordResetPage = (): JSX.Element => {
   return (
-    <NonAuthenticatedTemplate>
+    <LogoTemplate>
       <PasswordResetCard />
       <ButtonLink
         to="/login"
@@ -20,7 +20,7 @@ const PasswordResetPage = (): JSX.Element => {
       >
         Return To Login
       </ButtonLink>
-    </NonAuthenticatedTemplate>
+    </LogoTemplate>
   );
 };
 

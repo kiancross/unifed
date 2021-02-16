@@ -4,12 +4,12 @@
 
 import React from "react";
 import { ButtonLink } from "../../components/Links";
-import NonAuthenticatedTemplate from "../../components/NonAuthenticatedTemplate";
+import LogoTemplate from "../../components/LogoTemplate";
 import RegistrationCard from "./RegistrationCard";
 
 const RegistrationPage = (): JSX.Element => {
   return (
-    <NonAuthenticatedTemplate>
+    <LogoTemplate>
       <RegistrationCard />
       <ButtonLink
         to="/login"
@@ -20,7 +20,7 @@ const RegistrationPage = (): JSX.Element => {
       >
         Already a user? Login
       </ButtonLink>
-    </NonAuthenticatedTemplate>
+    </LogoTemplate>
   );
 };
 

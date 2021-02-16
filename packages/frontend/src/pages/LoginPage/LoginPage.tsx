@@ -5,11 +5,11 @@
 import React from "react";
 import LoginCard from "./LoginCard";
 import { ButtonLink } from "../../components/Links";
-import NonAuthenticatedTemplate from "../../components/NonAuthenticatedTemplate";
+import LogoTemplate from "../../components/LogoTemplate";
 
 const LoginPage = (): JSX.Element => {
   return (
-    <NonAuthenticatedTemplate>
+    <LogoTemplate>
       <LoginCard />
       <ButtonLink
         to="/register"
@@ -20,7 +20,7 @@ const LoginPage = (): JSX.Element => {
       >
         Register an account
       </ButtonLink>
-    </NonAuthenticatedTemplate>
+    </LogoTemplate>
   );
 };
 
