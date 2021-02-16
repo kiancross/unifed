@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Comment = (props: PostValues): JSX.Element => {
-  const theme = useTheme().palette;
+  const theme = useTheme();
   const classes = useStyles();
 
   const [editorOpen, setEditorOpen] = useState(false);
@@ -52,7 +52,7 @@ const Comment = (props: PostValues): JSX.Element => {
   ) : (
     <Grid item container direction="row-reverse" spacing={2} className={classes.grid}>
       <Grid item xs={props.grids} container direction="column">
-        <Box borderLeft={4} borderColor={theme.primary.main}>
+        <Box borderLeft={4} borderColor={theme.palette.primary.main}>
           <Card elevation={1} square className={classes.header}>
             <PostHeader
               onToggleEdit={() => setEditorOpen(true)}
