@@ -3,18 +3,32 @@
  */
 
 import React from "react";
-import { Card, CardContent, CardHeader, Divider, Grid, Typography } from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+  Grid,
+  Typography,
+  makeStyles,
+} from "@material-ui/core";
 
 interface Props {
   desc: string;
 }
 
+const useStyles = makeStyles((theme) => ({
+  card: {
+    background: theme.palette.secondary.main,
+  },
+}));
+
 const CommunityDescription = (props: Props): JSX.Element => {
-  const theme = useTheme();
+  const classes = useStyles();
+
   return (
     <Grid item>
-      <Card style={{ background: theme.palette.secondary.main }}>
+      <Card className={classes.card}>
         <CardHeader subheader="About" />
         <Divider />
         <Grid container>
