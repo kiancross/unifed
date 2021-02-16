@@ -28,12 +28,7 @@ const UserInfoCard = (props: Props): ReactElement => {
     <Grid item>
       <Card className={classes.card}>
         <CardActionArea to={"/user/" + props.username} component={RouterLink}>
-          <CardHeader
-            data-testid="user-info-card-header"
-            avatar={userIcon}
-            title={props.name}
-            subheader={props.username}
-          />
+          <CardHeader avatar={userIcon} title={props.name} subheader={props.username} />
         </CardActionArea>
       </Card>
     </Grid>

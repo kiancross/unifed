@@ -3,6 +3,7 @@
  */
 
 import React from "react";
+import { BrowserRouter } from "react-router-dom";
 import { render } from "@testing-library/react";
 import ErrorBoundary from "./ErrorBoundary";
 
@@ -16,9 +17,11 @@ const TriggerError = (props: { error: boolean }): JSX.Element => {
 
 test("Error boundary", () => {
   const { queryByText, getByText, rerender } = render(
-    <ErrorBoundary>
-      <TriggerError error={false} />
-    </ErrorBoundary>,
+    <BrowserRouter>
+      <ErrorBoundary>
+        <TriggerError error={false} />
+      </ErrorBoundary>
+    </BrowserRouter>,
   );
 
   expect(queryByText(/Something went wrong/)).toBeNull();
@@ -29,9 +32,11 @@ test("Error boundary", () => {
   console.error = jest.fn();
 
   rerender(
-    <ErrorBoundary>
-      <TriggerError error={true} />
-    </ErrorBoundary>,
+    <BrowserRouter>
+      <ErrorBoundary>
+        <TriggerError error={true} />
+      </ErrorBoundary>
+    </BrowserRouter>,
   );
 
   getByText(/Something went wrong/);

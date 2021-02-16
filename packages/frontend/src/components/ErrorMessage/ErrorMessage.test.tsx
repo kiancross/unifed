@@ -3,12 +3,17 @@
  */
 
 import { render } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import React from "react";
 import ErrorMessage from "./ErrorMessage";
 
 test("Renders Error Message", () => {
   const message = "Test Message";
-  const { getByText } = render(<ErrorMessage message={message} />);
+  const { getByText } = render(
+    <BrowserRouter>
+      <ErrorMessage message={message} />
+    </BrowserRouter>,
+  );
 
   getByText("Test Message");
 });
