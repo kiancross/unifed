@@ -3,14 +3,15 @@
  */
 
 import React, { ReactElement } from "react";
-import { Box, Container, Paper, Link } from "@material-ui/core";
+import { Box, Container, Paper } from "@material-ui/core";
+import { Link } from "../Links";
 
 const Footer = (): ReactElement => {
   return (
     <Box paddingTop="3rem">
       <Paper elevation={0} style={{ textAlign: "left", padding: "1.5rem" }}>
         <Container maxWidth="lg">
-          <Link href="/privacy-notice">Privacy Notice</Link>
+          <Link to="/privacy-notice">Privacy Notice</Link>
         </Container>
       </Paper>
     </Box>
