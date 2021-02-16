@@ -6,7 +6,16 @@ import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { passwordClient } from "../../helpers/accounts";
 import { validateUsername, validateName, validateEmail, validatePassword } from "@unifed/shared";
-import { Button, Card, CardContent, TextField, Snackbar } from "@material-ui/core";
+import {
+  Button,
+  Card,
+  Link,
+  CardContent,
+  TextField,
+  Snackbar,
+  Checkbox,
+  FormControlLabel,
+} from "@material-ui/core";
 import { Redirect } from "react-router";
 import { Alert } from "@material-ui/lab";
 
@@ -84,7 +93,6 @@ const RegistrationCard = (): JSX.Element => {
                     color="primary"
                     helperText={errors.username}
                     error={!!errors.username}
-                    data-testid="username"
                   />
                 </div>
                 <div>
@@ -99,7 +107,6 @@ const RegistrationCard = (): JSX.Element => {
                     color="primary"
                     helperText={errors.name}
                     error={!!errors.name}
-                    data-testid="name"
                   />
                 </div>
                 <div>
@@ -114,7 +121,6 @@ const RegistrationCard = (): JSX.Element => {
                     color="primary"
                     helperText={errors.email}
                     error={!!errors.email}
-                    data-testid="email"
                   />
                 </div>
                 <div>
@@ -130,16 +136,25 @@ const RegistrationCard = (): JSX.Element => {
                     color="primary"
                     helperText={errors.password}
                     error={!!errors.password}
-                    data-testid="password"
                   />
                 </div>
+                <FormControlLabel
+                  control={<Checkbox color="primary" required />}
+                  label={
+                    <span>
+                      I have read the{" "}
+                      <Link href="/privacy-notice" target="blank">
+                        privacy notice
+                      </Link>
+                    </span>
+                  }
+                />
                 <Button
                   type="submit"
                   variant="contained"
                   color="primary"
                   style={{ margin: "1rem 0rem" }}
                   fullWidth
-                  data-testid="submit"
                 >
                   Create Account
                 </Button>
