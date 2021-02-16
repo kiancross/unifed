@@ -3,11 +3,14 @@
  */
 
 import React, { ReactElement, useContext, useState } from "react";
-import { Box, CssBaseline } from "@material-ui/core";
+import {
+  Box,
+  CssBaseline,
+  unstable_createMuiStrictModeTheme as createMuiTheme,
+} from "@material-ui/core";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
-import { standardTheme, darkTheme } from "../../helpers/themes";
-import { unstable_createMuiStrictModeTheme as createMuiTheme } from "@material-ui/core";
+import { lightTheme, darkTheme } from "../../helpers/themes";
 import { UserContext } from "../../contexts/user";
 import Header from "../../components/Header";
 import CenteredLoader from "../../components/CenteredLoader";
@@ -38,7 +41,7 @@ const App = (): ReactElement => {
     setDarkMode(!darkMode);
   }
 
-  const theme = createMuiTheme(darkMode ? darkTheme : standardTheme);
+  const theme = createMuiTheme(darkMode ? darkTheme : lightTheme);
 
   const loggedIn = !!user.details;
   const redirectHome = <Redirect to="/instances/this/communities/all/posts" />;
