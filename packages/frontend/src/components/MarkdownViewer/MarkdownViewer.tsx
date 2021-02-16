@@ -29,10 +29,18 @@ const renderers = {
     return <SyntaxHighlighter language={language}>{value}</SyntaxHighlighter>;
   },
   paragraph({ children }: { children: ReactElement }) {
-    return <Typography variant="body1">{children}</Typography>;
+    return (
+      <Typography color="textPrimary" variant="body1">
+        {children}
+      </Typography>
+    );
   },
   heading({ children, level }: { children: ReactElement; level: number }) {
-    return <Typography variant={`h${level}` as TypographyVariant}>{children}</Typography>;
+    return (
+      <Typography color="textPrimary" variant={`h${level}` as TypographyVariant}>
+        {children}
+      </Typography>
+    );
   },
 };
 

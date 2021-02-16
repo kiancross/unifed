@@ -102,14 +102,20 @@ const PostHeader = (props: Props): JSX.Element => {
     ) : null;
 
   const headerTitle = props.isComment ? (
-    <Typography variant="body2">
-      <Link href={"/user/" + props.username}>{props.username}</Link>
+    <Typography variant="body2" gutterBottom>
+      <Link href={"/user/" + props.username} color="inherit">
+        {props.username}
+      </Link>
       &nbsp; &#8212; &nbsp;
-      <Link href={props.id}>View Replies</Link>
+      <Link color="inherit" href={props.id}>
+        View Replies
+      </Link>
     </Typography>
   ) : (
     <Typography variant="body2">
-      <Link href={"/user/" + props.username}>{props.username}</Link>
+      <Link color="inherit" href={"/user/" + props.username}>
+        {props.username}
+      </Link>
     </Typography>
   );
 
