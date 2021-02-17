@@ -4,6 +4,10 @@
 
 import {
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   IconButton,
   List,
   ListItem,
@@ -13,9 +17,10 @@ import {
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import React from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import { gql, useMutation } from "@apollo/client";
+import { UserContext } from "../../contexts/user";
 
 interface ProfileTabParams {
   name: string;
@@ -29,7 +34,7 @@ const useStyles = makeStyles({
   },
 });
 
-const CHANGE_NAME = gql`
+export const CHANGE_NAME = gql`
   mutation UpdateUserProfile($name: String!) {
     updateUserProfile(profile: { name: $name })
   }
@@ -37,6 +42,7 @@ const CHANGE_NAME = gql`
 
 const ProfileTab = (props: ProfileTabParams): JSX.Element => {
   const [nameOpen, setNameOpen] = React.useState(false);
+  const user = useContext(UserContext);
 
   const handleNameClickOpen = () => {
     setNameOpen(!nameOpen);
@@ -44,7 +50,7 @@ const ProfileTab = (props: ProfileTabParams): JSX.Element => {
 
   const [changeName, { data }] = useMutation(CHANGE_NAME);
 
-  if (data) window.location.reload();
+  if (data?.updateUserProfile) user.refetch();
 
   const NameChangeForm = (): JSX.Element => {
     const formik = useFormik({
@@ -53,19 +59,32 @@ const ProfileTab = (props: ProfileTabParams): JSX.Element => {
       },
       onSubmit: (values) => {
         changeName({ variables: { name: values.name } });
+        handleNameClickOpen();
       },
     });
     return (
-      <form onSubmit={formik.handleSubmit}>
-        <TextField
-          name="name"
-          label="New Name"
-          required
-          inputProps={{ "data-testid": "name" }}
-          onChange={formik.handleChange}
-          value={formik.values.name}
-        />
-        <Button type="submit">Update</Button>
+      <form id="name-form" onSubmit={formik.handleSubmit}>
+        <Dialog open={nameOpen} onClose={handleNameClickOpen}>
+          <DialogTitle>Change Name</DialogTitle>
+          <DialogContent dividers>
+            <TextField
+              name="name"
+              label="New Name"
+              required
+              fullWidth
+              variant="outlined"
+              margin="dense"
+              inputProps={{ "data-testid": "change-name-input", form: "name-form" }}
+              onChange={formik.handleChange}
+              value={formik.values.name}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button data-testid="change-name-submit" form="name-form" color="primary" type="submit">
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
       </form>
     );
   };
@@ -77,7 +96,7 @@ const ProfileTab = (props: ProfileTabParams): JSX.Element => {
         <ListItemText primary={props.name} secondary="Name" />
         <ListItemSecondaryAction>
           <IconButton
-            id="change-name-button"
+            data-testid="change-name-button"
             onClick={handleNameClickOpen}
             color="primary"
             edge="end"

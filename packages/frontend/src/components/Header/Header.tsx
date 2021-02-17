@@ -6,15 +6,12 @@ import React, { ReactElement, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Box, IconButton, Toolbar, Tooltip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import SettingsIcon from "@material-ui/icons/Settings";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { UserContext } from "../../contexts/user";
 import logo from "../../assets/unifed.svg";
-import UserIcon from "../../components/UserIcon";
-import { IconButtonLink } from "../../components/Links";
 import SearchInput from "./SearchInput";
 import Brightness3Icon from "@material-ui/icons/Brightness3";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
+import AccountMenu from "./AccountMenu";
 
 interface Props {
   onThemeChange: (darkMode: boolean) => void;
@@ -75,16 +72,7 @@ const Header = (props: Props): ReactElement | null => {
             )}
           </IconButton>
         </Tooltip>
-
-        <IconButtonLink to={"/user/" + user.details.username}>
-          <UserIcon username={user.details.username} small />
-        </IconButtonLink>
-        <IconButtonLink to="/account" color="inherit">
-          <SettingsIcon />
-        </IconButtonLink>
-        <IconButton onClick={user.logout} color="inherit">
-          <ExitToAppIcon />
-        </IconButton>
+        <AccountMenu />
       </Toolbar>
     </AppBar>
   );
