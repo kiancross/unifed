@@ -6,43 +6,15 @@ import { plainToClass } from "class-transformer";
 import { json as jsonBodyParser } from "express";
 import { AsyncRouter } from "express-async-router";
 import { Post, PostModel } from "@unifed/backend-core";
-import { ResponseError } from "./response-error";
-import { getCommunityOrThrow } from "./database-helpers";
-
-class ParamError extends ResponseError {
-  constructor(value: unknown, name: string, message?: string) {
-    let error = `${name}: Invalid value '${value}'`;
-    if (message) {
-      error += ` (${message})`;
-    }
-    super(400, error);
-  }
-}
+import { getCommunityOrThrow, processParam, ParamError } from "./helpers";
 
 const router = AsyncRouter();
 
 router.use(jsonBodyParser());
 
 router.get("/", async (req, res) => {
-  const processParam = async <T>(
-    name: string,
-    processor: (value: string, name: string) => Promise<T | undefined> | T | undefined,
-  ): Promise<T | undefined> => {
-    const value = req.query[name];
-
-    if (value) {
-      if (typeof value === "string") {
-        return await processor(value, name);
-      } else {
-        throw new ParamError(value, name);
-      }
-    } else {
-      return undefined;
-    }
-  };
-
   const limit =
-    (await processParam("limit", (value, name) => {
+    (await processParam(req.query, "limit", (value, name) => {
       const limit = Number(value);
 
       if (isNaN(limit) || limit <= 0) {
@@ -53,7 +25,7 @@ router.get("/", async (req, res) => {
     })) || 0;
 
   const minDate =
-    (await processParam("minDate", (value, name) => {
+    (await processParam(req.query, "minDate", (value, name) => {
       const minDate = Number(value);
 
       if (isNaN(minDate) || minDate < 0) {
@@ -63,13 +35,13 @@ router.get("/", async (req, res) => {
       return new Date(minDate * 1000);
     })) || new Date(0);
 
-  const community = await processParam("community", async (value) => {
+  const community = await processParam(req.query, "community", async (value) => {
     await getCommunityOrThrow(value, 400);
     return value;
   });
 
-  const author = await processParam("author", async (value) => value);
-  const host = await processParam("host", async (value) => value);
+  const author = await processParam(req.query, "author", async (value) => value);
+  const host = await processParam(req.query, "host", async (value) => value);
 
   // TODO parentPost and contentType
 

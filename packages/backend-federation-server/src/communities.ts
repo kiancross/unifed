@@ -5,7 +5,7 @@
 import { AsyncRouter } from "express-async-router";
 import { isDocumentArray } from "@typegoose/typegoose";
 import { CommunityModel, Post } from "@unifed/backend-core";
-import { getCommunityOrThrow } from "./database-helpers";
+import { getCommunityOrThrow } from "./helpers";
 import { ResponseError } from "./response-error";
 
 const router = AsyncRouter();

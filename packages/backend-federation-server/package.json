@@ -29,6 +29,7 @@
     "@typegoose/typegoose": "^7.4.8",
     "@unifed/backend-core": "workspace:packages/backend-core",
     "class-transformer": "^0.3.2",
+    "escape-string-regexp": "^4.0.0",
     "express": "^4.17.1",
     "express-async-router": "^0.1.15",
     "mongoose": "5.10.18"
