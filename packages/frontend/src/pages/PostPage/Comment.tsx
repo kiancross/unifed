@@ -18,12 +18,13 @@ interface PostValues {
   host: string;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   grid: {
     padding: "4px 0px",
   },
   header: {
     textAlign: "left",
+    background: theme.palette.secondary.main,
   },
   body: {
     marginBottom: "14px",
@@ -31,7 +32,7 @@ const useStyles = makeStyles({
     paddingBottom: 0,
     paddingTop: 0,
   },
-});
+}));
 
 const Comment = (props: PostValues): JSX.Element => {
   const theme = useTheme();
@@ -49,7 +50,7 @@ const Comment = (props: PostValues): JSX.Element => {
       onCancel={() => setEditorOpen(false)}
     />
   ) : (
-    <Grid item container direction="row-reverse" className={classes.grid}>
+    <Grid item container direction="row-reverse" spacing={2} className={classes.grid}>
       <Grid item xs={props.grids} container direction="column">
         <Box borderLeft={4} borderColor={theme.palette.primary.main}>
           <Card elevation={1} square className={classes.header}>

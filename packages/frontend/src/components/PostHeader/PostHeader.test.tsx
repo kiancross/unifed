@@ -56,11 +56,13 @@ test("Action menu does not render with invalid user", async () => {
   userContext.details = { ...userContext.details, username: "invalid" };
 
   const { getByText, queryByTestId } = render(
-    <UserContext.Provider value={userContext}>
-      <MockedProvider mocks={[deletePostMock]} addTypename={false}>
-        <PostHeader username={username} id={id} server={host} onToggleEdit={() => void 0} />
-      </MockedProvider>
-    </UserContext.Provider>,
+    <BrowserRouter>
+      <UserContext.Provider value={userContext}>
+        <MockedProvider mocks={[deletePostMock]} addTypename={false}>
+          <PostHeader username={username} id={id} server={host} onToggleEdit={() => void 0} />
+        </MockedProvider>
+      </UserContext.Provider>
+    </BrowserRouter>,
   );
 
   expect(queryByTestId("icon-button")).toBeNull();
@@ -72,17 +74,19 @@ test("Comment deletes", async () => {
   userContext.details = { ...userContext.details, username };
 
   const { getByText, getByTestId } = render(
-    <UserContext.Provider value={userContext}>
-      <MockedProvider mocks={[deletePostMock]} addTypename={false}>
-        <PostHeader
-          isComment
-          username={username}
-          id={id}
-          server={host}
-          onToggleEdit={() => void 0}
-        />
-      </MockedProvider>
-    </UserContext.Provider>,
+    <BrowserRouter>
+      <UserContext.Provider value={userContext}>
+        <MockedProvider mocks={[deletePostMock]} addTypename={false}>
+          <PostHeader
+            isComment
+            username={username}
+            id={id}
+            server={host}
+            onToggleEdit={() => void 0}
+          />
+        </MockedProvider>
+      </UserContext.Provider>
+    </BrowserRouter>,
   );
 
   getByText(username);
@@ -98,17 +102,19 @@ test("Preview deletes", async () => {
   userContext.details = { ...userContext.details, username };
 
   const { getByText, getByTestId } = render(
-    <UserContext.Provider value={userContext}>
-      <MockedProvider mocks={[deletePostMock]} addTypename={false}>
-        <PostHeader
-          isPreview
-          username={username}
-          id={id}
-          server={host}
-          onToggleEdit={() => void 0}
-        />
-      </MockedProvider>
-    </UserContext.Provider>,
+    <BrowserRouter>
+      <UserContext.Provider value={userContext}>
+        <MockedProvider mocks={[deletePostMock]} addTypename={false}>
+          <PostHeader
+            isPreview
+            username={username}
+            id={id}
+            server={host}
+            onToggleEdit={() => void 0}
+          />
+        </MockedProvider>
+      </UserContext.Provider>
+    </BrowserRouter>,
   );
 
   getByText(username);

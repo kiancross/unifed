@@ -5,7 +5,7 @@ exports[`Block maths 1`] = `
   className="custom-html-style"
 >
   <p
-    className="MuiTypography-root MuiTypography-body1"
+    className="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextPrimary"
   >
     This is some maths:
   </p>
@@ -32,7 +32,7 @@ exports[`Inline maths 1`] = `
   className="custom-html-style"
 >
   <p
-    className="MuiTypography-root MuiTypography-body1"
+    className="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextPrimary"
   >
     This is some inline maths: 
     <span
@@ -269,12 +269,12 @@ exports[`Standard markdown 1`] = `
   className="custom-html-style"
 >
   <h1
-    className="MuiTypography-root MuiTypography-h1"
+    className="MuiTypography-root MuiTypography-h1 MuiTypography-colorTextPrimary"
   >
     This is a title
   </h1>
   <p
-    className="MuiTypography-root MuiTypography-body1"
+    className="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextPrimary"
   >
     Here is some 
     <strong>
@@ -283,7 +283,7 @@ exports[`Standard markdown 1`] = `
     .
   </p>
   <p
-    className="MuiTypography-root MuiTypography-body1"
+    className="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextPrimary"
   >
     <em>
       Italics
@@ -297,7 +297,7 @@ exports[`Standard text 1`] = `
   className="custom-html-style"
 >
   <p
-    className="MuiTypography-root MuiTypography-body1"
+    className="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextPrimary"
   >
     Foo Bar
   </p>

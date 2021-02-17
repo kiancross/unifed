@@ -3,24 +3,24 @@
  */
 
 import React from "react";
-import { Button } from "@material-ui/core";
 import LoginCard from "./LoginCard";
-import NonAuthenticatedTemplate from "../../components/NonAuthenticatedTemplate";
+import { ButtonLink } from "../../components/Links";
+import LogoTemplate from "../../components/LogoTemplate";
 
 const LoginPage = (): JSX.Element => {
   return (
-    <NonAuthenticatedTemplate>
+    <LogoTemplate>
       <LoginCard />
-      <Button
-        href="/register"
+      <ButtonLink
+        to="/register"
         fullWidth
         color="primary"
         variant="contained"
         style={{ marginTop: "16px" }}
       >
         Register an account
-      </Button>
-    </NonAuthenticatedTemplate>
+      </ButtonLink>
+    </LogoTemplate>
   );
 };
 

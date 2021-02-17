@@ -4,11 +4,12 @@
 
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Container, Grid, Button } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
 import PostPreview from "../../components/PostPreview";
 import CommunityDescription from "./CommunityDescription";
 import CommunityHeader from "./CommunityHeader";
+import { ButtonLink } from "../../components/Links";
 import CenteredLoader from "../../components/CenteredLoader";
 import ErrorMessage from "../../components/ErrorMessage";
 
@@ -89,15 +90,14 @@ const CommunityPostsPage = (): JSX.Element => {
 
           <Grid item container xs={4} direction="column" spacing={2}>
             <Grid item>
-              <Button
+              <ButtonLink
                 fullWidth
                 color="primary"
                 variant="contained"
-                href={`/instances/${server}/communities/${community}/posts/create`}
+                to={`/instances/${server}/communities/${community}/posts/create`}
               >
-                {" "}
-                Make Post{" "}
-              </Button>
+                Make Post
+              </ButtonLink>
             </Grid>
             <CommunityDescription desc={data.getCommunity.description} />
           </Grid>
