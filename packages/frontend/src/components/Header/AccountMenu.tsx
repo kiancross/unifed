@@ -12,6 +12,7 @@ import {
   Paper,
   Popper,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import PersonIcon from "@material-ui/icons/Person";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -70,22 +71,11 @@ const AccountMenu = (): JSX.Element => {
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                  <MenuItem
-                    dense
-                    onClick={() => {
-                      location.href = "/user/" + user.details?.username;
-                    }}
-                  >
+                  <MenuItem component={Link} dense to={"/user/" + user.details?.username}>
                     <PersonIcon style={{ marginRight: "10px" }} fontSize="small" />
                     Profile
                   </MenuItem>
-                  <MenuItem
-                    component={"button"}
-                    dense
-                    onClick={() => {
-                      location.href = "/account";
-                    }}
-                  >
+                  <MenuItem component={Link} dense to={"/account"}>
                     <SettingsIcon style={{ marginRight: "10px" }} fontSize="small" />
                     Settings
                   </MenuItem>

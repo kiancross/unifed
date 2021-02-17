@@ -3,6 +3,7 @@
  */
 
 import React, { ReactElement } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { Card, CardActionArea, CardHeader, Grid, makeStyles } from "@material-ui/core";
 import UserIcon from "../../components/UserIcon";
 
@@ -26,13 +27,8 @@ const UserInfoCard = (props: Props): ReactElement => {
   return (
     <Grid item>
       <Card className={classes.card}>
-        <CardActionArea href={"/user/" + props.username}>
-          <CardHeader
-            data-testid="user-info-card-header"
-            avatar={userIcon}
-            title={props.name}
-            subheader={props.username}
-          />
+        <CardActionArea to={"/user/" + props.username} component={RouterLink}>
+          <CardHeader avatar={userIcon} title={props.name} subheader={props.username} />
         </CardActionArea>
       </Card>
     </Grid>

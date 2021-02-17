@@ -3,6 +3,7 @@
  */
 
 import React from "react";
+import { BrowserRouter } from "react-router-dom";
 import { GraphQLError } from "graphql";
 import PostEditor, { editPostQuery } from "./PostEditor";
 import { render, fireEvent, waitFor, act } from "@testing-library/react";
@@ -29,17 +30,19 @@ test("Edit post", async () => {
   };
 
   const { getByText } = render(
-    <MockedProvider mocks={[editPostMock]} addTypename={false}>
-      <PostEditor
-        server={host}
-        id={id}
-        body={body}
-        title={title}
-        submitButtonText="Save Post"
-        onSuccess={onSuccessMock}
-        onCancel={() => null}
-      />
-    </MockedProvider>,
+    <BrowserRouter>
+      <MockedProvider mocks={[editPostMock]} addTypename={false}>
+        <PostEditor
+          server={host}
+          id={id}
+          body={body}
+          title={title}
+          submitButtonText="Save Post"
+          onSuccess={onSuccessMock}
+          onCancel={() => null}
+        />
+      </MockedProvider>
+    </BrowserRouter>,
   );
 
   fireEvent.click(getByText("Save Post"));
@@ -69,16 +72,18 @@ test("Edit comment", async () => {
   };
 
   const { getByText } = render(
-    <MockedProvider mocks={[editPostMock]} addTypename={false}>
-      <PostEditor
-        server={host}
-        id={id}
-        body={body}
-        submitButtonText="Save Comment"
-        onSuccess={onSuccessMock}
-        onCancel={() => null}
-      />
-    </MockedProvider>,
+    <BrowserRouter>
+      <MockedProvider mocks={[editPostMock]} addTypename={false}>
+        <PostEditor
+          server={host}
+          id={id}
+          body={body}
+          submitButtonText="Save Comment"
+          onSuccess={onSuccessMock}
+          onCancel={() => null}
+        />
+      </MockedProvider>
+    </BrowserRouter>,
   );
 
   fireEvent.click(getByText("Save Comment"));
@@ -106,16 +111,18 @@ test("Edit error", async () => {
   };
 
   const { getByText } = render(
-    <MockedProvider mocks={[editPostMock]} addTypename={false}>
-      <PostEditor
-        server={host}
-        id={id}
-        body={body}
-        submitButtonText="Save Comment"
-        onSuccess={onSuccessMock}
-        onCancel={() => null}
-      />
-    </MockedProvider>,
+    <BrowserRouter>
+      <MockedProvider mocks={[editPostMock]} addTypename={false}>
+        <PostEditor
+          server={host}
+          id={id}
+          body={body}
+          submitButtonText="Save Comment"
+          onSuccess={onSuccessMock}
+          onCancel={() => null}
+        />
+      </MockedProvider>
+    </BrowserRouter>,
   );
 
   act(() => {
@@ -133,16 +140,18 @@ test("Cancel", async () => {
   const onCancelMock = jest.fn();
 
   const { getByText } = render(
-    <MockedProvider mocks={[]}>
-      <PostEditor
-        server="foo"
-        id="bar"
-        body="baz"
-        submitButtonText="Save Comment"
-        onSuccess={() => null}
-        onCancel={onCancelMock}
-      />
-    </MockedProvider>,
+    <BrowserRouter>
+      <MockedProvider mocks={[]}>
+        <PostEditor
+          server="foo"
+          id="bar"
+          body="baz"
+          submitButtonText="Save Comment"
+          onSuccess={() => null}
+          onCancel={onCancelMock}
+        />
+      </MockedProvider>
+    </BrowserRouter>,
   );
 
   act(() => {

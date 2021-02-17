@@ -13,6 +13,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { lightTheme, darkTheme } from "../../helpers/themes";
 import { UserContext } from "../../contexts/user";
 import Header from "../../components/Header";
+import Footer from "./Footer";
 import CenteredLoader from "../../components/CenteredLoader";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import AccountSettingsPage from "../../pages/AccountSettingsPage";
@@ -25,6 +26,7 @@ import PostPage from "../../pages/PostPage";
 import UserProfilePage from "../../pages/UserProfilePage";
 import PasswordResetRequestPage from "../../pages/PasswordResetRequestPage";
 import PasswordResetPage from "../../pages/PasswordResetPage";
+import PrivacyNoticePage from "../../pages/PrivacyNoticePage";
 import ErrorMessage from "../ErrorMessage";
 
 const App = (): ReactElement => {
@@ -54,6 +56,8 @@ const App = (): ReactElement => {
                 <Route exact path="/">
                   {loggedIn ? redirectHome : redirectLogin}
                 </Route>
+
+                <Route exact path="/privacy-notice" component={PrivacyNoticePage} />
 
                 <Route exact path="/login">
                   {loggedIn ? redirectHome : <LoginPage />}
@@ -103,6 +107,7 @@ const App = (): ReactElement => {
                 <Route component={() => <ErrorMessage message="404 Page Not Found" />} />
               </Switch>
             </Box>
+            <Footer />
           </>
         )}
       </ThemeProvider>
