@@ -51,8 +51,6 @@ test.serial("Get timestamps empty", async (t) => {
   const community = generateCommunity();
   await CommunityModel.create(community);
 
-  console.log(community);
-
   const { body } = await request(app)
     .get(`/communities/${community.id}/timestamps`)
     .expect(200)
