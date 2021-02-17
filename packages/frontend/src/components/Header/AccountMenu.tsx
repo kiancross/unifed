@@ -21,7 +21,6 @@ import { UserContext } from "../../contexts/user";
 
 const AccountMenu = (): JSX.Element => {
   const user = React.useContext(UserContext);
-  const { logout } = React.useContext(UserContext);
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
@@ -81,7 +80,7 @@ const AccountMenu = (): JSX.Element => {
                     <SettingsIcon style={{ marginRight: "10px" }} fontSize="small" />
                     Settings
                   </MenuItem>
-                  <MenuItem dense onClick={logout}>
+                  <MenuItem dense onClick={user.logout}>
                     <ExitToAppIcon style={{ marginRight: "10px" }} fontSize="small" />
                     Logout
                   </MenuItem>
