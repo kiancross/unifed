@@ -3,29 +3,19 @@
  */
 
 import { plainToClass } from "class-transformer";
-import { DocumentType } from "@typegoose/typegoose";
-import { Response, Request, NextFunction, json as jsonBodyParser } from "express";
+import { json as jsonBodyParser } from "express";
 import { AsyncRouter } from "express-async-router";
 import { Post, PostModel } from "@unifed/backend-core";
+import { ResponseError } from "./response-error";
+import { getCommunityOrThrow } from "./database-helpers";
 
-interface Locals {
-  post: DocumentType<Post>;
-}
-
-interface CustomResponse extends Response {
-  locals: Locals;
-}
-
-async function getPost(req: Request, res: CustomResponse, next: NextFunction) {
-  const post = await PostModel.findById(req.params.id);
-
-  if (post === null) {
-    res.status(404).json({
-      error: `Post not found: '${req.params.id}'`,
-    });
-  } else {
-    res.locals.post = post;
-    next();
+class ParamError extends ResponseError {
+  constructor(value: unknown, name: string, message?: string) {
+    let error = `${name}: Invalid value '${value}'`;
+    if (message) {
+      error += ` (${message})`;
+    }
+    super(400, error);
   }
 }
 
@@ -34,34 +24,65 @@ const router = AsyncRouter();
 router.use(jsonBodyParser());
 
 router.get("/", async (req, res) => {
-  const limit = typeof req.query.limit === "string" ? Number(req.query.limit) : 0;
-  const minDate = typeof req.query.minDate === "string" ? Number(req.query.minDate) : null;
+  const processParam = async <T>(
+    name: string,
+    processor: (value: string, name: string) => Promise<T | undefined> | T | undefined,
+  ): Promise<T | undefined> => {
+    const value = req.query[name];
 
-  if (isNaN(limit) || limit < 0) {
-    res.status(400).json({ error: "If 'limit' is set it must be a positive number" });
-    return;
-  }
+    if (value) {
+      if (typeof value === "string") {
+        return await processor(value, name);
+      } else {
+        throw new ParamError(value, name);
+      }
+    } else {
+      return undefined;
+    }
+  };
 
-  if (minDate !== null && (isNaN(minDate) || minDate < 0)) {
-    res.status(400).json({ error: "If 'minDate' is set it must be a number (unix timestamp)" });
-    return;
-  }
+  const limit =
+    (await processParam("limit", (value, name) => {
+      const limit = Number(value);
 
-  const filter: any = {};
+      if (isNaN(limit) || limit <= 0) {
+        throw new ParamError(value, name, "must be number greater than 0");
+      }
 
-  if (req.query.community !== undefined) {
-    filter.community = req.query.community;
-  }
+      return limit;
+    })) || 0;
 
-  if (minDate) {
-    filter.createdAt = {
-      $gte: new Date(minDate * 1000).toISOString(),
-    };
-  }
+  const minDate =
+    (await processParam("minDate", (value, name) => {
+      const minDate = Number(value);
+
+      if (isNaN(minDate) || minDate < 0) {
+        throw new ParamError(value, name, "must be number greater than 0 (unix timestamp)");
+      }
+
+      return new Date(minDate * 1000);
+    })) || new Date(0);
+
+  const community = await processParam("community", async (value) => {
+    await getCommunityOrThrow(value, 400);
+    return value;
+  });
+
+  const author = await processParam("author", async (value) => value);
+  const host = await processParam("host", async (value) => value);
+
+  // TODO parentPost and contentType
 
   res.json(
-    await PostModel.find(filter)
-      .limit(limit || 0)
+    await PostModel.find({
+      community,
+      "author.id": author,
+      "author.host": host, // TODO
+      createdAt: {
+        $gte: minDate,
+      },
+    })
+      .limit(limit)
       .populate("children")
       .sort("createdAt"),
   );
@@ -69,7 +90,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const rawPost = req.body;
-  rawPost.author = { id: rawPost.author, host: req.get("client-host") };
+  rawPost.author = { id: req.get("user-id"), host: req.get("client-host") };
 
   const post = plainToClass(Post, rawPost as Post);
 
@@ -78,11 +99,11 @@ router.post("/", async (req, res) => {
   res.json(await PostModel.create(post));
 });
 
-router.get("/:id", getPost, async (_, res) => {
+router.get("/:id", async (_, res) => {
   res.json(await res.locals.post.populate("children").execPopulate());
 });
 
-router.put("/:id", getPost, async (req, res) => {
+router.put("/:id", async (req, res) => {
   // TODO Check user
 
   res.locals.post.title = req.body.title;
@@ -91,7 +112,7 @@ router.put("/:id", getPost, async (req, res) => {
   await res.locals.post.save();
 });
 
-router.delete("/:id", getPost, async (_, res) => {
+router.delete("/:id", async (_, res) => {
   // TODO Check user
   await res.locals.post.deleteOne();
 });
