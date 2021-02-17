@@ -50,8 +50,6 @@ const CommunityPostsPage = (): JSX.Element => {
     return <ErrorMessage message="The posts from this community could not be retrieved." />;
   }
   if (loading) return <CenteredLoader />;
-  console.log(data.getPosts);
-  console.log(data.getPosts.filter((post: any) => post.title));
 
   return (
     <div>
