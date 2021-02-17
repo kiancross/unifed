@@ -32,7 +32,7 @@ test.serial("Get non-existing community", async (t) => {
     .expect(404)
     .expect("Content-Type", /json/);
 
-  t.true(typeof body.error === "string");
+  t.true(typeof body.title === "string");
 });
 
 test.serial("Get existing community", async (t) => {
