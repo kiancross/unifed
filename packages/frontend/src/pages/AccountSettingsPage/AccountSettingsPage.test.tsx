@@ -3,52 +3,95 @@
  */
 
 import React from "react";
-import AccountSettingsPage, { GET_USER } from "./AccountSettingsPage";
+import AccountSettingsPage from "./AccountSettingsPage";
 import { MockedProvider } from "@apollo/client/testing";
 import { fireEvent, render, waitFor } from "@testing-library/react";
+import {
+  UserProvider,
+  UserContext,
+  defaultContext,
+  getUserQuery,
+} from "../../contexts/user/UserContext";
+import ProfileTab, { CHANGE_NAME } from "./ProfileTab";
+import AccountTab from "./AccountTab";
 
-const email = "testemail@test.com";
-const user = "testuser";
-const name = "John Smith";
+const getUserMock = {
+  request: { query: getUserQuery },
+  result: {
+    data: {
+      getUser: { username: "foo", profile: { name: "bar" }, emails: [{ address: "baz" }] },
+    },
+  },
+};
 
 test("Render settings page", async () => {
-  const getUserMock = [
+  const mocks = [getUserMock];
+
+  const { getByText } = render(
+    <MockedProvider mocks={mocks} addTypename={false}>
+      <UserProvider>
+        <AccountSettingsPage />
+      </UserProvider>
+    </MockedProvider>,
+  );
+  await waitFor(() => {
+    fireEvent.click(getByText("ACCOUNT"));
+  });
+  await waitFor(() => {
+    getByText("foo");
+    getByText("baz");
+  });
+  fireEvent.click(getByText("PROFILE"));
+  await waitFor(() => {
+    getByText("bar");
+  });
+});
+
+test("Change name", async () => {
+  const mocks = [
+    getUserMock,
     {
       request: {
-        query: GET_USER,
-        variables: {},
+        query: CHANGE_NAME,
+        variables: { name: "ham" },
       },
       result: {
         data: {
-          getUser: {
-            emails: [
-              {
-                address: email,
-              },
-            ],
-            username: user,
-            profile: {
-              name: name,
-            },
-          },
+          updateUserProfile: true,
         },
       },
     },
   ];
 
-  const { getByText } = render(
-    <MockedProvider mocks={getUserMock} addTypename={false}>
-      <AccountSettingsPage />
-    </MockedProvider>,
-  );
+  const userContext = { ...defaultContext };
+  userContext.details = { ...userContext.details, profile: { name: "foo" } };
+  userContext.refetch = jest.fn();
 
-  // fireEvent.click(getByText("ACCOUNT"));
-  // await waitFor(() => {
-  //   getByText(user);
-  //   getByText(email);
-  // });
-  // fireEvent.click(getByText("PROFILE"));
-  // await waitFor(() => {
-  //   getByText(name);
-  // });
+  const { getByTestId } = render(
+    <UserContext.Provider value={userContext}>
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <ProfileTab name="foo" />
+      </MockedProvider>
+    </UserContext.Provider>,
+  );
+  fireEvent.click(getByTestId("change-name-button"));
+  await waitFor(() => {
+    fireEvent.change(getByTestId("change-name-input"), { target: { value: "ham" } });
+    fireEvent.click(getByTestId("change-name-submit"));
+  });
+  await waitFor(() => {
+    expect(userContext.refetch).toHaveBeenCalledTimes(1);
+  });
+});
+
+test("Change password dialog", async () => {
+  const { getByTestId } = render(<AccountTab username="foo" email="bar" />);
+  fireEvent.click(getByTestId("change-password-button"));
+  await waitFor(() => {
+    getByTestId("old-password");
+    getByTestId("new-password");
+    getByTestId("confirm-password");
+    getByTestId("confirm-password");
+    getByTestId("change-password-submit");
+  });
 });

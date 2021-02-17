@@ -31,10 +31,7 @@ const AccountMenu = (): JSX.Element => {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (event: React.MouseEvent<EventTarget>) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
-      return;
-    }
+  const handleClose = () => {
     setOpen(false);
   };
 
@@ -71,11 +68,16 @@ const AccountMenu = (): JSX.Element => {
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                  <MenuItem component={Link} dense to={"/user/" + user.details?.username}>
+                  <MenuItem
+                    component={Link}
+                    dense
+                    to={"/user/" + user.details?.username}
+                    onClick={handleClose}
+                  >
                     <PersonIcon style={{ marginRight: "10px" }} fontSize="small" />
                     Profile
                   </MenuItem>
-                  <MenuItem component={Link} dense to={"/account"}>
+                  <MenuItem component={Link} dense to={"/account"} onClick={handleClose}>
                     <SettingsIcon style={{ marginRight: "10px" }} fontSize="small" />
                     Settings
                   </MenuItem>

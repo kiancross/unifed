@@ -8,7 +8,7 @@ import AccountTab from "./AccountTab";
 import ProfileTab from "./ProfileTab";
 import { UserContext } from "../../contexts/user";
 
-const AccountSettingsPage = () => {
+const AccountSettingsPage = (): JSX.Element => {
   const [selectedTab, setSelectedTab] = useState(0);
   const user = useContext(UserContext);
   const handleTabChange = (_event: React.ChangeEvent<unknown>, newValue: number): void => {
@@ -16,11 +16,8 @@ const AccountSettingsPage = () => {
   };
   if (!user.details) {
     user.refetch();
-    console.log(user.details);
     return <div />;
   }
-
-  console.log(user.details);
 
   return (
     <Container style={{ paddingTop: "1.5rem" }} maxWidth="sm">

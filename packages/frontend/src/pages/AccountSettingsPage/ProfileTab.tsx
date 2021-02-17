@@ -34,7 +34,7 @@ const useStyles = makeStyles({
   },
 });
 
-const CHANGE_NAME = gql`
+export const CHANGE_NAME = gql`
   mutation UpdateUserProfile($name: String!) {
     updateUserProfile(profile: { name: $name })
   }
@@ -50,7 +50,7 @@ const ProfileTab = (props: ProfileTabParams): JSX.Element => {
 
   const [changeName, { data }] = useMutation(CHANGE_NAME);
 
-  if (data) user.refetch();
+  if (data?.updateUserProfile) user.refetch();
 
   const NameChangeForm = (): JSX.Element => {
     const formik = useFormik({
@@ -74,13 +74,13 @@ const ProfileTab = (props: ProfileTabParams): JSX.Element => {
               fullWidth
               variant="outlined"
               margin="dense"
-              inputProps={{ "data-testid": "name", form: "name-form" }}
+              inputProps={{ "data-testid": "change-name-input", form: "name-form" }}
               onChange={formik.handleChange}
               value={formik.values.name}
             />
           </DialogContent>
           <DialogActions>
-            <Button form="name-form" color="primary" type="submit">
+            <Button data-testid="change-name-submit" form="name-form" color="primary" type="submit">
               Save
             </Button>
           </DialogActions>
@@ -96,7 +96,7 @@ const ProfileTab = (props: ProfileTabParams): JSX.Element => {
         <ListItemText primary={props.name} secondary="Name" />
         <ListItemSecondaryAction>
           <IconButton
-            id="change-name-button"
+            data-testid="change-name-button"
             onClick={handleNameClickOpen}
             color="primary"
             edge="end"

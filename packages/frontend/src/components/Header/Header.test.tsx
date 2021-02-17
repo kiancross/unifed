@@ -4,14 +4,25 @@
 
 import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { UserContext, defaultContext } from "../../contexts/user/UserContext";
 import AccountMenu from "./AccountMenu";
+import { BrowserRouter } from "react-router-dom";
 
-const user = "testuser";
 const menuItems = ["Profile", "Settings", "Logout"];
-const onLogout = jest.fn();
+const username = "foo";
 
 test("Open and close account menu", async () => {
-  render(<AccountMenu username={user} onLogout={onLogout} />);
+  const userContext = { ...defaultContext };
+  userContext.details = { ...userContext.details, username };
+
+  render(
+    <BrowserRouter>
+      <UserContext.Provider value={userContext}>
+        <AccountMenu />
+      </UserContext.Provider>
+    </BrowserRouter>,
+  );
+
   for (let i = 0; i < menuItems.length; i++) {
     expect(screen.queryByText(menuItems[i])).toBeNull();
   }
@@ -30,7 +41,17 @@ test("Open and close account menu", async () => {
 });
 
 test("Close account menu on click away", async () => {
-  render(<AccountMenu username={user} onLogout={onLogout} />);
+  const userContext = { ...defaultContext };
+  userContext.details = { ...userContext.details, username };
+
+  render(
+    <BrowserRouter>
+      <UserContext.Provider value={userContext}>
+        <AccountMenu />
+      </UserContext.Provider>
+    </BrowserRouter>,
+  );
+
   fireEvent.click(screen.getByRole("button"));
   await waitFor(() => {
     expect(screen.queryByText(menuItems[0])).not.toBeNull();
@@ -41,12 +62,23 @@ test("Close account menu on click away", async () => {
   });
 });
 
-test("Test logout function gets called", async () => {
-  const { getByText } = render(<AccountMenu username={user} onLogout={onLogout} />);
+test("Tab pressed on open", async () => {
+  const userContext = { ...defaultContext };
+  userContext.details = { ...userContext.details, username };
+
+  const { getByText } = render(
+    <BrowserRouter>
+      <UserContext.Provider value={userContext}>
+        <AccountMenu />
+      </UserContext.Provider>
+    </BrowserRouter>,
+  );
   fireEvent.click(screen.getByRole("button"));
   await waitFor(() => {
     expect(screen.queryByText(menuItems[0])).not.toBeNull();
   });
-  fireEvent.click(getByText(menuItems[2]));
-  expect(onLogout).toHaveBeenCalledTimes(1);
+  fireEvent.keyDown(getByText(menuItems[0]), { key: "Tab", code: "Tab" });
+  await waitFor(() => {
+    expect(screen.queryByText(menuItems[0])).toBeNull();
+  });
 });

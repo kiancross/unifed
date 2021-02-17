@@ -111,7 +111,7 @@ const AccountTab = (props: AccountTabParams): JSX.Element => {
             />
           </DialogContent>
           <DialogActions>
-            <Button form="pass-change-form" type="submit">
+            <Button data-testid="change-password-submit" form="pass-change-form" type="submit">
               Save
             </Button>
           </DialogActions>
@@ -134,7 +134,7 @@ const AccountTab = (props: AccountTabParams): JSX.Element => {
           <ListItemText primary="********" secondary="Password" />
           <ListItemSecondaryAction>
             <IconButton
-              id="change-password-button"
+              data-testid="change-password-button"
               onClick={handlePassClickOpen}
               color="primary"
               edge="end"
