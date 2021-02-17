@@ -17,9 +17,10 @@ import {
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import React from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import { gql, useMutation } from "@apollo/client";
+import { UserContext } from "../../contexts/user";
 
 interface ProfileTabParams {
   name: string;
@@ -41,6 +42,7 @@ const CHANGE_NAME = gql`
 
 const ProfileTab = (props: ProfileTabParams): JSX.Element => {
   const [nameOpen, setNameOpen] = React.useState(false);
+  const user = useContext(UserContext);
 
   const handleNameClickOpen = () => {
     setNameOpen(!nameOpen);
@@ -48,7 +50,7 @@ const ProfileTab = (props: ProfileTabParams): JSX.Element => {
 
   const [changeName, { data }] = useMutation(CHANGE_NAME);
 
-  if (data) window.location.reload();
+  if (data) user.refetch();
 
   const NameChangeForm = (): JSX.Element => {
     const formik = useFormik({
