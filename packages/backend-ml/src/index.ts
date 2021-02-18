@@ -9,7 +9,7 @@ import { getSentencesTensor } from "./tensor";
 import { Config } from "./config";
 import { constants } from "./constants";
 
-const modelName = "dense";
+const modelName = "twilio-dense";
 const path = `${constants.modelsPath}/${modelName}`;
 
 const config = (async () => {

@@ -11,4 +11,6 @@ export const constants = {
   tokenizerName: "tokenizer.json",
   sentenceLengthsName: "sentence-lengths.dat",
   wordFrequenciesName: "word-frequencies.dat",
+  testingResultsSpamName: "testing-results-spam.dat",
+  testingResultsHamName: "testing-results-ham.dat",
 };
