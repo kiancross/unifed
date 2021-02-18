@@ -6,7 +6,7 @@ import { plainToClass } from "class-transformer";
 import { json as jsonBodyParser } from "express";
 import { AsyncRouter } from "express-async-router";
 import { Post, PostModel } from "@unifed/backend-core";
-import { getCommunityOrThrow, processParam, ParamError } from "./helpers";
+import { getCommunityOrThrow, getPostOrThrow, processParam, ParamError } from "./helpers";
 
 const router = AsyncRouter();
 
@@ -62,7 +62,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const rawPost = req.body;
-  rawPost.author = { id: req.get("user-id"), host: req.get("client-host") };
+  rawPost.author = { id: req.body.author, host: req.get("client-host") };
 
   const post = plainToClass(Post, rawPost as Post);
 
@@ -71,22 +71,28 @@ router.post("/", async (req, res) => {
   res.json(await PostModel.create(post));
 });
 
-router.get("/:id", async (_, res) => {
-  res.json(await res.locals.post.populate("children").execPopulate());
+router.get("/:id", async (req, res) => {
+  const post = await getPostOrThrow(req.params.id, 404);
+  res.json(await post.populate("children").execPopulate());
 });
 
-router.put("/:id", async (req, res) => {
-  // TODO Check user
+router.put("/:id", async (req) => {
+  const post = await getPostOrThrow(req.params.id, 404);
 
-  res.locals.post.title = req.body.title;
-  res.locals.post.body = req.body.body;
+  // TODO validate
 
-  await res.locals.post.save();
+  post.title = req.body.title;
+  post.body = req.body.body;
+
+  await post.save();
 });
 
-router.delete("/:id", async (_, res) => {
-  // TODO Check user
-  await res.locals.post.deleteOne();
+router.delete("/:id", async (req) => {
+  const post = await getPostOrThrow(req.params.id, 404);
+
+  // TODO validate
+
+  await post.deleteOne();
 });
 
 export { router as routes };
