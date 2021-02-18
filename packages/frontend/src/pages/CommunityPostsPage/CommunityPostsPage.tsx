@@ -8,7 +8,6 @@ import { Container, Grid } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
 import PostPreview from "../../components/PostPreview";
 import CommunityDescription from "./CommunityDescription";
-import CommunityHeader from "./CommunityHeader";
 import { ButtonLink } from "../../components/Links";
 import CenteredLoader from "../../components/CenteredLoader";
 import ErrorMessage from "../../components/ErrorMessage";
@@ -52,8 +51,7 @@ const CommunityPostsPage = (): JSX.Element => {
   if (loading) return <CenteredLoader />;
 
   return (
-    <div>
-      <CommunityHeader title={data.getCommunity.title} server={server} />
+    <div style={{ paddingTop: "15px" }}>
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           <Grid item container xs={8} direction="column" spacing={2}>
@@ -85,7 +83,11 @@ const CommunityPostsPage = (): JSX.Element => {
                 Make Post
               </ButtonLink>
             </Grid>
-            <CommunityDescription desc={data.getCommunity.description} />
+            <CommunityDescription
+              title={data.getCommunity.title}
+              server={server}
+              desc={data.getCommunity.description}
+            />
           </Grid>
         </Grid>
       </Container>
