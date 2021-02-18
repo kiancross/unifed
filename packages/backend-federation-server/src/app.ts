@@ -11,7 +11,7 @@ import { ResponseError } from "./response-error";
 export const app = express();
 
 app.use((req, _, next) => {
-  logger.debug(`Received request: ${req.method} ${req.path}`);
+  logger.debug(`Received request: ${req.method} ${req.path} ${JSON.stringify(req.query)}`);
   next();
 });
 
