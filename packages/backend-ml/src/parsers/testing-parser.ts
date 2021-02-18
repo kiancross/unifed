@@ -4,6 +4,7 @@
 
 import { Parser, InvalidFileError } from "./parser";
 import { Message, readZipFile } from "./helpers";
+import { CsvError } from "csv-parse";
 import parseCsv from "csv-parse/lib/sync";
 
 export class TestingParser extends Parser {
@@ -12,13 +13,31 @@ export class TestingParser extends Parser {
   }
 
   private parseData(data: string): Message[] {
-    const parsedData = parseCsv(data);
-    parsedData.shift();
+    try {
+      const parsedData = parseCsv(data);
+      parsedData.shift();
 
-    return parsedData.map((row: [string, string, string]) => ({
-      body: row[1],
-      spam: row[2] === "1",
-    }));
+      const messages: Message[] = [];
+
+      for (const row of parsedData) {
+        if (row.length !== 3) {
+          throw new InvalidFileError();
+        }
+
+        messages.push({
+          body: row[1],
+          spam: row[2] === "1",
+        });
+      }
+
+      return messages;
+    } catch (error) {
+      if (error instanceof CsvError) {
+        throw new InvalidFileError();
+      } else {
+        throw error;
+      }
+    }
   }
 
   async getMessages(): Promise<Message[]> {
