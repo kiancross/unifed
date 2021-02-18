@@ -12,6 +12,7 @@ import SearchInput from "./SearchInput";
 import Brightness3Icon from "@material-ui/icons/Brightness3";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 import AccountMenu from "./AccountMenu";
+import { isMobile } from "react-device-detect";
 
 interface Props {
   onThemeChange: (darkMode: boolean) => void;
@@ -41,6 +42,7 @@ const Header = (props: Props): ReactElement | null => {
 
   const user = useContext(UserContext);
   const classes = useStyles();
+  const logoText = isMobile ? null : <div className={classes.logoText}>Unifed</div>;
 
   if (!user.details) return null;
 
@@ -52,8 +54,7 @@ const Header = (props: Props): ReactElement | null => {
             <img src={logo} alt="Unifed" className={classes.logo}></img>
           </Link>
         </Box>
-        <div className={classes.logoText}>Unifed</div>
-
+        {logoText}
         <div className={classes.searchContainer}>
           <SearchInput />
         </div>
