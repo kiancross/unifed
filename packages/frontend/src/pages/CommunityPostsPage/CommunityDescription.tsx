@@ -15,6 +15,8 @@ import {
 
 interface Props {
   desc: string;
+  title: string;
+  server: string;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -26,10 +28,12 @@ const useStyles = makeStyles((theme) => ({
 const CommunityDescription = (props: Props): JSX.Element => {
   const classes = useStyles();
 
+  const title = <Typography variant="h6">{props.title}</Typography>;
+
   return (
     <Grid item>
       <Card className={classes.card}>
-        <CardHeader subheader="About" />
+        <CardHeader disableTypography title={title} subheader={props.server} />
         <Divider />
         <Grid container>
           <CardContent>
