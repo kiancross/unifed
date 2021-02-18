@@ -5614,6 +5614,7 @@ __metadata:
     katex: ^0.12.0
     prettier: ^2.2.1
     react: ^17.0.1
+    react-device-detect: ^1.15.0
     react-dom: ^17.0.1
     react-markdown: ^5.0.3
     react-markdown-editor-lite: ^1.2.4
@@ -18789,6 +18790,18 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"react-device-detect@npm:^1.15.0":
+  version: 1.15.0
+  resolution: "react-device-detect@npm:1.15.0"
+  dependencies:
+    ua-parser-js: ^0.7.23
+  peerDependencies:
+    react: ">= 0.14.0 < 18.0.0"
+    react-dom: ">= 0.14.0 < 18.0.0"
+  checksum: 1e271e21823ebe23f52e97cf5e3a2f7a55cf4b1a94f0ad7cc866a988ce8ecaa62302980b8405c22bb2c2dc40934a801bbe7688d8b53b7e80ac772a767f3d0174
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:^17.0.1":
   version: 17.0.1
   resolution: "react-dom@npm:17.0.1"
@@ -21967,6 +21980,13 @@ typescript@^4.1.5:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 58cc7786be0f8485c124944883b1384287532e4867ec37f1fb5cb2811dbc10f7a9decccad89097f924043285f3515bfd8223c61dbb4f88af00b2d8dc2ef73207
+  languageName: node
+  linkType: hard
+
+"ua-parser-js@npm:^0.7.23":
+  version: 0.7.24
+  resolution: "ua-parser-js@npm:0.7.24"
+  checksum: a15aa0e79de2c46941d80f677d79a8f621a45df581692475f2712023de3dca5f0d13adb0f86df0cad182a842e9a788211b65b23d160bb9925623efa6af7bac11
   languageName: node
   linkType: hard
 
