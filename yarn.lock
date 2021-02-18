@@ -5530,6 +5530,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^4.15.1
     "@typescript-eslint/parser": ^4.15.1
     ava: ^3.15.0
+    csv-parse: ^4.15.1
     eslint: ^7.20.0
     eslint-config-prettier: ^7.2.0
     eslint-plugin-prettier: ^3.3.1
@@ -9086,6 +9087,13 @@ __metadata:
   version: 3.0.5
   resolution: "csstype@npm:3.0.5"
   checksum: d15967edea15457961ab1e3f1c4080c83792a595055551a087923b2fb67fffaddaa2eedafe10f665d12dc3f493af03c08322c9410fcd58e3dcf48104de15043c
+  languageName: node
+  linkType: hard
+
+"csv-parse@npm:^4.15.1":
+  version: 4.15.1
+  resolution: "csv-parse@npm:4.15.1"
+  checksum: 2901e61546553d42ed7c07b0f6d38a28cccdb532e67152b01bbeee1ef6cc7a5abd10213f51a7be66cabfe3205f7544e4a640740e5ee8917035946af1a235998e
   languageName: node
   linkType: hard
 

@@ -24,11 +24,13 @@
   },
   "dependencies": {
     "@tensorflow/tfjs-node-gpu": "^3.1.0",
+    "csv-parse": "^4.15.1",
     "mailparser": "^3.1.0",
     "node-stream-zip": "^1.13.1"
   },
   "scripts": {
     "train": "node --max-old-space-size=25600 build/train.js",
+    "test-model": "node build/test-model.js",
     "test": "nyc ava 'src/**/*.test.ts'",
     "build": "tsc",
     "clean": "rm -rf coverage build .nyc_output tsconfig.tsbuildinfo",
