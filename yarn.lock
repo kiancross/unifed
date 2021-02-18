@@ -5601,7 +5601,6 @@ __metadata:
     cross-fetch: ^3.0.6
     eslint: ^7.20.0
     eslint-config-prettier: ^7.2.0
-    eslint-plugin-flowtype: ^5.2.1
     eslint-plugin-graphql: ^4.0.0
     eslint-plugin-import: ^2.22.1
     eslint-plugin-jsx-a11y: ^6.4.1
@@ -10242,18 +10241,6 @@ __metadata:
   peerDependencies:
     eslint: ^7.1.0
   checksum: bf70a9bb38b60deb93b1ab14e2516709de912ea02d05ea531e8e1b3e5d56fa58ba893720081e36bffe498055de49868e7052a09468759592ed35ba253e0e40da
-  languageName: node
-  linkType: hard
-
-"eslint-plugin-flowtype@npm:^5.2.1":
-  version: 5.2.1
-  resolution: "eslint-plugin-flowtype@npm:5.2.1"
-  dependencies:
-    lodash: ^4.17.15
-    string-natural-compare: ^3.0.1
-  peerDependencies:
-    eslint: ^7.1.0
-  checksum: 51926c3ce477e56776945b5370a232165f97664103e3b85ffc6f42671abe27183c99b7cea18dc95864a5267d9794e465f5db99ae4e199ad1e95bbe271ccc5ba0
   languageName: node
   linkType: hard
 
