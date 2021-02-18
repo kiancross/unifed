@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@tensorflow/tfjs-node-gpu": "^3.0.0",
+    "csv-parse": "^4.15.1",
     "mailparser": "^3.0.1",
     "node-stream-zip": "^1.13.0"
   },
