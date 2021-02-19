@@ -21,6 +21,7 @@ import LoginPage from "../../pages/LoginPage";
 import RegistrationPage from "../../pages/RegistrationPage";
 import EmailVerificationPage from "../../pages/EmailVerificationPage";
 import CommunityPostsPage from "../../pages/CommunityPostsPage";
+import CommunityCallPage from "../../pages/CommunityCallPage";
 import CreatePostPage from "../../pages/CreatePostPage";
 import PostPage from "../../pages/PostPage";
 import UserProfilePage from "../../pages/UserProfilePage";
@@ -101,6 +102,14 @@ const App = (): ReactElement => {
                   exact
                   path="/instances/:server/communities/:community/posts/:post"
                   component={PostPage}
+                >
+                  {!loggedIn ? redirectLogin : null}
+                </Route>
+
+                <Route
+                  exact
+                  path="/instances/:server/communities/:community/call"
+                  component={CommunityCallPage}
                 >
                   {!loggedIn ? redirectLogin : null}
                 </Route>
