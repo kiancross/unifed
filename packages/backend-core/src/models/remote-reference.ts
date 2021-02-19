@@ -10,11 +10,6 @@ import { config } from "../config";
 
 @ObjectType()
 export class RemoteReference {
-  constructor(id: string, host: string) {
-    this.id = id;
-    this.host = host;
-  }
-
   @IsNotEmpty()
   @IsString()
   @Field()
