@@ -7,9 +7,10 @@ import { Redirect } from "react-router";
 import { CardHeader, IconButton, Menu, MenuItem, Typography, Link } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { gql, useMutation } from "@apollo/client";
+import { UserContext } from "../../contexts/user";
 import CenteredLoader from "../CenteredLoader";
 import ErrorMessage from "../ErrorMessage";
-import UserContext from "../UserContext";
+import styles from "./PostHeader.module.scss";
 
 interface PropsTypes {
   username: string;
@@ -29,7 +30,7 @@ export const DELETE_POST = gql`
 
 const PostHeader = (props: PropsTypes): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
-  const loggedInUser = useContext(UserContext);
+  const user = useContext(UserContext);
 
   const [deletePost, { loading, data, error }] = useMutation(DELETE_POST);
 
@@ -62,8 +63,9 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
   };
 
   const headerAction =
-    loggedInUser === props.username && props.server === "this" ? (
-      <div>
+    user.details?.username === props.username &&
+    props.server === process.env.REACT_APP_INTERNAL_REFERENCE ? (
+      <React.Fragment>
         <IconButton
           data-testid="icon-button"
           color="inherit"
@@ -73,15 +75,29 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
         >
           <MoreHorizIcon />
         </IconButton>
-        <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+        <Menu
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          anchorEl={anchorEl}
+          getContentAnchorEl={null}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
           <MenuItem onClick={handleEdit}> Edit </MenuItem>
           <MenuItem onClick={handleDelete}> Delete </MenuItem>
         </Menu>
-      </div>
+      </React.Fragment>
     ) : null;
 
   const headerTitle = props.isComment ? (
-    <Typography variant="body2" gutterBottom>
+    <Typography variant="body2">
       <Link href={"/user/" + props.username}>{props.username}</Link>
       &nbsp; &#8212; &nbsp;
       <Link href={props.id}>View Replies</Link>
@@ -92,7 +108,13 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
     </Typography>
   );
 
-  return <CardHeader action={headerAction} title={headerTitle} />;
+  return (
+    <CardHeader
+      className={props.isComment ? styles.commentHeader : ""}
+      action={headerAction}
+      title={headerTitle}
+    />
+  );
 };
 
 export default PostHeader;

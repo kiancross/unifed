@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "composite": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "target": "es2018",
@@ -22,5 +23,8 @@
     "rootDir": "src",
     "outDir": "build"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "references": [
+    { "path": "../backend-core" }
+  ]
 }

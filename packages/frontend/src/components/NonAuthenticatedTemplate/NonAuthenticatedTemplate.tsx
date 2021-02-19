@@ -4,7 +4,7 @@
 
 import React from "react";
 import { Container, Grid } from "@material-ui/core";
-import logo from "assets/unifed.svg";
+import logo from "../../assets/unifed.svg";
 import styles from "./NonAuthenticatedTemplate.module.scss";
 
 interface NonAuthenticatedTemplateProps {

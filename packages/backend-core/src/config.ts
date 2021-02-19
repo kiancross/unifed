@@ -65,6 +65,10 @@ class Config {
     return throwIfUndefined(process.env.UNIFED_JWT_SECRET);
   }
 
+  static get internalReference(): string {
+    return throwIfUndefined(process.env.UNIFED_INTERNAL_REFERENCE);
+  }
+
   static get siteHost(): string {
     return throwIfUndefined(process.env.UNIFED_SITE_HOST);
   }

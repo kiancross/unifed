@@ -63,7 +63,6 @@ test("External addressable host", async (t) => {
 });
 
 test("Local addressable host", async (t) => {
-  process.env.UNIFED_FEDERATION_HOST = "proxy:80";
   t.is(getAddressableHost("this"), "proxy:80");
 });
 

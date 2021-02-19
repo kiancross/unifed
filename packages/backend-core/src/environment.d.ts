@@ -15,6 +15,7 @@ declare global {
       UNIFED_MONGO_USERNAME?: string;
       UNIFED_MONGO_PASSWORD?: string;
       UNIFED_JWT_SECRET?: string;
+      UNIFED_INTERNEL_REFERENCE?: string;
       UNIFED_SITE_HOST?: string;
       UNIFED_SITE_PROTOCOL?: string;
       UNIFED_APPLICATION_NAME?: string;

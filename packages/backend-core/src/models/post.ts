@@ -9,6 +9,7 @@ import { Base } from "./base";
 import { getIdFromRef } from "./helpers";
 import { Community } from "./community";
 import { RemoteReference } from "./remote-reference";
+import { JSONMap } from "../types";
 
 @ObjectType()
 export class Post extends Base {
@@ -45,15 +46,15 @@ export class Post extends Base {
   })
   children?: Ref<Post>[];
 
-  get updatedAtUnixTimestamp(): number | undefined {
-    return this.updatedAt ? dateToUnixTimestamp(this.updatedAt) : undefined;
+  get updatedAtUnixTimestamp(): number {
+    return this.updatedAt ? dateToUnixTimestamp(this.updatedAt) : 0;
   }
 
-  get createdAtUnixTimestamp(): number | undefined {
-    return this.createdAt ? dateToUnixTimestamp(this.createdAt) : undefined;
+  get createdAtUnixTimestamp(): number {
+    return this.createdAt ? dateToUnixTimestamp(this.createdAt) : 0;
   }
 
-  toJSON(): { [key: string]: any } {
+  toJSON(): JSONMap {
     return {
       ...super.toJSON(),
       parentPost: getIdFromRef(this.parentPost),
