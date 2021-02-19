@@ -111,6 +111,7 @@ const CreateCommunityDialog = (): ReactElement => {
             error={!!formik.errors.id}
             onChange={formik.handleChange}
             value={formik.values.id}
+            data-testid="id"
           />
           <br />
           <TextField
@@ -124,6 +125,7 @@ const CreateCommunityDialog = (): ReactElement => {
             error={!!formik.errors.name}
             onChange={formik.handleChange}
             value={formik.values.name}
+            data-testid="name"
           />
           <br />
           <TextField
@@ -138,6 +140,7 @@ const CreateCommunityDialog = (): ReactElement => {
             error={!!formik.errors.description}
             onChange={formik.handleChange}
             value={formik.values.description}
+            data-testid="description"
           />
         </DialogContent>
         <DialogActions>
