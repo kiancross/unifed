@@ -12,25 +12,27 @@ export class UsersService {
     return true;
   }
 
-  async subscribe(u_id: string, host: string, c_id: string): Promise<boolean> {
+  async subscribe(userId: string, host: string, communityId: string): Promise<boolean> {
     const community: RemoteReference = new RemoteReference();
-    community.id = c_id;
+    community.id = communityId;
     community.host = host;
-    if (await UserModel.exists({ _id: u_id, subscriptions: community })) return true;
+    if (await UserModel.exists({ _id: userId, subscriptions: community })) return true;
     return (
-      (await UserModel.findByIdAndUpdate({ _id: u_id }, { $push: { subscriptions: community } })) !=
-      null
+      (await UserModel.findByIdAndUpdate(
+        { _id: userId },
+        { $push: { subscriptions: community } },
+      )) != null
     );
   }
 
-  async unsubscribe(u_id: string, host: string, c_id: string): Promise<boolean> {
+  async unsubscribe(userId: string, host: string, communityId: string): Promise<boolean> {
     const community: RemoteReference = new RemoteReference();
-    community.id = c_id;
+    community.id = communityId;
     community.host = host;
-    if (await UserModel.exists({ _id: u_id, subscriptions: community })) {
+    if (await UserModel.exists({ _id: userId, subscriptions: community })) {
       return (
         (await UserModel.findByIdAndUpdate(
-          { _id: u_id },
+          { _id: userId },
           { $pull: { subscriptions: community } },
         )) != null
       );
