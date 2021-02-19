@@ -83,6 +83,16 @@ const CommunityPostsPage = (): JSX.Element => {
                 Make Post
               </ButtonLink>
             </Grid>
+            <Grid item>
+              <ButtonLink
+                fullWidth
+                color="primary"
+                variant="contained"
+                to={`/instances/${server}/communities/${community}/call`}
+              >
+                Join Community Call
+              </ButtonLink>
+            </Grid>
             <CommunityDescription
               title={data.getCommunity.title}
               server={server}
