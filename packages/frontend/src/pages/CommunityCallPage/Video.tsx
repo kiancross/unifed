@@ -7,7 +7,9 @@
 
 import { ReactElement, useRef, useEffect } from "react";
 
-const Video = (props: { stream?: MediaStream | MediaSource; muted?: boolean }): ReactElement => {
+export type VideoProps = { stream?: MediaStream; muted?: boolean };
+
+const Video = (props: VideoProps): ReactElement => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleCanPlay = () => {

@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement } from "react";
 import { Theme, makeStyles, Card, CardContent, IconButton, Typography } from "@material-ui/core";
 import MicIcon from "@material-ui/icons/Mic";
 import MicOffIcon from "@material-ui/icons/MicOff";
@@ -13,14 +13,15 @@ interface Props {
   username: string;
   muted?: boolean;
   hidden?: boolean;
-  onMuteChange: (muted: boolean) => void;
-  onHiddenChange: (hidden: boolean) => void;
+  noMedia?: boolean;
+  onMuteChange: () => void;
+  onHiddenChange: () => void;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: "flex",
-    height: "80px",
+    height: "60px",
   },
   details: {
     display: "flex",
@@ -40,40 +41,29 @@ const useStyles = makeStyles((theme: Theme) => ({
 const OnlineUser = (props: Props): ReactElement => {
   const classes = useStyles();
 
-  const [muted, setMuted] = useState(!!props.muted);
-  const [hidden, setHidden] = useState(!!props.hidden);
-
-  const toggleMuted = () => {
-    props.onMuteChange(!muted);
-    setMuted(!muted);
-  };
-
-  const toggleHidden = () => {
-    props.onHiddenChange(!hidden);
-    setHidden(!hidden);
-  };
-
   return (
     <Card className={classes.root}>
       <div className={classes.details}>
         <CardContent className={classes.content}>
           <Typography component="h6" variant="h6">
-            Full Name
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
             {props.username}
           </Typography>
+          {props.noMedia ? (
+            <Typography variant="subtitle1" color="textSecondary">
+              {props.username}
+            </Typography>
+          ) : null}
         </CardContent>
         <div className={classes.controls}>
-          <IconButton aria-label="hide" onClick={toggleMuted} disabled={props.muted !== undefined}>
-            {muted ? <MicOffIcon /> : <MicIcon />}
-          </IconButton>
           <IconButton
-            aria-label="mute"
-            onClick={toggleHidden}
-            disabled={props.hidden !== undefined}
+            aria-label="hide"
+            onClick={props.onMuteChange}
+            disabled={props.hidden || props.noMedia}
           >
-            {hidden ? <VideoCamOffIcon /> : <VideoCamIcon />}
+            {props.muted ? <MicOffIcon /> : <MicIcon />}
+          </IconButton>
+          <IconButton aria-label="mute" onClick={props.onHiddenChange} disabled={props.noMedia}>
+            {props.hidden ? <VideoCamOffIcon /> : <VideoCamIcon />}
           </IconButton>
         </div>
       </div>

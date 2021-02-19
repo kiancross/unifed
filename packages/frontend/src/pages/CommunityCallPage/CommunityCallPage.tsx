@@ -8,6 +8,7 @@ import { Button, makeStyles } from "@material-ui/core";
 import { gql, useSubscription, useMutation } from "@apollo/client";
 import OnlineUser from "./OnlineUser";
 import Video from "./Video";
+import VideoGrid from "./VideoGrid";
 
 interface CommunityCall {
   type: "request" | "offer" | "answer" | "ice";
@@ -275,28 +276,36 @@ const VideoCall = (): ReactElement => {
   return (
     <div className={classes.root}>
       <div>
-        {peerConnectionWrappers.map((wrapper) => (
-          <OnlineUser
-            key={wrapper.user}
-            username={wrapper.user}
-            onMuteChange={(muted) => {
-              mutatePeerConnection(wrapper.user, "muted", muted);
-            }}
-            onHiddenChange={(hidden) => {
-              mutatePeerConnection(wrapper.user, "hidden", hidden);
-            }}
-          />
-        ))}
+        {peerConnectionWrappers.map((wrapper) => {
+          const hide = !wrapper.stream || wrapper.hidden;
+          const mute = hide || wrapper.muted;
+
+          return (
+            <OnlineUser
+              key={wrapper.user}
+              username={wrapper.user}
+              muted={mute}
+              hidden={hide}
+              noMedia={!wrapper.stream}
+              onMuteChange={() => {
+                mutatePeerConnection(wrapper.user, "muted", !wrapper.muted);
+              }}
+              onHiddenChange={() => {
+                mutatePeerConnection(wrapper.user, "hidden", !wrapper.hidden);
+              }}
+            />
+          );
+        })}
       </div>
       <div>
         Local:
         {localMediaStream ? <Video stream={localMediaStream} muted /> : null}
         Remote:
-        {peerConnectionWrappers
-          .filter((wrapper) => wrapper.stream && !wrapper.hidden)
-          .map((wrapper) => (
-            <Video key={wrapper.user} stream={wrapper.stream} muted={wrapper.muted} />
-          ))}
+        <VideoGrid
+          streams={peerConnectionWrappers
+            .filter((wrapper) => wrapper.stream && !wrapper.hidden)
+            .map((wrapper) => wrapper)}
+        />
       </div>
     </div>
   );
