@@ -5641,6 +5641,7 @@ __metadata:
     eslint: ^7.20.0
     nyc: ^15.1.0
     prettier: ^2.2.1
+    react-device-detect: ^1.15.0
     stylelint: ^13.10.0
     typescript: ^4.1.5
   languageName: unknown

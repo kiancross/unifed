@@ -35,5 +35,8 @@
   "resolutions": {
     "sass-loader": "^10.0.5",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.3"
+  },
+  "dependencies": {
+    "react-device-detect": "^1.15.0"
   }
 }
