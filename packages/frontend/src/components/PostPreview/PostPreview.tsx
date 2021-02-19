@@ -3,7 +3,9 @@
  */
 
 import React, { useState } from "react";
-import { Card, CardActionArea, CardContent, Grid, Typography, Button } from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
+import { Card, CardActionArea, CardContent, Grid, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import UserIcon from "../../components/UserIcon";
 import PostHeader from "../PostHeader";
 import PostEditor from "../../components/PostEditor";
@@ -17,39 +19,34 @@ interface PostValues {
   body: string;
 }
 
+const useStyles = makeStyles((theme) => ({
+  card: {
+    textAlign: "left",
+    background: theme.palette.secondary.main,
+  },
+}));
+
 const PostPreview = (props: PostValues): JSX.Element => {
   const [editorOpen, setEditorOpen] = useState(false);
+  const classes = useStyles();
 
   const content = editorOpen ? (
-    <div>
-      <>
-        <PostEditor
-          body={props.body}
-          title={props.title}
-          server={props.server}
-          id={props.id}
-          submitButtonText="Save Post"
-          onSuccess={() => window.location.assign(window.location.href)}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          type="submit"
-          style={{ marginTop: "8px" }}
-          onClick={() => setEditorOpen(false)}
-        >
-          Close
-        </Button>
-      </>
-    </div>
+    <PostEditor
+      body={props.body}
+      title={props.title}
+      server={props.server}
+      id={props.id}
+      submitButtonText="Save Post"
+      onSuccess={() => window.location.assign(window.location.href)}
+      onCancel={() => setEditorOpen(false)}
+    />
   ) : (
     <Grid item container spacing={2}>
       <Grid item xs={1} container justify="flex-end">
         <UserIcon username={props.username} small />
       </Grid>
       <Grid item xs={11} container direction="column" justify="flex-start">
-        <Card style={{ textAlign: "left" }}>
+        <Card className={classes.card}>
           <PostHeader
             onToggleEdit={() => setEditorOpen(true)}
             title={props.title}
@@ -60,7 +57,8 @@ const PostPreview = (props: PostValues): JSX.Element => {
           />
           <CardActionArea
             disableRipple
-            href={`/instances/${props.server}/communities/${props.community}/posts/${props.id}`}
+            component={RouterLink}
+            to={`/instances/${props.server}/communities/${props.community}/posts/${props.id}`}
           >
             <CardContent>
               <Typography variant="body1">{props.title}</Typography>

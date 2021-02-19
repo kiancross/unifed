@@ -4,15 +4,16 @@
 
 import React, { useState, useContext } from "react";
 import { Redirect } from "react-router";
-import { CardHeader, IconButton, Menu, MenuItem, Typography, Link } from "@material-ui/core";
+import { CardHeader, IconButton, Menu, MenuItem, Typography, Theme } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { gql, useMutation } from "@apollo/client";
 import { UserContext } from "../../contexts/user";
 import CenteredLoader from "../CenteredLoader";
 import ErrorMessage from "../ErrorMessage";
-import styles from "./PostHeader.module.scss";
+import { Link } from "../../components/Links";
 
-interface PropsTypes {
+interface Props {
   username: string;
   id: string;
   server: string;
@@ -22,15 +23,20 @@ interface PropsTypes {
   onToggleEdit: () => void;
 }
 
+const useStyles = makeStyles<Theme, Props>({
+  header: (props) => (props.isComment ? { paddingBottom: "0" } : {}),
+});
+
 export const DELETE_POST = gql`
   mutation($id: String!, $host: String!) {
     deletePost(post: { id: $id, host: $host })
   }
 `;
 
-const PostHeader = (props: PropsTypes): JSX.Element => {
+const PostHeader = (props: Props): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
   const user = useContext(UserContext);
+  const classes = useStyles(props);
 
   const [deletePost, { loading, data, error }] = useMutation(DELETE_POST);
 
@@ -97,24 +103,24 @@ const PostHeader = (props: PropsTypes): JSX.Element => {
     ) : null;
 
   const headerTitle = props.isComment ? (
-    <Typography variant="body2">
-      <Link href={"/user/" + props.username}>{props.username}</Link>
+    <Typography variant="body2" gutterBottom>
+      <Link to={"/user/" + props.username} color="inherit">
+        {props.username}
+      </Link>
       &nbsp; &#8212; &nbsp;
-      <Link href={props.id}>View Replies</Link>
+      <Link color="inherit" to={props.id}>
+        View Replies
+      </Link>
     </Typography>
   ) : (
     <Typography variant="body2">
-      <Link href={"/user/" + props.username}>{props.username}</Link>
+      <Link color="inherit" to={"/user/" + props.username}>
+        {props.username}
+      </Link>
     </Typography>
   );
 
-  return (
-    <CardHeader
-      className={props.isComment ? styles.commentHeader : ""}
-      action={headerAction}
-      title={headerTitle}
-    />
-  );
+  return <CardHeader className={classes.header} action={headerAction} title={headerTitle} />;
 };
 
 export default PostHeader;

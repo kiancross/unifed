@@ -4,15 +4,16 @@
 
 import React from "react";
 import { Formik, Form, Field, FieldProps } from "formik";
-import { Button, TextField } from "@material-ui/core";
+import { ButtonGroup, Button, TextField } from "@material-ui/core";
 import MarkdownEditor from "../MarkdownEditor";
 
 interface Props {
   title?: string;
   body?: string;
-  submitButtonText: string;
   isComment?: boolean;
+  submitButtonText: string;
   onSubmit: (values: { title?: string; body?: string }) => void;
+  onCancel?: () => void;
 }
 
 const PostEditorBase = (props: Props): JSX.Element => {
@@ -46,20 +47,29 @@ const PostEditorBase = (props: Props): JSX.Element => {
             <MarkdownEditor
               onChange={({ text }) => field.onChange(field.name)(text)}
               value={field.value}
-              style={{ height: props.isComment ? "170px" : "400px" }}
+              style={{
+                height: props.isComment ? "170px" : "400px",
+                border: 0,
+              }}
             />
           )}
         </Field>
 
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          type="submit"
-          style={{ marginTop: "8px" }}
-        >
-          {props.submitButtonText}
-        </Button>
+        <ButtonGroup fullWidth style={{ marginBottom: "8px", marginTop: "8px" }}>
+          {props.onCancel ? (
+            <Button
+              style={{ marginRight: "8px" }}
+              variant="contained"
+              color="primary"
+              onClick={props.onCancel}
+            >
+              Cancel
+            </Button>
+          ) : null}
+          <Button variant="contained" color="primary" type="submit">
+            {props.submitButtonText}
+          </Button>
+        </ButtonGroup>
       </Form>
     </Formik>
   );

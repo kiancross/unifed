@@ -2,17 +2,9 @@
  * CS3099 Group A3
  */
 
-import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeOptions } from "@material-ui/core";
 
-export const standardTheme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#00539b",
-    },
-    secondary: {
-      main: "#ffffff",
-    },
-  },
+export const baseTheme: ThemeOptions = {
   typography: {
     subtitle2: {
       fontFamily: "'Roboto', 'Helvetica', 'Arial', 'sans-serif'",
@@ -22,4 +14,4 @@ export const standardTheme = createMuiTheme({
       letterSpacing: "0.01071em",
     },
   },
-});
+};

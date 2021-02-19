@@ -13,7 +13,7 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "moduleResolution": "node",
-    "lib": ["es2018", "esnext.asynciterable"],
+    "lib": ["es2019", "esnext.asynciterable"],
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "strict": true,

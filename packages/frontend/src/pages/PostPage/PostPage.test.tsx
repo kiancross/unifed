@@ -3,6 +3,7 @@
  */
 
 import React from "react";
+import { BrowserRouter } from "react-router-dom";
 import Comments, { GET_COMMENTS } from "./Comments";
 import { MockedProvider } from "@apollo/client/testing";
 import { render, waitFor } from "@testing-library/react";
@@ -73,9 +74,11 @@ test("Display comments", async () => {
   ];
 
   const { getByText } = render(
-    <MockedProvider mocks={getCommentsMocks} addTypename={false}>
-      <Comments parentId={ids[0]} server={server} grids={11} />
-    </MockedProvider>,
+    <BrowserRouter>
+      <MockedProvider mocks={getCommentsMocks} addTypename={false}>
+        <Comments parentId={ids[0]} server={server} grids={11} />
+      </MockedProvider>
+    </BrowserRouter>,
   );
 
   for (let i = 1; i < users.length; i++) {
