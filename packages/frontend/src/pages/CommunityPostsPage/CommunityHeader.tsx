@@ -4,7 +4,7 @@
 
 import { Box, CardActions, CardHeader, Container, Paper } from "@material-ui/core";
 import React from "react";
-import SubscribeButton from "./SubscribeButton";
+import SubscribeButton from "../../components/SubscribeButton";
 
 interface Props {
   id: string;

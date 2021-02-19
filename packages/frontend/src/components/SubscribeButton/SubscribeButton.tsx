@@ -12,13 +12,13 @@ interface Props {
   isSubscribed: boolean;
 }
 
-const SUBSCRIBE = gql`
+export const SUBSCRIBE = gql`
   mutation($id: String!, $host: String!) {
     subscribe(community: { id: $id, host: $host })
   }
 `;
 
-const UNSUBSCRIBE = gql`
+export const UNSUBSCRIBE = gql`
   mutation($id: String!, $host: String!) {
     unsubscribe(community: { id: $id, host: $host })
   }
@@ -36,6 +36,7 @@ const SubscribeButton = (props: Props): JSX.Element => {
     );
   }
   if (error) return <div />;
+  // update subscribed to reflect the new state after a mutation was made
   if (data && (data?.subscribe || !data?.unsubscribe) != subscribed)
     setSubscribed(data?.subscribe || !data?.unsubscribe);
 

@@ -17,7 +17,7 @@ interface Post {
   host: string;
 }
 
-const GET_SUBSCRIBED = gql`
+export const GET_SUBSCRIBED = gql`
   query {
     getSubscribedPosts {
       id
@@ -38,9 +38,6 @@ const SubscribedPosts = () => {
   const { loading, error, data } = useQuery(GET_SUBSCRIBED);
   if (error) return <Grid item />;
   if (loading) return <LoadingCard />;
-
-  console.log(data);
-  console.log(error);
 
   return (
     <Grid item container spacing={1}>

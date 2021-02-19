@@ -15,24 +15,25 @@ import {
 } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
 import LoadingCard from "../../components/LoadingCard";
+import { Link } from "react-router-dom";
+
+export const GET_COMMUNITIES = gql`
+  query($host: String!) {
+    getCommunities(host: $host) {
+      id
+      title
+    }
+  }
+`;
 
 const CommunitiesListCard = () => {
-  const GET_COMMUNITIES = gql`
-    query($host: String!) {
-      getCommunities(host: $host) {
-        id
-        title
-      }
-    }
-  `;
-
   const { loading, error, data } = useQuery(GET_COMMUNITIES, {
     variables: {
       host: "this",
     },
   });
 
-  if (error) return <div />;
+  if (error) return <React.Fragment />;
   if (loading) return <LoadingCard />;
 
   return (
@@ -47,9 +48,8 @@ const CommunitiesListCard = () => {
                 <ListItem
                   button
                   key={community.id}
-                  onClick={() => {
-                    location.href = "/instances/this/communities/" + community.id + "/posts";
-                  }}
+                  component={Link}
+                  to={"/instances/this/communities/" + community.id + "/posts"}
                 >
                   <ListItemText primary={community.title} />
                 </ListItem>
