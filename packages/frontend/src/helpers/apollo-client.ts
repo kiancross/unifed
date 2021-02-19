@@ -39,7 +39,7 @@ const authLink = accountsLink(() => accountsClient);
 const httpLink = new BatchHttpLink({ uri: graphqlApiEndpoint });
 
 const wsLink = new WebSocketLink({
-  uri: graphqlApiEndpoint.replace(/^https?/, "ws"),
+  uri: graphqlApiEndpoint.replace(/^http/, "ws"),
   options: {
     reconnect: true,
     connectionParams: async () => {
