@@ -239,7 +239,9 @@ const VideoCall = (): ReactElement => {
   };
 
   useEffect(() => {
-    requestCall({ variables: { community } });
+    if (localMediaStream !== undefined) {
+      requestCall({ variables: { community } });
+    }
 
     return () => {
       peerConnectionWrappers.map((wrapper) => wrapper.user).forEach(removePeerConnection);
