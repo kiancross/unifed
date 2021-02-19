@@ -14,7 +14,8 @@ export class UsersService {
 
   async subscribe(u_id: string, host: string, c_id: string): Promise<boolean> {
     const community: RemoteReference = new RemoteReference();
-    community.id, community.host = c_id, host;
+    community.id = c_id;
+    community.host = host;
     if (await UserModel.exists({ _id: u_id, subscriptions: community })) return true;
     return (
       (await UserModel.findByIdAndUpdate({ _id: u_id }, { $push: { subscriptions: community } })) !=
@@ -24,7 +25,8 @@ export class UsersService {
 
   async unsubscribe(u_id: string, host: string, c_id: string): Promise<boolean> {
     const community: RemoteReference = new RemoteReference();
-    community.id, community.host = c_id, host;
+    community.id = c_id;
+    community.host = host;
     if (await UserModel.exists({ _id: u_id, subscriptions: community })) {
       return (
         (await UserModel.findByIdAndUpdate(
