@@ -20,7 +20,7 @@ test.serial("Limit filter NaN", async (t) => {
     .expect(400)
     .expect("Content-Type", /json/);
 
-  t.true(typeof body.error === "string");
+  t.true(typeof body.title === "string");
 });
 
 test.serial("Limit filter negative", async (t) => {
@@ -29,7 +29,7 @@ test.serial("Limit filter negative", async (t) => {
     .expect(400)
     .expect("Content-Type", /json/);
 
-  t.true(typeof body.error === "string");
+  t.true(typeof body.title === "string");
 });
 
 test.serial("minDate filter NaN", async (t) => {
@@ -38,7 +38,7 @@ test.serial("minDate filter NaN", async (t) => {
     .expect(400)
     .expect("Content-Type", /json/);
 
-  t.true(typeof body.error === "string");
+  t.true(typeof body.title === "string");
 });
 
 test.serial("minDate filter negative", async (t) => {
@@ -47,5 +47,5 @@ test.serial("minDate filter negative", async (t) => {
     .expect(400)
     .expect("Content-Type", /json/);
 
-  t.true(typeof body.error === "string");
+  t.true(typeof body.title === "string");
 });

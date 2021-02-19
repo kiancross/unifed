@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 import { config, logger } from "@unifed/backend-core";
 import { app } from "./app";
 
-const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true, ignoreUndefined: true };
 const mongoUri =
   `mongodb://${config.mongoUsername}:${config.mongoPassword}@` +
   `${config.mongoHostname}:${config.mongoPort}/${config.mongoDatabase}`;
