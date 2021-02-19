@@ -109,4 +109,18 @@ const graphModule = AccountsModule.forRoot({ accountsServer: server });
 export const accountsTypeDefs = mergeTypeDefs([graphModule.typeDefs]);
 export const accountsResolvers = mergeResolvers([graphModule.resolvers]);
 export const accountsSchemaDirectives = graphModule.schemaDirectives;
-export const accountsContext = graphModule.context;
+
+// Fix from here: https://github.com/accounts-js/accounts/issues/843
+// Nasty hack
+export const accountsContext = async (session: any) => { // eslint-disable-line
+  if (!session.req) {
+    const pseudoContext: any = {}; // eslint-disable-line
+    pseudoContext.headers = session.connection.context;
+    pseudoContext.req = {
+      headers: session.connection.context,
+    };
+    return graphModule.context(pseudoContext);
+  }
+
+  return graphModule.context(session);
+};
