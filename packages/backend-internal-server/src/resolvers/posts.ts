@@ -70,9 +70,11 @@ export class PostsResolver implements ResolverInterface<Post> {
   @Query(() => [Post])
   async getSubscribedPosts(@CurrentUser() user: User): Promise<Post[]> {
     const subscriptions: RemoteReference[] = await this.usersService.getSubscriptions(user.id);
-    const posts = await Promise.all(subscriptions.map(ref => {
-      return this.postsService.getByCommunity(ref.host, ref.id);
-    }))
+    const posts = await Promise.all(
+      subscriptions.map((ref) => {
+        return this.postsService.getByCommunity(ref.host, ref.id);
+      }),
+    );
     return posts.flat();
   }
 
