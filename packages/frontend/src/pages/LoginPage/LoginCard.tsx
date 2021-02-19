@@ -3,10 +3,10 @@
  */
 
 import React, { ReactElement, useState, useContext } from "react";
-import { BrowserRouter } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
-import { Button, Card, CardContent, Link, TextField, Typography } from "@material-ui/core";
+import { Button, Card, CardContent, TextField, Typography } from "@material-ui/core";
 import { UserContext } from "../../contexts/user";
+import { Link } from "../../components/Links";
 import Popup from "../../components/Popup";
 
 const LoginCard = (): ReactElement => {
@@ -72,11 +72,9 @@ const LoginCard = (): ReactElement => {
               </Button>
             </Form>
           </Formik>
-          <BrowserRouter>
-            <Typography>
-              <Link href="/reset-password">Forgotten Password?</Link>
-            </Typography>
-          </BrowserRouter>
+          <Typography>
+            <Link to="/reset-password">Forgotten Password?</Link>
+          </Typography>
         </CardContent>
       </Card>
       <Popup message={errorMessage} />

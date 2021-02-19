@@ -4,11 +4,11 @@
 
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Container, Grid, Button } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
 import PostPreview from "../../components/PostPreview";
 import CommunityDescription from "./CommunityDescription";
-import CommunityHeader from "./CommunityHeader";
+import { ButtonLink } from "../../components/Links";
 import CenteredLoader from "../../components/CenteredLoader";
 import ErrorMessage from "../../components/ErrorMessage";
 
@@ -31,9 +31,14 @@ const CommunityPostsPage = (): JSX.Element => {
         body
       }
       getCommunity(community: { id: $community, host: $host }) {
+        host
         id
         title
         description
+      }
+      getSubscriptions {
+        id
+        host
       }
     }
   `;
@@ -50,9 +55,12 @@ const CommunityPostsPage = (): JSX.Element => {
   }
   if (loading) return <CenteredLoader />;
 
+  const isSubscribed = data.getSubscriptions.some(
+    (e: { host: string; id: string }) => e.host === data.getCommunity.host && e.id === community,
+  );
+
   return (
-    <div>
-      <CommunityHeader title={data.getCommunity.title} server={server} />
+    <div style={{ paddingTop: "15px" }}>
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           <Grid item container xs={8} direction="column" spacing={2}>
@@ -75,17 +83,22 @@ const CommunityPostsPage = (): JSX.Element => {
 
           <Grid item container xs={4} direction="column" spacing={2}>
             <Grid item>
-              <Button
+              <ButtonLink
                 fullWidth
                 color="primary"
                 variant="contained"
-                href={`/instances/${server}/communities/${community}/posts/create`}
+                to={`/instances/${server}/communities/${community}/posts/create`}
               >
-                {" "}
-                Make Post{" "}
-              </Button>
+                Make Post
+              </ButtonLink>
             </Grid>
-            <CommunityDescription desc={data.getCommunity.description} />
+            <CommunityDescription
+              title={data.getCommunity.title}
+              id={community}
+              server={server}
+              desc={data.getCommunity.description}
+              isSubscribed={isSubscribed}
+            />
           </Grid>
         </Grid>
       </Container>

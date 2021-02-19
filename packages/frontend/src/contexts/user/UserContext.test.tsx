@@ -32,7 +32,11 @@ test("Authenticated", async () => {
   const mocks = [
     {
       request: { query: getUserQuery },
-      result: { data: { getUser: { username: "foo" } } },
+      result: {
+        data: {
+          getUser: { username: "foo", profile: { name: "bar" }, emails: [{ address: "baz" }] },
+        },
+      },
     },
   ];
 
@@ -40,7 +44,15 @@ test("Authenticated", async () => {
     <MockedProvider mocks={mocks} addTypename={false}>
       <UserProvider>
         <UserContext.Consumer>
-          {(user) => (user.details ? <div>{user.details.username}</div> : null)}
+          {(user) =>
+            user.details ? (
+              <>
+                <div>{user.details.username}</div>
+                <div>{user.details.profile.name}</div>
+                <div>{user.details.emails[0].address}</div>
+              </>
+            ) : null
+          }
         </UserContext.Consumer>
       </UserProvider>
     </MockedProvider>,
@@ -48,6 +60,8 @@ test("Authenticated", async () => {
 
   await waitFor(() => {
     getByText("foo");
+    getByText("bar");
+    getByText("baz");
   });
 });
 
@@ -55,11 +69,19 @@ test("Authenticated refetch", async () => {
   const mocks = [
     {
       request: { query: getUserQuery },
-      result: { data: { getUser: { username: "foo" } } },
+      result: {
+        data: {
+          getUser: { username: "foo", profile: { name: "bar" }, emails: [{ address: "baz" }] },
+        },
+      },
     },
     {
       request: { query: getUserQuery },
-      result: { data: { getUser: { username: "bar" } } },
+      result: {
+        data: {
+          getUser: { username: "ham", profile: { name: "bar" }, emails: [{ address: "baz" }] },
+        },
+      },
     },
   ];
 
@@ -68,7 +90,9 @@ test("Authenticated refetch", async () => {
       <UserProvider>
         <>
           <UserContext.Consumer>
-            {(user) => (user.details ? <div>{user.details.username}</div> : null)}
+            {(user) =>
+              user.details ? <div>{user.details.username}</div> : <div>{"not found"}</div>
+            }
           </UserContext.Consumer>
           <UserContext.Consumer>
             {(user) => <button onClick={user.refetch}>Refetch</button>}
@@ -87,7 +111,7 @@ test("Authenticated refetch", async () => {
   });
 
   await waitFor(() => {
-    getByText("bar");
+    getByText("ham");
   });
 });
 
@@ -118,11 +142,15 @@ test("Logout", async () => {
   const mocks = [
     {
       request: { query: getUserQuery },
-      result: { data: { getUser: { username: "foo" } } },
+      result: {
+        data: {
+          getUser: { username: "foo", profile: { name: "bar" }, emails: [{ address: "baz" }] },
+        },
+      },
     },
     {
       request: { query: getUserQuery },
-      result: { data: { getUser: { username: "Unauthenticated" } } },
+      result: { data: { getUser: null } },
       // For some reason this doesn't work.
       //result: { errors: [new GraphQLError("Unauthenticated")] },
     },
@@ -133,7 +161,9 @@ test("Logout", async () => {
       <UserProvider>
         <>
           <UserContext.Consumer>
-            {(user) => (user.details ? <div>{user.details.username}</div> : null)}
+            {(user) =>
+              user.details ? <div>{user.details.username}</div> : <div>{"Unauthenticated"}</div>
+            }
           </UserContext.Consumer>
           <UserContext.Consumer>
             {(user) => <button onClick={user.logout}>Logout</button>}
@@ -176,7 +206,11 @@ test("Login authenticated", async () => {
     },
     {
       request: { query: getUserQuery },
-      result: { data: { getUser: { username: "foo" } } },
+      result: {
+        data: {
+          getUser: { username: "foo", profile: { name: "bar" }, emails: [{ address: "baz" }] },
+        },
+      },
     },
   ];
 
@@ -267,11 +301,19 @@ test("Login error", () => {
   const mocks = [
     {
       request: { query: getUserQuery },
-      result: { data: { getUser: { username: "foo" } } },
+      result: {
+        data: {
+          getUser: { username: "foo", profile: { name: "bar" }, emails: [{ address: "baz" }] },
+        },
+      },
     },
     {
       request: { query: getUserQuery },
-      result: { data: { getUser: { username: "foo" } } },
+      result: {
+        data: {
+          getUser: { username: "foo", profile: { name: "bar" }, emails: [{ address: "baz" }] },
+        },
+      },
     },
   ];
 

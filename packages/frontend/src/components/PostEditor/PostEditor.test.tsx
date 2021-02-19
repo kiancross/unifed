@@ -3,6 +3,7 @@
  */
 
 import React from "react";
+import { BrowserRouter } from "react-router-dom";
 import { GraphQLError } from "graphql";
 import PostEditor, { editPostQuery } from "./PostEditor";
 import { render, fireEvent, waitFor, act } from "@testing-library/react";
@@ -29,22 +30,25 @@ test("Edit post", async () => {
   };
 
   const { getByText } = render(
-    <MockedProvider mocks={[editPostMock]} addTypename={false}>
-      <PostEditor
-        server={host}
-        id={id}
-        body={body}
-        title={title}
-        submitButtonText="Save Post"
-        onSuccess={onSuccessMock}
-      />
-    </MockedProvider>,
+    <BrowserRouter>
+      <MockedProvider mocks={[editPostMock]} addTypename={false}>
+        <PostEditor
+          server={host}
+          id={id}
+          body={body}
+          title={title}
+          submitButtonText="Save Post"
+          onSuccess={onSuccessMock}
+          onCancel={() => null}
+        />
+      </MockedProvider>
+    </BrowserRouter>,
   );
 
   fireEvent.click(getByText("Save Post"));
 
   await waitFor(() => {
-    expect(onSuccessMock.mock.calls.length).toBe(1);
+    expect(onSuccessMock).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -68,21 +72,24 @@ test("Edit comment", async () => {
   };
 
   const { getByText } = render(
-    <MockedProvider mocks={[editPostMock]} addTypename={false}>
-      <PostEditor
-        server={host}
-        id={id}
-        body={body}
-        submitButtonText="Save Comment"
-        onSuccess={onSuccessMock}
-      />
-    </MockedProvider>,
+    <BrowserRouter>
+      <MockedProvider mocks={[editPostMock]} addTypename={false}>
+        <PostEditor
+          server={host}
+          id={id}
+          body={body}
+          submitButtonText="Save Comment"
+          onSuccess={onSuccessMock}
+          onCancel={() => null}
+        />
+      </MockedProvider>
+    </BrowserRouter>,
   );
 
   fireEvent.click(getByText("Save Comment"));
 
   await waitFor(() => {
-    expect(onSuccessMock.mock.calls.length).toBe(1);
+    expect(onSuccessMock).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -104,15 +111,18 @@ test("Edit error", async () => {
   };
 
   const { getByText } = render(
-    <MockedProvider mocks={[editPostMock]} addTypename={false}>
-      <PostEditor
-        server={host}
-        id={id}
-        body={body}
-        submitButtonText="Save Comment"
-        onSuccess={onSuccessMock}
-      />
-    </MockedProvider>,
+    <BrowserRouter>
+      <MockedProvider mocks={[editPostMock]} addTypename={false}>
+        <PostEditor
+          server={host}
+          id={id}
+          body={body}
+          submitButtonText="Save Comment"
+          onSuccess={onSuccessMock}
+          onCancel={() => null}
+        />
+      </MockedProvider>
+    </BrowserRouter>,
   );
 
   act(() => {
@@ -123,5 +133,32 @@ test("Edit error", async () => {
     getByText(/Could not edit comment/);
   });
 
-  expect(onSuccessMock.mock.calls.length).toBe(0);
+  expect(onSuccessMock).toHaveBeenCalledTimes(0);
+});
+
+test("Cancel", async () => {
+  const onCancelMock = jest.fn();
+
+  const { getByText } = render(
+    <BrowserRouter>
+      <MockedProvider mocks={[]}>
+        <PostEditor
+          server="foo"
+          id="bar"
+          body="baz"
+          submitButtonText="Save Comment"
+          onSuccess={() => null}
+          onCancel={onCancelMock}
+        />
+      </MockedProvider>
+    </BrowserRouter>,
+  );
+
+  act(() => {
+    fireEvent.click(getByText("Cancel"));
+  });
+
+  await waitFor(() => {
+    expect(onCancelMock).toHaveBeenCalledTimes(1);
+  });
 });

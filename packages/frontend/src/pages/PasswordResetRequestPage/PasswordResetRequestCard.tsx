@@ -5,9 +5,10 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { passwordClient } from "../../helpers/accounts";
-import { Button, Card, CardContent, Grid, TextField, Snackbar, Link } from "@material-ui/core";
+import { Button, Card, CardContent, Grid, TextField, Snackbar } from "@material-ui/core";
 import { validateEmail } from "@unifed/shared";
 import { Alert } from "@material-ui/lab";
+import { Link } from "../../components/Links";
 
 interface Values {
   email: string;
@@ -71,7 +72,7 @@ const ResetPasswordRequestCard = (): JSX.Element => {
       <Snackbar anchorOrigin={{ vertical: "top", horizontal: "center" }} open={isRequested}>
         <Alert severity="success">
           If an account with this email exists, we have sent a password reset link.&nbsp;
-          <Link href="/login">Return to login</Link>
+          <Link to="/login">Return to login</Link>
         </Alert>
       </Snackbar>
     </Grid>

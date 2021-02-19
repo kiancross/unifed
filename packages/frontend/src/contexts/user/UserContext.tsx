@@ -7,7 +7,7 @@ import { gql, useQuery } from "@apollo/client";
 import { accountsClient } from "../../helpers/accounts";
 
 interface Context {
-  details?: null | { username: string };
+  details?: null | { username: string; profile: { name: string }; emails: { address: string }[] };
   refetch: () => Promise<void>;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => Promise<void>;
@@ -17,6 +17,12 @@ export const getUserQuery = gql`
   query {
     getUser {
       username
+      profile {
+        name
+      }
+      emails {
+        address
+      }
     }
   }
 `;

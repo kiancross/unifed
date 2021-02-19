@@ -2,25 +2,32 @@
  * CS3099 Group A3
  */
 
-import { Avatar, Typography } from "@material-ui/core";
+import { ReactElement } from "react";
+import { Avatar, Typography, Theme, makeStyles } from "@material-ui/core";
 import React from "react";
 
-interface userInfo {
+interface Props {
   username: string;
   small?: boolean;
 }
 
-const UserIcon = (props: userInfo): JSX.Element => {
-  const size = props.small ? "28px" : "45px";
-  const test = {
-    height: size,
-    width: size,
+const useStyles = makeStyles<Theme, Props>((theme) => ({
+  avatar: (props) => ({
+    height: props.small ? "28px" : "45px",
+    width: props.small ? "28px" : "45px",
     backgroundColor: "#616161",
-  };
+  }),
+  text: {
+    color: theme.palette.text.primary,
+  },
+}));
+
+const UserIcon = (props: Props): ReactElement => {
+  const classes = useStyles(props);
 
   return (
-    <Avatar alt={props.username} style={test}>
-      <Typography variant={props.small ? "body2" : "h6"}>
+    <Avatar alt={props.username} className={classes.avatar}>
+      <Typography variant={props.small ? "body2" : "h6"} className={classes.text}>
         {props.username.charAt(0).toUpperCase()}
       </Typography>
     </Avatar>

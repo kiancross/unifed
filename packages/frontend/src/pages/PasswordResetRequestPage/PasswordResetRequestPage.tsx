@@ -3,24 +3,24 @@
  */
 
 import React from "react";
-import { Button } from "@material-ui/core";
-import NonAuthenticatedTemplate from "../../components/NonAuthenticatedTemplate";
+import { ButtonLink } from "../../components/Links";
+import LogoTemplate from "../../components/LogoTemplate";
 import PasswordResetRequestCard from "./PasswordResetRequestCard";
 
 const PasswordResetRequestPage = (): JSX.Element => {
   return (
-    <NonAuthenticatedTemplate>
+    <LogoTemplate>
       <PasswordResetRequestCard />
-      <Button
-        href="/login"
+      <ButtonLink
+        to="/login"
         fullWidth
         color="primary"
         variant="contained"
         style={{ marginTop: "16px" }}
       >
         Return To Login
-      </Button>
-    </NonAuthenticatedTemplate>
+      </ButtonLink>
+    </LogoTemplate>
   );
 };
 

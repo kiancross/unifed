@@ -2,27 +2,33 @@
  * CS3099 Group A3
  */
 
-import React from "react";
-import { Card, CardActionArea, CardHeader, Grid } from "@material-ui/core";
+import React, { ReactElement } from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { Card, CardActionArea, CardHeader, Grid, makeStyles } from "@material-ui/core";
 import UserIcon from "../../components/UserIcon";
 
-interface userInfo {
+interface Props {
   username: string;
   name: string;
 }
 
-const UserInfoCard = (props: userInfo): JSX.Element => {
+const useStyles = makeStyles((theme) => ({
+  card: {
+    background: theme.palette.secondary.main,
+    textAlign: "center",
+  },
+}));
+
+const UserInfoCard = (props: Props): ReactElement => {
+  const classes = useStyles();
+
   const userIcon = <UserIcon username={props.username} />;
+
   return (
     <Grid item>
-      <Card style={{ textAlign: "center" }}>
-        <CardActionArea href={"/user/" + props.username}>
-          <CardHeader
-            data-testid="user-info-card-header"
-            avatar={userIcon}
-            title={props.name}
-            subheader={props.username}
-          />
+      <Card className={classes.card}>
+        <CardActionArea to={"/user/" + props.username} component={RouterLink}>
+          <CardHeader avatar={userIcon} title={props.name} subheader={props.username} />
         </CardActionArea>
       </Card>
     </Grid>
