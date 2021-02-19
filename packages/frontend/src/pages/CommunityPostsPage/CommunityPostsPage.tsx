@@ -31,9 +31,14 @@ const CommunityPostsPage = (): JSX.Element => {
         body
       }
       getCommunity(community: { id: $community, host: $host }) {
+        host
         id
         title
         description
+      }
+      getSubscriptions {
+        id
+        host
       }
     }
   `;
@@ -49,6 +54,10 @@ const CommunityPostsPage = (): JSX.Element => {
     return <ErrorMessage message="The posts from this community could not be retrieved." />;
   }
   if (loading) return <CenteredLoader />;
+
+  const isSubscribed = data.getSubscriptions.some(
+    (e: { host: string; id: string }) => e.host === data.getCommunity.host && e.id === community,
+  );
 
   return (
     <div style={{ paddingTop: "15px" }}>
@@ -85,8 +94,10 @@ const CommunityPostsPage = (): JSX.Element => {
             </Grid>
             <CommunityDescription
               title={data.getCommunity.title}
+              id={community}
               server={server}
               desc={data.getCommunity.description}
+              isSubscribed={isSubscribed}
             />
           </Grid>
         </Grid>
