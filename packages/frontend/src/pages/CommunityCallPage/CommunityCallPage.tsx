@@ -179,9 +179,7 @@ const VideoCall = (): ReactElement => {
     }
   };
 
-  const onRequest = async (communityCall: CommunityCall): Promise<void> => {
-    const user = communityCall.from;
-
+  const onRequest = async ({ from: user }: CommunityCall): Promise<void> => {
     const peerConnection = await createPeerConnection(user, community);
 
     const offer = await peerConnection.createOffer({
@@ -201,12 +199,10 @@ const VideoCall = (): ReactElement => {
     });
   };
 
-  const onOffer = async (communityCall: CommunityCall): Promise<void> => {
-    const user = communityCall.from;
-
+  const onOffer = async ({ from: user, sdp }: CommunityCall): Promise<void> => {
     const peerConnection = await createPeerConnection(user, community);
 
-    await peerConnection.setRemoteDescription(JSON.parse(communityCall.sdp));
+    await peerConnection.setRemoteDescription(JSON.parse(sdp));
 
     const answer = await peerConnection.createAnswer();
     await peerConnection.setLocalDescription(answer);
@@ -221,20 +217,20 @@ const VideoCall = (): ReactElement => {
     });
   };
 
-  const onAnswer = async (communityCall: CommunityCall): Promise<void> => {
-    const user = communityCall.from;
-
+  const onAnswer = async ({ from: user, sdp }: CommunityCall): Promise<void> => {
     const peerConnection = findPeerConnection(user);
 
-    await peerConnection.setRemoteDescription(JSON.parse(communityCall.sdp));
+    await peerConnection.setRemoteDescription(JSON.parse(sdp));
   };
 
-  const onIce = async (communityCall: CommunityCall): Promise<void> => {
-    const user = communityCall.from;
-
+  const onIce = async ({ from: user, sdp }: CommunityCall): Promise<void> => {
     const peerConnection = findPeerConnection(user);
 
-    await peerConnection.addIceCandidate(new RTCIceCandidate(JSON.parse(communityCall.sdp)));
+    await peerConnection.addIceCandidate(new RTCIceCandidate(JSON.parse(sdp)));
+  };
+
+  const onRemoteDisconnect = ({ from: user }: CommunityCall) => {
+    removePeerConnection(user);
   };
 
   useEffect(() => {
@@ -245,7 +241,8 @@ const VideoCall = (): ReactElement => {
     }
 
     return () => {
-      //localMediaStream?.getTracks().forEach((track) => track.stop());
+      sendEvent({ variables: { type: "disconnect", community } });
+      localMediaStream?.getTracks().forEach((track) => track.stop());
     };
   }, [localMediaStream]);
 
@@ -266,6 +263,10 @@ const VideoCall = (): ReactElement => {
 
         case "ice":
           onIce(subscription.communityCalls);
+          break;
+
+        case "disconnect":
+          onRemoteDisconnect(subscription.communityCalls);
           break;
       }
     }
