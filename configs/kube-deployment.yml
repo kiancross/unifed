@@ -18,6 +18,7 @@ spec:
       - "backend-internal"
       - "backend-federation"
       - "frontend"
+      - "proxy"
       - "mongo"
 
   containers:
