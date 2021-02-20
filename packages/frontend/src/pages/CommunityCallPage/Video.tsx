@@ -25,7 +25,14 @@ const Video = (props: VideoProps): ReactElement => {
   }, [videoRef, props.stream]);
 
   return (
-    <video ref={videoRef} onCanPlay={handleCanPlay} autoPlay playsInline muted={props.muted} />
+    <video
+      ref={videoRef}
+      onCanPlay={handleCanPlay}
+      autoPlay
+      playsInline
+      muted={props.muted}
+      style={{ width: "100%" }}
+    />
   );
 };
 

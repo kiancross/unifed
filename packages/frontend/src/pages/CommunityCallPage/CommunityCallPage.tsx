@@ -4,11 +4,10 @@
 
 import { ReactElement, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Button, makeStyles } from "@material-ui/core";
+import { Container, Theme, makeStyles } from "@material-ui/core";
 import { gql, useSubscription, useMutation } from "@apollo/client";
-import OnlineUser from "./OnlineUser";
-import Video from "./Video";
 import VideoGrid from "./VideoGrid";
+import JoinCallMessage from "./JoinCallMessage";
 
 interface CommunityCall {
   type: "request" | "offer" | "answer" | "ice";
@@ -32,13 +31,10 @@ const peerConnectionOptions = {
   ],
 };
 
-const useStyles = makeStyles(() => ({
-  root: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  content: {
-    flex: "1 0 auto",
+const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    height: "100%",
+    paddingTop: theme.spacing(3),
   },
 }));
 
@@ -46,6 +42,7 @@ const VideoCall = (): ReactElement => {
   const classes = useStyles();
 
   const [localMediaStream, setLocalMediaStream] = useState<MediaStream | null>();
+  const [localMuted, setLocalMuted] = useState(false);
   const [peerConnectionWrappers, setPeerConnectionsWrappers] = useState<PeerWrapper[]>([]);
 
   const { community } = useParams<{ community: string }>();
@@ -163,6 +160,15 @@ const VideoCall = (): ReactElement => {
     return peerConnection;
   };
 
+  const muteLocal = (muted: boolean) => {
+    setLocalMuted(muted);
+    localMediaStream?.getTracks().forEach((track) => {
+      if (track.kind === "audio") {
+        track.enabled = !muted;
+      }
+    });
+  };
+
   const getLocalMediaStream = async () => {
     try {
       setLocalMediaStream(
@@ -271,45 +277,39 @@ const VideoCall = (): ReactElement => {
     }
   }, [subscription]);
 
-  if (localMediaStream === undefined) {
-    return <Button onClick={() => getLocalMediaStream()}>Join</Button>;
+  const users = peerConnectionWrappers
+    .filter((wrapper) => wrapper.stream)
+    .map(({ user, stream, muted }) => ({
+      username: user,
+      stream,
+      muted,
+    }));
+
+  if (localMediaStream) {
+    users.unshift({
+      username: "You",
+      stream: localMediaStream,
+      muted: localMuted,
+    });
   }
 
   return (
-    <div className={classes.root}>
-      <div>
-        {peerConnectionWrappers.map((wrapper) => {
-          const hide = !wrapper.stream || wrapper.hidden;
-          const mute = hide || wrapper.muted;
-
-          return (
-            <OnlineUser
-              key={wrapper.user}
-              username={wrapper.user}
-              muted={mute}
-              hidden={hide}
-              noMedia={!wrapper.stream}
-              onMuteChange={() => {
-                mutatePeerConnection(wrapper.user, "muted", !wrapper.muted);
-              }}
-              onHiddenChange={() => {
-                mutatePeerConnection(wrapper.user, "hidden", !wrapper.hidden);
-              }}
-            />
-          );
-        })}
-      </div>
-      <div>
-        Local:
-        {localMediaStream ? <Video stream={localMediaStream} muted /> : null}
-        Remote:
+    <Container maxWidth={false} className={classes.container}>
+      {localMediaStream === undefined ? (
+        <JoinCallMessage onJoinClick={() => getLocalMediaStream()} />
+      ) : (
         <VideoGrid
-          streams={peerConnectionWrappers
-            .filter((wrapper) => wrapper.stream && !wrapper.hidden)
-            .map((wrapper) => wrapper)}
+          users={users}
+          onMuteChange={(current, user) => {
+            if (user === "You") {
+              muteLocal(!current);
+            } else {
+              mutatePeerConnection(user, "muted", !current);
+            }
+          }}
         />
-      </div>
-    </div>
+      )}
+    </Container>
   );
 };
 
