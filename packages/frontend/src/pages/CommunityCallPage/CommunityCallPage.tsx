@@ -6,6 +6,7 @@ import { ReactElement, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Theme, makeStyles } from "@material-ui/core";
 import { gql, useSubscription, useMutation } from "@apollo/client";
+import { VideoWrapperProps } from "./VideoWrapper";
 import VideoGrid from "./VideoGrid";
 import JoinCallMessage from "./JoinCallMessage";
 
@@ -277,12 +278,13 @@ const VideoCall = (): ReactElement => {
     }
   }, [subscription]);
 
-  const users = peerConnectionWrappers
+  const users: VideoWrapperProps[] = peerConnectionWrappers
     .filter((wrapper) => wrapper.stream)
     .map(({ user, stream, muted }) => ({
       username: user,
       stream,
       muted,
+      onMuteChange: () => mutatePeerConnection(user, "muted", !muted),
     }));
 
   if (localMediaStream) {
@@ -290,6 +292,9 @@ const VideoCall = (): ReactElement => {
       username: "You",
       stream: localMediaStream,
       muted: localMuted,
+      self: true,
+      onMuteChange: () => muteLocal(!localMuted),
+      onLeaveCall: () => setLocalMediaStream(undefined),
     });
   }
 
@@ -298,16 +303,7 @@ const VideoCall = (): ReactElement => {
       {localMediaStream === undefined ? (
         <JoinCallMessage onJoinClick={() => getLocalMediaStream()} />
       ) : (
-        <VideoGrid
-          users={users}
-          onMuteChange={(current, user) => {
-            if (user === "You") {
-              muteLocal(!current);
-            } else {
-              mutatePeerConnection(user, "muted", !current);
-            }
-          }}
-        />
+        <VideoGrid users={users} />
       )}
     </Container>
   );

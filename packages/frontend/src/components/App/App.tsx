@@ -109,7 +109,7 @@ const App = (): ReactElement => {
 
                 <Route
                   exact
-                  path="/instances/:server/communities/:community/call"
+                  path="/instances/this/communities/:community/call"
                   component={CommunityCallPage}
                 >
                   {!loggedIn ? redirectLogin : null}
