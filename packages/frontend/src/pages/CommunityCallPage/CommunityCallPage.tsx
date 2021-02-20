@@ -61,15 +61,9 @@ const VideoCall = (): ReactElement => {
     { variables: { community } },
   );
 
-  const [requestCall] = useMutation(gql`
-    mutation($community: String!) {
-      requestCommunityCall(community: $community)
-    }
-  `);
-
-  const [respondCall] = useMutation(gql`
-    mutation($community: String!, $user: String!, $sdp: String!, $type: String!) {
-      respondCommunityCall(type: $type, community: $community, user: $user, sdp: $sdp)
+  const [sendEvent] = useMutation(gql`
+    mutation($community: String!, $user: String, $sdp: String, $type: String!) {
+      communityCallEvent(type: $type, community: $community, user: $user, sdp: $sdp)
     }
   `);
 
@@ -135,7 +129,7 @@ const VideoCall = (): ReactElement => {
 
     peerConnection.onicecandidate = ({ candidate }) => {
       if (candidate) {
-        respondCall({
+        sendEvent({
           variables: {
             type: "ice",
             community,
@@ -197,7 +191,7 @@ const VideoCall = (): ReactElement => {
 
     await peerConnection.setLocalDescription(offer);
 
-    await respondCall({
+    await sendEvent({
       variables: {
         type: "offer",
         community,
@@ -217,7 +211,7 @@ const VideoCall = (): ReactElement => {
     const answer = await peerConnection.createAnswer();
     await peerConnection.setLocalDescription(answer);
 
-    await respondCall({
+    await sendEvent({
       variables: {
         type: "answer",
         community,
@@ -247,7 +241,7 @@ const VideoCall = (): ReactElement => {
     if (localMediaStream === undefined) {
       peerConnectionWrappers.map((wrapper) => wrapper.user).forEach(removePeerConnection);
     } else {
-      requestCall({ variables: { community } });
+      sendEvent({ variables: { type: "request", community } });
     }
 
     return () => {

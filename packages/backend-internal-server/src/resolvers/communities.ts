@@ -50,32 +50,14 @@ export class CommunitiesResolver implements ResolverInterface<Community> {
     return payload;
   }
 
-  @AuthoriseUser()
   @Mutation(() => Boolean)
-  async requestCommunityCall(
-    @Arg("community") community: string,
+  async communityCallEvent(
     @PubSub() pubSub: PubSubEngine,
     @CurrentUser() user: User,
-  ): Promise<boolean> {
-    const payload: CommunityCall = {
-      type: "request",
-      community,
-      from: user.username,
-    };
-
-    await pubSub.publish("COMMUNITY_CALL", payload);
-
-    return true;
-  }
-
-  @Mutation(() => Boolean)
-  async respondCommunityCall(
-    @Arg("type") type: "offer" | "request" | "ice",
+    @Arg("type") type: "request" | "offer" | "request" | "ice",
     @Arg("community") community: string,
-    @Arg("user") to: string,
-    @Arg("sdp") sdp: string,
-    @PubSub() pubSub: PubSubEngine,
-    @CurrentUser() user: User,
+    @Arg("user", { nullable: true }) to?: string,
+    @Arg("sdp", { nullable: true }) sdp?: string,
   ): Promise<boolean> {
     const payload: CommunityCall = {
       type,
