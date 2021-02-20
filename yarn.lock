@@ -2650,6 +2650,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.7.6":
+  version: 7.12.18
+  resolution: "@babel/runtime@npm:7.12.18"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: cb9e0c51b8e6e294ed5f52992d3fac13eb33b346760ef8eb0b3cb7542bb7c88c0297e2d878082255f91677e81e9cfcb00c38b3e55771a1ad9451647c6dd6a974
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.10.4, @babel/template@npm:^7.12.7, @babel/template@npm:^7.3.3":
   version: 7.12.7
   resolution: "@babel/template@npm:7.12.7"
@@ -5611,6 +5620,7 @@ __metadata:
     eslint-plugin-react-hooks: ^4.2.0
     formik: ^2.2.6
     graphql: ^15.5.0
+    history: ^5.0.0
     identity-obj-proxy: ^3.0.0
     katex: ^0.12.0
     prettier: ^2.2.1
@@ -12218,6 +12228,15 @@ fsevents@~2.1.2:
     tiny-warning: ^1.0.0
     value-equal: ^1.0.1
   checksum: 3b302b54c08f61f040a265ae9608c6dba88260179b9ddfe542042465ccf79e2ff19e792cb70c6e0240e80bc00b29aad5308d1f277815b1e95662bd5b819c625b
+  languageName: node
+  linkType: hard
+
+"history@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "history@npm:5.0.0"
+  dependencies:
+    "@babel/runtime": ^7.7.6
+  checksum: 38a8af6f31a08ddfd6b404fa6df2fcca8bd91300aa0858bdd2bf314aca0516bd37f9835c1f628e4a9113c1be4145d8e7c58f225564d8e9708a0f49c217acb47a
   languageName: node
   linkType: hard
 

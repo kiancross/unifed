@@ -17,6 +17,7 @@ import Footer from "./Footer";
 import CenteredLoader from "../../components/CenteredLoader";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import AccountSettingsPage from "../../pages/AccountSettingsPage";
+import HomePage from "../../pages/HomePage";
 import LoginPage from "../../pages/LoginPage";
 import RegistrationPage from "../../pages/RegistrationPage";
 import EmailVerificationPage from "../../pages/EmailVerificationPage";
@@ -39,7 +40,7 @@ const App = (): ReactElement => {
   const theme = createMuiTheme(darkMode && user.details ? darkTheme : lightTheme);
 
   const loggedIn = !!user.details;
-  const redirectHome = <Redirect to="/instances/this/communities/all/posts" />;
+  const redirectHome = <Redirect to="/" />;
   const redirectLogin = <Redirect to="/login" />;
 
   return (
@@ -54,7 +55,7 @@ const App = (): ReactElement => {
             <Box style={{ flexGrow: 1 }}>
               <Switch>
                 <Route exact path="/">
-                  {loggedIn ? redirectHome : redirectLogin}
+                  {loggedIn ? <HomePage /> : redirectLogin}
                 </Route>
 
                 <Route exact path="/privacy-notice" component={PrivacyNoticePage} />

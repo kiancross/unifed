@@ -11,12 +11,16 @@ import {
   Grid,
   Typography,
   makeStyles,
+  CardActions,
 } from "@material-ui/core";
+import SubscribeButton from "../../components/SubscribeButton";
 
 interface Props {
   desc: string;
   title: string;
+  id: string;
   server: string;
+  isSubscribed: boolean;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -34,6 +38,9 @@ const CommunityDescription = (props: Props): JSX.Element => {
     <Grid item>
       <Card className={classes.card}>
         <CardHeader disableTypography title={title} subheader={props.server} />
+        <CardActions>
+          <SubscribeButton id={props.id} server={props.server} isSubscribed={props.isSubscribed} />
+        </CardActions>
         <Divider />
         <Grid container>
           <CardContent>
