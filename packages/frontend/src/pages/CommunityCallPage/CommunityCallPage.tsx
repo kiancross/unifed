@@ -88,7 +88,7 @@ const VideoCall = (): ReactElement => {
     user: string,
     key: K,
     value: PeerWrapper[K],
-  ) => {
+  ) =>
     setPeerConnectionsWrappers((current) =>
       current.map((wrapper) => {
         if (wrapper.user === user) {
@@ -97,7 +97,6 @@ const VideoCall = (): ReactElement => {
         return wrapper;
       }),
     );
-  };
 
   const findPeerConnection = (user: string): RTCPeerConnection => {
     const wrapper = peerConnectionWrappers.find((wrapper) => wrapper.user === user);
@@ -108,7 +107,7 @@ const VideoCall = (): ReactElement => {
     return wrapper.connection;
   };
 
-  const removePeerConnection = (user: string) => {
+  const removePeerConnection = (user: string) =>
     setPeerConnectionsWrappers((current) =>
       current.filter((wrapper) => {
         if (wrapper.user === user) {
@@ -118,7 +117,6 @@ const VideoCall = (): ReactElement => {
         }
       }),
     );
-  };
 
   const createPeerConnection = async (user: string, community: string) => {
     removePeerConnection(user);
@@ -148,8 +146,8 @@ const VideoCall = (): ReactElement => {
       }
     };
 
-    peerConnection.onconnectionstatechange = () => {
-      switch (peerConnection.connectionState) {
+    peerConnection.oniceconnectionstatechange = () => {
+      switch (peerConnection.iceConnectionState) {
         case "closed":
         case "failed":
         case "disconnected":
@@ -246,13 +244,14 @@ const VideoCall = (): ReactElement => {
   };
 
   useEffect(() => {
-    if (localMediaStream !== undefined) {
+    if (localMediaStream === undefined) {
+      peerConnectionWrappers.map((wrapper) => wrapper.user).forEach(removePeerConnection);
+    } else {
       requestCall({ variables: { community } });
     }
 
     return () => {
-      peerConnectionWrappers.map((wrapper) => wrapper.user).forEach(removePeerConnection);
-      localMediaStream?.getTracks().forEach((track) => track.stop());
+      //localMediaStream?.getTracks().forEach((track) => track.stop());
     };
   }, [localMediaStream]);
 
