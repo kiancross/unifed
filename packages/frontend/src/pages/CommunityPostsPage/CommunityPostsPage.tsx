@@ -92,6 +92,18 @@ const CommunityPostsPage = (): JSX.Element => {
                 Make Post
               </ButtonLink>
             </Grid>
+            {community === "this" ? (
+              <Grid item>
+                <ButtonLink
+                  fullWidth
+                  color="primary"
+                  variant="contained"
+                  to={`/instances/${server}/communities/${community}/call`}
+                >
+                  Join Community Call
+                </ButtonLink>
+              </Grid>
+            ) : null}
             <CommunityDescription
               title={data.getCommunity.title}
               id={community}
