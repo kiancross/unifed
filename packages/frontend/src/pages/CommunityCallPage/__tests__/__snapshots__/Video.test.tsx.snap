@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render 1`] = `
+<video
+  autoPlay={true}
+  onCanPlay={[Function]}
+  playsInline={true}
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+/>
+`;
