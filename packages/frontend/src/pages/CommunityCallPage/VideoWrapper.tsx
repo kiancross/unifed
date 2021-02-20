@@ -12,6 +12,7 @@ export type VideoWrapperProps = {
   username: string;
   muted: boolean;
   stream?: MediaStream;
+  self?: boolean;
   onMuteChange: () => void;
 };
 
@@ -39,7 +40,7 @@ const VideoWrapper = (props: VideoWrapperProps): ReactElement => {
         }
       />
       <CardMedia className={classes.media}>
-        <Video stream={props.stream} muted={props.muted} />
+        <Video stream={props.stream} muted={props.muted || props.self} />
       </CardMedia>
     </Card>
   );
