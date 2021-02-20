@@ -6,6 +6,7 @@ import React, { ReactElement } from "react";
 import { makeStyles, Card, CardHeader, CardMedia, IconButton, Tooltip } from "@material-ui/core";
 import MicIcon from "@material-ui/icons/Mic";
 import MicOffIcon from "@material-ui/icons/MicOff";
+import CallEndIcon from "@material-ui/icons/CallEnd";
 import Video from "./Video";
 
 export type VideoWrapperProps = {
@@ -14,6 +15,7 @@ export type VideoWrapperProps = {
   stream?: MediaStream;
   self?: boolean;
   onMuteChange: () => void;
+  onLeaveCall: () => void;
 };
 
 const useStyles = makeStyles({
@@ -31,6 +33,13 @@ const VideoWrapper = (props: VideoWrapperProps): ReactElement => {
         title={props.username}
         action={
           <>
+            {props.self ? (
+              <Tooltip title="Leave Call">
+                <IconButton aria-label="leave" onClick={() => props.onLeaveCall()}>
+                  <CallEndIcon />
+                </IconButton>
+              </Tooltip>
+            ) : null}
             <Tooltip title={props.muted ? "Unmute" : "Mute"}>
               <IconButton aria-label="mute" onClick={() => props.onMuteChange()}>
                 {props.muted ? <MicOffIcon /> : <MicIcon />}

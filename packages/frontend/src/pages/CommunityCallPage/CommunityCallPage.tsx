@@ -301,6 +301,7 @@ const VideoCall = (): ReactElement => {
       ) : (
         <VideoGrid
           users={users}
+          onLeaveCall={() => setLocalMediaStream(undefined)}
           onMuteChange={({ username, self, muted }) => {
             if (self) {
               muteLocal(!muted);

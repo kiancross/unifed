@@ -6,11 +6,12 @@ import { ReactElement } from "react";
 import { Grid, makeStyles } from "@material-ui/core";
 import VideoWrapper, { VideoWrapperProps } from "./VideoWrapper";
 
-export type UserProps = Omit<VideoWrapperProps, "onMuteChange" | "onHiddenChange">;
+export type UserProps = Omit<VideoWrapperProps, "onMuteChange" | "onLeaveCall">;
 
 type VideoGridProps = {
   users: UserProps[];
   onMuteChange: (user: UserProps) => void;
+  onLeaveCall: () => void;
 };
 
 const useStyles = makeStyles({
@@ -32,6 +33,7 @@ const VideoGrid = (props: VideoGridProps): ReactElement => {
               muted={user.muted}
               stream={user.stream}
               self={user.self}
+              onLeaveCall={props.onLeaveCall}
               onMuteChange={() => {
                 props.onMuteChange(user);
               }}
