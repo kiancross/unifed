@@ -6,7 +6,8 @@ import { ReactElement, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Theme, makeStyles } from "@material-ui/core";
 import { gql, useSubscription, useMutation } from "@apollo/client";
-import VideoGrid, { UserProps } from "./VideoGrid";
+import { VideoWrapperProps } from "./VideoWrapper";
+import VideoGrid from "./VideoGrid";
 import JoinCallMessage from "./JoinCallMessage";
 
 interface CommunityCall {
@@ -277,12 +278,13 @@ const VideoCall = (): ReactElement => {
     }
   }, [subscription]);
 
-  const users: UserProps[] = peerConnectionWrappers
+  const users: VideoWrapperProps[] = peerConnectionWrappers
     .filter((wrapper) => wrapper.stream)
     .map(({ user, stream, muted }) => ({
       username: user,
       stream,
       muted,
+      onMuteChange: () => mutatePeerConnection(user, "muted", !muted),
     }));
 
   if (localMediaStream) {
@@ -291,6 +293,8 @@ const VideoCall = (): ReactElement => {
       stream: localMediaStream,
       muted: localMuted,
       self: true,
+      onMuteChange: () => muteLocal(!localMuted),
+      onLeaveCall: () => setLocalMediaStream(undefined),
     });
   }
 
@@ -299,17 +303,7 @@ const VideoCall = (): ReactElement => {
       {localMediaStream === undefined ? (
         <JoinCallMessage onJoinClick={() => getLocalMediaStream()} />
       ) : (
-        <VideoGrid
-          users={users}
-          onLeaveCall={() => setLocalMediaStream(undefined)}
-          onMuteChange={({ username, self, muted }) => {
-            if (self) {
-              muteLocal(!muted);
-            } else {
-              mutatePeerConnection(username, "muted", !muted);
-            }
-          }}
-        />
+        <VideoGrid users={users} />
       )}
     </Container>
   );

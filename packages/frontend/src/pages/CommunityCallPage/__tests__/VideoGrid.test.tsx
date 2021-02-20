@@ -10,33 +10,36 @@ test("Usernames", async () => {
     {
       username: "foo",
       muted: false,
+      onMuteChange: jest.fn(),
     },
     {
       username: "bar",
       muted: false,
+      onMuteChange: jest.fn(),
     },
   ];
 
-  const { getByText } = render(<VideoGrid users={users} onMuteChange={() => jest.fn()} />);
+  const { getByText } = render(<VideoGrid users={users} />);
 
   getByText("foo");
   getByText("bar");
 });
 
 test("Mute", async () => {
+  const onMuteChange = jest.fn();
+
   const users = [
     {
       username: "foo",
       muted: false,
+      onMuteChange,
     },
   ];
 
-  const onMuteChange = jest.fn();
-
-  const { getByRole } = render(<VideoGrid users={users} onMuteChange={onMuteChange} />);
+  const { getByRole } = render(<VideoGrid users={users} />);
 
   fireEvent.click(getByRole("button"));
 
   expect(onMuteChange).toHaveBeenCalledTimes(1);
-  expect(onMuteChange).toHaveBeenCalledWith(false, "foo");
+  expect(onMuteChange).toHaveBeenCalledWith();
 });

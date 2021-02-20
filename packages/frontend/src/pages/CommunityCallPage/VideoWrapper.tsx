@@ -15,7 +15,7 @@ export type VideoWrapperProps = {
   stream?: MediaStream;
   self?: boolean;
   onMuteChange: () => void;
-  onLeaveCall: () => void;
+  onLeaveCall?: () => void;
 };
 
 const useStyles = makeStyles({
@@ -35,7 +35,14 @@ const VideoWrapper = (props: VideoWrapperProps): ReactElement => {
           <>
             {props.self ? (
               <Tooltip title="Leave Call">
-                <IconButton aria-label="leave" onClick={() => props.onLeaveCall()}>
+                <IconButton
+                  aria-label="leave"
+                  onClick={() => {
+                    if (props.onLeaveCall) {
+                      props.onLeaveCall();
+                    }
+                  }}
+                >
                   <CallEndIcon />
                 </IconButton>
               </Tooltip>
