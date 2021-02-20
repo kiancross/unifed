@@ -31,7 +31,7 @@ const VideoWrapper = (props: VideoWrapperProps): ReactElement => {
         action={
           <>
             <Tooltip title={props.muted ? "Unmute" : "Mute"}>
-              <IconButton aria-label="mute" onClick={props.onMuteChange}>
+              <IconButton aria-label="mute" onClick={() => props.onMuteChange()}>
                 {props.muted ? <MicOffIcon /> : <MicIcon />}
               </IconButton>
             </Tooltip>
