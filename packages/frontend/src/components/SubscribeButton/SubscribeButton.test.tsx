@@ -22,7 +22,7 @@ test("Render SubscribeButton on subscribed community", async () => {
       <SubscribeButton id={"foo"} server={"bar"} isSubscribed={true} />
     </MockedProvider>,
   );
-  getByText("Subscribed");
+  getByText("Unsubscribe");
 });
 
 test("Subscribe and unsubscribe", async () => {
@@ -58,11 +58,11 @@ test("Subscribe and unsubscribe", async () => {
   );
 
   fireEvent.click(getByText("Subscribe"));
-  expect(getByText("Subscribed").closest("button")).toBeDisabled();
+  expect(getByText("Unsubscribe").closest("button")).toBeDisabled();
   await waitFor(() => {
-    expect(getByText("Subscribed").closest("button")).not.toBeDisabled();
+    expect(getByText("Unsubscribe").closest("button")).not.toBeDisabled();
   });
-  fireEvent.click(getByText("Subscribed"));
+  fireEvent.click(getByText("Unsubscribe"));
   expect(getByText("Subscribe").closest("button")).toBeDisabled();
   await waitFor(() => {
     expect(getByText("Subscribe").closest("button")).not.toBeDisabled();
