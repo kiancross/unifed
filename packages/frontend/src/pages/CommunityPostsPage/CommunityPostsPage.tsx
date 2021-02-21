@@ -25,6 +25,7 @@ const CommunityPostsPage = (): JSX.Element => {
       getPosts(community: { id: $community, host: $host }) {
         id
         title
+        approved
         author {
           id
         }
@@ -65,7 +66,7 @@ const CommunityPostsPage = (): JSX.Element => {
         <Grid container spacing={3}>
           <Grid item container xs={8} direction="column" spacing={2}>
             {data.getPosts
-              .filter((post: any) => post.title)
+              .filter((post: any) => post.title && post.approved)
               .map((post: any) => {
                 return (
                   <PostPreview
