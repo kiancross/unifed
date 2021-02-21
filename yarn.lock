@@ -4798,6 +4798,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-responsive@npm:^8":
+  version: 8.0.2
+  resolution: "@types/react-responsive@npm:8.0.2"
+  dependencies:
+    "@types/react": "*"
+  checksum: 48bc498859226af961233c1bf4764b5f0af132a81e3dcb7089c40ce14bf4e94eec40bb960a85621dd8bf798f40e2caaf0addc649d3ddb9ec6bda7f9bac5d30ac
+  languageName: node
+  linkType: hard
+
 "@types/react-router-dom@npm:^5.1.7":
   version: 5.1.7
   resolution: "@types/react-router-dom@npm:5.1.7"
@@ -5601,6 +5610,7 @@ __metadata:
     "@types/prettier": ^2.2.1
     "@types/react": ^17.0.2
     "@types/react-dom": ^17.0.1
+    "@types/react-responsive": ^8
     "@types/react-router": ^5.1.11
     "@types/react-router-dom": ^5.1.7
     "@types/react-syntax-highlighter": ^13.5.0
@@ -5625,10 +5635,10 @@ __metadata:
     katex: ^0.12.0
     prettier: ^2.2.1
     react: ^17.0.1
-    react-device-detect: ^1.15.0
     react-dom: ^17.0.1
     react-markdown: ^5.0.3
     react-markdown-editor-lite: ^1.2.4
+    react-responsive: ^8.2.0
     react-router: ^5.2.0
     react-router-dom: ^5.2.0
     react-scripts: 4.0.2
@@ -8844,6 +8854,13 @@ __metadata:
   peerDependencies:
     webpack: ^4.27.0 || ^5.0.0
   checksum: 1f441ac567e3c45dde1009860fcc0d2807d5af4e42e799c77070a121f91a8a8c0ce41d6aa19b664bd9fbc127c5375abefa8f871ba503e55f2ea27c3e1385f3fa
+  languageName: node
+  linkType: hard
+
+"css-mediaquery@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "css-mediaquery@npm:0.1.2"
+  checksum: 571ab2efdba0dead1315eb82b1e53917b4aeb45f07cc2ff97bfe3c6443cd036843d944044661561b5585d1f64ecbcad112052b40846ae4d85ef7d5e978e996e4
   languageName: node
   linkType: hard
 
@@ -12599,7 +12616,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"hyphenate-style-name@npm:^1.0.3":
+"hyphenate-style-name@npm:^1.0.0, hyphenate-style-name@npm:^1.0.3":
   version: 1.0.4
   resolution: "hyphenate-style-name@npm:1.0.4"
   checksum: 4cfeb47e98eab9c25e6dece20da772cc914a9f8e5ee794cf8db105b0649dd64a61d8ee8ff32acf23ae0ac181db8fcbe4a6abb2f7de48ae52b42a85bbf1aacb86
@@ -15242,6 +15259,15 @@ fsevents@~2.1.2:
   dependencies:
     escape-string-regexp: ^4.0.0
   checksum: 4b54c0a8ed69ecc993290cd31d6ea6ce7f82e2f888fb6c319e311b7f5fac013fe790e7389479a7b040155dfe5df1991c793120295557b9b0a82b2db23bcffb2d
+  languageName: node
+  linkType: hard
+
+"matchmediaquery@npm:^0.3.0":
+  version: 0.3.1
+  resolution: "matchmediaquery@npm:0.3.1"
+  dependencies:
+    css-mediaquery: ^0.1.2
+  checksum: face426fe3fd743d08d70c2e92c103c14419268f7ba0069bacd04c91e819a7ca270d195e2e6793169a6fcacc22b225965d685ec3fc144babee84f46659645757
   languageName: node
   linkType: hard
 
@@ -18487,7 +18513,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
+"prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
   version: 15.7.2
   resolution: "prop-types@npm:15.7.2"
   dependencies:
@@ -18811,18 +18837,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-device-detect@npm:^1.15.0":
-  version: 1.15.0
-  resolution: "react-device-detect@npm:1.15.0"
-  dependencies:
-    ua-parser-js: ^0.7.23
-  peerDependencies:
-    react: ">= 0.14.0 < 18.0.0"
-    react-dom: ">= 0.14.0 < 18.0.0"
-  checksum: 1e271e21823ebe23f52e97cf5e3a2f7a55cf4b1a94f0ad7cc866a988ce8ecaa62302980b8405c22bb2c2dc40934a801bbe7688d8b53b7e80ac772a767f3d0174
-  languageName: node
-  linkType: hard
-
 "react-dom@npm:^17.0.1":
   version: 17.0.1
   resolution: "react-dom@npm:17.0.1"
@@ -18900,6 +18914,20 @@ fsevents@~2.1.2:
   version: 0.8.3
   resolution: "react-refresh@npm:0.8.3"
   checksum: 38f06df8e0a20701b96e5d680838a3528d66cfb53db79843d30cb9517df3262ec596607147439975267bf0634bee77101db37298ea79b5742cc28664632f3c76
+  languageName: node
+  linkType: hard
+
+"react-responsive@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "react-responsive@npm:8.2.0"
+  dependencies:
+    hyphenate-style-name: ^1.0.0
+    matchmediaquery: ^0.3.0
+    prop-types: ^15.6.1
+    shallow-equal: ^1.1.0
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 3209a32c74d6749e306b7fd521e2156c04d21e40af2d9a4493d22f22d13deb64d6ca1439526a56342779a1a8819be7354ff111d877a3cf3964ee50e9a84e77d9
   languageName: node
   linkType: hard
 
@@ -20215,6 +20243,13 @@ resolve@1.18.1:
   bin:
     sha.js: ./bin.js
   checksum: 7554240ab76e683f7115123eb4815aae16b5fc6f2cdff97009831ad5b17b107ffcef022526211f7306957bce7a67fa4d0ccad79a3040c5073414365595e90516
+  languageName: node
+  linkType: hard
+
+"shallow-equal@npm:^1.1.0":
+  version: 1.2.1
+  resolution: "shallow-equal@npm:1.2.1"
+  checksum: 5002ac4a3639e35782d3cb21073d48e1e4f85321cc54608f48b2331f6db6d54e4f4b44ed81ec4d75385ebe893e8286752b1e29595381e6adad72dd836f001b7f
   languageName: node
   linkType: hard
 
@@ -22001,13 +22036,6 @@ typescript@^4.1.5:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 58cc7786be0f8485c124944883b1384287532e4867ec37f1fb5cb2811dbc10f7a9decccad89097f924043285f3515bfd8223c61dbb4f88af00b2d8dc2ef73207
-  languageName: node
-  linkType: hard
-
-"ua-parser-js@npm:^0.7.23":
-  version: 0.7.24
-  resolution: "ua-parser-js@npm:0.7.24"
-  checksum: a15aa0e79de2c46941d80f677d79a8f621a45df581692475f2712023de3dca5f0d13adb0f86df0cad182a842e9a788211b65b23d160bb9925623efa6af7bac11
   languageName: node
   linkType: hard
 
