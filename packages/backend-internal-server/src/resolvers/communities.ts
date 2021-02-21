@@ -21,7 +21,7 @@ import { AuthoriseUser } from "../auth-checkers";
 import { RemoteReferenceInput } from "./inputs";
 import { translateHost } from "./helpers";
 import { CommunitiesService, PostsService } from "../services";
-import { CommunityCall } from "./types";
+import { CommunityCallEvent } from "./types";
 
 @Service()
 @Resolver(Community)
@@ -39,45 +39,30 @@ export class CommunitiesResolver implements ResolverInterface<Community> {
         return false;
       }
 
-      if (payload.type !== "request" && payload.to !== context.user.username) {
+      if (payload.to !== undefined && payload.to !== context.user.username) {
         return false;
       }
 
       return true;
     },
   })
-  communityCalls(@Arg("community") _: string, @Root() payload: CommunityCall): CommunityCall {
+  communityCalls(
+    @Arg("community") _: string,
+    @Root() payload: CommunityCallEvent,
+  ): CommunityCallEvent {
     return payload;
   }
 
-  @AuthoriseUser()
   @Mutation(() => Boolean)
-  async requestCommunityCall(
-    @Arg("community") community: string,
+  async communityCallEvent(
     @PubSub() pubSub: PubSubEngine,
     @CurrentUser() user: User,
-  ): Promise<boolean> {
-    const payload: CommunityCall = {
-      type: "request",
-      community,
-      from: user.username,
-    };
-
-    await pubSub.publish("COMMUNITY_CALL", payload);
-
-    return true;
-  }
-
-  @Mutation(() => Boolean)
-  async respondCommunityCall(
-    @Arg("type") type: "offer" | "request" | "ice",
+    @Arg("type") type: "request" | "offer" | "answer" | "ice" | "disconnect",
     @Arg("community") community: string,
-    @Arg("user") to: string,
-    @Arg("sdp") sdp: string,
-    @PubSub() pubSub: PubSubEngine,
-    @CurrentUser() user: User,
+    @Arg("user", { nullable: true }) to?: string,
+    @Arg("sdp", { nullable: true }) sdp?: string,
   ): Promise<boolean> {
-    const payload: CommunityCall = {
+    const payload: CommunityCallEvent = {
       type,
       community,
       sdp,
