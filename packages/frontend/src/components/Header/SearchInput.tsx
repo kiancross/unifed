@@ -18,6 +18,7 @@ interface Community {
 
 const useStyles = makeStyles({
   root: {
+    boxSizing: "unset",
     alignItems: "center",
     display: "flex",
     height: "100%",

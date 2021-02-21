@@ -4,7 +4,7 @@
 
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Container, Grid } from "@material-ui/core";
+import { Container, Grid, useMediaQuery } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
 import PostPreview from "../../components/PostPreview";
 import CommunityDescription from "./CommunityDescription";
@@ -19,6 +19,7 @@ interface Params {
 
 const CommunityPostsPage = (): JSX.Element => {
   const { community, server } = useParams<Params>();
+  const isMobile = useMediaQuery("(max-width: 960px)");
 
   const GET_POSTS = gql`
     query($community: String!, $host: String!) {
@@ -60,11 +61,13 @@ const CommunityPostsPage = (): JSX.Element => {
     (e: { host: string; id: string }) => e.host === data.getCommunity.host && e.id === community,
   );
 
+  const direction = isMobile ? "column-reverse" : "row";
+
   return (
     <div style={{ paddingTop: "15px" }}>
       <Container maxWidth="lg">
-        <Grid container spacing={3}>
-          <Grid item container xs={8} direction="column" spacing={2}>
+        <Grid direction={direction} container spacing={3}>
+          <Grid item container xs={12} md={8} direction="column" spacing={2}>
             {data.getPosts
               .filter((post: any) => post.title && post.approved)
               .map((post: any) => {
@@ -82,7 +85,7 @@ const CommunityPostsPage = (): JSX.Element => {
               })}
           </Grid>
 
-          <Grid item container xs={4} direction="column" spacing={2}>
+          <Grid item container xs={12} md={4} direction="column" spacing={2}>
             <Grid item>
               <ButtonLink
                 fullWidth
@@ -93,7 +96,7 @@ const CommunityPostsPage = (): JSX.Element => {
                 Make Post
               </ButtonLink>
             </Grid>
-            {community === "this" ? (
+            {server === "this" ? (
               <Grid item>
                 <ButtonLink
                   fullWidth
