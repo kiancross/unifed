@@ -31,7 +31,7 @@ const SubscribeButton = (props: Props): JSX.Element => {
   if (loading) {
     return (
       <Button disabled variant="contained" color="primary">
-        {subscribed ? "Subscribe" : "Subscribed"}
+        {subscribed ? "Subscribe" : "Unsubscribe"}
       </Button>
     );
   }
@@ -49,7 +49,7 @@ const SubscribeButton = (props: Props): JSX.Element => {
       color={subscribed ? "secondary" : "primary"}
       disableElevation
     >
-      {subscribed ? "Subscribed" : "Subscribe"}
+      {subscribed ? "Unsubscribe" : "Subscribe"}
     </Button>
   );
 };
