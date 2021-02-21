@@ -31,7 +31,7 @@ const SubscribeButton = (props: Props): JSX.Element => {
   if (loading) {
     return (
       <Button disabled variant="contained" color="primary">
-        {subscribed ? "Subscribe" : "Subscribed"}
+        {subscribed ? "Subscribe" : "Unsubscribe"}
       </Button>
     );
   }
