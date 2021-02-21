@@ -11,6 +11,7 @@ import CommunityDescription from "./CommunityDescription";
 import { ButtonLink } from "../../components/Links";
 import CenteredLoader from "../../components/CenteredLoader";
 import ErrorMessage from "../../components/ErrorMessage";
+import { useMediaQuery } from "react-responsive";
 
 interface Params {
   server: string;
@@ -19,6 +20,7 @@ interface Params {
 
 const CommunityPostsPage = (): JSX.Element => {
   const { community, server } = useParams<Params>();
+  const isMobile = useMediaQuery({ query: "(max-width: 900px)" });
 
   const GET_POSTS = gql`
     query($community: String!, $host: String!) {
@@ -58,12 +60,15 @@ const CommunityPostsPage = (): JSX.Element => {
   const isSubscribed = data.getSubscriptions.some(
     (e: { host: string; id: string }) => e.host === data.getCommunity.host && e.id === community,
   );
+  const postGridSize = isMobile ? 12 : 8;
+  const descriptionGridSize = isMobile ? 12 : 4;
+  const direction = isMobile ? "column-reverse" : "row";
 
   return (
     <div style={{ paddingTop: "15px" }}>
       <Container maxWidth="lg">
-        <Grid container spacing={3}>
-          <Grid item container xs={8} direction="column" spacing={2}>
+        <Grid direction={direction} container spacing={3}>
+          <Grid item container xs={postGridSize} direction="column" spacing={2}>
             {data.getPosts
               .filter((post: any) => post.title)
               .map((post: any) => {
@@ -81,7 +86,7 @@ const CommunityPostsPage = (): JSX.Element => {
               })}
           </Grid>
 
-          <Grid item container xs={4} direction="column" spacing={2}>
+          <Grid item container xs={descriptionGridSize} direction="column" spacing={2}>
             <Grid item>
               <ButtonLink
                 fullWidth

@@ -12,7 +12,7 @@ import SearchInput from "./SearchInput";
 import Brightness3Icon from "@material-ui/icons/Brightness3";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 import AccountMenu from "./AccountMenu";
-import { isMobile } from "react-device-detect";
+import { useMediaQuery } from "react-responsive";
 
 interface Props {
   onThemeChange: (darkMode: boolean) => void;
@@ -39,6 +39,7 @@ const useStyles = makeStyles({
 
 const Header = (props: Props): ReactElement | null => {
   const [darkMode, setDarkMode] = useState(props.darkMode);
+  const isMobile = useMediaQuery({ query: "(max-width: 900px)" });
 
   const user = useContext(UserContext);
   const classes = useStyles();
