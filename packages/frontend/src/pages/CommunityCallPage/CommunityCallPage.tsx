@@ -61,15 +61,9 @@ const VideoCall = (): ReactElement => {
     { variables: { community } },
   );
 
-  const [requestCall] = useMutation(gql`
-    mutation($community: String!) {
-      requestCommunityCall(community: $community)
-    }
-  `);
-
-  const [respondCall] = useMutation(gql`
-    mutation($community: String!, $user: String!, $sdp: String!, $type: String!) {
-      respondCommunityCall(type: $type, community: $community, user: $user, sdp: $sdp)
+  const [sendEvent] = useMutation(gql`
+    mutation($community: String!, $user: String, $sdp: String, $type: String!) {
+      communityCallEvent(type: $type, community: $community, user: $user, sdp: $sdp)
     }
   `);
 
@@ -88,7 +82,7 @@ const VideoCall = (): ReactElement => {
     user: string,
     key: K,
     value: PeerWrapper[K],
-  ) => {
+  ) =>
     setPeerConnectionsWrappers((current) =>
       current.map((wrapper) => {
         if (wrapper.user === user) {
@@ -97,7 +91,6 @@ const VideoCall = (): ReactElement => {
         return wrapper;
       }),
     );
-  };
 
   const findPeerConnection = (user: string): RTCPeerConnection => {
     const wrapper = peerConnectionWrappers.find((wrapper) => wrapper.user === user);
@@ -108,7 +101,7 @@ const VideoCall = (): ReactElement => {
     return wrapper.connection;
   };
 
-  const removePeerConnection = (user: string) => {
+  const removePeerConnection = (user: string) =>
     setPeerConnectionsWrappers((current) =>
       current.filter((wrapper) => {
         if (wrapper.user === user) {
@@ -118,7 +111,6 @@ const VideoCall = (): ReactElement => {
         }
       }),
     );
-  };
 
   const createPeerConnection = async (user: string, community: string) => {
     removePeerConnection(user);
@@ -137,7 +129,7 @@ const VideoCall = (): ReactElement => {
 
     peerConnection.onicecandidate = ({ candidate }) => {
       if (candidate) {
-        respondCall({
+        sendEvent({
           variables: {
             type: "ice",
             community,
@@ -148,8 +140,8 @@ const VideoCall = (): ReactElement => {
       }
     };
 
-    peerConnection.onconnectionstatechange = () => {
-      switch (peerConnection.connectionState) {
+    peerConnection.oniceconnectionstatechange = () => {
+      switch (peerConnection.iceConnectionState) {
         case "closed":
         case "failed":
         case "disconnected":
@@ -187,9 +179,7 @@ const VideoCall = (): ReactElement => {
     }
   };
 
-  const onRequest = async (communityCall: CommunityCall): Promise<void> => {
-    const user = communityCall.from;
-
+  const onRequest = async ({ from: user }: CommunityCall): Promise<void> => {
     const peerConnection = await createPeerConnection(user, community);
 
     const offer = await peerConnection.createOffer({
@@ -199,7 +189,7 @@ const VideoCall = (): ReactElement => {
 
     await peerConnection.setLocalDescription(offer);
 
-    await respondCall({
+    await sendEvent({
       variables: {
         type: "offer",
         community,
@@ -209,17 +199,15 @@ const VideoCall = (): ReactElement => {
     });
   };
 
-  const onOffer = async (communityCall: CommunityCall): Promise<void> => {
-    const user = communityCall.from;
-
+  const onOffer = async ({ from: user, sdp }: CommunityCall): Promise<void> => {
     const peerConnection = await createPeerConnection(user, community);
 
-    await peerConnection.setRemoteDescription(JSON.parse(communityCall.sdp));
+    await peerConnection.setRemoteDescription(JSON.parse(sdp));
 
     const answer = await peerConnection.createAnswer();
     await peerConnection.setLocalDescription(answer);
 
-    await respondCall({
+    await sendEvent({
       variables: {
         type: "answer",
         community,
@@ -229,29 +217,31 @@ const VideoCall = (): ReactElement => {
     });
   };
 
-  const onAnswer = async (communityCall: CommunityCall): Promise<void> => {
-    const user = communityCall.from;
-
+  const onAnswer = async ({ from: user, sdp }: CommunityCall): Promise<void> => {
     const peerConnection = findPeerConnection(user);
 
-    await peerConnection.setRemoteDescription(JSON.parse(communityCall.sdp));
+    await peerConnection.setRemoteDescription(JSON.parse(sdp));
   };
 
-  const onIce = async (communityCall: CommunityCall): Promise<void> => {
-    const user = communityCall.from;
-
+  const onIce = async ({ from: user, sdp }: CommunityCall): Promise<void> => {
     const peerConnection = findPeerConnection(user);
 
-    await peerConnection.addIceCandidate(new RTCIceCandidate(JSON.parse(communityCall.sdp)));
+    await peerConnection.addIceCandidate(new RTCIceCandidate(JSON.parse(sdp)));
+  };
+
+  const onRemoteDisconnect = ({ from: user }: CommunityCall) => {
+    removePeerConnection(user);
   };
 
   useEffect(() => {
-    if (localMediaStream !== undefined) {
-      requestCall({ variables: { community } });
+    if (localMediaStream === undefined) {
+      peerConnectionWrappers.map((wrapper) => wrapper.user).forEach(removePeerConnection);
+    } else {
+      sendEvent({ variables: { type: "request", community } });
     }
 
     return () => {
-      peerConnectionWrappers.map((wrapper) => wrapper.user).forEach(removePeerConnection);
+      sendEvent({ variables: { type: "disconnect", community } });
       localMediaStream?.getTracks().forEach((track) => track.stop());
     };
   }, [localMediaStream]);
@@ -273,6 +263,10 @@ const VideoCall = (): ReactElement => {
 
         case "ice":
           onIce(subscription.communityCalls);
+          break;
+
+        case "disconnect":
+          onRemoteDisconnect(subscription.communityCalls);
           break;
       }
     }
