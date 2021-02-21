@@ -28,13 +28,13 @@ interface AccountTabParams {
   email: string;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "#ffffff",
-    color: "#000000",
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.text.primary,
     textAlign: "center",
   },
-});
+}));
 
 const AccountTab = (props: AccountTabParams): JSX.Element => {
   const [passOpen, setPassOpen] = React.useState(false);

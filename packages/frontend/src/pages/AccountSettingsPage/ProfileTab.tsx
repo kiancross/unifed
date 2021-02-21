@@ -26,13 +26,13 @@ interface ProfileTabParams {
   name: string;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "#ffffff",
-    color: "#000000",
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.text.primary,
     textAlign: "center",
   },
-});
+}));
 
 export const CHANGE_NAME = gql`
   mutation UpdateUserProfile($name: String!) {
