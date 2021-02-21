@@ -5455,6 +5455,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^4.15.1
     "@typescript-eslint/parser": ^4.15.1
     "@unifed/backend-core": "workspace:packages/backend-core"
+    "@unifed/backend-ml": "workspace:packages/backend-ml"
     "@unifed/backend-testing": "workspace:packages/backend-testing"
     ava: ^3.15.0
     class-transformer: ^0.4.0

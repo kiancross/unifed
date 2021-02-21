@@ -46,8 +46,8 @@ export class Post extends Base {
   })
   children?: Ref<Post>[];
 
+  @Property({ required: true })
   @Field()
-  @Property()
   approved!: boolean;
 
   get updatedAtUnixTimestamp(): number {
@@ -73,6 +73,7 @@ export class Post extends Base {
       author: this.author,
       modified: this.updatedAtUnixTimestamp,
       created: this.createdAtUnixTimestamp,
+      approved: this.approved,
     };
   }
 }
