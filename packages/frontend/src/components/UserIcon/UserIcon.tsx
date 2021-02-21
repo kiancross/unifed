@@ -15,7 +15,6 @@ const useStyles = makeStyles<Theme, Props>((theme) => ({
   avatar: (props) => ({
     height: props.small ? "28px" : "45px",
     width: props.small ? "28px" : "45px",
-    backgroundColor: "#616161",
   }),
   text: {
     color: theme.palette.text.primary,
