@@ -67,9 +67,7 @@ test("Valid form values", async () => {
       },
       result: {
         data: {
-          createCommunity: [
-            true,
-          ],
+          createCommunity: [true],
         },
       },
     },
@@ -80,7 +78,7 @@ test("Valid form values", async () => {
       <MockedProvider mocks={mocks} addTypename={false}>
         <CreateCommunityDialog />
       </MockedProvider>
-    </Router>
+    </Router>,
   );
 
   await waitFor(() => {
@@ -88,16 +86,16 @@ test("Valid form values", async () => {
   });
 
   await waitFor(() => {
-    fireEvent.change(getByTestId("id"), { target: { id: "CS3099"} })
-  })
+    fireEvent.change(getByTestId("id"), { target: { value: "CS3099" } });
+  });
 
   await waitFor(() => {
-    fireEvent.change(getByTestId("name"), { target: { name: "CS3099"} })
-  })
+    fireEvent.change(getByTestId("name"), { target: { value: "CS3099" } });
+  });
 
   await waitFor(() => {
-    fireEvent.change(getByTestId("description"), { target: { description: "Team Project"} })
-  })
+    fireEvent.change(getByTestId("description"), { target: { value: "Team Project" } });
+  });
 
   await waitFor(() => {
     userEvent.click(screen.getByRole("button", { name: "Create" }));
@@ -105,5 +103,5 @@ test("Valid form values", async () => {
 
   await waitFor(() => {
     expect(history.push).toHaveBeenCalledWith("/instances/this/communities/CS3099/posts");
-  })
+  });
 });

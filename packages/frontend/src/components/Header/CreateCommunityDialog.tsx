@@ -97,69 +97,71 @@ const CreateCommunityDialog = (): ReactElement => {
           <AddIcon />
         </IconButton>
       </Tooltip>
-      <Dialog open={open} onClose={onCloseClick} disableBackdropClick>
-        <DialogTitle>Create Community</DialogTitle>
-        <DialogContent dividers>
-          <TextField
-            name="id"
-            fullWidth
-            margin="dense"
-            variant="outlined"
-            label="Community ID"
-            color="primary"
-            helperText={formik.errors.id}
-            error={!!formik.errors.id}
-            onChange={formik.handleChange}
-            value={formik.values.id}
-            data-testid="id"
-          />
-          <br />
-          <TextField
-            name="name"
-            fullWidth
-            margin="dense"
-            variant="outlined"
-            label="Community Name"
-            color="primary"
-            helperText={formik.errors.name}
-            error={!!formik.errors.name}
-            onChange={formik.handleChange}
-            value={formik.values.name}
-            data-testid="name"
-          />
-          <br />
-          <TextField
-            name="description"
-            fullWidth
-            multiline
-            margin="dense"
-            variant="outlined"
-            label="Community Description"
-            color="primary"
-            helperText={formik.errors.description}
-            error={!!formik.errors.description}
-            onChange={formik.handleChange}
-            value={formik.values.description}
-            data-testid="description"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={onCloseClick} variant="contained" style={{ margin: "1rem" }} fullWidth>
-            Cancel
-          </Button>
-          <Button
-            disabled={!!loading}
-            variant="contained"
-            color="primary"
-            style={{ margin: "1rem 0rem" }}
-            fullWidth
-            onClick={formik.submitForm}
-          >
-            {loading ? <CircularProgress color="inherit" size={20} /> : "Create"}
-          </Button>
-        </DialogActions>
-        {error && open ? <Popup message="There was a problem creating this community" /> : null}
-      </Dialog>
+      <form id="create-community-form" onSubmit={formik.handleSubmit}>
+        <Dialog open={open} onClose={onCloseClick} disableBackdropClick>
+          <DialogTitle>Create Community</DialogTitle>
+          <DialogContent dividers>
+            <TextField
+              name="id"
+              fullWidth
+              margin="dense"
+              variant="outlined"
+              label="Community ID"
+              color="primary"
+              helperText={formik.errors.id}
+              error={!!formik.errors.id}
+              onChange={formik.handleChange}
+              value={formik.values.id}
+              inputProps={{ "data-testid": "id", form: "create-community-form" }}
+            />
+            <br />
+            <TextField
+              name="name"
+              fullWidth
+              margin="dense"
+              variant="outlined"
+              label="Community Name"
+              color="primary"
+              helperText={formik.errors.name}
+              error={!!formik.errors.name}
+              onChange={formik.handleChange}
+              value={formik.values.name}
+              inputProps={{ "data-testid": "name", form: "create-community-form" }}
+            />
+            <br />
+            <TextField
+              name="description"
+              fullWidth
+              multiline
+              margin="dense"
+              variant="outlined"
+              label="Community Description"
+              color="primary"
+              helperText={formik.errors.description}
+              error={!!formik.errors.description}
+              onChange={formik.handleChange}
+              value={formik.values.description}
+              inputProps={{ "data-testid": "description", form: "create-community-form" }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={onCloseClick} variant="contained" style={{ margin: "1rem" }} fullWidth>
+              Cancel
+            </Button>
+            <Button
+              disabled={!!loading}
+              variant="contained"
+              color="primary"
+              style={{ margin: "1rem 0rem" }}
+              fullWidth
+              onClick={formik.submitForm}
+            >
+              {loading ? <CircularProgress color="inherit" size={20} /> : "Create"}
+            </Button>
+          </DialogActions>
+          {error && open ? <Popup message="There was a problem creating this community" /> : null}
+        </Dialog>
+      </form>
     </>
   );
 };
