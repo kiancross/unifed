@@ -95,7 +95,7 @@ const CommunityPostsPage = (): JSX.Element => {
                 Make Post
               </ButtonLink>
             </Grid>
-            {community === "this" ? (
+            {server === "this" ? (
               <Grid item>
                 <ButtonLink
                   fullWidth
