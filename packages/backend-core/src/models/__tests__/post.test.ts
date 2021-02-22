@@ -16,6 +16,7 @@ test("toJSON - community", (t) => {
   post.author = new RemoteReference();
   post.author.id = "someusername";
   post.author.host = "somehost:420";
+  post.approved = true;
   post.createdAt = new Date("2020-11-13T09:25:10+00:00");
   post.updatedAt = new Date("2020-11-13T09:26:07+00:00");
 
@@ -47,6 +48,7 @@ test("toJSON - post", (t) => {
   post.author = new RemoteReference();
   post.author.id = "someusername";
   post.author.host = "somehost:420";
+  post.approved = true;
   post.createdAt = new Date("2020-11-13T09:25:10+00:00");
   post.updatedAt = new Date("2020-11-13T09:26:07+00:00");
 

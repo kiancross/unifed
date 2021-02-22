@@ -55,6 +55,11 @@ export class PostsFederationService {
 
     const posts = plainToClass(Post, rawPosts);
     posts.forEach((element) => (element.host = host));
+    posts.forEach((element) => {
+      if (element.approved === undefined) {
+        element.approved = true;
+      }
+    });
 
     return posts;
   }
