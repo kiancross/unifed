@@ -108,7 +108,9 @@ const VideoCall = (): ReactElement => {
           if (wrapper.connection.connectionState === "connected") {
             wrapper.connection.close();
           }
+          return false;
         }
+        return true;
       }),
     );
 
