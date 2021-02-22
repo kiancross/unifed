@@ -46,6 +46,10 @@ export class Post extends Base {
   })
   children?: Ref<Post>[];
 
+  @Property({ required: true })
+  @Field()
+  approved!: boolean;
+
   get updatedAtUnixTimestamp(): number {
     return this.updatedAt ? dateToUnixTimestamp(this.updatedAt) : 0;
   }
@@ -55,17 +59,21 @@ export class Post extends Base {
   }
 
   toJSON(): JSONMap {
+    const title = this.approved ? this.title : "Pending Approval";
+    const body = this.approved ? this.body : "This post is pending approval.";
+
     return {
       ...super.toJSON(),
       parentPost: getIdFromRef(this.parentPost),
       community: getIdFromRef(this.community),
       children: (this.children || []).map(getIdFromRef),
-      title: this.title,
+      title,
+      body,
       contentType: this.contentType,
-      body: this.body,
       author: this.author,
       modified: this.updatedAtUnixTimestamp,
       created: this.createdAtUnixTimestamp,
+      approved: this.approved,
     };
   }
 }
