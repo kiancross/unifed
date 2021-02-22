@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Theme, makeStyles } from "@material-ui/core";
 import { gql, useSubscription, useMutation } from "@apollo/client";
@@ -16,13 +16,15 @@ interface CommunityCall {
   sdp: string;
 }
 
-interface PeerWrapper {
-  user: string;
-  stream?: MediaStream;
+interface PeerReference {
   connection: RTCPeerConnection;
   channel: RTCDataChannel;
+}
+
+interface ConnectedUser {
+  username: string;
   muted: boolean;
-  hidden: boolean;
+  stream?: MediaStream;
 }
 
 const peerConnectionOptions = {
@@ -45,7 +47,9 @@ const VideoCall = (): ReactElement => {
 
   const [localMediaStream, setLocalMediaStream] = useState<MediaStream | null>();
   const [localMuted, setLocalMuted] = useState(false);
-  const [peerConnectionWrappers, setPeerConnectionsWrappers] = useState<PeerWrapper[]>([]);
+
+  const peerReferences = useRef<{ [user: string]: PeerReference | undefined }>({});
+  const [connectedUsers, setConnectedUsers] = useState<ConnectedUser[]>([]);
 
   const { community } = useParams<{ community: string }>();
 
@@ -68,59 +72,54 @@ const VideoCall = (): ReactElement => {
     }
   `);
 
-  const addPeerConnection = (
-    user: string,
-    connection: RTCPeerConnection,
-    channel: RTCDataChannel,
-  ) => {
+  const addConnectedUser = (username: string) => {
     const wrapper = {
-      user,
-      channel,
-      connection,
-      hidden: false,
+      username,
       muted: false,
     };
 
-    setPeerConnectionsWrappers((current) => [...current, wrapper]);
+    setConnectedUsers((current) => [...current, wrapper]);
   };
 
-  const mutatePeerConnection = <K extends keyof PeerWrapper>(
-    user: string,
+  const mutateConnectedUser = <K extends keyof ConnectedUser>(
+    username: string,
     key: K,
-    value: PeerWrapper[K],
+    value: ConnectedUser[K],
   ) =>
-    setPeerConnectionsWrappers((current) =>
-      current.map((wrapper) => {
-        if (wrapper.user === user) {
-          wrapper[key] = value;
+    setConnectedUsers((current) =>
+      current.map((user) => {
+        if (user.username === username) {
+          user[key] = value;
         }
-        return wrapper;
+
+        return user;
       }),
     );
 
-  const findPeerConnection = (user: string): RTCPeerConnection => {
-    const wrapper = peerConnectionWrappers.find((wrapper) => wrapper.user === user);
-    if (!wrapper) {
-      throw new Error("peerConnection not found");
-    }
+  const removeConnectedUser = (username: string) =>
+    setConnectedUsers((current) => current.filter((user) => user.username !== username));
 
-    return wrapper.connection;
+  const closePeerConnection = (username: string) => {
+    const peerReference = peerReferences.current[username];
+
+    if (peerReference) {
+      peerReference.channel.close();
+
+      if (peerReference.connection.connectionState === "connected") {
+        peerReference.connection.close();
+      }
+
+      delete peerReferences.current[username];
+    }
   };
 
-  const removePeerConnection = (user: string) =>
-    setPeerConnectionsWrappers((current) =>
-      current.filter((wrapper) => {
-        if (wrapper.user === user) {
-          wrapper.channel.close();
-          if (wrapper.connection.connectionState === "connected") {
-            wrapper.connection.close();
-          }
-        }
-      }),
-    );
+  const endUserConnection = (username: string) => {
+    closePeerConnection(username);
+    removeConnectedUser(username);
+  };
 
-  const createPeerConnection = async (user: string, community: string) => {
-    removePeerConnection(user);
+  const createPeerConnection = async (username: string, community: string) => {
+    endUserConnection(username);
 
     const peerConnection = new RTCPeerConnection(peerConnectionOptions);
 
@@ -129,16 +128,20 @@ const VideoCall = (): ReactElement => {
       id: 0,
     });
 
-    dataChannel.onclose = () => removePeerConnection(user);
+    peerReferences.current[username] = {
+      connection: peerConnection,
+      channel: dataChannel,
+    };
 
-    addPeerConnection(user, peerConnection, dataChannel);
+    dataChannel.onclose = () => endUserConnection(username);
 
     localMediaStream
       ?.getTracks()
       .forEach((track) => peerConnection.addTrack(track, localMediaStream));
 
     peerConnection.ontrack = ({ streams: [stream] }) => {
-      mutatePeerConnection(user, "stream", stream);
+      addConnectedUser(username);
+      mutateConnectedUser(username, "stream", stream);
     };
 
     peerConnection.onicecandidate = ({ candidate }) => {
@@ -148,7 +151,7 @@ const VideoCall = (): ReactElement => {
             type: "ice",
             community,
             sdp: JSON.stringify(candidate),
-            user,
+            username,
           },
         });
       }
@@ -159,7 +162,7 @@ const VideoCall = (): ReactElement => {
         case "closed":
         case "failed":
         case "disconnected":
-          removePeerConnection(user);
+          endUserConnection(username);
           break;
       }
     };
@@ -231,29 +234,32 @@ const VideoCall = (): ReactElement => {
     });
   };
 
-  const onAnswer = async ({ from: user, sdp }: CommunityCall): Promise<void> => {
-    const peerConnection = findPeerConnection(user);
+  const onAnswer = async ({ from: username, sdp }: CommunityCall): Promise<void> => {
+    const peerReference = peerReferences.current[username];
 
-    await peerConnection.setRemoteDescription(JSON.parse(sdp));
+    if (peerReference) {
+      await peerReference.connection.setRemoteDescription(JSON.parse(sdp));
+    }
   };
 
-  const onIce = async ({ from: user, sdp }: CommunityCall): Promise<void> => {
-    const peerConnection = findPeerConnection(user);
+  const onIce = async ({ from: username, sdp }: CommunityCall): Promise<void> => {
+    const peerReference = peerReferences.current[username];
 
-    await peerConnection.addIceCandidate(new RTCIceCandidate(JSON.parse(sdp)));
+    if (peerReference) {
+      await peerReference.connection.addIceCandidate(new RTCIceCandidate(JSON.parse(sdp)));
+    }
   };
 
   useEffect(() => {
     if (localMediaStream === undefined) {
-      peerConnectionWrappers.map((wrapper) => wrapper.user).forEach(removePeerConnection);
+      return () => null;
     } else {
       sendEvent({ variables: { type: "request", community } });
+      return () => {
+        sendEvent({ variables: { type: "disconnect", community } });
+        localMediaStream?.getTracks().forEach((track) => track.stop());
+      };
     }
-
-    return () => {
-      sendEvent({ variables: { type: "disconnect", community } });
-      localMediaStream?.getTracks().forEach((track) => track.stop());
-    };
   }, [localMediaStream]);
 
   useEffect(() => {
@@ -278,13 +284,13 @@ const VideoCall = (): ReactElement => {
     }
   }, [subscription]);
 
-  const users: VideoWrapperProps[] = peerConnectionWrappers
-    .filter((wrapper) => wrapper.stream)
-    .map(({ user, stream, muted }) => ({
-      username: user,
+  const users: VideoWrapperProps[] = connectedUsers
+    .filter((user) => user.stream)
+    .map(({ username, stream, muted }) => ({
+      username,
       stream,
       muted,
-      onMuteChange: () => mutatePeerConnection(user, "muted", !muted),
+      onMuteChange: () => mutateConnectedUser(username, "muted", !muted),
     }));
 
   if (localMediaStream) {
