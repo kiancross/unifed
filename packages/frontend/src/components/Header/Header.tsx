@@ -4,7 +4,7 @@
 
 import React, { ReactElement, useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { AppBar, Box, IconButton, Toolbar, Tooltip } from "@material-ui/core";
+import { AppBar, Box, IconButton, Toolbar, Tooltip, useMediaQuery } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { UserContext } from "../../contexts/user";
 import logo from "../../assets/unifed.svg";
@@ -13,7 +13,6 @@ import CreateCommunityDialog from "./CreateCommunityDialog";
 import Brightness3Icon from "@material-ui/icons/Brightness3";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 import AccountMenu from "./AccountMenu";
-import { isMobile } from "react-device-detect";
 
 interface Props {
   onThemeChange: (darkMode: boolean) => void;
@@ -40,6 +39,7 @@ const useStyles = makeStyles({
 
 const Header = (props: Props): ReactElement | null => {
   const [darkMode, setDarkMode] = useState(props.darkMode);
+  const isMobile = useMediaQuery("(max-width: 960px)");
 
   const user = useContext(UserContext);
   const classes = useStyles();
