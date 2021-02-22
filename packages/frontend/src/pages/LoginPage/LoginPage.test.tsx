@@ -21,5 +21,5 @@ test("Login Card renders", () => {
     </BrowserRouter>,
   );
 
-  fireEvent.click(getByText("email"));
+  fireEvent.click(getByText("Email"));
 });
