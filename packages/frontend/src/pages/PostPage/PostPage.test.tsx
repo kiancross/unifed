@@ -7,6 +7,8 @@ import { BrowserRouter } from "react-router-dom";
 import Comments, { GET_COMMENTS } from "./Comments";
 import { MockedProvider } from "@apollo/client/testing";
 import { render, waitFor } from "@testing-library/react";
+import PostPage, { GET_POST } from "./PostPage";
+import { AllTheProviders } from "../../helpers/test";
 
 // 001 represents the main post
 // 002-006 represent the comments
@@ -87,4 +89,48 @@ test("Display comments", async () => {
       getByText(bodies[i]);
     });
   }
+});
+
+test("PostPage renders", async () => {
+  const id = "testId";
+  const title = "Test Title";
+  const body = "Test Body";
+  const authorId = "123";
+
+  const getPostMock = [
+    {
+      request: {
+        query: GET_POST,
+        variables: {
+          id: id,
+          host: server,
+        },
+      },
+      result: {
+        data: {
+          getPost: {
+            title: title,
+            body: body,
+            author: {
+              id: authorId,
+            },
+          },
+        },
+      },
+    },
+  ];
+
+  const { getByText } = render(
+    <AllTheProviders
+      path="/instances/:server/communities/:community/posts/:post"
+      initialEntries={["/instances/testserver/communities/this/posts/testId"]}
+      mocks={getPostMock}
+    >
+      <PostPage />
+    </AllTheProviders>,
+  );
+
+  await waitFor(() => {
+    getByText(title);
+  });
 });
