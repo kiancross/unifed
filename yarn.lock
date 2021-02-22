@@ -4127,6 +4127,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@testing-library/dom@npm:^7.29.4":
+  version: 7.29.4
+  resolution: "@testing-library/dom@npm:7.29.4"
+  dependencies:
+    "@babel/code-frame": ^7.10.4
+    "@babel/runtime": ^7.12.5
+    "@types/aria-query": ^4.2.0
+    aria-query: ^4.2.2
+    chalk: ^4.1.0
+    dom-accessibility-api: ^0.5.4
+    lz-string: ^1.4.4
+    pretty-format: ^26.6.2
+  checksum: a5e59bc7b37f10f02b9d330d153e4ca2866b9ebf23c55b1f158460d6632dc5bdad45496da43529b747a27e8372011008b51d9276557cefaf24dace2ef9c20b79
+  languageName: node
+  linkType: hard
+
 "@testing-library/jest-dom@npm:^5.11.9":
   version: 5.11.9
   resolution: "@testing-library/jest-dom@npm:5.11.9"
@@ -4153,6 +4169,17 @@ __metadata:
     react: "*"
     react-dom: "*"
   checksum: 1389b4eb110ad32ac328634846fd92570979c0cb739a3ee99eeb2278860a1910a81126612457379fc306dbd6417b4b5ff1ddd88ede3d8ebb1da3972e70877e83
+  languageName: node
+  linkType: hard
+
+"@testing-library/user-event@npm:^12.7.1":
+  version: 12.7.1
+  resolution: "@testing-library/user-event@npm:12.7.1"
+  dependencies:
+    "@babel/runtime": ^7.12.5
+  peerDependencies:
+    "@testing-library/dom": ">=7.21.4"
+  checksum: 8dd17c7e50e7f5276619140313eec31fc4d10cad553c921a01c8ff0f974cc4882fcf7a9c8e8ca1306084632e083203226932364f6a8b12d4a963a13c4657748a
   languageName: node
   linkType: hard
 
@@ -5594,8 +5621,10 @@ __metadata:
     "@material-ui/icons": ^4.11.2
     "@material-ui/lab": ^4.0.0-alpha.57
     "@rushstack/eslint-patch": ^1.0.6
+    "@testing-library/dom": ^7.29.4
     "@testing-library/jest-dom": ^5.11.9
     "@testing-library/react": ^11.2.5
+    "@testing-library/user-event": ^12.7.1
     "@types/eslint-plugin-prettier": ^3.1.0
     "@types/jest": ^26.0.20
     "@types/node": ^14.14.28
