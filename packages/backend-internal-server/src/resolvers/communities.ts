@@ -34,7 +34,11 @@ export class CommunitiesResolver implements ResolverInterface<Community> {
   @AuthoriseUser()
   @Subscription({
     topics: "COMMUNITY_CALL",
-    filter: ({ payload, context }) => {
+    filter: ({ payload, context, args }) => {
+      if (args.community !== payload.community) {
+        return false;
+      }
+
       if (!context.user || payload.from === context.user.username) {
         return false;
       }
