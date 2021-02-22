@@ -3,12 +3,13 @@
  */
 
 import React from "react";
+import { createMemoryHistory } from "history";
+import { Router } from "react-router-dom";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MockedProvider } from "@apollo/client/testing";
+import { GraphQLError } from "graphql";
 import CreateCommunityDialog, { createCommunityQuery } from "./CreateCommunityDialog";
-import { createMemoryHistory } from "history";
-import { Router } from "react-router-dom";
 
 test("Open and close", async () => {
   render(
@@ -103,5 +104,49 @@ test("Valid form values", async () => {
 
   await waitFor(() => {
     expect(history.push).toHaveBeenCalledWith("/instances/this/communities/CS3099/posts");
+  });
+});
+
+test("Error", async () => {
+  const mocks = [
+    {
+      request: {
+        query: createCommunityQuery,
+        variables: { id: "CS3099", title: "CS3099", description: "Team Project" },
+      },
+      result: {
+        errors: [new GraphQLError("Duplicate")],
+      },
+    },
+  ];
+
+  const { getByTestId, getByText } = render(
+    <MockedProvider mocks={mocks} addTypename={false}>
+      <CreateCommunityDialog />
+    </MockedProvider>,
+  );
+
+  await waitFor(() => {
+    userEvent.click(screen.getByRole("button", { name: "Add Community" }));
+  });
+
+  await waitFor(() => {
+    fireEvent.change(getByTestId("id"), { target: { value: "CS3099" } });
+  });
+
+  await waitFor(() => {
+    fireEvent.change(getByTestId("name"), { target: { value: "CS3099" } });
+  });
+
+  await waitFor(() => {
+    fireEvent.change(getByTestId("description"), { target: { value: "Team Project" } });
+  });
+
+  await waitFor(() => {
+    userEvent.click(screen.getByRole("button", { name: "Create" }));
+  });
+
+  await waitFor(() => {
+    getByText("There was a problem creating this community");
   });
 });
