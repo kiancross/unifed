@@ -20,6 +20,7 @@ interface PeerWrapper {
   user: string;
   stream?: MediaStream;
   connection: RTCPeerConnection;
+  channel: RTCDataChannel;
   muted: boolean;
   hidden: boolean;
 }
@@ -67,9 +68,14 @@ const VideoCall = (): ReactElement => {
     }
   `);
 
-  const addPeerConnection = (user: string, connection: RTCPeerConnection) => {
+  const addPeerConnection = (
+    user: string,
+    connection: RTCPeerConnection,
+    channel: RTCDataChannel,
+  ) => {
     const wrapper = {
       user,
+      channel,
       connection,
       hidden: false,
       muted: false,
@@ -105,6 +111,7 @@ const VideoCall = (): ReactElement => {
     setPeerConnectionsWrappers((current) =>
       current.filter((wrapper) => {
         if (wrapper.user === user) {
+          wrapper.channel.close();
           if (wrapper.connection.connectionState === "connected") {
             wrapper.connection.close();
           }
@@ -117,7 +124,14 @@ const VideoCall = (): ReactElement => {
 
     const peerConnection = new RTCPeerConnection(peerConnectionOptions);
 
-    addPeerConnection(user, peerConnection);
+    const dataChannel = peerConnection.createDataChannel("disconnection", {
+      negotiated: true,
+      id: 0,
+    });
+
+    dataChannel.onclose = () => removePeerConnection(user);
+
+    addPeerConnection(user, peerConnection, dataChannel);
 
     localMediaStream
       ?.getTracks()
@@ -149,10 +163,6 @@ const VideoCall = (): ReactElement => {
           break;
       }
     };
-
-    const dataChannel = peerConnection.createDataChannel("", { negotiated: true, id: 0 });
-
-    dataChannel.onclose = () => removePeerConnection(user);
 
     return peerConnection;
   };
