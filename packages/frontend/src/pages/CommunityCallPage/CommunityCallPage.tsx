@@ -48,7 +48,7 @@ const VideoCall = (): ReactElement => {
 
   const { community } = useParams<{ community: string }>();
 
-  const { data: subscription } = useSubscription(
+  const { data: subscription }: { data?: { communityCalls: CommunityCall } } = useSubscription(
     gql`
       subscription($community: String!) {
         communityCalls(community: $community) {
@@ -150,6 +150,10 @@ const VideoCall = (): ReactElement => {
       }
     };
 
+    const dataChannel = peerConnection.createDataChannel("", { negotiated: true, id: 0 });
+
+    dataChannel.onclose = () => removePeerConnection(user);
+
     return peerConnection;
   };
 
@@ -229,10 +233,6 @@ const VideoCall = (): ReactElement => {
     await peerConnection.addIceCandidate(new RTCIceCandidate(JSON.parse(sdp)));
   };
 
-  const onRemoteDisconnect = ({ from: user }: CommunityCall) => {
-    removePeerConnection(user);
-  };
-
   useEffect(() => {
     if (localMediaStream === undefined) {
       peerConnectionWrappers.map((wrapper) => wrapper.user).forEach(removePeerConnection);
@@ -263,10 +263,6 @@ const VideoCall = (): ReactElement => {
 
         case "ice":
           onIce(subscription.communityCalls);
-          break;
-
-        case "disconnect":
-          onRemoteDisconnect(subscription.communityCalls);
           break;
       }
     }
