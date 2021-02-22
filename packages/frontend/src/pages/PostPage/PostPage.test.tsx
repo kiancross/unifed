@@ -6,10 +6,9 @@ import React from "react";
 import { BrowserRouter, MemoryRouter, Route } from "react-router-dom";
 import Comments, { GET_COMMENTS } from "./Comments";
 import { MockedProvider } from "@apollo/client/testing";
-import { prettyDOM, render, waitFor } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import PostPage, { GET_POST } from "./PostPage";
 import { AllTheProviders } from "../../helpers/test";
-import { debug } from "console";
 
 // 001 represents the main post
 // 002-006 represent the comments
@@ -96,7 +95,7 @@ test("PostPage renders", async () => {
   const id = "testId";
   const title = "Test Title";
   const body = "Test Body";
-  const authorId = "Test Id";
+  const authorId = "123";
 
   const getPostMock = [
     {
@@ -109,27 +108,26 @@ test("PostPage renders", async () => {
       },
       result: {
         data: {
-          getPost: { title: title, body: body, author: { id: authorId } },
+          getPost: {
+            title: title,
+            body: body,
+            author: {
+              id: authorId,
+            },
+          },
         },
       },
     },
   ];
 
   const { getByText } = render(
-    // <AllTheProviders
-    //   path="/instances/:server/communities/:community/posts/:post"
-    //   initialEntries={["instances/server"]}
-    //   mocks={getPostMock}
-    // >
-    //   <PostPage />
-    // </AllTheProviders>,
-    <MemoryRouter initialEntries={["instances/testserver/communities/this/posts/testId"]}>
-      <Route path="/instances/:server/communities/:community/posts/:post">
-        <MockedProvider mocks={getPostMock} addTypename={false}>
-          <PostPage />
-        </MockedProvider>
-      </Route>
-    </MemoryRouter>,
+    <AllTheProviders
+      path="/instances/:server/communities/:community/posts/:post"
+      initialEntries={["/instances/testserver/communities/this/posts/testId"]}
+      mocks={getPostMock}
+    >
+      <PostPage />
+    </AllTheProviders>,
   );
 
   await waitFor(() => {
