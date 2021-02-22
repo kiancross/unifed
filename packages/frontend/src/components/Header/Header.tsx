@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { UserContext } from "../../contexts/user";
 import logo from "../../assets/unifed.svg";
 import SearchInput from "./SearchInput";
+import CreateCommunityDialog from "./CreateCommunityDialog";
 import Brightness3Icon from "@material-ui/icons/Brightness3";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 import AccountMenu from "./AccountMenu";
@@ -73,6 +74,7 @@ const Header = (props: Props): ReactElement | null => {
             )}
           </IconButton>
         </Tooltip>
+        <CreateCommunityDialog />
         <AccountMenu />
       </Toolbar>
     </AppBar>
