@@ -82,7 +82,7 @@ export class CommunitiesResolver implements ResolverInterface<Community> {
     @Arg("title") title: string,
     @Arg("description") description: string,
     @CurrentUser() user: User,
-  ): Promise<Boolean> {
+  ): Promise<boolean> {
     return await this.communitiesService.create(user.username, id, title, description);
   }
 
