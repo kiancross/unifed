@@ -17,33 +17,33 @@ interface Params {
   community: string;
 }
 
+export const GET_POSTS = gql`
+  query($community: String!, $host: String!) {
+    getPosts(community: { id: $community, host: $host }) {
+      id
+      title
+      approved
+      author {
+        id
+      }
+      body
+    }
+    getCommunity(community: { id: $community, host: $host }) {
+      host
+      id
+      title
+      description
+    }
+    getSubscriptions {
+      id
+      host
+    }
+  }
+`;
+
 const CommunityPostsPage = (): JSX.Element => {
   const { community, server } = useParams<Params>();
   const isMobile = useMediaQuery("(max-width: 960px)");
-
-  const GET_POSTS = gql`
-    query($community: String!, $host: String!) {
-      getPosts(community: { id: $community, host: $host }) {
-        id
-        title
-        approved
-        author {
-          id
-        }
-        body
-      }
-      getCommunity(community: { id: $community, host: $host }) {
-        host
-        id
-        title
-        description
-      }
-      getSubscriptions {
-        id
-        host
-      }
-    }
-  `;
 
   const { loading, error, data } = useQuery(GET_POSTS, {
     variables: {
