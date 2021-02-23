@@ -172,14 +172,35 @@ const VideoCall = (): ReactElement => {
       }
     };
 
+    const addConnectedUserIfVideoReady = () => {
+      const videoTracks = remoteStream?.getVideoTracks();
+      const connected = peerConnection.iceConnectionState === "connected";
+      const videoReady = videoTracks[0].getSettings().frameRate;
+
+      if (connected && (remoteStream === undefined || videoReady)) {
+        addConnectedUser(username, remoteStream);
+        return true;
+      }
+
+      return false;
+    };
+
     peerConnection.oniceconnectionstatechange = () => {
+      let intervalReference: NodeJS.Timeout | undefined = undefined;
+
       switch (peerConnection.iceConnectionState) {
-        case "connected":
-          addConnectedUser(username, remoteStream);
+        case "connected": {
+          intervalReference = setInterval(() => {
+            if (addConnectedUserIfVideoReady() && intervalReference) {
+              clearInterval(intervalReference);
+            }
+          }, 100);
           break;
+        }
         case "closed":
         case "failed":
         case "disconnected":
+          intervalReference && clearInterval(intervalReference);
           endUserConnection(username);
           break;
       }
