@@ -111,10 +111,8 @@ const VideoCall = (): ReactElement => {
 
   const muteLocal = (muted: boolean) => {
     setLocalMuted(muted);
-    localMediaStream?.getTracks().forEach((track) => {
-      if (track.kind === "audio") {
-        track.enabled = !muted;
-      }
+    localMediaStream?.getAudioTracks().forEach((track) => {
+      track.enabled = !muted;
     });
   };
 
