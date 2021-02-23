@@ -6,6 +6,7 @@ import { ReactElement, useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Theme, makeStyles } from "@material-ui/core";
 import { gql, useSubscription, useMutation } from "@apollo/client";
+import { SafePeerConnection } from "./safe-peer-connection";
 import { VideoWrapperProps } from "./VideoWrapper";
 import VideoGrid from "./VideoGrid";
 import JoinCallMessage from "./JoinCallMessage";
@@ -14,11 +15,6 @@ interface CommunityCall {
   type: "request" | "offer" | "answer" | "ice";
   from: string;
   sdp: string;
-}
-
-interface PeerReference {
-  connection: RTCPeerConnection;
-  channel: RTCDataChannel;
 }
 
 interface ConnectedUser {
@@ -50,7 +46,7 @@ const VideoCall = (): ReactElement => {
 
   const inCall = localMediaStream !== undefined;
 
-  const peerReferences = useRef<{ [user: string]: PeerReference | undefined }>({});
+  const peerConnections = useRef<{ [user: string]: SafePeerConnection }>({});
   const [connectedUsers, setConnectedUsers] = useState<ConnectedUser[]>([]);
 
   const { community } = useParams<{ community: string }>();
@@ -61,7 +57,7 @@ const VideoCall = (): ReactElement => {
     }
   `);
 
-  const addConnectedUser = (username: string, stream: MediaStream) =>
+  const addConnectedUser = (username: string, stream?: MediaStream) =>
     setConnectedUsers((current) => [
       ...current,
       {
@@ -71,15 +67,11 @@ const VideoCall = (): ReactElement => {
       },
     ]);
 
-  const mutateConnectedUser = <K extends keyof ConnectedUser>(
-    username: string,
-    key: K,
-    value: ConnectedUser[K],
-  ) =>
+  const muteConnectedUser = (username: string, muted: boolean) =>
     setConnectedUsers((current) =>
       current.map((user) => {
         if (user.username === username) {
-          user[key] = value;
+          user.muted = muted;
         }
 
         return user;
@@ -90,17 +82,15 @@ const VideoCall = (): ReactElement => {
     setConnectedUsers((current) => current.filter((user) => user.username !== username));
 
   const closePeerConnection = (username: string) => {
-    const peerReference = peerReferences.current[username];
+    const peerConnection = peerConnections.current[username];
 
-    if (peerReference) {
-      peerReference.channel.onclose = null;
-      peerReference.connection.oniceconnectionstatechange = null;
-      peerReference.connection.onicecandidate = null;
-      peerReference.connection.ontrack = null;
+    if (peerConnection) {
+      peerConnection.onready = null;
+      peerConnection.onclose = null;
 
-      peerReference.channel.close();
-      peerReference.connection.close();
-      delete peerReferences.current[username];
+      peerConnection.close();
+
+      delete peerConnections.current[username];
     }
   };
 
@@ -133,31 +123,18 @@ const VideoCall = (): ReactElement => {
     }
   };
 
-  const createPeerConnection = async (username: string, community: string) => {
+  const createPeerConnection = async (
+    username: string,
+    community: string,
+  ): Promise<SafePeerConnection> => {
     endUserConnection(username);
 
-    const peerConnection = new RTCPeerConnection(peerConnectionOptions);
+    const peerConnection = new SafePeerConnection(peerConnectionOptions, localMediaStream);
 
-    const dataChannel = peerConnection.createDataChannel("disconnection", {
-      negotiated: true,
-      id: 0,
-    });
+    peerConnections.current[username] = peerConnection;
 
-    peerReferences.current[username] = {
-      connection: peerConnection,
-      channel: dataChannel,
-    };
-
-    dataChannel.onclose = () => endUserConnection(username);
-
-    localMediaStream
-      ?.getTracks()
-      .forEach((track) => peerConnection.addTrack(track, localMediaStream));
-
-    let remoteStream: MediaStream;
-    peerConnection.ontrack = ({ streams: [stream] }) => {
-      remoteStream = stream;
-    };
+    peerConnection.onclose = () => endUserConnection(username);
+    peerConnection.onready = (stream) => addConnectedUser(username, stream);
 
     peerConnection.onicecandidate = ({ candidate }) => {
       if (candidate) {
@@ -169,40 +146,6 @@ const VideoCall = (): ReactElement => {
             username,
           },
         });
-      }
-    };
-
-    const addConnectedUserIfVideoReady = () => {
-      const videoTracks = remoteStream?.getVideoTracks();
-      const connected = peerConnection.iceConnectionState === "connected";
-      const videoReady = videoTracks[0].getSettings().frameRate;
-
-      if (connected && (remoteStream === undefined || videoReady)) {
-        addConnectedUser(username, remoteStream);
-        return true;
-      }
-
-      return false;
-    };
-
-    peerConnection.oniceconnectionstatechange = () => {
-      let intervalReference: NodeJS.Timeout | undefined = undefined;
-
-      switch (peerConnection.iceConnectionState) {
-        case "connected": {
-          intervalReference = setInterval(() => {
-            if (addConnectedUserIfVideoReady() && intervalReference) {
-              clearInterval(intervalReference);
-            }
-          }, 100);
-          break;
-        }
-        case "closed":
-        case "failed":
-        case "disconnected":
-          intervalReference && clearInterval(intervalReference);
-          endUserConnection(username);
-          break;
       }
     };
 
@@ -248,18 +191,19 @@ const VideoCall = (): ReactElement => {
   };
 
   const onAnswer = async ({ from: username, sdp }: CommunityCall): Promise<void> => {
-    const peerReference = peerReferences.current[username];
+    const peerConnection = peerConnections.current[username];
 
-    if (peerReference) {
-      await peerReference.connection.setRemoteDescription(JSON.parse(sdp));
+    if (peerConnection) {
+      await peerConnection.setRemoteDescription(JSON.parse(sdp));
     }
   };
 
   const onIce = async ({ from: username, sdp }: CommunityCall): Promise<void> => {
-    const peerReference = peerReferences.current[username];
+    const peerConnection = peerConnections.current[username];
 
-    if (peerReference) {
-      await peerReference.connection.addIceCandidate(new RTCIceCandidate(JSON.parse(sdp)));
+    if (peerConnection) {
+      const candidate = new RTCIceCandidate(JSON.parse(sdp));
+      peerConnection.addIceCandidate(candidate);
     }
   };
 
@@ -296,7 +240,7 @@ const VideoCall = (): ReactElement => {
         // Do not need to worry about this warning, as we are not referencing
         // a DOM element.
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        Object.keys(peerReferences.current).forEach(closePeerConnection);
+        Object.keys(peerConnections.current).forEach(closePeerConnection);
         localMediaStream?.getTracks().forEach((track) => track.stop());
       };
     }
@@ -331,7 +275,7 @@ const VideoCall = (): ReactElement => {
       username,
       stream,
       muted,
-      onMuteChange: () => mutateConnectedUser(username, "muted", !muted),
+      onMuteChange: () => muteConnectedUser(username, !muted),
     }));
 
   if (localMediaStream) {
