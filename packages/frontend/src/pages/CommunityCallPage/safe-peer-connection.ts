@@ -141,7 +141,7 @@ export class SafePeerConnection extends RTCPeerConnection {
     } else {
       /*
        * If there is no remote description then the ice candidate
-       * needs queing (it will be added later, once a remote
+       * needs queuing (it will be added later, once a remote
        * description is available).
        * https://stackoverflow.com/a/42977150/15251047
        */
