@@ -14,3 +14,5 @@
 import "@testing-library/jest-dom/extend-expect";
 
 jest.setTimeout(10 * 1000);
+
+jest.mock("./pages/CommunityCallPage/safe-peer-connection", () => ({}));
