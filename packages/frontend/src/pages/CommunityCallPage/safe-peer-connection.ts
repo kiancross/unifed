@@ -69,7 +69,7 @@ export class SafePeerConnection extends RTCPeerConnection {
       switch (this.iceConnectionState) {
         case "connected": {
           /*
-           * Waits until the remove video connection is ready
+           * Waits until the remote video connection is ready
            * before calling the onReady callback. This ensures
            * the subscriber does not get called before the
            * video stream is actually visible.
