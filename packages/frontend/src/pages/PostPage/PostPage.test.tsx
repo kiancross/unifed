@@ -6,11 +6,10 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import Comments, { GET_COMMENTS } from "./Comments";
 import { MockedProvider } from "@apollo/client/testing";
-import { fireEvent, render, waitFor, screen, findAllByTestId } from "@testing-library/react";
+import { render, waitFor, screen } from "@testing-library/react";
 import PostPage, { GET_POST } from "./PostPage";
 import { AllTheProviders } from "../../helpers/test";
 import Post from "./Post";
-import { act } from "react-test-renderer";
 
 // 001 represents the main post
 // 002-006 represent the comments
