@@ -38,7 +38,7 @@ const JoinCallMessage = (props: { onJoinClick: () => void }): ReactElement => {
       className={classes.fullHeight}
     >
       <Grid item container className={classes.fullHeight} justify="center" alignItems="center">
-        <Grid item md={3}>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
           <Card className={classes.fullWidth}>
             <CardContent>
               <Typography variant="body1" className={classes.instructions}>
