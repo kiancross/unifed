@@ -6,9 +6,10 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import Comments, { GET_COMMENTS } from "./Comments";
 import { MockedProvider } from "@apollo/client/testing";
-import { render, waitFor } from "@testing-library/react";
+import { render, waitFor, screen } from "@testing-library/react";
 import PostPage, { GET_POST } from "./PostPage";
 import { AllTheProviders } from "../../helpers/test";
+import Post from "./Post";
 
 // 001 represents the main post
 // 002-006 represent the comments
@@ -23,6 +24,11 @@ const bodies = [
 ];
 const users = ["", "user2", "user3", "user4", "user5", "user6"];
 const server = "testserver";
+const id = "testId";
+const title = "Test Title";
+const body = "Test Body";
+const authorId = "123";
+const username = "testuser";
 
 test("Display comments", async () => {
   const reqres = (
@@ -92,11 +98,6 @@ test("Display comments", async () => {
 });
 
 test("PostPage renders", async () => {
-  const id = "testId";
-  const title = "Test Title";
-  const body = "Test Body";
-  const authorId = "123";
-
   const getPostMock = [
     {
       request: {
@@ -133,4 +134,14 @@ test("PostPage renders", async () => {
   await waitFor(() => {
     getByText(title);
   });
+});
+
+test("Render Comment", async () => {
+  render(
+    <AllTheProviders>
+      <Post username={username} id={id} body={body} server={server} title={""} />
+    </AllTheProviders>,
+  );
+
+  expect(screen.getByText("Comment"));
 });
