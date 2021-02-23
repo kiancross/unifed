@@ -41,8 +41,8 @@ const LoginCard = (): ReactElement => {
                   variant="outlined"
                   label="Email"
                   color="primary"
-                  data-testid="email"
                   required
+                  inputProps={{ "data-testid": "email" }}
                 />
               </div>
               <div>
@@ -56,8 +56,8 @@ const LoginCard = (): ReactElement => {
                   variant="outlined"
                   label="Password"
                   color="primary"
-                  data-testid="password"
                   required
+                  inputProps={{ "data-testid": "password" }}
                 />
               </div>
               <Button
