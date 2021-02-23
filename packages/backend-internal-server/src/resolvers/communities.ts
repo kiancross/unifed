@@ -61,7 +61,7 @@ export class CommunitiesResolver implements ResolverInterface<Community> {
   async communityCallEvent(
     @PubSub() pubSub: PubSubEngine,
     @CurrentUser() user: User,
-    @Arg("type") type: "request" | "offer" | "answer" | "ice" | "disconnect",
+    @Arg("type") type: "request" | "offer" | "answer" | "ice",
     @Arg("community") community: string,
     @Arg("user", { nullable: true }) to?: string,
     @Arg("sdp", { nullable: true }) sdp?: string,

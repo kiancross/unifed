@@ -7,7 +7,7 @@ import { ObjectType, Field } from "type-graphql";
 @ObjectType()
 export class CommunityCallEvent {
   @Field()
-  type!: "request" | "offer" | "answer" | "ice" | "disconnect";
+  type!: "request" | "offer" | "answer" | "ice";
 
   @Field({ nullable: true })
   sdp?: string;
