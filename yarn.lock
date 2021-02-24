@@ -4002,6 +4002,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tensorflow-models/toxicity@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "@tensorflow-models/toxicity@npm:1.2.2"
+  dependencies:
+    "@tensorflow-models/universal-sentence-encoder": ~1.2.2
+  peerDependencies:
+    "@tensorflow/tfjs-converter": ^1.3.3
+    "@tensorflow/tfjs-core": ^1.3.3
+  checksum: 53d4c5d41a7c4492bfc08ea3f00797484ecc806b589d390d99ecf9324735055dec52a9b01f2814d07f4874be5603834b0f47b9791829dff0a7162151eea26631
+  languageName: node
+  linkType: hard
+
+"@tensorflow-models/universal-sentence-encoder@npm:~1.2.2":
+  version: 1.2.2
+  resolution: "@tensorflow-models/universal-sentence-encoder@npm:1.2.2"
+  peerDependencies:
+    "@tensorflow/tfjs-converter": ^1.2.9
+    "@tensorflow/tfjs-core": ^1.2.9
+  checksum: affa51451e98ecdcda7e9646226ad20ac5938c6980bccab64253564188d48f4e5edf6999f6ede426481f6630d980d8439bf59f91d7df4311ecc2f5b018ecdfd5
+  languageName: node
+  linkType: hard
+
 "@tensorflow/tfjs-backend-cpu@npm:3.1.0":
   version: 3.1.0
   resolution: "@tensorflow/tfjs-backend-cpu@npm:3.1.0"
@@ -4039,6 +4061,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tensorflow/tfjs-converter@npm:^2.8.6":
+  version: 2.8.6
+  resolution: "@tensorflow/tfjs-converter@npm:2.8.6"
+  peerDependencies:
+    "@tensorflow/tfjs-core": 2.8.6
+  checksum: ec7046ae3e6cd51123ad5e1a6cb6aeec3003e53a9d9970d24a3cd786b0e98c71adad6a5b0606cb4b40dce4df54336985e9393595d9fd78530bbfd9b7d3161a7e
+  languageName: node
+  linkType: hard
+
 "@tensorflow/tfjs-core@npm:3.1.0":
   version: 3.1.0
   resolution: "@tensorflow/tfjs-core@npm:3.1.0"
@@ -4049,6 +4080,19 @@ __metadata:
     node-fetch: ~2.6.1
     seedrandom: 2.4.3
   checksum: 8f1e909ca5c0ac5575f487d3f393a4f5c51dbdae7390c08ef302e9c3e175d4a3c11e55f74a2cd4ce979c8e788d11e3e508f38f44e38500292a27ba11be5e8707
+  languageName: node
+  linkType: hard
+
+"@tensorflow/tfjs-core@npm:^2.8.6":
+  version: 2.8.6
+  resolution: "@tensorflow/tfjs-core@npm:2.8.6"
+  dependencies:
+    "@types/offscreencanvas": ~2019.3.0
+    "@types/seedrandom": 2.4.27
+    "@types/webgl-ext": 0.0.30
+    node-fetch: ~2.6.1
+    seedrandom: 2.4.3
+  checksum: 465fa80d8536ab872010627dda7b5837447f7a90eb6240ddffc0c5da7767dd1e30e43edc65b9076bf543d68cff9b54dd3a2a0e06dc11543c859f49ecf8aa32b6
   languageName: node
   linkType: hard
 
@@ -5561,6 +5605,9 @@ __metadata:
   resolution: "@unifed/backend-ml@workspace:packages/backend-ml"
   dependencies:
     "@istanbuljs/nyc-config-typescript": ^1.0.1
+    "@tensorflow-models/toxicity": ^1.2.2
+    "@tensorflow/tfjs-converter": ^2.8.6
+    "@tensorflow/tfjs-core": ^2.8.6
     "@tensorflow/tfjs-node-gpu": ^3.1.0
     "@types/mailparser": ^3.0.1
     "@types/node": ^14.14.28

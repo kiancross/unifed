@@ -4,6 +4,7 @@
 
 import { promises as fs } from "fs";
 import { loadLayersModel, Tensor } from "@tensorflow/tfjs-node-gpu";
+import { load as loadToxicity } from "@tensorflow-models/toxicity";
 import { Tokenizer, StringNumberMapping } from "./tokenizer";
 import { getSentencesTensor } from "./tensor";
 import { Config } from "./config";
@@ -27,9 +28,23 @@ const tokenizer = (async () => {
   return tokenizer;
 })();
 
-const model = (async () => {
-  return await loadLayersModel(`file://${path}/${constants.modelName}`);
-})();
+const toxicityModel = (async () =>
+  loadToxicity(0.8, [
+    "identity_attack",
+    "insult",
+    "obscene",
+    "severe_toxicity",
+    "sexual_explicit",
+    "threat",
+  ]))();
+
+const spamModel = (async () => loadLayersModel(`file://${path}/${constants.modelName}`))();
+
+export const getToxicityClassification = async (sentence: string): Promise<boolean> => {
+  const predictions = await (await toxicityModel).classify([sentence]);
+
+  return predictions.some((prediction) => prediction.results.some((result) => result.match));
+};
 
 export const getSpamFactor = async (sentence: string): Promise<number> => {
   const sentenceTensor = getSentencesTensor(
@@ -38,7 +53,7 @@ export const getSpamFactor = async (sentence: string): Promise<number> => {
     (await config).maxSequenceLength,
   );
 
-  const result = (await model).predict(sentenceTensor) as Tensor;
+  const result = (await spamModel).predict(sentenceTensor) as Tensor;
 
   return (await result.data())[0];
 };
