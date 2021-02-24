@@ -30,6 +30,15 @@ const useStyles = makeStyles({
   },
 });
 
+export const getCommunities = gql`
+  query($host: String!) {
+    getCommunities(host: $host) {
+      id
+      title
+    }
+  }
+`;
+
 const getOptionLabel = (option: Community | string) => {
   if (typeof option === "string") {
     return option;
@@ -39,15 +48,6 @@ const getOptionLabel = (option: Community | string) => {
 };
 
 const SearchInput = (): ReactElement => {
-  const getCommunities = gql`
-    query($host: String!) {
-      getCommunities(host: $host) {
-        id
-        title
-      }
-    }
-  `;
-
   const classes = useStyles();
 
   const history = useHistory();
@@ -133,8 +133,10 @@ const SearchInput = (): ReactElement => {
         loadingText={loadingText}
         onChange={onSelectChange}
         onInputChange={onInputChange}
+        data-testid="autocomplete"
         renderInput={(params) => (
           <InputBase
+            data-testid="searchbar"
             ref={params.InputProps.ref}
             placeholder="Find a community"
             className={classes.fullWidth}

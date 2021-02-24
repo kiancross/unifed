@@ -62,6 +62,7 @@ const Header = (props: Props): ReactElement | null => {
 
         <Tooltip title="Dark Mode">
           <IconButton
+            data-testid="dark-button"
             onClick={() => {
               setDarkMode(!darkMode);
               props.onThemeChange(!darkMode);
