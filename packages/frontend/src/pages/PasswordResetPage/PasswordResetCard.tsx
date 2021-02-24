@@ -77,7 +77,7 @@ const PasswordResetCard = (): JSX.Element => {
                       color="primary"
                       helperText={errors.newPass}
                       error={!!errors.newPass}
-                      data-testid="newPass"
+                      inputProps={{ "data-testid": "new-pass-input" }}
                     />
                   </div>
                   <div>
@@ -93,7 +93,7 @@ const PasswordResetCard = (): JSX.Element => {
                       color="primary"
                       helperText={errors.newPass}
                       error={!!errors.newPass}
-                      data-testid="retyped"
+                      inputProps={{ "data-testid": "retyped-pass-input" }}
                     />
                   </div>
                   <Button
@@ -102,7 +102,7 @@ const PasswordResetCard = (): JSX.Element => {
                     color="primary"
                     style={{ margin: "1rem 0rem" }}
                     fullWidth
-                    data-testid="submit"
+                    data-testid="reset-pass-submit"
                   >
                     Change Password
                   </Button>
