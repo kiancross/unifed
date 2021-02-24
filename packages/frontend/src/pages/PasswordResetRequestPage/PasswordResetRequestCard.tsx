@@ -51,7 +51,7 @@ const ResetPasswordRequestCard = (): JSX.Element => {
                     color="primary"
                     helperText={errors.email}
                     error={!!errors.email}
-                    data-testid="email"
+                    inputProps={{ "data-testid": "email-input" }}
                   />
                 </div>
                 <Button
@@ -60,7 +60,7 @@ const ResetPasswordRequestCard = (): JSX.Element => {
                   color="primary"
                   style={{ margin: "1rem 0rem" }}
                   fullWidth
-                  data-testid="submit"
+                  data-testid="email-submit"
                 >
                   Send Email
                 </Button>
