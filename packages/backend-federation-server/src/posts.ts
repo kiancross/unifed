@@ -6,7 +6,7 @@ import { plainToClass } from "class-transformer";
 import { json as jsonBodyParser } from "express";
 import { AsyncRouter } from "express-async-router";
 import { Post, PostModel } from "@unifed/backend-core";
-import { getSpamFactor } from "@unifed/backend-ml";
+import { getSpamFactor, getToxicityClassification } from "@unifed/backend-ml";
 import { getCommunityOrThrow, getPostOrThrow, processParam, ParamError } from "./helpers";
 
 const router = AsyncRouter();
@@ -67,9 +67,12 @@ router.post("/", async (req, res) => {
 
   const post = plainToClass(Post, rawPost as Post);
 
-  const spamFactor = await getSpamFactor(`${post.title} ${post.body}`);
+  const postTitleBody = `${post.title} ${post.body}`;
 
-  post.approved = spamFactor < 0.8;
+  const spamFactor = await getSpamFactor(postTitleBody);
+  const toxicityClassification = await getToxicityClassification(postTitleBody);
+
+  post.approved = spamFactor < 0.8 && !toxicityClassification;
   // TODO validate
 
   res.json(await PostModel.create(post));

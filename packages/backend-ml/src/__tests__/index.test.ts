@@ -3,7 +3,7 @@
  */
 
 import test from "ava";
-import { getSpamFactor } from "../index";
+import { getSpamFactor, getToxicityClassification } from "../index";
 
 test("Spam detection", async (t) => {
   const factor = await getSpamFactor("Test sentence");
@@ -34,4 +34,12 @@ test("Test ham", async (t) => {
 
   t.true(factor >= 0);
   t.true(factor <= 0.3);
+});
+
+test("Test toxic", async (t) => {
+  t.true(await getToxicityClassification("You suck"));
+});
+
+test("Test non-toxic", async (t) => {
+  t.false(await getToxicityClassification("Hello world"));
 });
