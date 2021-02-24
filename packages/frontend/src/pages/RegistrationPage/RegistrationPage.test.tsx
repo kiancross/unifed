@@ -1,8 +1,9 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import RegistrationPage from "./RegistrationPage";
 import RegistrationCard from "./RegistrationCard";
 import { AllTheProviders } from "../../helpers/test";
+import userEvent from "@testing-library/user-event";
 
 test("RegistrationPage renders", () => {
   render(
@@ -14,12 +15,14 @@ test("RegistrationPage renders", () => {
   expect(screen.getByText("Already a user? Login"));
 });
 
-test("RegistrationCard", () => {
+test("RegistrationCard renders", async () => {
   render(
     <AllTheProviders>
       <RegistrationCard />
     </AllTheProviders>,
   );
 
-  expect(screen.getByText("Create Account"));
+  await waitFor(() => {
+    userEvent.click(screen.getByText("Create Account"));
+  });
 });
