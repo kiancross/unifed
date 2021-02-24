@@ -17,6 +17,7 @@ const PasswordResetRequestPage = (): JSX.Element => {
         color="primary"
         variant="contained"
         style={{ marginTop: "16px" }}
+        data-testid="login-return-button"
       >
         Return To Login
       </ButtonLink>
