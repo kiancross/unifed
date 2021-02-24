@@ -7,14 +7,16 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { UserContext, defaultContext } from "../../contexts/user/UserContext";
 import AccountMenu from "./AccountMenu";
 import { BrowserRouter } from "react-router-dom";
+import Header from "./Header";
+import { AllTheProviders } from "../../helpers/test";
 
 const menuItems = ["Profile", "Settings", "Logout"];
 const username = "foo";
 
-test("Open and close account menu", async () => {
-  const userContext = { ...defaultContext };
-  userContext.details = { ...userContext.details, username };
+const userContext = { ...defaultContext };
+userContext.details = { ...userContext.details, username };
 
+test("Open and close account menu", async () => {
   render(
     <BrowserRouter>
       <UserContext.Provider value={userContext}>
@@ -41,9 +43,6 @@ test("Open and close account menu", async () => {
 });
 
 test("Close account menu on click away", async () => {
-  const userContext = { ...defaultContext };
-  userContext.details = { ...userContext.details, username };
-
   render(
     <BrowserRouter>
       <UserContext.Provider value={userContext}>
@@ -63,9 +62,6 @@ test("Close account menu on click away", async () => {
 });
 
 test("Tab pressed on open", async () => {
-  const userContext = { ...defaultContext };
-  userContext.details = { ...userContext.details, username };
-
   const { getByText } = render(
     <BrowserRouter>
       <UserContext.Provider value={userContext}>
@@ -81,4 +77,49 @@ test("Tab pressed on open", async () => {
   await waitFor(() => {
     expect(screen.queryByText(menuItems[0])).toBeNull();
   });
+});
+
+test("Header with no userContext", async () => {
+  render(
+    <AllTheProviders>
+      <AccountMenu />
+    </AllTheProviders>,
+  );
+
+  expect(screen.queryByRole("button")).toBeNull;
+});
+
+test("Click DarkMode", async () => {
+  const mockFn = jest.fn();
+  render(
+    <AllTheProviders>
+      <UserContext.Provider value={userContext}>
+        <Header onThemeChange={mockFn} darkMode={false} />
+      </UserContext.Provider>
+    </AllTheProviders>,
+  );
+  fireEvent.click(screen.getByTestId("dark-button"));
+});
+
+test("DarkMode on", async () => {
+  const mockFn = jest.fn();
+  render(
+    <AllTheProviders>
+      <UserContext.Provider value={userContext}>
+        <Header onThemeChange={mockFn} darkMode={true} />
+      </UserContext.Provider>
+    </AllTheProviders>,
+  );
+  fireEvent.click(screen.getByTestId("dark-button"));
+});
+
+test("Header with no userContext", async () => {
+  const mockFn = jest.fn();
+  render(
+    <AllTheProviders>
+      <Header onThemeChange={mockFn} darkMode={false} />
+    </AllTheProviders>,
+  );
+
+  expect(screen.queryByTestId("dark-button")).toBeNull;
 });
