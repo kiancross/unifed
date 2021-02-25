@@ -2,6 +2,7 @@
  * CS3099 Group A3
  */
 
+import { ValidateNested, Matches, MaxLength, IsString, IsNotEmpty } from "class-validator";
 import { prop as Property, getModelForClass, Ref } from "@typegoose/typegoose";
 import { ObjectType, Field } from "type-graphql";
 import { dateToUnixTimestamp } from "./helpers";
@@ -13,6 +14,7 @@ import { JSONMap } from "../types";
 
 @ObjectType()
 export class Post extends Base {
+  @IsNotEmpty()
   @Field(() => Community)
   @Property({ ref: "Community", type: String })
   community!: Ref<Community>;
@@ -21,18 +23,36 @@ export class Post extends Base {
   @Property({ ref: "Post", type: String })
   parentPost?: Ref<Post>;
 
+  @MaxLength(128, {
+    message: "Title is too long",
+  })
+  @IsNotEmpty({
+    message: "Title must not be empty",
+  })
+  @IsString()
   @Field({ nullable: true })
   @Property()
   title!: string;
 
-  @Field()
+  @Matches(/^(text)|(markdown)$/, {
+    message: "Only `text` and `markdown` content types are supported",
+  })
   @Property({ required: true })
   contentType!: string;
 
+  @MaxLength(1024 * 1024 * 500, {
+    message: "Body is too long",
+  })
+  @IsNotEmpty({
+    message: "Body must be a non-empty string",
+  })
+  @IsString()
   @Field()
   @Property({ required: true })
   body!: string;
 
+  @IsNotEmpty()
+  @ValidateNested()
   @Field()
   @Property({ _id: false, required: true })
   author!: RemoteReference;
