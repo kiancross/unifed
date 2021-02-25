@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { prop as Property, getModelForClass } from "@typegoose/typegoose";
+import { prop as Property, Ref, getModelForClass } from "@typegoose/typegoose";
 import { ObjectType, Field } from "type-graphql";
 import { PublicUser } from "./public-user";
 import { RemoteReference } from "./remote-reference";
@@ -21,12 +21,12 @@ class EmailRecord {
 @ObjectType()
 export class User extends PublicUser {
   @Field(() => [EmailRecord])
-  @Property({ type: EmailRecord, id: false, required: true })
-  emails!: EmailRecord[];
+  @Property({ id: false, ref: EmailRecord, type: EmailRecord, required: true })
+  emails!: Ref<EmailRecord>[];
 
   @Field(() => [RemoteReference])
-  @Property({ id: false, type: RemoteReference, required: true })
-  subscriptions!: RemoteReference[];
+  @Property({ id: false, Ref: RemoteReference, type: RemoteReference, required: true })
+  subscriptions!: Ref<RemoteReference>[];
 }
 
 export const UserModel = getModelForClass(User);

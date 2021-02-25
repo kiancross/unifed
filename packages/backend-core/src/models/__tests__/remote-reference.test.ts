@@ -19,10 +19,10 @@ test("Internal reference", async (t) => {
 test("toJSON", (t) => {
   const reference = new RemoteReference();
   reference.id = "foo";
-  reference.host = "localhost:8080";
+  reference.host = "bar";
 
   t.deepEqual(reference.toJSON(), {
     id: "foo",
-    host: "localhost:8080",
+    host: "bar",
   });
 });
