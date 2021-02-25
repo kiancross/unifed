@@ -72,6 +72,7 @@ const Comments = (props: CommentParams) => {
               username={username}
               body={text}
               id={post.id}
+              parent={parentId}
               grids={props.grids}
             />
             <Comments

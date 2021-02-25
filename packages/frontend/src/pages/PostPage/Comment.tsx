@@ -14,6 +14,7 @@ interface PostValues {
   username: string;
   body: string;
   id: string;
+  parent: string;
   grids: GridSize;
   host: string;
 }
@@ -57,7 +58,7 @@ const Comment = (props: PostValues): JSX.Element => {
           <Card elevation={1} square className={classes.header}>
             <PostHeader
               onToggleEdit={() => setEditorOpen(true)}
-              isComment
+              parent={props.parent}
               username={props.username}
               id={props.id}
               server={props.host}
