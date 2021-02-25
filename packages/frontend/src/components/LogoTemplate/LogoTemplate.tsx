@@ -15,7 +15,7 @@ interface Props {
 const useStyles = makeStyles({
   root: {
     height: "100%",
-    padding: "2rem",
+    padding: "1rem",
   },
   rootContainer: {
     height: "100%",
@@ -53,13 +53,13 @@ const LogoTemplate = (props: Props): ReactElement => {
             justify="space-evenly"
             direction={vertical ? "column" : "row"}
           >
-            <Grid item container xs={4} direction="column" justify="center">
+            <Grid item xs={9} md={4} container direction="column" justify="center">
               <div>
                 <img src={logo} alt="Unifed" className={classes.logo}></img>
                 <div className={classes.logoText}>Unifed</div>
               </div>
             </Grid>
-            <Grid item container xs={vertical ? 8 : 6} direction="column" justify="center">
+            <Grid item container xs={12} md={6} direction="column" justify="center">
               {props.children}
             </Grid>
           </Grid>
