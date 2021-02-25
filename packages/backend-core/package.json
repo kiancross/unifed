@@ -53,7 +53,8 @@
       "ts-node/register"
     ],
     "environmentVariables": {
-      "UNIFED_INTERNAL_REFERENCE": "this"
+      "UNIFED_INTERNAL_REFERENCE": "this",
+      "UNIFED_SITE_HOST": "localhost:8080"
     }
   }
 }

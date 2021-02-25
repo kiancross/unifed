@@ -2,30 +2,17 @@
  * CS3099 Group A3
  */
 
-import { IsString, IsNotEmpty } from "class-validator";
-import { ObjectType, Field } from "type-graphql";
-import { prop as Property } from "@typegoose/typegoose";
+import { ObjectType } from "type-graphql";
 import { JSONMap } from "../types";
+import { Base } from "./base";
 import { config } from "../config";
 
 @ObjectType()
-export class RemoteReference {
-  @IsNotEmpty()
-  @IsString()
-  @Field()
-  @Property({ required: true })
-  id!: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @Field()
-  @Property({ required: true })
-  host!: string;
-
+export class RemoteReference extends Base {
   toJSON(): JSONMap {
     return {
       id: this.id,
-      host: this.host == config.internalReference ? config.siteHost : this.host,
+      host: this.host == config.internalReference ? config.siteHost : this.host || null,
     };
   }
 }
