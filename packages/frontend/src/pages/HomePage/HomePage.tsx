@@ -3,19 +3,21 @@
  */
 
 import React from "react";
-import { Container, Grid } from "@material-ui/core";
+import { Container, Grid, useMediaQuery } from "@material-ui/core";
 import WelcomeCard from "./WelcomeCard";
 import CommunitiesListCard from "./CommunitiesListCard";
 import SubscribedPosts from "./SubscribedPosts";
 
-const HomePage = () => {
+const HomePage = (): JSX.Element => {
+  const isMobile = useMediaQuery("(max-width: 960px)");
+  const direction = isMobile ? "column-reverse" : "row";
   return (
     <Container style={{ paddingTop: "1rem" }} maxWidth="lg">
-      <Grid container spacing={3}>
-        <Grid item container xs={8} direction="column" spacing={2}>
+      <Grid container direction={direction} spacing={3}>
+        <Grid item container xs={12} md={8} direction="column" spacing={2}>
           <SubscribedPosts />
         </Grid>
-        <Grid item container xs={4} direction="column" spacing={2}>
+        <Grid item container xs={12} md={4} direction="column" spacing={2}>
           <WelcomeCard />
           <CommunitiesListCard />
         </Grid>

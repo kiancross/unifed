@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { Container, Grid } from "@material-ui/core";
+import { Container, Grid, useMediaQuery } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 import Post from "./Post";
@@ -35,6 +35,8 @@ const PostPage = (): JSX.Element => {
   const { loading, error, data } = useQuery(GET_POST, {
     variables: { id: post, host: server },
   });
+  const isMobile = useMediaQuery("(max-width: 960px)");
+  const direction = isMobile ? "column-reverse" : "row";
 
   if (error) return <h1 style={{ color: "black" }}>Error! ${error.message} </h1>;
   if (loading) return <CenteredLoader />;
@@ -46,8 +48,8 @@ const PostPage = (): JSX.Element => {
 
   return (
     <Container style={{ paddingTop: "1.5rem" }}>
-      <Grid container spacing={3}>
-        <Grid item container xs={8} direction="column" spacing={2}>
+      <Grid alignContent="center" container direction={direction} spacing={3}>
+        <Grid item container xs={12} md={8} direction="column" spacing={2}>
           <Post id={post} server={server} username={username} body={body} title={title} />
           <PostCreator
             isComment
@@ -60,7 +62,7 @@ const PostPage = (): JSX.Element => {
           <Comments parentId={post} server={server} grids={11} />
         </Grid>
 
-        <Grid item container xs={4} direction="column" spacing={2}>
+        <Grid item container xs={12} md={4} direction="column" spacing={2}>
           <UserInfoCard username={username} name={username} />
         </Grid>
       </Grid>
