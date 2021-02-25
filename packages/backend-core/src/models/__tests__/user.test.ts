@@ -5,7 +5,7 @@
 import test from "ava";
 import { User } from "../user";
 
-test("New user", (t) => {
+test("Load", (t) => {
   new User();
   t.pass();
 });
