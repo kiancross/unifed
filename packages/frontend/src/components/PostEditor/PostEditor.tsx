@@ -42,7 +42,7 @@ export default function PostEditor(props: Props): ReactElement {
       title={props.title}
       onCancel={props.onCancel}
       onSubmit={async ({ title, body }) => {
-        await editPost({
+        const result = await editPost({
           variables: {
             id: props.id,
             host: props.server,
@@ -50,7 +50,7 @@ export default function PostEditor(props: Props): ReactElement {
             body,
           },
         });
-        if (props.onSuccess) {
+        if (result.data && props.onSuccess) {
           props.onSuccess();
         }
       }}
