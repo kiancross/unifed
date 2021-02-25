@@ -17,7 +17,8 @@ export abstract class Base extends defaultClasses.TimeStamps {
   @Property({ default: uuidv4, required: true })
   _id!: EntityID;
 
-  protected _host?: string;
+  @Field()
+  host?: string;
 
   @Field(() => ID)
   get id(): EntityID {
@@ -26,15 +27,6 @@ export abstract class Base extends defaultClasses.TimeStamps {
 
   set id(id: EntityID) {
     this._id = id;
-  }
-
-  @Field()
-  get host(): string {
-    return this._host || "this";
-  }
-
-  set host(host: string) {
-    this._host = host;
   }
 
   toJSON(): JSONMap {
