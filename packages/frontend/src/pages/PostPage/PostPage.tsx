@@ -56,7 +56,7 @@ const PostPage = (): JSX.Element => {
             server={server}
             community={community}
             submitButtonText="Add Comment"
-            onSuccess={() => window.location.assign(window.location.href)}
+            onSuccess={() => null}
           />
           <Comments parentId={post} server={server} grids={11} />
         </Grid>

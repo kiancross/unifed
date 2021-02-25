@@ -7,6 +7,7 @@ import { gql, useMutation } from "@apollo/client";
 import CenteredLoader from "../../components/CenteredLoader";
 import ErrorMessage from "../ErrorMessage";
 import PostEditorBase from "../PostEditorBase";
+import { GET_POSTS } from "../../pages/CommunityPostsPage/CommunityPostsPage";
 
 interface Params {
   server: string;
@@ -39,7 +40,33 @@ export const createPostQuery = gql`
 `;
 
 const PostCreator = (props: Params): ReactElement => {
-  const [createPost, { loading, error }] = useMutation(createPostQuery);
+  const [createPost, { loading, error }] = useMutation(createPostQuery, {
+    update(cache, { data: { createPost } }) {
+      const variables = {
+        community: props.community,
+        host: props.server,
+      };
+
+      const current = cache.readQuery<any>({ query: GET_POSTS, variables });
+
+      cache.writeQuery({
+        query: GET_POSTS,
+        variables,
+        data: {
+          getPosts: [...(current.getPosts || []), createPost],
+        },
+      });
+
+      if (props.parentId) {
+        cache.modify({
+          id: `Post:${props.parentId}`,
+          fields: {
+            children: (existing = []) => [...existing, createPost],
+          },
+        });
+      }
+    },
+  });
 
   if (loading) return <CenteredLoader />;
   if (error) return <ErrorMessage message="The post could not be made. Please try again later." />;
