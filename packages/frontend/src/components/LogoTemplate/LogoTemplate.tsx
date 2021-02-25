@@ -59,7 +59,7 @@ const LogoTemplate = (props: Props): ReactElement => {
                 <div className={classes.logoText}>Unifed</div>
               </div>
             </Grid>
-            <Grid item container xs={12} md={6} direction="column" justify="center">
+            <Grid item container xs={12} md={vertical ? 8 : 6} direction="column" justify="center">
               {props.children}
             </Grid>
           </Grid>
