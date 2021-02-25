@@ -15,7 +15,7 @@ import { Service } from "typedi";
 import { CurrentUser } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
 import { Post, User, Community, RemoteReference } from "@unifed/backend-core";
-import { CreatePostInput, UpdatePostInput, RemoteReferenceInput } from "./inputs";
+import { CreatePostInput, RemoteReferenceInput } from "./inputs";
 import { translateHost } from "./helpers";
 import { PostsService, CommunitiesService, UsersService } from "../services";
 
@@ -52,18 +52,13 @@ export class PostsResolver implements ResolverInterface<Post> {
   }
 
   @AuthoriseUser()
-  @Mutation(() => Boolean)
+  @Mutation(() => Post)
   async updatePost(
     @Arg("post") post: RemoteReferenceInput,
-    @Arg("content") content: UpdatePostInput,
-  ): Promise<boolean> {
-    await this.postsService.update(
-      await translateHost(post.host),
-      post.id,
-      content.title,
-      content.body,
-    );
-    return true;
+    @Arg("body") body: string,
+    @Arg("title", { nullable: true }) title?: string,
+  ): Promise<Post> {
+    return await this.postsService.update(await translateHost(post.host), post.id, body, title);
   }
 
   @AuthoriseUser()

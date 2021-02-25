@@ -81,14 +81,19 @@ export class PostsFederationService {
     await httpClient.delete(["posts", id]);
   }
 
-  async update(host: string, id: string, title: string, body: string): Promise<void> {
+  async update(host: string, id: string, body: string, title?: string): Promise<Post> {
     const httpClient = new FederationHttpClient(host);
 
-    await httpClient.put(["posts", id], {
+    const rawPost = await httpClient.put(["posts", id], {
       json: {
-        title,
+        title: title || null,
         body,
       },
     });
+
+    const post = plainToClass(Post, rawPost);
+    post.host = host;
+
+    return post;
   }
 }

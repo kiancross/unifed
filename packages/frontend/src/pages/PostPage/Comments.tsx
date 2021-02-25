@@ -25,6 +25,7 @@ interface PostParams {
 export const GET_COMMENTS = gql`
   query GET_COMMENTS($id: String!, $server: String!) {
     getPost(post: { id: $id, host: $server }) {
+      id
       children {
         id
         body

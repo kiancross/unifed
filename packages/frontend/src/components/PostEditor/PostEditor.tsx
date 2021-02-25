@@ -20,17 +20,20 @@ interface Props {
 }
 
 export const editPostQuery = gql`
-  mutation($id: String!, $host: String!, $body: String!, $title: String!) {
-    updatePost(content: { body: $body, title: $title }, post: { id: $id, host: $host })
+  mutation($id: String!, $host: String!, $body: String!, $title: String) {
+    updatePost(post: { id: $id, host: $host }, body: $body, title: $title) {
+      id
+      title
+      body
+    }
   }
 `;
 
 export default function PostEditor(props: Props): ReactElement {
-  const [editPost, { data, loading, error }] = useMutation(editPostQuery, { onError: () => null });
+  const [editPost, { loading, error }] = useMutation(editPostQuery, { onError: () => null });
 
   if (loading) return <CenteredLoader />;
   if (error) return <ErrorMessage message="Could not edit comment. Please try again later." />;
-  if (data && props.onSuccess) props.onSuccess();
 
   return (
     <PostEditorBase
@@ -38,8 +41,8 @@ export default function PostEditor(props: Props): ReactElement {
       body={props.body}
       title={props.title}
       onCancel={props.onCancel}
-      onSubmit={({ title, body }) => {
-        editPost({
+      onSubmit={async ({ title, body }) => {
+        await editPost({
           variables: {
             id: props.id,
             host: props.server,
@@ -47,6 +50,9 @@ export default function PostEditor(props: Props): ReactElement {
             body,
           },
         });
+        if (props.onSuccess) {
+          props.onSuccess();
+        }
       }}
       submitButtonText={props.submitButtonText}
     />

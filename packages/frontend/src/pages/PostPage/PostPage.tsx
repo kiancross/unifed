@@ -21,6 +21,7 @@ interface PostParams {
 export const GET_POST = gql`
   query GET_POST($id: String!, $host: String!) {
     getPost(post: { id: $id, host: $host }) {
+      id
       title
       body
       author {

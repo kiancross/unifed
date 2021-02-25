@@ -46,6 +46,7 @@ const Comment = (props: PostValues): JSX.Element => {
       id={props.id}
       body={props.body}
       submitButtonText="Save Comment"
+      isComment={true}
       onSuccess={() => setEditorOpen(false)}
       onCancel={() => setEditorOpen(false)}
     />

@@ -83,7 +83,7 @@ router.get("/:id", async (req, res) => {
   res.json(await post.populate("children").execPopulate());
 });
 
-router.put("/:id", async (req) => {
+router.put("/:id", async (req, res) => {
   const post = await getPostOrThrow(req.params.id, 404);
 
   // TODO validate
@@ -92,6 +92,8 @@ router.put("/:id", async (req) => {
   post.body = req.body.body;
 
   await post.save();
+
+  res.json(post);
 });
 
 router.delete("/:id", async (req) => {
