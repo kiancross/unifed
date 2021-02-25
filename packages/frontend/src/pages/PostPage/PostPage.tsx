@@ -21,6 +21,7 @@ interface PostParams {
 export const GET_POST = gql`
   query GET_POST($id: String!, $host: String!) {
     getPost(post: { id: $id, host: $host }) {
+      id
       title
       body
       author {
@@ -57,7 +58,7 @@ const PostPage = (): JSX.Element => {
             server={server}
             community={community}
             submitButtonText="Add Comment"
-            onSuccess={() => window.location.assign(window.location.href)}
+            onSuccess={() => null}
           />
           <Comments parentId={post} server={server} grids={11} />
         </Grid>

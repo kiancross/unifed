@@ -34,7 +34,7 @@ const Post = (props: Props): ReactElement => {
       server={props.server}
       id={props.id}
       submitButtonText="Save Post"
-      onSuccess={() => window.location.assign(window.location.href)}
+      onSuccess={() => setEditorOpen(false)}
       onCancel={() => setEditorOpen(false)}
     />
   ) : (

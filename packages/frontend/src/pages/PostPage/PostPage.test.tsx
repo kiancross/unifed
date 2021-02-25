@@ -46,6 +46,7 @@ test("Display comments", async () => {
       result: {
         data: {
           getPost: {
+            id: id,
             children: [
               {
                 id: res_id,
@@ -74,6 +75,7 @@ test("Display comments", async () => {
       result: {
         data: {
           getPost: {
+            id: id,
             children: [],
           },
         },
@@ -110,6 +112,7 @@ test("PostPage renders", async () => {
       result: {
         data: {
           getPost: {
+            id: id,
             title: title,
             body: body,
             author: {

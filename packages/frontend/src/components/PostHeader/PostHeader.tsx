@@ -3,11 +3,11 @@
  */
 
 import React, { useState, useContext } from "react";
-import { Redirect } from "react-router";
+import { Redirect } from "react-router-dom";
 import { CardHeader, IconButton, Menu, MenuItem, Typography, Theme } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, Reference } from "@apollo/client";
 import { UserContext } from "../../contexts/user";
 import CenteredLoader from "../CenteredLoader";
 import ErrorMessage from "../ErrorMessage";
@@ -18,13 +18,13 @@ interface Props {
   id: string;
   server: string;
   title?: string;
-  isComment?: boolean;
+  parent?: string;
   isPreview?: boolean;
   onToggleEdit: () => void;
 }
 
 const useStyles = makeStyles<Theme, Props>({
-  header: (props) => (props.isComment ? { paddingBottom: "0" } : {}),
+  header: (props) => (props.parent ? { paddingBottom: "0" } : {}),
 });
 
 export const DELETE_POST = gql`
@@ -38,14 +38,34 @@ const PostHeader = (props: Props): JSX.Element => {
   const user = useContext(UserContext);
   const classes = useStyles(props);
 
-  const [deletePost, { loading, data, error }] = useMutation(DELETE_POST);
+  const [deletePost, { data, loading, error }] = useMutation(DELETE_POST, {
+    update: (cache) => {
+      cache.modify({
+        fields: {
+          getPosts(existingPosts: Reference[], { readField }) {
+            return existingPosts.filter((post) => props.id !== readField("id", post));
+          },
+        },
+      });
+
+      if (props.parent) {
+        cache.modify({
+          id: `Post:${props.parent}`,
+          fields: {
+            children(existingChildren: Reference[], { readField }) {
+              return existingChildren.filter((child) => props.id !== readField("id", child));
+            },
+          },
+        });
+      }
+    },
+  });
 
   if (loading) return <CenteredLoader />;
   if (error) return <ErrorMessage message="Post could not be deleted." />;
+
   if (data) {
-    if (props.isComment || props.isPreview) {
-      window.location.assign(window.location.href);
-    } else {
+    if (!props.parent && !props.isPreview) {
       return <Redirect to="/" />;
     }
   }
@@ -102,7 +122,7 @@ const PostHeader = (props: Props): JSX.Element => {
       </React.Fragment>
     ) : null;
 
-  const headerTitle = props.isComment ? (
+  const headerTitle = props.parent ? (
     <Typography variant="body2" gutterBottom>
       <Link to={"/user/" + props.username} color="inherit">
         {props.username}

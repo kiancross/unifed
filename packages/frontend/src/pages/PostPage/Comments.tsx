@@ -25,6 +25,7 @@ interface PostParams {
 export const GET_COMMENTS = gql`
   query GET_COMMENTS($id: String!, $server: String!) {
     getPost(post: { id: $id, host: $server }) {
+      id
       children {
         id
         body
@@ -71,6 +72,7 @@ const Comments = (props: CommentParams) => {
               username={username}
               body={text}
               id={post.id}
+              parent={parentId}
               grids={props.grids}
             />
             <Comments
