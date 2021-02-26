@@ -208,9 +208,7 @@ test.serial("Create valid", async (t) => {
     .expect(200)
     .expect("Content-Type", /json/);
 
-  post.approved = body.approved;
-
-  t.deepEqual(body, post.toJSON());
+  t.deepEqual(body, { ...post.toJSON(), approved: body.approved, modified: body.modified });
 });
 
 test.serial("Delete own", async (t) => {
@@ -263,9 +261,7 @@ test.serial("Update own", async (t) => {
     .send(post.toJSON())
     .expect(200);
 
-  post.approved = body.approved;
-
-  t.deepEqual(body, post.toJSON());
+  t.deepEqual(body, { ...post.toJSON(), approved: body.approved, modified: body.modified });
 });
 
 test.serial("Update other", async (t) => {
