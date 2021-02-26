@@ -6,7 +6,7 @@ import { plainToClass } from "class-transformer";
 import { validate } from "class-validator";
 import { json as jsonBodyParser, Request } from "express";
 import { AsyncRouter } from "express-async-router";
-import { Post, PostModel } from "@unifed/backend-core";
+import { Post, PostModel, extractPostBody } from "@unifed/backend-core";
 import { getSpamFactor, getToxicityClassification } from "@unifed/backend-ml";
 import { ResponseError } from "./response-error";
 import {
@@ -17,30 +17,22 @@ import {
   ParamError,
 } from "./helpers";
 
-const extractPostBody = (post: Record<string, unknown>): [string, string] => {
+const extractPostBodyOrThrow = (post: Record<string, unknown>): [string, string] => {
+  let result;
+
   try {
-    if (!Array.isArray(post.content)) {
-      throw new Error();
+    result = extractPostBody(post);
+  } catch (error) {
+    if (!(error instanceof ResponseError)) {
+      throw new ResponseError(400, "Invalid content field");
     }
-
-    for (const contentEntry of post.content) {
-      const keys = Object.keys(contentEntry);
-
-      if (keys.length !== 1) {
-        throw new Error();
-      }
-
-      const type = keys[0];
-
-      if (type === "markdown" || type === "text") {
-        return [type, contentEntry[type][type]];
-      }
-    }
-  } catch (_) {
-    throw new ResponseError(400, "Invalid content field");
   }
 
-  throw new ResponseError(501, "Only `markdown` and `text` types are supported");
+  if (result === undefined) {
+    throw new ResponseError(501, "Only `markdown` and `text` types are supported");
+  }
+
+  return result;
 };
 
 const throwIfWrongPermissions = ({ author }: Post, username?: string, host?: string): void => {
@@ -137,7 +129,7 @@ router.post("/", async (req, res) => {
   const [username, host] = getAuthor(req);
   rawPost.author = { _id: username, host };
 
-  const [contentType, body] = extractPostBody(rawPost);
+  const [contentType, body] = extractPostBodyOrThrow(rawPost);
 
   rawPost.body = body;
   rawPost.contentType = contentType;
@@ -155,7 +147,7 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const post = await getPostOrThrow(req.params.id, 404);
 
-  const [contentType, body] = extractPostBody(req.body);
+  const [contentType, body] = extractPostBodyOrThrow(req.body);
 
   post.title = req.body.title;
   post.body = body;
