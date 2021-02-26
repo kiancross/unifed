@@ -2,13 +2,13 @@
 
 exports[`Render 1`] = `
 <div
-  className="makeStyles-root-1"
+  className="makeStyles-root-2"
 >
   <div
-    className="MuiContainer-root makeStyles-rootContainer-2 MuiContainer-maxWidthLg"
+    className="MuiContainer-root makeStyles-rootContainer-3 MuiContainer-maxWidthLg"
   >
     <div
-      className="MuiGrid-root makeStyles-rootContainer-2 MuiGrid-container MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+      className="MuiGrid-root makeStyles-rootContainer-3 MuiGrid-container MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
     >
       <div
         className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4 MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-space-evenly"
@@ -19,11 +19,11 @@ exports[`Render 1`] = `
           <div>
             <img
               alt="Unifed"
-              className="makeStyles-logo-3"
+              className="makeStyles-logo-4"
               src="unifed.svg"
             />
             <div
-              className="makeStyles-logoText-4"
+              className="makeStyles-logoText-5"
             >
               Unifed
             </div>
@@ -78,7 +78,7 @@ exports[`Render 1`] = `
                 </strong>
                  
                 <a
-                  className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+                  className="MuiTypography-root MuiLink-root makeStyles-root-1 MuiLink-underlineHover MuiTypography-colorPrimary"
                   href="mailto:cs3099.a3.unifed@gmail.com"
                   onBlur={[Function]}
                   onFocus={[Function]}
@@ -251,7 +251,7 @@ exports[`Render 1`] = `
             </strong>
              
             <a
-              className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+              className="MuiTypography-root MuiLink-root makeStyles-root-1 MuiLink-underlineHover MuiTypography-colorPrimary"
               href="https://www.ico.org.uk"
               onBlur={[Function]}
               onFocus={[Function]}
