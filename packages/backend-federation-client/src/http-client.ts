@@ -10,11 +10,12 @@ type Endpoints = string | string[];
 export class FederationHttpClient {
   readonly httpClient: Got;
 
-  constructor(hostname: string) {
+  constructor(hostname: string, username?: string) {
     this.httpClient = got.extend({
       prefixUrl: `http://${hostname}/fed`,
       headers: {
         "Client-Host": config.siteHost,
+        "User-ID": username,
       },
     });
   }

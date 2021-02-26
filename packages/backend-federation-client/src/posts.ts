@@ -4,10 +4,13 @@
 
 import { Service } from "typedi";
 import { plainToClass } from "class-transformer";
-import { Post, User, extractPostBody } from "@unifed/backend-core";
+import { validate } from "class-validator";
+import { Post, extractPostBody, getValidationMessage } from "@unifed/backend-core";
 import { FederationHttpClient } from "./http-client";
 
-const processPost = (rawPost: unknown, host: string): Post => {
+const processPost = async (rawPost: unknown, host: string): Promise<Post> => {
+  const post = plainToClass(Post, rawPost as Post);
+
   let body, contentType;
 
   try {
@@ -23,11 +26,15 @@ const processPost = (rawPost: unknown, host: string): Post => {
     throw new Error("Invalid `content` field");
   }
 
-  const post = plainToClass(Post, rawPost as Post);
-
   post.body = body;
   post.contentType = contentType;
   post.host = host;
+
+  const validationMessage = getValidationMessage(await validate(post));
+
+  if (validationMessage) {
+    throw new Error(validationMessage);
+  }
 
   return post;
 };
@@ -35,14 +42,14 @@ const processPost = (rawPost: unknown, host: string): Post => {
 @Service()
 export class PostsFederationService {
   async create(
+    username: string,
     host: string,
-    user: User,
     community: string,
     title: string,
     body: string,
     parentPost?: string,
   ): Promise<Post | null> {
-    const httpClient = new FederationHttpClient(host);
+    const httpClient = new FederationHttpClient(host, username);
 
     try {
       const rawPost: Post = await httpClient.post("posts", {
@@ -50,16 +57,17 @@ export class PostsFederationService {
           community,
           parentPost,
           title,
-          body,
-          contentType: "markdown",
-          author: user.username,
+          content: [
+            {
+              markdown: {
+                markdown: body,
+              },
+            },
+          ],
         },
       });
 
-      const post = plainToClass(Post, rawPost);
-      post.host = host;
-
-      return post;
+      return await processPost(rawPost, host);
     } catch (error) {
       if (error.response.statusCode === 400) {
         return null;
@@ -69,8 +77,8 @@ export class PostsFederationService {
     }
   }
 
-  async getByCommunity(host: string, community: string): Promise<Post[]> {
-    const httpClient = new FederationHttpClient(host);
+  async getByCommunity(username: string, host: string, community: string): Promise<Post[]> {
+    const httpClient = new FederationHttpClient(host, username);
 
     const rawPosts: Post[] = await httpClient.get("posts", {
       searchParams: {
@@ -79,8 +87,9 @@ export class PostsFederationService {
     });
 
     const posts = plainToClass(Post, rawPosts);
-    posts.forEach((element) => (element.host = host));
+
     posts.forEach((element) => {
+      element.host = host;
       if (element.approved === undefined) {
         element.approved = true;
       }
@@ -89,22 +98,28 @@ export class PostsFederationService {
     return posts;
   }
 
-  async getById(host: string, id: string): Promise<Post> {
-    const httpClient = new FederationHttpClient(host);
+  async getById(username: string, host: string, id: string): Promise<Post> {
+    const httpClient = new FederationHttpClient(host, username);
 
     const rawPost = await httpClient.get(["posts", id]);
 
-    return post;
+    return await processPost(rawPost, host);
   }
 
-  async delete(host: string, id: string): Promise<void> {
-    const httpClient = new FederationHttpClient(host);
+  async delete(username: string, host: string, id: string): Promise<void> {
+    const httpClient = new FederationHttpClient(host, username);
 
     await httpClient.delete(["posts", id]);
   }
 
-  async update(host: string, id: string, body: string, title?: string): Promise<Post> {
-    const httpClient = new FederationHttpClient(host);
+  async update(
+    username: string,
+    host: string,
+    id: string,
+    body: string,
+    title?: string,
+  ): Promise<Post> {
+    const httpClient = new FederationHttpClient(host, username);
 
     const rawPost = await httpClient.put(["posts", id], {
       json: {
@@ -113,9 +128,6 @@ export class PostsFederationService {
       },
     });
 
-    const post = plainToClass(Post, rawPost);
-    post.host = host;
-
-    return post;
+    return await processPost(rawPost, host);
   }
 }
