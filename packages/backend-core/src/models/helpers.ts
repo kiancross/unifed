@@ -5,8 +5,8 @@
 import { Ref, isRefType, isDocument } from "@typegoose/typegoose";
 import { Base, EntityID } from "./base";
 
-export function dateToUnixTimestamp(date: Date): number {
-  return Math.floor(date.getTime() / 1000);
+export function dateToUnixTimestamp(date?: Date): number {
+  return Math.floor((date || new Date()).getTime() / 1000);
 }
 
 export function getIdFromRef<T extends Base>(item: Ref<T>): EntityID | null {

@@ -54,7 +54,7 @@ export class Post extends Base {
   @IsNotEmpty()
   @ValidateNested()
   @Field()
-  @Property({ _id: false, required: true })
+  @Property({ required: true })
   author!: RemoteReference;
 
   @Field(() => [Post])
@@ -70,14 +70,6 @@ export class Post extends Base {
   @Field()
   approved!: boolean;
 
-  get updatedAtUnixTimestamp(): number {
-    return this.updatedAt ? dateToUnixTimestamp(this.updatedAt) : 0;
-  }
-
-  get createdAtUnixTimestamp(): number {
-    return this.createdAt ? dateToUnixTimestamp(this.createdAt) : 0;
-  }
-
   toJSON(): JSONMap {
     const title = this.approved ? this.title : "Pending Approval";
     const body = this.approved ? this.body : "This post is pending approval.";
@@ -87,9 +79,9 @@ export class Post extends Base {
       parentPost: getIdFromRef(this.parentPost),
       community: getIdFromRef(this.community),
       children: (this.children || []).map(getIdFromRef),
-      author: this.author,
-      modified: this.updatedAtUnixTimestamp,
-      created: this.createdAtUnixTimestamp,
+      author: this.author.toJSON(),
+      modified: this.updatedAt ? dateToUnixTimestamp(this.updatedAt) : 0,
+      created: this.createdAt ? dateToUnixTimestamp(this.createdAt) : 0,
       approved: this.approved,
       content: [
         {

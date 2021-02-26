@@ -19,7 +19,7 @@ export const generatePost = (community: string): Post => {
 
   post.author = new RemoteReference();
   post.author.id = lorem.word();
-  post.author.id = lorem.word();
+  post.author.host = lorem.word();
 
   return post;
 };

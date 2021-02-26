@@ -17,25 +17,27 @@ import {
   ParamError,
 } from "./helpers";
 
-type PostContent = {
-  [K in "markdown" | "text"]: {
-    [field: string]: string;
-  };
-};
-
-const extractPostBody = <T extends { content: PostContent[] }>(post: T): string => {
-  for (const contentEntry of post.content) {
-    const keys = Object.keys(contentEntry);
-
-    if (keys.length !== 1) {
-      throw new ResponseError(400, "Invalid content field");
+const extractPostBody = (post: Record<string, unknown>): [string, string] => {
+  try {
+    if (!Array.isArray(post.content)) {
+      throw new Error();
     }
 
-    const type = keys[0];
+    for (const contentEntry of post.content) {
+      const keys = Object.keys(contentEntry);
 
-    if (type === "markdown" || type === "text") {
-      return contentEntry[type][type];
+      if (keys.length !== 1) {
+        throw new Error();
+      }
+
+      const type = keys[0];
+
+      if (type === "markdown" || type === "text") {
+        return [type, contentEntry[type][type]];
+      }
     }
+  } catch (_) {
+    throw new ResponseError(400, "Invalid content field");
   }
 
   throw new ResponseError(501, "Only `markdown` and `text` types are supported");
@@ -47,8 +49,29 @@ const throwIfWrongPermissions = ({ author }: Post, username?: string, host?: str
   }
 };
 
-const getAuthor = (req: Request): { id?: string; host?: string } => {
-  return { id: req.get("user-id"), host: req.get("client-host") };
+const getAuthor = (req: Request): [string, string] => {
+  const username = req.get("user-id");
+  const host = req.get("client-host");
+
+  if (!username || !host) {
+    throw new ResponseError(403, "User-ID or Client-Host missing");
+  }
+
+  return [username, host];
+};
+
+const processAndValidatePost = async (post: Post) => {
+  const spamThreshold = 0.8;
+
+  const titleSpam = (await getSpamFactor(post.title)) >= spamThreshold;
+  const bodySpam = (await getSpamFactor(post.body)) >= spamThreshold;
+
+  const titleToxic = await getToxicityClassification(post.title);
+  const bodyToxic = await getToxicityClassification(post.body);
+
+  post.approved = !(titleSpam || bodySpam || titleToxic || bodyToxic);
+
+  throwValidationError(await validate(post));
 };
 
 const router = AsyncRouter();
@@ -84,7 +107,7 @@ router.get("/", async (req, res) => {
   });
 
   const author = await processParam(req.query, "author", async (value) => value);
-  const host = await processParam(req.query, "host", async (value) => value);
+  //const host = await processParam(req.query, "host", async (value) => value);
 
   // TODO parentPost and contentType
 
@@ -92,7 +115,7 @@ router.get("/", async (req, res) => {
     await PostModel.find({
       community,
       "author.id": author,
-      "author.host": host, // TODO
+      //"author.host": host, // TODO
       createdAt: {
         $gte: minDate,
       },
@@ -103,51 +126,48 @@ router.get("/", async (req, res) => {
   );
 });
 
-router.post("/", async (req, res) => {
-  const rawPost = req.body;
-  rawPost.author = getAuthor(req);
-
-  const body = extractPostBody(rawPost);
-
-  rawPost.body = body;
-
-  const post = plainToClass(Post, rawPost as Post);
-
-  const spamThreshold = 0.8;
-
-  const titleSpam = (await getSpamFactor(post.title)) >= spamThreshold;
-  const bodySpam = (await getSpamFactor(post.body)) >= spamThreshold;
-
-  const titleToxic = await getToxicityClassification(post.title);
-  const bodyToxic = await getToxicityClassification(post.body);
-
-  post.approved = !(titleSpam || bodySpam || titleToxic || bodyToxic);
-
-  throwValidationError(await validate(post));
-
-  res.json(await PostModel.create(post));
-});
-
 router.get("/:id", async (req, res) => {
   const post = await getPostOrThrow(req.params.id, 404);
   res.json(await post.populate("children").execPopulate());
 });
 
+router.post("/", async (req, res) => {
+  const rawPost = req.body;
+
+  const [username, host] = getAuthor(req);
+  rawPost.author = { _id: username, host };
+
+  const [contentType, body] = extractPostBody(rawPost);
+
+  rawPost.body = body;
+  rawPost.contentType = contentType;
+  rawPost.content = undefined;
+
+  const post = plainToClass(Post, rawPost as Post);
+
+  await processAndValidatePost(post);
+
+  await getCommunityOrThrow(rawPost.community, 400);
+
+  res.json(await PostModel.create(post));
+});
+
 router.put("/:id", async (req, res) => {
   const post = await getPostOrThrow(req.params.id, 404);
 
-  const body = extractPostBody(req.body.body);
+  const [contentType, body] = extractPostBody(req.body);
 
   post.title = req.body.title;
   post.body = body;
+  post.contentType = contentType;
 
   const author = getAuthor(req);
 
-  throwIfWrongPermissions(post, author.id, author.host);
+  throwIfWrongPermissions(post, ...author);
+
+  await processAndValidatePost(post);
 
   await post.save();
-
-  throwValidationError(await validate(post));
 
   res.json(post);
 });
@@ -157,7 +177,7 @@ router.delete("/:id", async (req) => {
 
   const author = getAuthor(req);
 
-  throwIfWrongPermissions(post, author.id, author.host);
+  throwIfWrongPermissions(post, ...author);
 
   await post.deleteOne();
 });

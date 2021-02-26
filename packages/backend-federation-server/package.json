@@ -47,6 +47,9 @@
   },
   "ava": {
     "timeout": "2m",
+    "environmentVariables": {
+      "UNIFED_INTERNAL_REFERENCE": "this"
+    },
     "files": [
       "!build/**/*"
     ],
