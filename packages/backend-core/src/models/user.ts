@@ -4,15 +4,8 @@
 
 import { prop as Property, getModelForClass } from "@typegoose/typegoose";
 import { ObjectType, Field } from "type-graphql";
-import { Base } from "./base";
+import { PublicUser } from "./public-user";
 import { RemoteReference } from "./remote-reference";
-
-@ObjectType()
-export class UserProfile {
-  @Field()
-  @Property({ required: true })
-  name!: string;
-}
 
 @ObjectType()
 class EmailRecord {
@@ -26,21 +19,13 @@ class EmailRecord {
 }
 
 @ObjectType()
-export class User extends Base {
-  @Field()
-  @Property({ required: true })
-  username!: string;
-
+export class User extends PublicUser {
   @Field(() => [EmailRecord])
-  @Property({ type: EmailRecord, id: false, required: true })
+  @Property({ id: false, ref: EmailRecord, type: EmailRecord, required: true })
   emails!: EmailRecord[];
 
-  @Field()
-  @Property({ _id: false, required: true })
-  profile!: UserProfile;
-
   @Field(() => [RemoteReference])
-  @Property({ id: false, required: true })
+  @Property({ id: false, Ref: RemoteReference, type: RemoteReference, required: true })
   subscriptions!: RemoteReference[];
 }
 

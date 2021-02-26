@@ -5,13 +5,24 @@
 import test from "ava";
 import { RemoteReference } from "../remote-reference";
 
-test("toJSON", (t) => {
+test("Internal reference", async (t) => {
   const reference = new RemoteReference();
-  reference.id = "someid";
-  reference.host = "localhost:8080";
+  reference.id = "foo";
+  reference.host = "this";
 
   t.deepEqual(reference.toJSON(), {
-    id: "someid",
+    id: "foo",
     host: "localhost:8080",
+  });
+});
+
+test("toJSON", (t) => {
+  const reference = new RemoteReference();
+  reference.id = "foo";
+  reference.host = "bar";
+
+  t.deepEqual(reference.toJSON(), {
+    id: "foo",
+    host: "bar",
   });
 });

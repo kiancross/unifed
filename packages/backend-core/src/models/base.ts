@@ -14,16 +14,12 @@ export type EntityID = string;
 export abstract class Base extends defaultClasses.TimeStamps {
   @IsNotEmpty()
   @IsString()
-  @Property({ default: uuidv4 })
+  @Property({ default: uuidv4, required: true })
   _id!: EntityID;
 
-  @IsNotEmpty()
-  @IsString()
   @Field()
   host?: string;
 
-  @IsNotEmpty()
-  @IsString()
   @Field(() => ID)
   get id(): EntityID {
     return this._id;

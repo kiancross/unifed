@@ -14,7 +14,7 @@ import {
 } from "type-graphql";
 import { CurrentUser, translateHost } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
-import { RemoteReference, User } from "@unifed/backend-core";
+import { RemoteReference, User, UserProfile } from "@unifed/backend-core";
 import { RemoteReferenceInput, UserProfileInput } from "./inputs";
 import { UsersService } from "../services";
 
@@ -60,8 +60,8 @@ export class UsersResolver implements ResolverInterface<User> {
     return this.usersService.getSubscriptions(user.id);
   }
 
-  @FieldResolver()
-  profile(@Root() user: User) {
+  @FieldResolver(() => UserProfile)
+  profile(@Root() user: User): UserProfile {
     return user.profile;
   }
 }

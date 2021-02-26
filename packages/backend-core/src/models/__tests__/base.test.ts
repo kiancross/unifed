@@ -3,23 +3,35 @@
  */
 
 import test from "ava";
+import { validate } from "class-validator";
 import { Base } from "../base";
 
 class MockBase extends Base {}
 
-test("id getter", (t) => {
+test("Invalid ID", async (t) => {
   const base = new MockBase();
-  t.is(base.id, undefined);
+  base.host = "foo.edu";
+
+  const result = await validate(base);
+
+  t.is(result.length, 1);
 });
 
-test("id setter", (t) => {
+test("Valid", async (t) => {
   const base = new MockBase();
-  base.id = "someid";
-  t.is(base.id, "someid");
+  base.id = "foo";
+  base.host = "foo.edu";
+
+  const result = await validate(base);
+
+  t.is(result.length, 0);
+  t.is(base.id, "foo");
+  t.is(base.host, "foo.edu");
 });
 
 test("toJSON", (t) => {
   const base = new MockBase();
-  base.id = "someid";
-  t.deepEqual(base.toJSON(), { id: "someid" });
+  base.id = "foo";
+
+  t.deepEqual(base.toJSON(), { id: "foo" });
 });
