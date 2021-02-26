@@ -28,8 +28,8 @@ export class PublicUser extends Base {
   username!: string;
 
   @ValidateNested()
-  @Field(() => UserProfile)
-  @Property({ _id: false, required: true })
+  @Field()
+  @Property({ _id: false, ref: UserProfile, required: true })
   profile!: UserProfile;
 
   toJSON(): JSONMap {

@@ -10,7 +10,6 @@ import { JSONMap } from "../types";
 import { Base } from "./base";
 import { Post } from "./post";
 import { RemoteReference } from "./remote-reference";
-import { PublicUser } from "./public-user";
 
 @ObjectType()
 export class Community extends Base {
@@ -47,7 +46,7 @@ export class Community extends Base {
 
   @IsArray()
   @ValidateNested()
-  @Field(() => [PublicUser])
+  @Field(() => [RemoteReference])
   @Type(() => RemoteReference)
   @Property({
     _id: false,

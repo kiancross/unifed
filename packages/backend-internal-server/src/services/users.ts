@@ -8,7 +8,7 @@ import { RemoteReference, UserModel } from "@unifed/backend-core";
 @Service()
 export class UsersService {
   async updateProfile(id: string, profile: { name: string }): Promise<boolean> {
-    await UserModel.updateOne({ _id: id }, { $set: { profile } });
+    await UserModel.updateOne({ _id: id }, { $set: { profile: profile as any } });
     return true;
   }
 
@@ -16,7 +16,9 @@ export class UsersService {
     const community: RemoteReference = new RemoteReference();
     community.id = communityId;
     community.host = host;
+
     if (await UserModel.exists({ _id: userId, subscriptions: community })) return true;
+
     return (
       (await UserModel.findByIdAndUpdate(
         { _id: userId },
@@ -29,6 +31,7 @@ export class UsersService {
     const community: RemoteReference = new RemoteReference();
     community.id = communityId;
     community.host = host;
+
     if (await UserModel.exists({ _id: userId, subscriptions: community })) {
       return (
         (await UserModel.findByIdAndUpdate(
@@ -37,12 +40,17 @@ export class UsersService {
         )) != null
       );
     }
+
     return true;
   }
 
   async getSubscriptions(id: string): Promise<RemoteReference[]> {
     const user = await UserModel.findOne({ _id: id }, "subscriptions").exec();
+
     if (!user) return [];
-    return user?.subscriptions;
+
+    return user.subscriptions.filter(
+      (subscription): subscription is RemoteReference => typeof subscription !== "string",
+    );
   }
 }
