@@ -12,7 +12,7 @@ interface Props {
   direction?: "horizontal" | "vertical";
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     height: "100%",
     padding: "1rem",
@@ -24,12 +24,12 @@ const useStyles = makeStyles({
     width: "100%",
   },
   logoText: {
-    color: "#3f3f40",
+    color: theme.palette.text.primary,
     fontFamily: "'Roboto Mono', monospace",
     fontSize: "4em",
     textAlign: "center",
   },
-});
+}));
 
 const LogoTemplate = (props: Props): ReactElement => {
   const classes = useStyles(props);
