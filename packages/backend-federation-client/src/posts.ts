@@ -4,8 +4,33 @@
 
 import { Service } from "typedi";
 import { plainToClass } from "class-transformer";
-import { Post, User } from "@unifed/backend-core";
+import { Post, User, extractPostBody } from "@unifed/backend-core";
 import { FederationHttpClient } from "./http-client";
+
+const processPost = (rawPost: unknown, host: string): Post => {
+  let body, contentType;
+
+  try {
+    const extracted = extractPostBody(rawPost);
+
+    if (!extracted) {
+      throw new Error();
+    }
+
+    contentType = extracted[0];
+    body = extracted[1];
+  } catch (_) {
+    throw new Error("Invalid `content` field");
+  }
+
+  const post = plainToClass(Post, rawPost as Post);
+
+  post.body = body;
+  post.contentType = contentType;
+  post.host = host;
+
+  return post;
+};
 
 @Service()
 export class PostsFederationService {
@@ -67,10 +92,7 @@ export class PostsFederationService {
   async getById(host: string, id: string): Promise<Post> {
     const httpClient = new FederationHttpClient(host);
 
-    const rawPost: Post = await httpClient.get(["posts", id]);
-
-    const post = plainToClass(Post, rawPost);
-    post.host = host;
+    const rawPost = await httpClient.get(["posts", id]);
 
     return post;
   }
