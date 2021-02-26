@@ -11,7 +11,6 @@ import { Base } from "./base";
 @ObjectType()
 export class UserProfile {
   @Field()
-  @Property({ required: true })
   name!: string;
 
   toJSON(): JSONMap {
