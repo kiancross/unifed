@@ -87,13 +87,18 @@ export class Post extends Base {
       parentPost: getIdFromRef(this.parentPost),
       community: getIdFromRef(this.community),
       children: (this.children || []).map(getIdFromRef),
-      title,
-      body,
-      contentType: this.contentType,
       author: this.author,
       modified: this.updatedAtUnixTimestamp,
       created: this.createdAtUnixTimestamp,
       approved: this.approved,
+      content: [
+        {
+          [this.contentType]: {
+            [this.contentType]: body,
+          },
+        },
+      ],
+      title,
     };
   }
 }

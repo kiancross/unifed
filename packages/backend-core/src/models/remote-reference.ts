@@ -13,7 +13,7 @@ export class RemoteReference extends Base {
 
   toJSON(): JSONMap {
     return {
-      id: this.id,
+      ...super.toJSON(),
       host: this.host === config.internalReference ? config.siteHost : this.host || null,
     };
   }

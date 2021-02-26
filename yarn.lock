@@ -5530,6 +5530,7 @@ __metadata:
     "@unifed/backend-testing": "workspace:packages/backend-testing"
     ava: ^3.15.0
     class-transformer: ^0.4.0
+    class-validator: ^0.13.1
     escape-string-regexp: ^4.0.0
     eslint: ^7.20.0
     eslint-config-prettier: ^7.2.0
@@ -5639,6 +5640,7 @@ __metadata:
     "@types/mongoose": ^5.10.3
     "@types/node": ^14.14.28
     "@types/prettier": ^2.2.1
+    "@types/uuid": ^8.3.0
     "@typescript-eslint/eslint-plugin": ^4.15.1
     "@typescript-eslint/parser": ^4.15.1
     "@unifed/backend-core": "workspace:packages/backend-core"
@@ -5651,6 +5653,7 @@ __metadata:
     mongoose: 5.10.18
     prettier: ^2.2.1
     typescript: ^4.1.5
+    uuid: ^8.3.2
   languageName: unknown
   linkType: soft
 

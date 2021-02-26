@@ -4,9 +4,14 @@
 
 import test from "ava";
 import request from "supertest";
-import { setup, generateCommunities, generateCommunity } from "@unifed/backend-testing";
+import {
+  setup,
+  generateCommunities,
+  generateCommunity,
+  generatePost,
+} from "@unifed/backend-testing";
 import { app } from "../app";
-import { CommunityModel } from "@unifed/backend-core";
+import { CommunityModel, PostModel } from "@unifed/backend-core";
 
 setup(test);
 
@@ -57,4 +62,20 @@ test.serial("Get timestamps empty", async (t) => {
     .expect("Content-Type", /json/);
 
   t.is(body.length, 0);
+});
+
+test.serial("Get timestamps", async (t) => {
+  const community = generateCommunity();
+  await CommunityModel.create(community);
+
+  const post = generatePost(community.id);
+
+  await PostModel.create(post);
+
+  const { body } = await request(app)
+    .get(`/communities/${community.id}/timestamps`)
+    .expect(200)
+    .expect("Content-Type", /json/);
+
+  t.deepEqual(body, [{ id: post.id, modified: post.updatedAtUnixTimestamp }]);
 });

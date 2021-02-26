@@ -3,6 +3,7 @@
  */
 
 import { Request } from "express";
+import { ValidationError } from "class-validator";
 import { DocumentType } from "@typegoose/typegoose";
 import { Community, CommunityModel, Post, PostModel } from "@unifed/backend-core";
 import { ResponseError } from "./response-error";
@@ -56,4 +57,21 @@ export const getPostOrThrow = async (id: string, code: number): Promise<Document
   }
 
   return post;
+};
+
+export const throwValidationError = (errors: ValidationError[]): void => {
+  if (errors.length === 0) {
+    return;
+  }
+
+  const title = "Validation failed";
+
+  const message = errors
+    .map((error) => error.constraints)
+    .filter((constraint): constraint is NonNullable<ValidationError["constraints"]> => !!constraint)
+    .map((constraint) => Object.values(constraint))
+    .reduce((previous, current) => [...previous, ...current])
+    .join("\n");
+
+  throw new ResponseError(400, title, message);
 };

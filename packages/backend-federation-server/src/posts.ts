@@ -3,11 +3,53 @@
  */
 
 import { plainToClass } from "class-transformer";
-import { json as jsonBodyParser } from "express";
+import { validate } from "class-validator";
+import { json as jsonBodyParser, Request } from "express";
 import { AsyncRouter } from "express-async-router";
 import { Post, PostModel } from "@unifed/backend-core";
 import { getSpamFactor, getToxicityClassification } from "@unifed/backend-ml";
-import { getCommunityOrThrow, getPostOrThrow, processParam, ParamError } from "./helpers";
+import { ResponseError } from "./response-error";
+import {
+  getCommunityOrThrow,
+  getPostOrThrow,
+  processParam,
+  throwValidationError,
+  ParamError,
+} from "./helpers";
+
+type PostContent = {
+  [K in "markdown" | "text"]: {
+    [field: string]: string;
+  };
+};
+
+const extractPostBody = <T extends { content: PostContent[] }>(post: T): string => {
+  for (const contentEntry of post.content) {
+    const keys = Object.keys(contentEntry);
+
+    if (keys.length !== 1) {
+      throw new ResponseError(400, "Invalid content field");
+    }
+
+    const type = keys[0];
+
+    if (type === "markdown" || type === "text") {
+      return contentEntry[type][type];
+    }
+  }
+
+  throw new ResponseError(501, "Only `markdown` and `text` types are supported");
+};
+
+const throwIfWrongPermissions = ({ author }: Post, username?: string, host?: string): void => {
+  if (author.id !== username || author.host !== host) {
+    throw new ResponseError(403, "Invalid permissions");
+  }
+};
+
+const getAuthor = (req: Request): { id?: string; host?: string } => {
+  return { id: req.get("user-id"), host: req.get("client-host") };
+};
 
 const router = AsyncRouter();
 
@@ -63,17 +105,25 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const rawPost = req.body;
-  rawPost.author = { id: req.body.author, host: req.get("client-host") };
+  rawPost.author = getAuthor(req);
+
+  const body = extractPostBody(rawPost);
+
+  rawPost.body = body;
 
   const post = plainToClass(Post, rawPost as Post);
 
-  const postTitleBody = `${post.title} ${post.body}`;
+  const spamThreshold = 0.8;
 
-  const spamFactor = await getSpamFactor(postTitleBody);
-  const toxicityClassification = await getToxicityClassification(postTitleBody);
+  const titleSpam = (await getSpamFactor(post.title)) >= spamThreshold;
+  const bodySpam = (await getSpamFactor(post.body)) >= spamThreshold;
 
-  post.approved = spamFactor < 0.8 && !toxicityClassification;
-  // TODO validate
+  const titleToxic = await getToxicityClassification(post.title);
+  const bodyToxic = await getToxicityClassification(post.body);
+
+  post.approved = !(titleSpam || bodySpam || titleToxic || bodyToxic);
+
+  throwValidationError(await validate(post));
 
   res.json(await PostModel.create(post));
 });
@@ -86,12 +136,18 @@ router.get("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const post = await getPostOrThrow(req.params.id, 404);
 
-  // TODO validate
+  const body = extractPostBody(req.body.body);
 
   post.title = req.body.title;
-  post.body = req.body.body;
+  post.body = body;
+
+  const author = getAuthor(req);
+
+  throwIfWrongPermissions(post, author.id, author.host);
 
   await post.save();
+
+  throwValidationError(await validate(post));
 
   res.json(post);
 });
@@ -99,7 +155,9 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req) => {
   const post = await getPostOrThrow(req.params.id, 404);
 
-  // TODO validate
+  const author = getAuthor(req);
+
+  throwIfWrongPermissions(post, author.id, author.host);
 
   await post.deleteOne();
 });

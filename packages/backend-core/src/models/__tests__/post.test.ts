@@ -106,8 +106,13 @@ test("toJSON", (t) => {
     community: "bar",
     parentPost: "baz",
     title: "bat",
-    contentType: "markdown",
-    body: "bax",
+    content: [
+      {
+        markdown: {
+          markdown: "bax",
+        },
+      },
+    ],
     children: [],
     author: {
       id: "mat",
