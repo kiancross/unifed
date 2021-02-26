@@ -28,7 +28,7 @@ export class PublicUser extends Base {
   username!: string;
 
   @ValidateNested()
-  @Field()
+  @Field(() => UserProfile)
   @Property({ _id: false, required: true })
   profile!: UserProfile;
 
