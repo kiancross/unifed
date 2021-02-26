@@ -29,6 +29,28 @@ test("Valid", async (t) => {
   t.is(base.host, "foo.edu");
 });
 
+test("Modified", async (t) => {
+  const time = 1614322800;
+  const date = new Date(time * 1000);
+
+  const base = new MockBase();
+  base.modified = time;
+
+  t.deepEqual(base.updatedAt, date);
+  t.is(base.modified, time);
+});
+
+test("Created", async (t) => {
+  const time = 1614322800;
+  const date = new Date(time * 1000);
+
+  const base = new MockBase();
+  base.created = time;
+
+  t.deepEqual(base.createdAt, date);
+  t.is(base.created, time);
+});
+
 test("toJSON", (t) => {
   const base = new MockBase();
   base.id = "foo";

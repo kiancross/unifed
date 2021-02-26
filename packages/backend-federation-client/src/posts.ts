@@ -8,9 +8,7 @@ import { validate } from "class-validator";
 import { Post, extractPostBody, getValidationMessage } from "@unifed/backend-core";
 import { FederationHttpClient } from "./http-client";
 
-const processPost = async (rawPost: unknown, host: string): Promise<Post> => {
-  const post = plainToClass(Post, rawPost as Post);
-
+const processPost = async (post: Post, rawPost: unknown, host: string): Promise<Post> => {
   let body, contentType;
 
   try {
@@ -67,7 +65,9 @@ export class PostsFederationService {
         },
       });
 
-      return await processPost(rawPost, host);
+      const post = plainToClass(Post, rawPost as Post);
+
+      return await processPost(post, rawPost, host);
     } catch (error) {
       if (error.response.statusCode === 400) {
         return null;
@@ -103,7 +103,9 @@ export class PostsFederationService {
 
     const rawPost = await httpClient.get(["posts", id]);
 
-    return await processPost(rawPost, host);
+    const post = plainToClass(Post, rawPost as Post);
+
+    return await processPost(post, rawPost, host);
   }
 
   async delete(username: string, host: string, id: string): Promise<void> {
@@ -124,10 +126,18 @@ export class PostsFederationService {
     const rawPost = await httpClient.put(["posts", id], {
       json: {
         title: title || null,
-        body,
+        content: [
+          {
+            markdown: {
+              markdown: body,
+            },
+          },
+        ],
       },
     });
 
-    return await processPost(rawPost, host);
+    const post = plainToClass(Post, rawPost as Post);
+
+    return await processPost(post, rawPost, host);
   }
 }

@@ -11,7 +11,7 @@ import {
   generatePost,
 } from "@unifed/backend-testing";
 import { app } from "../app";
-import { CommunityModel, PostModel, dateToUnixTimestamp } from "@unifed/backend-core";
+import { CommunityModel, PostModel } from "@unifed/backend-core";
 
 setup(test);
 
@@ -77,5 +77,5 @@ test.serial("Get timestamps", async (t) => {
     .expect(200)
     .expect("Content-Type", /json/);
 
-  t.deepEqual(body, [{ id: post.id, modified: dateToUnixTimestamp(post.updatedAt) }]);
+  t.deepEqual(body, [{ id: post.id, modified: post.modified }]);
 });

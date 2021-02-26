@@ -4,7 +4,6 @@
 
 import "reflect-metadata";
 
-export { dateToUnixTimestamp } from "./helpers";
 export * from "./public-user";
 export * from "./user";
 export * from "./post";

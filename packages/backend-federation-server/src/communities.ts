@@ -4,7 +4,7 @@
 
 import { AsyncRouter } from "express-async-router";
 import { isDocumentArray } from "@typegoose/typegoose";
-import { CommunityModel, Post, dateToUnixTimestamp } from "@unifed/backend-core";
+import { CommunityModel, Post } from "@unifed/backend-core";
 import { getCommunityOrThrow } from "./helpers";
 import { ResponseError } from "./response-error";
 
@@ -30,7 +30,7 @@ router.get("/:id/timestamps", async (req, res) => {
       community.posts.map((post: Post) => {
         return {
           id: post.id,
-          modified: dateToUnixTimestamp(post.updatedAt),
+          modified: post.modified,
         };
       }),
     );

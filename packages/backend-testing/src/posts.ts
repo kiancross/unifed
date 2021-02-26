@@ -16,6 +16,8 @@ export const generatePost = (community: string): Post => {
   post.updatedAt = new Date();
   post.createdAt = new Date();
   post.approved = true;
+  post.children = [];
+  post.parentPost = null;
 
   post.author = new RemoteReference();
   post.author.id = lorem.word();

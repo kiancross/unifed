@@ -3,9 +3,9 @@
  */
 
 import { ValidateNested, Matches, MaxLength, IsString, IsNotEmpty } from "class-validator";
+import { Type } from "class-transformer";
 import { prop as Property, getModelForClass, Ref } from "@typegoose/typegoose";
 import { ObjectType, Field } from "type-graphql";
-import { dateToUnixTimestamp } from "./helpers";
 import { Base } from "./base";
 import { getIdFromRef } from "./helpers";
 import { Community } from "./community";
@@ -21,7 +21,7 @@ export class Post extends Base {
 
   @Field(() => Post, { nullable: true })
   @Property({ ref: "Post", type: String })
-  parentPost?: Ref<Post>;
+  parentPost?: Ref<Post> | null;
 
   @MaxLength(128, {
     message: "Title is too long",
@@ -54,6 +54,7 @@ export class Post extends Base {
   @IsNotEmpty()
   @ValidateNested()
   @Field()
+  @Type(() => RemoteReference)
   @Property({ required: true })
   author!: RemoteReference;
 
@@ -80,8 +81,8 @@ export class Post extends Base {
       community: getIdFromRef(this.community),
       children: (this.children || []).map(getIdFromRef),
       author: this.author.toJSON(),
-      modified: this.updatedAt ? dateToUnixTimestamp(this.updatedAt) : 0,
-      created: this.createdAt ? dateToUnixTimestamp(this.createdAt) : 0,
+      modified: this.modified,
+      created: this.created,
       approved: this.approved,
       content: [
         {
