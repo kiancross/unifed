@@ -26,10 +26,6 @@ export class Post extends Base {
   @MaxLength(128, {
     message: "Title is too long",
   })
-  @IsNotEmpty({
-    message: "Title must not be empty",
-  })
-  @IsString()
   @Field({ nullable: true })
   @Property()
   title!: string;

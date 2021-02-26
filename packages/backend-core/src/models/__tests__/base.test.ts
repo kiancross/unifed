@@ -8,15 +8,6 @@ import { Base } from "../base";
 
 class MockBase extends Base {}
 
-test("Invalid ID", async (t) => {
-  const base = new MockBase();
-  base.host = "foo.edu";
-
-  const result = await validate(base);
-
-  t.is(result.length, 1);
-});
-
 test("Valid", async (t) => {
   const base = new MockBase();
   base.id = "foo";

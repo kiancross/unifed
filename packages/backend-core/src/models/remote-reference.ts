@@ -22,7 +22,7 @@ export class RemoteReference extends Base {
     }
 
     return {
-      ...super.toJSON(),
+      id: this.id,
       host: this.host === config.internalReference ? config.siteHost : this.host,
     };
   }

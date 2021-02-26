@@ -70,6 +70,8 @@ export const throwValidationError = (errors: ValidationError[]): void => {
 
   const message = getValidationMessage(errors);
 
+  console.log(message);
+
   if (message) {
     throw new ResponseError(400, title, message);
   }

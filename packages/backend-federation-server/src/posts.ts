@@ -55,10 +55,10 @@ const getAuthor = (req: Request): [string, string] => {
 const processAndValidatePost = async (post: Post) => {
   const spamThreshold = 0.8;
 
-  const titleSpam = (await getSpamFactor(post.title)) >= spamThreshold;
+  const titleSpam = post.title && (await getSpamFactor(post.title)) >= spamThreshold;
   const bodySpam = (await getSpamFactor(post.body)) >= spamThreshold;
 
-  const titleToxic = await getToxicityClassification(post.title);
+  const titleToxic = post.title && (await getToxicityClassification(post.title));
   const bodyToxic = await getToxicityClassification(post.body);
 
   post.approved = !(titleSpam || bodySpam || titleToxic || bodyToxic);

@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-import { IsString, IsNotEmpty } from "class-validator";
 import { prop as Property, defaultClasses } from "@typegoose/typegoose";
 import { ObjectType, Field, ID } from "type-graphql";
 import { v4 as uuidv4 } from "uuid";
@@ -13,8 +12,6 @@ export type EntityID = string;
 
 @ObjectType()
 export abstract class Base extends defaultClasses.TimeStamps {
-  @IsNotEmpty()
-  @IsString()
   @Property({ default: uuidv4, required: true })
   _id!: EntityID;
 
