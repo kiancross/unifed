@@ -1,5 +1,4 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import React from "react";
 import { AllTheProviders } from "../../helpers/test";
 import CommunityPostsPage, { GET_POSTS } from "./CommunityPostsPage";
 

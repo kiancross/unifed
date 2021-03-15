@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Card, CardActionArea, CardContent, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";

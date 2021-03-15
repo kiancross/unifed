@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-import React from "react";
 import LoginCard from "./LoginCard";
 import { ButtonLink } from "../../components/Links";
 import LogoTemplate from "../../components/LogoTemplate";

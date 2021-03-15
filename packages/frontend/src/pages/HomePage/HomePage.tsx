@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-import React from "react";
 import { Container, Grid, useMediaQuery } from "@material-ui/core";
 import WelcomeCard from "./WelcomeCard";
 import CommunitiesListCard from "./CommunitiesListCard";

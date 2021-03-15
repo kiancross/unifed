@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { ReactElement, useState } from "react";
+import { ReactElement, useState } from "react";
 import { useHistory } from "react-router";
 import { useFormik } from "formik";
 import { gql, useMutation } from "@apollo/client";

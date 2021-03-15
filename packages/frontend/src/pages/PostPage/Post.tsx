@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { ReactElement, useState } from "react";
+import { ReactElement, useState } from "react";
 import { Card, CardContent, Grid, Typography, makeStyles } from "@material-ui/core";
 import MarkdownViewer from "../../components/MarkdownViewer";
 import PostHeader from "../../components/PostHeader";

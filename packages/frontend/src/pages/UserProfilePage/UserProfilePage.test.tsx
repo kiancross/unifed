@@ -1,6 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { AllTheProviders } from "../../helpers/test";
-import React from "react";
 import UserProfilePage, { GET_POSTS } from "./UserProfilePage";
 
 const host = "this";

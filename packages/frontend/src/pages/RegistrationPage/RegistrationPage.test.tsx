@@ -1,5 +1,4 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import React from "react";
 import RegistrationPage from "./RegistrationPage";
 import RegistrationCard from "./RegistrationCard";
 import { AllTheProviders } from "../../helpers/test";

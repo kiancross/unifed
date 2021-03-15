@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTheme, makeStyles } from "@material-ui/core/styles";
 import { Box, Card, CardContent, Grid, Typography, GridSize } from "@material-ui/core";
 import UserIcon from "../../components/UserIcon";

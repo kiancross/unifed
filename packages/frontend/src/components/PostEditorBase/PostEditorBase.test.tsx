@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react";
 import PostEditorBase from "./PostEditorBase";
 

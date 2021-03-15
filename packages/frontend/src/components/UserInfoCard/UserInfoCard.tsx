@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Card, CardActionArea, CardHeader, Grid, makeStyles } from "@material-ui/core";
 import UserIcon from "../../components/UserIcon";

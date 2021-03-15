@@ -1,4 +1,3 @@
-import React from "react";
 import PrivacyPolicyPage from "./PrivacyNoticePage";
 import renderer from "react-test-renderer";
 
