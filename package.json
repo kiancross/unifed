@@ -24,13 +24,13 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@types/eslint": "^7.2.6",
-    "@types/prettier": "^2.2.1",
-    "eslint": "^7.20.0",
+    "@types/eslint": "^7.2.7",
+    "@types/prettier": "^2.2.2",
+    "eslint": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "nyc": "^15.1.0",
     "prettier": "^2.2.1",
-    "stylelint": "^13.10.0",
+    "stylelint": "^13.12.0",
     "typescript": "^4.1.5"
   },
   "resolutions": {
