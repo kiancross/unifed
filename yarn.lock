@@ -5591,7 +5591,7 @@ __metadata:
     express-async-router: ^0.1.15
     got: ^11.8.2
     graphql: ^15.5.0
-    graphql-tag: ^2.11.0
+    graphql-tag: ^2.12.1
     ipaddr.js: ^2.0.0
     mongoose: 5.10.18
     nodemailer: ^6.5.0
@@ -12038,6 +12038,17 @@ fsevents@~2.1.2:
   peerDependencies:
     graphql: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
   checksum: 5589000ba86013023076842192bd569f579a647fbc3bfd86831e6ddc6c275cf430b532476717adba45c514ca90650fc5cb3329bc45e38a9b849f6fcb047444c9
+  languageName: node
+  linkType: hard
+
+"graphql-tag@npm:^2.12.1":
+  version: 2.12.1
+  resolution: "graphql-tag@npm:2.12.1"
+  dependencies:
+    tslib: ^1.14.1
+  peerDependencies:
+    graphql: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
+  checksum: 24598a32799130942d6a86346794798fd3b4533fbc9c2f76af3546ea099778803387ead881c8099db76c6607d3064c970b3e59607d057554d14f82627a536d22
   languageName: node
   linkType: hard
 

@@ -44,7 +44,7 @@
     "express-async-router": "^0.1.15",
     "got": "^11.8.2",
     "graphql": "^15.5.0",
-    "graphql-tag": "^2.11.0",
+    "graphql-tag": "^2.12.1",
     "ipaddr.js": "^2.0.0",
     "mongoose": "5.10.18",
     "nodemailer": "^6.5.0",
