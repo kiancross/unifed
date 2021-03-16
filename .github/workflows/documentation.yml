@@ -1,0 +1,57 @@
+#
+# CS3099 Group A3
+#
+
+name: Documentation
+
+on: [push]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - id: yarn-paths
+        run: |
+          echo "::set-output name=cache::$(yarn config get cacheFolder)"
+          echo "::set-output name=install::$(yarn config get installStatePath)"
+          echo "::set-output name=build::$(yarn config get bstatePath)"
+          echo "::set-output name=unplugged::$(yarn config get pnpUnpluggedFolder)"
+
+      - uses: actions/cache@v2.1.4
+        id: cache
+        with:
+          path: |
+            ${{ steps.yarn-paths.outputs.cache }}
+            ${{ steps.yarn-paths.outputs.install }}
+            ${{ steps.yarn-paths.outputs.build }}
+            ${{ steps.yarn-paths.outputs.unplugged }}
+            .pnp.js
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - run: npm install -g yarn
+
+      - name: Install Dependencies 🏗️
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+      
+      - name: Build ⛏️
+        run: yarn build
+
+      - name: Generate Docs ⚙️
+        run: yarn docs
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: documentation
+          path: docs
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.0
+        if: github.ref == 'refs/heads/master'
+        with:
+          branch: gh-pages
+          folder: docs

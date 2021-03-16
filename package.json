@@ -9,6 +9,7 @@
     "build": "yarn workspaces foreach -vpt -j 8 run build",
     "test": "yarn workspaces foreach -vp -j 8 run test",
     "fix": "yarn workspaces foreach -vp -j 8 run fix",
+    "docs": "yarn typedoc",
     "coverage": "./scripts/generate-coverage-report",
     "container:start": "make -C scripts -f entry.mk start",
     "container:stop": "make -C scripts -f entry.mk stop",
@@ -24,6 +25,7 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@strictsoftware/typedoc-plugin-monorepo": "^0.4.2",
     "@types/eslint": "^7.2.6",
     "@types/prettier": "^2.2.1",
     "eslint": "^7.20.0",
@@ -31,6 +33,8 @@
     "nyc": "^15.1.0",
     "prettier": "^2.2.1",
     "stylelint": "^13.10.0",
+    "typedoc": "^0.20.32",
+    "typedoc-neo-theme": "^1.1.0",
     "typescript": "^4.1.5"
   },
   "resolutions": {

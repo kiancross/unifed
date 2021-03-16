@@ -1,0 +1,29 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/shared"
+    },
+    {
+      "path": "./packages/frontend"
+    },
+    {
+      "path": "./packages/backend-testing"
+    },
+    {
+      "path": "./packages/backend-ml"
+    },
+    {
+      "path": "./packages/backend-core"
+    },
+    {
+      "path": "./packages/backend-internal-server"
+    },
+    {
+      "path": "./packages/backend-federation-server"
+    },
+    {
+      "path": "./packages/backend-federation-client"
+    }
+  ]
+}
