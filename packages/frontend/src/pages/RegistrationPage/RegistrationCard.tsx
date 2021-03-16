@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { passwordClient } from "../../helpers/accounts";
 import { validateUsername, validateName, validateEmail, validatePassword } from "@unifed/shared";

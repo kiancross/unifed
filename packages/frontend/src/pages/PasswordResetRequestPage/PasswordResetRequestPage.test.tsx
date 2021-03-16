@@ -6,7 +6,6 @@ import { gql } from "@apollo/client";
 import { MockedProvider } from "@apollo/client/testing";
 import { act, fireEvent, render } from "@testing-library/react";
 import { createMemoryHistory } from "history";
-import React from "react";
 import { MemoryRouter, Router } from "react-router-dom";
 import PasswordResetRequestCard from "./PasswordResetRequestCard";
 import PasswordResetRequestPage from "./PasswordResetRequestPage";

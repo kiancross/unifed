@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { UserContext, defaultContext } from "../../contexts/user/UserContext";
 import AccountMenu from "./AccountMenu";

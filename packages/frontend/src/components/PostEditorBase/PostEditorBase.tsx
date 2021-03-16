@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-import React from "react";
 import { Formik, Form, Field, FieldProps } from "formik";
 import { ButtonGroup, Button, TextField } from "@material-ui/core";
 import MarkdownEditor from "../MarkdownEditor";

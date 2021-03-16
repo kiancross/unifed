@@ -4,7 +4,6 @@
 
 import { Card, CardContent, Grid } from "@material-ui/core";
 import CenteredLoader from "../CenteredLoader";
-import React from "react";
 
 const LoadingCard = () => {
   return (

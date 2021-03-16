@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-import React from "react";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";

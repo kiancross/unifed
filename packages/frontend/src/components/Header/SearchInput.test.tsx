@@ -1,5 +1,4 @@
 import { render, waitFor, screen } from "@testing-library/react";
-import React from "react";
 import { AllTheProviders } from "../../helpers/test";
 import SearchInput, { getCommunities } from "./SearchInput";
 import userEvent from "@testing-library/user-event";

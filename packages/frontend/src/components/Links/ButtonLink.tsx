@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { Link, LinkProps } from "react-router-dom";
 import { Button, ButtonProps } from "@material-ui/core";
 

@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-import React from "react";
 import AccountSettingsPage from "./AccountSettingsPage";
 import { MockedProvider } from "@apollo/client/testing";
 import { fireEvent, render, waitFor } from "@testing-library/react";

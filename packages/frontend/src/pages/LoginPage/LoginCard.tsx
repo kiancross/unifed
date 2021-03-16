@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { ReactElement, useState, useContext } from "react";
+import { ReactElement, useState, useContext } from "react";
 import { Formik, Form, Field } from "formik";
 import { Button, Card, CardContent, TextField, Typography } from "@material-ui/core";
 import { UserContext } from "../../contexts/user";
