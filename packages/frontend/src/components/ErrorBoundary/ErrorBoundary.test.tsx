@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { render } from "@testing-library/react";
 import ErrorBoundary from "./ErrorBoundary";

@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-import React from "react";
 import { fireEvent, render, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
 import HomePage from "./HomePage";
 import CommunitiesListCard, { GET_COMMUNITIES } from "./CommunitiesListCard";

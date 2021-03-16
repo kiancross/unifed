@@ -5,7 +5,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { defaultContext, UserContext } from "../../contexts/user/UserContext";
-import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import PostPreview from "./PostPreview";
 

@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { Typography, TypographyVariant } from "@material-ui/core";
 import math from "remark-math";
 import gfm from "remark-gfm";

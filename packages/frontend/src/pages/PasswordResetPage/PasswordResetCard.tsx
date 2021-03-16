@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { passwordClient } from "../../helpers/accounts";
 import { Redirect, useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";

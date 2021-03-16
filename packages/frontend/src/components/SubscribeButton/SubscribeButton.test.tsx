@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-import React from "react";
 import { render, waitFor, fireEvent } from "@testing-library/react";
 import SubscribeButton, { SUBSCRIBE, UNSUBSCRIBE } from "./SubscribeButton";
 import { MockedProvider } from "@apollo/client/testing";

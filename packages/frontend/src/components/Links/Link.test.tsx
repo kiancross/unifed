@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-import React from "react";
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import Link from "./Link";
