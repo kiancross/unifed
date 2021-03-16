@@ -146,6 +146,8 @@ jobs:
     needs: run
     timeout-minutes: 5
     steps:
+      - uses: actions/checkout@v2
+
       - name: Download 📩
         uses: actions/download-artifact@v2
         with:
