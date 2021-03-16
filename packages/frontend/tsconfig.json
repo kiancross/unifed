@@ -34,6 +34,7 @@
     "experimentalDecorators": true
   },
   "include": ["src"],
+  "exclude": ["**/__tests__/**", "**/*.test.tsx"],
   "references": [
     { "path": "../shared" }
   ]

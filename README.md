@@ -1,6 +1,6 @@
 # Unifed
 
-[![Automated Tests](https://github.com/kiancross/unifed/workflows/Automated%20Tests/badge.svg?event=schedule)](https://github.com/kiancross/unifed/actions?query=workflow%3A%22Automated+Tests%22+event%3Aschedule)
+[![Continuous Integration](https://github.com/kiancross/unifed/workflows/Continuous%20Integration/badge.svg?event=schedule)](https://github.com/kiancross/unifed/actions?query=workflow%3A%22Continuous+Integration%22+event%3Aschedule)
 [![School GitLab Mirror](https://github.com/kiancross/unifed/workflows/School%20GitLab%20Mirror/badge.svg)](https://github.com/kiancross/unifed/actions?query=workflow%3A%22School+GitLab+Mirror%22)
 [![codecov](https://codecov.io/gh/kiancross/unifed/branch/master/graph/badge.svg?token=FI52RC1RQV)](https://codecov.io/gh/kiancross/unifed)
 
