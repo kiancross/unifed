@@ -2,7 +2,7 @@
 # CS3099 Group A3
 #
 
-name: Automated Tests
+name: Continuous Integration
 
 on:
   workflow_dispatch:
@@ -12,8 +12,8 @@ on:
     branches: [ master ]
 
 jobs:
-  checks:
-    name: Checks
+  run:
+    name: Run
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -143,8 +143,8 @@ jobs:
     name: Deploy Documentation
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
-    needs: checks
-    timeout-minutes: 10
+    needs: run
+    timeout-minutes: 5
     steps:
       - name: Download 📩
         uses: actions/download-artifact@v2
