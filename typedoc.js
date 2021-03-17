@@ -13,7 +13,7 @@ const path = require("path");
 module.exports = {
   name: "Unifed",
   exclude: ["**/*.test.ts", "**/*.test.tsx", "**/build/*", "**/__tests__/**"],
-  out: "docs",
+  out: "docs/developers",
   entryPoints: ["packages"],
 
   theme: `${path.dirname(

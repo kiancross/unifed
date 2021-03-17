@@ -40,4 +40,5 @@ build
 
 .schema.graphql
 
-docs
+docs/developers
+docs/_site
