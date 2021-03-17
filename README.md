@@ -1,6 +1,6 @@
 # Unifed
 
-[![Continuous Integration](https://github.com/kiancross/unifed/workflows/Continuous%20Integration/badge.svg)](https://github.com/kiancross/unifed/actions?query=workflow%3A%22Continuous+Integration)
+[![Continuous Integration](https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml/badge.svg?event=schedule)](https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml?query=event%3Aschedule)
 [![School GitLab Mirror](https://github.com/kiancross/unifed/workflows/School%20GitLab%20Mirror/badge.svg)](https://github.com/kiancross/unifed/actions?query=workflow%3A%22School+GitLab+Mirror%22)
 [![codecov](https://codecov.io/gh/kiancross/unifed/branch/master/graph/badge.svg?token=FI52RC1RQV)](https://codecov.io/gh/kiancross/unifed)
 
