@@ -9,7 +9,7 @@
  * @type {import('typedoc').TypeDocOptions}
  */
 module.exports = {
-  name: "Unifed",
+  name: "Unifed Developer Documentation",
   exclude: [
     "**/*.test.ts",
     "**/*.test.tsx",
