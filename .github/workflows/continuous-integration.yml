@@ -8,8 +8,9 @@ on:
   workflow_dispatch:
   pull_request:
     branches: [ master ]
-  push:
-    branches: [ master ]
+  schedule:
+    # Everyday at 6am
+    - cron:  "0 6 */1 * *"
 
 jobs:
   run:
