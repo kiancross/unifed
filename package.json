@@ -9,7 +9,7 @@
     "build": "yarn workspaces foreach -vpt -j 8 run build",
     "test": "yarn workspaces foreach -vp -j 8 run test",
     "fix": "yarn workspaces foreach -vp -j 8 run fix",
-    "docs": "yarn typedoc",
+    "dev-docs": "yarn typedoc",
     "coverage": "./scripts/generate-coverage-report",
     "container:start": "make -C scripts -f entry.mk start",
     "container:stop": "make -C scripts -f entry.mk stop",
