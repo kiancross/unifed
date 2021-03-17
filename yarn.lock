@@ -3667,7 +3667,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/minimatch@npm:*":
+"@types/minimatch@npm:*, @types/minimatch@npm:3.0.3":
   version: 3.0.3
   resolution: "@types/minimatch@npm:3.0.3"
   checksum: 672ccdac197e8176eed1a9441d0caf8a29a90eb139b1cefdd4c9e71b1c48f5c749f5d101a2d85da15c6259214ebda95072835021407d60330a731a2672964b82
@@ -4678,6 +4678,7 @@ __metadata:
     stylelint: ^13.12.0
     typedoc: ^0.20.32
     typedoc-neo-theme: ^1.1.0
+    typedoc-plugin-yarn: "workspace:packages/typedoc-plugin-yarn"
     typescript: ^4.2.3
   languageName: unknown
   linkType: soft
@@ -6133,6 +6134,15 @@ __metadata:
   bin:
     babylon: ./bin/babylon.js
   checksum: af38302e3fd8b01004ab03e7f42e00d3d6b3e85190102a1ad7ffbed87bc025d96413a7c165b2b5f0b78e576b71e5306a67c1ae0368f6d12bef40fd00b0dbc7b5
+  languageName: node
+  linkType: hard
+
+"backbone@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "backbone@npm:1.4.0"
+  dependencies:
+    underscore: ">=1.8.3"
+  checksum: 3a3c95f133fef708ff4a7bfbcdedab6bc63f1188b952af4c16882b029ecfa6c3c6dd367989006b3772ae0bc695d608f3d1f2ab8c076de7632dffff38ce96e9fd
   languageName: node
   linkType: hard
 
@@ -10992,7 +11002,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"handlebars@npm:^4.7.7":
+"handlebars@npm:^4.7.2, handlebars@npm:^4.7.7":
   version: 4.7.7
   resolution: "handlebars@npm:4.7.7"
   dependencies:
@@ -11195,6 +11205,13 @@ fsevents@~2.1.2:
   version: 10.5.0
   resolution: "highlight.js@npm:10.5.0"
   checksum: 00cfa96a725a7fe3f2e4f594303cfb69682414c2e6f1d2e3827bc7c738d8402491fcd5d92db2a3bb210d3d674873298d4a0d05cd78e6fe78a1e8137980a92722
+  languageName: node
+  linkType: hard
+
+"highlight.js@npm:^9.18.0":
+  version: 9.18.5
+  resolution: "highlight.js@npm:9.18.5"
+  checksum: dea74c216cec83604e35cd3187aa9fa7a7da4876d1da6519a7bb1b635566e6525fcb3a3d8f2158a11e930499acee9506c710c5121ce30d328342af2e49fe59da
   languageName: node
   linkType: hard
 
@@ -13144,6 +13161,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"jquery@npm:^3.4.1":
+  version: 3.6.0
+  resolution: "jquery@npm:3.6.0"
+  checksum: a0a819022a1bdff5efa79bbd9d4d7352de5bd32dabe42108e6ec0797238dba36c09c108e0eea2724f5d03acc1b30ee87d76bec80e15b9510106532292ebe6ba4
+  languageName: node
+  linkType: hard
+
 "js-string-escape@npm:^1.0.1":
   version: 1.0.1
   resolution: "js-string-escape@npm:1.0.1"
@@ -14254,6 +14278,15 @@ fsevents@~2.1.2:
   dependencies:
     repeat-string: ^1.0.0
   checksum: 48492b01bc27eab584b7e07d0a0ba5eef2e94017e7c0a781e0525cd908e44a8b224120217f32e28676184c4f0f93f2c7a2178cf3341c6503dd9b0eb8f409b72f
+  languageName: node
+  linkType: hard
+
+"marked@npm:^0.8.0":
+  version: 0.8.2
+  resolution: "marked@npm:0.8.2"
+  bin:
+    marked: bin/marked
+  checksum: 49148dd7898fcd7215458a6ba5dec895a8343f2823c12da527dd40b29ed71c5235cba06a19833cc61e138811fa459484550a69ad89aa42af9f6e87b9dad19b7d
   languageName: node
   linkType: hard
 
@@ -19342,7 +19375,7 @@ resolve@^1.1.6:
   languageName: node
   linkType: hard
 
-"shelljs@npm:^0.8.4":
+"shelljs@npm:^0.8.3, shelljs@npm:^0.8.4":
   version: 0.8.4
   resolution: "shelljs@npm:0.8.4"
   dependencies:
@@ -21099,6 +21132,18 @@ resolve@^1.1.6:
   languageName: node
   linkType: hard
 
+"typedoc-default-themes@npm:0.8.0-0":
+  version: 0.8.0-0
+  resolution: "typedoc-default-themes@npm:0.8.0-0"
+  dependencies:
+    backbone: ^1.4.0
+    jquery: ^3.4.1
+    lunr: ^2.3.8
+    underscore: ^1.9.1
+  checksum: 3c6cba207e684269e53376d05645a4a7b88ed817010e4d137a108f1d6366c7646bcebc11b27ce8e4fe651aef8446df94c5ef6f089bc697dc6f3d7bdacfe3aff2
+  languageName: node
+  linkType: hard
+
 "typedoc-default-themes@npm:^0.12.9":
   version: 0.12.9
   resolution: "typedoc-default-themes@npm:0.12.9"
@@ -21115,6 +21160,15 @@ resolve@^1.1.6:
   checksum: c1724a5ed9df69058221fe316703676c67b95db604efd2461631cbe72070b2eb933f10e8cdcb141bf26c6fed671b652f2e5435eb910c9e6735b30f9db94a8b4a
   languageName: node
   linkType: hard
+
+"typedoc-plugin-yarn@workspace:packages/typedoc-plugin-yarn":
+  version: 0.0.0-use.local
+  resolution: "typedoc-plugin-yarn@workspace:packages/typedoc-plugin-yarn"
+  dependencies:
+    typedoc: next
+    typescript: ^3.8.3
+  languageName: unknown
+  linkType: soft
 
 "typedoc@npm:^0.20.32, typedoc@npm:~0.20.13":
   version: 0.20.32
@@ -21139,6 +21193,38 @@ resolve@^1.1.6:
   languageName: node
   linkType: hard
 
+"typedoc@npm:next":
+  version: 0.17.0-3
+  resolution: "typedoc@npm:0.17.0-3"
+  dependencies:
+    "@types/minimatch": 3.0.3
+    fs-extra: ^8.1.0
+    handlebars: ^4.7.2
+    highlight.js: ^9.18.0
+    lodash: ^4.17.15
+    marked: ^0.8.0
+    minimatch: ^3.0.0
+    progress: ^2.0.3
+    shelljs: ^0.8.3
+    typedoc-default-themes: 0.8.0-0
+  peerDependencies:
+    typescript: ">=3.7"
+  bin:
+    typedoc: bin/typedoc
+  checksum: bc3155f6657ce8a18a8c13dc45f65d85a235bf6bf4d8ba8acdbcf8dcee77f1bcd38a9f6bb6c731242a0a1693f1ec930196524621b214953b61af18fd61b06f20
+  languageName: node
+  linkType: hard
+
+typescript@^3.8.3:
+  version: 3.9.9
+  resolution: "typescript@npm:3.9.9"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 22bbe953faa34903587f3bd8fb6c343d754745d4177e49da523a2a3b814fe5eaf60d9b23c2d401d038a08a5ac2d8094b268ba75adee840cc2358fb5a866624ab
+  languageName: node
+  linkType: hard
+
 typescript@^4.2.3:
   version: 4.2.3
   resolution: "typescript@npm:4.2.3"
@@ -21146,6 +21232,16 @@ typescript@^4.2.3:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 06e8470f317db6f5e2fce809b20eb84a67a7d8179057abff36e5427bd1b891bd08e54581ff81f0fa36aef9b6d1eb0f54eaf6e2643c6dbd4e37a0adcc41eed256
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@^3.8.3#builtin<compat/typescript>":
+  version: 3.9.9
+  resolution: "typescript@patch:typescript@npm%3A3.9.9#builtin<compat/typescript>::version=3.9.9&hash=a45b0e"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 05a113f2ec0d0fc3263335c230d2eb7b94d851e51b5766f63b88b611127d08782ce41132eb32b9d3d434de8340f698f7ec2f72ebb4d33c3b2976b27de1f47ace
   languageName: node
   linkType: hard
 
@@ -21172,6 +21268,13 @@ typescript@^4.2.3:
   bin:
     uglifyjs: bin/uglifyjs
   checksum: 32dd0bf3dd767b66ba8b20d3c757b98ab5253fde3dd6d52e41c0d669ec528b444a09cfca704cba9a7498a2d6de8755f89113c9737763dfa0833ef05c2aa43bcc
+  languageName: node
+  linkType: hard
+
+"underscore@npm:>=1.8.3, underscore@npm:^1.9.1":
+  version: 1.12.1
+  resolution: "underscore@npm:1.12.1"
+  checksum: b53ae924fe3608ac7875a0eec20988611a02dc174bad40680dbb9fe994c40fc457b6d4f618f8b9af930c31549809c27f70dddccd83957a32bab27b1eea858c1b
   languageName: node
   linkType: hard
 

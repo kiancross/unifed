@@ -12,15 +12,24 @@ const path = require("path");
  */
 module.exports = {
   name: "Unifed",
-  exclude: ["**/*.test.ts", "**/*.test.tsx", "**/build/*", "**/__tests__/**"],
+  exclude: [
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/build/*",
+    "**/__tests__/**",
+    "**/frontend/src/react-app-env*",
+  ],
   out: "docs",
   entryPoints: ["packages"],
+
+  excludeExternals: true,
 
   theme: `${path.dirname(
     require.resolve(`typedoc-neo-theme/package.json`)
   )}/bin/default`,
 
   plugin: [
+    "typedoc-plugin-yarn",
     "typedoc-neo-theme",
     "@strictsoftware/typedoc-plugin-monorepo",
   ],
@@ -31,27 +40,27 @@ module.exports = {
     {
       path: "https://github.com/kiancross/unifed/tree/master/",
       line: "L",
-    }
+    },
   ],
 
   outline: [
     {
-      "Packages": {
+      Packages: {
         "@unifed/shared": "shared",
         "@unifed/frontend": "frontend",
         "@unifed/backend-ml": "backend_ml",
         "@unifed/backend-core": "backend_core",
         "@unifed/backend-federation-client": "backend_federation_client",
         "@unifed/backend-federation-server": "backend_federation_server",
-        "@unifed/backend-internal-server": "backend_internal_server"
-      }
-    }
+        "@unifed/backend-internal-server": "backend_internal_server",
+      },
+    },
   ],
 
   links: [
     {
       label: "Developer Documentation",
       url: "https://kiancross.github.io/unifed/",
-    }
-  ]
+    },
+  ],
 };

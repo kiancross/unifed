@@ -35,6 +35,7 @@
     "stylelint": "^13.12.0",
     "typedoc": "^0.20.32",
     "typedoc-neo-theme": "^1.1.0",
+    "typedoc-plugin-yarn": "workspace:packages/typedoc-plugin-yarn",
     "typescript": "^4.2.3"
   },
   "resolutions": {
