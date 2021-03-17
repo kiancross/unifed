@@ -131,10 +131,10 @@ jobs:
           directory: packages/shared
           fail_ci_if_error: true
       
-      - name: Generate Docs 🔧
-        run: yarn docs
+      - name: Generate Developer Documentation 🔧
+        run: yarn dev-docs
 
-      - name: Save Docs 💾
+      - name: Save Documentation 💾
         uses: actions/upload-artifact@v2
         with:
           name: documentation

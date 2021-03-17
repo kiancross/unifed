@@ -1,0 +1,9 @@
+#
+# CS3099 Group A3
+#
+
+title: Unifed Documentation
+baseurl: "/unifed"
+url: "https://kiancross.github.io/"
+
+theme: just-the-docs

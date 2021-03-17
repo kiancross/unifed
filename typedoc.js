@@ -2,9 +2,6 @@
  * CS3099 Group A3
  */
 
-// Derived from
-// https://github.com/yarnpkg/berry/blob/master/packages/gatsby/typedoc.js
-
 /**
  * @type {import('typedoc').TypeDocOptions}
  */
@@ -17,7 +14,7 @@ module.exports = {
     "**/__tests__/**",
     "**/frontend/src/react-app-env*",
   ],
-  out: "docs",
+  out: "docs/developers",
   entryPoints: ["packages"],
 
   excludeExternals: true,
