@@ -6,6 +6,7 @@ import zxcvbn from "zxcvbn";
 
 export interface PasswordValidationResult {
   valid: boolean;
+  score: number;
   warning?: string;
   suggestions: string[];
 }
@@ -16,6 +17,7 @@ export function validatePassword(password: string): PasswordValidationResult {
 
   return {
     valid,
+    score: result.score,
     warning: valid ? undefined : result.feedback.warning,
     suggestions: result.feedback.suggestions,
   };

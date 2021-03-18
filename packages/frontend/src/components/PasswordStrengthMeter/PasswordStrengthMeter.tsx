@@ -1,11 +1,11 @@
-import zxcvbn from "zxcvbn";
+import { validatePassword } from "@unifed/shared";
 
 interface Props {
   password: string;
 }
 
 const PasswordStrengthMeter = (props: Props): JSX.Element => {
-  const strength = zxcvbn(props.password).score;
+  const result = validatePassword(props.password);
   const strengthLabel: { [strength: number]: string } = {
     0: "very weak",
     1: "very weak",
@@ -16,7 +16,7 @@ const PasswordStrengthMeter = (props: Props): JSX.Element => {
   return (
     <div>
       <meter
-        value={strength}
+        value={result.score}
         low={3}
         max={4}
         optimum={4}
@@ -24,7 +24,7 @@ const PasswordStrengthMeter = (props: Props): JSX.Element => {
         style={{ width: "100%" }}
       />
       <p style={{ margin: "0", textAlign: "center", fontSize: "0.8rem" }}>
-        <b>Password Strength:</b> {strengthLabel[strength]}
+        <b>Password Strength:</b> {strengthLabel[result.score]}
       </p>
     </div>
   );
