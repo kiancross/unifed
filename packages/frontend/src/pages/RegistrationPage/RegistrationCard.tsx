@@ -19,7 +19,6 @@ import {
 import { Redirect } from "react-router";
 import { Alert } from "@material-ui/lab";
 import PasswordStrengthMeter from "../../components/PasswordStrengthMeter";
-import zxcvbn from "zxcvbn";
 
 interface Values {
   username: string;
@@ -48,7 +47,7 @@ function validate({ username, name, email, password }: Values) {
 const RegistrationCard = (): JSX.Element => {
   const [isAccountCreated, setIsAccountCreated] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [passwordStrength, setPasswordStrength] = useState(0);
+  const [password, setPassword] = useState("");
 
   const registerUser = async (values: Values) => {
     try {
@@ -140,10 +139,10 @@ const RegistrationCard = (): JSX.Element => {
                     helperText={errors.password}
                     error={!!errors.password}
                     onKeyUp={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      setPasswordStrength(zxcvbn(e.target.value).score);
+                      setPassword(e.target.value);
                     }}
                   />
-                  <PasswordStrengthMeter strength={passwordStrength} />
+                  <PasswordStrengthMeter password={password} />
                 </div>
                 <FormControlLabel
                   control={<Checkbox color="primary" required />}
