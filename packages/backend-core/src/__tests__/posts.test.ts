@@ -3,40 +3,43 @@
  */
 
 import test from "ava";
-import { extractPostBody } from "../posts";
+import { InvalidPostBodyError, extractPostBody } from "../posts";
 
 test("With string", (t) => {
-  t.throws(() => extractPostBody("foo"));
+  t.throws(() => extractPostBody("foo"), { instanceOf: InvalidPostBodyError });
 });
 
 test("With empty object", (t) => {
-  t.throws(() => extractPostBody({}));
+  t.throws(() => extractPostBody({}), { instanceOf: InvalidPostBodyError });
 });
 
 test("With content string", (t) => {
-  t.throws(() => extractPostBody({ content: "foo" }));
+  t.throws(() => extractPostBody({ content: "foo" }), { instanceOf: InvalidPostBodyError });
 });
 
 test("With invalid content", (t) => {
-  t.is(extractPostBody({ content: [{ foo: "bar" }] }), undefined);
+  t.throws(() => extractPostBody({ content: [{ foo: "bar" }] }), {
+    instanceOf: InvalidPostBodyError,
+  });
 });
 
 test("With multiple keys", (t) => {
-  t.throws(() => extractPostBody({ content: [{ foo: "bar", bar: "baz" }] }));
+  t.throws(() => extractPostBody({ content: [{ foo: "bar", bar: "baz" }] }), {
+    instanceOf: InvalidPostBodyError,
+  });
 });
 
 test("Wrong property", (t) => {
-  t.is(extractPostBody({ content: [{ markdown: { text: "foo" } }] }), undefined);
+  t.throws(() => extractPostBody({ content: [{ markdown: { text: "foo" } }] }), {
+    instanceOf: InvalidPostBodyError,
+  });
 });
 
 test("Valid", (t) => {
   const result = extractPostBody({ content: [{ markdown: { markdown: "foo" } }] });
 
-  if (result === undefined) {
-    t.false(result === undefined);
-    return;
-  }
-
-  t.is(result[0], "markdown");
-  t.is(result[1], "foo");
+  t.deepEqual(result, {
+    contentType: "markdown",
+    body: "foo",
+  });
 });
