@@ -15,7 +15,14 @@ const PasswordStrengthMeter = (props: Props): JSX.Element => {
   };
   return (
     <div>
-      <meter style={{ width: "100%" }} max={4} low={3} optimum={4} value={strength} data-testid="meter"></meter>
+      <meter
+        value={strength}
+        low={3}
+        max={4}
+        optimum={4}
+        data-testid="meter"
+        style={{ width: "100%" }}
+      />
       <p style={{ margin: "0", textAlign: "center", fontSize: "0.8rem" }}>
         <b>Password Strength:</b> {strengthLabel[strength]}
       </p>
