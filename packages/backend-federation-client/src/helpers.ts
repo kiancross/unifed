@@ -10,7 +10,7 @@ export class RemoteResponseError<T> extends Error {
   }
 }
 
-export function isStringArray<T>(values: T): boolean {
+export function isStringArray(values: unknown): values is string[] {
   if (!Array.isArray(values)) {
     return false;
   }
