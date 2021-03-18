@@ -8,8 +8,10 @@ import { validate } from "class-validator";
 import { Post, extractPostBody, getValidationMessage } from "@unifed/backend-core";
 import { FederationHttpClient } from "./http-client";
 
-const processPost = async (post: Post, rawPost: unknown, host: string): Promise<Post> => {
-  let body, contentType;
+const processPost = async (rawPost: unknown, host: string): Promise<Post> => {
+  const post = plainToClass(Post, rawPost as Post);
+
+  post.host = host;
 
   try {
     const extracted = extractPostBody(rawPost);
@@ -18,17 +20,19 @@ const processPost = async (post: Post, rawPost: unknown, host: string): Promise<
       throw new Error();
     }
 
-    contentType = extracted[0];
-    body = extracted[1];
+    post.contentType = extracted[0];
+    post.body = extracted[1];
   } catch (_) {
     throw new Error("Invalid `content` field");
   }
 
-  post.body = body;
-  post.contentType = contentType;
-  post.host = host;
+  if (post.approved === undefined) {
+    post.approved = true;
+  }
 
   const validationMessage = getValidationMessage(await validate(post));
+
+  console.log(post);
 
   if (validationMessage) {
     throw new Error(validationMessage);
@@ -65,9 +69,7 @@ export class PostsFederationService {
         },
       });
 
-      const post = plainToClass(Post, rawPost as Post);
-
-      return await processPost(post, rawPost, host);
+      return await processPost(rawPost, host);
     } catch (error) {
       if (error.response.statusCode === 400) {
         return null;
@@ -80,22 +82,19 @@ export class PostsFederationService {
   async getByCommunity(username: string, host: string, community: string): Promise<Post[]> {
     const httpClient = new FederationHttpClient(host, username);
 
-    const rawPosts: Post[] = await httpClient.get("posts", {
+    const rawPosts = await httpClient.get("posts", {
       searchParams: {
         community,
       },
     });
 
-    const posts = plainToClass(Post, rawPosts);
+    if (!Array.isArray(rawPosts)) {
+      throw new Error();
+    }
 
-    posts.forEach((element) => {
-      element.host = host;
-      if (element.approved === undefined) {
-        element.approved = true;
-      }
-    });
+    const posts = rawPosts.map((rawPost) => processPost(rawPost, host));
 
-    return posts;
+    return Promise.all(posts);
   }
 
   async getById(username: string, host: string, id: string): Promise<Post> {
@@ -103,9 +102,7 @@ export class PostsFederationService {
 
     const rawPost = await httpClient.get(["posts", id]);
 
-    const post = plainToClass(Post, rawPost as Post);
-
-    return await processPost(post, rawPost, host);
+    return await processPost(rawPost, host);
   }
 
   async delete(username: string, host: string, id: string): Promise<void> {
@@ -136,8 +133,6 @@ export class PostsFederationService {
       },
     });
 
-    const post = plainToClass(Post, rawPost as Post);
-
-    return await processPost(post, rawPost, host);
+    return await processPost(rawPost, host);
   }
 }
