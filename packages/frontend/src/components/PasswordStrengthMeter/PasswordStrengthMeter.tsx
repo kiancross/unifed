@@ -36,7 +36,6 @@ const PasswordStrengthMeter = (props: Props): JSX.Element => {
         low={3}
         max={4}
         optimum={4}
-        data-testid="meter"
         style={{ width: "100%" }}
       />
       <Tooltip title={tooltipTitle(result)}>
