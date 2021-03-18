@@ -3,10 +3,17 @@
  */
 
 import { ReactElement } from "react";
-import { Typography, Link } from "@material-ui/core";
+import { Typography, Link, makeStyles } from "@material-ui/core";
 import LogoTemplate from "../../components/LogoTemplate";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    color: theme.palette.text.primary,
+  },
+}));
+
 const PrivacyPolicyPage = (): ReactElement => {
+  const classes = useStyles();
   return (
     <LogoTemplate direction="vertical">
       <Typography variant="h2">Privacy Notice</Typography>
@@ -27,7 +34,9 @@ const PrivacyPolicyPage = (): ReactElement => {
           </li>
           <li>
             <strong>Email:</strong>{" "}
-            <Link href="mailto:cs3099.a3.unifed@gmail.com">cs3099.a3.unifed@gmail.com</Link>
+            <Link classes={classes} href="mailto:cs3099.a3.unifed@gmail.com">
+              cs3099.a3.unifed@gmail.com
+            </Link>
           </li>
         </ul>
       </Typography>
@@ -129,7 +138,7 @@ const PrivacyPolicyPage = (): ReactElement => {
         <br />
         <strong>Helpline number:</strong> 0303 123 1113 <br />
         <strong>Website:</strong>{" "}
-        <Link href="https://www.ico.org.uk" target="blank">
+        <Link classes={classes} href="https://www.ico.org.uk" target="blank">
           https://www.ico.org.uk
         </Link>
       </Typography>

@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { createContext, ReactElement } from "react";
+import { createContext, ReactElement } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { accountsClient } from "../../helpers/accounts";
 

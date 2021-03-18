@@ -1,4 +1,3 @@
-import React from "react";
 import { AllTheProviders } from "../../helpers/test";
 import { render, screen } from "@testing-library/react";
 import CreatePostPage from "./CreatePostPage";

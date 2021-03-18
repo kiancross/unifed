@@ -1,4 +1,3 @@
-import React from "react";
 import { Grid } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
 import LoadingCard from "../../components/LoadingCard";

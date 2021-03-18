@@ -1,4 +1,3 @@
-import React from "react";
 import UserIcon from "./UserIcon";
 import { render } from "@testing-library/react";
 

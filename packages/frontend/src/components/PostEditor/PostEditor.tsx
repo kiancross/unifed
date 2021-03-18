@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { gql, useMutation } from "@apollo/client";
 import PostEditorBase from "../PostEditorBase";
 import CenteredLoader from "../CenteredLoader";

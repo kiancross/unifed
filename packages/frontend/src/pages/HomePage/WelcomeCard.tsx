@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-import React from "react";
 import { Card, CardContent, CardHeader, Divider, Grid, Typography } from "@material-ui/core";
 
 const WelcomeCard = () => {

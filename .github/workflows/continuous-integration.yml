@@ -2,7 +2,7 @@
 # CS3099 Group A3
 #
 
-name: Automated Tests
+name: Continuous Integration
 
 on:
   workflow_dispatch:
@@ -13,8 +13,8 @@ on:
     - cron:  "0 6 */1 * *"
 
 jobs:
-  checks:
-    name: Checks
+  run:
+    name: Run
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -63,11 +63,13 @@ jobs:
         run: yarn build
 
       - name: Generate GraphQL Schema ⚙️
+        if: github.ref != 'refs/heads/master'
         run: |
           yarn workspace @unifed/backend-internal-server ts-node scripts/generate-schema.ts
           cp packages/backend-internal-server/.schema.graphql packages/frontend/
 
       - name: Code Style 👠
+        if: github.ref != 'refs/heads/master'
         run: yarn lint
 
       - name: Test 📝
@@ -128,3 +130,33 @@ jobs:
           flags: shared
           directory: packages/shared
           fail_ci_if_error: true
+      
+      - name: Generate Developer Documentation 🔧
+        run: yarn dev-docs
+
+      - name: Save Documentation 💾
+        uses: actions/upload-artifact@v2
+        with:
+          name: documentation
+          path: docs
+  
+  deploy-docs:
+    name: Deploy Documentation
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    needs: run
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download 📩
+        uses: actions/download-artifact@v2
+        with:
+          name: documentation
+          path: docs
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.0
+        with:
+          branch: gh-pages
+          folder: docs

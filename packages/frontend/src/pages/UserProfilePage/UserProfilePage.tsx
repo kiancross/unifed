@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-import React from "react";
 import { useParams } from "react-router-dom";
 import { Container, Grid, useMediaQuery } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";

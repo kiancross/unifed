@@ -39,3 +39,6 @@ build
 *.swp
 
 .schema.graphql
+
+docs/developers
+docs/_site

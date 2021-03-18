@@ -4,7 +4,6 @@
 
 import { act, fireEvent, render } from "@testing-library/react";
 import { AllTheProviders } from "../../helpers/test";
-import React from "react";
 import PasswordResetPage from "./PasswordResetPage";
 
 test("Invalid passwords", async () => {

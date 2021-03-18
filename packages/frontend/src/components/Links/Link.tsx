@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { Link as RouterLink, LinkProps as RouterLinkProps } from "react-router-dom";
 import { Link as MaterialLink, LinkProps as MaterialLinkProps } from "@material-ui/core";
 

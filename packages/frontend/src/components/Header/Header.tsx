@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { ReactElement, useContext, useState } from "react";
+import { ReactElement, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Box, IconButton, Toolbar, Tooltip, useMediaQuery } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";

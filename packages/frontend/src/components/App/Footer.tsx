@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { Box, Container, makeStyles, Paper } from "@material-ui/core";
 import { Link } from "../Links";
 
