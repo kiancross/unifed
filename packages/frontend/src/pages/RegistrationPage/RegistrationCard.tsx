@@ -15,9 +15,12 @@ import {
   Snackbar,
   Checkbox,
   FormControlLabel,
+  InputAdornment,
+  IconButton,
 } from "@material-ui/core";
 import { Redirect } from "react-router";
 import { Alert } from "@material-ui/lab";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 
 interface Values {
   username: string;
@@ -46,6 +49,7 @@ function validate({ username, name, email, password }: Values) {
 const RegistrationCard = (): JSX.Element => {
   const [isAccountCreated, setIsAccountCreated] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const registerUser = async (values: Values) => {
     try {
@@ -127,7 +131,7 @@ const RegistrationCard = (): JSX.Element => {
                   <Field
                     name="password"
                     as={TextField}
-                    type="password"
+                    type={isPasswordVisible ? "text" : "password"}
                     fullWidth
                     size="small"
                     margin="dense"
@@ -136,6 +140,15 @@ const RegistrationCard = (): JSX.Element => {
                     color="primary"
                     helperText={errors.password}
                     error={!!errors.password}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
+                            {isPasswordVisible ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                   />
                 </div>
                 <FormControlLabel
