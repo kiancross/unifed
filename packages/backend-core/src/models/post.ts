@@ -26,7 +26,7 @@ export class Post extends Base {
   @MaxLength(128, {
     message: "Title is too long",
   })
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   @Property()
   title!: string | null;
 
