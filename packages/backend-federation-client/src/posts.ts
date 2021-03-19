@@ -4,96 +4,115 @@
 
 import { Service } from "typedi";
 import { plainToClass } from "class-transformer";
-import { Post, User } from "@unifed/backend-core";
+import { validate } from "class-validator";
+import { Post, extractPostBody, getValidationMessage } from "@unifed/backend-core";
 import { FederationHttpClient } from "./http-client";
+import { RemoteResponseError } from "./helpers";
+
+type CreatePostProps = Pick<Post, "community" | "body" | "parentPost" | "title">;
+type UpdatePostProps = Omit<CreatePostProps, "parentPost" | "community"> & Pick<Post, "id">;
+
+const processRawPost = async (rawPost: unknown, host: string): Promise<Post> => {
+  const post = plainToClass(Post, rawPost as Post);
+
+  post.host = host;
+
+  const { contentType, body } = extractPostBody(rawPost);
+
+  post.contentType = contentType;
+  post.body = body;
+
+  if (post.approved === undefined) {
+    post.approved = true;
+  }
+
+  const validationMessage = getValidationMessage(await validate(post));
+
+  if (validationMessage) {
+    throw new Error(validationMessage);
+  }
+
+  return post;
+};
 
 @Service()
 export class PostsFederationService {
-  async create(
-    host: string,
-    user: User,
-    community: string,
-    title: string,
-    body: string,
-    parentPost?: string,
-  ): Promise<Post | null> {
-    const httpClient = new FederationHttpClient(host);
+  async create(username: string, host: string, post: CreatePostProps): Promise<Post | null> {
+    const httpClient = new FederationHttpClient(host, username);
 
     try {
       const rawPost: Post = await httpClient.post("posts", {
         json: {
-          community,
-          parentPost,
-          title,
-          body,
-          contentType: "markdown",
-          author: user.username,
+          ...post,
+          body: undefined,
+          content: [
+            {
+              markdown: {
+                markdown: post.body,
+              },
+            },
+          ],
         },
       });
 
-      const post = plainToClass(Post, rawPost);
-      post.host = host;
-
-      return post;
+      return await processRawPost(rawPost, host);
     } catch (error) {
       if (error.response.statusCode === 400) {
-        return null;
+        throw new RemoteResponseError("Invalid permissions");
       } else {
-        throw error;
+        throw new RemoteResponseError("Unknown error");
       }
     }
   }
 
-  async getByCommunity(host: string, community: string): Promise<Post[]> {
-    const httpClient = new FederationHttpClient(host);
+  async getByCommunity(username: string, host: string, community: string): Promise<Post[]> {
+    const httpClient = new FederationHttpClient(host, username);
 
-    const rawPosts: Post[] = await httpClient.get("posts", {
+    const rawPosts = await httpClient.get("posts", {
       searchParams: {
         community,
       },
     });
 
-    const posts = plainToClass(Post, rawPosts);
-    posts.forEach((element) => (element.host = host));
-    posts.forEach((element) => {
-      if (element.approved === undefined) {
-        element.approved = true;
-      }
-    });
+    if (!Array.isArray(rawPosts)) {
+      throw new Error();
+    }
 
-    return posts;
+    const posts = rawPosts.map((rawPost) => processRawPost(rawPost, host));
+
+    return Promise.all(posts);
   }
 
-  async getById(host: string, id: string): Promise<Post> {
-    const httpClient = new FederationHttpClient(host);
+  async getById(username: string, host: string, id: string): Promise<Post> {
+    const httpClient = new FederationHttpClient(host, username);
 
-    const rawPost: Post = await httpClient.get(["posts", id]);
+    const rawPost = await httpClient.get(["posts", id]);
 
-    const post = plainToClass(Post, rawPost);
-    post.host = host;
-
-    return post;
+    return await processRawPost(rawPost, host);
   }
 
-  async delete(host: string, id: string): Promise<void> {
-    const httpClient = new FederationHttpClient(host);
+  async delete(username: string, host: string, id: string): Promise<void> {
+    const httpClient = new FederationHttpClient(host, username);
 
     await httpClient.delete(["posts", id]);
   }
 
-  async update(host: string, id: string, body: string, title?: string): Promise<Post> {
-    const httpClient = new FederationHttpClient(host);
+  async update(username: string, host: string, post: UpdatePostProps): Promise<Post> {
+    const httpClient = new FederationHttpClient(host, username);
 
-    const rawPost = await httpClient.put(["posts", id], {
+    const rawPost = await httpClient.put(["posts", post.id], {
       json: {
-        title: title || null,
-        body,
+        title: post.title || null,
+        content: [
+          {
+            markdown: {
+              markdown: post.body,
+            },
+          },
+        ],
       },
     });
 
-    const post = plainToClass(Post, rawPost);
-    post.host = host;
-
-    return post;
+    return await processRawPost(rawPost, host);
   }
 }

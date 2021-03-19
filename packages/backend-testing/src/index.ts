@@ -4,3 +4,4 @@
 
 export * from "./setup";
 export * from "./communities";
+export * from "./posts";

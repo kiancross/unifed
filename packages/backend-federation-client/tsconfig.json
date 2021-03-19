@@ -24,5 +24,9 @@
     "outDir": "build"
   },
   "include": ["src"],
-  "exclude" : ["src/**/*.test.ts"]
+  "exclude" : ["src/**/*.test.ts"],
+  "references": [
+    { "path": "../backend-core" },
+    { "path": "../backend-testing" }
+  ]
 }

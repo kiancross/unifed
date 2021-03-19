@@ -34,20 +34,21 @@ export class PostsResolver implements ResolverInterface<Post> {
     @Arg("post") post: CreatePostInput,
     @CurrentUser() user: User,
   ): Promise<Post | null> {
-    return await this.postsService.create(
-      await translateHost(post.community.host),
-      user,
-      post.community.id,
-      post.title,
-      post.body,
-      post.parentPost,
-    );
+    return await this.postsService.create(user.username, await translateHost(post.community.host), {
+      community: post.community.id,
+      title: post.title,
+      body: post.body,
+      parentPost: post.parentPost,
+    });
   }
 
   @AuthoriseUser()
   @Mutation(() => Boolean)
-  async deletePost(@Arg("post") post: RemoteReferenceInput): Promise<boolean> {
-    await this.postsService.delete(await translateHost(post.host), post.id);
+  async deletePost(
+    @Arg("post") post: RemoteReferenceInput,
+    @CurrentUser() user: User,
+  ): Promise<boolean> {
+    await this.postsService.delete(user.username, await translateHost(post.host), post.id);
     return true;
   }
 
@@ -56,9 +57,14 @@ export class PostsResolver implements ResolverInterface<Post> {
   async updatePost(
     @Arg("post") post: RemoteReferenceInput,
     @Arg("body") body: string,
+    @CurrentUser() user: User,
     @Arg("title", { nullable: true }) title?: string,
   ): Promise<Post> {
-    return await this.postsService.update(await translateHost(post.host), post.id, body, title);
+    return await this.postsService.update(user.username, await translateHost(post.host), {
+      id: post.id,
+      body,
+      title: title || null,
+    });
   }
 
   @AuthoriseUser()
@@ -67,27 +73,31 @@ export class PostsResolver implements ResolverInterface<Post> {
     const subscriptions: RemoteReference[] = await this.usersService.getSubscriptions(user.id);
     const posts = await Promise.all(
       subscriptions.map((ref) => {
-        return this.postsService.getByCommunity(ref.host, ref.id);
+        return this.postsService.getByCommunity(user.username, ref.host, ref.id);
       }),
     );
     return posts.flat();
   }
 
   @Query(() => [Post])
-  async getPosts(@Arg("community") community: RemoteReferenceInput): Promise<Post[]> {
+  async getPosts(
+    @Arg("community") community: RemoteReferenceInput,
+    @CurrentUser() user: User,
+  ): Promise<Post[]> {
     return await this.postsService.getByCommunity(
+      user.username,
       await translateHost(community.host),
       community.id,
     );
   }
 
   @Query(() => Post)
-  async getPost(@Arg("post") post: RemoteReferenceInput): Promise<Post> {
-    return await this.postsService.getById(await translateHost(post.host), post.id);
+  async getPost(@Arg("post") post: RemoteReferenceInput, @CurrentUser() user: User): Promise<Post> {
+    return await this.postsService.getById(user.username, await translateHost(post.host), post.id);
   }
 
   @FieldResolver()
-  async children(@Root() post: Post): Promise<Post[]> {
+  async children(@Root() post: Post, @CurrentUser() user: User): Promise<Post[]> {
     if (post.host === undefined) {
       throw new Error("Host can not be undefined");
     }
@@ -98,7 +108,11 @@ export class PostsResolver implements ResolverInterface<Post> {
       for (const id of post.children) {
         let childPost;
         if (typeof id === "string") {
-          childPost = await this.postsService.getById(await translateHost(post.host), id);
+          childPost = await this.postsService.getById(
+            user.username,
+            await translateHost(post.host),
+            id,
+          );
         } else if (id instanceof Post) {
           childPost = id;
         } else {
@@ -128,7 +142,7 @@ export class PostsResolver implements ResolverInterface<Post> {
   }
 
   @FieldResolver()
-  async parentPost(@Root() post: Post): Promise<Post | undefined> {
+  async parentPost(@Root() post: Post, @CurrentUser() user: User): Promise<Post | undefined> {
     if (post.host === undefined) {
       throw new Error("Host can not be undefined");
     }
@@ -137,7 +151,11 @@ export class PostsResolver implements ResolverInterface<Post> {
       return undefined;
     }
 
-    const parent = await this.postsService.getById(post.host, post.parentPost as string);
+    const parent = await this.postsService.getById(
+      user.username,
+      post.host,
+      post.parentPost as string,
+    );
 
     if (parent === null) {
       throw new Error();

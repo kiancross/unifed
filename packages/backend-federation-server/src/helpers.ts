@@ -3,8 +3,15 @@
  */
 
 import { Request } from "express";
+import { ValidationError } from "class-validator";
 import { DocumentType } from "@typegoose/typegoose";
-import { Community, CommunityModel, Post, PostModel } from "@unifed/backend-core";
+import {
+  Community,
+  CommunityModel,
+  Post,
+  PostModel,
+  getValidationMessage,
+} from "@unifed/backend-core";
 import { ResponseError } from "./response-error";
 
 export class ParamError extends ResponseError {
@@ -56,4 +63,14 @@ export const getPostOrThrow = async (id: string, code: number): Promise<Document
   }
 
   return post;
+};
+
+export const throwValidationError = (errors: ValidationError[]): void => {
+  const title = "Validation failed";
+
+  const message = getValidationMessage(errors);
+
+  if (message) {
+    throw new ResponseError(400, title, message);
+  }
 };
