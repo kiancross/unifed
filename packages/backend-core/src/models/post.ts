@@ -28,7 +28,7 @@ export class Post extends Base {
   })
   @Field({ nullable: true })
   @Property()
-  title!: string;
+  title!: string | null;
 
   @Matches(/^(text)|(markdown)$/, {
     message: "Only `text` and `markdown` content types are supported",

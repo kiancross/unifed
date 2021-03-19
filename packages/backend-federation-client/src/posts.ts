@@ -10,7 +10,7 @@ import { FederationHttpClient } from "./http-client";
 import { RemoteResponseError } from "./helpers";
 
 type CreatePostProps = Pick<Post, "community" | "body" | "parentPost" | "title">;
-type UpdatePostProps = Omit<CreatePostProps, "parentPost"> & Pick<Post, "id">;
+type UpdatePostProps = Omit<CreatePostProps, "parentPost" | "community"> & Pick<Post, "id">;
 
 const processRawPost = async (rawPost: unknown, host: string): Promise<Post> => {
   const post = plainToClass(Post, rawPost as Post);

@@ -34,14 +34,12 @@ export class PostsResolver implements ResolverInterface<Post> {
     @Arg("post") post: CreatePostInput,
     @CurrentUser() user: User,
   ): Promise<Post | null> {
-    return await this.postsService.create(
-      user.username,
-      await translateHost(post.community.host),
-      post.community.id,
-      post.title,
-      post.body,
-      post.parentPost,
-    );
+    return await this.postsService.create(user.username, await translateHost(post.community.host), {
+      community: post.community.id,
+      title: post.title,
+      body: post.body,
+      parentPost: post.parentPost,
+    });
   }
 
   @AuthoriseUser()
@@ -62,13 +60,11 @@ export class PostsResolver implements ResolverInterface<Post> {
     @CurrentUser() user: User,
     @Arg("title", { nullable: true }) title?: string,
   ): Promise<Post> {
-    return await this.postsService.update(
-      user.username,
-      await translateHost(post.host),
-      post.id,
+    return await this.postsService.update(user.username, await translateHost(post.host), {
+      id: post.id,
       body,
-      title,
-    );
+      title: title || null,
+    });
   }
 
   @AuthoriseUser()
