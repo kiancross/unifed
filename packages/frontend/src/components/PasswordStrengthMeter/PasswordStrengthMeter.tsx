@@ -31,13 +31,7 @@ const PasswordStrengthMeter = (props: Props): JSX.Element => {
   };
   return (
     <div>
-      <meter
-        value={result.score}
-        low={3}
-        max={4}
-        optimum={4}
-        style={{ width: "100%" }}
-      />
+      <meter value={result.score} low={3} max={4} optimum={4} style={{ width: "100%" }} />
       <Tooltip title={tooltipTitle(result)}>
         <p style={{ margin: "0", textAlign: "center", fontSize: "0.8rem" }}>
           <b>Password Strength:</b> {strengthLabel[result.score]}
