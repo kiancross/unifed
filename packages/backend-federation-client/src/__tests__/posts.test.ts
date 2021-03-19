@@ -7,6 +7,7 @@ import nock from "nock";
 import { Container } from "typedi";
 import { generatePost } from "@unifed/backend-testing";
 import { PostsFederationService } from "../posts";
+import { RemoteResponseError } from "../helpers";
 
 let postsService: PostsFederationService;
 
@@ -34,9 +35,11 @@ test("Get by community", async (t) => {
     .query({ community: "all" })
     .reply(200, [post.toJSON()]);
 
-  await postsService.getByCommunity("foo", "getByCommunity", "all");
-  //t.deepEqual(result, [post]);
-  t.pass();
+  const result = await postsService.getByCommunity("foo", "getByCommunity", "all");
+  t.deepEqual(
+    result.map((post) => post.toJSON()),
+    [post.toJSON()],
+  );
   scope.done();
 });
 
@@ -46,13 +49,11 @@ test("Create post valid", async (t) => {
 
   const scope = nock("http://createPostValid").post("/fed/posts").reply(200, post.toJSON());
 
-  const responsePost = await postsService.create(
-    post.author.id,
-    "createPostValid",
-    "all",
-    post.title,
-    post.body,
-  );
+  const responsePost = await postsService.create(post.author.id, "createPostValid", {
+    community: "all",
+    title: post.title,
+    body: post.body,
+  });
 
   post.host = "createPostValid";
 
@@ -71,15 +72,18 @@ test("Create post invalid", async (t) => {
 
   const scope = nock("http://createPostInvalid").post("/fed/posts").reply(400, post.toJSON());
 
-  const responsePost = await postsService.create(
-    post.author.id,
-    "createPostInvalid",
-    "all",
-    "",
-    post.body,
+  await t.throwsAsync(
+    async () =>
+      await postsService.create(post.author.id, "createPostInvalid", {
+        community: "all",
+        title: "",
+        body: post.body,
+      }),
+    {
+      instanceOf: RemoteResponseError,
+    },
   );
 
-  t.true(responsePost === null);
   scope.done();
 });
 

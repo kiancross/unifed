@@ -7,32 +7,26 @@ import { plainToClass } from "class-transformer";
 import { validate } from "class-validator";
 import { Post, extractPostBody, getValidationMessage } from "@unifed/backend-core";
 import { FederationHttpClient } from "./http-client";
+import { RemoteResponseError } from "./helpers";
 
-const processPost = async (rawPost: unknown, host: string): Promise<Post> => {
+type CreatePostProps = Pick<Post, "community" | "body" | "parentPost" | "title">;
+type UpdatePostProps = Omit<CreatePostProps, "parentPost"> & Pick<Post, "id">;
+
+const processRawPost = async (rawPost: unknown, host: string): Promise<Post> => {
   const post = plainToClass(Post, rawPost as Post);
 
   post.host = host;
 
-  try {
-    const extracted = extractPostBody(rawPost);
+  const { contentType, body } = extractPostBody(rawPost);
 
-    if (!extracted) {
-      throw new Error();
-    }
-
-    post.contentType = extracted[0];
-    post.body = extracted[1];
-  } catch (_) {
-    throw new Error("Invalid `content` field");
-  }
+  post.contentType = contentType;
+  post.body = body;
 
   if (post.approved === undefined) {
     post.approved = true;
   }
 
   const validationMessage = getValidationMessage(await validate(post));
-
-  console.log(post);
 
   if (validationMessage) {
     throw new Error(validationMessage);
@@ -43,38 +37,30 @@ const processPost = async (rawPost: unknown, host: string): Promise<Post> => {
 
 @Service()
 export class PostsFederationService {
-  async create(
-    username: string,
-    host: string,
-    community: string,
-    title: string,
-    body: string,
-    parentPost?: string,
-  ): Promise<Post | null> {
+  async create(username: string, host: string, post: CreatePostProps): Promise<Post | null> {
     const httpClient = new FederationHttpClient(host, username);
 
     try {
       const rawPost: Post = await httpClient.post("posts", {
         json: {
-          community,
-          parentPost,
-          title,
+          ...post,
+          body: undefined,
           content: [
             {
               markdown: {
-                markdown: body,
+                markdown: post.body,
               },
             },
           ],
         },
       });
 
-      return await processPost(rawPost, host);
+      return await processRawPost(rawPost, host);
     } catch (error) {
       if (error.response.statusCode === 400) {
-        return null;
+        throw new RemoteResponseError("Invalid permissions");
       } else {
-        throw error;
+        throw new RemoteResponseError("Unknown error");
       }
     }
   }
@@ -92,7 +78,7 @@ export class PostsFederationService {
       throw new Error();
     }
 
-    const posts = rawPosts.map((rawPost) => processPost(rawPost, host));
+    const posts = rawPosts.map((rawPost) => processRawPost(rawPost, host));
 
     return Promise.all(posts);
   }
@@ -102,7 +88,7 @@ export class PostsFederationService {
 
     const rawPost = await httpClient.get(["posts", id]);
 
-    return await processPost(rawPost, host);
+    return await processRawPost(rawPost, host);
   }
 
   async delete(username: string, host: string, id: string): Promise<void> {
@@ -111,28 +97,22 @@ export class PostsFederationService {
     await httpClient.delete(["posts", id]);
   }
 
-  async update(
-    username: string,
-    host: string,
-    id: string,
-    body: string,
-    title?: string,
-  ): Promise<Post> {
+  async update(username: string, host: string, post: UpdatePostProps): Promise<Post> {
     const httpClient = new FederationHttpClient(host, username);
 
-    const rawPost = await httpClient.put(["posts", id], {
+    const rawPost = await httpClient.put(["posts", post.id], {
       json: {
-        title: title || null,
+        title: post.title || null,
         content: [
           {
             markdown: {
-              markdown: body,
+              markdown: post.body,
             },
           },
         ],
       },
     });
 
-    return await processPost(rawPost, host);
+    return await processRawPost(rawPost, host);
   }
 }
