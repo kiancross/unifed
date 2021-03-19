@@ -11,22 +11,23 @@ const hasContent = (post: unknown): post is WithContent => {
   return (post as WithContent).content !== undefined;
 };
 
-export class InvalidPostBodyError extends Error {}
+export class InvalidPostBodyFormatError extends Error {}
+export class InvalidPostBodyTypeError extends Error {}
 
 export const extractPostBody = (post: unknown): PostContent => {
   if (!hasContent(post)) {
-    throw new InvalidPostBodyError();
+    throw new InvalidPostBodyFormatError();
   }
 
   if (!Array.isArray(post.content)) {
-    throw new InvalidPostBodyError();
+    throw new InvalidPostBodyFormatError();
   }
 
   for (const contentEntry of post.content) {
     const keys = Object.keys(contentEntry);
 
     if (keys.length !== 1) {
-      throw new InvalidPostBodyError();
+      throw new InvalidPostBodyFormatError();
     }
 
     const type = keys[0];
@@ -39,5 +40,5 @@ export const extractPostBody = (post: unknown): PostContent => {
     }
   }
 
-  throw new InvalidPostBodyError();
+  throw new InvalidPostBodyFormatError();
 };

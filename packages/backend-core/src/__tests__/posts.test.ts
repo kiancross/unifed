@@ -3,35 +3,35 @@
  */
 
 import test from "ava";
-import { InvalidPostBodyError, extractPostBody } from "../posts";
+import { InvalidPostBodyFormatError, InvalidPostBodyTypeError, extractPostBody } from "../posts";
 
 test("With string", (t) => {
-  t.throws(() => extractPostBody("foo"), { instanceOf: InvalidPostBodyError });
+  t.throws(() => extractPostBody("foo"), { instanceOf: InvalidPostBodyFormatError });
 });
 
 test("With empty object", (t) => {
-  t.throws(() => extractPostBody({}), { instanceOf: InvalidPostBodyError });
+  t.throws(() => extractPostBody({}), { instanceOf: InvalidPostBodyFormatError });
 });
 
 test("With content string", (t) => {
-  t.throws(() => extractPostBody({ content: "foo" }), { instanceOf: InvalidPostBodyError });
+  t.throws(() => extractPostBody({ content: "foo" }), { instanceOf: InvalidPostBodyFormatError });
 });
 
 test("With invalid content", (t) => {
   t.throws(() => extractPostBody({ content: [{ foo: "bar" }] }), {
-    instanceOf: InvalidPostBodyError,
+    instanceOf: InvalidPostBodyFormatError,
   });
 });
 
 test("With multiple keys", (t) => {
   t.throws(() => extractPostBody({ content: [{ foo: "bar", bar: "baz" }] }), {
-    instanceOf: InvalidPostBodyError,
+    instanceOf: InvalidPostBodyFormatError,
   });
 });
 
 test("Wrong property", (t) => {
   t.throws(() => extractPostBody({ content: [{ markdown: { text: "foo" } }] }), {
-    instanceOf: InvalidPostBodyError,
+    instanceOf: InvalidPostBodyFormatError,
   });
 });
 

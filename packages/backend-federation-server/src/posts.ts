@@ -6,9 +6,18 @@ import { plainToClass } from "class-transformer";
 import { validate } from "class-validator";
 import { json as jsonBodyParser, Request } from "express";
 import { AsyncRouter } from "express-async-router";
-import { Post, PostModel, extractPostBody } from "@unifed/backend-core";
+
+import {
+  Post,
+  PostModel,
+  extractPostBody,
+  InvalidPostBodyTypeError,
+  InvalidPostBodyFormatError,
+} from "@unifed/backend-core";
+
 import { getSpamFactor, getToxicityClassification } from "@unifed/backend-ml";
 import { ResponseError } from "./response-error";
+
 import {
   getCommunityOrThrow,
   getPostOrThrow,
@@ -17,22 +26,20 @@ import {
   ParamError,
 } from "./helpers";
 
-const extractPostBodyOrThrow = (post: Record<string, unknown>): [string, string] => {
-  let result;
-
+const extractPostBodyOrThrow = (
+  post: Record<string, unknown>,
+): ReturnType<typeof extractPostBody> => {
   try {
-    result = extractPostBody(post);
+    return extractPostBody(post);
   } catch (error) {
-    if (!(error instanceof ResponseError)) {
+    if (error instanceof InvalidPostBodyFormatError) {
       throw new ResponseError(400, "Invalid content field");
+    } else if (error instanceof InvalidPostBodyTypeError) {
+      throw new ResponseError(501, "Only `markdown` and `text` types are supported");
+    } else {
+      throw error;
     }
   }
-
-  if (result === undefined) {
-    throw new ResponseError(501, "Only `markdown` and `text` types are supported");
-  }
-
-  return result;
 };
 
 const throwIfWrongPermissions = ({ author }: Post, username?: string, host?: string): void => {
@@ -129,7 +136,7 @@ router.post("/", async (req, res) => {
   const [username, host] = getAuthor(req);
   rawPost.author = { _id: username, host };
 
-  const [contentType, body] = extractPostBodyOrThrow(rawPost);
+  const { contentType, body } = extractPostBodyOrThrow(rawPost);
 
   rawPost.body = body;
   rawPost.contentType = contentType;
@@ -147,7 +154,7 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const post = await getPostOrThrow(req.params.id, 404);
 
-  const [contentType, body] = extractPostBodyOrThrow(req.body);
+  const { contentType, body } = extractPostBodyOrThrow(req.body);
 
   post.title = req.body.title;
   post.body = body;
