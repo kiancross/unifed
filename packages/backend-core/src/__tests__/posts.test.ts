@@ -19,7 +19,7 @@ test("With content string", (t) => {
 
 test("With invalid content", (t) => {
   t.throws(() => extractPostBody({ content: [{ foo: "bar" }] }), {
-    instanceOf: InvalidPostBodyFormatError,
+    instanceOf: InvalidPostBodyTypeError,
   });
 });
 

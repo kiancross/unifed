@@ -123,7 +123,7 @@ test.serial("Create post invalid content type", async (t) => {
     ...post.toJSON(),
     content: [
       {
-        foo: {},
+        foo: { foo: "" },
       },
     ],
   };

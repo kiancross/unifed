@@ -32,15 +32,15 @@ export const extractPostBody = (post: unknown): PostContent => {
 
     const type = keys[0];
 
-    if (contentEntry[type][type]) {
-      if (type === "markdown" || type === "text") {
+    if (type === "markdown" || type === "text") {
+      if (contentEntry[type][type]) {
         return {
           contentType: type,
           body: contentEntry[type][type],
         };
+      } else {
+        throw new InvalidPostBodyFormatError();
       }
-    } else {
-      throw new InvalidPostBodyFormatError();
     }
   }
 
