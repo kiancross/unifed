@@ -35,6 +35,12 @@ test("Wrong property", (t) => {
   });
 });
 
+test("Invalid type", (t) => {
+  t.throws(() => extractPostBody({ content: [{ foo: { foo: "foo" } }] }), {
+    instanceOf: InvalidPostBodyTypeError,
+  });
+});
+
 test("Valid", (t) => {
   const result = extractPostBody({ content: [{ markdown: { markdown: "foo" } }] });
 
