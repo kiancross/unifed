@@ -3,12 +3,13 @@
  */
 
 import { ReactElement } from "react";
-import { Box, Container, makeStyles, Paper } from "@material-ui/core";
-import { Link } from "../Links";
+import { Box, Container, makeStyles, Paper, Link as ExternalLink } from "@material-ui/core";
+import { Link as InternalLink } from "../Links";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  link: {
     color: theme.palette.text.primary,
+    marginRight: theme.spacing(4),
   },
 }));
 
@@ -18,9 +19,16 @@ const Footer = (): ReactElement => {
     <Box paddingTop="3rem">
       <Paper elevation={0} style={{ textAlign: "left", padding: "1.5rem" }}>
         <Container maxWidth="lg">
-          <Link classes={classes} to="/privacy-notice">
+          <ExternalLink
+            className={classes.link}
+            href="https://kiancross.github.io/unifed/"
+            target="_blank"
+          >
+            Help
+          </ExternalLink>
+          <InternalLink className={classes.link} to="/privacy-notice">
             Privacy Notice
-          </Link>
+          </InternalLink>
         </Container>
       </Paper>
     </Box>
