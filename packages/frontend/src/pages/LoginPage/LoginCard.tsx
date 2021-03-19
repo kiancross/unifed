@@ -2,17 +2,27 @@
  * CS3099 Group A3
  */
 
-import { ReactElement, useState, useContext } from "react";
+import React, { ReactElement, useState, useContext } from "react";
 import { Formik, Form, Field } from "formik";
-import { Button, Card, CardContent, TextField, Typography } from "@material-ui/core";
+import {
+  Button,
+  Card,
+  CardContent,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { UserContext } from "../../contexts/user";
 import { Link } from "../../components/Links";
 import Popup from "../../components/Popup";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 
 const LoginCard = (): ReactElement => {
   const user = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState("");
   const loginErrorMessage = "The email address and/or password you have entered is incorrect";
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   return (
     <div>
@@ -49,7 +59,7 @@ const LoginCard = (): ReactElement => {
                 <Field
                   name="password"
                   as={TextField}
-                  type="password"
+                  type={isPasswordVisible ? "text" : "password"}
                   fullWidth
                   size="small"
                   margin="dense"
@@ -57,7 +67,16 @@ const LoginCard = (): ReactElement => {
                   label="Password"
                   color="primary"
                   required
-                  inputProps={{ "data-testid": "password" }}
+                  InputProps={{
+                    "data-testid": "password",
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
+                          {isPasswordVisible ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               </div>
               <Button
