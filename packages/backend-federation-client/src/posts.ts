@@ -9,8 +9,8 @@ import { Post, extractPostBody, getValidationMessage } from "@unifed/backend-cor
 import { FederationHttpClient } from "./http-client";
 import { RemoteResponseError } from "./helpers";
 
-type CreatePostProps = Pick<Post, "community" | "body" | "parentPost" | "title">;
-type UpdatePostProps = Omit<CreatePostProps, "parentPost" | "community"> & Pick<Post, "id">;
+export type CreatePostProps = Pick<Post, "community" | "body" | "parentPost" | "title">;
+export type UpdatePostProps = Omit<CreatePostProps, "parentPost" | "community"> & Pick<Post, "id">;
 
 const processRawPost = async (rawPost: unknown, host: string): Promise<Post> => {
   const post = plainToClass(Post, rawPost as Post);
@@ -37,7 +37,7 @@ const processRawPost = async (rawPost: unknown, host: string): Promise<Post> => 
 
 @Service()
 export class PostsFederationService {
-  async create(username: string, host: string, post: CreatePostProps): Promise<Post | null> {
+  async create(username: string, host: string, post: CreatePostProps): Promise<Post> {
     const httpClient = new FederationHttpClient(host, username);
 
     try {
