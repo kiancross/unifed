@@ -4,9 +4,10 @@
 
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
-import Comment from "./Comment";
 import { Grid, GridSize } from "@material-ui/core";
-import CenteredLoader from "../../components/CenteredLoader";
+
+import { CenteredLoader } from "../../components";
+import { Comment } from "./Comment";
 
 interface CommentParams {
   server: string;
@@ -37,7 +38,7 @@ export const GET_COMMENTS = gql`
   }
 `;
 
-const Comments = (props: CommentParams) => {
+export const Comments = (props: CommentParams) => {
   const parentId = props.parentId;
   const server = props.server;
 
@@ -86,5 +87,3 @@ const Comments = (props: CommentParams) => {
     </Grid>
   );
 };
-
-export default Comments;

@@ -4,7 +4,8 @@
 
 import { ReactElement } from "react";
 import { Typography, Link, makeStyles } from "@material-ui/core";
-import LogoTemplate from "../../components/LogoTemplate";
+
+import { LogoTemplate } from "../../components";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PrivacyPolicyPage = (): ReactElement => {
+export const PrivacyNoticePage = (): ReactElement => {
   const classes = useStyles();
   return (
     <LogoTemplate direction="vertical">
@@ -145,5 +146,3 @@ const PrivacyPolicyPage = (): ReactElement => {
     </LogoTemplate>
   );
 };
-
-export default PrivacyPolicyPage;

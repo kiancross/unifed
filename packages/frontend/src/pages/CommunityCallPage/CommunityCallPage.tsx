@@ -6,10 +6,11 @@ import { ReactElement, useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Theme, makeStyles } from "@material-ui/core";
 import { gql, useSubscription, useMutation } from "@apollo/client";
+
 import { SafePeerConnection } from "./safe-peer-connection";
 import { VideoWrapperProps } from "./VideoWrapper";
-import VideoGrid from "./VideoGrid";
-import JoinCallMessage from "./JoinCallMessage";
+import { VideoGrid } from "./VideoGrid";
+import { JoinCallMessage } from "./JoinCallMessage";
 
 interface CommunityCall {
   type: "request" | "offer" | "answer" | "ice";
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const VideoCall = (): ReactElement => {
+export const CommunityCallPage = (): ReactElement => {
   const classes = useStyles();
 
   const [localMediaStream, setLocalMediaStream] = useState<MediaStream | null>();
@@ -299,5 +300,3 @@ const VideoCall = (): ReactElement => {
     </Container>
   );
 };
-
-export default VideoCall;

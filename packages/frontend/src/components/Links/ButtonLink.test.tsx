@@ -4,7 +4,7 @@
 
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import ButtonLink from "./ButtonLink";
+import { ButtonLink } from "./ButtonLink";
 
 test("Render", () => {
   const { getByRole } = render(

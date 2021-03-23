@@ -3,9 +3,9 @@
  */
 
 import { Card, CardContent, Grid } from "@material-ui/core";
-import CenteredLoader from "../CenteredLoader";
+import { CenteredLoader } from "..";
 
-const LoadingCard = () => {
+export const LoadingCard = () => {
   return (
     <Grid item>
       <Card>
@@ -16,5 +16,3 @@ const LoadingCard = () => {
     </Grid>
   );
 };
-
-export default LoadingCard;

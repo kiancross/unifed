@@ -4,14 +4,19 @@
 
 import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
-import { CardHeader, IconButton, Menu, MenuItem, Typography, Theme } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import {
+  CardHeader,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography,
+  Theme,
+  makeStyles,
+} from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { gql, useMutation, Reference } from "@apollo/client";
-import { UserContext } from "../../contexts/user";
-import CenteredLoader from "../CenteredLoader";
-import ErrorMessage from "../ErrorMessage";
-import { Link } from "../../components/Links";
+import { UserContext } from "../../contexts";
+import { Link, ErrorMessage, CenteredLoader } from "..";
 
 interface Props {
   username: string;
@@ -33,7 +38,7 @@ export const DELETE_POST = gql`
   }
 `;
 
-const PostHeader = (props: Props): JSX.Element => {
+export const PostHeader = (props: Props): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
   const user = useContext(UserContext);
   const classes = useStyles(props);
@@ -142,5 +147,3 @@ const PostHeader = (props: Props): JSX.Element => {
 
   return <CardHeader className={classes.header} action={headerAction} title={headerTitle} />;
 };
-
-export default PostHeader;

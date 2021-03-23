@@ -5,7 +5,7 @@
 import { BrowserRouter } from "react-router-dom";
 import { render, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import UserInfoCard from "./UserInfoCard";
+import { UserInfoCard } from "./UserInfoCard";
 
 const username = "js123";
 const name = "John Smith";

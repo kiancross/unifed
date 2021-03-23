@@ -4,7 +4,7 @@
 
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import Link from "./Link";
+import { Link } from "./Link";
 
 test("Render", () => {
   const { getByRole } = render(

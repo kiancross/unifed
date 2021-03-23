@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Footer = (): ReactElement => {
+export const Footer = (): ReactElement => {
   const classes = useStyles();
   return (
     <Box paddingTop="3rem">
@@ -34,5 +34,3 @@ const Footer = (): ReactElement => {
     </Box>
   );
 };
-
-export default Footer;

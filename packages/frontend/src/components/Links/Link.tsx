@@ -10,8 +10,6 @@ type Props = Omit<MaterialLinkProps, "component"> &
   RouterLinkProps &
   Pick<Required<RouterLinkProps>, "children">;
 
-const Link = (props: Props): ReactElement => {
+export const Link = (props: Props): ReactElement => {
   return <MaterialLink component={RouterLink} {...props} />;
 };
-
-export default Link;

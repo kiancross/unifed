@@ -1,14 +1,18 @@
+/*
+ * CS3099 Group A3
+ */
+
 import { FC } from "react";
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { MemoryRouter, Route } from "react-router-dom";
 
-interface ProviderProps {
+export interface BrowserMockProviderProps {
   path?: string;
   initialEntries?: string[];
   mocks?: MockedResponse[];
 }
 
-export const AllTheProviders: FC<ProviderProps> = (props) => {
+export const BrowserMockProvider: FC<BrowserMockProviderProps> = (props) => {
   return (
     <MockedProvider mocks={props.mocks} addTypename={false}>
       <MemoryRouter initialEntries={props.initialEntries}>

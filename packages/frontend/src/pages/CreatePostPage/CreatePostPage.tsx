@@ -5,15 +5,16 @@
 import { ReactElement, useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import { Container } from "@material-ui/core";
-import PostCreator from "../../components/PostCreator";
 
-interface Params {
+import { PostCreator } from "../../components";
+
+export interface CreatePostPageParams {
   server: string;
   community: string;
 }
 
-const CreatePostPage = (): ReactElement => {
-  const { community, server } = useParams<Params>();
+export const CreatePostPage = (): ReactElement => {
+  const { community, server } = useParams<CreatePostPageParams>();
   const [redirect, setRedirect] = useState<string | undefined>();
 
   const href = "/instances/" + server + "/communities/" + community + "/posts";
@@ -35,5 +36,3 @@ const CreatePostPage = (): ReactElement => {
     </Container>
   );
 };
-
-export default CreatePostPage;

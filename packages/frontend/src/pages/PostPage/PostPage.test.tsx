@@ -3,12 +3,13 @@
  */
 
 import { BrowserRouter } from "react-router-dom";
-import Comments, { GET_COMMENTS } from "./Comments";
 import { MockedProvider } from "@apollo/client/testing";
 import { render, waitFor, screen } from "@testing-library/react";
-import PostPage, { GET_POST } from "./PostPage";
-import { AllTheProviders } from "../../helpers/test";
-import Post from "./Post";
+
+import { BrowserMockProvider } from "../../helpers";
+import { PostPage, GET_POST } from "./PostPage";
+import { Comments, GET_COMMENTS } from "./Comments";
+import { Post } from "./Post";
 
 // 001 represents the main post
 // 002-006 represent the comments
@@ -60,6 +61,7 @@ test("Display comments", async () => {
       },
     };
   };
+
   const getCommentsMocks = [
     reqres(ids[0], server, ids[1], bodies[1], users[1]),
     reqres(ids[1], server, ids[2], bodies[2], users[2]),
@@ -124,13 +126,13 @@ test("PostPage renders", async () => {
   ];
 
   const { getByText } = render(
-    <AllTheProviders
+    <BrowserMockProvider
       path="/instances/:server/communities/:community/posts/:post"
       initialEntries={["/instances/testserver/communities/this/posts/testId"]}
       mocks={getPostMock}
     >
       <PostPage />
-    </AllTheProviders>,
+    </BrowserMockProvider>,
   );
 
   await waitFor(() => {
@@ -140,9 +142,9 @@ test("PostPage renders", async () => {
 
 test("Render Comment", async () => {
   render(
-    <AllTheProviders>
+    <BrowserMockProvider>
       <Post username={username} id={id} body={body} server={server} title={""} />
-    </AllTheProviders>,
+    </BrowserMockProvider>,
   );
 
   expect(screen.getByText("Comment"));

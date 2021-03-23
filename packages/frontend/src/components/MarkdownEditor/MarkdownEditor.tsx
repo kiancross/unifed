@@ -5,8 +5,8 @@
 import React, { ReactElement } from "react";
 import { useTheme } from "@material-ui/core";
 import Editor from "react-markdown-editor-lite";
-import MarkdownViewer from "../../components/MarkdownViewer";
 import "react-markdown-editor-lite/lib/index.css";
+import { MarkdownViewer } from "..";
 
 interface MarkdownEditorProps {
   onChange?: (
@@ -20,7 +20,7 @@ interface MarkdownEditorProps {
   value?: string;
 }
 
-const MarkdownEditor = (props: MarkdownEditorProps): ReactElement => {
+export const MarkdownEditor = (props: MarkdownEditorProps): ReactElement => {
   const theme = useTheme().palette;
 
   const styleSettings = `         
@@ -42,5 +42,3 @@ const MarkdownEditor = (props: MarkdownEditorProps): ReactElement => {
     </>
   );
 };
-
-export default MarkdownEditor;

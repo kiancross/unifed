@@ -1,15 +1,20 @@
-import { AllTheProviders } from "../../helpers/test";
+/*
+ * CS3099 Group A3
+ */
+
+import { BrowserMockProvider } from "../../helpers";
 import { render, screen } from "@testing-library/react";
-import CreatePostPage from "./CreatePostPage";
+
+import { CreatePostPage } from "./CreatePostPage";
 
 test("CreatePostPage renders", () => {
   render(
-    <AllTheProviders
+    <BrowserMockProvider
       path="/instances/:server/communities/:community/posts/create"
       initialEntries={["/instances/testserver/communities/this/posts/create"]}
     >
       <CreatePostPage />
-    </AllTheProviders>,
+    </BrowserMockProvider>,
   );
 
   expect(screen.getByText("Title"));

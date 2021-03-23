@@ -7,7 +7,8 @@ import { makeStyles, Card, CardHeader, CardMedia, IconButton, Tooltip } from "@m
 import MicIcon from "@material-ui/icons/Mic";
 import MicOffIcon from "@material-ui/icons/MicOff";
 import CallEndIcon from "@material-ui/icons/CallEnd";
-import Video from "./Video";
+
+import { Video } from "./Video";
 
 export type VideoWrapperProps = {
   username: string;
@@ -24,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-const VideoWrapper = (props: VideoWrapperProps): ReactElement => {
+export const VideoWrapper = (props: VideoWrapperProps): ReactElement => {
   const classes = useStyles();
 
   return (
@@ -61,5 +62,3 @@ const VideoWrapper = (props: VideoWrapperProps): ReactElement => {
     </Card>
   );
 };
-
-export default VideoWrapper;

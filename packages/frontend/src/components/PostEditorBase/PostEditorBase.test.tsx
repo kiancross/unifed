@@ -3,7 +3,7 @@
  */
 
 import { render, fireEvent, waitFor } from "@testing-library/react";
-import PostEditorBase from "./PostEditorBase";
+import { PostEditorBase } from "./PostEditorBase";
 
 const buttonMessageText = "Test Button";
 

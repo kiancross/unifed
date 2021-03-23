@@ -3,6 +3,7 @@
  */
 
 import { ReactElement } from "react";
+
 import {
   Button,
   Grid,
@@ -25,7 +26,7 @@ const useStyles = makeStyles({
   },
 });
 
-const JoinCallMessage = (props: { onJoinClick: () => void }): ReactElement => {
+export const JoinCallMessage = (props: { onJoinClick: () => void }): ReactElement => {
   const classes = useStyles();
 
   return (
@@ -64,5 +65,3 @@ const JoinCallMessage = (props: { onJoinClick: () => void }): ReactElement => {
     </Grid>
   );
 };
-
-export default JoinCallMessage;

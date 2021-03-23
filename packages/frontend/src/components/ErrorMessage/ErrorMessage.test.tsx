@@ -4,7 +4,7 @@
 
 import { render } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import ErrorMessage from "./ErrorMessage";
+import { ErrorMessage } from "./ErrorMessage";
 
 test("Renders Error Message", () => {
   const message = "Test Message";

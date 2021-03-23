@@ -6,12 +6,12 @@ import { render, act, waitFor, fireEvent } from "@testing-library/react";
 import { GraphQLError } from "graphql";
 import { MockedProvider } from "@apollo/client/testing";
 import { accountsClient } from "../../helpers/accounts";
-import { UserProvider, UserContext, defaultContext, getUserQuery } from "./UserContext";
+import { UserProvider, UserContext, defaultUserContext, getUserQuery } from "../UserContext";
 
 test("Default context", () => {
-  defaultContext.logout();
-  defaultContext.refetch();
-  defaultContext.login("foo", "bar");
+  defaultUserContext.logout();
+  defaultUserContext.refetch();
+  defaultUserContext.login("foo", "bar");
 });
 
 test("Loading", () => {

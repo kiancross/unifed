@@ -2,14 +2,13 @@
  * CS3099 Group A3
  */
 
-import { Container, Grid, useMediaQuery } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
-import Post from "./Post";
-import PostCreator from "../../components/PostCreator";
-import Comments from "./Comments";
-import UserInfoCard from "../../components/UserInfoCard";
-import CenteredLoader from "../../components/CenteredLoader";
+import { Container, Grid, useMediaQuery } from "@material-ui/core";
+
+import { PostCreator, UserInfoCard, CenteredLoader } from "../../components";
+import { Post } from "./Post";
+import { Comments } from "./Comments";
 
 interface PostParams {
   server: string;
@@ -30,7 +29,7 @@ export const GET_POST = gql`
   }
 `;
 
-const PostPage = (): JSX.Element => {
+export const PostPage = (): JSX.Element => {
   const { post, server, community } = useParams<PostParams>();
   const { loading, error, data } = useQuery(GET_POST, {
     variables: { id: post, host: server },
@@ -69,5 +68,3 @@ const PostPage = (): JSX.Element => {
     </Container>
   );
 };
-
-export default PostPage;

@@ -1,6 +1,9 @@
-import { render } from "@testing-library/react";
+/*
+ * CS3099 Group A3
+ */
 
-import Popup from "./Popup";
+import { render } from "@testing-library/react";
+import { Popup } from "./Popup";
 
 test("Popup renders", () => {
   const message = "Test Message";
