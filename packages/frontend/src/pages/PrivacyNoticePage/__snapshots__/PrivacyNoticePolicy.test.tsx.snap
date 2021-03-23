@@ -120,7 +120,7 @@ exports[`Render 1`] = `
             Most of the personal information we process is provided to us directly by you for one of the following reasons:
             <ul>
               <li>
-                To signup to the website.
+                To sign-up to the website.
               </li>
               <li>
                 To create and upload content.
@@ -164,7 +164,7 @@ exports[`Render 1`] = `
           <p
             className="MuiTypography-root MuiTypography-body1"
           >
-            Personal identifiers, contacts, characteristics (for example, your name and contact details) and your IP address are always kept private. Your username and any posts you make are publically available. Publically available content may be saved and downloaded by third parties outside of our control.
+            Personal identifiers, contacts, characteristics (for example, your name and contact details) and your IP address are always kept private. Your username and any posts you make are publicly available. Publicly available content may be saved and downloaded by third parties outside of our control.
           </p>
           <h4
             className="MuiTypography-root MuiTypography-h4"
