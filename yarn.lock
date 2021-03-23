@@ -4314,6 +4314,8 @@ __metadata:
     class-validator: ^0.13.1
     eslint: ^7.22.0
     eslint-config-prettier: ^8.1.0
+    eslint-import-resolver-typescript: ^2.4.0
+    eslint-plugin-import: ^2.22.1
     eslint-plugin-prettier: ^3.3.1
     graphql: ^15.5.0
     mongoose: 5.10.18
@@ -4345,6 +4347,8 @@ __metadata:
     class-validator: ^0.13.1
     eslint: ^7.22.0
     eslint-config-prettier: ^8.1.0
+    eslint-import-resolver-typescript: ^2.4.0
+    eslint-plugin-import: ^2.22.1
     eslint-plugin-prettier: ^3.3.1
     got: ^11.8.2
     nock: ^13.0.11
@@ -4380,6 +4384,8 @@ __metadata:
     escape-string-regexp: ^4.0.0
     eslint: ^7.22.0
     eslint-config-prettier: ^8.1.0
+    eslint-import-resolver-typescript: ^2.4.0
+    eslint-plugin-import: ^2.22.1
     eslint-plugin-prettier: ^3.3.1
     express: ^4.17.1
     express-async-router: ^0.1.15
@@ -4425,6 +4431,8 @@ __metadata:
     class-validator: ^0.13.1
     eslint: ^7.22.0
     eslint-config-prettier: ^8.1.0
+    eslint-import-resolver-typescript: ^2.4.0
+    eslint-plugin-import: ^2.22.1
     eslint-plugin-prettier: ^3.3.1
     express: ^4.17.1
     express-async-router: ^0.1.15
@@ -4465,6 +4473,8 @@ __metadata:
     csv-parse: ^4.15.3
     eslint: ^7.22.0
     eslint-config-prettier: ^8.1.0
+    eslint-import-resolver-typescript: ^2.4.0
+    eslint-plugin-import: ^2.22.1
     eslint-plugin-prettier: ^3.3.1
     mailparser: ^3.1.0
     node-stream-zip: ^1.13.2
@@ -4493,6 +4503,8 @@ __metadata:
     ava: ^3.15.0
     eslint: ^7.22.0
     eslint-config-prettier: ^8.1.0
+    eslint-import-resolver-typescript: ^2.4.0
+    eslint-plugin-import: ^2.22.1
     eslint-plugin-prettier: ^3.3.1
     faker: ^5.4.0
     mongodb-memory-server-core: ^6.9.6
@@ -4598,6 +4610,8 @@ __metadata:
     ava: ^3.15.0
     eslint: ^7.22.0
     eslint-config-prettier: ^8.1.0
+    eslint-import-resolver-typescript: ^2.4.0
+    eslint-plugin-import: ^2.22.1
     eslint-plugin-prettier: ^3.3.1
     nyc: ^15.1.0
     prettier: ^2.2.1
@@ -9173,6 +9187,22 @@ __metadata:
     debug: ^2.6.9
     resolve: ^1.13.1
   checksum: 825e34e662c988ece8229e6956a95f12d2fa19265b429e3e3db14e58bfe72e270c999cda0cfc690793ed6e6a3e49ffa8df0e0a8842d668a1f0f7de5ae1aa36f9
+  languageName: node
+  linkType: hard
+
+"eslint-import-resolver-typescript@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "eslint-import-resolver-typescript@npm:2.4.0"
+  dependencies:
+    debug: ^4.1.1
+    glob: ^7.1.6
+    is-glob: ^4.0.1
+    resolve: ^1.17.0
+    tsconfig-paths: ^3.9.0
+  peerDependencies:
+    eslint: "*"
+    eslint-plugin-import: "*"
+  checksum: d2f1270c251d02a3e785cb73bd55597a1a97cd859f225a2670fa2444008784eec1b3e747d153ff32a1330670f4eb87bb54d4584af95a3b13e781e73d87d5faea
   languageName: node
   linkType: hard
 
