@@ -8,7 +8,7 @@ import { Button, Card, CardContent, TextField, Typography } from "@material-ui/c
 import { UserContext } from "../../contexts/user";
 import { Link } from "../../components/Links";
 import Popup from "../../components/Popup";
-import PasswordField from "components/PasswordField/PasswordField";
+import PasswordField from "../..components/PasswordField";
 
 const LoginCard = (): JSX.Element => {
   const user = useContext(UserContext);
