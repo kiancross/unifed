@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconButton, InputAdornment, TextField } from "@material-ui/core";
+import { IconButton, InputAdornment, TextField, Tooltip } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { Field } from "formik";
 
@@ -27,7 +27,15 @@ const PasswordField = (props: Props): JSX.Element => {
         endAdornment: (
           <InputAdornment position="end">
             <IconButton onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
-              {isPasswordVisible ? <Visibility /> : <VisibilityOff />}
+              {isPasswordVisible ? (
+                <Tooltip title="hide password">
+                  <Visibility />
+                </Tooltip>
+              ) : (
+                <Tooltip title="Show Password">
+                  <VisibilityOff />
+                </Tooltip>
+              )}
             </IconButton>
           </InputAdornment>
         ),
