@@ -2,27 +2,18 @@
  * CS3099 Group A3
  */
 
-import React, { ReactElement, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { Formik, Form, Field } from "formik";
-import {
-  Button,
-  Card,
-  CardContent,
-  IconButton,
-  InputAdornment,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import { Button, Card, CardContent, TextField, Typography } from "@material-ui/core";
 import { UserContext } from "../../contexts/user";
 import { Link } from "../../components/Links";
 import Popup from "../../components/Popup";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
+import PasswordField from "components/PasswordField/PasswordField";
 
-const LoginCard = (): ReactElement => {
+const LoginCard = (): JSX.Element => {
   const user = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState("");
   const loginErrorMessage = "The email address and/or password you have entered is incorrect";
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   return (
     <div>
@@ -56,28 +47,7 @@ const LoginCard = (): ReactElement => {
                 />
               </div>
               <div>
-                <Field
-                  name="password"
-                  as={TextField}
-                  type={isPasswordVisible ? "text" : "password"}
-                  fullWidth
-                  size="small"
-                  margin="dense"
-                  variant="outlined"
-                  label="Password"
-                  color="primary"
-                  required
-                  InputProps={{
-                    "data-testid": "password",
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
-                          {isPasswordVisible ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
+                <PasswordField errorMessage={undefined} />
               </div>
               <Button
                 type="submit"
