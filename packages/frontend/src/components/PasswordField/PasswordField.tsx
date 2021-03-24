@@ -7,7 +7,7 @@ interface Props {
   errorMessage?: string;
 }
 
-const PasswordField = (props: Props): JSX.Element => {
+export const PasswordField = (props: Props): JSX.Element => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   return (
@@ -43,5 +43,3 @@ const PasswordField = (props: Props): JSX.Element => {
     />
   );
 };
-
-export default PasswordField;

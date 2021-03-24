@@ -18,7 +18,7 @@ import {
 } from "@material-ui/core";
 import { Redirect } from "react-router";
 import { Alert } from "@material-ui/lab";
-import PasswordField from "../../components/PasswordField/PasswordField";
+import PasswordField from "../../components/PasswordField";
 
 interface Values {
   username: string;
