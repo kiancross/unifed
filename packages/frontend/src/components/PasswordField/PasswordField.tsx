@@ -4,7 +4,7 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { Field } from "formik";
 
 interface Props {
-  errorMessage: string | undefined;
+  errorMessage?: string;
 }
 
 const PasswordField = (props: Props): JSX.Element => {

@@ -47,7 +47,7 @@ const LoginCard = (): JSX.Element => {
                 />
               </div>
               <div>
-                <PasswordField errorMessage={undefined} />
+                <PasswordField />
               </div>
               <Button
                 type="submit"
