@@ -13,6 +13,10 @@ test("dateToUnixTimestamp 2", (t) => {
   t.is(dateToUnixTimestamp(new Date("2017-09-10T09:48:13+00:00")), 1505036893);
 });
 
+test("dateToUnixTimestamp undefined", (t) => {
+  t.is(dateToUnixTimestamp(undefined), 0);
+});
+
 test("isRefType", (t) => {
   t.is(getIdFromRef("someid"), "someid");
 });

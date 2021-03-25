@@ -3,7 +3,30 @@
  */
 
 import { Service } from "typedi";
-import { PostsFederationService } from "@unifed/backend-federation-client";
+import { Post, UserModel, RemoteReference } from "@unifed/backend-core";
+import { PostsFederationService, CreatePostProps } from "@unifed/backend-federation-client";
 
 @Service()
-export class PostsService extends PostsFederationService {}
+export class PostsService extends PostsFederationService {
+  async create(username: string, host: string, post: CreatePostProps): Promise<Post> {
+    const result = await super.create(username, host, post);
+
+    const postReference: RemoteReference = new RemoteReference();
+    postReference.id = result.id;
+    postReference.host = host;
+
+    await UserModel.update({ username: username }, { $push: { posts: postReference } });
+
+    return result;
+  }
+
+  async delete(username: string, host: string, id: string): Promise<void> {
+    await super.delete(username, host, id);
+
+    const postReference: RemoteReference = new RemoteReference();
+    postReference.id = id;
+    postReference.host = host;
+
+    await UserModel.update({ username: username }, { $pull: { posts: postReference } });
+  }
+}

@@ -3,6 +3,7 @@
  */
 
 import { ValidateNested, IsNotEmpty } from "class-validator";
+import { Type } from "class-transformer";
 import { prop as Property } from "@typegoose/typegoose";
 import { ObjectType, Field } from "type-graphql";
 import { JSONMap } from "../types";
@@ -11,7 +12,6 @@ import { Base } from "./base";
 @ObjectType()
 export class UserProfile {
   @Field()
-  @Property({ required: true })
   name!: string;
 
   toJSON(): JSONMap {
@@ -29,6 +29,7 @@ export class PublicUser extends Base {
 
   @ValidateNested()
   @Field()
+  @Type(() => UserProfile)
   @Property({ _id: false, ref: UserProfile, required: true })
   profile!: UserProfile;
 

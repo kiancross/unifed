@@ -30,7 +30,7 @@ router.get("/:id/timestamps", async (req, res) => {
       community.posts.map((post: Post) => {
         return {
           id: post.id,
-          modified: post.updatedAtUnixTimestamp,
+          modified: post.modified,
         };
       }),
     );
