@@ -4,10 +4,10 @@
 
 import renderer from "react-test-renderer";
 
-import { PrivacyPolicyPage } from "./PrivacyNoticePage";
+import { PrivacyNoticePage } from "./PrivacyNoticePage";
 
 test("Render", () => {
-  const component = renderer.create(<PrivacyPolicyPage />);
+  const component = renderer.create(<PrivacyNoticePage />);
   const tree = component.toJSON();
 
   expect(tree).toMatchSnapshot();

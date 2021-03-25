@@ -3,7 +3,7 @@
  */
 
 import { render, fireEvent } from "@testing-library/react";
-import JoinCallMessage from "../JoinCallMessage";
+import { JoinCallMessage } from "../JoinCallMessage";
 
 test("Button", async () => {
   const onJoinClick = jest.fn();

@@ -3,7 +3,7 @@
  */
 
 import renderer from "react-test-renderer";
-import Video from "../Video";
+import { Video } from "../Video";
 
 test("Render", () => {
   const component = renderer.create(<Video />);

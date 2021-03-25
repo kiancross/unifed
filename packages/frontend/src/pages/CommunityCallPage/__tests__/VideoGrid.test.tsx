@@ -3,7 +3,7 @@
  */
 
 import { render, fireEvent } from "@testing-library/react";
-import VideoGrid from "../VideoGrid";
+import { VideoGrid } from "../VideoGrid";
 
 test("Usernames", async () => {
   const users = [

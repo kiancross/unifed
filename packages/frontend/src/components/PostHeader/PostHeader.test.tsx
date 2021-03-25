@@ -52,7 +52,7 @@ test("Edit and delete succeed with valid user", async () => {
 });
 
 test("Action menu does not render with invalid user", async () => {
-  const userContext = { ...defaultContext };
+  const userContext = { ...defaultUserContext };
   userContext.details = { ...userContext.details, username: "invalid" };
 
   const { getByText, queryByTestId } = render(
@@ -70,7 +70,7 @@ test("Action menu does not render with invalid user", async () => {
 });
 
 test("Comment deletes", async () => {
-  const userContext = { ...defaultContext };
+  const userContext = { ...defaultUserContext };
   userContext.details = { ...userContext.details, username };
 
   const { getByText, getByTestId } = render(
