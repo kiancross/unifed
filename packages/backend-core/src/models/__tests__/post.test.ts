@@ -53,15 +53,6 @@ test("Valid parentPost", async (t) => {
   t.is(result.length, 0);
 });
 
-test("Title too short", async (t) => {
-  const post = getPost();
-  post.title = "";
-
-  const result = await validate(post);
-
-  t.is(result.length, 1);
-});
-
 test("Title too long", async (t) => {
   const post = getPost();
   post.title = "a".repeat(128 + 1);
@@ -106,8 +97,13 @@ test("toJSON", (t) => {
     community: "bar",
     parentPost: "baz",
     title: "bat",
-    contentType: "markdown",
-    body: "bax",
+    content: [
+      {
+        markdown: {
+          markdown: "bax",
+        },
+      },
+    ],
     children: [],
     author: {
       id: "mat",

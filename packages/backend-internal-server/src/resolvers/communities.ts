@@ -101,12 +101,13 @@ export class CommunitiesResolver implements ResolverInterface<Community> {
   }
 
   @FieldResolver()
-  async posts(@Root() community: Community): Promise<Post[]> {
+  async posts(@Root() community: Community, @CurrentUser() user: User): Promise<Post[]> {
     if (community.host === undefined) {
       throw new Error("Host can not be undefined");
     }
 
     return await this.postsService.getByCommunity(
+      user.username,
       await translateHost(community.host),
       community.id,
     );

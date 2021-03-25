@@ -52,9 +52,6 @@ test("Communities empty", async (t) => {
     `,
   );
 
-  if (response.data) {
-    t.deepEqual(response.data.getCommunities, []);
-  } else {
-    t.fail();
-  }
+  t.not(response.data, null);
+  response.data && t.deepEqual(response.data.getCommunities, []);
 });

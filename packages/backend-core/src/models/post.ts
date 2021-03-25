@@ -3,9 +3,9 @@
  */
 
 import { ValidateNested, Matches, MaxLength, IsString, IsNotEmpty } from "class-validator";
+import { Type } from "class-transformer";
 import { prop as Property, getModelForClass, Ref } from "@typegoose/typegoose";
 import { ObjectType, Field } from "type-graphql";
-import { dateToUnixTimestamp } from "./helpers";
 import { Base } from "./base";
 import { getIdFromRef } from "./helpers";
 import { Community } from "./community";
@@ -21,18 +21,14 @@ export class Post extends Base {
 
   @Field(() => Post, { nullable: true })
   @Property({ ref: "Post", type: String })
-  parentPost?: Ref<Post>;
+  parentPost?: Ref<Post> | null;
 
   @MaxLength(128, {
     message: "Title is too long",
   })
-  @IsNotEmpty({
-    message: "Title must not be empty",
-  })
-  @IsString()
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   @Property()
-  title!: string;
+  title!: string | null;
 
   @Matches(/^(text)|(markdown)$/, {
     message: "Only `text` and `markdown` content types are supported",
@@ -54,7 +50,8 @@ export class Post extends Base {
   @IsNotEmpty()
   @ValidateNested()
   @Field()
-  @Property({ _id: false, required: true })
+  @Type(() => RemoteReference)
+  @Property({ required: true })
   author!: RemoteReference;
 
   @Field(() => [Post])
@@ -70,14 +67,6 @@ export class Post extends Base {
   @Field()
   approved!: boolean;
 
-  get updatedAtUnixTimestamp(): number {
-    return this.updatedAt ? dateToUnixTimestamp(this.updatedAt) : 0;
-  }
-
-  get createdAtUnixTimestamp(): number {
-    return this.createdAt ? dateToUnixTimestamp(this.createdAt) : 0;
-  }
-
   toJSON(): JSONMap {
     const title = this.approved ? this.title : "Pending Approval";
     const body = this.approved ? this.body : "This post is pending approval.";
@@ -87,13 +76,18 @@ export class Post extends Base {
       parentPost: getIdFromRef(this.parentPost),
       community: getIdFromRef(this.community),
       children: (this.children || []).map(getIdFromRef),
-      title,
-      body,
-      contentType: this.contentType,
-      author: this.author,
-      modified: this.updatedAtUnixTimestamp,
-      created: this.createdAtUnixTimestamp,
+      author: this.author.toJSON(),
+      modified: this.modified,
+      created: this.created,
       approved: this.approved,
+      content: [
+        {
+          [this.contentType]: {
+            [this.contentType]: body,
+          },
+        },
+      ],
+      title,
     };
   }
 }

@@ -16,6 +16,13 @@ test("Internal reference", async (t) => {
   });
 });
 
+test("Unset host", async (t) => {
+  const reference = new RemoteReference();
+  reference.id = "foo";
+
+  t.throws(() => reference.toJSON());
+});
+
 test("toJSON", (t) => {
   const reference = new RemoteReference();
   reference.id = "foo";
