@@ -3,8 +3,15 @@
  */
 
 import { render } from "@testing-library/react";
+import { Formik, Form } from "formik";
 import { PasswordField } from "./PasswordField";
 
 test("PasswordField renders", () => {
-  render(<PasswordField />);
+  render(
+    <Formik initialValues={undefined} onSubmit={null}>
+      <Form>
+        <PasswordField />
+      </Form>
+    </Formik>,
+  );
 });

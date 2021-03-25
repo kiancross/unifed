@@ -27,7 +27,9 @@ export const PasswordField = (props: Props): JSX.Element => {
       color="primary"
       helperText={props.errorMessage}
       error={!!props.errorMessage}
-      InputProps={{
+      required
+      inputProps={{
+        "data-testid": "password",
         endAdornment: (
           <InputAdornment position="end">
             <IconButton onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
