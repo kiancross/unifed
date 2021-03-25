@@ -2,11 +2,19 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "import"
   ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
     "plugin:prettier/recommended"
-  ]
+  ],
+  "rules": {
+    "import/no-default-export": "error"
+  },
+  "settings": {
+    "import/resolver": "typescript"
+  }
 }
