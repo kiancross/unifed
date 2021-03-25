@@ -34,7 +34,7 @@ export const PasswordField = (props: Props): JSX.Element => {
           <InputAdornment position="end">
             <IconButton onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
               {isPasswordVisible ? (
-                <Tooltip title="hide password">
+                <Tooltip title="Hide Password">
                   <Visibility />
                 </Tooltip>
               ) : (
