@@ -4,7 +4,7 @@
 
 import { createContext, ReactElement } from "react";
 import { gql, useQuery } from "@apollo/client";
-import { accountsClient } from "../../helpers/accounts";
+import { accountsClient } from "../helpers";
 
 interface Context {
   details?: null | { username: string; profile: { name: string }; emails: { address: string }[] };
@@ -27,7 +27,7 @@ export const getUserQuery = gql`
   }
 `;
 
-export const defaultContext: Context = {
+export const defaultUserContext: Context = {
   details: undefined,
   refetch: async () => {
     return;
@@ -40,7 +40,7 @@ export const defaultContext: Context = {
   },
 };
 
-export const UserContext = createContext<Context>(defaultContext);
+export const UserContext = createContext<Context>(defaultUserContext);
 
 export const UserProvider = (props: { children: ReactElement }): ReactElement => {
   const { data, loading, error, refetch: refetchQuery } = useQuery(getUserQuery);

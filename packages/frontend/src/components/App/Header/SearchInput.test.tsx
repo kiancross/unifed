@@ -1,7 +1,12 @@
+/*
+ * CS3099 Group A3
+ */
+
 import { render, waitFor, screen } from "@testing-library/react";
-import { AllTheProviders } from "../../helpers/test";
-import SearchInput, { getCommunities } from "./SearchInput";
 import userEvent from "@testing-library/user-event";
+
+import { BrowserMockProvider } from "../../../helpers";
+import { SearchInput, getCommunities } from "./SearchInput";
 
 const title = "Test Community";
 const id = "testId";
@@ -25,9 +30,9 @@ const getCommunitiesMock = [
 
 test("SearchBar types", async () => {
   const { getByTestId } = render(
-    <AllTheProviders mocks={getCommunitiesMock}>
+    <BrowserMockProvider mocks={getCommunitiesMock}>
       <SearchInput />
-    </AllTheProviders>,
+    </BrowserMockProvider>,
   );
 
   await waitFor(() => {

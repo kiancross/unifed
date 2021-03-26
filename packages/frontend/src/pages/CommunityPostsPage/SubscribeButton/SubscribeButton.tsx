@@ -24,7 +24,7 @@ export const UNSUBSCRIBE = gql`
   }
 `;
 
-const SubscribeButton = (props: Props): JSX.Element => {
+export const SubscribeButton = (props: Props): JSX.Element => {
   const [subscribed, setSubscribed] = React.useState(props.isSubscribed);
   const [mutation, { loading, error, data }] = useMutation(subscribed ? UNSUBSCRIBE : SUBSCRIBE);
 
@@ -53,5 +53,3 @@ const SubscribeButton = (props: Props): JSX.Element => {
     </Button>
   );
 };
-
-export default SubscribeButton;

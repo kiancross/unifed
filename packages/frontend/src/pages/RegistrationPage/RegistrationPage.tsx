@@ -2,11 +2,10 @@
  * CS3099 Group A3
  */
 
-import { ButtonLink } from "../../components/Links";
-import LogoTemplate from "../../components/LogoTemplate";
-import RegistrationCard from "./RegistrationCard";
+import { LogoTemplate, ButtonLink } from "../../components";
+import { RegistrationCard } from "./RegistrationCard";
 
-const RegistrationPage = (): JSX.Element => {
+export const RegistrationPage = (): JSX.Element => {
   return (
     <LogoTemplate>
       <RegistrationCard />
@@ -22,5 +21,3 @@ const RegistrationPage = (): JSX.Element => {
     </LogoTemplate>
   );
 };
-
-export default RegistrationPage;

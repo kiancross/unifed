@@ -4,11 +4,8 @@
 
 import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { Card, CardActionArea, CardContent, Grid, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import UserIcon from "../../components/UserIcon";
-import PostHeader from "../PostHeader";
-import PostEditor from "../../components/PostEditor";
+import { Card, CardActionArea, CardContent, Grid, Typography, makeStyles } from "@material-ui/core";
+import { PostEditor, PostHeader, UserIcon } from "..";
 
 interface PostValues {
   username: string;
@@ -26,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PostPreview = (props: PostValues): JSX.Element => {
+export const PostPreview = (props: PostValues): JSX.Element => {
   const [editorOpen, setEditorOpen] = useState(false);
   const classes = useStyles();
 
@@ -71,5 +68,3 @@ const PostPreview = (props: PostValues): JSX.Element => {
 
   return content;
 };
-
-export default PostPreview;

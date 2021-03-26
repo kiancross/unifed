@@ -3,6 +3,9 @@
  */
 
 import React from "react";
+import { gql, useQuery } from "@apollo/client";
+import { Link } from "react-router-dom";
+
 import {
   Card,
   CardContent,
@@ -13,9 +16,8 @@ import {
   ListItem,
   ListItemText,
 } from "@material-ui/core";
-import { gql, useQuery } from "@apollo/client";
-import LoadingCard from "../../components/LoadingCard";
-import { Link } from "react-router-dom";
+
+import { LoadingCard } from "../../components";
 
 export const GET_COMMUNITIES = gql`
   query($host: String!) {
@@ -26,7 +28,7 @@ export const GET_COMMUNITIES = gql`
   }
 `;
 
-const CommunitiesListCard = () => {
+export const CommunitiesListCard = () => {
   const { loading, error, data } = useQuery(GET_COMMUNITIES, {
     variables: {
       host: "this",
@@ -61,5 +63,3 @@ const CommunitiesListCard = () => {
     </Grid>
   );
 };
-
-export default CommunitiesListCard;

@@ -3,6 +3,11 @@
  */
 
 import React from "react";
+import { Link } from "react-router-dom";
+import PersonIcon from "@material-ui/icons/Person";
+import SettingsIcon from "@material-ui/icons/Settings";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+
 import {
   ClickAwayListener,
   Grow,
@@ -12,14 +17,11 @@ import {
   Paper,
   Popper,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import PersonIcon from "@material-ui/icons/Person";
-import SettingsIcon from "@material-ui/icons/Settings";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import UserIcon from "../../components/UserIcon";
-import { UserContext } from "../../contexts/user";
 
-const AccountMenu = (): JSX.Element => {
+import { UserIcon } from "../../../components";
+import { UserContext } from "../../../contexts";
+
+export const AccountMenu = (): JSX.Element => {
   const user = React.useContext(UserContext);
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
@@ -93,5 +95,3 @@ const AccountMenu = (): JSX.Element => {
     </div>
   );
 };
-
-export default AccountMenu;

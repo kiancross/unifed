@@ -5,9 +5,8 @@
 import React, { ReactElement } from "react";
 import { useHistory } from "react-router-dom";
 import { useDebounce } from "use-debounce";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import { Paper, InputBase, CircularProgress } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Paper, InputBase, CircularProgress, makeStyles } from "@material-ui/core";
+import { Autocomplete } from "@material-ui/lab";
 import { gql, useQuery } from "@apollo/client";
 
 interface Community {
@@ -47,7 +46,7 @@ const getOptionLabel = (option: Community | string) => {
   }
 };
 
-const SearchInput = (): ReactElement => {
+export const SearchInput = (): ReactElement => {
   const classes = useStyles();
 
   const history = useHistory();
@@ -153,5 +152,3 @@ const SearchInput = (): ReactElement => {
     </Paper>
   );
 };
-
-export default SearchInput;

@@ -2,10 +2,12 @@
  * CS3099 Group A3
  */
 
-import React, { useState } from "react";
+import { useState } from "react";
+import { Redirect } from "react-router";
 import { Formik, Form, Field } from "formik";
-import { passwordClient } from "../../helpers/accounts";
+import { Alert } from "@material-ui/lab";
 import { validateUsername, validateName, validateEmail, validatePassword } from "@unifed/shared";
+
 import {
   Button,
   Card,
@@ -16,8 +18,8 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@material-ui/core";
-import { Redirect } from "react-router";
-import { Alert } from "@material-ui/lab";
+
+import { passwordClient } from "../../helpers";
 import PasswordStrengthMeter from "../../components/PasswordStrengthMeter";
 
 interface Values {
@@ -44,7 +46,7 @@ function validate({ username, name, email, password }: Values) {
   return errors;
 }
 
-const RegistrationCard = (): JSX.Element => {
+export const RegistrationCard = (): ReactElement => {
   const [isAccountCreated, setIsAccountCreated] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [password, setPassword] = useState("");
@@ -181,5 +183,3 @@ const RegistrationCard = (): JSX.Element => {
     </>
   );
 };
-
-export default RegistrationCard;

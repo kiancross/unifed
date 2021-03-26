@@ -3,11 +3,12 @@
  */
 
 import { Container, Grid, useMediaQuery } from "@material-ui/core";
-import WelcomeCard from "./WelcomeCard";
-import CommunitiesListCard from "./CommunitiesListCard";
-import SubscribedPosts from "./SubscribedPosts";
 
-const HomePage = (): JSX.Element => {
+import { WelcomeCard } from "./WelcomeCard";
+import { CommunitiesListCard } from "./CommunitiesListCard";
+import { SubscribedPosts } from "./SubscribedPosts";
+
+export const HomePage = (): JSX.Element => {
   const isMobile = useMediaQuery("(max-width: 960px)");
   const direction = isMobile ? "column-reverse" : "row";
   return (
@@ -24,5 +25,3 @@ const HomePage = (): JSX.Element => {
     </Container>
   );
 };
-
-export default HomePage;

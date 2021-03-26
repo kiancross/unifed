@@ -3,6 +3,10 @@
  */
 
 import React from "react";
+import { useFormik } from "formik";
+import { Alert } from "@material-ui/lab";
+import EditIcon from "@material-ui/icons/Edit";
+
 import {
   Button,
   IconButton,
@@ -16,12 +20,10 @@ import {
   DialogContent,
   DialogActions,
   DialogTitle,
+  makeStyles,
 } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
-import { makeStyles } from "@material-ui/core/styles";
-import EditIcon from "@material-ui/icons/Edit";
-import { useFormik } from "formik";
-import { passwordClient } from "../../helpers/accounts";
+
+import { passwordClient } from "../../helpers";
 
 interface AccountTabParams {
   username: string;
@@ -36,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AccountTab = (props: AccountTabParams): JSX.Element => {
+export const AccountTab = (props: AccountTabParams): JSX.Element => {
   const [passOpen, setPassOpen] = React.useState(false);
   const [displayError, setDisplayError] = React.useState(false);
   const [displaySuccess, setDisplaySuccess] = React.useState(false);
@@ -154,5 +156,3 @@ const AccountTab = (props: AccountTabParams): JSX.Element => {
     </>
   );
 };
-
-export default AccountTab;

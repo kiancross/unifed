@@ -8,8 +8,6 @@ import { Button, ButtonProps } from "@material-ui/core";
 
 type Props = Omit<ButtonProps, "component"> & LinkProps;
 
-const ButtonLink = (props: Props): ReactElement => {
+export const ButtonLink = (props: Props): ReactElement => {
   return <Button component={Link} {...props} />;
 };
-
-export default ButtonLink;

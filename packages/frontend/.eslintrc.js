@@ -13,10 +13,16 @@ const config = {
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
+    "plugin:import/errors",
     "plugin:prettier/recommended",
   ],
-  plugins: [],
-  rules: {},
+  plugins: ["import"],
+  rules: {
+    "import/no-default-export": 2,
+  },
+  settings: {
+    "import/resolver": "typescript",
+  },
 };
 
 const schemaPath = __dirname + "/.schema.graphql";

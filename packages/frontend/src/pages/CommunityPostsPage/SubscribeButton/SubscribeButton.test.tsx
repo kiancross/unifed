@@ -3,8 +3,8 @@
  */
 
 import { render, waitFor, fireEvent } from "@testing-library/react";
-import SubscribeButton, { SUBSCRIBE, UNSUBSCRIBE } from "./SubscribeButton";
 import { MockedProvider } from "@apollo/client/testing";
+import { SubscribeButton, SUBSCRIBE, UNSUBSCRIBE } from "./SubscribeButton";
 
 test("Render SubscribeButton on unsubscribed community", async () => {
   const { getByText } = render(
