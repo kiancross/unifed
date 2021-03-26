@@ -2,15 +2,14 @@
  * CS3099 Group A3
  */
 
-import { useState, useContext } from "react";
+import { ReactElement, useState, useContext } from "react";
 import { Formik, Form, Field } from "formik";
 import { Button, Card, CardContent, TextField, Typography } from "@material-ui/core";
-import { UserContext } from "../../contexts/user";
-import { Link } from "../../components/Links";
-import Popup from "../../components/Popup";
-import { PasswordField } from "../../components/PasswordField";
 
-const LoginCard = (): JSX.Element => {
+import { UserContext } from "../../contexts";
+import { Link, Popup, PasswordField } from "../../components";
+
+export const LoginCard = (): ReactElement => {
   const user = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState("");
   const loginErrorMessage = "The email address and/or password you have entered is incorrect";
@@ -70,5 +69,3 @@ const LoginCard = (): JSX.Element => {
     </div>
   );
 };
-
-export default LoginCard;

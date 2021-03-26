@@ -1,2 +1,5 @@
-import PostHeader from "./PostHeader";
-export default PostHeader;
+/*
+ * CS3099 Group A3
+ */
+
+export * from "./PostHeader";

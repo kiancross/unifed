@@ -44,10 +44,8 @@ const renderers = {
   },
 };
 
-const MarkdownViewer = (props: MarkdownViewerProps): ReactElement => (
+export const MarkdownViewer = (props: MarkdownViewerProps): ReactElement => (
   <ReactMarkdown plugins={[math, gfm]} renderers={renderers} className="custom-html-style">
     {props.children}
   </ReactMarkdown>
 );
-
-export default MarkdownViewer;

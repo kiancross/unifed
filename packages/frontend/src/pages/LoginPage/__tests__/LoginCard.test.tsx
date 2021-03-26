@@ -1,17 +1,11 @@
+/*
+ * CS3099 Group A3
+ */
+
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import LoginPage from "./LoginPage";
-import LoginCard from "./LoginCard";
 import { BrowserRouter } from "react-router-dom";
 
-test("Login Page renders", () => {
-  render(
-    <BrowserRouter>
-      <LoginPage />
-    </BrowserRouter>,
-  );
-
-  expect(screen.getByText("Register an account"));
-});
+import { LoginCard } from "../LoginCard";
 
 test("Login Card renders", async () => {
   const { getByTestId } = render(
@@ -25,6 +19,7 @@ test("Login Card renders", async () => {
 
   fireEvent.change(getByTestId("email"), { target: { value: "test@unifed.com" } });
   fireEvent.change(getByTestId("password"), { target: { value: "testpassword" } });
+
   await waitFor(() => {
     fireEvent.click(getByTestId("submit"));
   });

@@ -4,9 +4,9 @@
 
 import { BrowserRouter } from "react-router-dom";
 import { GraphQLError } from "graphql";
-import PostEditor, { editPostQuery } from "./PostEditor";
 import { render, fireEvent, waitFor, act } from "@testing-library/react";
 import { MockedProvider } from "@apollo/client/testing";
+import { PostEditor, editPostQuery } from "./PostEditor";
 
 test("Edit post", async () => {
   const host = "testserver";

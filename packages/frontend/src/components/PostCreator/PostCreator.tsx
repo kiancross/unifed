@@ -4,9 +4,7 @@
 
 import { ReactElement } from "react";
 import { gql, useMutation } from "@apollo/client";
-import CenteredLoader from "../../components/CenteredLoader";
-import ErrorMessage from "../ErrorMessage";
-import PostEditorBase from "../PostEditorBase";
+import { PostEditorBase, CenteredLoader, ErrorMessage } from "..";
 import { GET_POSTS } from "../../pages/CommunityPostsPage/CommunityPostsPage";
 
 interface Params {
@@ -39,7 +37,7 @@ export const createPostQuery = gql`
   }
 `;
 
-const PostCreator = (props: Params): ReactElement => {
+export const PostCreator = (props: Params): ReactElement => {
   const [createPost, { loading, error }] = useMutation(createPostQuery, {
     update(cache, { data: { createPost } }) {
       const variables = {
@@ -93,5 +91,3 @@ const PostCreator = (props: Params): ReactElement => {
     />
   );
 };
-
-export default PostCreator;

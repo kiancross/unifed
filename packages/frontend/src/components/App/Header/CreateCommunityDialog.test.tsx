@@ -2,13 +2,13 @@
  * CS3099 Group A3
  */
 
-import { createMemoryHistory } from "history";
-import { Router } from "react-router-dom";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MockedProvider } from "@apollo/client/testing";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 import { GraphQLError } from "graphql";
-import CreateCommunityDialog, { createCommunityQuery } from "./CreateCommunityDialog";
+import { MockedProvider } from "@apollo/client/testing";
+import { CreateCommunityDialog, createCommunityQuery } from "./CreateCommunityDialog";
 
 test("Open and close", async () => {
   render(

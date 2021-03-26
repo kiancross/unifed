@@ -4,7 +4,7 @@
 
 import { ReactElement } from "react";
 import { Grid, makeStyles } from "@material-ui/core";
-import VideoWrapper, { VideoWrapperProps } from "./VideoWrapper";
+import { VideoWrapper, VideoWrapperProps } from "./VideoWrapper";
 
 const useStyles = makeStyles({
   container: {
@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   },
 });
 
-const VideoGrid = (props: { users: VideoWrapperProps[] }): ReactElement => {
+export const VideoGrid = (props: { users: VideoWrapperProps[] }): ReactElement => {
   const classes = useStyles();
 
   return (
@@ -27,5 +27,3 @@ const VideoGrid = (props: { users: VideoWrapperProps[] }): ReactElement => {
     </Grid>
   );
 };
-
-export default VideoGrid;

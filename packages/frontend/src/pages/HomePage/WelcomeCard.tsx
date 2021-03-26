@@ -4,7 +4,7 @@
 
 import { Card, CardContent, CardHeader, Divider, Grid, Typography } from "@material-ui/core";
 
-const WelcomeCard = () => {
+export const WelcomeCard = () => {
   const content = "Your Unifed homepage.";
   return (
     <Grid item>
@@ -20,5 +20,3 @@ const WelcomeCard = () => {
     </Grid>
   );
 };
-
-export default WelcomeCard;

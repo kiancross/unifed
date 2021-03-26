@@ -2,10 +2,11 @@
  * CS3099 Group A3
  */
 
-// Makes use of https://reactjs.org/docs/error-boundaries.html
+// Derived from:
+// https://reactjs.org/docs/error-boundaries.html
 
 import React, { ErrorInfo } from "react";
-import ErrorMessage from "../ErrorMessage";
+import { ErrorMessage } from "..";
 
 interface PropsType {
   hasError?: boolean;
@@ -15,7 +16,7 @@ interface StateTypes {
   hasError: boolean;
 }
 
-class ErrorBoundary extends React.Component<PropsType, StateTypes> {
+export class ErrorBoundary extends React.Component<PropsType, StateTypes> {
   constructor(props: PropsType) {
     super(props);
     this.state = { hasError: false };
@@ -36,5 +37,3 @@ class ErrorBoundary extends React.Component<PropsType, StateTypes> {
     return this.props.children;
   }
 }
-
-export default ErrorBoundary;

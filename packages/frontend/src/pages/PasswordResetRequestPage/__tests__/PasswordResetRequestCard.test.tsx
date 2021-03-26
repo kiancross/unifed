@@ -5,26 +5,11 @@
 import { gql } from "@apollo/client";
 import { MockedProvider } from "@apollo/client/testing";
 import { act, fireEvent, render } from "@testing-library/react";
-import { createMemoryHistory } from "history";
-import { MemoryRouter, Router } from "react-router-dom";
-import PasswordResetRequestCard from "./PasswordResetRequestCard";
-import PasswordResetRequestPage from "./PasswordResetRequestPage";
+import { MemoryRouter } from "react-router-dom";
+
+import { PasswordResetRequestCard } from "../PasswordResetRequestCard";
 
 const validEmail = "foo@bar.com";
-
-test("Return to login redirects correctly", async () => {
-  const history = createMemoryHistory();
-  history.push = jest.fn();
-
-  const { getByTestId } = render(
-    <Router history={history}>
-      <PasswordResetRequestPage />
-    </Router>,
-  );
-
-  fireEvent.click(getByTestId("login-return-button"));
-  expect(history.push).toHaveBeenCalledWith("/login");
-});
 
 test("Valid email", async () => {
   const RESET_PASS_EMAIL = gql`

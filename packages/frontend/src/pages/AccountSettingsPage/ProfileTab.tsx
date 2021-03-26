@@ -2,6 +2,11 @@
  * CS3099 Group A3
  */
 
+import React, { useContext } from "react";
+import { useFormik } from "formik";
+import { gql, useMutation } from "@apollo/client";
+import EditIcon from "@material-ui/icons/Edit";
+
 import {
   Button,
   Dialog,
@@ -14,13 +19,10 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   TextField,
+  makeStyles,
 } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import React, { useContext } from "react";
-import { useFormik } from "formik";
-import { gql, useMutation } from "@apollo/client";
-import { UserContext } from "../../contexts/user";
+
+import { UserContext } from "../../contexts";
 
 interface ProfileTabParams {
   name: string;
@@ -40,7 +42,7 @@ export const CHANGE_NAME = gql`
   }
 `;
 
-const ProfileTab = (props: ProfileTabParams): JSX.Element => {
+export const ProfileTab = (props: ProfileTabParams): JSX.Element => {
   const [nameOpen, setNameOpen] = React.useState(false);
   const user = useContext(UserContext);
 
@@ -109,5 +111,3 @@ const ProfileTab = (props: ProfileTabParams): JSX.Element => {
     </List>
   );
 };
-
-export default ProfileTab;

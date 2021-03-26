@@ -2,8 +2,8 @@
  * CS3099 Group A3
  */
 
-import MarkdownEditor from "./MarkdownEditor";
 import renderer from "react-test-renderer";
+import { MarkdownEditor } from "./MarkdownEditor";
 
 test("Render", () => {
   const component = renderer.create(<MarkdownEditor />);

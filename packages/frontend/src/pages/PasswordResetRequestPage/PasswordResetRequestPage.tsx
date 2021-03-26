@@ -2,11 +2,10 @@
  * CS3099 Group A3
  */
 
-import { ButtonLink } from "../../components/Links";
-import LogoTemplate from "../../components/LogoTemplate";
-import PasswordResetRequestCard from "./PasswordResetRequestCard";
+import { LogoTemplate, ButtonLink } from "../../components";
+import { PasswordResetRequestCard } from "./PasswordResetRequestCard";
 
-const PasswordResetRequestPage = (): JSX.Element => {
+export const PasswordResetRequestPage = (): JSX.Element => {
   return (
     <LogoTemplate>
       <PasswordResetRequestCard />
@@ -23,5 +22,3 @@ const PasswordResetRequestPage = (): JSX.Element => {
     </LogoTemplate>
   );
 };
-
-export default PasswordResetRequestPage;

@@ -2,12 +2,12 @@
  * CS3099 Group A3
  */
 
-import LoginCard from "./LoginCard";
-import { ButtonLink } from "../../components/Links";
-import LogoTemplate from "../../components/LogoTemplate";
 import { useMediaQuery } from "@material-ui/core";
 
-const LoginPage = (): JSX.Element => {
+import { LogoTemplate, ButtonLink } from "../../components";
+import { LoginCard } from "./LoginCard";
+
+export const LoginPage = (): JSX.Element => {
   const isMobile = useMediaQuery("(max-width: 960px)");
   const direction = isMobile ? "vertical" : "horizontal";
 
@@ -26,5 +26,3 @@ const LoginPage = (): JSX.Element => {
     </LogoTemplate>
   );
 };
-
-export default LoginPage;

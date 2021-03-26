@@ -3,9 +3,11 @@
  */
 
 import { useState } from "react";
+import { Redirect } from "react-router";
 import { Formik, Form, Field } from "formik";
-import { passwordClient } from "../../helpers/accounts";
+import { Alert } from "@material-ui/lab";
 import { validateUsername, validateName, validateEmail, validatePassword } from "@unifed/shared";
+
 import {
   Button,
   Card,
@@ -16,9 +18,9 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@material-ui/core";
-import { Redirect } from "react-router";
-import { Alert } from "@material-ui/lab";
-import { PasswordField } from "../../components/PasswordField";
+
+import { passwordClient } from "../../helpers";
+import { PasswordField } from "../../components";
 
 interface Values {
   username: string;
@@ -44,7 +46,7 @@ function validate({ username, name, email, password }: Values) {
   return errors;
 }
 
-const RegistrationCard = (): JSX.Element => {
+export const RegistrationCard = (): JSX.Element => {
   const [isAccountCreated, setIsAccountCreated] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -164,5 +166,3 @@ const RegistrationCard = (): JSX.Element => {
     </>
   );
 };
-
-export default RegistrationCard;
