@@ -4,9 +4,8 @@
 
 import { ReactElement, useState } from "react";
 import { Card, CardContent, Grid, Typography, makeStyles } from "@material-ui/core";
-import MarkdownViewer from "../../components/MarkdownViewer";
-import PostHeader from "../../components/PostHeader";
-import PostEditor from "../../components/PostEditor";
+
+import { MarkdownViewer, PostHeader, PostEditor } from "../../components";
 
 interface Props {
   username: string;
@@ -23,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Post = (props: Props): ReactElement => {
+export const Post = (props: Props): ReactElement => {
   const [editorOpen, setEditorOpen] = useState(false);
   const classes = useStyles();
 
@@ -57,5 +56,3 @@ const Post = (props: Props): ReactElement => {
 
   return content;
 };
-
-export default Post;

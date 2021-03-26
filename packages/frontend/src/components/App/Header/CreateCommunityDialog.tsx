@@ -6,6 +6,9 @@ import { ReactElement, useState } from "react";
 import { useHistory } from "react-router";
 import { useFormik } from "formik";
 import { gql, useMutation } from "@apollo/client";
+import AddIcon from "@material-ui/icons/Add";
+import { validateName, validateCommunityDescription, validateUsername } from "@unifed/shared";
+
 import {
   Dialog,
   DialogContent,
@@ -17,9 +20,8 @@ import {
   Tooltip,
   CircularProgress,
 } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
-import { validateName, validateCommunityDescription, validateUsername } from "@unifed/shared";
-import Popup from "../Popup";
+
+import { Popup } from "../../";
 
 export const createCommunityQuery = gql`
   mutation($title: String!, $description: String!, $id: String!) {
@@ -33,7 +35,7 @@ interface FormValues {
   id: string;
 }
 
-const CreateCommunityDialog = (): ReactElement => {
+export const CreateCommunityDialog = (): ReactElement => {
   const history = useHistory();
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
@@ -165,5 +167,3 @@ const CreateCommunityDialog = (): ReactElement => {
     </>
   );
 };
-
-export default CreateCommunityDialog;

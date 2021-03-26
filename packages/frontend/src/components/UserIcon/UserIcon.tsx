@@ -20,7 +20,7 @@ const useStyles = makeStyles<Theme, Props>((theme) => ({
   },
 }));
 
-const UserIcon = (props: Props): ReactElement => {
+export const UserIcon = (props: Props): ReactElement => {
   const classes = useStyles(props);
 
   return (
@@ -31,5 +31,3 @@ const UserIcon = (props: Props): ReactElement => {
     </Avatar>
   );
 };
-
-export default UserIcon;

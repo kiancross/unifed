@@ -1,5 +1,9 @@
-import UserIcon from "./UserIcon";
+/*
+ * CS3099 Group A3
+ */
+
 import { render } from "@testing-library/react";
+import { UserIcon } from "./UserIcon";
 
 const username = "testuser";
 const firstLetter = "T";

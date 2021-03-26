@@ -1,6 +1,11 @@
+/*
+ * CS3099 Group A3
+ */
+
 import { render, screen, waitFor } from "@testing-library/react";
-import { AllTheProviders } from "../../helpers/test";
-import UserProfilePage, { GET_POSTS } from "./UserProfilePage";
+
+import { BrowserMockProvider } from "../../helpers";
+import { UserProfilePage, GET_POSTS1 } from "./UserProfilePage";
 
 const host = "this";
 const community = "all";
@@ -11,7 +16,7 @@ test("UserProfilePage posts render with correct user", async () => {
   const getPostsMock = [
     {
       request: {
-        query: GET_POSTS,
+        query: GET_POSTS1,
         variables: {
           community: community,
           host: host,
@@ -36,13 +41,13 @@ test("UserProfilePage posts render with correct user", async () => {
   ];
 
   render(
-    <AllTheProviders
+    <BrowserMockProvider
       path="/user/:username"
       initialEntries={["/user/testuser"]}
       mocks={getPostsMock}
     >
       <UserProfilePage />
-    </AllTheProviders>,
+    </BrowserMockProvider>,
   );
 
   await waitFor(() => {
@@ -54,7 +59,7 @@ test("UserProfilePage post does not render with incorrect user", async () => {
   const getPostsMock = [
     {
       request: {
-        query: GET_POSTS,
+        query: GET_POSTS1,
         variables: {
           community: community,
           host: host,
@@ -79,13 +84,13 @@ test("UserProfilePage post does not render with incorrect user", async () => {
   ];
 
   render(
-    <AllTheProviders
+    <BrowserMockProvider
       path="/user/:username"
       initialEntries={["/user/testuser"]}
       mocks={getPostsMock}
     >
       <UserProfilePage />
-    </AllTheProviders>,
+    </BrowserMockProvider>,
   );
 
   await waitFor(() => {
@@ -97,7 +102,7 @@ test("UserProfilePage post does not render with incorrect user", async () => {
   const getPostsMock = [
     {
       request: {
-        query: GET_POSTS,
+        query: GET_POSTS1,
         variables: {
           id: community,
           host: host,
@@ -107,13 +112,13 @@ test("UserProfilePage post does not render with incorrect user", async () => {
   ];
 
   render(
-    <AllTheProviders
+    <BrowserMockProvider
       path="/user/:username"
       initialEntries={["/user/testuser"]}
       mocks={getPostsMock}
     >
       <UserProfilePage />
-    </AllTheProviders>,
+    </BrowserMockProvider>,
   );
 
   await waitFor(() => {

@@ -3,17 +3,16 @@
  */
 
 import { useParams } from "react-router-dom";
-import { Container, Grid, useMediaQuery } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
-import UserInfoCard from "../../components/UserInfoCard";
-import PostPreview from "../../components/PostPreview";
-import CenteredLoader from "../../components/CenteredLoader";
+import { Container, Grid, useMediaQuery } from "@material-ui/core";
+
+import { UserInfoCard, PostPreview, CenteredLoader } from "../../components";
 
 interface PublicUserProfileParams {
   username: string;
 }
 
-export const GET_POSTS = gql`
+export const GET_POSTS1 = gql`
   query($community: String!, $host: String!) {
     getPosts(community: { id: $community, host: $host }) {
       id
@@ -27,13 +26,13 @@ export const GET_POSTS = gql`
   }
 `;
 
-const UserProfilePage = (): JSX.Element => {
+export const UserProfilePage = (): JSX.Element => {
   const { username } = useParams<PublicUserProfileParams>();
   const name = username;
   const isMobile = useMediaQuery("(max-width: 960px)");
   const direction = isMobile ? "column-reverse" : "row";
 
-  const all = useQuery(GET_POSTS, {
+  const all = useQuery(GET_POSTS1, {
     variables: {
       community: "all",
       host: "this",
@@ -72,5 +71,3 @@ const UserProfilePage = (): JSX.Element => {
     </Container>
   );
 };
-
-export default UserProfilePage;

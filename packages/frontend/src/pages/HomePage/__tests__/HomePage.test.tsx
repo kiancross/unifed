@@ -3,13 +3,14 @@
  */
 
 import { fireEvent, render, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
-import HomePage from "./HomePage";
-import CommunitiesListCard, { GET_COMMUNITIES } from "./CommunitiesListCard";
-import SubscribedPosts, { GET_SUBSCRIBED } from "./SubscribedPosts";
 import { MockedProvider } from "@apollo/client/testing";
 import { createMemoryHistory } from "history";
 import { MemoryRouter, Router } from "react-router-dom";
 import { GraphQLError } from "graphql";
+
+import { HomePage } from "../HomePage";
+import { CommunitiesListCard, GET_COMMUNITIES } from "../CommunitiesListCard";
+import { SubscribedPosts, GET_SUBSCRIBED } from "../SubscribedPosts";
 
 test("Render homepage", async () => {
   const { getByText } = render(

@@ -6,10 +6,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
-import reportWebVitals from "./reportWebVitals";
-import { apolloClient } from "./helpers/apollo-client";
-import { UserProvider } from "./contexts/user";
-import App from "./components/App";
+import { reportWebVitals } from "./report-web-vitals";
+
+import { apolloClient } from "./helpers";
+import { UserProvider } from "./contexts";
+import { App } from "./components";
 
 ReactDOM.render(
   <React.StrictMode>

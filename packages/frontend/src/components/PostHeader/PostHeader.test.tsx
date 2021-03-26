@@ -3,10 +3,11 @@
  */
 
 import { render, fireEvent, act, screen } from "@testing-library/react";
-import PostHeader, { DELETE_POST } from "./PostHeader";
-import { MockedProvider } from "@apollo/client/testing";
-import { UserContext, defaultContext } from "../../contexts/user";
 import { BrowserRouter, Route } from "react-router-dom";
+import { MockedProvider } from "@apollo/client/testing";
+
+import { UserContext, defaultUserContext } from "../../contexts";
+import { PostHeader, DELETE_POST } from "./PostHeader";
 
 const username = "testuser";
 const id = "123";
@@ -25,7 +26,7 @@ const deletePostMock = {
 };
 
 test("Edit and delete succeed with valid user", async () => {
-  const userContext = { ...defaultContext };
+  const userContext = { ...defaultUserContext };
   userContext.details = { ...userContext.details, username };
 
   const { getByText, getByTestId } = render(
@@ -51,7 +52,7 @@ test("Edit and delete succeed with valid user", async () => {
 });
 
 test("Action menu does not render with invalid user", async () => {
-  const userContext = { ...defaultContext };
+  const userContext = { ...defaultUserContext };
   userContext.details = { ...userContext.details, username: "invalid" };
 
   const { getByText, queryByTestId } = render(
@@ -69,7 +70,7 @@ test("Action menu does not render with invalid user", async () => {
 });
 
 test("Comment deletes", async () => {
-  const userContext = { ...defaultContext };
+  const userContext = { ...defaultUserContext };
   userContext.details = { ...userContext.details, username };
 
   const { getByText, getByTestId } = render(
@@ -97,7 +98,7 @@ test("Comment deletes", async () => {
 });
 
 test("Preview deletes", async () => {
-  const userContext = { ...defaultContext };
+  const userContext = { ...defaultUserContext };
   userContext.details = { ...userContext.details, username };
 
   const { getByText, getByTestId } = render(

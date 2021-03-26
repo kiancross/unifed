@@ -4,21 +4,25 @@
 
 import React from "react";
 import { Link, Redirect, useParams } from "react-router-dom";
-import { passwordClient } from "../../helpers/accounts";
 
-interface Params {
+import { passwordClient } from "../../helpers";
+
+interface EmailVerificationPageParams {
   token: string;
 }
 
-const EmailVerificationPage = (): JSX.Element => {
-  const { token } = useParams<Params>();
+export const EmailVerificationPage = (): JSX.Element => {
+  const { token } = useParams<EmailVerificationPageParams>();
+
   let isTokenValid = false;
+
   try {
     passwordClient.verifyEmail(token);
     isTokenValid = true;
   } catch (err) {
     console.log(err);
   }
+
   return (
     <div className="container">
       {isTokenValid ? (
@@ -35,5 +39,3 @@ const EmailVerificationPage = (): JSX.Element => {
     </div>
   );
 };
-
-export default EmailVerificationPage;

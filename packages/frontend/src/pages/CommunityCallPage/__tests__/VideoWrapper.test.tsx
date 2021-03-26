@@ -3,7 +3,7 @@
  */
 
 import { render, fireEvent } from "@testing-library/react";
-import VideoWrapper from "../VideoWrapper";
+import { VideoWrapper } from "../VideoWrapper";
 
 // https://github.com/testing-library/react-testing-library/issues/470
 Object.defineProperty(HTMLMediaElement.prototype, "muted", {

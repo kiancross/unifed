@@ -5,10 +5,8 @@
 import { useState } from "react";
 import { useTheme, makeStyles } from "@material-ui/core/styles";
 import { Box, Card, CardContent, Grid, Typography, GridSize } from "@material-ui/core";
-import UserIcon from "../../components/UserIcon";
-import MarkdownViewer from "../../components/MarkdownViewer";
-import PostHeader from "../../components/PostHeader";
-import PostEditor from "../../components/PostEditor";
+
+import { UserIcon, MarkdownViewer, PostHeader, PostEditor } from "../../components";
 
 interface PostValues {
   username: string;
@@ -35,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Comment = (props: PostValues): JSX.Element => {
+export const Comment = (props: PostValues): JSX.Element => {
   const theme = useTheme();
   const classes = useStyles();
 
@@ -81,5 +79,3 @@ const Comment = (props: PostValues): JSX.Element => {
 
   return content;
 };
-
-export default Comment;

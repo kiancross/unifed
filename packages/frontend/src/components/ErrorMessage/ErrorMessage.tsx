@@ -4,7 +4,7 @@
 
 import { Container, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { ButtonLink } from "../../components/Links";
+import { ButtonLink } from "..";
 
 interface ErrorMessageProps {
   message: string;
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ErrorMessage = (props: ErrorMessageProps): JSX.Element => {
+export const ErrorMessage = (props: ErrorMessageProps): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -31,5 +31,3 @@ const ErrorMessage = (props: ErrorMessageProps): JSX.Element => {
     </Container>
   );
 };
-
-export default ErrorMessage;
