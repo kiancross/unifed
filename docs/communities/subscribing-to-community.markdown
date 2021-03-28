@@ -8,7 +8,7 @@ nav_order: 2
 
 # Subscribing and Unsubscribing to a Community
 
-## Subscribing to a community
+## Subscribing to a Community
 
 To subscribe to a community, search for the community using the instructions here ####add link####.
 
@@ -16,7 +16,7 @@ You can then subscribe to the community by clicking on the ‘Subscribe’ butto
 
 #### add picture/gif
 
-## Unsubscribing from a community
+## Unsubscribing from a Community
 
 You can unsubscribe by clicking the same button, which displays ‘Unsubscribe’ if you are subscribed.
 
