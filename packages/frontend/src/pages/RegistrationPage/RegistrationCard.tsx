@@ -20,6 +20,7 @@ import {
 } from "@material-ui/core";
 
 import { passwordClient } from "../../helpers";
+import { PasswordField } from "../../components";
 
 interface Values {
   username: string;
@@ -128,8 +129,7 @@ export const RegistrationCard = (): JSX.Element => {
                 <div>
                   <Field
                     name="password"
-                    as={TextField}
-                    type="password"
+                    as={PasswordField}
                     fullWidth
                     size="small"
                     margin="dense"

@@ -15,7 +15,7 @@ test("Login Card renders", async () => {
   );
 
   expect(screen.getByText("Email"));
-  expect(screen.getByText("Password"));
+  expect(screen.getAllByText("Password"));
 
   fireEvent.change(getByTestId("email"), { target: { value: "test@unifed.com" } });
   fireEvent.change(getByTestId("password"), { target: { value: "testpassword" } });
