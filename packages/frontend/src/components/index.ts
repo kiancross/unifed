@@ -11,6 +11,7 @@ export * from "./LoadingCard";
 export * from "./LogoTemplate";
 export * from "./MarkdownEditor";
 export * from "./MarkdownViewer";
+export * from "./PasswordField";
 export * from "./Popup";
 export * from "./PostCreator";
 export * from "./PostEditor";
