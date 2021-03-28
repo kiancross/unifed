@@ -4,6 +4,7 @@
 
 import { Container, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+
 import { ButtonLink } from "../../components/Links";
 
 const useStyles = makeStyles({
@@ -13,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-const PageNotFoundPage = (): JSX.Element => {
+export const PageNotFoundPage = (): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -27,5 +28,3 @@ const PageNotFoundPage = (): JSX.Element => {
     </Container>
   );
 };
-
-export default PageNotFoundPage;

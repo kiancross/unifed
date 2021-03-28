@@ -3,13 +3,14 @@
  */
 
 import { useState } from "react";
-import { passwordClient } from "../../helpers/accounts";
 import { Redirect, useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { TextField, Button, Card, CardContent, Grid, Snackbar } from "@material-ui/core";
-import { validatePassword } from "@unifed/shared";
 import { Alert } from "@material-ui/lab";
-import { Link } from "../../components/Links";
+import { validatePassword } from "@unifed/shared";
+
+import { passwordClient } from "../../helpers";
+import { Link } from "../../components";
 
 interface Params {
   token: string;
@@ -19,6 +20,7 @@ interface Values {
   newPass: string;
   retyped: string;
 }
+
 function validate({ newPass, retyped }: Values) {
   const errors: Partial<Values> = {};
   if (newPass === retyped) {
@@ -36,7 +38,8 @@ function validate({ newPass, retyped }: Values) {
   }
   return errors;
 }
-const PasswordResetCard = (): JSX.Element => {
+
+export const PasswordResetCard = (): JSX.Element => {
   const { token } = useParams<Params>();
   const [isReset, setIsReset] = useState(false);
   const [isInternalServerError, setIsInternalServerError] = useState(false);
@@ -126,5 +129,3 @@ const PasswordResetCard = (): JSX.Element => {
     </Grid>
   );
 };
-
-export default PasswordResetCard;

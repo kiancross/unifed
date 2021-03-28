@@ -12,9 +12,10 @@ import {
   makeStyles,
   CardActions,
 } from "@material-ui/core";
-import SubscribeButton from "../../components/SubscribeButton";
 
-interface Props {
+import { SubscribeButton } from "./SubscribeButton";
+
+export interface CommunityDescriptionProps {
   desc: string;
   title: string;
   id: string;
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CommunityDescription = (props: Props): JSX.Element => {
+export const CommunityDescription = (props: CommunityDescriptionProps): JSX.Element => {
   const classes = useStyles();
 
   const title = <Typography variant="h6">{props.title}</Typography>;
@@ -50,5 +51,3 @@ const CommunityDescription = (props: Props): JSX.Element => {
     </Grid>
   );
 };
-
-export default CommunityDescription;

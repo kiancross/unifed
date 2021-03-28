@@ -3,35 +3,40 @@
  */
 
 import { ReactElement, useContext, useState } from "react";
+import { Route, Redirect, Switch } from "react-router-dom";
+import { ThemeProvider } from "@material-ui/core/styles";
+
 import {
   Box,
   CssBaseline,
   unstable_createMuiStrictModeTheme as createMuiTheme,
 } from "@material-ui/core";
-import { Route, Redirect, Switch } from "react-router-dom";
-import { ThemeProvider } from "@material-ui/core/styles";
-import { lightTheme, darkTheme } from "../../helpers/themes";
-import { UserContext } from "../../contexts/user";
-import Header from "../../components/Header";
-import Footer from "./Footer";
-import CenteredLoader from "../../components/CenteredLoader";
-import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
-import AccountSettingsPage from "../../pages/AccountSettingsPage";
-import HomePage from "../../pages/HomePage";
-import LoginPage from "../../pages/LoginPage";
-import RegistrationPage from "../../pages/RegistrationPage";
-import EmailVerificationPage from "../../pages/EmailVerificationPage";
-import CommunityPostsPage from "../../pages/CommunityPostsPage";
-import CommunityCallPage from "../../pages/CommunityCallPage";
-import CreatePostPage from "../../pages/CreatePostPage";
-import PostPage from "../../pages/PostPage";
-import UserProfilePage from "../../pages/UserProfilePage";
-import PasswordResetRequestPage from "../../pages/PasswordResetRequestPage";
-import PasswordResetPage from "../../pages/PasswordResetPage";
-import PrivacyNoticePage from "../../pages/PrivacyNoticePage";
-import ErrorMessage from "../ErrorMessage";
 
-const App = (): ReactElement => {
+import { lightTheme, darkTheme } from "../../helpers";
+import { UserContext } from "../../contexts";
+
+import {
+  HomePage,
+  LoginPage,
+  RegistrationPage,
+  EmailVerificationPage,
+  CommunityPostsPage,
+  CommunityCallPage,
+  CreatePostPage,
+  PostPage,
+  UserProfilePage,
+  PasswordResetRequestPage,
+  PasswordResetPage,
+  PrivacyNoticePage,
+  AccountSettingsPage,
+} from "../../pages";
+
+import { CenteredLoader, ErrorBoundary, ErrorMessage } from "..";
+
+import { Header } from "./Header";
+import { Footer } from "./Footer";
+
+export const App = (): ReactElement => {
   const user = useContext(UserContext);
 
   const [darkMode, setDarkMode] = useState(localStorage.getItem("darkMode") === "true");
@@ -124,5 +129,3 @@ const App = (): ReactElement => {
     </ErrorBoundary>
   );
 };
-
-export default App;

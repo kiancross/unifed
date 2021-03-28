@@ -5,12 +5,13 @@
 import { render } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { MockedProvider } from "@apollo/client/testing";
-import { UserContext, defaultContext } from "../../contexts/user";
-import App from "./App";
+
+import { UserContext, defaultUserContext } from "../../contexts";
+import { App } from "./App";
 
 test("Loading user", () => {
   const { queryByText } = render(
-    <UserContext.Provider value={defaultContext}>
+    <UserContext.Provider value={defaultUserContext}>
       <App />
     </UserContext.Provider>,
   );
@@ -19,7 +20,7 @@ test("Loading user", () => {
 });
 
 test("Loaded user", () => {
-  const userContext = { ...defaultContext };
+  const userContext = { ...defaultUserContext };
   userContext.details = { ...userContext.details, username: "foo" };
 
   window.history.pushState({}, "foo", "/404");

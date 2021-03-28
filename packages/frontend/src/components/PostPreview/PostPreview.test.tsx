@@ -4,9 +4,10 @@
 
 import { MockedProvider } from "@apollo/client/testing";
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import { defaultContext, UserContext } from "../../contexts/user/UserContext";
 import { MemoryRouter } from "react-router-dom";
-import PostPreview from "./PostPreview";
+
+import { defaultUserContext, UserContext } from "../../contexts";
+import { PostPreview } from "./PostPreview";
 
 const username = "testuser";
 const title = "Test title";
@@ -16,7 +17,7 @@ const community = "ham";
 const body = "Test body";
 
 test("Renders correctly", async () => {
-  const userContext = { ...defaultContext };
+  const userContext = { ...defaultUserContext };
   userContext.details = { ...userContext.details, username };
   const { getAllByText, getByText, getByTestId } = render(
     <MemoryRouter>

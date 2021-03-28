@@ -4,7 +4,7 @@
 
 import { BrowserRouter } from "react-router-dom";
 import { render } from "@testing-library/react";
-import ErrorBoundary from "./ErrorBoundary";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 const TriggerError = (props: { error: boolean }): JSX.Element => {
   if (props.error) {

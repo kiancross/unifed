@@ -4,7 +4,8 @@
 
 import { ReactElement } from "react";
 import { Typography, Link, makeStyles } from "@material-ui/core";
-import LogoTemplate from "../../components/LogoTemplate";
+
+import { LogoTemplate } from "../../components";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PrivacyPolicyPage = (): ReactElement => {
+export const PrivacyNoticePage = (): ReactElement => {
   const classes = useStyles();
   return (
     <LogoTemplate direction="vertical">
@@ -57,7 +58,7 @@ const PrivacyPolicyPage = (): ReactElement => {
         Most of the personal information we process is provided to us directly by you for one of the
         following reasons:
         <ul>
-          <li>To signup to the website.</li>
+          <li>To sign-up to the website.</li>
           <li>To create and upload content.</li>
         </ul>
         We also receive personal information indirectly, from the following sources in the following
@@ -85,8 +86,8 @@ const PrivacyPolicyPage = (): ReactElement => {
       <Typography variant="body1">
         Personal identifiers, contacts, characteristics (for example, your name and contact details)
         and your IP address are always kept private. Your username and any posts you make are
-        publically available. Publically available content may be saved and downloaded by third
-        parties outside of our control.
+        publicly available. Publicly available content may be saved and downloaded by third parties
+        outside of our control.
       </Typography>
       <Typography variant="h4">Your data protection rights</Typography>
       <Typography variant="body1">
@@ -145,5 +146,3 @@ const PrivacyPolicyPage = (): ReactElement => {
     </LogoTemplate>
   );
 };
-
-export default PrivacyPolicyPage;

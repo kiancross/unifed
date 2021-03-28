@@ -1,7 +1,11 @@
+/*
+ * CS3099 Group A3
+ */
+
 import { Grid } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
-import LoadingCard from "../../components/LoadingCard";
-import PostPreview from "../../components/PostPreview";
+
+import { LoadingCard, PostPreview } from "../../components";
 
 interface Post {
   id: string;
@@ -33,7 +37,7 @@ export const GET_SUBSCRIBED = gql`
   }
 `;
 
-const SubscribedPosts = () => {
+export const SubscribedPosts = () => {
   const { loading, error, data } = useQuery(GET_SUBSCRIBED);
   if (error) return <Grid item />;
   if (loading) return <LoadingCard />;
@@ -58,5 +62,3 @@ const SubscribedPosts = () => {
     </Grid>
   );
 };
-
-export default SubscribedPosts;

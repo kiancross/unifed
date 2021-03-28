@@ -5,13 +5,11 @@
 import { useParams } from "react-router-dom";
 import { Container, Grid, useMediaQuery } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
-import PostPreview from "../../components/PostPreview";
-import CommunityDescription from "./CommunityDescription";
-import { ButtonLink } from "../../components/Links";
-import CenteredLoader from "../../components/CenteredLoader";
-import ErrorMessage from "../../components/ErrorMessage";
 
-interface Params {
+import { PostPreview, ButtonLink, CenteredLoader, ErrorMessage } from "../../components";
+import { CommunityDescription } from "./CommunityDescription";
+
+export interface CommunityPostsPageParams {
   server: string;
   community: string;
 }
@@ -40,8 +38,8 @@ export const GET_POSTS = gql`
   }
 `;
 
-const CommunityPostsPage = (): JSX.Element => {
-  const { community, server } = useParams<Params>();
+export const CommunityPostsPage = (): JSX.Element => {
+  const { community, server } = useParams<CommunityPostsPageParams>();
   const isMobile = useMediaQuery("(max-width: 960px)");
 
   const { loading, error, data } = useQuery(GET_POSTS, {
@@ -120,5 +118,3 @@ const CommunityPostsPage = (): JSX.Element => {
     </div>
   );
 };
-
-export default CommunityPostsPage;

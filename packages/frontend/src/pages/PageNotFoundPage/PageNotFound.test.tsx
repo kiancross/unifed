@@ -1,14 +1,19 @@
+/*
+ * CS3099 Group A3
+ */
+
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import PageNotFoundPage from "./PageNotFoundPage";
-import { AllTheProviders } from "../../helpers/test";
 import { Route } from "react-router-dom";
+
+import { BrowserMockProvider } from "../../helpers";
+import { PageNotFoundPage } from "./PageNotFoundPage";
 
 test("PageNotFoundPage button works", () => {
   const { getByText } = render(
-    <AllTheProviders>
+    <BrowserMockProvider>
       <PageNotFoundPage />
       <Route path="/">Home Page</Route>
-    </AllTheProviders>,
+    </BrowserMockProvider>,
   );
 
   expect(screen.getAllByText("404 Page Not Found"));

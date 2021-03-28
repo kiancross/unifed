@@ -2,8 +2,8 @@
  * CS3099 Group A3
  */
 
-import MarkdownViewer from "./MarkdownViewer";
 import renderer from "react-test-renderer";
+import { MarkdownViewer } from "./MarkdownViewer";
 
 test("Standard text", () => {
   const component = renderer.create(<MarkdownViewer>Foo Bar</MarkdownViewer>);

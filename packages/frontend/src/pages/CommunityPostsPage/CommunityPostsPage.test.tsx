@@ -1,6 +1,11 @@
+/*
+ * CS3099 Group A3
+ */
+
 import { render, screen, waitFor } from "@testing-library/react";
-import { AllTheProviders } from "../../helpers/test";
-import CommunityPostsPage, { GET_POSTS } from "./CommunityPostsPage";
+
+import { BrowserMockProvider } from "../../helpers";
+import { CommunityPostsPage, GET_POSTS } from "./CommunityPostsPage";
 
 test("CommunityPostsPage renders", async () => {
   const community = "general";
@@ -45,13 +50,13 @@ test("CommunityPostsPage renders", async () => {
     },
   ];
   render(
-    <AllTheProviders
+    <BrowserMockProvider
       path="/instances/:server/communities/:community/posts"
       initialEntries={["/instances/this/communities/general/posts"]}
       mocks={getPostsMock}
     >
       <CommunityPostsPage />
-    </AllTheProviders>,
+    </BrowserMockProvider>,
   );
 
   await waitFor(() => {
@@ -102,13 +107,13 @@ test("CommunityPostsPage error message renders", async () => {
     },
   ];
   render(
-    <AllTheProviders
+    <BrowserMockProvider
       path="/instances/:server/communities/:community/posts"
       initialEntries={["/instances/this/communities/general/posts"]}
       mocks={getPostsMock}
     >
       <CommunityPostsPage />
-    </AllTheProviders>,
+    </BrowserMockProvider>,
   );
 
   await waitFor(() => {

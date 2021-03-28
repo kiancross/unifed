@@ -4,11 +4,12 @@
 
 import React, { useState, useContext } from "react";
 import { AppBar, Container, Tab, Tabs } from "@material-ui/core";
-import AccountTab from "./AccountTab";
-import ProfileTab from "./ProfileTab";
-import { UserContext } from "../../contexts/user";
 
-const AccountSettingsPage = (): JSX.Element => {
+import { UserContext } from "../../contexts";
+import { AccountTab } from "./AccountTab";
+import { ProfileTab } from "./ProfileTab";
+
+export const AccountSettingsPage = (): JSX.Element => {
   const [selectedTab, setSelectedTab] = useState(0);
   const user = useContext(UserContext);
   const handleTabChange = (_event: React.ChangeEvent<unknown>, newValue: number): void => {
@@ -34,5 +35,3 @@ const AccountSettingsPage = (): JSX.Element => {
     </Container>
   );
 };
-
-export default AccountSettingsPage;

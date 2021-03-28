@@ -1,8 +1,13 @@
+/*
+ * CS3099 Group A3
+ */
+
 import { render, screen, waitFor } from "@testing-library/react";
-import { AllTheProviders } from "../../helpers/test";
-import PostCreator, { createPostQuery } from "./PostCreator";
 import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
+
+import { BrowserMockProvider } from "../../helpers";
+import { PostCreator, createPostQuery } from "./PostCreator";
 
 const community = "all";
 const server = "this";
@@ -31,7 +36,7 @@ test("PostCreator error renders", async () => {
     },
   ];
   const { getByText } = render(
-    <AllTheProviders mocks={createPostMockError}>
+    <BrowserMockProvider mocks={createPostMockError}>
       <PostCreator
         submitButtonText={submitButtonText}
         onSuccess={mockFunc}
@@ -39,7 +44,7 @@ test("PostCreator error renders", async () => {
         community={community}
         parentId={parentPost}
       />
-    </AllTheProviders>,
+    </BrowserMockProvider>,
   );
 
   await waitFor(() => {

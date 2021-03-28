@@ -4,11 +4,12 @@
 
 import { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import { passwordClient } from "../../helpers/accounts";
 import { Button, Card, CardContent, Grid, TextField, Snackbar } from "@material-ui/core";
-import { validateEmail } from "@unifed/shared";
 import { Alert } from "@material-ui/lab";
-import { Link } from "../../components/Links";
+import { validateEmail } from "@unifed/shared";
+
+import { passwordClient } from "../../helpers";
+import { Link } from "../../components";
 
 interface Values {
   email: string;
@@ -16,13 +17,15 @@ interface Values {
 
 function validate({ email }: Values) {
   const errors: Partial<Values> = {};
+
   if (!validateEmail(email)) {
     errors.email = "Invalid email";
   }
+
   return errors;
 }
 
-const ResetPasswordRequestCard = (): JSX.Element => {
+export const PasswordResetRequestCard = (): JSX.Element => {
   const [isRequested, setIsRequested] = useState(false);
   return (
     <Grid item>
@@ -78,5 +81,3 @@ const ResetPasswordRequestCard = (): JSX.Element => {
     </Grid>
   );
 };
-
-export default ResetPasswordRequestCard;

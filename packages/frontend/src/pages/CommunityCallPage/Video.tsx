@@ -9,7 +9,7 @@ import { ReactElement, useRef, useEffect } from "react";
 
 export type VideoProps = { stream?: MediaStream; muted?: boolean };
 
-const Video = (props: VideoProps): ReactElement => {
+export const Video = (props: VideoProps): ReactElement => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleCanPlay = () => {
@@ -35,5 +35,3 @@ const Video = (props: VideoProps): ReactElement => {
     />
   );
 };
-
-export default Video;
