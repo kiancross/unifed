@@ -30,7 +30,7 @@ export class PublicUser extends Base {
   @ValidateNested()
   @Field()
   @Type(() => UserProfile)
-  @Property({ _id: false, ref: UserProfile, required: true })
+  @Property({ type: UserProfile, required: true })
   profile!: UserProfile;
 
   toJSON(): JSONMap {
