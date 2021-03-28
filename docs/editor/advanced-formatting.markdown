@@ -1,11 +1,12 @@
 ---
 layout: default
-title: Advanced formatting
+title: Advanced Formatting
 parent: Markdown Editor
 permalink: /editor/advanced-formatting/
 nav_order: 2 
 ---
 
+# Advanced Formatting
 
 ### Creating a table
 

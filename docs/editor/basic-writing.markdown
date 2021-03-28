@@ -1,10 +1,12 @@
 ---
 layout: default
-title: Basic Writing and formatting
+title: Basic Writing and Formatting
 parent: Markdown Editor
 permalink: /editor/basic-writing/
 nav_order: 1
 ---
+
+# Basic Writing and Formatting
 
 ### Headings
 

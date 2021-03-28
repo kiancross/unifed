@@ -6,6 +6,7 @@ permalink: /editor/creating-code
 nav_order: 3
 ---
 
+# Creating and Highlighting code
 
 ### Fenced code blocks
 
