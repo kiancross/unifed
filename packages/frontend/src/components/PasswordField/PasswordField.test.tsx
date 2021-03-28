@@ -2,16 +2,19 @@
  * CS3099 Group A3
  */
 
-import { render } from "@testing-library/react";
-import { Formik, Form } from "formik";
+import { render, fireEvent } from "@testing-library/react";
 import { PasswordField } from "./PasswordField";
 
-test("PasswordField renders", () => {
-  render(
-    <Formik initialValues={undefined} onSubmit={null}>
-      <Form>
-        <PasswordField />
-      </Form>
-    </Formik>,
-  );
+test("Hidden (default)", () => {
+  const { getByLabelText } = render(<PasswordField id="password" label="password" />);
+
+  expect(getByLabelText("password")).toHaveProperty("type", "password");
+});
+
+test("Visible", () => {
+  const { getByLabelText, getByRole } = render(<PasswordField id="password" label="password" />);
+
+  fireEvent.click(getByRole("button"));
+
+  expect(getByLabelText("password")).toHaveProperty("type", "text");
 });

@@ -127,7 +127,18 @@ export const RegistrationCard = (): JSX.Element => {
                   />
                 </div>
                 <div>
-                  <PasswordField errorMessage={errors.password} />
+                  <Field
+                    name="password"
+                    as={PasswordField}
+                    fullWidth
+                    size="small"
+                    margin="dense"
+                    variant="outlined"
+                    label="Password"
+                    color="primary"
+                    helperText={errors.password}
+                    error={!!errors.password}
+                  />
                 </div>
                 <FormControlLabel
                   control={<Checkbox color="primary" required />}

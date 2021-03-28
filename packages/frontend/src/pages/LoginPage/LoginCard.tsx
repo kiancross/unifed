@@ -46,7 +46,18 @@ export const LoginCard = (): ReactElement => {
                 />
               </div>
               <div>
-                <PasswordField />
+                <Field
+                  name="password"
+                  as={PasswordField}
+                  fullWidth
+                  size="small"
+                  margin="dense"
+                  variant="outlined"
+                  label="Password"
+                  color="primary"
+                  required
+                  inputProps={{ "data-testid": "password" }}
+                />
               </div>
               <Button
                 type="submit"

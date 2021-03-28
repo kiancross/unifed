@@ -3,33 +3,29 @@
  */
 
 import { useState } from "react";
-import { IconButton, InputAdornment, TextField, Tooltip } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
-import { Field } from "formik";
 
-interface Props {
-  errorMessage?: string;
-}
+import {
+  IconButton,
+  InputAdornment,
+  TextField,
+  Tooltip,
+  TextFieldProps,
+  InputProps,
+} from "@material-ui/core";
 
-export const PasswordField = (props: Props): JSX.Element => {
+export type PasswordFieldProps = Omit<TextFieldProps, "type" | "InputProps"> & {
+  InputProps?: Omit<InputProps, "endAdornment">;
+};
+
+export const PasswordField = (props: PasswordFieldProps): JSX.Element => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   return (
-    <Field
-      name="password"
-      as={TextField}
+    <TextField
+      {...props}
       type={isPasswordVisible ? "text" : "password"}
-      fullWidth
-      size="small"
-      margin="dense"
-      variant="outlined"
-      label="Password"
-      color="primary"
-      helperText={props.errorMessage}
-      error={!!props.errorMessage}
-      required
-      inputProps={{
-        "data-testid": "password",
+      InputProps={{
         endAdornment: (
           <InputAdornment position="end">
             <IconButton onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
