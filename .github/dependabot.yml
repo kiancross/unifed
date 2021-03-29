@@ -18,3 +18,10 @@ updates:
       interval: "daily"
     labels:
       - dependencies
+  
+  - package-ecosystem: "bundler"
+    directory: "/docs"
+    schedule:
+      interval: "daily"
+    labels:
+      - dependencies
