@@ -51,8 +51,6 @@ export class UsersService {
 
     if (!user) return [];
 
-    return user.subscriptions.filter(
-      (subscription): subscription is RemoteReference => typeof subscription !== "string",
-    );
+    return user.subscriptions;
   }
 }
