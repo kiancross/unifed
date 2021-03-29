@@ -13,7 +13,14 @@ updates:
       - dependencies
 
   - package-ecosystem: "github-actions"
-    directory: "/"
+    directory: "/.github"
+    schedule:
+      interval: "daily"
+    labels:
+      - dependencies
+  
+  - package-ecosystem: "bundler"
+    directory: "/docs"
     schedule:
       interval: "daily"
     labels:
