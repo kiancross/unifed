@@ -17,7 +17,9 @@ export class UsersService {
     community.id = communityId;
     community.host = host;
 
-    if (await UserModel.exists({ _id: userId, subscriptions: community })) return true;
+    if (await UserModel.exists({ _id: userId, subscriptions: { $elemMatch: community } })) {
+      return true;
+    }
 
     return (
       (await UserModel.findByIdAndUpdate(
@@ -32,7 +34,7 @@ export class UsersService {
     community.id = communityId;
     community.host = host;
 
-    if (await UserModel.exists({ _id: userId, subscriptions: community })) {
+    if (await UserModel.exists({ _id: userId, subscriptions: { $elemMatch: community } })) {
       return (
         (await UserModel.findByIdAndUpdate(
           { _id: userId },
