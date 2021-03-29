@@ -6,7 +6,9 @@
  * There are some bugs with the implementation of RTCPeerConnection on
  * some browsers. This wrapper attempts to abstract over these issues
  * so that it can be used transparently within other code (without
- * having to worry about the edge cases).
+ * having to worry about the edge cases). Safari does not allow
+ * RTCPeerConnection to be extended, so we must encapsulate in
+ * rather than extend it (which would have been preferable).
  *
  * In addition to the above, this wrapper adds some convenience
  * events, such as `onclose` and `onready`. These merge multiple
@@ -16,10 +18,14 @@
  * gracefully.
  */
 
+import "webrtc-adapter";
+
 type ReadyCallback = ((remoteStream: MediaStream | undefined) => void) | undefined | null;
 type CloseCallback = (() => void) | undefined | null;
 
-export class SafePeerConnection extends RTCPeerConnection {
+export class SafePeerConnection {
+  readonly super: RTCPeerConnection;
+
   private iceCandidates: RTCIceCandidate[] = [];
   private disconnectionChannel: RTCDataChannel;
 
@@ -28,13 +34,17 @@ export class SafePeerConnection extends RTCPeerConnection {
   private onReadyCallback: ReadyCallback;
   private onCloseCallback: CloseCallback;
 
-  constructor(configuration?: RTCConfiguration, localStream?: MediaStream | null) {
-    super(configuration);
+  constructor(
+    configuration?: RTCConfiguration,
+    localStream?: MediaStream | null,
+    base = RTCPeerConnection,
+  ) {
+    this.super = new base(configuration);
 
-    localStream?.getTracks().forEach((track) => this.addTrack(track, localStream));
+    localStream?.getTracks().forEach((track) => this.super.addTrack(track, localStream));
 
     // Create a data channel for signalling disconnections.
-    this.disconnectionChannel = super.createDataChannel("disconnection", {
+    this.disconnectionChannel = this.super.createDataChannel("disconnection", {
       negotiated: true,
       id: 0,
     });
@@ -54,7 +64,7 @@ export class SafePeerConnection extends RTCPeerConnection {
 
   private isRemoteStreamReady(): boolean {
     const videoTracks = this.remoteStream?.getVideoTracks();
-    const connected = this.iceConnectionState === "connected";
+    const connected = this.super.iceConnectionState === "connected";
 
     // If the frame rate is greater than 0 then the video is ready.
     const videoReady = videoTracks && videoTracks[0].getSettings().frameRate;
@@ -63,10 +73,10 @@ export class SafePeerConnection extends RTCPeerConnection {
   }
 
   private setIceConnectionStatusCallback() {
-    this.oniceconnectionstatechange = () => {
+    this.super.oniceconnectionstatechange = () => {
       let intervalReference: NodeJS.Timeout | undefined = undefined;
 
-      switch (this.iceConnectionState) {
+      switch (this.super.iceConnectionState) {
         case "connected": {
           /*
            * Waits until the remote video connection is ready
@@ -119,25 +129,25 @@ export class SafePeerConnection extends RTCPeerConnection {
      * sending one media type, it is ok to just save the last one
      * that we receive.
      */
-    this.ontrack = ({ streams: [stream] }) => {
+    this.super.ontrack = ({ streams: [stream] }) => {
       this.remoteStream = stream;
     };
   }
 
   async setRemoteDescription(description: RTCSessionDescriptionInit): Promise<void> {
-    await super.setRemoteDescription(description);
+    await this.super.setRemoteDescription(description);
 
     /*
      * Any queued ice candidates need adding.
      */
     for (const candidate of this.iceCandidates) {
-      super.addIceCandidate(candidate);
+      this.super.addIceCandidate(candidate);
     }
   }
 
   async addIceCandidate(candidate: RTCIceCandidate): Promise<void> {
-    if (this.remoteDescription?.type) {
-      await super.addIceCandidate(candidate);
+    if (this.super.remoteDescription?.type) {
+      await this.super.addIceCandidate(candidate);
     } else {
       /*
        * If there is no remote description then the ice candidate
@@ -151,6 +161,6 @@ export class SafePeerConnection extends RTCPeerConnection {
 
   close(): void {
     this.disconnectionChannel.close();
-    super.close();
+    this.super.close();
   }
 }

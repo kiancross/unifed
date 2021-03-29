@@ -4579,6 +4579,7 @@ __metadata:
     typescript: ^4.2.3
     use-debounce: ^6.0.0
     web-vitals: ^1.1.1
+    webrtc-adapter: ^7.7.1
   languageName: unknown
   linkType: soft
 
@@ -18828,6 +18829,15 @@ resolve@1.18.1:
   languageName: node
   linkType: hard
 
+"rtcpeerconnection-shim@npm:^1.2.15":
+  version: 1.2.15
+  resolution: "rtcpeerconnection-shim@npm:1.2.15"
+  dependencies:
+    sdp: ^2.6.0
+  checksum: 45eeb1b3d5e4aff0309ec6e3c32fc3c83d4d5e511713cbd1bb317de022a27c73e0597fe893c31f8f10f092d90c64d52cf575f1a869850a859bbef155998f5552
+  languageName: node
+  linkType: hard
+
 "run-parallel@npm:^1.1.9":
   version: 1.1.10
   resolution: "run-parallel@npm:1.1.10"
@@ -18990,6 +19000,13 @@ resolve@1.18.1:
     ajv: ^6.12.5
     ajv-keywords: ^3.5.2
   checksum: a084f593f222560c412a4d8f40c92386c01c1c709f27c0672c2f02927a4d4d475f57f8b8e91198d0defb452add160476a03f07a05b26200a64b5124fa874e158
+  languageName: node
+  linkType: hard
+
+"sdp@npm:^2.12.0, sdp@npm:^2.6.0":
+  version: 2.12.0
+  resolution: "sdp@npm:2.12.0"
+  checksum: 674e4342b211edb9f98cd17dcaa2aa2a71e7c1f9854b801499dabe3bf849194d10d242a8abe28a2291a6516a68973d46199105ef703372c5cd9844995626517f
   languageName: node
   linkType: hard
 
@@ -21811,6 +21828,16 @@ typescript@^4.2.3:
   bin:
     webpack: bin/webpack.js
   checksum: cb4a9051d64df00494d18afd379d26669b96309f3f41e89e55b8531d99d67060bf8b262a996dbcdc2cda99adfb6c1c2bd9966630d329b09f9f9aa9fc732a3259
+  languageName: node
+  linkType: hard
+
+"webrtc-adapter@npm:^7.7.1":
+  version: 7.7.1
+  resolution: "webrtc-adapter@npm:7.7.1"
+  dependencies:
+    rtcpeerconnection-shim: ^1.2.15
+    sdp: ^2.12.0
+  checksum: e09a6962ae7e4284ca19da3b8d26224eca5836b78078d118b6ed8624e43b92198dd3decae50e8ce0aa37e5e27e63a14a117a2e95eed66ae4a7107b5bd3f84ab4
   languageName: node
   linkType: hard
 

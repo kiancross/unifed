@@ -137,7 +137,7 @@ export const CommunityCallPage = (): ReactElement => {
     peerConnection.onclose = () => endUserConnection(username);
     peerConnection.onready = (stream) => addConnectedUser(username, stream);
 
-    peerConnection.onicecandidate = ({ candidate }) => {
+    peerConnection.super.onicecandidate = ({ candidate }) => {
       if (candidate) {
         sendEvent({
           variables: {
@@ -156,12 +156,12 @@ export const CommunityCallPage = (): ReactElement => {
   const onRequest = async ({ from: username }: CommunityCall): Promise<void> => {
     const peerConnection = await createPeerConnection(username, community);
 
-    const offer = await peerConnection.createOffer({
+    const offer = await peerConnection.super.createOffer({
       offerToReceiveAudio: true,
       offerToReceiveVideo: true,
     });
 
-    await peerConnection.setLocalDescription(offer);
+    await peerConnection.super.setLocalDescription(offer);
 
     await sendEvent({
       variables: {
@@ -178,8 +178,8 @@ export const CommunityCallPage = (): ReactElement => {
 
     await peerConnection.setRemoteDescription(JSON.parse(sdp));
 
-    const answer = await peerConnection.createAnswer();
-    await peerConnection.setLocalDescription(answer);
+    const answer = await peerConnection.super.createAnswer();
+    await peerConnection.super.setLocalDescription(answer);
 
     await sendEvent({
       variables: {
