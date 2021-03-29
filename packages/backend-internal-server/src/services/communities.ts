@@ -3,7 +3,7 @@
  */
 
 import { Service } from "typedi";
-import { Community, CommunityModel, RemoteReference } from "@unifed/backend-core";
+import { Community, CommunityModel, RemoteReference, config } from "@unifed/backend-core";
 import { CommunitiesFederationService } from "@unifed/backend-federation-client";
 
 @Service()
@@ -11,7 +11,7 @@ export class CommunitiesService extends CommunitiesFederationService {
   async create(username: string, id: string, title: string, description: string): Promise<boolean> {
     const admin = new RemoteReference();
     admin.id = username;
-    admin.host = "this";
+    admin.host = config.internalReference;
 
     const community = new Community();
     community.id = id;
@@ -20,6 +20,7 @@ export class CommunitiesService extends CommunitiesFederationService {
     community.admins = [admin];
 
     await CommunityModel.create(community);
+
     return true;
   }
 }

@@ -42,14 +42,14 @@ export class Community extends Base {
     foreignField: "community",
     localField: "_id",
   })
-  posts?: Ref<Post>[];
+  posts!: Ref<Post>[];
 
   @IsArray()
   @ValidateNested()
   @Field(() => [RemoteReference])
   @Type(() => RemoteReference)
-  @Property({ ref: RemoteReference })
-  admins?: RemoteReference[];
+  @Property({ type: RemoteReference })
+  admins!: RemoteReference[];
 
   toJSON(): JSONMap {
     return {

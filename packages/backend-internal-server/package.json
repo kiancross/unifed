@@ -81,6 +81,7 @@
       "UNIFED_SITE_PROTOCOL": "http",
       "UNIFED_SITE_HOST": "localhost",
       "UNIFED_JWT_SECRET": "Something",
+      "UNIFED_INTERNAL_REFERENCE": "this",
       "UNIFED_SMTP_HOST": "smtp.ethereal.email",
       "UNIFED_SMTP_PORT": "587",
       "UNIFED_SMTP_USERNAME": "rogers.price3@ethereal.email",
