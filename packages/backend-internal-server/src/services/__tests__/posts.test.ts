@@ -23,15 +23,15 @@ test.serial("Create post valid", async (t) => {
   post.author.host = "createPostValid";
 
   const user = generateUser();
-  
+
   UserModel.create(user);
-  
+
   const scope = nock("http://createPostValid").post("/fed/posts").reply(200, post.toJSON());
 
   const createdPost = await postsService.create(user.username, "createPostValid", {
-      community: "all",
-      title: "bar",
-      body: "baz",
+    community: "all",
+    title: "bar",
+    body: "baz",
   });
 
   const result = await UserModel.findOne({ username: user.username });
