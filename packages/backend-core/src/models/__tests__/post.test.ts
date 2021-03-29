@@ -27,8 +27,17 @@ const getPost = () => {
   return post;
 };
 
-test("Valid", async (t) => {
+test("Valid post", async (t) => {
   const post = getPost();
+
+  const result = await validate(post);
+
+  t.is(result.length, 0);
+});
+
+test("Valid comment", async (t) => {
+  const post = getPost();
+  post.title = null;
 
   const result = await validate(post);
 
