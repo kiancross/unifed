@@ -2,7 +2,15 @@
  * CS3099 Group A3
  */
 
-import { ValidateNested, Matches, MaxLength, IsString, IsNotEmpty } from "class-validator";
+import {
+  ValidateNested,
+  Matches,
+  MaxLength,
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+} from "class-validator";
+
 import { Type } from "class-transformer";
 import { prop as Property, getModelForClass, Ref } from "@typegoose/typegoose";
 import { ObjectType, Field } from "type-graphql";
@@ -23,6 +31,7 @@ export class Post extends Base {
   @Property({ ref: "Post", type: String })
   parentPost?: Ref<Post> | null;
 
+  @IsOptional()
   @MaxLength(128, {
     message: "Title is too long",
   })

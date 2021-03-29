@@ -4441,6 +4441,7 @@ __metadata:
     graphql-tag: ^2.11.0
     ipaddr.js: ^2.0.0
     mongoose: 5.10.18
+    nock: ^13.0.11
     nodemailer: ^6.5.0
     nyc: ^15.1.0
     prettier: ^2.2.1

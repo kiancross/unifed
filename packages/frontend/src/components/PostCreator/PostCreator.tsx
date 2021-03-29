@@ -47,13 +47,15 @@ export const PostCreator = (props: Params): ReactElement => {
 
       const current = cache.readQuery<any>({ query: GET_POSTS, variables });
 
-      cache.writeQuery({
-        query: GET_POSTS,
-        variables,
-        data: {
-          getPosts: [...(current.getPosts || []), createPost],
-        },
-      });
+      if (current) {
+        cache.writeQuery({
+          query: GET_POSTS,
+          variables,
+          data: {
+            getPosts: [...(current.getPosts || []), createPost],
+          },
+        });
+      }
 
       if (props.parentId) {
         cache.modify({
