@@ -12,4 +12,4 @@ You can search for communities using the search bar in the header of the app.
 Upon typing the name of the host, a drop-down will provide a list of all communities that exist on the host.
 Clicking on a community in the list will take you to the community’s posts page.
 
-![Searching for a Community](../../gifs/searching-for-community.gif)
+![Searching for a Community](../../gifs/searching-community.gif)
