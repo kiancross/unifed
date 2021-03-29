@@ -8,4 +8,4 @@ permalink: /dark-mode/
 
 You can toggle the application to be in a dark mode by clicking the brightness toggle in the app header.
 
-#### Gif of going on and off dark mode
+![Dark Mode Toggle](../gifs/dark-mode.gif)
