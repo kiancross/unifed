@@ -4,6 +4,14 @@
 [![School GitLab Mirror](https://github.com/kiancross/unifed/workflows/School%20GitLab%20Mirror/badge.svg)](https://github.com/kiancross/unifed/actions?query=workflow%3A%22School+GitLab+Mirror%22)
 [![codecov](https://codecov.io/gh/kiancross/unifed/branch/master/graph/badge.svg?token=FI52RC1RQV)](https://codecov.io/gh/kiancross/unifed)
 
+Unifed is a federated social network, targetted towards a university
+environment. The project was developed for our Junior Honours project.
+
+## Protocol
+
+The protocol we developed to allow communication between federated
+instances can be found [here](https://kiancross.github.io/cs3099a-specification/#section/Security).
+
 ## Documentation
 
 Documentation for Unifed can be found on the
