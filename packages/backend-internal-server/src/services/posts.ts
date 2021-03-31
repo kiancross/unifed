@@ -3,7 +3,7 @@
  */
 
 import { Service } from "typedi";
-import { Post, UserModel, RemoteReference } from "@unifed/backend-core";
+import { Post, PostModel, UserModel, RemoteReference } from "@unifed/backend-core";
 import { PostsFederationService, CreatePostProps } from "@unifed/backend-federation-client";
 
 @Service()
@@ -28,5 +28,10 @@ export class PostsService extends PostsFederationService {
     postReference.host = host;
 
     await UserModel.update({ username: username }, { $pull: { posts: postReference } });
+  }
+
+  async approve(id: string): Promise<boolean> {
+    await PostModel.update({ _id: id }, { $set: {approved: true} });
+    return true;
   }
 }

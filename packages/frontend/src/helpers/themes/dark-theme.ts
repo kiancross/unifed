@@ -23,6 +23,7 @@ export const darkTheme: ThemeOptions = {
     },
     secondary: {
       main: "#606060",
+      dark: "#3e3e3e",
     },
     text: {
       primary: "#ffffff",

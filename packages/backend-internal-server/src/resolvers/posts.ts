@@ -79,6 +79,36 @@ export class PostsResolver implements ResolverInterface<Post> {
     return posts.flat();
   }
 
+  @AuthoriseUser()
+  @Mutation(() => Boolean)
+  async approve(
+    @Arg("posts", () => [RemoteReferenceInput]) posts: RemoteReferenceInput[],
+  ): Promise<boolean> {
+    // for (let i = 0; i < posts.length; i++) {
+    //   const post = posts[i];
+    //   if (post.host === config.internalReference || post.host === config.federationHost) {
+    //     await this.postsService.approve(post.id);
+    //   }
+    // }
+    console.log(posts);
+    return true;
+  }
+
+  @AuthoriseUser()
+  @Query(() => [Post])
+  async getUnapprovedPosts(@CurrentUser() user: User): Promise<Post[]> {
+    const communities: RemoteReference[] = await this.usersService.getSubscriptions(user.id);
+    const posts = await Promise.all(
+      communities.map((ref) => {
+        return this.postsService.getByCommunity(user.username, ref.host, ref.id);
+      }),
+    );
+    const unapprovedPosts = posts.flat().filter((post) => {
+      return !post.approved;
+    });
+    return unapprovedPosts;
+  }
+
   @Query(() => [Post])
   async getPosts(
     @Arg("community") community: RemoteReferenceInput,

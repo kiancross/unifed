@@ -23,6 +23,7 @@ export const lightTheme: ThemeOptions = {
     },
     secondary: {
       main: "#ffffff",
+      dark: "#f9f9fb",
     },
     text: {
       primary: "#000000",

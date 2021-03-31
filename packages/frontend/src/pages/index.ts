@@ -16,3 +16,4 @@ export * from "./PostPage";
 export * from "./PrivacyNoticePage";
 export * from "./RegistrationPage";
 export * from "./UserProfilePage";
+export * from "./ModerationPage";
