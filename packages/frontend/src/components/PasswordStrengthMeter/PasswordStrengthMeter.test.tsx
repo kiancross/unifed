@@ -34,5 +34,5 @@ test("correct label when strength is strong", () => {
 
   const { getByText } = render(<PasswordStrengthMeter password={password} />);
 
-  getByText("strong");
+  getByText("Strong");
 });
