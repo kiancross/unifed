@@ -4,7 +4,7 @@
  
 import { validatePassword } from "@unifed/shared";
 import { Tooltip } from "@material-ui/core";
-import { PasswordValidationResult } from "@unifed/shared/src/validators/password";
+import { PasswordValidationResult } from "@unifed/shared";
 
 interface Props {
   password: string;
