@@ -2,19 +2,13 @@
  * CS3099 Group A3
  */
 
-const glob = require("glob");
-
-const entryPoints = glob.sync("packages/**/index.ts");
-
-entryPoints.push("packages/backend-ml/src/train.ts");
-entryPoints.push("packages/backend-ml/src/test-model.ts");
-
 /**
  * @type {import('typedoc').TypeDocOptions}
  */
 module.exports = {
   name: "Unifed Developer Documentation",
   exclude: [
+    "**/index.ts",
     "**/*.test.ts",
     "**/*.test.tsx",
     "**/build/*",
@@ -22,7 +16,7 @@ module.exports = {
     "**/frontend/src/react-app-env*",
   ],
   out: "docs/developers",
-  entryPoints: entryPoints,
+  entryPoints: ["packages/"],
 
   excludeExternals: true,
 
