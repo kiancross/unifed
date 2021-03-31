@@ -1,3 +1,7 @@
+/*
+ * CS3099 Group A3
+ */
+ 
 import { validatePassword } from "@unifed/shared";
 import { Tooltip } from "@material-ui/core";
 import { PasswordValidationResult } from "@unifed/shared/src/validators/password";
