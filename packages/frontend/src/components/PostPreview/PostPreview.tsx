@@ -5,7 +5,7 @@
 import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Card, CardActionArea, CardContent, Grid, Typography, makeStyles } from "@material-ui/core";
-import { PostEditor, PostHeader, UserIcon } from "..";
+import { PostEditor, PostHeader } from "..";
 
 interface PostValues {
   username: string;
@@ -39,9 +39,6 @@ export const PostPreview = (props: PostValues): JSX.Element => {
     />
   ) : (
     <Grid item container spacing={2}>
-      <Grid item xs={1} container justify="flex-end">
-        <UserIcon username={props.username} small />
-      </Grid>
       <Grid item xs={11} container direction="column" justify="flex-start">
         <Card className={classes.card}>
           <PostHeader
