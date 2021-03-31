@@ -1,3 +1,7 @@
+/*
+ * CS3099 Group A3
+ */
+ 
 import { render } from "@testing-library/react";
 import PasswordStrengthMeter from "./PasswordStrengthMeter";
 
