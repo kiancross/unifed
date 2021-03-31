@@ -10,7 +10,7 @@ test("correct meter value and label when password is empty string", () => {
 
   const { getByText } = render(<PasswordStrengthMeter password={password} />);
 
-  getByText("very weak");
+  getByText("Very Weak");
 });
 
 test("correct label when password is very weak", () => {
