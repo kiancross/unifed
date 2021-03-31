@@ -3,7 +3,8 @@
  */
 
 import { ReactElement } from "react";
-import { Avatar, Typography, Theme, makeStyles } from "@material-ui/core";
+import { Avatar, Typography, Theme, makeStyles, CardActionArea } from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
 
 interface Props {
   username: string;
@@ -24,10 +25,12 @@ export const UserIcon = (props: Props): ReactElement => {
   const classes = useStyles(props);
 
   return (
-    <Avatar alt={props.username} className={classes.avatar}>
-      <Typography variant={props.small ? "body2" : "h6"} className={classes.text}>
-        {props.username.charAt(0).toUpperCase()}
-      </Typography>
-    </Avatar>
+    <CardActionArea to={"/user/" + props.username} component={RouterLink}>
+      <Avatar alt={props.username} className={classes.avatar}>
+        <Typography variant={props.small ? "body2" : "h6"} className={classes.text}>
+          {props.username.charAt(0).toUpperCase()}
+        </Typography>
+      </Avatar>
+    </CardActionArea>
   );
 };
