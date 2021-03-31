@@ -27,11 +27,11 @@ const tooltipTitle = (result: PasswordValidationResult) => {
 const PasswordStrengthMeter = (props: Props): JSX.Element => {
   const result = validatePassword(props.password);
   const strengthLabel: { [strength: number]: string } = {
-    0: "very weak",
-    1: "very weak",
-    2: "weak",
-    3: "good",
-    4: "strong",
+    0: "Very Weak",
+    1: "Very Weak",
+    2: "Weak",
+    3: "Good",
+    4: "Strong",
   };
   return (
     <div>
