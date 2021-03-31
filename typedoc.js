@@ -4,6 +4,11 @@
 
 const glob = require("glob");
 
+const entryPoints = glob.sync("packages/**/index.ts");
+
+entryPoints.push("packages/backend-ml/src/train.ts");
+entryPoints.push("packages/backend-ml/src/test-model.ts");
+
 /**
  * @type {import('typedoc').TypeDocOptions}
  */
@@ -17,7 +22,7 @@ module.exports = {
     "**/frontend/src/react-app-env*",
   ],
   out: "docs/developers",
-  entryPoints: glob.sync("packages/**/index.ts"),
+  entryPoints: entryPoints,
 
   excludeExternals: true,
 
