@@ -4,16 +4,18 @@
 
 import { promises as fs } from "fs";
 import { util } from "@tensorflow/tfjs-node-gpu";
+
 import { TrainedModel, models, getModel, fitModel } from "./models";
 import { Tokenizer } from "./tokenizer";
 import { getSentencesTensor, getLabelsTensor } from "./tensor";
 import { SmsParser, EnronParser, SpamAssasinParser, Message } from "./parsers";
 import { Config, defaultConfig } from "./config";
-import { constants } from "./constants";
+import * as constants from "./constants";
+
 import {
   arrayToCsv,
   flattenMessages,
-  ratioSplitMessages,
+  ratioSplitArray,
   mergeParsers,
   createDirectory,
 } from "./helpers";
@@ -24,6 +26,7 @@ type ModelMeta = {
   trainingSentences: string[];
   name: string;
 };
+
 export type TrainedModelWithMeta = TrainedModel & ModelMeta;
 
 export async function saveModel(
@@ -65,7 +68,7 @@ export async function* trainModels(
   data: Message[],
   config: Config,
 ): AsyncGenerator<TrainedModelWithMeta, void> {
-  const [trainingMessages, testingMessages] = ratioSplitMessages(data, config.trainingRatio);
+  const [trainingMessages, testingMessages] = ratioSplitArray(data, config.trainingRatio);
 
   const trainingMapping = flattenMessages(trainingMessages);
   const testingMapping = flattenMessages(testingMessages);

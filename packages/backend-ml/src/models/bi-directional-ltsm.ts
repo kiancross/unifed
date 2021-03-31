@@ -8,7 +8,7 @@
 import { Sequential, RNN, layers, sequential, train } from "@tensorflow/tfjs-node-gpu";
 import { Config } from "../config";
 
-export const getModel = (config: Config): Sequential => {
+export const biDirectionalLtsmModel = (config: Config): Sequential => {
   const model = sequential();
 
   model.add(

@@ -8,7 +8,7 @@ import rawTest, { TestInterface } from "ava";
 import { Message } from "../parsers";
 import { TrainedModelWithMeta, trainModels, saveModel, saveMeta } from "../train";
 import { defaultConfig } from "../config";
-import { constants } from "../constants";
+import * as constants from "../constants";
 
 const test = rawTest as TestInterface<{ trainedModel: TrainedModelWithMeta }>;
 

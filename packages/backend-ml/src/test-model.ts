@@ -3,9 +3,10 @@
  */
 
 import { promises as fs } from "fs";
+
 import { TestingParser, Message } from "./parsers";
 import { getSpamFactor } from "./index";
-import { constants } from "./constants";
+import * as constants from "./constants";
 import { arrayToCsv, createDirectory } from "./helpers";
 
 export async function testModel(messages: Message[], outputPath: string): Promise<void> {

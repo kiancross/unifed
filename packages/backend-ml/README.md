@@ -53,7 +53,8 @@ The models used have been taken from the following sources:
   - `bi-directional-lstm` *(not trained)* - [Source](https://towardsdatascience.com/nlp-spam-detection-in-sms-text-data-using-deep-learning-b8632db85cc8)
 
 Some models have not been trained, as we did not have the computing
-resources to do so in a reasonable amount of time.
+resources to do so in a reasonable amount of time. Training and
+evaluating these would be an interesting project extension.
 
 ### Artifacts
 
@@ -71,3 +72,12 @@ as it contained hundreds of thousands of lines.
 A detailed report outlining the development and evaluation
 of the spam detection filter is available in both the 3rd
 and 4th deliverables.
+
+## Text Toxicity
+
+The text toxicity classifier utilises the pre-trained
+[`@tensorflow-models/toxicity`](https://github.com/tensorflow/tfjs-models/tree/master/toxicity)
+model.
+
+This package provides a simple API around the model in order
+to classify single pieces of text.

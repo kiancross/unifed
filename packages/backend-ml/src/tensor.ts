@@ -3,6 +3,7 @@
  */
 
 import { tensor2d, tidy, Tensor } from "@tensorflow/tfjs-node-gpu";
+
 import { Sequence, Tokenizer } from "./tokenizer";
 
 function padSequence(sequence: Sequence, maxLength: number): void {

@@ -3,7 +3,8 @@
  */
 
 import test from "ava";
-import { models, getModel, ModelNotDefinedError } from "./index";
+
+import { models, getModel, ModelNotDefinedError } from "./models";
 import { defaultConfig as config } from "../config";
 
 test("Undefined model", (t) => {
