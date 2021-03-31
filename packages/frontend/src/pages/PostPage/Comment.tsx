@@ -15,7 +15,7 @@ import {
   IconButton,
 } from "@material-ui/core";
 import ReplyIcon from "@material-ui/icons/Reply";
-import { UserIcon, MarkdownViewer, PostHeader, PostEditor, PostCreator } from "../../components";
+import { MarkdownViewer, PostHeader, PostEditor, PostCreator } from "../../components";
 
 interface PostValues {
   username: string;
@@ -96,11 +96,6 @@ export const Comment = (props: PostValues): JSX.Element => {
                 </IconButton>
               </CardActions>
             </Card>
-          </Box>
-        </Grid>
-        <Grid item xs={1} container justify="flex-end">
-          <Box paddingTop="0.5rem" paddingRight="0.5rem">
-            <UserIcon username={props.username} small />
           </Box>
         </Grid>
       </Grid>

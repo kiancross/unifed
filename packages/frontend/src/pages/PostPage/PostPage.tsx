@@ -58,7 +58,7 @@ export const PostPage = (): JSX.Element => {
             submitButtonText="Add Comment"
             onSuccess={() => null}
           />
-          <Comments community={community} parentId={post} server={server} grids={11} />
+          <Comments community={community} parentId={post} server={server} grids={12} />
         </Grid>
 
         <Grid item container xs={12} md={4} direction="column" spacing={2}>
