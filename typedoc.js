@@ -2,6 +2,8 @@
  * CS3099 Group A3
  */
 
+const glob = require("glob");
+
 /**
  * @type {import('typedoc').TypeDocOptions}
  */
@@ -15,7 +17,7 @@ module.exports = {
     "**/frontend/src/react-app-env*",
   ],
   out: "docs/developers",
-  entryPoints: ["packages"],
+  entryPoints: glob.sync("packages/**/index.ts"),
 
   excludeExternals: true,
 
