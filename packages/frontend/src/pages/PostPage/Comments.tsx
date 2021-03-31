@@ -13,6 +13,7 @@ interface CommentParams {
   server: string;
   parentId: string;
   grids: GridSize;
+  community: string;
 }
 
 interface PostParams {
@@ -74,9 +75,11 @@ export const Comments = (props: CommentParams) => {
               body={text}
               id={post.id}
               parent={parentId}
+              community={props.community}
               grids={props.grids}
             />
             <Comments
+              community={props.community}
               parentId={post.id}
               server={props.server}
               grids={decrement(props.grids as number)}
