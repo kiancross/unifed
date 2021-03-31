@@ -4,9 +4,18 @@
 
 import { useState } from "react";
 import { useTheme, makeStyles } from "@material-ui/core/styles";
-import { Box, Card, CardContent, Grid, Typography, GridSize } from "@material-ui/core";
-
-import { UserIcon, MarkdownViewer, PostHeader, PostEditor } from "../../components";
+import {
+  Box,
+  Card,
+  CardContent,
+  Grid,
+  Typography,
+  GridSize,
+  CardActions,
+  IconButton,
+} from "@material-ui/core";
+import ReplyIcon from "@material-ui/icons/Reply";
+import { UserIcon, MarkdownViewer, PostHeader, PostEditor, PostCreator } from "../../components";
 
 interface PostValues {
   username: string;
@@ -15,6 +24,7 @@ interface PostValues {
   parent: string;
   grids: GridSize;
   host: string;
+  community: string;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -38,6 +48,19 @@ export const Comment = (props: PostValues): JSX.Element => {
   const classes = useStyles();
 
   const [editorOpen, setEditorOpen] = useState(false);
+  const [makingReply, setMakingReply] = useState(false);
+
+  const replyEditor = makingReply ? (
+    <PostCreator
+      server={props.host}
+      community={props.community}
+      submitButtonText="Make Reply"
+      parentId={props.id}
+      onSuccess={() => setMakingReply(false)}
+      isComment
+      onCancel={() => setMakingReply(false)}
+    />
+  ) : null;
 
   const content = editorOpen ? (
     <PostEditor
@@ -50,30 +73,38 @@ export const Comment = (props: PostValues): JSX.Element => {
       onCancel={() => setEditorOpen(false)}
     />
   ) : (
-    <Grid item container direction="row-reverse" spacing={2} className={classes.grid}>
-      <Grid item xs={props.grids} container direction="column">
-        <Box borderLeft={4} borderColor={theme.palette.primary.main}>
-          <Card elevation={1} square className={classes.header}>
-            <PostHeader
-              onToggleEdit={() => setEditorOpen(true)}
-              parent={props.parent}
-              username={props.username}
-              id={props.id}
-              server={props.host}
-            />
-            <CardContent className={classes.body}>
-              <Typography variant="subtitle2">
-                <MarkdownViewer>{props.body}</MarkdownViewer>
-              </Typography>
-            </CardContent>
-          </Card>
-        </Box>
+    <Grid item container direction="column" className={classes.grid}>
+      <Grid item container direction="row-reverse" spacing={2} className={classes.grid}>
+        <Grid item xs={props.grids} container direction="column">
+          <Box borderLeft={4} borderColor={theme.palette.primary.main}>
+            <Card elevation={1} square className={classes.header}>
+              <PostHeader
+                onToggleEdit={() => setEditorOpen(true)}
+                parent={props.parent}
+                username={props.username}
+                id={props.id}
+                server={props.host}
+              />
+              <CardContent className={classes.body}>
+                <Typography variant="subtitle2">
+                  <MarkdownViewer>{props.body}</MarkdownViewer>
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <IconButton onClick={() => setMakingReply(true)}>
+                  <ReplyIcon />
+                </IconButton>
+              </CardActions>
+            </Card>
+          </Box>
+        </Grid>
+        <Grid item xs={1} container justify="flex-end">
+          <Box paddingTop="0.5rem" paddingRight="0.5rem">
+            <UserIcon username={props.username} small />
+          </Box>
+        </Grid>
       </Grid>
-      <Grid item xs={1} container justify="flex-end">
-        <Box paddingTop="0.5rem" paddingRight="0.5rem">
-          <UserIcon username={props.username} small />
-        </Box>
-      </Grid>
+      {replyEditor}
     </Grid>
   );
 
