@@ -132,10 +132,6 @@ export const PostHeader = (props: Props): JSX.Element => {
       <Link to={"/user/" + props.username} color="inherit">
         {props.username}
       </Link>
-      &nbsp; &#8212; &nbsp;
-      <Link color="inherit" to={props.id}>
-        View Replies
-      </Link>
     </Typography>
   ) : (
     <Typography variant="body2">
