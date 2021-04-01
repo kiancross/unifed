@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import { Redirect } from "react-router";
 import { Formik, Form, Field } from "formik";
 import { Alert } from "@material-ui/lab";
@@ -20,7 +20,8 @@ import {
 } from "@material-ui/core";
 
 import { passwordClient } from "../../helpers";
-import { PasswordField } from "../../components";
+import { PasswordStrengthMeter } from "../../components/PasswordStrengthMeter";
+import { PasswordField } from "../../components/PasswordField";
 
 interface Values {
   username: string;
@@ -46,9 +47,10 @@ function validate({ username, name, email, password }: Values) {
   return errors;
 }
 
-export const RegistrationCard = (): JSX.Element => {
+export const RegistrationCard = (): ReactElement => {
   const [isAccountCreated, setIsAccountCreated] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [password, setPassword] = useState("");
 
   const registerUser = async (values: Values) => {
     try {
@@ -138,7 +140,11 @@ export const RegistrationCard = (): JSX.Element => {
                     color="primary"
                     helperText={errors.password}
                     error={!!errors.password}
+                    onKeyUp={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      setPassword(e.target.value);
+                    }}
                   />
+                  <PasswordStrengthMeter password={password} />
                 </div>
                 <FormControlLabel
                   control={<Checkbox color="primary" required />}
