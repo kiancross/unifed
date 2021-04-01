@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 /*
  * CS3099 Group A3
  */

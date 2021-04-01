@@ -51,7 +51,7 @@ export const AccountMenu = (): JSX.Element => {
         aria-haspopup="true"
         onClick={handleToggle}
       >
-        <UserIcon username={user.details.username} small />
+        <UserIcon inHeader username={user.details.username} small />
       </IconButton>
       <Popper
         open={open}

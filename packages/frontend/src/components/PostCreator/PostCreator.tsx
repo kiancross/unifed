@@ -14,6 +14,7 @@ interface Params {
   parentId?: string;
   isComment?: boolean;
   onSuccess: (id: string) => void;
+  onCancel?: () => void;
 }
 
 export const createPostQuery = gql`
@@ -47,13 +48,15 @@ export const PostCreator = (props: Params): ReactElement => {
 
       const current = cache.readQuery<any>({ query: GET_POSTS, variables });
 
-      cache.writeQuery({
-        query: GET_POSTS,
-        variables,
-        data: {
-          getPosts: [...(current.getPosts || []), createPost],
-        },
-      });
+      if (current) {
+        cache.writeQuery({
+          query: GET_POSTS,
+          variables,
+          data: {
+            getPosts: [...(current.getPosts || []), createPost],
+          },
+        });
+      }
 
       if (props.parentId) {
         cache.modify({
@@ -72,6 +75,7 @@ export const PostCreator = (props: Params): ReactElement => {
   return (
     <PostEditorBase
       isComment={props.isComment}
+      onCancel={props.onCancel}
       onSubmit={async ({ title, body }) => {
         const response = await createPost({
           variables: {

@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 /*
  * CS3099 Group A3
  */
@@ -14,5 +16,3 @@
 import "@testing-library/jest-dom/extend-expect";
 
 jest.setTimeout(10 * 1000);
-
-jest.mock("./pages/CommunityCallPage/safe-peer-connection", () => ({}));

@@ -130,8 +130,7 @@ export const RegistrationCard = (): ReactElement => {
                 <div>
                   <Field
                     name="password"
-                    as={TextField}
-                    type="password"
+                    as={PasswordField}
                     fullWidth
                     size="small"
                     margin="dense"

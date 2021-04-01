@@ -7,7 +7,7 @@ import { Formik, Form, Field } from "formik";
 import { Button, Card, CardContent, TextField, Typography } from "@material-ui/core";
 
 import { UserContext } from "../../contexts";
-import { Link, Popup } from "../../components";
+import { Link, Popup, PasswordField } from "../../components";
 
 export const LoginCard = (): ReactElement => {
   const user = useContext(UserContext);
@@ -48,8 +48,7 @@ export const LoginCard = (): ReactElement => {
               <div>
                 <Field
                   name="password"
-                  as={TextField}
-                  type="password"
+                  as={PasswordField}
                   fullWidth
                   size="small"
                   margin="dense"
