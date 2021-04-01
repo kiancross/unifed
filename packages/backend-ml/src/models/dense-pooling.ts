@@ -11,7 +11,7 @@ import { Config } from "../config";
 import { Model } from "./model";
 
 export class DensePoolingModel extends Model {
-  externalName = "dense-pooling";
+  static externalName = "dense-pooling";
 
   protected initialiseModel(config: Config): void {
     this.add(

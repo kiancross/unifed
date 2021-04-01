@@ -11,7 +11,7 @@ import { Config } from "../config";
 import { Model } from "./model";
 
 export class DenseModel extends Model {
-  externalName = "dense";
+  static externalName = "dense";
 
   protected initialiseModel(config: Config): void {
     this.add(

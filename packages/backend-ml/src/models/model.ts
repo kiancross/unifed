@@ -6,6 +6,9 @@ import { Sequential } from "@tensorflow/tfjs-node-gpu";
 
 import { Config } from "../config";
 
+/**
+ * Base class for all models to inherit from.
+ */
 export abstract class Model extends Sequential {
   public static externalName: string;
 

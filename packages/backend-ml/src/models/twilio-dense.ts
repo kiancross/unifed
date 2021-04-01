@@ -11,7 +11,7 @@ import { Config } from "../config";
 import { Model } from "./model";
 
 export class TwilioDenseModel extends Model {
-  externalName = "twilio-dense";
+  static externalName = "twilio-dense";
 
   protected initialiseModel(config: Config): void {
     this.add(

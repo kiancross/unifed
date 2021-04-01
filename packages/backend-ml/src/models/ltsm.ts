@@ -11,7 +11,7 @@ import { Config } from "../config";
 import { Model } from "./model";
 
 export class LtsmModel extends Model {
-  externalName = "ltsm";
+  static externalName = "ltsm";
 
   protected initialiseModel(config: Config): void {
     this.add(

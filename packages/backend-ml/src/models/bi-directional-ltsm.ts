@@ -11,7 +11,7 @@ import { Config } from "../config";
 import { Model } from "./model";
 
 export class BiDirectionalLtsmModel extends Model {
-  externalName = "bi-directional-ltsm";
+  static externalName = "bi-directional-ltsm";
 
   protected initialiseModel(config: Config): void {
     this.add(
