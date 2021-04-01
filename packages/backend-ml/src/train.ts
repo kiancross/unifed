@@ -5,7 +5,7 @@
 import { promises as fs } from "fs";
 import { util } from "@tensorflow/tfjs-node-gpu";
 
-import { TrainedModel, models, getModel, fitModel } from "./models";
+import { TrainedModel, modelNames, getModel, fitModel } from "./models";
 import { Tokenizer } from "./tokenizer";
 import { getSentencesTensor, getLabelsTensor } from "./tensor";
 import { SmsParser, EnronParser, SpamAssasinParser, Message } from "./parsers";
@@ -119,13 +119,13 @@ if (require.main === module) {
     const selectAllToken = "+";
     const selectedModelNames = process.argv.slice(2);
     const missingModel = selectedModelNames.find(
-      (name) => ![...models, selectAllToken].includes(name),
+      (name) => ![...modelNames, selectAllToken].includes(name),
     );
     const allModels = selectedModelNames.find((name) => name === selectAllToken);
 
     if (selectedModelNames.length === 0 || missingModel) {
       console.error(
-        `Please select from any of the following models: ${[selectAllToken, ...models].join(", ")}`,
+        `Please select from any of the following models: ${[selectAllToken, ...modelNames].join(", ")}`,
       );
       process.exit(1);
     }
@@ -140,7 +140,7 @@ if (require.main === module) {
 
     await createDirectory(constants.modelsPath);
 
-    const trainedModels = trainModels(allModels ? models : selectedModelNames, data, defaultConfig);
+    const trainedModels = trainModels(allModels ? modelNames : selectedModelNames, data, defaultConfig);
     let firstModel = true;
 
     for await (const trainedModel of trainedModels) {

@@ -5,20 +5,20 @@
 import { EarlyStopping, History, Tensor, Sequential } from "@tensorflow/tfjs-node-gpu";
 
 import { Config } from "../config";
-import { twilioDenseModel } from "./twilio-dense";
-import { biDirectionalLtsmModel } from "./bi-directional-ltsm";
-import { densePoolingModel } from "./dense-pooling";
-import { denseModel } from "./dense";
-import { ltsmModel } from "./ltsm";
+import { TwilioDenseModel } from "./twilio-dense";
+import { BiDirectionalLtsmModel } from "./bi-directional-ltsm";
+import { DensePoolingModel } from "./dense-pooling";
+import { DenseModel } from "./dense";
+import { LtsmModel } from "./ltsm";
 
-// Map of model names to model implementations.
-const modelMap: { [model: string]: (c: Config) => Sequential } = {
-  "bi-directional-ltsm": biDirectionalLtsmModel,
-  "dense-pooling": densePoolingModel,
-  dense: denseModel,
-  ltsm: ltsmModel,
-  "twilio-dense": twilioDenseModel,
-};
+const models = [TwilioDenseModel, BiDirectionalLtsmModel, DensePoolingModel, DenseModel, LtsmModel];
+
+/**
+ * Names of all available models.
+ *
+ * @internal
+ */
+export const modelNames = models.map((model) => model.externalName);
 
 /**
  * Results of a trained model.
@@ -67,12 +67,14 @@ export class ModelNotDefinedError extends Error {
  *
  * @internal
  */
-export function getModel(model: string, config: Config): Sequential {
-  if (model in modelMap) {
-    return modelMap[model](config);
+export function getModel(modelName: string, config: Config): Sequential {
+  for (const model of models) {
+    if (model.externalName === modelName) {
+      return new model(config);
+    }
   }
 
-  throw new ModelNotDefinedError(model);
+  throw new ModelNotDefinedError(modelName);
 }
 
 /**
@@ -122,10 +124,3 @@ export async function fitModel(
 
   return { model, history };
 }
-
-/**
- * Names of all available models.
- *
- * @internal
- */
-export const models = Object.keys(modelMap);
