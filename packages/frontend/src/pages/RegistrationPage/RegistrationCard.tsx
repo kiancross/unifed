@@ -21,6 +21,7 @@ import {
 
 import { passwordClient } from "../../helpers";
 import { PasswordStrengthMeter } from "../../components/PasswordStrengthMeter";
+import { PasswordField } from "../../components/PasswordField";
 
 interface Values {
   username: string;
