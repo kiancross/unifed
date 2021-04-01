@@ -17,11 +17,13 @@ const tooltipTitle = (result: PasswordValidationResult) => {
   if (suggestions.length == 0) {
     return "";
   }
-  if (warning != "") {
-    return warning + ". " + suggestions[0];
-  } else {
-    return suggestions[0];
-  }
+  const suggestionList = suggestions.map((suggestion) => <li>{suggestion}</li>);
+  return (
+    <ul style={{ paddingLeft: "5%" }}>
+      {warning != "" ? <li>{warning}</li> : null}
+      {suggestionList}
+    </ul>
+  );
 };
 
 export const PasswordStrengthMeter = (props: Props): JSX.Element => {
@@ -36,7 +38,7 @@ export const PasswordStrengthMeter = (props: Props): JSX.Element => {
   return (
     <div>
       <meter value={result.score} low={3} max={4} optimum={4} style={{ width: "100%" }} />
-      <Tooltip title={tooltipTitle(result)}>
+      <Tooltip title={tooltipTitle(result)} placement="bottom">
         <p style={{ margin: "0", textAlign: "center", fontSize: "0.8rem" }}>
           <b>Password Strength:</b> {strengthLabel[result.score]}
         </p>
