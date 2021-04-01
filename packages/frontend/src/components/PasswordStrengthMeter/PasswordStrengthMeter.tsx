@@ -1,7 +1,7 @@
 /*
  * CS3099 Group A3
  */
- 
+
 import { validatePassword } from "@unifed/shared";
 import { Tooltip } from "@material-ui/core";
 import { PasswordValidationResult } from "@unifed/shared";
@@ -24,7 +24,7 @@ const tooltipTitle = (result: PasswordValidationResult) => {
   }
 };
 
-const PasswordStrengthMeter = (props: Props): JSX.Element => {
+export const PasswordStrengthMeter = (props: Props): JSX.Element => {
   const result = validatePassword(props.password);
   const strengthLabel: { [strength: number]: string } = {
     0: "Very Weak",
@@ -44,5 +44,3 @@ const PasswordStrengthMeter = (props: Props): JSX.Element => {
     </div>
   );
 };
-
-export default PasswordStrengthMeter;

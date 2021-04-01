@@ -4,6 +4,7 @@
 
 export { validateName } from "./name";
 export { validatePassword } from "./password";
+export { PasswordValidationResult } from "./password";
 export { validateUsername } from "./username";
 export { validateEmail } from "./email";
 export { validateCommunityDescription } from "./community-description";

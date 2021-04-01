@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import { Redirect } from "react-router";
 import { Formik, Form, Field } from "formik";
 import { Alert } from "@material-ui/lab";
@@ -20,7 +20,7 @@ import {
 } from "@material-ui/core";
 
 import { passwordClient } from "../../helpers";
-import PasswordStrengthMeter from "../../components/PasswordStrengthMeter";
+import { PasswordStrengthMeter } from "../../components/PasswordStrengthMeter";
 
 interface Values {
   username: string;
