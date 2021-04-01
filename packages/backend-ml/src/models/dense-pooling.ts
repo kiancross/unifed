@@ -2,16 +2,19 @@
  * CS3099 Group A3
  */
 
-// Model taken from:
-// https://towardsdatascience.com/nlp-detecting-spam-messages-with-tensorflow-part-ii-77826c8f1abf
-
 import { layers, train } from "@tensorflow/tfjs-node-gpu";
 
 import { Config } from "../config";
 import { Model } from "./model";
 
+/**
+ * Implementation of the dense pooling model,
+ * found [here](https://towardsdatascience.com/nlp-detecting-spam-messages-with-tensorflow-part-ii-77826c8f1abf).
+ *
+ * @internal
+ */
 export class DensePoolingModel extends Model {
-  static externalName = "dense-pooling";
+  static readonly externalName = "dense-pooling";
 
   protected initialiseModel(config: Config): void {
     this.add(

@@ -2,9 +2,10 @@
  * CS3099 Group A3
  */
 
-import { EarlyStopping, History, Tensor, Sequential } from "@tensorflow/tfjs-node-gpu";
+import { EarlyStopping, History, Tensor } from "@tensorflow/tfjs-node-gpu";
 
 import { Config } from "../config";
+import { Model } from "./model";
 import { TwilioDenseModel } from "./twilio-dense";
 import { BiDirectionalLtsmModel } from "./bi-directional-ltsm";
 import { DensePoolingModel } from "./dense-pooling";
@@ -36,7 +37,7 @@ export interface TrainedModel {
   /**
    * The trained model.
    */
-  model: Sequential;
+  model: Model;
 }
 
 /**
@@ -67,7 +68,7 @@ export class ModelNotDefinedError extends Error {
  *
  * @internal
  */
-export function getModel(modelName: string, config: Config): Sequential {
+export function getModel(modelName: string, config: Config): Model {
   for (const model of models) {
     if (model.externalName === modelName) {
       return new model(config);
@@ -103,7 +104,7 @@ export function getModel(modelName: string, config: Config): Sequential {
  * @internal
  */
 export async function fitModel(
-  model: Sequential,
+  model: Model,
   trainingSentences: Tensor,
   trainingLabels: Tensor,
   testingSentences: Tensor,

@@ -2,14 +2,17 @@
  * CS3099 Group A3
  */
 
-// Model taken from:
-// https://towardsdatascience.com/nlp-spam-detection-in-sms-text-data-using-deep-learning-b8632db85cc8
-
 import { layers, train } from "@tensorflow/tfjs-node-gpu";
 
 import { Config } from "../config";
 import { Model } from "./model";
 
+/**
+ * Implementation of the LTSM model,
+ * found [here](https://towardsdatascience.com/nlp-spam-detection-in-sms-text-data-using-deep-learning-b8632db85cc8).
+ *
+ * @internal
+ */
 export class LtsmModel extends Model {
   static externalName = "ltsm";
 

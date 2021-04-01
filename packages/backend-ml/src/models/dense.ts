@@ -2,14 +2,17 @@
  * CS3099 Group A3
  */
 
-// Model taken from:
-// https://towardsdatascience.com/nlp-spam-detection-in-sms-text-data-using-deep-learning-b8632db85cc8
-
 import { layers, train } from "@tensorflow/tfjs-node-gpu";
 
 import { Config } from "../config";
 import { Model } from "./model";
 
+/**
+ * Implementation of the dense model,
+ * found [here](https://towardsdatascience.com/nlp-detecting-spam-messages-with-tensorflow-part-ii-77826c8f1abf).
+ *
+ * @internal
+ */
 export class DenseModel extends Model {
   static externalName = "dense";
 

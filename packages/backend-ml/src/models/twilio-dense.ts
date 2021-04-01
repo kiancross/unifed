@@ -10,6 +10,12 @@ import { layers, train } from "@tensorflow/tfjs-node-gpu";
 import { Config } from "../config";
 import { Model } from "./model";
 
+/**
+ * Implementation of the dense model,
+ * found [here](https://www.twilio.com/blog/spam-deep-learning-detection-sms-keras-python-twilio).
+ *
+ * @internal
+ */
 export class TwilioDenseModel extends Model {
   static externalName = "twilio-dense";
 
