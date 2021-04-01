@@ -12,6 +12,7 @@ export interface PasswordValidationResult {
    * Indicates if the password is valid or not.
    */
   valid: boolean;
+  score: number;
 
   /**
    * A warning (if any) about the password.
@@ -40,6 +41,7 @@ export const validatePassword = (password: string): PasswordValidationResult => 
 
   return {
     valid,
+    score: result.score,
     warning: valid ? undefined : result.feedback.warning,
     suggestions: result.feedback.suggestions,
   };
