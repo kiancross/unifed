@@ -1,9 +1,9 @@
 /*
  * CS3099 Group A3
  */
- 
+
 import { render } from "@testing-library/react";
-import PasswordStrengthMeter from "./PasswordStrengthMeter";
+import { PasswordStrengthMeter } from "./PasswordStrengthMeter";
 
 test("correct meter value and label when password is empty string", () => {
   const password = "";

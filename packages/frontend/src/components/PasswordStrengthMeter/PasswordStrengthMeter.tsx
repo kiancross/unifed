@@ -17,7 +17,7 @@ const tooltipTitle = (result: PasswordValidationResult) => {
   if (suggestions.length == 0) {
     return "";
   }
-  const suggestionList = suggestions.map((suggestion) => <li>{suggestion}</li>);
+  const suggestionList = suggestions.map((suggestion, index) => <li key={index}>{suggestion}</li>);
   return (
     <ul style={{ paddingLeft: "5%" }}>
       {warning != "" ? <li>{warning}</li> : null}
