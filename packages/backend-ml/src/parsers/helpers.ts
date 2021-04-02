@@ -34,18 +34,18 @@ export interface ZIPFileEntry {
   readonly path: string;
 
   /**
-   * Data from file insize the ZIP archive.
+   * Data from file inside the ZIP archive.
    */
   readonly data: string;
 }
 
 /**
- * Iteratres through all entries in a given
+ * Iterates through all entries in a given
  * ZIP archive.
  *
  * @param path  Path to the ZIP archive.
  *
- * @returns An asynconous generator yielding [[`ZIPFileEntry`]]
+ * @returns An asynchronous generator yielding [[`ZIPFileEntry`]]
  *          objects.
  *
  * @internal

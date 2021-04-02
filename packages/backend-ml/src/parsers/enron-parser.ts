@@ -58,7 +58,7 @@ export class EnronParser extends Parser {
     const messages: Message[] = [];
 
     for await (const file of readZIPFile(this.path)) {
-      // Ignore invalid filepaths (which are LICENSEs and
+      // Ignore invalid file paths (which are LICENSEs and
       // READEMEs).
       if (!file.path.includes("ham") && !file.path.includes("spam")) {
         continue;
