@@ -27,8 +27,28 @@ type ModelMeta = {
   name: string;
 };
 
+/**
+ * @internal
+ */
 export type TrainedModelWithMeta = TrainedModel & ModelMeta;
 
+/**
+ * Saves a trained model.
+ *
+ * The output files are the:
+ *
+ *  - model structure (i.e. layers);
+ *  - trained weightings;
+ *  - configuration;
+ *  - tokenizer;
+ *  - history statistics.
+ *
+ * @param trainedModel  The trained model.
+ *
+ * @param modelsPath  The path to save the trained model.
+ *
+ * @internal
+ */
 export async function saveModel(
   trainedModel: TrainedModelWithMeta,
   modelsPath: string,
@@ -41,16 +61,32 @@ export async function saveModel(
   await fs.writeFile(`${path}/${constants.tokenizerName}`, JSON.stringify(trainedModel.tokenizer));
 }
 
-export async function saveMeta(sentences: string[], path: string): Promise<void> {
+/**
+ * Generates and saves statistical information about
+ * the training data.
+ *
+ * @param sentences  The sentences used for training
+ *                   the models.
+ *
+ * @param path  The path to save the statistical
+ *              information.
+ *
+ * @internal
+ */
+export async function saveSentencesMeta(sentences: string[], path: string): Promise<void> {
+  // -1 creates a tokenizer with infinite vocabulary size.
   const infiniteTokenizer = new Tokenizer(-1);
+
   infiniteTokenizer.fitOnTexts(sentences);
 
+  // Create a frequency tables of tokens.
   const wordFrequenciesCsv = arrayToCsv(
     Array.from(infiniteTokenizer.wordCounts.values())
       .sort((a, b) => a - b)
       .map((value) => [value]),
   );
 
+  // Create a table of sentence lengths.
   const sentenceLengthsCsv = arrayToCsv(
     sentences
       .map((sentence) => Tokenizer.tokenize(sentence))
@@ -63,12 +99,31 @@ export async function saveMeta(sentences: string[], path: string): Promise<void>
   await fs.writeFile(`${path}/${constants.sentenceLengthsName}`, sentenceLengthsCsv);
 }
 
+/**
+ * Trains models with the given data and given
+ * configuration.
+ *
+ * Creates a generator that yields once each
+ * model is trained. This is so that they can
+ * be saved individually, in case training is
+ * interrupted after many hours.
+ *
+ * @param modelNames  The names of the models to be
+ *                    trained.
+ *
+ * @param messages  The data used to train the models.
+ *
+ * @param config  The [[`Config`]] used to train the
+ *                models.
+ *
+ * @internal
+ */
 export async function* trainModels(
   modelNames: string[],
-  data: Message[],
+  messages: Message[],
   config: Config,
 ): AsyncGenerator<TrainedModelWithMeta, void> {
-  const [trainingMessages, testingMessages] = ratioSplitArray(data, config.trainingRatio);
+  const [trainingMessages, testingMessages] = ratioSplitArray(messages, config.trainingRatio);
 
   const trainingMapping = flattenMessages(trainingMessages);
   const testingMapping = flattenMessages(testingMessages);
@@ -76,6 +131,7 @@ export async function* trainModels(
   const tokenizer = new Tokenizer(config.vocabSize);
   tokenizer.fitOnTexts(trainingMapping.sentences);
 
+  // Get training tensors.
   const trainingSentencesTensor = getSentencesTensor(
     trainingMapping.sentences,
     tokenizer,
@@ -83,6 +139,7 @@ export async function* trainModels(
   );
   const trainingLabelsTensor = getLabelsTensor(trainingMapping.labels);
 
+  // Get testing tensors.
   const testingSentencesTensor = getSentencesTensor(
     testingMapping.sentences,
     tokenizer,
@@ -93,6 +150,7 @@ export async function* trainModels(
   for (const modelName of modelNames) {
     const model = getModel(modelName, config);
 
+    // Displays a summary of the model.
     model.summary();
 
     const trainedModel = await fitModel(
@@ -116,22 +174,16 @@ export async function* trainModels(
 
 if (require.main === module) {
   (async () => {
-    const selectAllToken = "+";
     const selectedModelNames = process.argv.slice(2);
-    const missingModel = selectedModelNames.find(
-      (name) => ![...modelNames, selectAllToken].includes(name),
-    );
-    const allModels = selectedModelNames.find((name) => name === selectAllToken);
+    const missingModel = selectedModelNames.find((name) => !modelNames.includes(name));
 
+    // Check that at least one model has been selected.
     if (selectedModelNames.length === 0 || missingModel) {
-      console.error(
-        `Please select from any of the following models: ${[selectAllToken, ...modelNames].join(
-          ", ",
-        )}`,
-      );
+      console.error(`Please select from any of the following models: ${modelNames.join(", ")}`);
       process.exit(1);
     }
 
+    // Load the data.
     const data = await mergeParsers([
       new SMSParser("data/sms.zip"),
       new EnronParser("data/enron.zip"),
@@ -142,19 +194,22 @@ if (require.main === module) {
 
     await createDirectory(constants.modelsPath);
 
-    const trainedModels = trainModels(
-      allModels ? modelNames : selectedModelNames,
-      data,
-      defaultConfig,
-    );
+    // Begin training
+    const trainedModels = trainModels(selectedModelNames, data, defaultConfig);
+
+    // Use this to store whether we are training the first
+    // model or not.
     let firstModel = true;
 
     for await (const trainedModel of trainedModels) {
+      // We only need to save data about the training data
+      // once (so do it on the first model).
       if (firstModel) {
         await createDirectory(constants.metaPath);
-        saveMeta(trainedModel.trainingSentences, constants.metaPath);
+        saveSentencesMeta(trainedModel.trainingSentences, constants.metaPath);
         firstModel = false;
       }
+
       await saveModel(trainedModel, constants.modelsPath);
     }
   })();
