@@ -3,7 +3,7 @@
  */
 
 import { Parser, InvalidFileError } from "./parser";
-import { Message, readZipFile } from "./helpers";
+import { Message, readZIPFile } from "./helpers";
 import { CsvError } from "csv-parse";
 import parseCsv from "csv-parse/lib/sync";
 
@@ -41,7 +41,7 @@ export class TestingParser extends Parser {
   }
 
   async getMessages(): Promise<Message[]> {
-    const { value: file } = await readZipFile(this.path).next();
+    const { value: file } = await readZIPFile(this.path).next();
 
     if (!file || file.path !== "messages.csv") {
       throw new InvalidFileError();

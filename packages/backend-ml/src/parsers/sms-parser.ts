@@ -3,9 +3,18 @@
  */
 
 import { Parser, InvalidFileError } from "./parser";
-import { Message, readZipFile } from "./helpers";
+import { Message, readZIPFile } from "./helpers";
 
+/**
+ * Used for parsing the data/sms.zip file.
+ *
+ * @internal
+ */
 export class SmsParser extends Parser {
+  /**
+   * @param path  Path to the zip file containing
+   *              categorised spam/non-spam messages.
+   */
   constructor(private path: string) {
     super();
   }
@@ -37,7 +46,7 @@ export class SmsParser extends Parser {
   }
 
   async getMessages(): Promise<Message[]> {
-    const { value: file } = await readZipFile(this.path).next();
+    const { value: file } = await readZIPFile(this.path).next();
 
     if (!file || file.path !== "sms") {
       throw new InvalidFileError();

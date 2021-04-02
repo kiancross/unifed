@@ -4,7 +4,7 @@
 
 import { simpleParser } from "mailparser";
 import { Parser } from "./parser";
-import { Message, readZipFile } from "./helpers";
+import { Message, readZIPFile } from "./helpers";
 
 export class SpamAssasinParser extends Parser {
   constructor(private path: string) {
@@ -20,7 +20,7 @@ export class SpamAssasinParser extends Parser {
   private async parse(): Promise<Message[]> {
     const messages: Message[] = [];
 
-    for await (const file of readZipFile(this.path)) {
+    for await (const file of readZIPFile(this.path)) {
       const body = await this.getBody(file.data);
 
       if (body === undefined) {
