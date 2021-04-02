@@ -2,10 +2,11 @@
  * CS3099 Group A3
  */
 
+import { ReactElement } from "react";
 import { LogoTemplate, ButtonLink } from "../../components";
 import { RegistrationCard } from "./RegistrationCard";
 
-export const RegistrationPage = (): JSX.Element => {
+export const RegistrationPage = (): ReactElement => {
   return (
     <LogoTemplate>
       <RegistrationCard />

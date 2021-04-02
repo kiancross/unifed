@@ -5,6 +5,7 @@
 import { validatePassword } from "@unifed/shared";
 import { Tooltip } from "@material-ui/core";
 import { PasswordValidationResult } from "@unifed/shared";
+import { ReactElement } from "react";
 
 interface Props {
   password: string;
@@ -26,7 +27,7 @@ const tooltipTitle = (result: PasswordValidationResult) => {
   );
 };
 
-export const PasswordStrengthMeter = (props: Props): JSX.Element => {
+export const PasswordStrengthMeter = (props: Props): ReactElement => {
   const result = validatePassword(props.password);
   const strengthLabel: { [strength: number]: string } = {
     0: "Very Weak",

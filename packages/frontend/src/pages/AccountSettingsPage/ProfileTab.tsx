@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { useContext } from "react";
+import React, { ReactElement, useContext } from "react";
 import { useFormik } from "formik";
 import { gql, useMutation } from "@apollo/client";
 import EditIcon from "@material-ui/icons/Edit";
@@ -42,7 +42,7 @@ export const CHANGE_NAME = gql`
   }
 `;
 
-export const ProfileTab = (props: ProfileTabParams): JSX.Element => {
+export const ProfileTab = (props: ProfileTabParams): ReactElement => {
   const [nameOpen, setNameOpen] = React.useState(false);
   const user = useContext(UserContext);
 
@@ -54,7 +54,7 @@ export const ProfileTab = (props: ProfileTabParams): JSX.Element => {
 
   if (data?.updateUserProfile) user.refetch();
 
-  const NameChangeForm = (): JSX.Element => {
+  const NameChangeForm = (): ReactElement => {
     const formik = useFormik({
       initialValues: {
         name: "",

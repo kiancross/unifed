@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, ReactElement } from "react";
 import { Redirect } from "react-router-dom";
 import {
   CardHeader,
@@ -39,7 +39,7 @@ export const DELETE_POST = gql`
   }
 `;
 
-export const PostHeader = (props: Props): JSX.Element => {
+export const PostHeader = (props: Props): ReactElement => {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
   const user = useContext(UserContext);
   const classes = useStyles(props);

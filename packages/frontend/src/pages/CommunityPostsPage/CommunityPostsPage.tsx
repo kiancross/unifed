@@ -8,6 +8,7 @@ import { gql, useQuery } from "@apollo/client";
 
 import { PostPreview, ButtonLink, CenteredLoader, ErrorMessage } from "../../components";
 import { CommunityDescription } from "./CommunityDescription";
+import { ReactElement } from "react";
 
 export interface CommunityPostsPageParams {
   server: string;
@@ -38,7 +39,7 @@ export const GET_POSTS = gql`
   }
 `;
 
-export const CommunityPostsPage = (): JSX.Element => {
+export const CommunityPostsPage = (): ReactElement => {
   const { community, server } = useParams<CommunityPostsPageParams>();
   const isMobile = useMediaQuery("(max-width: 960px)");
 
