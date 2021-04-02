@@ -125,7 +125,9 @@ if (require.main === module) {
 
     if (selectedModelNames.length === 0 || missingModel) {
       console.error(
-        `Please select from any of the following models: ${[selectAllToken, ...modelNames].join(", ")}`,
+        `Please select from any of the following models: ${[selectAllToken, ...modelNames].join(
+          ", ",
+        )}`,
       );
       process.exit(1);
     }
@@ -140,7 +142,11 @@ if (require.main === module) {
 
     await createDirectory(constants.modelsPath);
 
-    const trainedModels = trainModels(allModels ? modelNames : selectedModelNames, data, defaultConfig);
+    const trainedModels = trainModels(
+      allModels ? modelNames : selectedModelNames,
+      data,
+      defaultConfig,
+    );
     let firstModel = true;
 
     for await (const trainedModel of trainedModels) {
