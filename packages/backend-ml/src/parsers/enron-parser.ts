@@ -6,7 +6,7 @@ import { Parser, InvalidFileError } from "./parser";
 import { Message, readZIPFile } from "./helpers";
 
 /**
- * Used for parsing the data/enron.zip file.
+ * Used for parsing the `data/enron.zip` file.
  *
  * @internal
  */

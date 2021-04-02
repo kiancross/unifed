@@ -8,7 +8,7 @@ import { util } from "@tensorflow/tfjs-node-gpu";
 import { TrainedModel, modelNames, getModel, fitModel } from "./models";
 import { Tokenizer } from "./tokenizer";
 import { getSentencesTensor, getLabelsTensor } from "./tensor";
-import { SmsParser, EnronParser, SpamAssasinParser, Message } from "./parsers";
+import { SMSParser, EnronParser, SpamAssasinParser, Message } from "./parsers";
 import { Config, defaultConfig } from "./config";
 import * as constants from "./constants";
 
@@ -131,7 +131,7 @@ if (require.main === module) {
     }
 
     const data = await mergeParsers([
-      new SmsParser("data/sms.zip"),
+      new SMSParser("data/sms.zip"),
       new EnronParser("data/enron.zip"),
       new SpamAssasinParser("data/spam-assasin.zip"),
     ]);

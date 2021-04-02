@@ -6,11 +6,11 @@ import { Parser, InvalidFileError } from "./parser";
 import { Message, readZIPFile } from "./helpers";
 
 /**
- * Used for parsing the data/sms.zip file.
+ * Used for parsing the `data/sms.zip` file.
  *
  * @internal
  */
-export class SmsParser extends Parser {
+export class SMSParser extends Parser {
   /**
    * @param path  Path to the zip file containing
    *              categorised spam/non-spam messages.
@@ -19,11 +19,29 @@ export class SmsParser extends Parser {
     super();
   }
 
+  /**
+   * Parses the SMS data file.
+   *
+   * The file is in the following format:
+   *
+   * ```text
+   * ham  Hello World
+   * spam  Free entry in 2 a wkly comp
+   * ```
+   *
+   * The delimiter between the first and subsequent
+   * tokens is a tab character.
+   *
+   * @param data  The raw file from the ZIP archive.
+   *
+   * @returns An array of messages parsed from the file.
+   */
   private parseData(data: string): Message[] {
     const lines = data.split("\n");
     const messages: Message[] = [];
 
     for (const line of lines) {
+      // Skip empty lines.
       if (!line) {
         continue;
       }
@@ -48,6 +66,7 @@ export class SmsParser extends Parser {
   async getMessages(): Promise<Message[]> {
     const { value: file } = await readZIPFile(this.path).next();
 
+    // File path must be 'sms'.
     if (!file || file.path !== "sms") {
       throw new InvalidFileError();
     }
