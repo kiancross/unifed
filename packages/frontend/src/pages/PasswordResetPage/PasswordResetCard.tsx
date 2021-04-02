@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { TextField, Button, Card, CardContent, Grid, Snackbar } from "@material-ui/core";
@@ -39,7 +39,7 @@ function validate({ newPass, retyped }: Values) {
   return errors;
 }
 
-export const PasswordResetCard = (): JSX.Element => {
+export const PasswordResetCard = (): ReactElement => {
   const { token } = useParams<Params>();
   const [isReset, setIsReset] = useState(false);
   const [isInternalServerError, setIsInternalServerError] = useState(false);

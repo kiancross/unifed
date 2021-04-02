@@ -12,6 +12,7 @@ import {
   makeStyles,
   CardActions,
 } from "@material-ui/core";
+import { ReactElement } from "react";
 
 import { SubscribeButton } from "./SubscribeButton";
 
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CommunityDescription = (props: CommunityDescriptionProps): JSX.Element => {
+export const CommunityDescription = (props: CommunityDescriptionProps): ReactElement => {
   const classes = useStyles();
 
   const title = <Typography variant="h6">{props.title}</Typography>;
