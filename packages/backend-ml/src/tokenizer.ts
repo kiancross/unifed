@@ -2,20 +2,68 @@
  * CS3099 Group A3
  */
 
-// Derived from
-// https://gist.github.com/dlebech/5bbabaece36753f8a29e7921d8e5bfc7
-
+/**
+ * Type representing a numerical sequence.
+ *
+ * See [[`Tokenizer`]] for usage example.
+ *
+ * @internal
+ */
 export type Sequence = number[];
 
+/**
+ * Type representing a string to number mapping.
+ *
+ * See [[`Tokenizer`]] for usage example.
+ *
+ * @internal
+ */
 export type StringNumberMapping = [string, number][];
 
+/**
+ * Implementation of a tokenizer derived from
+ * [here](https://gist.github.com/dlebech/5bbabaece36753f8a29e7921d8e5bfc7).
+ *
+ * Used to convert a string into a sequence of numbers,
+ * where smaller numbers indicate more frequently occurring
+ * tokens.
+ *
+ * @internal
+ */
 export class Tokenizer {
+  /**
+   * A mapping between words (tokens) and their corresponding
+   * index.
+   */
   wordIndex = new Map<string, number>();
+
+  /**
+   * A mapping between words (tokens) and their corresponding
+   * frequencies.
+   */
   wordCounts = new Map<string, number>();
 
+  /**
+   * @param vocabSize  The maximum size of the vocabulary.
+   */
   constructor(private readonly vocabSize: number) {}
 
-  static cleanText(text: string): string[] {
+  /**
+   * Converts a string into an array of tokens.
+   *
+   * The following rules are followed:
+   *
+   *  - Multiple spaces are collapsed into a single space.
+   *  - Special characters are removed.
+   *  - Numbers are replaced with a single token.
+   *  - URLs are replaced with a single token.
+   *  - Tokens are split at white space.
+   *
+   * @param text  The raw string.
+   *
+   * @returns An array of tokens.
+   */
+  static tokenize(text: string): string[] {
     const urlToken = "\x80";
 
     return (
@@ -37,16 +85,31 @@ export class Tokenizer {
     );
   }
 
+  /**
+   * Fits the tokenizer to a given set of strings.
+   * The frequency that tokens appear in these model
+   * strings will be used when generating sequences
+   * for unknown strings.
+   *
+   * @param texts  The strings to fit the tokenizer
+   *               with.
+   */
   fitOnTexts(texts: string[]): void {
     for (const text of texts) {
-      const cleanedText = Tokenizer.cleanText(text);
-      for (const word of cleanedText) {
+      const tokens = Tokenizer.tokenize(text);
+
+      for (const word of tokens) {
+        // Construct a frequency table for each token.
         this.wordCounts.set(word, (this.wordCounts.get(word) || 0) + 1);
       }
     }
 
     Array.from(this.wordCounts.entries())
+      // Sort the frequency table from most frequent to
+      // least frequent.
       .sort((a: [string, number], b: [string, number]) => b[1] - a[1])
+      // Use the index of the sorted table as the corresponding
+      // index for the token.
       .forEach(([word], i) => {
         if (i + 1 < this.vocabSize || this.vocabSize < 0) {
           this.wordIndex.set(word, i + 1);
@@ -54,14 +117,33 @@ export class Tokenizer {
       });
   }
 
+  /**
+   * Tokenizes a given string.
+   *
+   * @param text  The string to tokenize.
+   *
+   * @returns The tokenized string.
+   */
   textToSequence(text: string): Sequence {
-    return Tokenizer.cleanText(text).map((word) => this.wordIndex.get(word) || 0);
+    // If an entry does not exist for the token, set it to 0.
+    return Tokenizer.tokenize(text).map((word) => this.wordIndex.get(word) || 0);
   }
 
+  /**
+   * Loads a tokenizer from a given object.
+   *
+   * @param wordIndex  The object to loads the tokenizer from.
+   */
   fromJSON(wordIndex: StringNumberMapping): void {
     this.wordIndex = new Map(wordIndex);
   }
 
+  /**
+   * Converts the tokenizer to an object that can be
+   * JSON encoded.
+   *
+   * @returns The JSON encodable tokenizer object.
+   */
   toJSON(): StringNumberMapping {
     return Array.from(this.wordIndex.entries());
   }
