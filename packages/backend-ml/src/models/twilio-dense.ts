@@ -5,31 +5,40 @@
 // Model taken from:
 // https://www.twilio.com/blog/spam-deep-learning-detection-sms-keras-python-twilio
 
-import { Sequential, layers, sequential, train } from "@tensorflow/tfjs-node-gpu";
+import { layers, train } from "@tensorflow/tfjs-node-gpu";
+
 import { Config } from "../config";
+import { Model } from "./model";
 
-export const getModel = (config: Config): Sequential => {
-  const model = sequential();
+/**
+ * Implementation of the dense model,
+ * found [here](https://www.twilio.com/blog/spam-deep-learning-detection-sms-keras-python-twilio).
+ *
+ * @internal
+ */
+export class TwilioDenseModel extends Model {
+  static externalName = "twilio-dense";
 
-  model.add(
-    layers.embedding({
-      inputDim: config.vocabSize,
-      outputDim: config.embeddingDimension,
-      inputLength: config.maxSequenceLength,
-    }),
-  );
-  model.add(layers.flatten());
-  model.add(layers.dense({ units: 500, activation: "relu" }));
-  model.add(layers.dense({ units: 200, activation: "relu" }));
-  model.add(layers.dropout({ rate: 0.5 }));
-  model.add(layers.dense({ units: 100, activation: "relu" }));
-  model.add(layers.dense({ units: 1, activation: "sigmoid" }));
+  protected initialiseModel(config: Config): void {
+    this.add(
+      layers.embedding({
+        inputDim: config.vocabSize,
+        outputDim: config.embeddingDimension,
+        inputLength: config.maxSequenceLength,
+      }),
+    );
 
-  model.compile({
-    optimizer: train.rmsprop(0.001),
-    loss: "binaryCrossentropy",
-    metrics: ["accuracy"],
-  });
+    this.add(layers.flatten());
+    this.add(layers.dense({ units: 500, activation: "relu" }));
+    this.add(layers.dense({ units: 200, activation: "relu" }));
+    this.add(layers.dropout({ rate: 0.5 }));
+    this.add(layers.dense({ units: 100, activation: "relu" }));
+    this.add(layers.dense({ units: 1, activation: "sigmoid" }));
 
-  return model;
-};
+    this.compile({
+      optimizer: train.rmsprop(0.001),
+      loss: "binaryCrossentropy",
+      metrics: ["accuracy"],
+    });
+  }
+}

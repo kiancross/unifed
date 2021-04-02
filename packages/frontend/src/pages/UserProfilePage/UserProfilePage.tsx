@@ -7,6 +7,7 @@ import { gql, useQuery } from "@apollo/client";
 import { Container, Grid, useMediaQuery } from "@material-ui/core";
 
 import { UserInfoCard, PostPreview, CenteredLoader } from "../../components";
+import { ReactElement } from "react";
 
 interface PublicUserProfileParams {
   username: string;
@@ -26,7 +27,7 @@ export const GET_POSTS1 = gql`
   }
 `;
 
-export const UserProfilePage = (): JSX.Element => {
+export const UserProfilePage = (): ReactElement => {
   const { username } = useParams<PublicUserProfileParams>();
   const name = username;
   const isMobile = useMediaQuery("(max-width: 960px)");
