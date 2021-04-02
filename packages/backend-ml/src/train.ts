@@ -53,7 +53,7 @@ export async function saveMeta(sentences: string[], path: string): Promise<void>
 
   const sentenceLengthsCsv = arrayToCsv(
     sentences
-      .map((sentence) => Tokenizer.cleanText(sentence))
+      .map((sentence) => Tokenizer.tokenize(sentence))
       .map((tokens) => tokens.length)
       .sort((a, b) => a - b)
       .map((length) => [length]),
