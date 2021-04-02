@@ -9,6 +9,18 @@ import { getSpamFactor } from "./index";
 import * as constants from "./constants";
 import { arrayToCsv, createDirectory } from "./helpers";
 
+/**
+ * Tests a set of messages against the default model
+ * and writes the results to a file.
+ *
+ * @param message  The messages used to test the default
+ *                 model.
+ *
+ * @param outputPath  The file path to write the results
+ *                    at.
+ *
+ * @internal
+ */
 export async function testModel(messages: Message[], outputPath: string): Promise<void> {
   const spam: number[] = [];
   const ham: number[] = [];
@@ -22,6 +34,8 @@ export async function testModel(messages: Message[], outputPath: string): Promis
       ham.push(factor);
     }
   }
+
+  // Write the results as the deviation from the expected value.
 
   await fs.writeFile(
     `${outputPath}/${constants.testingResultsSpamName}`,
