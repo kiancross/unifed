@@ -18,31 +18,31 @@ You can create tables with pipes `|` and hyphens `-`. Hyphens are used to create
 | Content Cell  | Content Cell  |
 | Content Cell  | Content Cell  |
 ```
-
+![Markdown Table](../../images/editor/table.jpg)
 
 The pipes on either end of the table are optional.
 
 Cells can vary in width and do not need to be perfectly aligned within columns. There must be at least three hyphens in each column of the header row.
 
 ```markdown
-| Command | Description |
+| Subject | Description |
 | --- | --- |
-| git status | List all new or modified files |
-| git diff | Show file differences that haven't been staged |
+| History | Learn about the past |
+| Biology | Learn about organisms |
 ```
-
+![Markdown Misaligned Table](../../images/editor/misaligned-table.jpg)
 
 ### Formatting content within your table
 
 You can use [formatting](/ediotr/basic-writing) such as links, inline code blocks, and text styling within your table:
 
 ```markdown
-| Command | Description |
+| Code | Description |
 | --- | --- |
 | `print("Hello World")` | Prints "Hello World" to console |
 | `int a = 5` | Assigns value 5 to variable a |
 ```
-
+![Markdown Code Table](../../images/editor/code-table.jpg)
 
 You can align text to the left, right, or center of a column by including colons `:` to the left, right, or on both sides of the hyphens within the header row.
 
@@ -53,6 +53,8 @@ You can align text to the left, right, or center of a column by including colons
 | lower left   | lower center   | lower right   |
 ```
 
+![Markdown Aligned Table](../../images/editor/aligned-table.jpg)
+
 To include a pipe `|` as content within your cell, use a `\` before the pipe:
 
 ```markdown
@@ -61,3 +63,5 @@ To include a pipe `|` as content within your cell, use a `\` before the pipe:
 | Backtick | `         |
 | Pipe     | \|        |
 ```
+
+![Markdown Pipe Table](../../images/editor/pipe-table.jpg)
