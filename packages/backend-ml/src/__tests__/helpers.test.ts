@@ -7,24 +7,24 @@ import os from "os";
 import fs, { promises as fsPromises } from "fs";
 import { Parser, Message } from "../parsers";
 import {
-  arrayToCsv,
+  arrayToCSV,
   flattenMessages,
   ratioSplitArray,
   mergeParsers,
   createDirectory,
 } from "../helpers";
 
-test("arrayToCsv empty", (t) => {
-  t.is(arrayToCsv([]), "");
+test("arrayToCSV empty", (t) => {
+  t.is(arrayToCSV([]), "");
 });
 
-test("arrayToCsv one row", (t) => {
-  t.is(arrayToCsv([["hello", 1]]), "hello,1");
+test("arrayToCSV one row", (t) => {
+  t.is(arrayToCSV([["hello", 1]]), "hello,1");
 });
 
-test("arrayToCsv two rows", (t) => {
+test("arrayToCSV two rows", (t) => {
   t.is(
-    arrayToCsv([
+    arrayToCSV([
       ["hello", 1],
       ["world", 2],
     ]),

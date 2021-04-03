@@ -7,7 +7,7 @@ import { promises as fs } from "fs";
 import { TestingParser, Message } from "./parsers";
 import { getSpamFactor } from "./index";
 import * as constants from "./constants";
-import { arrayToCsv, createDirectory } from "./helpers";
+import { arrayToCSV, createDirectory } from "./helpers";
 
 /**
  * Tests a set of messages against the default model
@@ -39,12 +39,12 @@ export async function testModel(messages: Message[], outputPath: string): Promis
 
   await fs.writeFile(
     `${outputPath}/${constants.testingResultsSpamName}`,
-    arrayToCsv(spam.map((factor) => [1 - factor])),
+    arrayToCSV(spam.map((factor) => [1 - factor])),
   );
 
   await fs.writeFile(
     `${outputPath}/${constants.testingResultsHamName}`,
-    arrayToCsv(ham.map((factor) => [factor])),
+    arrayToCSV(ham.map((factor) => [factor])),
   );
 }
 

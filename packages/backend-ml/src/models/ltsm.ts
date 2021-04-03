@@ -13,7 +13,7 @@ import { Model } from "./model";
  *
  * @internal
  */
-export class LtsmModel extends Model {
+export class LTSMModel extends Model {
   static externalName = "ltsm";
 
   protected initialiseModel(config: Config): void {
