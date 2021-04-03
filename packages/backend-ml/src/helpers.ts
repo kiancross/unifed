@@ -85,7 +85,7 @@ export async function mergeParsers(parsers: Parser[]): Promise<Message[]> {
  *
  * @internal
  */
-export function arrayToCsv<T, R extends Array<T>>(values: R[]): string {
+export function arrayToCSV<T, R extends Array<T>>(values: R[]): string {
   return values.map((value) => value.join(",")).join("\n");
 }
 
