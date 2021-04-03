@@ -10,7 +10,6 @@
     "test": "yarn workspaces foreach -vp -j 8 run test",
     "fix": "yarn workspaces foreach -vp -j 8 run fix",
     "dev-docs": "yarn typedoc",
-    "coverage": "./scripts/generate-coverage-report",
     "container:start": "make -C scripts -f entry.mk start",
     "container:stop": "make -C scripts -f entry.mk stop",
     "container:restart": "make -C scripts -f entry.mk restart",
