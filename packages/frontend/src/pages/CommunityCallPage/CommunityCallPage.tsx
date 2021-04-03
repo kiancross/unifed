@@ -12,6 +12,15 @@ import { VideoWrapperProps } from "./VideoWrapper";
 import { VideoGrid } from "./VideoGrid";
 import { JoinCallMessage } from "./JoinCallMessage";
 
+/**
+ * URL parameters for [[`CommunityCallPage`]].
+ *
+ * @internal
+ */
+export interface CommunityCallPageParams {
+  community: string;
+}
+
 interface CommunityCall {
   type: "request" | "offer" | "answer" | "ice";
   from: string;
@@ -39,6 +48,26 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+/**
+ *  Allows users to join a group call with other
+ *  community members.
+ *
+ *  Outline:
+ *
+ *   - Users are displayed a 'Join' button.
+ *
+ *   - Users are placed into a group call with other
+ *     members after clicking the 'Join' button.
+ *
+ *   - Users can mute themselves and other members
+ *     in the call - useful for 1-on-1 or
+ *     restricted group conversations.
+ *
+ *   - Access to the user's microphone and camera
+ *     is required.
+ *
+ *  @internal
+ */
 export const CommunityCallPage = (): ReactElement => {
   const classes = useStyles();
 
@@ -50,7 +79,7 @@ export const CommunityCallPage = (): ReactElement => {
   const peerConnections = useRef<{ [user: string]: SafePeerConnection }>({});
   const [connectedUsers, setConnectedUsers] = useState<ConnectedUser[]>([]);
 
-  const { community } = useParams<{ community: string }>();
+  const { community } = useParams<CommunityCallPageParams>();
 
   const [sendEvent] = useMutation(gql`
     mutation($community: String!, $user: String, $sdp: String, $type: String!) {
