@@ -47,7 +47,7 @@ export class UsersService {
   }
 
   async getSubscriptions(id: string): Promise<RemoteReference[]> {
-    const user = await UserModel.findOne({ _id: id }, "subscriptions").exec();
+    const user = await UserModel.findOne({ _id: id }, "subscriptions").lean();
 
     if (!user) return [];
 
