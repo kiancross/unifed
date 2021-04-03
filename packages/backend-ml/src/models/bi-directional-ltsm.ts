@@ -13,7 +13,7 @@ import { Model } from "./model";
  *
  * @internal
  */
-export class BiDirectionalLtsmModel extends Model {
+export class BiDirectionalLTSMModel extends Model {
   static readonly externalName = "bi-directional-ltsm";
 
   protected initialiseModel(config: Config): void {
