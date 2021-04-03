@@ -6,7 +6,7 @@ import test from "ava";
 import os from "os";
 import fs, { promises as fsPromises } from "fs";
 import { Message } from "../parsers";
-import { constants } from "../constants";
+import * as constants from "../constants";
 import { testModel } from "../test-model";
 
 test("testModel", async (t) => {
