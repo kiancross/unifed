@@ -25,7 +25,7 @@ export class User extends PublicUser {
   emails!: EmailRecord[];
 
   @Field(() => [RemoteReference])
-  @Property({ ref: RemoteReference, type: RemoteReference, required: true })
+  @Property({ type: RemoteReference })
   subscriptions!: RemoteReference[];
 
   @Field(() => [RemoteReference])

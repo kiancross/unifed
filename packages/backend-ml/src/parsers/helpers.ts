@@ -4,17 +4,53 @@
 
 import StreamZip from "node-stream-zip";
 
+/**
+ * A spam/non-spam message.
+ *
+ * @internal
+ */
 export interface Message {
+  /**
+   * The body of the message.
+   */
   readonly body: string;
+
+  /**
+   * Flag indicating if the message has been
+   * categorised as spam or non-spam.
+   */
   readonly spam: boolean;
 }
 
-export interface ZipFileEntry {
+/**
+ * A file from inside a ZIP archive.
+ *
+ * @internal
+ */
+export interface ZIPFileEntry {
+  /**
+   * Path of file inside the ZIP archive.
+   */
   readonly path: string;
+
+  /**
+   * Data from file inside the ZIP archive.
+   */
   readonly data: string;
 }
 
-export async function* readZipFile(path: string): AsyncGenerator<ZipFileEntry, void> {
+/**
+ * Iterates through all entries in a given
+ * ZIP archive.
+ *
+ * @param path  Path to the ZIP archive.
+ *
+ * @returns An asynchronous generator yielding [[`ZIPFileEntry`]]
+ *          objects.
+ *
+ * @internal
+ */
+export async function* readZIPFile(path: string): AsyncGenerator<ZIPFileEntry, void> {
   const zip: StreamZip = await new Promise((resolve, reject) => {
     const zip = new StreamZip({
       file: path,
@@ -26,6 +62,7 @@ export async function* readZipFile(path: string): AsyncGenerator<ZipFileEntry, v
   });
 
   for (const entry of Object.values(zip.entries())) {
+    // We're only interested in files.
     if (entry.isDirectory) {
       continue;
     }

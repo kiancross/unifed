@@ -20,6 +20,8 @@ function test() {
 ```
 </pre>
 
+![Markdown Fenced Code](../../images/editor/fenced-code.jpg)
+
 ### Syntax highlighting
 
 You can add an optional language identifier to enable syntax highlighting in your fenced code block.
@@ -31,3 +33,5 @@ For example, to syntax highlight Ruby code:
     markdown = Redcarpet.new("Hello World!")
     puts markdown.to_html
     ```
+
+![Markdown Ruby Code](../../images/editor/ruby-code.jpg)

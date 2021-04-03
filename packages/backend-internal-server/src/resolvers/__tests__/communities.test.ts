@@ -6,10 +6,12 @@ import "reflect-metadata";
 import rawTest, { TestInterface } from "ava";
 import { graphql, GraphQLSchema } from "graphql";
 import { Container } from "typedi";
+
 import { setup } from "@unifed/backend-testing";
-import { getMergedSchema } from "../schema";
-import { CommunitiesService } from "../services";
 import { Community } from "@unifed/backend-core";
+
+import { getMergedSchema } from "../../schema";
+import { CommunitiesService } from "../../services";
 
 class CommunitiesServiceStub {
   communities: { [host: string]: Community[] } = {};
@@ -52,6 +54,9 @@ test("Communities empty", async (t) => {
     `,
   );
 
-  t.not(response.data, null);
-  response.data && t.deepEqual(response.data.getCommunities, []);
+  if (response.data) {
+    t.deepEqual(response.data.getCommunities, []);
+  } else {
+    t.fail();
+  }
 });

@@ -14,6 +14,7 @@ interface Params {
   parentId?: string;
   isComment?: boolean;
   onSuccess: (id: string) => void;
+  onCancel?: () => void;
 }
 
 export const createPostQuery = gql`
@@ -74,6 +75,7 @@ export const PostCreator = (props: Params): ReactElement => {
   return (
     <PostEditorBase
       isComment={props.isComment}
+      onCancel={props.onCancel}
       onSubmit={async ({ title, body }) => {
         const response = await createPost({
           variables: {

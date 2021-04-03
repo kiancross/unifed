@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, ReactElement } from "react";
 import { Redirect } from "react-router-dom";
 import {
   CardHeader,
@@ -17,6 +17,7 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { gql, useMutation, Reference } from "@apollo/client";
 import { UserContext } from "../../contexts";
 import { Link, ErrorMessage, CenteredLoader } from "..";
+import { UserIcon } from "../UserIcon";
 
 interface Props {
   username: string;
@@ -38,7 +39,7 @@ export const DELETE_POST = gql`
   }
 `;
 
-export const PostHeader = (props: Props): JSX.Element => {
+export const PostHeader = (props: Props): ReactElement => {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
   const user = useContext(UserContext);
   const classes = useStyles(props);
@@ -127,23 +128,20 @@ export const PostHeader = (props: Props): JSX.Element => {
       </React.Fragment>
     ) : null;
 
-  const headerTitle = props.parent ? (
-    <Typography variant="body2" gutterBottom>
+  const headerTitle = (
+    <Typography variant="body2" gutterBottom={props.parent == undefined}>
       <Link to={"/user/" + props.username} color="inherit">
-        {props.username}
-      </Link>
-      &nbsp; &#8212; &nbsp;
-      <Link color="inherit" to={props.id}>
-        View Replies
-      </Link>
-    </Typography>
-  ) : (
-    <Typography variant="body2">
-      <Link color="inherit" to={"/user/" + props.username}>
         {props.username}
       </Link>
     </Typography>
   );
 
-  return <CardHeader className={classes.header} action={headerAction} title={headerTitle} />;
+  return (
+    <CardHeader
+      avatar={<UserIcon small username={props.username} />}
+      className={classes.header}
+      action={headerAction}
+      title={headerTitle}
+    />
+  );
 };

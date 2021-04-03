@@ -4,6 +4,12 @@
 
 import validator from "validator";
 
-export function validateEmail(email: string): boolean {
+/**
+ * Validates that the given string is a valid
+ * email address.
+ *
+ * @param email An email address to validate.
+ */
+export const validateEmail = (email: string): boolean => {
   return validator.isEmail(email);
-}
+};

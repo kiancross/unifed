@@ -16,7 +16,7 @@ jobs:
   run:
     name: Run
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
       - uses: actions/checkout@v2
@@ -77,6 +77,7 @@ jobs:
 
       - name: Upload Coverage Report (backend-core) 1️⃣ 📊
         uses: codecov/codecov-action@v1
+        if: github.actor != 'dependabot[bot]'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: backend-core
@@ -85,6 +86,7 @@ jobs:
 
       - name: Upload Coverage Report (backend-federation-client) 2️⃣ 📊
         uses: codecov/codecov-action@v1
+        if: github.actor != 'dependabot[bot]'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: backend-federation-client
@@ -93,6 +95,7 @@ jobs:
 
       - name: Upload Coverage Report (backend-federation-server) 3️⃣ 📊
         uses: codecov/codecov-action@v1
+        if: github.actor != 'dependabot[bot]'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: backend-federation-server
@@ -101,6 +104,7 @@ jobs:
 
       - name: Upload Coverage Report (backend-internal-server) 4️⃣ 📊
         uses: codecov/codecov-action@v1
+        if: github.actor != 'dependabot[bot]'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: backend-internal-server
@@ -109,6 +113,7 @@ jobs:
 
       - name: Upload Coverage Report (backend-ml) 5️⃣ 📊
         uses: codecov/codecov-action@v1
+        if: github.actor != 'dependabot[bot]'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: backend-ml
@@ -117,6 +122,7 @@ jobs:
       
       - name: Upload Coverage Report (frontend) 6️⃣ 📊
         uses: codecov/codecov-action@v1
+        if: github.actor != 'dependabot[bot]'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: frontend
@@ -125,6 +131,7 @@ jobs:
 
       - name: Upload Coverage Report (shared) 7️⃣ 📊
         uses: codecov/codecov-action@v1
+        if: github.actor != 'dependabot[bot]'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: shared

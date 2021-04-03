@@ -9,6 +9,7 @@ import { Container, Grid, useMediaQuery } from "@material-ui/core";
 import { PostCreator, UserInfoCard, CenteredLoader } from "../../components";
 import { Post } from "./Post";
 import { Comments } from "./Comments";
+import { ReactElement } from "react";
 
 interface PostParams {
   server: string;
@@ -29,7 +30,7 @@ export const GET_POST = gql`
   }
 `;
 
-export const PostPage = (): JSX.Element => {
+export const PostPage = (): ReactElement => {
   const { post, server, community } = useParams<PostParams>();
   const { loading, error, data } = useQuery(GET_POST, {
     variables: { id: post, host: server },
@@ -58,7 +59,7 @@ export const PostPage = (): JSX.Element => {
             submitButtonText="Add Comment"
             onSuccess={() => null}
           />
-          <Comments parentId={post} server={server} grids={11} />
+          <Comments community={community} parentId={post} server={server} grids={12} />
         </Grid>
 
         <Grid item container xs={12} md={4} direction="column" spacing={2}>
