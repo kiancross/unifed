@@ -1,50 +1,22 @@
 /*
+
  * CS3099 Group A3
  */
 
-import "reflect-metadata";
-import rawTest, { TestInterface } from "ava";
-import { graphql, GraphQLSchema } from "graphql";
+import test from "ava";
+import { graphql } from "graphql";
 import { Container } from "typedi";
 
-import { setup } from "@unifed/backend-testing";
-import { RemoteReference } from "@unifed/backend-core";
+import { setup, generateUser } from "@unifed/backend-testing";
+import { UserModel } from "@unifed/backend-core";
 
 import { getMergedSchema } from "../../schema";
-import { UsersService } from "../../services";
-
-class UsersServiceStub {
-  subscriptions: { [host: string]: RemoteReference[] } = {};
-
-  async getSubscriptions(id: string) {
-    return this.subscriptions[id];
-  }
-}
-
-interface Context {
-  schema: GraphQLSchema;
-  usersService: UsersServiceStub;
-}
-
-const test = rawTest as TestInterface<Context>;
 
 setup(test);
 
-test.beforeEach(async (t) => {
-  const container = Container.of(t.title);
-  const usersService = new UsersServiceStub();
-
-  container.set(UsersService, usersService);
-
-  t.context.schema = await getMergedSchema(container);
-  t.context.usersService = usersService;
-});
-
-test("getSubscriptions empty", async (t) => {
-  t.context.usersService.subscriptions["foo"] = [];
-
+test.serial("getSubscriptions empty", async (t) => {
   const response = await graphql(
-    t.context.schema,
+    await getMergedSchema(Container.of()),
     `
       query {
         getSubscriptions {
@@ -68,15 +40,34 @@ test("getSubscriptions empty", async (t) => {
   t.deepEqual(response.data.getSubscriptions, []);
 });
 
-test("getSubscriptions single", async (t) => {
-  const remoteReference = new RemoteReference();
-  remoteReference.id = "bar";
-  remoteReference.host = "baz";
+test.serial("Add subscription", async (t) => {
+  const user = generateUser();
+  await UserModel.create(user);
 
-  t.context.usersService.subscriptions["foo"] = [remoteReference];
+  let response = await graphql(
+    await getMergedSchema(Container.of()),
+    `
+      mutation {
+        subscribe(community: { host: "this", id: "all" })
+      }
+    `,
+    null,
+    {
+      user: {
+        id: user.id,
+      },
+    },
+  );
 
-  const response = await graphql(
-    t.context.schema,
+  if (!response.data) {
+    t.fail();
+    return;
+  }
+
+  t.true(response.data.subscribe);
+
+  response = await graphql(
+    await getMergedSchema(Container.of()),
     `
       query {
         getSubscriptions {
@@ -87,10 +78,12 @@ test("getSubscriptions single", async (t) => {
     null,
     {
       user: {
-        id: "foo",
+        id: user.id,
       },
     },
   );
+
+  console.log(response);
 
   if (!response.data) {
     t.fail();
@@ -98,4 +91,53 @@ test("getSubscriptions single", async (t) => {
   }
 
   t.is(response.data.getSubscriptions.length, 1);
+
+  const subscription = response.data.getSubscriptions[0];
+
+  t.is(subscription.host, "this");
+  t.is(subscription.id, "all");
 });
+
+/*
+test.serial("Add duplicate subscription", async (t) => {
+  const user = generateUser();
+
+  await UserModel.create(user);
+
+  t.true(await usersService.subscribe(user.id, "foo", "bar"));
+  t.true(await usersService.subscribe(user.id, "foo", "bar"));
+
+  const subscriptions = await usersService.getSubscriptions(user.id);
+
+  t.is(subscriptions.length, 1);
+  t.is(subscriptions[0].host, "foo");
+  t.is(subscriptions[0].id, "bar");
+});
+
+test.serial("Unsubscribe", async (t) => {
+  const user = generateUser();
+
+  await UserModel.create(user);
+
+  t.true(await usersService.subscribe(user.id, "foo", "bar"));
+  t.true(await usersService.unsubscribe(user.id, "foo", "bar"));
+
+  const subscriptions = await usersService.getSubscriptions(user.id);
+
+  t.is(subscriptions.length, 0);
+});
+
+test.serial("Unsubscribe duplicate", async (t) => {
+  const user = generateUser();
+
+  await UserModel.create(user);
+
+  t.true(await usersService.subscribe(user.id, "foo", "bar"));
+  t.true(await usersService.unsubscribe(user.id, "foo", "bar"));
+  t.true(await usersService.unsubscribe(user.id, "foo", "bar"));
+
+  const subscriptions = await usersService.getSubscriptions(user.id);
+
+  t.is(subscriptions.length, 0);
+});
+*/
