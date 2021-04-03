@@ -8,6 +8,7 @@
 module.exports = {
   name: "Unifed Developer Documentation",
   exclude: [
+    "**/index.ts",
     "**/*.test.ts",
     "**/*.test.tsx",
     "**/build/*",
@@ -15,7 +16,7 @@ module.exports = {
     "**/frontend/src/react-app-env*",
   ],
   out: "docs/developers",
-  entryPoints: ["packages"],
+  entryPoints: ["packages/"],
 
   excludeExternals: true,
 

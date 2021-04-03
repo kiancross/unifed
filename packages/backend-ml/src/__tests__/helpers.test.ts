@@ -9,7 +9,7 @@ import { Parser, Message } from "../parsers";
 import {
   arrayToCsv,
   flattenMessages,
-  ratioSplitMessages,
+  ratioSplitArray,
   mergeParsers,
   createDirectory,
 } from "../helpers";
@@ -52,21 +52,12 @@ test("flattenMessages valid", (t) => {
   });
 });
 
-test("ratioSplitMessages empty", (t) => {
-  t.deepEqual(ratioSplitMessages([], 0.5), [[], []]);
+test("ratioSplitArray empty", (t) => {
+  t.deepEqual(ratioSplitArray([], 0.5), [[], []]);
 });
 
-test("ratioSplitMessages floor", (t) => {
-  const message1: Message = {
-    body: "message1",
-    spam: false,
-  };
-  const message2: Message = {
-    body: "message2",
-    spam: true,
-  };
-
-  t.deepEqual(ratioSplitMessages([message1, message2], 0.99), [[message1], [message2]]);
+test("ratioSplitArray floor", (t) => {
+  t.deepEqual(ratioSplitArray([1, 2], 0.99), [[1], [2]]);
 });
 
 test("Merge messages", async (t) => {
