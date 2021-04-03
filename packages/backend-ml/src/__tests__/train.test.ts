@@ -6,9 +6,9 @@ import os from "os";
 import fs, { promises as fsPromises } from "fs";
 import rawTest, { TestInterface } from "ava";
 import { Message } from "../parsers";
-import { TrainedModelWithMeta, trainModels, saveModel, saveMeta } from "../train";
+import { TrainedModelWithMeta, trainModels, saveModel, saveSentencesMeta } from "../train";
 import { defaultConfig } from "../config";
-import { constants } from "../constants";
+import * as constants from "../constants";
 
 const test = rawTest as TestInterface<{ trainedModel: TrainedModelWithMeta }>;
 
@@ -60,7 +60,7 @@ test("Save meta", async (t) => {
   const path = await fsPromises.mkdtemp(os.tmpdir() + "/");
 
   const sentences = ["foo bar", "bar baz"];
-  await saveMeta(sentences, path);
+  await saveSentencesMeta(sentences, path);
 
   t.true(fs.existsSync(path));
   t.true(fs.existsSync(`${path}/${constants.wordFrequenciesName}`));
