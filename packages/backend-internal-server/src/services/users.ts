@@ -3,6 +3,7 @@
  */
 
 import { Service } from "typedi";
+import { plainToClass } from "class-transformer";
 import { RemoteReference, UserModel } from "@unifed/backend-core";
 
 @Service()
@@ -51,6 +52,6 @@ export class UsersService {
 
     if (!user) return [];
 
-    return user.subscriptions;
+    return plainToClass(RemoteReference, user.subscriptions);
   }
 }

@@ -145,7 +145,7 @@ test.serial("unsubscribe", async (t) => {
     return;
   }
 
-  t.true(response.data.subscribe);
+  t.true(response.data.unsubscribe);
 
   response = await graphql(
     await schema,
