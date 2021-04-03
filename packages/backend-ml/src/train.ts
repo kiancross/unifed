@@ -13,7 +13,7 @@ import { Config, defaultConfig } from "./config";
 import * as constants from "./constants";
 
 import {
-  arrayToCsv,
+  arrayToCSV,
   flattenMessages,
   ratioSplitArray,
   mergeParsers,
@@ -80,14 +80,14 @@ export async function saveSentencesMeta(sentences: string[], path: string): Prom
   infiniteTokenizer.fitOnTexts(sentences);
 
   // Create a frequency tables of tokens.
-  const wordFrequenciesCsv = arrayToCsv(
+  const wordFrequenciesCsv = arrayToCSV(
     Array.from(infiniteTokenizer.wordCounts.values())
       .sort((a, b) => a - b)
       .map((value) => [value]),
   );
 
   // Create a table of sentence lengths.
-  const sentenceLengthsCsv = arrayToCsv(
+  const sentenceLengthsCsv = arrayToCSV(
     sentences
       .map((sentence) => Tokenizer.tokenize(sentence))
       .map((tokens) => tokens.length)
