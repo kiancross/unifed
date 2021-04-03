@@ -7,8 +7,24 @@ import { Container, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import logo from "../../assets/unifed.svg";
 
-interface Props {
+/**
+ * Properties for the [[`LogoTemplate`]] component.
+ *
+ * @internal
+ */
+export interface LogoTemplateProps {
+  /**
+   * The content to display on the page.
+   */
   children: ReactNode;
+
+  /**
+   *  - `horizontal` - the logo and page content
+   *    will be displayed side-by-side.
+   *
+   *  - `vertical` - the logo will be displayed
+   *    above, with the page content below.
+   */
   direction?: "horizontal" | "vertical";
 }
 
@@ -31,7 +47,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const LogoTemplate = (props: Props): ReactElement => {
+/**
+ * A template used for displaying the Unifed logo
+ * along with some page content.
+ *
+ * This tends to be used for non-authenticated
+ * pages, where branding is important and page
+ * real-estate would not otherwise be utilised.
+ *
+ * @internal
+ */
+export const LogoTemplate = (props: LogoTemplateProps): ReactElement => {
   const classes = useStyles(props);
 
   const vertical = props.direction === "vertical";
