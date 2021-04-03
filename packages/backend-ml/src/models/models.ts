@@ -7,12 +7,12 @@ import { EarlyStopping, History, Tensor } from "@tensorflow/tfjs-node-gpu";
 import { Config } from "../config";
 import { Model } from "./model";
 import { TwilioDenseModel } from "./twilio-dense";
-import { BiDirectionalLtsmModel } from "./bi-directional-ltsm";
+import { BiDirectionalLTSMModel } from "./bi-directional-ltsm";
 import { DensePoolingModel } from "./dense-pooling";
 import { DenseModel } from "./dense";
-import { LtsmModel } from "./ltsm";
+import { LTSMModel } from "./ltsm";
 
-const models = [TwilioDenseModel, BiDirectionalLtsmModel, DensePoolingModel, DenseModel, LtsmModel];
+const models = [TwilioDenseModel, BiDirectionalLTSMModel, DensePoolingModel, DenseModel, LTSMModel];
 
 /**
  * Names of all available models.
