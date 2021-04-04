@@ -79,6 +79,7 @@ export const Comment = (props: PostValues): ReactElement => {
           <Box borderLeft={4} borderColor={theme.palette.primary.main}>
             <Card elevation={1} square className={classes.header}>
               <PostHeader
+                community={props.community}
                 onToggleEdit={() => setEditorOpen(true)}
                 parent={props.parent}
                 username={props.username}

@@ -10,6 +10,7 @@ import { BrowserMockProvider } from "../../helpers";
 import { PostPage, GET_POST } from "./PostPage";
 import { Comments, GET_COMMENTS } from "./Comments";
 import { Post } from "./Post";
+import { GET_ADMINS } from "../../components/PostHeader";
 
 // 001 represents the main post
 // 002-006 represent the comments
@@ -29,6 +30,21 @@ const title = "Test Title";
 const body = "Test Body";
 const authorId = "123";
 const username = "testuser";
+const community = "community";
+
+const getAdminsMock = {
+  request: {
+    query: GET_ADMINS,
+    variables: { id: community, host: server },
+  },
+  result: {
+    data: {
+      getCommunity: {
+        admins: [{ id: username, host: server }],
+      },
+    },
+  },
+};
 
 test("Display comments", async () => {
   const reqres = (
@@ -82,12 +98,13 @@ test("Display comments", async () => {
         },
       },
     },
+    getAdminsMock,
   ];
 
   const { getByText } = render(
     <BrowserRouter>
       <MockedProvider mocks={getCommentsMocks} addTypename={false}>
-        <Comments parentId={ids[0]} server={server} grids={11} />
+        <Comments community={community} parentId={ids[0]} server={server} grids={11} />
       </MockedProvider>
     </BrowserRouter>,
   );
@@ -101,35 +118,33 @@ test("Display comments", async () => {
 });
 
 test("PostPage renders", async () => {
-  const getPostMock = [
-    {
-      request: {
-        query: GET_POST,
-        variables: {
-          id: id,
-          host: server,
-        },
+  const getPostMock = {
+    request: {
+      query: GET_POST,
+      variables: {
+        id: id,
+        host: server,
       },
-      result: {
-        data: {
-          getPost: {
-            id: id,
-            title: title,
-            body: body,
-            author: {
-              id: authorId,
-            },
+    },
+    result: {
+      data: {
+        getPost: {
+          id: id,
+          title: title,
+          body: body,
+          author: {
+            id: authorId,
           },
         },
       },
     },
-  ];
+  };
 
   const { getByText } = render(
     <BrowserMockProvider
       path="/instances/:server/communities/:community/posts/:post"
-      initialEntries={["/instances/testserver/communities/this/posts/testId"]}
-      mocks={getPostMock}
+      initialEntries={["/instances/testserver/communities/community/posts/testId"]}
+      mocks={[getPostMock, getAdminsMock]}
     >
       <PostPage />
     </BrowserMockProvider>,
@@ -142,10 +157,19 @@ test("PostPage renders", async () => {
 
 test("Render Comment", async () => {
   render(
-    <BrowserMockProvider>
-      <Post username={username} id={id} body={body} server={server} title={""} />
+    <BrowserMockProvider mocks={[getAdminsMock]}>
+      <Post
+        community={community}
+        username={username}
+        id={id}
+        body={body}
+        server={server}
+        title={""}
+      />
     </BrowserMockProvider>,
   );
 
-  expect(screen.getByText("Comment"));
+  await waitFor(() => {
+    expect(screen.getByText("Comment"));
+  });
 });
