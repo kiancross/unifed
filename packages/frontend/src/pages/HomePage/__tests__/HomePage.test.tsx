@@ -11,6 +11,23 @@ import { GraphQLError } from "graphql";
 import { HomePage } from "../HomePage";
 import { CommunitiesListCard, GET_COMMUNITIES } from "../CommunitiesListCard";
 import { SubscribedPosts, GET_SUBSCRIBED } from "../SubscribedPosts";
+import { GET_ADMINS } from "../../../components/PostHeader";
+
+const communityID = "baz";
+const communityHost ="ham";
+const getAdminsMock = {
+  request: {
+    query: GET_ADMINS,
+    variables: { id: communityID, host: communityHost },
+  },
+  result: {
+    data: {
+      getCommunity: {
+        admins: [{ id: "username", host: "this" }],
+      },
+    },
+  },
+};
 
 test("Render homepage", async () => {
   const { getByText } = render(
@@ -100,14 +117,15 @@ test("Renders SubscribedPosts", async () => {
               },
               body: "bar",
               community: {
-                id: "baz",
+                id: communityID,
               },
-              host: "ham",
+              host: communityHost,
             },
           ],
         },
       },
     },
+    getAdminsMock,
   ];
 
   const { getByText } = render(

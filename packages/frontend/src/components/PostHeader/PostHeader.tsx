@@ -85,7 +85,7 @@ export const PostHeader = (props: Props): ReactElement => {
 
   if (loading || adminLoading) return <CenteredLoader />;
   if (error) return <ErrorMessage message="Post could not be deleted." />;
-  if (adminError) console.log(error);
+  if (adminError) return <ErrorMessage message="Admins for the community could not be retrieved" />;
 
   if (data) {
     if (!props.parent && !props.isPreview) {
