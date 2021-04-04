@@ -28,9 +28,10 @@ interface Values {
   name: string;
   email: string;
   password: string;
+  repeatPassword: string;
 }
 
-function validate({ username, name, email, password }: Values) {
+function validate({ username, name, email, password, repeatPassword }: Values) {
   const errors: Partial<Values> = {};
   if (!validateUsername(username)) {
     errors.username = "Invalid username";
@@ -43,6 +44,9 @@ function validate({ username, name, email, password }: Values) {
   }
   if (!validatePassword(password).valid) {
     errors.password = "Password not strong enough";
+  }
+  if (repeatPassword !== password) {
+    errors.repeatPassword = "Passwords do not match";
   }
   return errors;
 }
@@ -79,6 +83,7 @@ export const RegistrationCard = (): ReactElement => {
               name: "",
               email: "",
               password: "",
+              repeatPassword: "",
             }}
             validate={validate}
             validateOnBlur={false}
@@ -145,6 +150,20 @@ export const RegistrationCard = (): ReactElement => {
                     }}
                   />
                   <PasswordStrengthMeter password={password} />
+                </div>
+                <div>
+                  <Field
+                    name="repeatPassword"
+                    as={PasswordField}
+                    fullWidth
+                    size="small"
+                    margin="dense"
+                    variant="outlined"
+                    label="Repeat Password"
+                    color="primary"
+                    helperText={errors.repeatPassword}
+                    error={!!errors.repeatPassword}
+                  />
                 </div>
                 <FormControlLabel
                   control={<Checkbox color="primary" required />}
