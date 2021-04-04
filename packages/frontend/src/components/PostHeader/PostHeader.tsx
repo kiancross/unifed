@@ -14,7 +14,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import { gql, useMutation, Reference } from "@apollo/client";
+import { gql, useMutation, Reference, useQuery } from "@apollo/client";
 import { UserContext } from "../../contexts";
 import { Link, ErrorMessage, CenteredLoader } from "..";
 import { UserIcon } from "../UserIcon";
@@ -27,11 +27,23 @@ interface Props {
   parent?: string;
   isPreview?: boolean;
   onToggleEdit: () => void;
+  community: string;
 }
 
 const useStyles = makeStyles<Theme, Props>({
   header: (props) => (props.parent ? { paddingBottom: "0" } : {}),
 });
+
+export const GET_ADMINS = gql`
+  query($id: String!, $host: String!) {
+    getCommunity(community: { id: $id, host: $host }) {
+      admins {
+        id
+        host
+      }
+    }
+  }
+`;
 
 export const DELETE_POST = gql`
   mutation($id: String!, $host: String!) {
@@ -43,6 +55,10 @@ export const PostHeader = (props: Props): ReactElement => {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
   const user = useContext(UserContext);
   const classes = useStyles(props);
+
+  const { data: adminData, loading: adminLoading, error: adminError } = useQuery(GET_ADMINS, {
+    variables: { id: props.community, host: props.server },
+  });
 
   const [deletePost, { data, loading, error }] = useMutation(DELETE_POST, {
     update: (cache) => {
@@ -67,14 +83,17 @@ export const PostHeader = (props: Props): ReactElement => {
     },
   });
 
-  if (loading) return <CenteredLoader />;
+  if (loading || adminLoading) return <CenteredLoader />;
   if (error) return <ErrorMessage message="Post could not be deleted." />;
+  if (adminError) console.log(error);
 
   if (data) {
     if (!props.parent && !props.isPreview) {
       return <Redirect to="/" />;
     }
   }
+
+  console.log(adminData);
 
   const handleClick = (e: React.MouseEvent) => {
     setAnchorEl(e.currentTarget);

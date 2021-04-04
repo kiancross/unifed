@@ -42,6 +42,7 @@ export const PostPreview = (props: PostValues): ReactElement => {
       <Grid item xs={11} container direction="column" justify="flex-start">
         <Card className={classes.card}>
           <PostHeader
+            community={props.community}
             onToggleEdit={() => setEditorOpen(true)}
             title={props.title}
             username={props.username}

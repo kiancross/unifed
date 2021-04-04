@@ -50,7 +50,14 @@ export const PostPage = (): ReactElement => {
     <Container style={{ paddingTop: "1.5rem" }}>
       <Grid alignContent="center" container direction={direction} spacing={3}>
         <Grid item container xs={12} md={8} direction="column" spacing={2}>
-          <Post id={post} server={server} username={username} body={body} title={title} />
+          <Post
+            community={community}
+            id={post}
+            server={server}
+            username={username}
+            body={body}
+            title={title}
+          />
           <PostCreator
             isComment
             parentId={post}
