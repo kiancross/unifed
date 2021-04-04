@@ -57,7 +57,7 @@ export class PostsFederationService {
 
       return await processRawPost(rawPost, host);
     } catch (error) {
-      if (error.response.statusCode === 400) {
+      if (error.response && error.response.statusCode === 400) {
         throw new RemoteResponseError("Invalid permissions");
       } else {
         throw new RemoteResponseError("Unknown error");
