@@ -14,7 +14,7 @@ import { SubscribedPosts, GET_SUBSCRIBED } from "../SubscribedPosts";
 import { GET_ADMINS } from "../../../components/PostHeader";
 
 const communityID = "baz";
-const communityHost ="ham";
+const communityHost = "ham";
 const getAdminsMock = {
   request: {
     query: GET_ADMINS,
