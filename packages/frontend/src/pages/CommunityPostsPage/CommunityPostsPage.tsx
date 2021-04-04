@@ -51,7 +51,6 @@ export const CommunityPostsPage = (): ReactElement => {
   });
 
   if (error) {
-    console.log(error);
     return <ErrorMessage message="The posts from this community could not be retrieved." />;
   }
   if (loading) return <CenteredLoader />;
