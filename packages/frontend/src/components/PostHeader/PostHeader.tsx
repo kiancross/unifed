@@ -93,8 +93,6 @@ export const PostHeader = (props: Props): ReactElement => {
     }
   }
 
-  console.log(adminData);
-
   const handleClick = (e: React.MouseEvent) => {
     setAnchorEl(e.currentTarget);
   };
@@ -113,8 +111,14 @@ export const PostHeader = (props: Props): ReactElement => {
     deletePost({ variables: { id: props.id, host: props.server } });
   };
 
+  const isUserAdmin = adminData.getCommunity.admins.some(
+    (admin: any) => admin.id === user.details?.username,
+    //need to check host is "this"
+    //&& admin.host === "this"
+  );
+
   const headerAction =
-    user.details?.username === props.username &&
+    (user.details?.username === props.username || isUserAdmin) &&
     props.server === process.env.REACT_APP_INTERNAL_REFERENCE ? (
       <React.Fragment>
         <IconButton
