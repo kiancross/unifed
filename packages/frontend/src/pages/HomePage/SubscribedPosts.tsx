@@ -37,7 +37,7 @@ export const getSubscribedQuery = gql`
   }
 `;
 
-export const SubscribedPosts = () => {
+export function SubscribedPosts() {
   const { loading, error, data } = useQuery(getSubscribedQuery);
   if (error) return <Grid item />;
   if (loading) return <LoadingCard />;
@@ -61,4 +61,4 @@ export const SubscribedPosts = () => {
         })}
     </Grid>
   );
-};
+}

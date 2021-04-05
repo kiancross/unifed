@@ -4,16 +4,15 @@
 
 import { Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import { ReactElement } from "react";
 
 interface PropsTypes {
   message?: string;
 }
 
-export const Popup = (props: PropsTypes): ReactElement => {
+export function Popup(props: PropsTypes) {
   return (
     <Snackbar anchorOrigin={{ vertical: "top", horizontal: "center" }} open={!!props.message}>
       <Alert severity="error">{props.message}</Alert>
     </Snackbar>
   );
-};
+}

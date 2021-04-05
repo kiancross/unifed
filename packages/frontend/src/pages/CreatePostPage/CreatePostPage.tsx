@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { ReactElement, useState } from "react";
+import { useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import { Container } from "@material-ui/core";
 
@@ -13,7 +13,7 @@ export interface CreatePostPageParams {
   community: string;
 }
 
-export const CreatePostPage = (): ReactElement => {
+export function CreatePostPage() {
   const { community, server } = useParams<CreatePostPageParams>();
   const [redirect, setRedirect] = useState<string | undefined>();
 
@@ -35,4 +35,4 @@ export const CreatePostPage = (): ReactElement => {
       />
     </Container>
   );
-};
+}

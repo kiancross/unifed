@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-import { ReactElement } from "react";
 import { Typography, Link, makeStyles } from "@material-ui/core";
 
 import { LogoTemplate } from "../../components";
@@ -13,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const PrivacyNoticePage = (): ReactElement => {
+export function PrivacyNoticePage() {
   const classes = useStyles();
   return (
     <LogoTemplate direction="vertical">
@@ -145,4 +144,4 @@ export const PrivacyNoticePage = (): ReactElement => {
       </Typography>
     </LogoTemplate>
   );
-};
+}

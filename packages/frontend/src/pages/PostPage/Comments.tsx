@@ -39,7 +39,7 @@ export const getCommentsQuery = gql`
   }
 `;
 
-export const Comments = (props: CommentParams) => {
+export function Comments(props: CommentParams) {
   const parentId = props.parentId;
   const server = props.server;
 
@@ -89,4 +89,4 @@ export const Comments = (props: CommentParams) => {
       })}
     </Grid>
   );
-};
+}

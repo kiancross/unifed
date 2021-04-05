@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { ReactElement, useState } from "react";
+import { useState } from "react";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 
 import {
@@ -18,7 +18,7 @@ export type PasswordFieldProps = Omit<TextFieldProps, "type" | "InputProps"> & {
   InputProps?: Omit<InputProps, "endAdornment">;
 };
 
-export const PasswordField = (props: PasswordFieldProps): ReactElement => {
+export function PasswordField(props: PasswordFieldProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   return (
@@ -44,4 +44,4 @@ export const PasswordField = (props: PasswordFieldProps): ReactElement => {
       }}
     />
   );
-};
+}

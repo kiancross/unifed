@@ -2,8 +2,6 @@
  * CS3099 Group A3
  */
 
-import { ReactElement } from "react";
-
 import {
   Button,
   Grid,
@@ -26,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const JoinCallMessage = (props: { onJoinClick: () => void }): ReactElement => {
+export function JoinCallMessage(props: { onJoinClick: () => void }) {
   const classes = useStyles();
 
   return (
@@ -64,4 +62,4 @@ export const JoinCallMessage = (props: { onJoinClick: () => void }): ReactElemen
       </Grid>
     </Grid>
   );
-};
+}

@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { ReactElement, useState } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router";
 import { useFormik } from "formik";
 import { gql, useMutation } from "@apollo/client";
@@ -35,7 +35,7 @@ interface FormValues {
   id: string;
 }
 
-export const CreateCommunityDialog = (): ReactElement => {
+export function CreateCommunityDialog() {
   const history = useHistory();
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
@@ -166,4 +166,4 @@ export const CreateCommunityDialog = (): ReactElement => {
       </form>
     </>
   );
-};
+}

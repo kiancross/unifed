@@ -5,7 +5,7 @@
 import { Card, CardContent, Grid } from "@material-ui/core";
 import { CenteredLoader } from "..";
 
-export const LoadingCard = () => {
+export function LoadingCard() {
   return (
     <Grid item>
       <Card>
@@ -15,4 +15,4 @@ export const LoadingCard = () => {
       </Card>
     </Grid>
   );
-};
+}

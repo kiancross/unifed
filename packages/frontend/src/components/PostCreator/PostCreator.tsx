@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-import { ReactElement } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { PostEditorBase, CenteredLoader, ErrorMessage } from "..";
 import { getPostsQuery } from "../../pages/CommunityPostsPage/CommunityPostsPage";
@@ -38,7 +37,7 @@ export const createPostQuery = gql`
   }
 `;
 
-export const PostCreator = (props: Params): ReactElement => {
+export function PostCreator(props: Params) {
   const [createPost, { loading, error }] = useMutation(createPostQuery, {
     update(cache, { data: { createPost } }) {
       const variables = {
@@ -94,4 +93,4 @@ export const PostCreator = (props: Params): ReactElement => {
       submitButtonText={props.submitButtonText}
     />
   );
-};
+}

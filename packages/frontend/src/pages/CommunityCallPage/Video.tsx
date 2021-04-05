@@ -5,11 +5,11 @@
 // Taken some code from
 // https://blog.logrocket.com/responsive-camera-component-react-hooks/
 
-import { ReactElement, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
 export type VideoProps = { stream?: MediaStream; muted?: boolean };
 
-export const Video = (props: VideoProps): ReactElement => {
+export function Video(props: VideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleCanPlay = () => {
@@ -34,4 +34,4 @@ export const Video = (props: VideoProps): ReactElement => {
       style={{ width: "100%" }}
     />
   );
-};
+}

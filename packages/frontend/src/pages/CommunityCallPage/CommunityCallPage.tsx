@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { ReactElement, useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Theme, makeStyles } from "@material-ui/core";
 import { gql, useSubscription, useMutation } from "@apollo/client";
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme: Theme) => ({
  *
  *  @internal
  */
-export const CommunityCallPage = (): ReactElement => {
+export function CommunityCallPage() {
   const classes = useStyles();
 
   const [localMediaStream, setLocalMediaStream] = useState<MediaStream | null>();
@@ -328,4 +328,4 @@ export const CommunityCallPage = (): ReactElement => {
       )}
     </Container>
   );
-};
+}

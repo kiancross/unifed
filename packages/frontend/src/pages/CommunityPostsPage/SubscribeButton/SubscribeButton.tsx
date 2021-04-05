@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { ReactElement } from "react";
+import React from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Button } from "@material-ui/core";
 
@@ -24,7 +24,7 @@ export const unsubscribeQuery = gql`
   }
 `;
 
-export const SubscribeButton = (props: Props): ReactElement => {
+export function SubscribeButton(props: Props) {
   const [subscribed, setSubscribed] = React.useState(props.isSubscribed);
   const [mutation, { loading, error, data }] = useMutation(
     subscribed ? unsubscribeQuery : subscribeQuery,
@@ -54,4 +54,4 @@ export const SubscribeButton = (props: Props): ReactElement => {
       {subscribed ? "Unsubscribe" : "Subscribe"}
     </Button>
   );
-};
+}

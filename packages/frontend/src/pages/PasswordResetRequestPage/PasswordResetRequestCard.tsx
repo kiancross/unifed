@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { ReactElement, useState } from "react";
+import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { Button, Card, CardContent, Grid, TextField, Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
@@ -25,7 +25,7 @@ function validate({ email }: Values) {
   return errors;
 }
 
-export const PasswordResetRequestCard = (): ReactElement => {
+export function PasswordResetRequestCard() {
   const [isRequested, setIsRequested] = useState(false);
   return (
     <Grid item>
@@ -80,4 +80,4 @@ export const PasswordResetRequestCard = (): ReactElement => {
       </Snackbar>
     </Grid>
   );
-};
+}

@@ -2,12 +2,11 @@
  * CS3099 Group A3
  */
 
-import { ReactElement } from "react";
 import { LogoTemplate, ButtonLink } from "../../components";
 
 import { PasswordResetCard } from "./PasswordResetCard";
 
-export const PasswordResetPage = (): ReactElement => {
+export function PasswordResetPage() {
   return (
     <LogoTemplate>
       <PasswordResetCard />
@@ -22,4 +21,4 @@ export const PasswordResetPage = (): ReactElement => {
       </ButtonLink>
     </LogoTemplate>
   );
-};
+}

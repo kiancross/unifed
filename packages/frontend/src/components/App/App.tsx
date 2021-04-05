@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { ReactElement, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
 
@@ -36,7 +36,7 @@ import { CenteredLoader, ErrorBoundary, ErrorMessage } from "..";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 
-export const App = (): ReactElement => {
+export function App() {
   const user = useContext(UserContext);
 
   const [darkMode, setDarkMode] = useState(localStorage.getItem("darkMode") === "true");
@@ -128,4 +128,4 @@ export const App = (): ReactElement => {
       </ThemeProvider>
     </ErrorBoundary>
   );
-};
+}

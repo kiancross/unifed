@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { ReactElement, useState } from "react";
+import { useState } from "react";
 import { Redirect } from "react-router";
 import { Formik, Form, Field } from "formik";
 import { Alert } from "@material-ui/lab";
@@ -51,7 +51,7 @@ function validate({ username, name, email, password, repeatPassword }: Values) {
   return errors;
 }
 
-export const RegistrationCard = (): ReactElement => {
+export function RegistrationCard() {
   const [isAccountCreated, setIsAccountCreated] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [password, setPassword] = useState("");
@@ -201,4 +201,4 @@ export const RegistrationCard = (): ReactElement => {
       </Snackbar>
     </>
   );
-};
+}

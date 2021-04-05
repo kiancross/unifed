@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { ReactElement, useState } from "react";
+import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Card, CardActionArea, CardContent, Grid, Typography, makeStyles } from "@material-ui/core";
 import { PostEditor, PostHeader } from "..";
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const PostPreview = (props: PostValues): ReactElement => {
+export function PostPreview(props: PostValues) {
   const [editorOpen, setEditorOpen] = useState(false);
   const classes = useStyles();
 
@@ -65,4 +65,4 @@ export const PostPreview = (props: PostValues): ReactElement => {
   );
 
   return content;
-};
+}

@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { ReactElement, useState } from "react";
+import { useState } from "react";
 import { Card, CardContent, Grid, Typography, makeStyles } from "@material-ui/core";
 
 import { MarkdownViewer, PostHeader, PostEditor } from "../../components";
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Post = (props: Props): ReactElement => {
+export function Post(props: Props) {
   const [editorOpen, setEditorOpen] = useState(false);
   const classes = useStyles();
 
@@ -57,4 +57,4 @@ export const Post = (props: Props): ReactElement => {
   );
 
   return content;
-};
+}

@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { ReactElement } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 import { Paper, InputBase, CircularProgress, makeStyles } from "@material-ui/core";
@@ -46,7 +46,7 @@ const getOptionLabel = (option: Community | string) => {
   }
 };
 
-export const SearchInput = (): ReactElement => {
+export function SearchInput() {
   const classes = useStyles();
 
   const history = useHistory();
@@ -151,4 +151,4 @@ export const SearchInput = (): ReactElement => {
       />
     </Paper>
   );
-};
+}

@@ -4,7 +4,6 @@
 
 import { Container, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { ReactElement } from "react";
 
 import { ButtonLink } from "../../components/Links";
 
@@ -15,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const PageNotFoundPage = (): ReactElement => {
+export function PageNotFoundPage() {
   const classes = useStyles();
 
   return (
@@ -28,4 +27,4 @@ export const PageNotFoundPage = (): ReactElement => {
       </ButtonLink>
     </Container>
   );
-};
+}

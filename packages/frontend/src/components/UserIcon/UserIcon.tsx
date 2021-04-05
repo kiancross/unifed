@@ -2,7 +2,6 @@
  * CS3099 Group A3
  */
 
-import { ReactElement } from "react";
 import { Avatar, Typography, Theme, makeStyles, CardActionArea } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -22,7 +21,7 @@ const useStyles = makeStyles<Theme, Props>((theme) => ({
   },
 }));
 
-export const UserIcon = (props: Props): ReactElement => {
+export function UserIcon(props: Props) {
   const classes = useStyles(props);
 
   const avatar = (
@@ -40,4 +39,4 @@ export const UserIcon = (props: Props): ReactElement => {
       {avatar}
     </CardActionArea>
   );
-};
+}

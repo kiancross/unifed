@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { ReactElement, useState } from "react";
+import { useState } from "react";
 import { useTheme, makeStyles } from "@material-ui/core/styles";
 import {
   Box,
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Comment = (props: PostValues): ReactElement => {
+export function Comment(props: PostValues) {
   const theme = useTheme();
   const classes = useStyles();
 
@@ -105,4 +105,4 @@ export const Comment = (props: PostValues): ReactElement => {
   );
 
   return content;
-};
+}

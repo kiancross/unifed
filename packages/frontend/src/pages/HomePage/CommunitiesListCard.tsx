@@ -28,7 +28,7 @@ export const getCommunitiesQuery = gql`
   }
 `;
 
-export const CommunitiesListCard = () => {
+export function CommunitiesListCard() {
   const { loading, error, data } = useQuery(getCommunitiesQuery, {
     variables: {
       host: "this",
@@ -62,4 +62,4 @@ export const CommunitiesListCard = () => {
       </Card>
     </Grid>
   );
-};
+}

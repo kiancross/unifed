@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { useState, useContext, ReactElement } from "react";
+import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import {
   CardHeader,
@@ -51,7 +51,7 @@ export const deletePostQuery = gql`
   }
 `;
 
-export const PostHeader = (props: Props): ReactElement => {
+export function PostHeader(props: Props) {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
   const user = useContext(UserContext);
   const classes = useStyles(props);
@@ -167,4 +167,4 @@ export const PostHeader = (props: Props): ReactElement => {
       title={headerTitle}
     />
   );
-};
+}
