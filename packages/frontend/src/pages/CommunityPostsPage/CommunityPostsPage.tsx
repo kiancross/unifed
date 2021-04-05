@@ -31,6 +31,9 @@ export const GET_POSTS = gql`
       id
       title
       description
+      admins {
+        id
+      }
     }
     getSubscriptions {
       id
@@ -58,6 +61,12 @@ export const CommunityPostsPage = (): ReactElement => {
   const isSubscribed = data.getSubscriptions.some(
     (e: { host: string; id: string }) => e.host === data.getCommunity.host && e.id === community,
   );
+
+  const communityData = data.getCommunity;
+
+  const communityAdmins = communityData.admins.map((admin: any) => {
+    return admin.id;
+  });
 
   const direction = isMobile ? "column-reverse" : "row";
 
@@ -107,11 +116,12 @@ export const CommunityPostsPage = (): ReactElement => {
               </Grid>
             ) : null}
             <CommunityDescription
-              title={data.getCommunity.title}
+              title={communityData.title}
               id={community}
               server={server}
-              desc={data.getCommunity.description}
+              desc={communityData.description}
               isSubscribed={isSubscribed}
+              admins={communityAdmins}
             />
           </Grid>
         </Grid>

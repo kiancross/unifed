@@ -13,6 +13,7 @@ import {
   CardActions,
 } from "@material-ui/core";
 import { ReactElement } from "react";
+import { Link } from "../../components";
 
 import { SubscribeButton } from "./SubscribeButton";
 
@@ -22,6 +23,7 @@ export interface CommunityDescriptionProps {
   id: string;
   server: string;
   isSubscribed: boolean;
+  admins: string[];
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -45,7 +47,21 @@ export const CommunityDescription = (props: CommunityDescriptionProps): ReactEle
         <Divider />
         <Grid container>
           <CardContent>
-            <Typography variant="body2">{props.desc}</Typography>
+            <Typography variant="h6">Description</Typography>
+            {props.desc}
+          </CardContent>
+        </Grid>
+        <Divider />
+        <Grid container>
+          <CardContent>
+            <Typography variant="h6">Admins</Typography>
+            {props.admins.map((adminID, index) => (
+              <Typography variant="body2" key={index}>
+                <Link to={"/user/" + adminID} color="inherit">
+                  {adminID}
+                </Link>
+              </Typography>
+            ))}
           </CardContent>
         </Grid>
       </Card>
