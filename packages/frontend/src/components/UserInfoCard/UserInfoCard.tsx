@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 export const UserInfoCard = (props: Props): ReactElement => {
   const classes = useStyles();
 
-  const userIcon = <UserIcon username={props.username} />;
+  const userIcon = <UserIcon inHeader username={props.username} />;
 
   return (
     <Grid item>
