@@ -10,7 +10,7 @@ import { BrowserMockProvider } from "../../helpers";
 import { PostPage, getPostQuery } from "./PostPage";
 import { Comments, getCommentsQuery } from "./Comments";
 import { Post } from "./Post";
-import { getAdminsQuery  } from "../../components/PostHeader";
+import { getAdminsQuery } from "../../components/PostHeader";
 
 // 001 represents the main post
 // 002-006 represent the comments
