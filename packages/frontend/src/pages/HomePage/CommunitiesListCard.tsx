@@ -19,7 +19,7 @@ import {
 
 import { LoadingCard } from "../../components";
 
-export const GET_COMMUNITIES = gql`
+export const getCommunitiesQuery = gql`
   query($host: String!) {
     getCommunities(host: $host) {
       id
@@ -29,7 +29,7 @@ export const GET_COMMUNITIES = gql`
 `;
 
 export const CommunitiesListCard = () => {
-  const { loading, error, data } = useQuery(GET_COMMUNITIES, {
+  const { loading, error, data } = useQuery(getCommunitiesQuery, {
     variables: {
       host: "this",
     },

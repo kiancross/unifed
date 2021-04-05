@@ -34,7 +34,7 @@ const useStyles = makeStyles<Theme, Props>({
   header: (props) => (props.parent ? { paddingBottom: "0" } : {}),
 });
 
-export const GET_ADMINS = gql`
+export const getAdminsQuery = gql`
   query($id: String!, $host: String!) {
     getCommunity(community: { id: $id, host: $host }) {
       admins {
@@ -45,7 +45,7 @@ export const GET_ADMINS = gql`
   }
 `;
 
-export const DELETE_POST = gql`
+export const deletePostQuery = gql`
   mutation($id: String!, $host: String!) {
     deletePost(post: { id: $id, host: $host })
   }
@@ -56,11 +56,11 @@ export const PostHeader = (props: Props): ReactElement => {
   const user = useContext(UserContext);
   const classes = useStyles(props);
 
-  const { data: adminData, loading: adminLoading, error: adminError } = useQuery(GET_ADMINS, {
+  const { data: adminData, loading: adminLoading, error: adminError } = useQuery(getAdminsQuery, {
     variables: { id: props.community, host: props.server },
   });
 
-  const [deletePost, { data, loading, error }] = useMutation(DELETE_POST, {
+  const [deletePost, { data, loading, error }] = useMutation(deletePostQuery, {
     update: (cache) => {
       cache.modify({
         fields: {

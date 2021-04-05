@@ -13,7 +13,7 @@ interface PublicUserProfileParams {
   username: string;
 }
 
-export const GET_POSTS1 = gql`
+export const getUsersPostsQuery = gql`
   query($community: String!, $host: String!) {
     getPosts(community: { id: $community, host: $host }) {
       id
@@ -33,7 +33,7 @@ export const UserProfilePage = (): ReactElement => {
   const isMobile = useMediaQuery("(max-width: 960px)");
   const direction = isMobile ? "column-reverse" : "row";
 
-  const all = useQuery(GET_POSTS1, {
+  const all = useQuery(getUsersPostsQuery, {
     variables: {
       community: "all",
       host: "this",

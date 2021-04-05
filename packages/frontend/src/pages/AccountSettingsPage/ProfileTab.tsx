@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CHANGE_NAME = gql`
+export const changeNameQuery = gql`
   mutation UpdateUserProfile($name: String!) {
     updateUserProfile(profile: { name: $name })
   }
@@ -50,7 +50,7 @@ export const ProfileTab = (props: ProfileTabParams): ReactElement => {
     setNameOpen(!nameOpen);
   };
 
-  const [changeName, { data }] = useMutation(CHANGE_NAME);
+  const [changeName, { data }] = useMutation(changeNameQuery);
 
   if (data?.updateUserProfile) user.refetch();
 

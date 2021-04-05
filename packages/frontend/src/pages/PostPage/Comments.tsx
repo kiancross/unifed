@@ -24,7 +24,7 @@ interface PostParams {
   };
 }
 
-export const GET_COMMENTS = gql`
+export const getCommentsQuery = gql`
   query GET_COMMENTS($id: String!, $server: String!) {
     getPost(post: { id: $id, host: $server }) {
       id
@@ -51,7 +51,7 @@ export const Comments = (props: CommentParams) => {
     }
   };
 
-  const { loading, error, data } = useQuery(GET_COMMENTS, {
+  const { loading, error, data } = useQuery(getCommentsQuery, {
     variables: { id: parentId, server },
   });
 

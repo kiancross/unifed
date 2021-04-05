@@ -29,7 +29,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const getCommunities = gql`
+export const getCommunitiesQuery = gql`
   query($host: String!) {
     getCommunities(host: $host) {
       id
@@ -56,7 +56,7 @@ export const SearchInput = (): ReactElement => {
   const [community, setCommunity] = React.useState("");
   const [debouncedHost] = useDebounce(host, 400);
 
-  const { loading, data, error } = useQuery(getCommunities, {
+  const { loading, data, error } = useQuery(getCommunitiesQuery, {
     variables: { host: debouncedHost },
   });
 
