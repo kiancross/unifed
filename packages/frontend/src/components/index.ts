@@ -20,3 +20,4 @@ export * from "./PostHeader";
 export * from "./PostPreview";
 export * from "./UserIcon";
 export * from "./UserInfoCard";
+export * from "./ActionButton";

@@ -5,23 +5,14 @@
 import { ReactElement, useState } from "react";
 import { Redirect } from "react-router";
 import { Formik, Form, Field } from "formik";
-import { Alert } from "@material-ui/lab";
 import { validateUsername, validateName, validateEmail, validatePassword } from "@unifed/shared";
 
-import {
-  Button,
-  Card,
-  Link,
-  CardContent,
-  TextField,
-  Snackbar,
-  Checkbox,
-  FormControlLabel,
-} from "@material-ui/core";
+import { Card, Link, CardContent, TextField, Checkbox, FormControlLabel } from "@material-ui/core";
 
 import { passwordClient } from "../../helpers";
 import { PasswordStrengthMeter } from "../../components/PasswordStrengthMeter";
-import { PasswordField } from "../../components/PasswordField";
+import { ActionButton, PasswordField } from "../../components";
+import { ApolloError } from "@apollo/client/errors";
 
 interface Values {
   username: string;
@@ -53,24 +44,39 @@ function validate({ username, name, email, password, repeatPassword }: Values) {
 
 export const RegistrationCard = (): ReactElement => {
   const [isAccountCreated, setIsAccountCreated] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [password, setPassword] = useState("");
 
+  const [error, setError] = useState<ApolloError | undefined>(undefined);
+  const [loading, setLoading] = useState(false);
+  const setStates = (err: ApolloError) => {
+    setError(err);
+    setLoading(false);
+  };
+
   const registerUser = async (values: Values) => {
-    try {
-      await passwordClient.createUser({
+    passwordClient
+      .createUser({
         username: values.username,
         profile: {
           name: values.name,
         },
         email: values.email,
         password: values.password,
+      })
+      .then(() => {
+        passwordClient
+          .requestVerificationEmail(values.email)
+          .then(() => {
+            setIsAccountCreated(true);
+          })
+          .catch((err) => {
+            setStates(new ApolloError({ errorMessage: err.message }));
+          });
+      })
+      .catch((err) => {
+        setStates(new ApolloError({ errorMessage: err.message }));
       });
-      await passwordClient.requestVerificationEmail(values.email);
-      setIsAccountCreated(true);
-    } catch (err) {
-      setErrorMessage(err.message);
-    }
+    setLoading(true);
   };
 
   return (
@@ -176,29 +182,23 @@ export const RegistrationCard = (): ReactElement => {
                     </span>
                   }
                 />
-                <Button
+                <ActionButton
                   type="submit"
                   variant="contained"
                   color="primary"
                   style={{ margin: "1rem 0rem" }}
                   fullWidth
+                  error={error}
+                  loading={loading}
                 >
                   Create Account
-                </Button>
+                </ActionButton>
               </Form>
             )}
           </Formik>
           {isAccountCreated ? <Redirect to="/" /> : null}
         </CardContent>
       </Card>
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={errorMessage !== null}
-      >
-        <Alert severity="error">
-          There was an error when creating your account: {errorMessage}.
-        </Alert>
-      </Snackbar>
     </>
   );
 };

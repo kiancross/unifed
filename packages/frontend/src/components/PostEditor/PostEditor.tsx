@@ -53,6 +53,9 @@ export const PostEditor = (props: Props): ReactElement => {
         }
       }}
       submitButtonText={props.submitButtonText}
+      loading={loading}
+      error={error}
+      errorMessage="Could not edit comment. Please try again later."
     />
   );
 };

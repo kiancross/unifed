@@ -6,12 +6,17 @@ import { Formik, Form, Field, FieldProps } from "formik";
 import { ButtonGroup, Button, TextField } from "@material-ui/core";
 import { MarkdownEditor } from "..";
 import { ReactElement } from "react";
+import { ApolloError } from "@apollo/client/errors";
+import { ActionButton } from "../../components";
 
 interface Props {
   title?: string;
   body?: string;
   isComment?: boolean;
   submitButtonText: string;
+  loading: boolean;
+  error: ApolloError | undefined;
+  errorMessage?: string;
   onSubmit: (values: { title?: string; body?: string }) => void;
   onCancel?: () => void;
 }
@@ -66,9 +71,16 @@ export const PostEditorBase = (props: Props): ReactElement => {
               Cancel
             </Button>
           ) : null}
-          <Button variant="contained" color="primary" type="submit">
+          <ActionButton
+            variant="contained"
+            color="primary"
+            type="submit"
+            loading={props.loading}
+            error={props.error}
+            errorMessage={props.errorMessage}
+          >
             {props.submitButtonText}
-          </Button>
+          </ActionButton>
         </ButtonGroup>
       </Form>
     </Formik>

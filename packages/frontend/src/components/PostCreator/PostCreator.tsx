@@ -4,7 +4,7 @@
 
 import { ReactElement } from "react";
 import { gql, useMutation } from "@apollo/client";
-import { PostEditorBase, CenteredLoader, ErrorMessage } from "..";
+import { PostEditorBase } from "..";
 import { GET_POSTS } from "../../pages/CommunityPostsPage/CommunityPostsPage";
 
 interface Params {
@@ -69,9 +69,6 @@ export const PostCreator = (props: Params): ReactElement => {
     },
   });
 
-  if (loading) return <CenteredLoader />;
-  if (error) return <ErrorMessage message="The post could not be made. Please try again later." />;
-
   return (
     <PostEditorBase
       isComment={props.isComment}
@@ -92,6 +89,9 @@ export const PostCreator = (props: Params): ReactElement => {
         }
       }}
       submitButtonText={props.submitButtonText}
+      loading={loading}
+      error={error}
+      errorMessage="The post could not be made. Please try again later."
     />
   );
 };
