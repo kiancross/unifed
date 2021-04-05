@@ -13,6 +13,7 @@ import {
   CardActions,
 } from "@material-ui/core";
 import { ReactElement } from "react";
+import { Link } from "../../components";
 
 import { SubscribeButton } from "./SubscribeButton";
 
@@ -56,7 +57,9 @@ export const CommunityDescription = (props: CommunityDescriptionProps): ReactEle
             <Typography variant="h6">Admins</Typography>
             {props.admins.map((adminID, index) => (
               <Typography variant="body2" key={index}>
-                {adminID}
+                <Link to={"/user/" + adminID} color="inherit">
+                  {adminID}
+                </Link>
               </Typography>
             ))}
           </CardContent>
