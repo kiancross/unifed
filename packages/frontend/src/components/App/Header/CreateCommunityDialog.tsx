@@ -6,7 +6,7 @@ import { ReactElement, useState } from "react";
 import { useHistory } from "react-router";
 import { useFormik } from "formik";
 import { gql, useMutation } from "@apollo/client";
-import AddIcon from "@material-ui/icons/Add";
+import { Add as AddIcon } from "@material-ui/icons";
 import { validateName, validateCommunityDescription, validateUsername } from "@unifed/shared";
 
 import {

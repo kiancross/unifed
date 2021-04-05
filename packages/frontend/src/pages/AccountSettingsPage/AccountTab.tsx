@@ -5,7 +5,7 @@
 import React, { ReactElement } from "react";
 import { useFormik } from "formik";
 import { Alert } from "@material-ui/lab";
-import EditIcon from "@material-ui/icons/Edit";
+import { Edit as EditIcon } from "@material-ui/icons";
 
 import {
   Button,

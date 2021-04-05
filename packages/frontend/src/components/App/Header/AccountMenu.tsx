@@ -4,9 +4,11 @@
 
 import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
-import PersonIcon from "@material-ui/icons/Person";
-import SettingsIcon from "@material-ui/icons/Settings";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import {
+  Person as PersonIcon,
+  Settings as SettingsIcon,
+  ExitToApp as ExitToAppIcon,
+} from "@material-ui/icons";
 
 import {
   ClickAwayListener,

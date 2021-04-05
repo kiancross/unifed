@@ -5,7 +5,7 @@
 import React, { ReactElement, useContext } from "react";
 import { useFormik } from "formik";
 import { gql, useMutation } from "@apollo/client";
-import EditIcon from "@material-ui/icons/Edit";
+import { Edit as EditIcon } from "@material-ui/icons";
 
 import {
   Button,

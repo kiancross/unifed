@@ -4,9 +4,7 @@
 
 import { ReactElement } from "react";
 import { makeStyles, Card, CardHeader, CardMedia, IconButton, Tooltip } from "@material-ui/core";
-import MicIcon from "@material-ui/icons/Mic";
-import MicOffIcon from "@material-ui/icons/MicOff";
-import CallEndIcon from "@material-ui/icons/CallEnd";
+import { Mic as MicIcon, MicOff as MicOffIcon, CallEnd as CallEndIcon } from "@material-ui/icons";
 
 import { Video } from "./Video";
 

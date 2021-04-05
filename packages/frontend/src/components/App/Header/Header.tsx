@@ -4,8 +4,7 @@
 
 import { ReactElement, useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import Brightness3Icon from "@material-ui/icons/Brightness3";
-import Brightness7Icon from "@material-ui/icons/Brightness7";
+import { Brightness3 as Brightness3Icon, Brightness7 as Brightness7Icon } from "@material-ui/icons";
 
 import {
   AppBar,

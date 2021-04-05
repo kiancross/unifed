@@ -14,7 +14,7 @@ import {
   CardActions,
   IconButton,
 } from "@material-ui/core";
-import ReplyIcon from "@material-ui/icons/Reply";
+import { Reply as ReplyIcon } from "@material-ui/icons";
 import { MarkdownViewer, PostHeader, PostEditor, PostCreator } from "../../components";
 
 interface PostValues {
