@@ -21,7 +21,7 @@ interface Values {
   retyped: string;
 }
 
-function validate({ newPass, retyped }: Values): ReactElement| Partial<Values> {
+function validate({ newPass, retyped }: Values): ReactElement | Partial<Values> {
   const errors: Partial<Values> = {};
   if (newPass === retyped) {
     [validatePassword(newPass), validatePassword(retyped)].forEach((result, isRetyped) => {
