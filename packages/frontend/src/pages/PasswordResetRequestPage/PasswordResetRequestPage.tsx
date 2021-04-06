@@ -6,7 +6,7 @@ import { ReactElement } from "react";
 import { LogoTemplate, ButtonLink } from "../../components";
 import { PasswordResetRequestCard } from "./PasswordResetRequestCard";
 
-export const PasswordResetRequestPage = (): ReactElement => {
+export function PasswordResetRequestPage(): ReactElement {
   return (
     <LogoTemplate>
       <PasswordResetRequestCard />
@@ -22,4 +22,4 @@ export const PasswordResetRequestPage = (): ReactElement => {
       </ButtonLink>
     </LogoTemplate>
   );
-};
+}

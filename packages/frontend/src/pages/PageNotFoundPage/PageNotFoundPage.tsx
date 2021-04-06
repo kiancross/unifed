@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const PageNotFoundPage = (): ReactElement => {
+export function PageNotFoundPage(): ReactElement {
   const classes = useStyles();
 
   return (
@@ -28,4 +28,4 @@ export const PageNotFoundPage = (): ReactElement => {
       </ButtonLink>
     </Container>
   );
-};
+}

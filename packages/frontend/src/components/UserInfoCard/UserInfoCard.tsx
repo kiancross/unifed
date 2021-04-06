@@ -2,10 +2,10 @@
  * CS3099 Group A3
  */
 
-import { ReactElement } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Card, CardActionArea, CardHeader, Grid, makeStyles } from "@material-ui/core";
 import { UserIcon } from "..";
+import { ReactElement } from "react";
 
 interface Props {
   username: string;
@@ -19,10 +19,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const UserInfoCard = (props: Props): ReactElement => {
+export function UserInfoCard(props: Props): ReactElement {
   const classes = useStyles();
 
-  const userIcon = <UserIcon username={props.username} />;
+  const userIcon = <UserIcon inHeader username={props.username} />;
 
   return (
     <Grid item>
@@ -33,4 +33,4 @@ export const UserInfoCard = (props: Props): ReactElement => {
       </Card>
     </Grid>
   );
-};
+}

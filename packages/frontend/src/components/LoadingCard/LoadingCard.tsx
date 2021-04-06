@@ -3,9 +3,10 @@
  */
 
 import { Card, CardContent, Grid } from "@material-ui/core";
+import { ReactElement } from "react";
 import { CenteredLoader } from "..";
 
-export const LoadingCard = () => {
+export function LoadingCard(): ReactElement {
   return (
     <Grid item>
       <Card>
@@ -15,4 +16,4 @@ export const LoadingCard = () => {
       </Card>
     </Grid>
   );
-};
+}

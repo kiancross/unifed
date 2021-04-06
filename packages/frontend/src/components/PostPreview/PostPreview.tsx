@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const PostPreview = (props: PostValues): ReactElement => {
+export function PostPreview(props: PostValues): ReactElement {
   const [editorOpen, setEditorOpen] = useState(false);
   const classes = useStyles();
 
@@ -65,4 +65,4 @@ export const PostPreview = (props: PostValues): ReactElement => {
   );
 
   return content;
-};
+}

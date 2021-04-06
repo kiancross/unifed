@@ -8,7 +8,7 @@ import { MemoryRouter } from "react-router-dom";
 
 import { defaultUserContext, UserContext } from "../../contexts";
 import { PostPreview } from "./PostPreview";
-import { GET_ADMINS } from "../PostHeader";
+import { getAdminsQuery } from "../PostHeader";
 
 const username = "testuser";
 const title = "Test title";
@@ -19,7 +19,7 @@ const body = "Test body";
 
 const getAdminsMock = {
   request: {
-    query: GET_ADMINS,
+    query: getAdminsQuery,
     variables: { id: community, host: server },
   },
   result: {

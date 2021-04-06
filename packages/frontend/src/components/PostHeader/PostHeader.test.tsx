@@ -7,7 +7,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { MockedProvider } from "@apollo/client/testing";
 
 import { UserContext, defaultUserContext } from "../../contexts";
-import { PostHeader, DELETE_POST, GET_ADMINS } from "./PostHeader";
+import { PostHeader, deletePostQuery, getAdminsQuery } from "./PostHeader";
 
 const username = "testuser";
 const id = "123";
@@ -16,7 +16,7 @@ const community = "community";
 
 const deletePostMock = {
   request: {
-    query: DELETE_POST,
+    query: deletePostQuery,
     variables: { id: id, host: host },
   },
   result: {
@@ -28,7 +28,7 @@ const deletePostMock = {
 
 const getAdminsMock = {
   request: {
-    query: GET_ADMINS,
+    query: getAdminsQuery,
     variables: { id: community, host: host },
   },
   result: {

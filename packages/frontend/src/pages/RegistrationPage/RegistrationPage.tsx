@@ -6,7 +6,7 @@ import { ReactElement } from "react";
 import { LogoTemplate, ButtonLink } from "../../components";
 import { RegistrationCard } from "./RegistrationCard";
 
-export const RegistrationPage = (): ReactElement => {
+export function RegistrationPage(): ReactElement {
   return (
     <LogoTemplate>
       <RegistrationCard />
@@ -21,4 +21,4 @@ export const RegistrationPage = (): ReactElement => {
       </ButtonLink>
     </LogoTemplate>
   );
-};
+}

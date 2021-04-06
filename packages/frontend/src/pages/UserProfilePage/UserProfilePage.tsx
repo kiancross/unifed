@@ -13,7 +13,7 @@ interface PublicUserProfileParams {
   username: string;
 }
 
-export const GET_POSTS1 = gql`
+export const getUsersPostsQuery = gql`
   query($community: String!, $host: String!) {
     getPosts(community: { id: $community, host: $host }) {
       id
@@ -27,13 +27,13 @@ export const GET_POSTS1 = gql`
   }
 `;
 
-export const UserProfilePage = (): ReactElement => {
+export function UserProfilePage(): ReactElement {
   const { username } = useParams<PublicUserProfileParams>();
   const name = username;
   const isMobile = useMediaQuery("(max-width: 960px)");
   const direction = isMobile ? "column-reverse" : "row";
 
-  const all = useQuery(GET_POSTS1, {
+  const all = useQuery(getUsersPostsQuery, {
     variables: {
       community: "all",
       host: "this",
@@ -71,4 +71,4 @@ export const UserProfilePage = (): ReactElement => {
       </Grid>
     </Container>
   );
-};
+}

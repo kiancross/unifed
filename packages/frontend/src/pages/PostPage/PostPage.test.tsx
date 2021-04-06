@@ -7,10 +7,10 @@ import { MockedProvider } from "@apollo/client/testing";
 import { render, waitFor, screen } from "@testing-library/react";
 
 import { BrowserMockProvider } from "../../helpers";
-import { PostPage, GET_POST } from "./PostPage";
-import { Comments, GET_COMMENTS } from "./Comments";
+import { PostPage, getPostQuery } from "./PostPage";
+import { Comments, getCommentsQuery } from "./Comments";
 import { Post } from "./Post";
-import { GET_ADMINS } from "../../components/PostHeader";
+import { getAdminsQuery } from "../../components/PostHeader";
 
 // 001 represents the main post
 // 002-006 represent the comments
@@ -34,7 +34,7 @@ const community = "community";
 
 const getAdminsMock = {
   request: {
-    query: GET_ADMINS,
+    query: getAdminsQuery,
     variables: { id: community, host: server },
   },
   result: {
@@ -56,7 +56,7 @@ test("Display comments", async () => {
   ) => {
     return {
       request: {
-        query: GET_COMMENTS,
+        query: getCommentsQuery,
         variables: { id: req_id, server: req_server },
       },
       result: {
@@ -86,7 +86,7 @@ test("Display comments", async () => {
     reqres(ids[4], server, ids[5], bodies[5], users[5]),
     {
       request: {
-        query: GET_COMMENTS,
+        query: getCommentsQuery,
         variables: { id: ids[5], server: server },
       },
       result: {
@@ -120,7 +120,7 @@ test("Display comments", async () => {
 test("PostPage renders", async () => {
   const getPostMock = {
     request: {
-      query: GET_POST,
+      query: getPostQuery,
       variables: {
         id: id,
         host: server,

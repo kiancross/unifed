@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Post = (props: Props): ReactElement => {
+export function Post(props: Props): ReactElement {
   const [editorOpen, setEditorOpen] = useState(false);
   const classes = useStyles();
 
@@ -57,4 +57,4 @@ export const Post = (props: Props): ReactElement => {
   );
 
   return content;
-};
+}
