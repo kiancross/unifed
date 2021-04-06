@@ -25,7 +25,7 @@ function validate({ email }: Values) {
   return errors;
 }
 
-export const PasswordResetRequestCard = (): ReactElement => {
+export function PasswordResetRequestCard(): ReactElement {
   const [isRequested, setIsRequested] = useState(false);
   return (
     <Grid item>
@@ -80,4 +80,4 @@ export const PasswordResetRequestCard = (): ReactElement => {
       </Snackbar>
     </Grid>
   );
-};
+}

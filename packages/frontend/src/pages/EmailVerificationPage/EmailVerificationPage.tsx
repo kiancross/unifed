@@ -11,7 +11,7 @@ interface EmailVerificationPageParams {
   token: string;
 }
 
-export const EmailVerificationPage = (): ReactElement => {
+export function EmailVerificationPage(): ReactElement {
   const { token } = useParams<EmailVerificationPageParams>();
 
   let isTokenValid = false;
@@ -38,4 +38,4 @@ export const EmailVerificationPage = (): ReactElement => {
       ;
     </div>
   );
-};
+}

@@ -6,7 +6,7 @@ import { ReactElement, useState } from "react";
 import { useHistory } from "react-router";
 import { useFormik } from "formik";
 import { gql, useMutation } from "@apollo/client";
-import AddIcon from "@material-ui/icons/Add";
+import { Add as AddIcon } from "@material-ui/icons";
 import { validateName, validateCommunityDescription, validateUsername } from "@unifed/shared";
 
 import {
@@ -35,7 +35,7 @@ interface FormValues {
   id: string;
 }
 
-export const CreateCommunityDialog = (): ReactElement => {
+export function CreateCommunityDialog(): ReactElement {
   const history = useHistory();
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
@@ -166,4 +166,4 @@ export const CreateCommunityDialog = (): ReactElement => {
       </form>
     </>
   );
-};
+}

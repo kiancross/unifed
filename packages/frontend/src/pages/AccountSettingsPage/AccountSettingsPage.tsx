@@ -9,7 +9,7 @@ import { UserContext } from "../../contexts";
 import { AccountTab } from "./AccountTab";
 import { ProfileTab } from "./ProfileTab";
 
-export const AccountSettingsPage = (): ReactElement => {
+export function AccountSettingsPage(): ReactElement {
   const [selectedTab, setSelectedTab] = useState(0);
   const user = useContext(UserContext);
   const handleTabChange = (_event: React.ChangeEvent<unknown>, newValue: number): void => {
@@ -34,4 +34,4 @@ export const AccountSettingsPage = (): ReactElement => {
       {selectedTab === 1 && <ProfileTab name={user.details.profile.name} />}
     </Container>
   );
-};
+}

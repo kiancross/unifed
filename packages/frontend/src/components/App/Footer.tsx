@@ -2,8 +2,8 @@
  * CS3099 Group A3
  */
 
-import { ReactElement } from "react";
 import { Box, Container, makeStyles, Paper, Link as ExternalLink } from "@material-ui/core";
+import { ReactElement } from "react";
 import { Link as InternalLink } from "../Links";
 
 const useStyles = makeStyles((theme) => ({
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Footer = (): ReactElement => {
+export function Footer(): ReactElement {
   const classes = useStyles();
   return (
     <Box paddingTop="3rem">
@@ -33,4 +33,4 @@ export const Footer = (): ReactElement => {
       </Paper>
     </Box>
   );
-};
+}

@@ -14,7 +14,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import { gql, useMutation, Reference } from "@apollo/client";
+import { gql, useMutation, Reference, useQuery } from "@apollo/client";
 import { UserContext } from "../../contexts";
 import { Link, ErrorMessage, CenteredLoader } from "..";
 import { UserIcon } from "../UserIcon";
@@ -27,24 +27,40 @@ interface Props {
   parent?: string;
   isPreview?: boolean;
   onToggleEdit: () => void;
+  community: string;
 }
 
 const useStyles = makeStyles<Theme, Props>({
   header: (props) => (props.parent ? { paddingBottom: "0" } : {}),
 });
 
-export const DELETE_POST = gql`
+export const getAdminsQuery = gql`
+  query($id: String!, $host: String!) {
+    getCommunity(community: { id: $id, host: $host }) {
+      admins {
+        id
+        host
+      }
+    }
+  }
+`;
+
+export const deletePostQuery = gql`
   mutation($id: String!, $host: String!) {
     deletePost(post: { id: $id, host: $host })
   }
 `;
 
-export const PostHeader = (props: Props): ReactElement => {
+export function PostHeader(props: Props): ReactElement {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
   const user = useContext(UserContext);
   const classes = useStyles(props);
 
-  const [deletePost, { data, loading, error }] = useMutation(DELETE_POST, {
+  const { data: adminData, loading: adminLoading, error: adminError } = useQuery(getAdminsQuery, {
+    variables: { id: props.community, host: props.server },
+  });
+
+  const [deletePost, { data, loading, error }] = useMutation(deletePostQuery, {
     update: (cache) => {
       cache.modify({
         fields: {
@@ -67,8 +83,9 @@ export const PostHeader = (props: Props): ReactElement => {
     },
   });
 
-  if (loading) return <CenteredLoader />;
+  if (loading || adminLoading) return <CenteredLoader />;
   if (error) return <ErrorMessage message="Post could not be deleted." />;
+  if (adminError) return <ErrorMessage message="Admins for the community could not be retrieved" />;
 
   if (data) {
     if (!props.parent && !props.isPreview) {
@@ -94,8 +111,14 @@ export const PostHeader = (props: Props): ReactElement => {
     deletePost({ variables: { id: props.id, host: props.server } });
   };
 
+  const isUserAdmin = adminData.getCommunity.admins.some(
+    (admin: any) => admin.id === user.details?.username,
+    //need to check host is "this"
+    //&& admin.host === "this"
+  );
+
   const headerAction =
-    user.details?.username === props.username &&
+    (user.details?.username === props.username || isUserAdmin) &&
     props.server === process.env.REACT_APP_INTERNAL_REFERENCE ? (
       <React.Fragment>
         <IconButton
@@ -144,4 +167,4 @@ export const PostHeader = (props: Props): ReactElement => {
       title={headerTitle}
     />
   );
-};
+}

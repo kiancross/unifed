@@ -2,8 +2,8 @@
  * CS3099 Group A3
  */
 
-import { ReactElement } from "react";
 import { gql, useMutation } from "@apollo/client";
+import { ReactElement } from "react";
 import { CenteredLoader, ErrorMessage, PostEditorBase } from "..";
 
 interface Props {
@@ -27,7 +27,7 @@ export const editPostQuery = gql`
   }
 `;
 
-export const PostEditor = (props: Props): ReactElement => {
+export function PostEditor(props: Props): ReactElement {
   const [editPost, { loading, error }] = useMutation(editPostQuery, { onError: () => null });
 
   if (loading) return <CenteredLoader />;
@@ -55,4 +55,4 @@ export const PostEditor = (props: Props): ReactElement => {
       submitButtonText={props.submitButtonText}
     />
   );
-};
+}

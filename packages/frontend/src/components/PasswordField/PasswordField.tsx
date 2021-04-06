@@ -18,7 +18,7 @@ export type PasswordFieldProps = Omit<TextFieldProps, "type" | "InputProps"> & {
   InputProps?: Omit<InputProps, "endAdornment">;
 };
 
-export const PasswordField = (props: PasswordFieldProps): ReactElement => {
+export function PasswordField(props: PasswordFieldProps): ReactElement {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   return (
@@ -44,4 +44,4 @@ export const PasswordField = (props: PasswordFieldProps): ReactElement => {
       }}
     />
   );
-};
+}

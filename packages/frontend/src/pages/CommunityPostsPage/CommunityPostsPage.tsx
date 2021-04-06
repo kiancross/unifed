@@ -15,7 +15,7 @@ export interface CommunityPostsPageParams {
   community: string;
 }
 
-export const GET_POSTS = gql`
+export const getPostsQuery = gql`
   query($community: String!, $host: String!) {
     getPosts(community: { id: $community, host: $host }) {
       id
@@ -31,6 +31,9 @@ export const GET_POSTS = gql`
       id
       title
       description
+      admins {
+        id
+      }
     }
     getSubscriptions {
       id
@@ -39,11 +42,11 @@ export const GET_POSTS = gql`
   }
 `;
 
-export const CommunityPostsPage = (): ReactElement => {
+export function CommunityPostsPage(): ReactElement {
   const { community, server } = useParams<CommunityPostsPageParams>();
   const isMobile = useMediaQuery("(max-width: 960px)");
 
-  const { loading, error, data } = useQuery(GET_POSTS, {
+  const { loading, error, data } = useQuery(getPostsQuery, {
     variables: {
       community,
       host: server,
@@ -58,6 +61,12 @@ export const CommunityPostsPage = (): ReactElement => {
   const isSubscribed = data.getSubscriptions.some(
     (e: { host: string; id: string }) => e.host === data.getCommunity.host && e.id === community,
   );
+
+  const communityData = data.getCommunity;
+
+  const communityAdmins = communityData.admins.map((admin: any) => {
+    return admin.id;
+  });
 
   const direction = isMobile ? "column-reverse" : "row";
 
@@ -107,15 +116,16 @@ export const CommunityPostsPage = (): ReactElement => {
               </Grid>
             ) : null}
             <CommunityDescription
-              title={data.getCommunity.title}
+              title={communityData.title}
               id={community}
               server={server}
-              desc={data.getCommunity.description}
+              desc={communityData.description}
               isSubscribed={isSubscribed}
+              admins={communityAdmins}
             />
           </Grid>
         </Grid>
       </Container>
     </div>
   );
-};
+}

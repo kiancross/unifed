@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const PostPreview = (props: PostValues): ReactElement => {
+export function PostPreview(props: PostValues): ReactElement {
   const [editorOpen, setEditorOpen] = useState(false);
   const classes = useStyles();
 
@@ -42,6 +42,7 @@ export const PostPreview = (props: PostValues): ReactElement => {
       <Grid item xs={11} container direction="column" justify="flex-start">
         <Card className={classes.card}>
           <PostHeader
+            community={props.community}
             onToggleEdit={() => setEditorOpen(true)}
             title={props.title}
             username={props.username}
@@ -64,4 +65,4 @@ export const PostPreview = (props: PostValues): ReactElement => {
   );
 
   return content;
-};
+}

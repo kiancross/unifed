@@ -4,7 +4,7 @@
 
 import { render, waitFor, fireEvent } from "@testing-library/react";
 import { MockedProvider } from "@apollo/client/testing";
-import { SubscribeButton, SUBSCRIBE, UNSUBSCRIBE } from "./SubscribeButton";
+import { SubscribeButton, subscribeQuery, unsubscribeQuery } from "./SubscribeButton";
 
 test("Render SubscribeButton on unsubscribed community", async () => {
   const { getByText } = render(
@@ -28,7 +28,7 @@ test("Subscribe and unsubscribe", async () => {
   const mocks = [
     {
       request: {
-        query: SUBSCRIBE,
+        query: subscribeQuery,
         variables: { id: "foo", host: "bar" },
       },
       result: {
@@ -39,7 +39,7 @@ test("Subscribe and unsubscribe", async () => {
     },
     {
       request: {
-        query: UNSUBSCRIBE,
+        query: unsubscribeQuery,
         variables: { id: "foo", host: "bar" },
       },
       result: {

@@ -14,7 +14,7 @@ import {
   CardActions,
   IconButton,
 } from "@material-ui/core";
-import ReplyIcon from "@material-ui/icons/Reply";
+import { Reply as ReplyIcon } from "@material-ui/icons";
 import { MarkdownViewer, PostHeader, PostEditor, PostCreator } from "../../components";
 
 interface PostValues {
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Comment = (props: PostValues): ReactElement => {
+export function Comment(props: PostValues): ReactElement {
   const theme = useTheme();
   const classes = useStyles();
 
@@ -79,6 +79,7 @@ export const Comment = (props: PostValues): ReactElement => {
           <Box borderLeft={4} borderColor={theme.palette.primary.main}>
             <Card elevation={1} square className={classes.header}>
               <PostHeader
+                community={props.community}
                 onToggleEdit={() => setEditorOpen(true)}
                 parent={props.parent}
                 username={props.username}
@@ -104,4 +105,4 @@ export const Comment = (props: PostValues): ReactElement => {
   );
 
   return content;
-};
+}
