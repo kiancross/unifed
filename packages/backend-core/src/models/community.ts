@@ -6,13 +6,20 @@ import { IsArray, IsString, IsNotEmpty, ValidateNested, MaxLength } from "class-
 import { Type } from "class-transformer";
 import { prop as Property, getModelForClass, Ref } from "@typegoose/typegoose";
 import { ObjectType, Field } from "type-graphql";
+
 import { JSONMap } from "../types";
 import { Base } from "./base";
 import { Post } from "./post";
 import { RemoteReference } from "./remote-reference";
 
+/**
+ * Entity representing a community.
+ */
 @ObjectType()
 export class Community extends Base {
+  /**
+   * Title of the community.
+   */
   @MaxLength(64, {
     message: "Title is too long",
   })
@@ -24,6 +31,9 @@ export class Community extends Base {
   @Property({ required: true })
   title!: string;
 
+  /**
+   * Description of the community.
+   */
   @MaxLength(10 * 1024, {
     message: "Description is too long",
   })
@@ -35,6 +45,9 @@ export class Community extends Base {
   @Property({ required: true })
   description!: string;
 
+  /**
+   * Posts belonging to the community.
+   */
   @ValidateNested()
   @Field(() => [Post])
   @Property({
@@ -44,6 +57,9 @@ export class Community extends Base {
   })
   posts!: Ref<Post>[];
 
+  /**
+   * Administrators of the community.
+   */
   @IsArray()
   @ValidateNested()
   @Field(() => [RemoteReference])
@@ -51,6 +67,11 @@ export class Community extends Base {
   @Property({ type: RemoteReference })
   admins!: RemoteReference[];
 
+  /**
+   * Returns a JSON representation of the entity
+   * in the format expected by the federation
+   * protocol.
+   */
   toJSON(): JSONMap {
     return {
       ...super.toJSON(),
@@ -61,4 +82,8 @@ export class Community extends Base {
   }
 }
 
+/**
+ * Community model used for manipulating the MongoDB
+ * database.
+ */
 export const CommunityModel = getModelForClass(Community);
