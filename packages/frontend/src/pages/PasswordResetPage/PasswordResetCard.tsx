@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { TextField, Button, Card, CardContent, Grid, Snackbar } from "@material-ui/core";
@@ -21,7 +21,7 @@ interface Values {
   retyped: string;
 }
 
-function validate({ newPass, retyped }: Values) {
+function validate({ newPass, retyped }: Values): ReactElement| Partial<Values> {
   const errors: Partial<Values> = {};
   if (newPass === retyped) {
     [validatePassword(newPass), validatePassword(retyped)].forEach((result, isRetyped) => {

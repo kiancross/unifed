@@ -3,6 +3,7 @@
  */
 
 import { Typography, Link, makeStyles } from "@material-ui/core";
+import { ReactElement } from "react";
 
 import { LogoTemplate } from "../../components";
 
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function PrivacyNoticePage() {
+export function PrivacyNoticePage(): ReactElement {
   const classes = useStyles();
   return (
     <LogoTemplate direction="vertical">

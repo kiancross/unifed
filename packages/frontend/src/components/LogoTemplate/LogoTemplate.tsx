@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 import { Container, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import logo from "../../assets/unifed.svg";
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
  *
  * @internal
  */
-export function LogoTemplate(props: LogoTemplateProps) {
+export function LogoTemplate(props: LogoTemplateProps): ReactElement {
   const classes = useStyles(props);
 
   const vertical = props.direction === "vertical";

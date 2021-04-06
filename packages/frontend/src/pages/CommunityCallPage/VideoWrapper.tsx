@@ -4,6 +4,7 @@
 
 import { makeStyles, Card, CardHeader, CardMedia, IconButton, Tooltip } from "@material-ui/core";
 import { Mic as MicIcon, MicOff as MicOffIcon, CallEnd as CallEndIcon } from "@material-ui/icons";
+import { ReactElement } from "react";
 
 import { Video } from "./Video";
 
@@ -22,7 +23,7 @@ const useStyles = makeStyles({
   },
 });
 
-export function VideoWrapper(props: VideoWrapperProps) {
+export function VideoWrapper(props: VideoWrapperProps): ReactElement {
   const classes = useStyles();
 
   return (

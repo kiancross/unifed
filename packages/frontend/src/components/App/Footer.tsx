@@ -3,6 +3,7 @@
  */
 
 import { Box, Container, makeStyles, Paper, Link as ExternalLink } from "@material-ui/core";
+import { ReactElement } from "react";
 import { Link as InternalLink } from "../Links";
 
 const useStyles = makeStyles((theme) => ({
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function Footer() {
+export function Footer(): ReactElement {
   const classes = useStyles();
   return (
     <Box paddingTop="3rem">

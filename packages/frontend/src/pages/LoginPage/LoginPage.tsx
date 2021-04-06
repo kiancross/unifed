@@ -3,11 +3,12 @@
  */
 
 import { useMediaQuery } from "@material-ui/core";
+import { ReactElement } from "react";
 
 import { LogoTemplate, ButtonLink } from "../../components";
 import { LoginCard } from "./LoginCard";
 
-export function LoginPage() {
+export function LoginPage(): ReactElement {
   const isMobile = useMediaQuery("(max-width: 960px)");
   const direction = isMobile ? "vertical" : "horizontal";
 

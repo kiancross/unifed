@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import { Card, CardContent, Grid, Typography, makeStyles } from "@material-ui/core";
 
 import { MarkdownViewer, PostHeader, PostEditor } from "../../components";
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function Post(props: Props) {
+export function Post(props: Props): ReactElement {
   const [editorOpen, setEditorOpen] = useState(false);
   const classes = useStyles();
 

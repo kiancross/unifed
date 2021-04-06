@@ -4,6 +4,7 @@
 
 import { Container, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { ReactElement } from "react";
 import { ButtonLink } from "..";
 
 interface ErrorMessageProps {
@@ -17,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-export function ErrorMessage(props: ErrorMessageProps) {
+export function ErrorMessage(props: ErrorMessageProps): ReactElement {
   const classes = useStyles();
 
   return (

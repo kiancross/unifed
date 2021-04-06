@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React from "react";
+import React, { ReactElement } from "react";
 import { Link, Redirect, useParams } from "react-router-dom";
 
 import { passwordClient } from "../../helpers";
@@ -11,7 +11,7 @@ interface EmailVerificationPageParams {
   token: string;
 }
 
-export function EmailVerificationPage() {
+export function EmailVerificationPage(): ReactElement {
   const { token } = useParams<EmailVerificationPageParams>();
 
   let isTokenValid = false;

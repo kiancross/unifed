@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React from "react";
+import React, { ReactElement } from "react";
 import { useTheme } from "@material-ui/core";
 import Editor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
@@ -20,7 +20,7 @@ interface MarkdownEditorProps {
   value?: string;
 }
 
-export function MarkdownEditor(props: MarkdownEditorProps) {
+export function MarkdownEditor(props: MarkdownEditorProps): ReactElement {
   const theme = useTheme().palette;
 
   const styleSettings = `         

@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React from "react";
+import React, { ReactElement } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { Grid, GridSize } from "@material-ui/core";
 
@@ -39,7 +39,7 @@ export const getCommentsQuery = gql`
   }
 `;
 
-export function Comments(props: CommentParams) {
+export function Comments(props: CommentParams): ReactElement {
   const parentId = props.parentId;
   const server = props.server;
 

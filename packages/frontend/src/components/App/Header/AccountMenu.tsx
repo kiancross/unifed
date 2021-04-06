@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React from "react";
+import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import {
   Person as PersonIcon,
@@ -23,7 +23,7 @@ import {
 import { UserIcon } from "../../../components";
 import { UserContext } from "../../../contexts";
 
-export function AccountMenu() {
+export function AccountMenu(): ReactElement {
   const user = React.useContext(UserContext);
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);

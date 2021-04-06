@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { useContext } from "react";
+import React, { ReactElement, useContext } from "react";
 import { useFormik } from "formik";
 import { gql, useMutation } from "@apollo/client";
 import { Edit as EditIcon } from "@material-ui/icons";
@@ -42,7 +42,7 @@ export const changeNameQuery = gql`
   }
 `;
 
-export function ProfileTab(props: ProfileTabParams) {
+export function ProfileTab(props: ProfileTabParams): ReactElement {
   const [nameOpen, setNameOpen] = React.useState(false);
   const user = useContext(UserContext);
 

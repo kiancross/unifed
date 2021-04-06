@@ -3,6 +3,7 @@
  */
 
 import { gql, useMutation } from "@apollo/client";
+import { ReactElement } from "react";
 import { CenteredLoader, ErrorMessage, PostEditorBase } from "..";
 
 interface Props {
@@ -26,7 +27,7 @@ export const editPostQuery = gql`
   }
 `;
 
-export function PostEditor(props: Props) {
+export function PostEditor(props: Props): ReactElement {
   const [editPost, { loading, error }] = useMutation(editPostQuery, { onError: () => null });
 
   if (loading) return <CenteredLoader />;

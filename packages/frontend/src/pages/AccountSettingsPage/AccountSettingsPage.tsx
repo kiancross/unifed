@@ -2,14 +2,14 @@
  * CS3099 Group A3
  */
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, ReactElement } from "react";
 import { AppBar, Container, Tab, Tabs } from "@material-ui/core";
 
 import { UserContext } from "../../contexts";
 import { AccountTab } from "./AccountTab";
 import { ProfileTab } from "./ProfileTab";
 
-export function AccountSettingsPage() {
+export function AccountSettingsPage(): ReactElement {
   const [selectedTab, setSelectedTab] = useState(0);
   const user = useContext(UserContext);
   const handleTabChange = (_event: React.ChangeEvent<unknown>, newValue: number): void => {

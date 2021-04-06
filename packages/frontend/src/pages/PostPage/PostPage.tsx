@@ -9,6 +9,7 @@ import { Container, Grid, useMediaQuery } from "@material-ui/core";
 import { PostCreator, UserInfoCard, CenteredLoader } from "../../components";
 import { Post } from "./Post";
 import { Comments } from "./Comments";
+import { ReactElement } from "react";
 
 interface PostParams {
   server: string;
@@ -29,7 +30,7 @@ export const getPostQuery = gql`
   }
 `;
 
-export function PostPage() {
+export function PostPage(): ReactElement {
   const { post, server, community } = useParams<PostParams>();
   const { loading, error, data } = useQuery(getPostQuery, {
     variables: { id: post, host: server },

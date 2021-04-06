@@ -3,6 +3,7 @@
  */
 
 import { Avatar, Typography, Theme, makeStyles, CardActionArea } from "@material-ui/core";
+import { ReactElement } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 interface Props {
@@ -21,7 +22,7 @@ const useStyles = makeStyles<Theme, Props>((theme) => ({
   },
 }));
 
-export function UserIcon(props: Props) {
+export function UserIcon(props: Props): ReactElement {
   const classes = useStyles(props);
 
   const avatar = (

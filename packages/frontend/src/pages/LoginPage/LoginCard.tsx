@@ -2,14 +2,14 @@
  * CS3099 Group A3
  */
 
-import { useState, useContext } from "react";
+import { useState, useContext, ReactElement } from "react";
 import { Formik, Form, Field } from "formik";
 import { Button, Card, CardContent, TextField, Typography } from "@material-ui/core";
 
 import { UserContext } from "../../contexts";
 import { Link, Popup, PasswordField } from "../../components";
 
-export function LoginCard() {
+export function LoginCard(): ReactElement {
   const user = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState("");
   const loginErrorMessage = "The email address and/or password you have entered is incorrect";

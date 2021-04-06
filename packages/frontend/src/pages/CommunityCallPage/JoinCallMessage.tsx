@@ -11,6 +11,7 @@ import {
   CardContent,
   CardActions,
 } from "@material-ui/core";
+import { ReactElement } from "react";
 
 const useStyles = makeStyles({
   fullHeight: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-export function JoinCallMessage(props: { onJoinClick: () => void }) {
+export function JoinCallMessage(props: { onJoinClick: () => void }): ReactElement {
   const classes = useStyles();
 
   return (

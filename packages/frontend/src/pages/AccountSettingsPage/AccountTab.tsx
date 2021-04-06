@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React from "react";
+import React, { ReactElement } from "react";
 import { useFormik } from "formik";
 import { Alert } from "@material-ui/lab";
 import { Edit as EditIcon } from "@material-ui/icons";
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function AccountTab(props: AccountTabParams) {
+export function AccountTab(props: AccountTabParams): ReactElement {
   const [passOpen, setPassOpen] = React.useState(false);
   const [displayError, setDisplayError] = React.useState(false);
   const [displaySuccess, setDisplaySuccess] = React.useState(false);

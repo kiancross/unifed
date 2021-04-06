@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React from "react";
+import React, { ReactElement } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 
@@ -28,7 +28,7 @@ export const getCommunitiesQuery = gql`
   }
 `;
 
-export function CommunitiesListCard() {
+export function CommunitiesListCard(): ReactElement {
   const { loading, error, data } = useQuery(getCommunitiesQuery, {
     variables: {
       host: "this",

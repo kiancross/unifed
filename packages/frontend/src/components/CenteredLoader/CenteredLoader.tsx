@@ -3,8 +3,9 @@
  */
 
 import { CircularProgress, Grid } from "@material-ui/core";
+import { ReactElement } from "react";
 
-export function CenteredLoader() {
+export function CenteredLoader(): ReactElement {
   return (
     <Grid style={{ height: "100%" }} container justify="center" alignItems="center" xs={12} item>
       <CircularProgress />

@@ -5,6 +5,7 @@
 import { Link as RouterLink } from "react-router-dom";
 import { Card, CardActionArea, CardHeader, Grid, makeStyles } from "@material-ui/core";
 import { UserIcon } from "..";
+import { ReactElement } from "react";
 
 interface Props {
   username: string;
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function UserInfoCard(props: Props) {
+export function UserInfoCard(props: Props): ReactElement {
   const classes = useStyles();
 
   const userIcon = <UserIcon inHeader username={props.username} />;
