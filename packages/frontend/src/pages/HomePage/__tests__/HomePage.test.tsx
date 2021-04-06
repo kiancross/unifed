@@ -9,15 +9,15 @@ import { MemoryRouter, Router } from "react-router-dom";
 import { GraphQLError } from "graphql";
 
 import { HomePage } from "../HomePage";
-import { CommunitiesListCard, GET_COMMUNITIES } from "../CommunitiesListCard";
-import { SubscribedPosts, GET_SUBSCRIBED } from "../SubscribedPosts";
-import { GET_ADMINS } from "../../../components/PostHeader";
+import { CommunitiesListCard, getCommunitiesQuery } from "../CommunitiesListCard";
+import { SubscribedPosts, getSubscribedQuery } from "../SubscribedPosts";
+import { getAdminsQuery } from "../../../components/PostHeader";
 
 const communityID = "baz";
 const communityHost = "ham";
 const getAdminsMock = {
   request: {
-    query: GET_ADMINS,
+    query: getAdminsQuery,
     variables: { id: communityID, host: communityHost },
   },
   result: {
@@ -44,7 +44,7 @@ test("CommunityListCard links to correct page", async () => {
   const mocks = [
     {
       request: {
-        query: GET_COMMUNITIES,
+        query: getCommunitiesQuery,
         variables: { host: "this" },
       },
       result: {
@@ -85,7 +85,7 @@ test("CommunityListCard graphql call fails", async () => {
   const mocks = [
     {
       request: {
-        query: GET_COMMUNITIES,
+        query: getCommunitiesQuery,
         variables: { host: "this" },
       },
       result: { errors: [new GraphQLError("Some error")] },
@@ -104,7 +104,7 @@ test("Renders SubscribedPosts", async () => {
   const mocks = [
     {
       request: {
-        query: GET_SUBSCRIBED,
+        query: getSubscribedQuery,
       },
       result: {
         data: {

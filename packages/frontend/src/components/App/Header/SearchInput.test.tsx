@@ -6,7 +6,7 @@ import { render, waitFor, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { BrowserMockProvider } from "../../../helpers";
-import { SearchInput, getCommunities } from "./SearchInput";
+import { SearchInput, getCommunitiesQuery } from "./SearchInput";
 
 const title = "Test Community";
 const id = "testId";
@@ -15,7 +15,7 @@ const host = "this host";
 const getCommunitiesMock = [
   {
     request: {
-      query: getCommunities,
+      query: getCommunitiesQuery,
       variables: {
         host: host,
       },

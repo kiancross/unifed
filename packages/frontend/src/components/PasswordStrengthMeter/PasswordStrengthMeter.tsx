@@ -27,7 +27,7 @@ const tooltipTitle = (result: PasswordValidationResult) => {
   );
 };
 
-export const PasswordStrengthMeter = (props: Props): ReactElement => {
+export function PasswordStrengthMeter(props: Props): ReactElement {
   const result = validatePassword(props.password);
   const strengthLabel: { [strength: number]: string } = {
     0: "Very Weak",
@@ -46,4 +46,4 @@ export const PasswordStrengthMeter = (props: Props): ReactElement => {
       </Tooltip>
     </div>
   );
-};
+}

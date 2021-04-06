@@ -16,7 +16,7 @@ interface Props {
   onCancel?: () => void;
 }
 
-export const PostEditorBase = (props: Props): ReactElement => {
+export function PostEditorBase(props: Props): ReactElement {
   const initialValues = {
     title: props.isComment ? undefined : props.title,
     body: props.body,
@@ -73,4 +73,4 @@ export const PostEditorBase = (props: Props): ReactElement => {
       </Form>
     </Formik>
   );
-};
+}

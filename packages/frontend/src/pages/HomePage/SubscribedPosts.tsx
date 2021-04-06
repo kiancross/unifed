@@ -6,6 +6,7 @@ import { Grid } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
 
 import { LoadingCard, PostPreview } from "../../components";
+import { ReactElement } from "react";
 
 interface Post {
   id: string;
@@ -20,7 +21,7 @@ interface Post {
   host: string;
 }
 
-export const GET_SUBSCRIBED = gql`
+export const getSubscribedQuery = gql`
   query {
     getSubscribedPosts {
       id
@@ -37,8 +38,8 @@ export const GET_SUBSCRIBED = gql`
   }
 `;
 
-export const SubscribedPosts = () => {
-  const { loading, error, data } = useQuery(GET_SUBSCRIBED);
+export function SubscribedPosts(): ReactElement {
+  const { loading, error, data } = useQuery(getSubscribedQuery);
   if (error) return <Grid item />;
   if (loading) return <LoadingCard />;
 
@@ -61,4 +62,4 @@ export const SubscribedPosts = () => {
         })}
     </Grid>
   );
-};
+}

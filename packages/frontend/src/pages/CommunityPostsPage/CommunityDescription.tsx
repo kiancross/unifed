@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CommunityDescription = (props: CommunityDescriptionProps): ReactElement => {
+export function CommunityDescription(props: CommunityDescriptionProps): ReactElement {
   const classes = useStyles();
 
   const title = <Typography variant="h6">{props.title}</Typography>;
@@ -67,4 +67,4 @@ export const CommunityDescription = (props: CommunityDescriptionProps): ReactEle
       </Card>
     </Grid>
   );
-};
+}

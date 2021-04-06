@@ -13,7 +13,7 @@ export interface CreatePostPageParams {
   community: string;
 }
 
-export const CreatePostPage = (): ReactElement => {
+export function CreatePostPage(): ReactElement {
   const { community, server } = useParams<CreatePostPageParams>();
   const [redirect, setRedirect] = useState<string | undefined>();
 
@@ -35,4 +35,4 @@ export const CreatePostPage = (): ReactElement => {
       />
     </Container>
   );
-};
+}

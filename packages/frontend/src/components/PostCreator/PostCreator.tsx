@@ -2,10 +2,10 @@
  * CS3099 Group A3
  */
 
-import { ReactElement } from "react";
 import { gql, useMutation } from "@apollo/client";
+import { ReactElement } from "react";
 import { PostEditorBase, CenteredLoader, ErrorMessage } from "..";
-import { GET_POSTS } from "../../pages/CommunityPostsPage/CommunityPostsPage";
+import { getPostsQuery } from "../../pages/CommunityPostsPage/CommunityPostsPage";
 
 interface Params {
   server: string;
@@ -38,7 +38,7 @@ export const createPostQuery = gql`
   }
 `;
 
-export const PostCreator = (props: Params): ReactElement => {
+export function PostCreator(props: Params): ReactElement {
   const [createPost, { loading, error }] = useMutation(createPostQuery, {
     update(cache, { data: { createPost } }) {
       const variables = {
@@ -46,11 +46,11 @@ export const PostCreator = (props: Params): ReactElement => {
         host: props.server,
       };
 
-      const current = cache.readQuery<any>({ query: GET_POSTS, variables });
+      const current = cache.readQuery<any>({ query: getPostsQuery, variables });
 
       if (current) {
         cache.writeQuery({
-          query: GET_POSTS,
+          query: getPostsQuery,
           variables,
           data: {
             getPosts: [...(current.getPosts || []), createPost],
@@ -94,4 +94,4 @@ export const PostCreator = (props: Params): ReactElement => {
       submitButtonText={props.submitButtonText}
     />
   );
-};
+}

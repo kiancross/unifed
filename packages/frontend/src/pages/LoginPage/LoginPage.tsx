@@ -8,7 +8,7 @@ import { ReactElement } from "react";
 import { LogoTemplate, ButtonLink } from "../../components";
 import { LoginCard } from "./LoginCard";
 
-export const LoginPage = (): ReactElement => {
+export function LoginPage(): ReactElement {
   const isMobile = useMediaQuery("(max-width: 960px)");
   const direction = isMobile ? "vertical" : "horizontal";
 
@@ -26,4 +26,4 @@ export const LoginPage = (): ReactElement => {
       </ButtonLink>
     </LogoTemplate>
   );
-};
+}

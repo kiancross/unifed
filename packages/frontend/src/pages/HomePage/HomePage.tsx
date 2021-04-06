@@ -9,7 +9,7 @@ import { CommunitiesListCard } from "./CommunitiesListCard";
 import { SubscribedPosts } from "./SubscribedPosts";
 import { ReactElement } from "react";
 
-export const HomePage = (): ReactElement => {
+export function HomePage(): ReactElement {
   const isMobile = useMediaQuery("(max-width: 960px)");
   const direction = isMobile ? "column-reverse" : "row";
   return (
@@ -25,4 +25,4 @@ export const HomePage = (): ReactElement => {
       </Grid>
     </Container>
   );
-};
+}

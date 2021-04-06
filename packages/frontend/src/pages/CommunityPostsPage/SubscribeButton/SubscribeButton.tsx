@@ -12,21 +12,23 @@ interface Props {
   isSubscribed: boolean;
 }
 
-export const SUBSCRIBE = gql`
+export const subscribeQuery = gql`
   mutation($id: String!, $host: String!) {
     subscribe(community: { id: $id, host: $host })
   }
 `;
 
-export const UNSUBSCRIBE = gql`
+export const unsubscribeQuery = gql`
   mutation($id: String!, $host: String!) {
     unsubscribe(community: { id: $id, host: $host })
   }
 `;
 
-export const SubscribeButton = (props: Props): ReactElement => {
+export function SubscribeButton(props: Props): ReactElement {
   const [subscribed, setSubscribed] = React.useState(props.isSubscribed);
-  const [mutation, { loading, error, data }] = useMutation(subscribed ? UNSUBSCRIBE : SUBSCRIBE);
+  const [mutation, { loading, error, data }] = useMutation(
+    subscribed ? unsubscribeQuery : subscribeQuery,
+  );
 
   if (loading) {
     return (
@@ -52,4 +54,4 @@ export const SubscribeButton = (props: Props): ReactElement => {
       {subscribed ? "Unsubscribe" : "Subscribe"}
     </Button>
   );
-};
+}

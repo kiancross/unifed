@@ -21,7 +21,7 @@ interface Values {
   retyped: string;
 }
 
-function validate({ newPass, retyped }: Values) {
+function validate({ newPass, retyped }: Values): ReactElement | Partial<Values> {
   const errors: Partial<Values> = {};
   if (newPass === retyped) {
     [validatePassword(newPass), validatePassword(retyped)].forEach((result, isRetyped) => {
@@ -39,7 +39,7 @@ function validate({ newPass, retyped }: Values) {
   return errors;
 }
 
-export const PasswordResetCard = (): ReactElement => {
+export function PasswordResetCard() {
   const { token } = useParams<Params>();
   const [isReset, setIsReset] = useState(false);
   const [isInternalServerError, setIsInternalServerError] = useState(false);
@@ -128,4 +128,4 @@ export const PasswordResetCard = (): ReactElement => {
       </Snackbar>
     </Grid>
   );
-};
+}

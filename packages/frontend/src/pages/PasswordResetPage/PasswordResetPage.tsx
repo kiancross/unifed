@@ -7,7 +7,7 @@ import { LogoTemplate, ButtonLink } from "../../components";
 
 import { PasswordResetCard } from "./PasswordResetCard";
 
-export const PasswordResetPage = (): ReactElement => {
+export function PasswordResetPage(): ReactElement {
   return (
     <LogoTemplate>
       <PasswordResetCard />
@@ -22,4 +22,4 @@ export const PasswordResetPage = (): ReactElement => {
       </ButtonLink>
     </LogoTemplate>
   );
-};
+}
