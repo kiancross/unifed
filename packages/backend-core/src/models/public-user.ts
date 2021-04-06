@@ -12,6 +12,8 @@ import { Base } from "./base";
 
 /**
  * Entity representing a user's profile.
+ *
+ * @internal
  */
 @ObjectType()
 export class UserProfile {

@@ -11,6 +11,8 @@ import { Base, EntityID } from "./base";
  * @param date  The date to convert.
  *
  * @returns The date as a UNIX timestamp (in seconds).
+ *
+ * @internal
  */
 export function dateToUnixTimestamp(date?: Date): number {
   return Math.floor((date || new Date(0)).getTime() / 1000);
@@ -26,6 +28,8 @@ export function dateToUnixTimestamp(date?: Date): number {
  * @param item  The reference to get the ID from.
  *
  * @returns The reference's ID.
+ *
+ * @internal
  */
 export function getIdFromRef<T extends Base>(item: Ref<T> | null): EntityID | null {
   if (isDocument(item)) {
