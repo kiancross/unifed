@@ -20,7 +20,7 @@ interface MarkdownEditorProps {
   value?: string;
 }
 
-export const MarkdownEditor = (props: MarkdownEditorProps): ReactElement => {
+export function MarkdownEditor(props: MarkdownEditorProps): ReactElement {
   const theme = useTheme().palette;
 
   const styleSettings = `         
@@ -41,4 +41,4 @@ export const MarkdownEditor = (props: MarkdownEditorProps): ReactElement => {
       />
     </>
   );
-};
+}

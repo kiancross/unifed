@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const ErrorMessage = (props: ErrorMessageProps): ReactElement => {
+export function ErrorMessage(props: ErrorMessageProps): ReactElement {
   const classes = useStyles();
 
   return (
@@ -31,4 +31,4 @@ export const ErrorMessage = (props: ErrorMessageProps): ReactElement => {
       </ButtonLink>
     </Container>
   );
-};
+}

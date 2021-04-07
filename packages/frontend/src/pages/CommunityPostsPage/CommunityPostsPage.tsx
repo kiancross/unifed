@@ -15,7 +15,7 @@ export interface CommunityPostsPageParams {
   community: string;
 }
 
-export const GET_POSTS = gql`
+export const getPostsQuery = gql`
   query($community: String!, $host: String!) {
     getPosts(community: { id: $community, host: $host }) {
       id
@@ -42,11 +42,11 @@ export const GET_POSTS = gql`
   }
 `;
 
-export const CommunityPostsPage = (): ReactElement => {
+export function CommunityPostsPage(): ReactElement {
   const { community, server } = useParams<CommunityPostsPageParams>();
   const isMobile = useMediaQuery("(max-width: 960px)");
 
-  const { loading, error, data } = useQuery(GET_POSTS, {
+  const { loading, error, data } = useQuery(getPostsQuery, {
     variables: {
       community,
       host: server,
@@ -128,4 +128,4 @@ export const CommunityPostsPage = (): ReactElement => {
       </Container>
     </div>
   );
-};
+}

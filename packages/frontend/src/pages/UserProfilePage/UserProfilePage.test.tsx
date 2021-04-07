@@ -5,7 +5,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 
 import { BrowserMockProvider } from "../../helpers";
-import { UserProfilePage, GET_POSTS1 } from "./UserProfilePage";
+import { UserProfilePage, getUsersPostsQuery } from "./UserProfilePage";
 
 const host = "this";
 const community = "all";
@@ -16,7 +16,7 @@ test("UserProfilePage posts render with correct user", async () => {
   const getPostsMock = [
     {
       request: {
-        query: GET_POSTS1,
+        query: getUsersPostsQuery,
         variables: {
           community: community,
           host: host,
@@ -59,7 +59,7 @@ test("UserProfilePage post does not render with incorrect user", async () => {
   const getPostsMock = [
     {
       request: {
-        query: GET_POSTS1,
+        query: getUsersPostsQuery,
         variables: {
           community: community,
           host: host,
@@ -102,7 +102,7 @@ test("UserProfilePage post does not render with incorrect user", async () => {
   const getPostsMock = [
     {
       request: {
-        query: GET_POSTS1,
+        query: getUsersPostsQuery,
         variables: {
           id: community,
           host: host,

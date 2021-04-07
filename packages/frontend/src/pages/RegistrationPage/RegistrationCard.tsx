@@ -51,7 +51,7 @@ function validate({ username, name, email, password, repeatPassword }: Values) {
   return errors;
 }
 
-export const RegistrationCard = (): ReactElement => {
+export function RegistrationCard(): ReactElement {
   const [isAccountCreated, setIsAccountCreated] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [password, setPassword] = useState("");
@@ -201,4 +201,4 @@ export const RegistrationCard = (): ReactElement => {
       </Snackbar>
     </>
   );
-};
+}

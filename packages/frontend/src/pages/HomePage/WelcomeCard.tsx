@@ -3,8 +3,9 @@
  */
 
 import { Card, CardContent, CardHeader, Divider, Grid, Typography } from "@material-ui/core";
+import { ReactElement } from "react";
 
-export const WelcomeCard = () => {
+export function WelcomeCard(): ReactElement {
   const content = "Your Unifed homepage.";
   return (
     <Grid item>
@@ -19,4 +20,4 @@ export const WelcomeCard = () => {
       </Card>
     </Grid>
   );
-};
+}

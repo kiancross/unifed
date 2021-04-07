@@ -4,8 +4,7 @@
 
 import { ReactElement, useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import Brightness3Icon from "@material-ui/icons/Brightness3";
-import Brightness7Icon from "@material-ui/icons/Brightness7";
+import { Brightness3 as Brightness3Icon, Brightness7 as Brightness7Icon } from "@material-ui/icons";
 
 import {
   AppBar,
@@ -47,7 +46,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const Header = (props: Props): ReactElement | null => {
+export function Header(props: Props): ReactElement | null {
   const [darkMode, setDarkMode] = useState(props.darkMode);
   const isMobile = useMediaQuery("(max-width: 960px)");
 
@@ -90,4 +89,4 @@ export const Header = (props: Props): ReactElement | null => {
       </Toolbar>
     </AppBar>
   );
-};
+}

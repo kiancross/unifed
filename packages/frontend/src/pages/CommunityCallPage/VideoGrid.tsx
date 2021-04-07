@@ -2,8 +2,8 @@
  * CS3099 Group A3
  */
 
-import { ReactElement } from "react";
 import { Grid, makeStyles } from "@material-ui/core";
+import { ReactElement } from "react";
 import { VideoWrapper, VideoWrapperProps } from "./VideoWrapper";
 
 const useStyles = makeStyles({
@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const VideoGrid = (props: { users: VideoWrapperProps[] }): ReactElement => {
+export function VideoGrid(props: { users: VideoWrapperProps[] }): ReactElement {
   const classes = useStyles();
 
   return (
@@ -26,4 +26,4 @@ export const VideoGrid = (props: { users: VideoWrapperProps[] }): ReactElement =
       })}
     </Grid>
   );
-};
+}

@@ -2,11 +2,9 @@
  * CS3099 Group A3
  */
 
-import { ReactElement } from "react";
 import { makeStyles, Card, CardHeader, CardMedia, IconButton, Tooltip } from "@material-ui/core";
-import MicIcon from "@material-ui/icons/Mic";
-import MicOffIcon from "@material-ui/icons/MicOff";
-import CallEndIcon from "@material-ui/icons/CallEnd";
+import { Mic as MicIcon, MicOff as MicOffIcon, CallEnd as CallEndIcon } from "@material-ui/icons";
+import { ReactElement } from "react";
 
 import { Video } from "./Video";
 
@@ -25,7 +23,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const VideoWrapper = (props: VideoWrapperProps): ReactElement => {
+export function VideoWrapper(props: VideoWrapperProps): ReactElement {
   const classes = useStyles();
 
   return (
@@ -61,4 +59,4 @@ export const VideoWrapper = (props: VideoWrapperProps): ReactElement => {
       </CardMedia>
     </Card>
   );
-};
+}

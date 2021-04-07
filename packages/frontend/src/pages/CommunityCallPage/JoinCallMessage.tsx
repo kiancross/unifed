@@ -2,8 +2,6 @@
  * CS3099 Group A3
  */
 
-import { ReactElement } from "react";
-
 import {
   Button,
   Grid,
@@ -13,6 +11,7 @@ import {
   CardContent,
   CardActions,
 } from "@material-ui/core";
+import { ReactElement } from "react";
 
 const useStyles = makeStyles({
   fullHeight: {
@@ -26,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const JoinCallMessage = (props: { onJoinClick: () => void }): ReactElement => {
+export function JoinCallMessage(props: { onJoinClick: () => void }): ReactElement {
   const classes = useStyles();
 
   return (
@@ -64,4 +63,4 @@ export const JoinCallMessage = (props: { onJoinClick: () => void }): ReactElemen
       </Grid>
     </Grid>
   );
-};
+}
