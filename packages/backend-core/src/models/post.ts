@@ -36,7 +36,7 @@ export class Post extends Base {
     message: "Title is too long",
   })
   @Field(() => String, { nullable: true })
-  @Property()
+  @Property({ type: String })
   title!: string | null;
 
   @Matches(/^(text)|(markdown)$/, {

@@ -38,6 +38,7 @@ test("CommunityPostsPage renders", async () => {
             id: community,
             title: "Test Community",
             description: "this is a test community",
+            admins: [{ id: "adminID" }],
           },
           getSubscriptions: [
             {

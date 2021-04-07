@@ -8,36 +8,36 @@
 import test from "ava";
 import { Tokenizer } from "../tokenizer";
 
-test("cleanText empty", (t) => {
-  t.deepEqual(Tokenizer.cleanText(""), []);
+test("tokenize empty", (t) => {
+  t.deepEqual(Tokenizer.tokenize(""), []);
 });
 
-test("cleanText number", (t) => {
-  const text = Tokenizer.cleanText("00112233445566778899");
+test("tokenize number", (t) => {
+  const text = Tokenizer.tokenize("00112233445566778899");
 
   t.deepEqual(text, ["<<!!__NUMBER__!!>>"]);
 });
 
-test("cleanText url with protocol", (t) => {
-  const text = Tokenizer.cleanText("http://test.com");
+test("tokenize url with protocol", (t) => {
+  const text = Tokenizer.tokenize("http://test.com");
 
   t.deepEqual(text, ["<<!!__URL__!!>>"]);
 });
 
-test("cleanText url with protocol and path", (t) => {
-  const text = Tokenizer.cleanText("http://test.com/foo");
+test("tokenize url with protocol and path", (t) => {
+  const text = Tokenizer.tokenize("http://test.com/foo");
 
   t.deepEqual(text, ["<<!!__URL__!!>>"]);
 });
 
-test("cleanText url without protocol", (t) => {
-  const text = Tokenizer.cleanText("test.com");
+test("tokenize url without protocol", (t) => {
+  const text = Tokenizer.tokenize("test.com");
 
   t.deepEqual(text, ["<<!!__URL__!!>>"]);
 });
 
-test("cleanText url without protocol and path", (t) => {
-  const text = Tokenizer.cleanText("test.com/foo");
+test("tokenize url without protocol and path", (t) => {
+  const text = Tokenizer.tokenize("test.com/foo");
 
   t.deepEqual(text, ["<<!!__URL__!!>>"]);
 });

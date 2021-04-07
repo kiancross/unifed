@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import { useTheme, makeStyles } from "@material-ui/core/styles";
 import {
   Box,
@@ -15,7 +15,7 @@ import {
   IconButton,
 } from "@material-ui/core";
 import ReplyIcon from "@material-ui/icons/Reply";
-import { UserIcon, MarkdownViewer, PostHeader, PostEditor, PostCreator } from "../../components";
+import { MarkdownViewer, PostHeader, PostEditor, PostCreator } from "../../components";
 
 interface PostValues {
   username: string;
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Comment = (props: PostValues): JSX.Element => {
+export const Comment = (props: PostValues): ReactElement => {
   const theme = useTheme();
   const classes = useStyles();
 
@@ -79,6 +79,7 @@ export const Comment = (props: PostValues): JSX.Element => {
           <Box borderLeft={4} borderColor={theme.palette.primary.main}>
             <Card elevation={1} square className={classes.header}>
               <PostHeader
+                community={props.community}
                 onToggleEdit={() => setEditorOpen(true)}
                 parent={props.parent}
                 username={props.username}
@@ -96,11 +97,6 @@ export const Comment = (props: PostValues): JSX.Element => {
                 </IconButton>
               </CardActions>
             </Card>
-          </Box>
-        </Grid>
-        <Grid item xs={1} container justify="flex-end">
-          <Box paddingTop="0.5rem" paddingRight="0.5rem">
-            <UserIcon username={props.username} small />
           </Box>
         </Grid>
       </Grid>

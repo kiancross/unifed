@@ -3,11 +3,24 @@
  */
 
 import { promises as fs } from "fs";
+
 import { TestingParser, Message } from "./parsers";
 import { getSpamFactor } from "./index";
-import { constants } from "./constants";
-import { arrayToCsv, createDirectory } from "./helpers";
+import * as constants from "./constants";
+import { arrayToCSV, createDirectory } from "./helpers";
 
+/**
+ * Tests a set of messages against the default model
+ * and writes the results to a file.
+ *
+ * @param message  The messages used to test the default
+ *                 model.
+ *
+ * @param outputPath  The file path to write the results
+ *                    at.
+ *
+ * @internal
+ */
 export async function testModel(messages: Message[], outputPath: string): Promise<void> {
   const spam: number[] = [];
   const ham: number[] = [];
@@ -22,14 +35,16 @@ export async function testModel(messages: Message[], outputPath: string): Promis
     }
   }
 
+  // Write the results as the deviation from the expected value.
+
   await fs.writeFile(
     `${outputPath}/${constants.testingResultsSpamName}`,
-    arrayToCsv(spam.map((factor) => [1 - factor])),
+    arrayToCSV(spam.map((factor) => [1 - factor])),
   );
 
   await fs.writeFile(
     `${outputPath}/${constants.testingResultsHamName}`,
-    arrayToCsv(ham.map((factor) => [factor])),
+    arrayToCSV(ham.map((factor) => [factor])),
   );
 }
 

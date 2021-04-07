@@ -5,6 +5,7 @@
 import { Formik, Form, Field, FieldProps } from "formik";
 import { ButtonGroup, Button, TextField } from "@material-ui/core";
 import { MarkdownEditor } from "..";
+import { ReactElement } from "react";
 
 interface Props {
   title?: string;
@@ -15,7 +16,7 @@ interface Props {
   onCancel?: () => void;
 }
 
-export const PostEditorBase = (props: Props): JSX.Element => {
+export const PostEditorBase = (props: Props): ReactElement => {
   const initialValues = {
     title: props.isComment ? undefined : props.title,
     body: props.body,
