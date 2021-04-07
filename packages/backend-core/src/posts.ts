@@ -4,17 +4,57 @@
 
 import { Post } from "./models";
 
-type PostContent = Pick<Post, "body" | "contentType">;
+/**
+ * Type used for an object with arbitrary key/value
+ * pairs, including one called `content`.
+ *
+ * @internal
+ */
 type WithContent = Record<string, unknown> & { content: unknown };
 
-const hasContent = (post: unknown): post is WithContent => {
-  return (post as WithContent).content !== undefined;
-};
+/**
+ * Type consisting of the `body` and `contentType`
+ * fields from [[`Post`]].
+ */
+export type PostContent = Pick<Post, "body" | "contentType">;
 
+/**
+ * Error thrown if the body of a post has an invalid
+ * format.
+ */
 export class InvalidPostBodyFormatError extends Error {}
+
+/**
+ * Error thrown if the body of a post is of an invalid
+ * type.
+ */
 export class InvalidPostBodyTypeError extends Error {}
 
-export const extractPostBody = (post: unknown): PostContent => {
+/**
+ * Checks if a given object contains a `content`
+ * property.
+ *
+ * @param post  The object to check.
+ *
+ * @internal
+ */
+function hasContent(post: unknown): post is WithContent {
+  return (post as WithContent).content !== undefined;
+}
+
+/**
+ * Extracts the body of a post from a post object,
+ * if it exists.
+ *
+ * Throws a [[`InvalidPostBodyFormatError`]]
+ * or [[`InvalidPostBodyTypeError`]] if there are
+ * problems during the extraction.
+ *
+ * @param post  The post object to extract the body from.
+ *
+ * @returns The post's body and content type.
+ */
+export function extractPostBody(post: unknown): PostContent {
   if (!hasContent(post)) {
     throw new InvalidPostBodyFormatError();
   }
@@ -33,6 +73,8 @@ export const extractPostBody = (post: unknown): PostContent => {
     const type = keys[0];
 
     if (type === "markdown" || type === "text") {
+      // For some reason the federation protocol insists on this
+      // nested structure.
       if (contentEntry[type][type]) {
         return {
           contentType: type,
@@ -45,4 +87,4 @@ export const extractPostBody = (post: unknown): PostContent => {
   }
 
   throw new InvalidPostBodyTypeError();
-};
+}
