@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Script used to generate the developer documentation.
+# This includes creating a clone of the README.md file
+# and programmatically editing slightly.
+
+set -e
+
+README="README.md"
+DOCS_README="docs/_README.md"
+
+# Add custom styles to the README used in developer documentation.
+echo '<style> .tsd-typography ul ul { margin: 0 !important; } </style>' > "$DOCS_README"
+
+cat "$README" | sed -e '2,5d' >> $DOCS_README
+
+yarn typedoc

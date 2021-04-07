@@ -12,12 +12,6 @@ University of St Andrews.
 
 ## Contents
 
-<style>
-  .tsd-typography ul ul {
-    margin: 0 !important;
-  }
-</style>
-
  * [Installation](#installation)
    * [Step 1 - Clone the repository](#step-1---clone-the-repository)
    * [Step 2 - Setup Node.js](#step-2---setup-nodejs)
@@ -191,9 +185,16 @@ Some of the above configuration files are symbolically linked to by
 packages.
 
 ## Development Tools
-TODO
+We use a variety of tools to assist with development.
 
-nyc prettier eslint docker podman  yarn
+|Name|Description|
+|----|-----------|
+|Docker| Used for orchestrating containers on personal machines.|
+|ESLint| Used for detecting potential problems with code. |
+|Podman| Used for orchestrating containers on the School's lab machines.|
+|Prettier| Used for checking and fixing code formatting. |
+|IstanbulJS| Used for generating test coverage reports. |
+|Yarn| Used for managing npm packages. |
 
 ## Containers
 TODO
