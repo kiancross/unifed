@@ -42,7 +42,7 @@ jobs:
             ${{ steps.yarn-paths.outputs.install }}
             ${{ steps.yarn-paths.outputs.build }}
             ${{ steps.yarn-paths.outputs.unplugged }}
-            .pnp.js
+            .pnp.cjs
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
