@@ -9,7 +9,7 @@
     "build": "yarn workspaces foreach -vpt -j 8 run build",
     "test": "yarn workspaces foreach -vp -j 8 run test",
     "fix": "yarn workspaces foreach -vp -j 8 run fix",
-    "dev-docs": "yarn typedoc",
+    "dev-docs": "cat README.md | sed -e '2,5d' > docs/_README.md && yarn typedoc",
     "container:start": "make -C scripts -f entry.mk start",
     "container:stop": "make -C scripts -f entry.mk stop",
     "container:restart": "make -C scripts -f entry.mk restart",
