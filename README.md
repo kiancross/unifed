@@ -27,6 +27,8 @@ University of St Andrews.
  * [Continuous Integration](#continuous-integration)
  * [Contributing](#contributing)
  * [Documentation](#documentation)
+   * [Users](#users)
+   * [Developers](#developers)
    * [Protocol](#protocol)
  * [Other](#other)
 
@@ -51,7 +53,7 @@ On the lab machines, follow the instructions on the School's wiki
 
 On your own machine, follow the instructions [here](https://nodejs.org/en/download/).
 
-Version 12 is the recomended choice.
+Version 12 is the recommended choice.
 
 ### Step 3 - Install yarn
 ```console
@@ -132,7 +134,7 @@ repository.
 | `packages` | Contains the source code for the application. |
 | `scripts` | Contains development scripts. |
 
-The `packages` directory contains the source code, seperated
+The `packages` directory contains the source code, separated
 into distinct packages. Descriptions for each of these packages
 are contained in `README` files within each package.
 
@@ -158,7 +160,7 @@ These are described below.
 | `.vim` | Contains Vim editor configurations. |
 | `.vscode` | Contains Visual Studio Code editor configurations. |
 | `.yarn` | Contains Yarn binaries. |
-| `yarn.lock` | Yarn lock file, used to keep development environments sychronised. |
+| `yarn.lock` | Yarn lock file, used to keep development environments synchronised. |
 | `.yarnrc.yml` | Configuration file for Yarn. See [here](https://yarnpkg.com/configuration/yarnrc). |
 
 The remaining configuration files are located in the `configs`
@@ -170,7 +172,7 @@ directory. These are described below.
 | `backend-internal.dockerfile` | Dockerfile to create the container for the `backend-internal-server`. |
 | `backend-ml.dockerfile` | Dockerfile to create the container for training machine learning models. |
 | `config.env` | Configuration values used for the application. These are passed to the containers. |
-| `docker-compose.yml` | Orchestration file for Doker Compose. See [here](https://docs.docker.com/compose/compose-file/). |
+| `docker-compose.yml` | Orchestration file for Docker Compose. See [here](https://docs.docker.com/compose/compose-file/). |
 | `eslintignore` | Files to be ignored by ESLint. See [here](https://eslint.org/docs/user-guide/configuring/ignoring-code#the-eslintignore-file). |
 | `eslintrc-non-react.json` | ESLint configuration file for all but the `frontend` package. See [here](https://eslint.org/docs/user-guide/configuring/ignoring-code#the-eslintignore-file). |
 | `frontend.dockerfile` | Dockerfile to create the container for the `frontend`. This is only needed for development, as the frontend is static. |
@@ -197,7 +199,28 @@ We use a variety of tools to assist with development.
 |Yarn| Used for managing npm packages. |
 
 ## Containers
-TODO
+We use Docker and Podman to orchestrate containers. Containers are
+an easy way to allow the application to be run on multiple platforms,
+with minimal configuration.
+
+Multiple containers are run in a cluster. The only exposed container
+is the NGINX container, which proxies requests to the internal server,
+federation server and frontend (which simply serves static files).
+NGINX binds to port `8080`.
+
+The database inspection container (Mongo Express) is also exposed,
+however this is only use for development. This is on port `8081`.
+
+The final container is the MongoDB container. This is only accessible
+to the internal and federation servers and not exposed outside of the
+cluster.
+
+Both the `kube-deployment.yml` and `docker-compose.yml` files are
+essentially identical. Ideally, there would be a single source of
+truth, however there is no good tool for converting one into another,
+therefore we must maintain both. We tried tools like
+[`podman-compose`](https://github.com/containers/podman-compose),
+but they were buggy.
 
 ## Continuous Integration
 On each pull request, automated tests are run. These must all pass before
@@ -227,8 +250,33 @@ The general workflow for fixing a bug/adding a feature should be:
 
 ## Documentation
 
-Documentation for Unifed can be found on the
-[Wiki](https://github.com/kiancross/unifed/wiki).
+Unifed is extensively documented, for both users and
+developers.
+
+### Users
+
+The user manual can be found [here](https://kiancross.github.io/unifed/).
+
+The user manual is built using Jekyll. Ruby must be installed,
+then you can follow the quick-start instructions
+[here](https://jekyllrb.com/). In short, once Jekyll is
+installed, you can run `bundle exec Jekyll serve` in the
+`docs` directory to build the user manual.
+
+
+### Developers
+
+Developer documentation can be found [here](https://kiancross.github.io/unifed/developers/).
+
+The developer documentation consists of this `README` and
+extensive API documentation. Clicking the package names
+on the right hand side of the documentation will take you
+to the API documentation for that particular package.
+A description of the package is also available after clicking
+it.
+
+The developer documentation is built using `yarn dev-docs`,
+which invokes the `typedoc` command.
 
 ### Protocol
 
