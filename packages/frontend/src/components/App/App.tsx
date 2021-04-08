@@ -36,6 +36,17 @@ import { CenteredLoader, ErrorBoundary, ErrorMessage } from "..";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 
+/**
+ * The frontend of the Unifed App.
+ *
+ * Outline:
+ *
+ *  - React router is used for routing.
+ *
+ *  - A Header and a Footer are present on all pages of the App.
+ *
+ * @internal
+ */
 export function App(): ReactElement {
   const user = useContext(UserContext);
 

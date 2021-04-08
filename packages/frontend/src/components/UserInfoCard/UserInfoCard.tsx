@@ -7,8 +7,18 @@ import { Card, CardActionArea, CardHeader, Grid, makeStyles } from "@material-ui
 import { UserIcon } from "..";
 import { ReactElement } from "react";
 
+/**
+ * Properties for the [[`UserInfoCard`]] component.
+ */
 interface Props {
+  /**
+   * Username of the user whose card is being displayed.
+   */
   username: string;
+
+  /**
+   * The name of the user to be displayed.
+   */
   name: string;
 }
 
@@ -19,6 +29,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * Shows the user's username, name and user icon in a card.
+ *
+ * @internal
+ */
 export function UserInfoCard(props: Props): ReactElement {
   const classes = useStyles();
 

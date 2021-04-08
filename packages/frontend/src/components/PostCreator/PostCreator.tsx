@@ -7,16 +7,51 @@ import { ReactElement } from "react";
 import { PostEditorBase, CenteredLoader, ErrorMessage } from "..";
 import { getPostsQuery } from "../../pages/CommunityPostsPage/CommunityPostsPage";
 
+/**
+ * Properties for the [[`PostCreator`]] component.
+ */
 interface Params {
+  /**
+   * The server the post will be made to.
+   */
   server: string;
+
+  /**
+   * The community the post will be made in.
+   */
   community: string;
+
+  /**
+   * The text to be displayed on the 'submit' button.
+   *
+   * This is either 'Create Post', 'Make Reply' or 'Add Comment'.
+   */
   submitButtonText: string;
+
+  /**
+   * The ID of the parent post if a comment is being made.
+   */
   parentId?: string;
+
+  /**
+   * True if a comment is being made, false if a post is.
+   */
   isComment?: boolean;
+
+  /**
+   * Function to be carried out upon submission.
+   */
   onSuccess: (id: string) => void;
+
+  /**
+   * Function to be carried out if the creator is closed.
+   */
   onCancel?: () => void;
 }
 
+/**
+ * Creates the Post using the given information.
+ */
 export const createPostQuery = gql`
   mutation CREATE_POST(
     $title: String
@@ -38,6 +73,19 @@ export const createPostQuery = gql`
   }
 `;
 
+/**
+ * Used to create posts.
+ *
+ * Outline:
+ *
+ *  - The MarkdownEditor is used to curate the content of the post.
+ *
+ *  - Users can then click the submit button to make the post or cancel button to stop making it.
+ *
+ *  - Upon submitting the post, the page will be refreshed or the user is redirected to a new page.
+ *
+ * @internal
+ */
 export function PostCreator(props: Params): ReactElement {
   const [createPost, { loading, error }] = useMutation(createPostQuery, {
     update(cache, { data: { createPost } }) {

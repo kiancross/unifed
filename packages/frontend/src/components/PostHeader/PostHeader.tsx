@@ -19,14 +19,48 @@ import { UserContext } from "../../contexts";
 import { Link, ErrorMessage, CenteredLoader } from "..";
 import { UserIcon } from "../UserIcon";
 
+/**
+ * Properties for the [[`PostHeader`]] component.
+ */
 interface Props {
+  /**
+   * Author of the post.
+   */
   username: string;
+
+  /**
+   * ID of the post.
+   */
   id: string;
+
+  /**
+   * Server the post exists on.
+   */
   server: string;
+
+  /**
+   * Title of the post. This is null for comments.
+   */
   title?: string;
+
+  /**
+   * ID of the parent if this is the header of a comment.
+   */
   parent?: string;
+
+  /**
+   * True if the post is being used as a preivew. False if the full post or comment is displayed.
+   */
   isPreview?: boolean;
+
+  /**
+   * Function to be taken when edit option from the header dropdown is clicked.
+   */
   onToggleEdit: () => void;
+
+  /**
+   * Community the post is part of.
+   */
   community: string;
 }
 
@@ -34,6 +68,9 @@ const useStyles = makeStyles<Theme, Props>({
   header: (props) => (props.parent ? { paddingBottom: "0" } : {}),
 });
 
+/**
+ * Retrieves the IDs and hosts of the admins of the community the post is a part of.
+ */
 export const getAdminsQuery = gql`
   query($id: String!, $host: String!) {
     getCommunity(community: { id: $id, host: $host }) {
@@ -45,12 +82,30 @@ export const getAdminsQuery = gql`
   }
 `;
 
+/**
+ * Deletes the post with the given id on the given host.
+ */
 export const deletePostQuery = gql`
   mutation($id: String!, $host: String!) {
     deletePost(post: { id: $id, host: $host })
   }
 `;
 
+/**
+ * Used to display the user icon, title and actions that can be taken on a post or comment.
+ *
+ * Outline:
+ *
+ *  - The user's icon is displayed on the left of the header
+ *
+ *  - The title of the post is displayed in the middle of the header.
+ *    Nothing is displayed for the title of comments as they do not have one.
+ *
+ *  - Users who have made the post or administrators of the community the post is a
+ *    part of can edit or delete the post by selecting the desired option from a dropdown.
+ *
+ * @internal
+ */
 export function PostHeader(props: Props): ReactElement {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
   const user = useContext(UserContext);

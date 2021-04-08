@@ -8,7 +8,13 @@ import Editor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
 import { MarkdownViewer } from "..";
 
+/**
+ * Properties for the [[`MarkdownEditor`]] component.
+ */
 interface MarkdownEditorProps {
+  /**
+   * Function to update the text the user has typed.
+   */
   onChange?: (
     data: {
       text: string;
@@ -16,10 +22,29 @@ interface MarkdownEditorProps {
     },
     event?: React.ChangeEvent<HTMLTextAreaElement>,
   ) => void;
+
+  /**
+   * Styling for the editor.
+   */
   style?: React.CSSProperties;
+
+  /**
+   * Text shown in the editor.
+   */
   value?: string;
 }
 
+/**
+ * Markdown text editor used to make/edit posts and comments.
+ *
+ * Outline:
+ *
+ *  - Users are shown the raw text they have typed.
+ *
+ *  - A toolbar at the top of the editor diplays icons that the user can click to insert the desired element e.g. a table or heading.
+ *
+ * @internal
+ */
 export function MarkdownEditor(props: MarkdownEditorProps): ReactElement {
   const theme = useTheme().palette;
 

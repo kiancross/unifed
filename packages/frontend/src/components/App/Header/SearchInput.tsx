@@ -29,6 +29,9 @@ const useStyles = makeStyles({
   },
 });
 
+/**
+ * The query used to get the id and title of communities on a given host.
+ */
 export const getCommunitiesQuery = gql`
   query($host: String!) {
     getCommunities(host: $host) {
@@ -46,6 +49,17 @@ const getOptionLabel = (option: Community | string) => {
   }
 };
 
+/**
+ * The search bar used to search for communities.
+ *
+ * Outline:
+ *
+ *  - Users can type a host name into the search bar to display a dropdown of the communities on that host.
+ *
+ *  - They can then click a community from the dropdown to be taken to the page of that community.
+ *
+ * @internal
+ */
 export function SearchInput(): ReactElement {
   const classes = useStyles();
 

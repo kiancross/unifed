@@ -7,12 +7,38 @@ import { Link as RouterLink } from "react-router-dom";
 import { Card, CardActionArea, CardContent, Grid, Typography, makeStyles } from "@material-ui/core";
 import { PostEditor, PostHeader } from "..";
 
+/**
+ * Properties for the [[`PostPreview`]] component.
+ */
 interface PostValues {
+  /**
+   * Author of the post.
+   */
   username: string;
+
+  /**
+   * Title of the post. This is null for comments.
+   */
   title: string;
+
+  /**
+   * ID of the post.
+   */
   id: string;
+
+  /**
+   * Server the post exists on.
+   */
   server: string;
+
+  /**
+   * Community the post is part of.
+   */
   community: string;
+
+  /**
+   * Content of the post.
+   */
   body: string;
 }
 
@@ -23,6 +49,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * Used to show a preview of a post
+ *
+ * Outline:
+ *
+ *  - The preview shows:
+ *    - The title of the post.
+ *    - The name of the author of the post.
+ *    - The user icon of the author.
+ *
+ * @internal
+ */
 export function PostPreview(props: PostValues): ReactElement {
   const [editorOpen, setEditorOpen] = useState(false);
   const classes = useStyles();

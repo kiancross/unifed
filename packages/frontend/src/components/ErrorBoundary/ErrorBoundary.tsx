@@ -8,14 +8,31 @@
 import React, { ErrorInfo } from "react";
 import { ErrorMessage } from "..";
 
+/**
+ * Properties for the [[`ErrorBoundary`]] component.
+ */
 interface PropsType {
+  /**
+   * True if the app has encountered an error that has not been caught
+   */
   hasError?: boolean;
 }
 
+/**
+ * State types for the [[`ErrorBoundary`]] component.
+ */
 interface StateTypes {
+  /**
+   * Can be true or false as an error either has or has not occured.
+   */
   hasError: boolean;
 }
 
+/**
+ * Catches bugs with the App that have not been caught earlier, such as any Javascript errors.
+ *
+ * @internal
+ */
 export class ErrorBoundary extends React.Component<PropsType, StateTypes> {
   constructor(props: PropsType) {
     super(props);

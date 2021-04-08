@@ -7,15 +7,54 @@ import { ButtonGroup, Button, TextField } from "@material-ui/core";
 import { MarkdownEditor } from "..";
 import { ReactElement } from "react";
 
+/**
+ * Properties for the [[`PostEditorBase`]] component.
+ */
 interface Props {
+  /**
+   * The existing title of the post if it is being edited.
+   *
+   * This is always null if it is comment.
+   */
   title?: string;
+
+  /**
+   * The existing body of the post or comment if it is being edited, empty otherwise.
+   */
   body?: string;
+
+  /**
+   * True if a comment is being edited, false otherwise.
+   */
   isComment?: boolean;
+
+  /**
+   * Text to be displayed on the submit button.
+   */
   submitButtonText: string;
+
+  /**
+   * Function to be carried out when the submit button is clicked.
+   */
   onSubmit: (values: { title?: string; body?: string }) => void;
+
+  /**
+   * Function to be carried out when the cancel button is clicked.
+   */
   onCancel?: () => void;
 }
 
+/**
+ * Used to edit and create posts and comments.
+ *
+ * Outline:
+ *
+ *  - The MarkdownEditor is used to enter the content of the post or comment.
+ *
+ *  - Provides a consistent, reusable component with submit and cancel buttons that can be used for comments and posts.
+ *
+ * @internal
+ */
 export function PostEditorBase(props: Props): ReactElement {
   const initialValues = {
     title: props.isComment ? undefined : props.title,

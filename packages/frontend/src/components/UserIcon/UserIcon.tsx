@@ -6,9 +6,23 @@ import { Avatar, Typography, Theme, makeStyles, CardActionArea } from "@material
 import { ReactElement } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
+/**
+ * Properties for the [[`UserIcon`]] component.
+ */
 interface Props {
+  /**
+   * Username of the user.
+   */
   username: string;
+
+  /**
+   * Whether the icon should be small (28px) or not (45px).
+   */
   small?: boolean;
+
+  /**
+   * Whether the icon is in the header of the App.
+   */
   inHeader?: boolean;
 }
 
@@ -22,6 +36,17 @@ const useStyles = makeStyles<Theme, Props>((theme) => ({
   },
 }));
 
+/**
+ * Shows the icon of a user.
+ *
+ * Outline:
+ *
+ *  - Displays the first letter of the user's username in a circle.
+ *
+ *  - This is used in posts to show the author's icon and in the header of the app to show the logged in user.
+ *
+ * @internal
+ */
 export function UserIcon(props: Props): ReactElement {
   const classes = useStyles(props);
 

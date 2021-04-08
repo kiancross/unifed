@@ -23,8 +23,18 @@ import { SearchInput } from "./SearchInput";
 import { CreateCommunityDialog } from "./CreateCommunityDialog";
 import { AccountMenu } from "./AccountMenu";
 
+/**
+ *
+ */
 interface Props {
+  /**
+   * Function called when the 'dark mode' button in the Header is clicked.
+   */
   onThemeChange: (darkMode: boolean) => void;
+
+  /**
+   * Whether dark mode is currently enabled (true) for the App or not (false).
+   */
   darkMode: boolean;
 }
 
@@ -46,6 +56,20 @@ const useStyles = makeStyles({
   },
 });
 
+/**
+ * The Header for the App.
+ *
+ * Outline:
+ *
+ *  - Allows the user to
+ *    - return to the Home Page by clicking the logo.
+ *    - search for communities using 'SearchInput'.
+ *    - toggle the theme for the app.
+ *    - take actions on their profile e.g. logout.
+ *
+ * @param props props as defined by the 'Props' interface
+ * @internal
+ */
 export function Header(props: Props): ReactElement | null {
   const [darkMode, setDarkMode] = useState(props.darkMode);
   const isMobile = useMediaQuery("(max-width: 960px)");

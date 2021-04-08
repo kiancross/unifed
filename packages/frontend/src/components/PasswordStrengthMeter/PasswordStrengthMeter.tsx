@@ -7,7 +7,13 @@ import { Tooltip } from "@material-ui/core";
 import { PasswordValidationResult } from "@unifed/shared";
 import { ReactElement } from "react";
 
+/**
+ * Properties for the [[`PasswordStrengthMeter`]] component.
+ */
 interface Props {
+  /**
+   * Password to check the strength of.
+   */
   password: string;
 }
 
@@ -27,6 +33,17 @@ const tooltipTitle = (result: PasswordValidationResult) => {
   );
 };
 
+/**
+ * Displays the strength of a password.
+ *
+ * Outline:
+ *
+ *  - Strength can be any of: Very Weak, Weak, Good or Strong.
+ *
+ *  - Displayed when user is registering an account and creating a password.
+ *
+ * @internal
+ */
 export function PasswordStrengthMeter(props: Props): ReactElement {
   const result = validatePassword(props.password);
   const strengthLabel: { [strength: number]: string } = {

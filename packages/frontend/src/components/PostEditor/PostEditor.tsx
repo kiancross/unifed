@@ -6,17 +6,56 @@ import { gql, useMutation } from "@apollo/client";
 import { ReactElement } from "react";
 import { CenteredLoader, ErrorMessage, PostEditorBase } from "..";
 
+/**
+ * Properties for the [[`PostEditor`]] component.
+ */
 interface Props {
+  /**
+   * Server of the post to edit.
+   */
   server: string;
+
+  /**
+   * ID of the post to edit.
+   */
   id: string;
+
+  /**
+   * The existing body of the post or comment.
+   */
   body: string;
+
+  /**
+   * The existing title of the post.
+   *
+   * This is null if it is comment.
+   */
   title?: string;
+
+  /**
+   * True if a comment is being edited, false otherwise.
+   */
   isComment?: boolean;
+
+  /**
+   * Text to be displayed on the submit button.
+   */
   submitButtonText: string;
+
+  /**
+   * Function to be carried out when the submit button is clicked.
+   */
   onSuccess: () => void;
+
+  /**
+   * Function to be carried out when the cancel button is clicked.
+   */
   onCancel: () => void;
 }
 
+/**
+ * Edits the post with the body and title passed to it.
+ */
 export const editPostQuery = gql`
   mutation($id: String!, $host: String!, $body: String!, $title: String) {
     updatePost(post: { id: $id, host: $host }, body: $body, title: $title) {
@@ -27,6 +66,17 @@ export const editPostQuery = gql`
   }
 `;
 
+/**
+ * Used to edit existing posts or comments.
+ *
+ * Outline:
+ *
+ *  - The MarkdownEditor is used to edit the post or comment.
+ *
+ *  - The current content of the post or comment is displayed initially.
+ *
+ * @internal
+ */
 export function PostEditor(props: Props): ReactElement {
   const [editPost, { loading, error }] = useMutation(editPostQuery, { onError: () => null });
 
