@@ -273,7 +273,8 @@ extensive API documentation. Clicking the package names
 on the right hand side of the documentation will take you
 to the API documentation for that particular package.
 A description of the package is also available after clicking
-it.
+it. Items marked with `internal` are not exported from the
+package.
 
 The developer documentation is built using `yarn dev-docs`,
 which invokes the `typedoc` command.
