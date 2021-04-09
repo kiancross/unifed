@@ -6,6 +6,11 @@ import { ReactElement } from "react";
 import { LogoTemplate, ButtonLink } from "../../components";
 import { PasswordResetRequestCard } from "./PasswordResetRequestCard";
 
+/**
+ * Allows a user to request a reset password token by displaying the [[`PasswordResetRequestCard`]] or to return to the [[`LoginPage`]]..
+ *
+ * @internal
+ */
 export function PasswordResetRequestPage(): ReactElement {
   return (
     <LogoTemplate>

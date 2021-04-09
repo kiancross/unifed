@@ -48,6 +48,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * Allows users to view their username, email and change their password.
+ *
+ * Outline:
+ *
+ *  - If password change is successful, the password is updated.
+ *
+ *  - Otherwise, an error message is displayed.
+ *
+ * @param props Properties passed to the component. See [[`AccountTabProps`]].
+ * @internal
+ */
 export function AccountTab(props: AccountTabProps): ReactElement {
   const [passOpen, setPassOpen] = React.useState(false);
   const [displayError, setDisplayError] = React.useState(false);

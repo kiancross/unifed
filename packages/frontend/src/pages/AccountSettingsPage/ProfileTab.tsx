@@ -51,6 +51,12 @@ export const changeNameQuery = gql`
   }
 `;
 
+/**
+ * Allows users to change their name on the app.
+ *
+ * @param props Properties passed to the component. See [[`ProfileTabProps`]].
+ * @internal
+ */
 export function ProfileTab(props: ProfileTabProps): ReactElement {
   const [nameOpen, setNameOpen] = React.useState(false);
   const user = useContext(UserContext);

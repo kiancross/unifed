@@ -44,6 +44,11 @@ export const getSubscribedQuery = gql`
   }
 `;
 
+/**
+ * Displays the previews of posts from communities that the user is subscribed to.
+ *
+ * @internal
+ */
 export function SubscribedPosts(): ReactElement {
   const { loading, error, data } = useQuery(getSubscribedQuery);
   if (error) return <Grid item />;

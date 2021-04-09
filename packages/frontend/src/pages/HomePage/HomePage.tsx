@@ -9,6 +9,17 @@ import { CommunitiesListCard } from "./CommunitiesListCard";
 import { SubscribedPosts } from "./SubscribedPosts";
 import { ReactElement } from "react";
 
+/**
+ * Displays a Home Page to the user.
+ *
+ * Outline:
+ *
+ *  - Shows posts from the communities that the user is subscribed to.
+ *
+ *  - Shows a list of communities on the local host.
+ *
+ * @internal
+ */
 export function HomePage(): ReactElement {
   const isMobile = useMediaQuery("(max-width: 960px)");
   const direction = isMobile ? "column-reverse" : "row";

@@ -24,7 +24,10 @@ interface PasswordResetValues {
   retyped: string;
 }
 
-function validate({ newPass, retyped }: PasswordResetValues): ReactElement | Partial<PasswordResetValues> {
+function validate({
+  newPass,
+  retyped,
+}: PasswordResetValues): ReactElement | Partial<PasswordResetValues> {
   const errors: Partial<PasswordResetValues> = {};
   if (newPass === retyped) {
     [validatePassword(newPass), validatePassword(retyped)].forEach((result, isRetyped) => {
@@ -42,7 +45,20 @@ function validate({ newPass, retyped }: PasswordResetValues): ReactElement | Par
   return errors;
 }
 
-export function PasswordResetCard() {
+/**
+ * Allows the user to reset their password.
+ *
+ * Outline:
+ *
+ *  - Users can enter a new password and then retype it to set it.
+ *
+ *  - If they leave the tab open for too long their session expires and they are given a chance to get a new reset token.
+ *
+ *  - Upon successfully resetting their password, they are redirected to their [[`HomePage`]].
+ *
+ * @internal
+ */
+export function PasswordResetCard(): ReactElement {
   const { token } = useParams<PasswordResetCardParams>();
   const [isReset, setIsReset] = useState(false);
   const [isInternalServerError, setIsInternalServerError] = useState(false);

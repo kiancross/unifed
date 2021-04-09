@@ -40,7 +40,7 @@ export interface CommunityDescriptionProps {
    * Server the community is located on.
    */
   server: string;
-  
+
   /**
    * True if the user is subscribe to the community, false otherwise.
    */
@@ -58,6 +58,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * Shows users the description of the community.
+ *
+ * Outline:
+ *
+ *  - The admins, description, name and server of the community are shown, along with a subscription button.
+ *
+ * @param props Properties passed to the component. See [[`CommunityDescriptionProps`]].
+ * @internal
+ */
 export function CommunityDescription(props: CommunityDescriptionProps): ReactElement {
   const classes = useStyles();
 

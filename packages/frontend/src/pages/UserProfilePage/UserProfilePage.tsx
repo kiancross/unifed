@@ -36,6 +36,11 @@ export const getUsersPostsQuery = gql`
   }
 `;
 
+/**
+ * Allows users to see the posts they have made and their information (username and name).
+ *
+ * @internal
+ */
 export function UserProfilePage(): ReactElement {
   const { username } = useParams<PublicUserProfileParams>();
   const name = username;

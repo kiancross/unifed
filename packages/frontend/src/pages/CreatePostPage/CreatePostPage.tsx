@@ -23,6 +23,15 @@ export interface CreatePostPageParams {
   community: string;
 }
 
+/**
+ * Allows users to create a post to a community.
+ *
+ * Outline:
+ *
+ *  - The user is provided with the [[`PostCreator`]] where they can enter the title and body of their post.
+ *
+ * @internal
+ */
 export function CreatePostPage(): ReactElement {
   const { community, server } = useParams<CreatePostPageParams>();
   const [redirect, setRedirect] = useState<string | undefined>();

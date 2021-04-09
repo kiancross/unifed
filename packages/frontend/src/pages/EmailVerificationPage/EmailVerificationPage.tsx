@@ -17,6 +17,17 @@ export interface EmailVerificationPageParams {
   token: string;
 }
 
+/**
+ * Verifies user's emails.
+ *
+ * Outline:
+ *
+ *  - On success, the user is redirected to the [[`HomePage`]].
+ *
+ *  - If they cannot be verified, an error message is displayed.
+ *
+ * @internal
+ */
 export function EmailVerificationPage(): ReactElement {
   const { token } = useParams<EmailVerificationPageParams>();
 

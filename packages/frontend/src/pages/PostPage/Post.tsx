@@ -49,6 +49,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * Displays a post.
+ *
+ * Outline:
+ *
+ *  - Shows the title and body of a post.
+ *
+ *  - The author or admin of the community the post is in can edit or delete the post through its [[`PostHeader`]].
+ *
+ * @param props Properties passed to the component. See [[`PostProps`]].
+ * @internal
+ */
 export function Post(props: PostProps): ReactElement {
   const [editorOpen, setEditorOpen] = useState(false);
   const classes = useStyles();

@@ -47,6 +47,19 @@ export const getPostQuery = gql`
   }
 `;
 
+/**
+ * Displays a post, along with its author's information, and the comments on it.
+ *
+ * Outline:
+ *
+ *  - The [[`Post`]] component shows the post itself.
+ *
+ *  - The [[`Comments`]] component shows the comments on the post, including nested ones.
+ *
+ *  - The [[`UserInfoCard`]] component shows the author's information (Username, name and [[`UserIcon`]]).
+ *
+ * @internal
+ */
 export function PostPage(): ReactElement {
   const { post, server, community } = useParams<PostPageParams>();
   const { loading, error, data } = useQuery(getPostQuery, {

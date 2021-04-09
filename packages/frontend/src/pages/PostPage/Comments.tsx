@@ -60,6 +60,12 @@ export const getCommentsQuery = gql`
   }
 `;
 
+/**
+ * Displays all the comments of a post, including any nested one.
+ *
+ * @param props Properties passed to the component. See [[`CommentsProps`]].
+ * @internal
+ */
 export function Comments(props: CommentsProps): ReactElement {
   const parentId = props.parentId;
   const server = props.server;

@@ -31,6 +31,15 @@ export const getCommunitiesQuery = gql`
   }
 `;
 
+/**
+ * Shows a list of the communities on the current host.
+ *
+ * Outline:
+ *
+ *  - This is shown on the [[`HomePage`]] of the app to provide communities for the user to join.
+ *
+ * @internal
+ */
 export function CommunitiesListCard(): ReactElement {
   const { loading, error, data } = useQuery(getCommunitiesQuery, {
     variables: {

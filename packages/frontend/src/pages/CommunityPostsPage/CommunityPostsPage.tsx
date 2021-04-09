@@ -55,6 +55,15 @@ export const getPostsQuery = gql`
   }
 `;
 
+/**
+ * Allows users to see the posts that exist in a community, along with its description.
+ *
+ * Outline:
+ *
+ *  - A preview of each post made to the community is shown, which can be clicked to take the user to the post's page.
+ *
+ * @internal
+ */
 export function CommunityPostsPage(): ReactElement {
   const { community, server } = useParams<CommunityPostsPageParams>();
   const isMobile = useMediaQuery("(max-width: 960px)");

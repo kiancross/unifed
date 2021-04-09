@@ -73,6 +73,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * Displays a comment to the user.
+ *
+ * Outline:
+ *
+ *  - The body of the comment is shown, along with a 'reply' button that open a [[`PostCreator`]].
+ *
+ *  - The author or admin of the community the comment is a part of can edit or delete the comment through its [[`PostHeader`]].
+ *
+ * @param props Properties passed to the component. See [[`CommentProps`]].
+ * @internal
+ */
 export function Comment(props: CommentProps): ReactElement {
   const theme = useTheme();
   const classes = useStyles();
