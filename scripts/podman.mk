@@ -10,17 +10,21 @@ POD_NAME:=unifed
 
 PODMAN_COMMAND:=cd .. && podman
 
+# Check that the correct version of podman is installed.
+# Old versions contain a bug and need manually upgrading.
 ifneq ($(shell podman --version | awk '{print $$3}'),3.0.0-rc3)
 define n
 
 
 endef
-$(error $n Requires Podman version 3.0.0-rc3. See $n https://github.com/kiancross/unifed/wiki/Installation#step-3---setup-a-container-service $n)
+$(error $n Requires Podman version 3.0.0-rc3. See $n https://kiancross.github.io/unifed/developers#step-4---setup-a-container-service $n)
 endif
 
 .PHONY: start
 start: yarn-install unifed-backend-internal unifed-backend-federation unifed-frontend reset
 	@# Podman doesn't support passing an environment file :(
+	@# So we have to parse the values ourselves and use envsubst to
+	@# add them to the kube-deployment.yml file.
 	$(PODMAN_COMMAND) play kube <(source ./$(CONFIG_PATH); \
 		variable_names=$$(grep -v '^\s*#.*$$' $(CONFIG_PATH) | grep -v '^\s*$$' | cut -f1 -d=); \
 		variable_literals=$$(echo "$${variable_names}" | awk '{printf "$${"$$1"} " }'); \
@@ -37,6 +41,9 @@ reset:
 stop:
 	$(PODMAN_COMMAND) pod stop "$(POD_NAME)"
 
+# Prints the logs from the container. Also adds
+# colour highlighting to the container name to
+# make consistent with docker.
 .PHONY: logs
 logs:
 	@$(PODMAN_COMMAND) logs -n $$($(PODMAN_COMMAND) ps | \
@@ -48,6 +55,8 @@ logs:
 		      printf $$1 "\033[0m"; $$1 = ""; print $$0 \
 				}'
 
+# See the comment in docker.mk. Very similar process,
+# but using `podman exec` rather than `docker exec`.
 .PHONY: devdb
 devdb:
 	@id=$$(podman ps -q --filter name=unifed-mongo\$$); \
