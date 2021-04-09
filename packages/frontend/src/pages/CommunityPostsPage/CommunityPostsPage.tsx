@@ -15,6 +15,9 @@ export interface CommunityPostsPageParams {
   community: string;
 }
 
+/**
+ * GraphQL query to get the posts from a given community.
+ */
 export const getPostsQuery = gql`
   query($community: String!, $host: String!) {
     getPosts(community: { id: $community, host: $host }) {

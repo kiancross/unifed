@@ -13,6 +13,9 @@ interface Context {
   logout: () => Promise<void>;
 }
 
+/**
+ * GraphQL query to get the logged in user's information.
+ */
 export const getUserQuery = gql`
   query {
     getUser {

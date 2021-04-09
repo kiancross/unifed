@@ -28,6 +28,8 @@ export type PasswordFieldProps = Omit<TextFieldProps, "type" | "InputProps"> & {
  *
  *  - Users can choose to show or hide their password while they type.
  *
+ * @param props Properties passed to the component. See [[`PasswordFieldProps`]].
+ *
  * @internal
  */
 export function PasswordField(props: PasswordFieldProps): ReactElement {

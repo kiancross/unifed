@@ -12,12 +12,18 @@ interface Props {
   isSubscribed: boolean;
 }
 
+/**
+ * GraphQL query to subscribe to a community.
+ */
 export const subscribeQuery = gql`
   mutation($id: String!, $host: String!) {
     subscribe(community: { id: $id, host: $host })
   }
 `;
 
+/**
+ * GraphQL query to unsubscribe from a community.
+ */
 export const unsubscribeQuery = gql`
   mutation($id: String!, $host: String!) {
     unsubscribe(community: { id: $id, host: $host })

@@ -24,6 +24,9 @@ interface PostParams {
   };
 }
 
+/**
+ * GraphQL query to get the comments on a post.
+ */
 export const getCommentsQuery = gql`
   query GET_COMMENTS($id: String!, $server: String!) {
     getPost(post: { id: $id, host: $server }) {

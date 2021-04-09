@@ -26,7 +26,7 @@ import { AccountMenu } from "./AccountMenu";
 /**
  *
  */
-interface Props {
+interface HeaderProps {
   /**
    * Function called when the 'dark mode' button in the Header is clicked.
    */
@@ -67,10 +67,10 @@ const useStyles = makeStyles({
  *    - toggle the theme for the app.
  *    - take actions on their profile e.g. logout.
  *
- * @param props props as defined by the 'Props' interface
+ * @param props Properties passed to the component. See [[`HeaderProps`]].
  * @internal
  */
-export function Header(props: Props): ReactElement | null {
+export function Header(props: HeaderProps): ReactElement | null {
   const [darkMode, setDarkMode] = useState(props.darkMode);
   const isMobile = useMediaQuery("(max-width: 960px)");
 

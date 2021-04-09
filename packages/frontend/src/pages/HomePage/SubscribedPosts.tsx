@@ -21,6 +21,9 @@ interface Post {
   host: string;
 }
 
+/**
+ * GraphQL query to get the posts from communities that a user is subscribed to.
+ */
 export const getSubscribedQuery = gql`
   query {
     getSubscribedPosts {

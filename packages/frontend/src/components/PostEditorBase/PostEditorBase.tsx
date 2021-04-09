@@ -10,7 +10,7 @@ import { ReactElement } from "react";
 /**
  * Properties for the [[`PostEditorBase`]] component.
  */
-interface Props {
+interface PostEditorBaseProps {
   /**
    * The existing title of the post if it is being edited.
    *
@@ -53,9 +53,11 @@ interface Props {
  *
  *  - Provides a consistent, reusable component with submit and cancel buttons that can be used for comments and posts.
  *
+ * @param props Properties passed to the component. See [[`PostEditorBaseProps`]].
+ *
  * @internal
  */
-export function PostEditorBase(props: Props): ReactElement {
+export function PostEditorBase(props: PostEditorBaseProps): ReactElement {
   const initialValues = {
     title: props.isComment ? undefined : props.title,
     body: props.body,

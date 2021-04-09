@@ -9,7 +9,7 @@ import { Link as RouterLink } from "react-router-dom";
 /**
  * Properties for the [[`UserIcon`]] component.
  */
-interface Props {
+interface UserIconProps {
   /**
    * Username of the user.
    */
@@ -26,7 +26,7 @@ interface Props {
   inHeader?: boolean;
 }
 
-const useStyles = makeStyles<Theme, Props>((theme) => ({
+const useStyles = makeStyles<Theme, UserIconProps>((theme) => ({
   avatar: (props) => ({
     height: props.small ? "28px" : "45px",
     width: props.small ? "28px" : "45px",
@@ -45,9 +45,11 @@ const useStyles = makeStyles<Theme, Props>((theme) => ({
  *
  *  - This is used in posts to show the author's icon and in the header of the app to show the logged in user.
  *
+ * @param props Properties passed to the component. See [[`UserIconProps`]].
+ *
  * @internal
  */
-export function UserIcon(props: Props): ReactElement {
+export function UserIcon(props: UserIconProps): ReactElement {
   const classes = useStyles(props);
 
   const avatar = (

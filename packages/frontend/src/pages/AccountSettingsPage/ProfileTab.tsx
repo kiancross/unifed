@@ -36,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * GraphQL query to change the name of a user.
+ */
 export const changeNameQuery = gql`
   mutation UpdateUserProfile($name: String!) {
     updateUserProfile(profile: { name: $name })

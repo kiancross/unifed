@@ -7,6 +7,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import { ReactElement } from "react";
 import { ButtonLink } from "..";
 
+/**
+ * Properties for the [[`ErrorMessage`]] component.
+ */
 interface ErrorMessageProps {
   /**
    * Error message to be displayed.
@@ -30,7 +33,7 @@ const useStyles = makeStyles({
  *
  *  - Provides a 'Return Home' button, taking the user to their Home Page when clicked.
  *
- * @param props containing the message to display.
+ * @param props Properties passed to the component. See [[`ErrorMessageProps`]].
  * @internal
  */
 export function ErrorMessage(props: ErrorMessageProps): ReactElement {

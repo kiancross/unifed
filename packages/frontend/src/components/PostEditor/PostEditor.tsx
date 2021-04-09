@@ -9,7 +9,7 @@ import { CenteredLoader, ErrorMessage, PostEditorBase } from "..";
 /**
  * Properties for the [[`PostEditor`]] component.
  */
-interface Props {
+interface PostEditorProps {
   /**
    * Server of the post to edit.
    */
@@ -54,7 +54,7 @@ interface Props {
 }
 
 /**
- * Edits the post with the body and title passed to it.
+ * GraphQL query to edit the post using the body and title passed to it.
  */
 export const editPostQuery = gql`
   mutation($id: String!, $host: String!, $body: String!, $title: String) {
@@ -75,9 +75,11 @@ export const editPostQuery = gql`
  *
  *  - The current content of the post or comment is displayed initially.
  *
+ * @param props Properties passed to the component. See [[`PostEditorProps`]].
+ *
  * @internal
  */
-export function PostEditor(props: Props): ReactElement {
+export function PostEditor(props: PostEditorProps): ReactElement {
   const [editPost, { loading, error }] = useMutation(editPostQuery, { onError: () => null });
 
   if (loading) return <CenteredLoader />;

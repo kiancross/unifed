@@ -22,7 +22,7 @@ import { UserIcon } from "../UserIcon";
 /**
  * Properties for the [[`PostHeader`]] component.
  */
-interface Props {
+interface PostHeaderProps {
   /**
    * Author of the post.
    */
@@ -64,12 +64,12 @@ interface Props {
   community: string;
 }
 
-const useStyles = makeStyles<Theme, Props>({
+const useStyles = makeStyles<Theme, PostHeaderProps>({
   header: (props) => (props.parent ? { paddingBottom: "0" } : {}),
 });
 
 /**
- * Retrieves the IDs and hosts of the admins of the community the post is a part of.
+ * GraphQL query to retrieve the IDs and hosts of the admins of the community the post is a part of.
  */
 export const getAdminsQuery = gql`
   query($id: String!, $host: String!) {
@@ -83,7 +83,7 @@ export const getAdminsQuery = gql`
 `;
 
 /**
- * Deletes the post with the given id on the given host.
+ * GraphQL query to delete the post with the given id on the given host.
  */
 export const deletePostQuery = gql`
   mutation($id: String!, $host: String!) {
@@ -104,9 +104,11 @@ export const deletePostQuery = gql`
  *  - Users who have made the post or administrators of the community the post is a
  *    part of can edit or delete the post by selecting the desired option from a dropdown.
  *
+ * @param props Properties passed to the component. See [[`PostHeaderProps`]].
+ *
  * @internal
  */
-export function PostHeader(props: Props): ReactElement {
+export function PostHeader(props: PostHeaderProps): ReactElement {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
   const user = useContext(UserContext);
   const classes = useStyles(props);

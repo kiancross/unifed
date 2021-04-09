@@ -11,7 +11,7 @@ import { ErrorMessage } from "..";
 /**
  * Properties for the [[`ErrorBoundary`]] component.
  */
-interface PropsType {
+interface ErrorBoundaryProps {
   /**
    * True if the app has encountered an error that has not been caught
    */
@@ -21,7 +21,7 @@ interface PropsType {
 /**
  * State types for the [[`ErrorBoundary`]] component.
  */
-interface StateTypes {
+interface ErrorBoundaryStates {
   /**
    * Can be true or false as an error either has or has not occured.
    */
@@ -33,8 +33,8 @@ interface StateTypes {
  *
  * @internal
  */
-export class ErrorBoundary extends React.Component<PropsType, StateTypes> {
-  constructor(props: PropsType) {
+export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryStates> {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false };
   }

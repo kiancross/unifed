@@ -9,6 +9,9 @@ import { Paper, InputBase, CircularProgress, makeStyles } from "@material-ui/cor
 import { Autocomplete } from "@material-ui/lab";
 import { gql, useQuery } from "@apollo/client";
 
+/**
+ * Defines the type 'Community' to be used in this component.
+ */
 interface Community {
   id: string;
   title: string;
@@ -30,7 +33,7 @@ const useStyles = makeStyles({
 });
 
 /**
- * The query used to get the id and title of communities on a given host.
+ * GraphQL query to get the id and title of communities on a given host.
  */
 export const getCommunitiesQuery = gql`
   query($host: String!) {

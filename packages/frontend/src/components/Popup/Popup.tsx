@@ -9,7 +9,7 @@ import { ReactElement } from "react";
 /**
  * Properties for the [[`Popup`]] component.
  */
-interface PropsTypes {
+interface PopupProps {
   /**
    * Message to display in the popup.
    */
@@ -23,9 +23,11 @@ interface PropsTypes {
  *
  *  - Used if the user has tried to take an action that is invalid e.g. enterring the wrong login information.
  *
+ * @param props Properties passed to the component. See [[`PopupProps`]].
+ *
  * @internal
  */
-export function Popup(props: PropsTypes): ReactElement {
+export function Popup(props: PopupProps): ReactElement {
   return (
     <Snackbar anchorOrigin={{ vertical: "top", horizontal: "center" }} open={!!props.message}>
       <Alert severity="error">{props.message}</Alert>

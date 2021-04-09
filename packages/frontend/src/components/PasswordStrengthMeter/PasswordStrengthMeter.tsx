@@ -10,7 +10,7 @@ import { ReactElement } from "react";
 /**
  * Properties for the [[`PasswordStrengthMeter`]] component.
  */
-interface Props {
+interface PasswordStrengthMeter {
   /**
    * Password to check the strength of.
    */
@@ -42,9 +42,11 @@ const tooltipTitle = (result: PasswordValidationResult) => {
  *
  *  - Displayed when user is registering an account and creating a password.
  *
+ * @param props Properties passed to the component. See [[`PasswordStrengthMeter`]].
+ *
  * @internal
  */
-export function PasswordStrengthMeter(props: Props): ReactElement {
+export function PasswordStrengthMeter(props: PasswordStrengthMeter): ReactElement {
   const result = validatePassword(props.password);
   const strengthLabel: { [strength: number]: string } = {
     0: "Very Weak",

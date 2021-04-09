@@ -10,7 +10,7 @@ import { ReactElement } from "react";
 /**
  * Properties for the [[`UserInfoCard`]] component.
  */
-interface Props {
+interface UserInfoCardProps {
   /**
    * Username of the user whose card is being displayed.
    */
@@ -32,9 +32,11 @@ const useStyles = makeStyles((theme) => ({
 /**
  * Shows the user's username, name and user icon in a card.
  *
+ * @param props Properties passed to the component. See [[`UserInfoCardProps`]].
+ *
  * @internal
  */
-export function UserInfoCard(props: Props): ReactElement {
+export function UserInfoCard(props: UserInfoCardProps): ReactElement {
   const classes = useStyles();
 
   const userIcon = <UserIcon inHeader username={props.username} />;

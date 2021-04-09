@@ -23,18 +23,51 @@ import {
 
 import { Popup } from "../../";
 
+/**
+ * GraphQL query to create a Community
+ */
 export const createCommunityQuery = gql`
   mutation($title: String!, $description: String!, $id: String!) {
     createCommunity(title: $title, description: $description, id: $id)
   }
 `;
 
+/**
+ * Value types for form of the [[`CreateCommunityDialog`]] component.
+ *
+ */
 interface FormValues {
+  /**
+   * The name chosen for the community being created.
+   */
   name: string;
+
+  /**
+   * The description for the community being created.
+   */
   description: string;
+
+  /**
+   * The id of the community being created.
+   */
   id: string;
 }
 
+/**
+ * Used to create a community.
+ *
+ * Outline:
+ *
+ *  - Users can click the 'plus' icon in the header of the App.
+ *
+ *  - They can then enter a name, ID and description for the community.
+ *
+ *  - On success, they are redirected to the new community page.
+ *
+ *  - Otherwise they are shown an error message.
+ *
+ * @internal
+ */
 export function CreateCommunityDialog(): ReactElement {
   const history = useHistory();
   const [open, setOpen] = useState(false);

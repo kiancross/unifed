@@ -19,6 +19,9 @@ import {
 
 import { LoadingCard } from "../../components";
 
+/**
+ * GraphQL query to get the communities on a certain host.
+ */
 export const getCommunitiesQuery = gql`
   query($host: String!) {
     getCommunities(host: $host) {

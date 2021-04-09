@@ -17,6 +17,9 @@ interface PostParams {
   post: string;
 }
 
+/**
+ * GraphQL query to get a post with a given ID on a given host.
+ */
 export const getPostQuery = gql`
   query GET_POST($id: String!, $host: String!) {
     getPost(post: { id: $id, host: $host }) {

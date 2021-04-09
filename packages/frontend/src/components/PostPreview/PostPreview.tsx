@@ -10,7 +10,7 @@ import { PostEditor, PostHeader } from "..";
 /**
  * Properties for the [[`PostPreview`]] component.
  */
-interface PostValues {
+interface PostPreviewProps {
   /**
    * Author of the post.
    */
@@ -59,9 +59,11 @@ const useStyles = makeStyles((theme) => ({
  *    - The name of the author of the post.
  *    - The user icon of the author.
  *
+ * @param props Properties passed to the component. See [[`PostPreviewProps`]].
+ *
  * @internal
  */
-export function PostPreview(props: PostValues): ReactElement {
+export function PostPreview(props: PostPreviewProps): ReactElement {
   const [editorOpen, setEditorOpen] = useState(false);
   const classes = useStyles();
 

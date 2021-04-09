@@ -43,6 +43,7 @@ interface MarkdownEditorProps {
  *
  *  - A toolbar at the top of the editor diplays icons that the user can click to insert the desired element e.g. a table or heading.
  *
+ * @param props Properties passed to the component. See [[`MarkdownEditorProps`]].
  * @internal
  */
 export function MarkdownEditor(props: MarkdownEditorProps): ReactElement {

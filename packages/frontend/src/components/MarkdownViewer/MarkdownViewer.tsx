@@ -55,6 +55,8 @@ const renderers = {
  *
  * This is used for comments and posts when they are displayed.
  *
+ * @param props Properties passed to the component. See [[`MarkdownViewerProps`]].
+ *
  * @internal
  */
 export function MarkdownViewer(props: MarkdownViewerProps): ReactElement {

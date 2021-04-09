@@ -10,7 +10,7 @@ import { getPostsQuery } from "../../pages/CommunityPostsPage/CommunityPostsPage
 /**
  * Properties for the [[`PostCreator`]] component.
  */
-interface Params {
+interface PostCreatorProps {
   /**
    * The server the post will be made to.
    */
@@ -50,7 +50,7 @@ interface Params {
 }
 
 /**
- * Creates the Post using the given information.
+ * GraphQL query to creates the post using the given information.
  */
 export const createPostQuery = gql`
   mutation CREATE_POST(
@@ -84,9 +84,11 @@ export const createPostQuery = gql`
  *
  *  - Upon submitting the post, the page will be refreshed or the user is redirected to a new page.
  *
+ * @param props Properties passed to the component. See [[`PostCreatorProps`]].
+ *
  * @internal
  */
-export function PostCreator(props: Params): ReactElement {
+export function PostCreator(props: PostCreatorProps): ReactElement {
   const [createPost, { loading, error }] = useMutation(createPostQuery, {
     update(cache, { data: { createPost } }) {
       const variables = {

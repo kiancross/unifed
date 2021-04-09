@@ -6,7 +6,10 @@ import { Link, LinkProps } from "react-router-dom";
 import { Button, ButtonProps } from "@material-ui/core";
 import { ReactElement } from "react";
 
-type Props = Omit<ButtonProps, "component"> & LinkProps;
+/**
+ * Types for the [[`ButtonLink`]] component.
+ */
+export type ButtonLinkProps = Omit<ButtonProps, "component"> & LinkProps;
 
 /**
  * Formatted button to direct the user to different pages.
@@ -15,9 +18,9 @@ type Props = Omit<ButtonProps, "component"> & LinkProps;
  *
  *  - User can click the button to be taken to the link given.
  *
- * @param props styling for the button and a 'to' prop providing the link the button should redirect to.
+ * @param props Properties passed to the component. See [[`ButtonLinkProps`]].
  * @internal
  */
-export function ButtonLink(props: Props): ReactElement {
+export function ButtonLink(props: ButtonLinkProps): ReactElement {
   return <Button component={Link} {...props} />;
 }

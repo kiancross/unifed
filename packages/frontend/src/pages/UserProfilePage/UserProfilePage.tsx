@@ -13,6 +13,9 @@ interface PublicUserProfileParams {
   username: string;
 }
 
+/**
+ * GraphQL query to get the posts from a certain community on a certain host.
+ */
 export const getUsersPostsQuery = gql`
   query($community: String!, $host: String!) {
     getPosts(community: { id: $community, host: $host }) {
