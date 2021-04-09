@@ -41,8 +41,6 @@ import { Footer } from "./Footer";
  *
  * Outline:
  *
- *  - React router is used for routing.
- *
  *  - A Header and a Footer are present on all pages of the App.
  *
  * @internal
