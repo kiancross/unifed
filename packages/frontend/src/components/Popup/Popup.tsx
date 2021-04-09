@@ -9,7 +9,7 @@ import { ReactElement } from "react";
 /**
  * Properties for the [[`Popup`]] component.
  */
-interface PopupProps {
+export interface PopupProps {
   /**
    * Message to display in the popup.
    */

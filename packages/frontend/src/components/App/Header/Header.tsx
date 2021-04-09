@@ -24,9 +24,9 @@ import { CreateCommunityDialog } from "./CreateCommunityDialog";
 import { AccountMenu } from "./AccountMenu";
 
 /**
- *
+ * Properties for the [[`Header`]] component.
  */
-interface HeaderProps {
+export interface HeaderProps {
   /**
    * Function called when the 'dark mode' button in the Header is clicked.
    */

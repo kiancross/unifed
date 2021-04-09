@@ -17,12 +17,38 @@ import { Link } from "../../components";
 
 import { SubscribeButton } from "./SubscribeButton";
 
+/**
+ * Properties for the [[`CommunityDescription`]] component.
+ */
 export interface CommunityDescriptionProps {
+  /**
+   * Description field of the community.
+   */
   desc: string;
+
+  /**
+   * Name of the community
+   */
   title: string;
+
+  /**
+   * ID of the community.
+   */
   id: string;
+
+  /**
+   * Server the community is located on.
+   */
   server: string;
+  
+  /**
+   * True if the user is subscribe to the community, false otherwise.
+   */
   isSubscribed: boolean;
+
+  /**
+   * The admins of the community.
+   */
   admins: string[];
 }
 

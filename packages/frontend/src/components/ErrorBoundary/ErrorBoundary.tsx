@@ -11,7 +11,7 @@ import { ErrorMessage } from "..";
 /**
  * Properties for the [[`ErrorBoundary`]] component.
  */
-interface ErrorBoundaryProps {
+export interface ErrorBoundaryProps {
   /**
    * True if the app has encountered an error that has not been caught
    */
@@ -21,7 +21,7 @@ interface ErrorBoundaryProps {
 /**
  * State types for the [[`ErrorBoundary`]] component.
  */
-interface ErrorBoundaryStates {
+export interface ErrorBoundaryStates {
   /**
    * Can be true or false as an error either has or has not occured.
    */

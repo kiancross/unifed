@@ -10,8 +10,18 @@ import { PostPreview, ButtonLink, CenteredLoader, ErrorMessage } from "../../com
 import { CommunityDescription } from "./CommunityDescription";
 import { ReactElement } from "react";
 
+/**
+ * Params taken by the [[`CommunityPostsPage`]] component.
+ */
 export interface CommunityPostsPageParams {
+  /**
+   * Server the community is located on.
+   */
   server: string;
+
+  /**
+   * The name of the community to retrieve posts from.
+   */
   community: string;
 }
 

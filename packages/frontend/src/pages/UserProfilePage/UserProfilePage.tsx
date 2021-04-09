@@ -9,7 +9,13 @@ import { Container, Grid, useMediaQuery } from "@material-ui/core";
 import { UserInfoCard, PostPreview, CenteredLoader } from "../../components";
 import { ReactElement } from "react";
 
-interface PublicUserProfileParams {
+/**
+ * Params taken by the [[`UserProfilePage`]] component.
+ */
+export interface PublicUserProfileParams {
+  /**
+   * The username of the profile.
+   */
   username: string;
 }
 

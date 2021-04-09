@@ -8,6 +8,9 @@ import { gql, useQuery } from "@apollo/client";
 import { LoadingCard, PostPreview } from "../../components";
 import { ReactElement } from "react";
 
+/**
+ * Interface defining the type 'Post'.
+ */
 interface Post {
   id: string;
   title: string;

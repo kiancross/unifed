@@ -15,7 +15,7 @@ import "katex/dist/katex.min.css";
 /**
  * Properties for the [[`MarkdownViewer`]] component.
  */
-interface MarkdownViewerProps {
+export interface MarkdownViewerProps {
   /**
    * The raw markdown to be formatted.
    */

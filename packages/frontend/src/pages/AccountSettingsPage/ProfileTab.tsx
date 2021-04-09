@@ -24,7 +24,13 @@ import {
 
 import { UserContext } from "../../contexts";
 
-interface ProfileTabParams {
+/**
+ * Properties for the [[`ProfileTab`]] component.
+ */
+export interface ProfileTabProps {
+  /**
+   * Name of the profile.
+   */
   name: string;
 }
 
@@ -45,7 +51,7 @@ export const changeNameQuery = gql`
   }
 `;
 
-export function ProfileTab(props: ProfileTabParams): ReactElement {
+export function ProfileTab(props: ProfileTabProps): ReactElement {
   const [nameOpen, setNameOpen] = React.useState(false);
   const user = useContext(UserContext);
 

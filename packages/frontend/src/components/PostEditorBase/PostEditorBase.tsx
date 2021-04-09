@@ -10,7 +10,7 @@ import { ReactElement } from "react";
 /**
  * Properties for the [[`PostEditorBase`]] component.
  */
-interface PostEditorBaseProps {
+export interface PostEditorBaseProps {
   /**
    * The existing title of the post if it is being edited.
    *

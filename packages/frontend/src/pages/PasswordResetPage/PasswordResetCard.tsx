@@ -12,17 +12,20 @@ import { validatePassword } from "@unifed/shared";
 import { passwordClient } from "../../helpers";
 import { Link } from "../../components";
 
-interface Params {
+/**
+ * Params taken by the [[`PasswordResetCard`]] component.
+ */
+export interface PasswordResetCardParams {
   token: string;
 }
 
-interface Values {
+interface PasswordResetValues {
   newPass: string;
   retyped: string;
 }
 
-function validate({ newPass, retyped }: Values): ReactElement | Partial<Values> {
-  const errors: Partial<Values> = {};
+function validate({ newPass, retyped }: PasswordResetValues): ReactElement | Partial<PasswordResetValues> {
+  const errors: Partial<PasswordResetValues> = {};
   if (newPass === retyped) {
     [validatePassword(newPass), validatePassword(retyped)].forEach((result, isRetyped) => {
       if (!result.valid) {
@@ -40,7 +43,7 @@ function validate({ newPass, retyped }: Values): ReactElement | Partial<Values> 
 }
 
 export function PasswordResetCard() {
-  const { token } = useParams<Params>();
+  const { token } = useParams<PasswordResetCardParams>();
   const [isReset, setIsReset] = useState(false);
   const [isInternalServerError, setIsInternalServerError] = useState(false);
   return (

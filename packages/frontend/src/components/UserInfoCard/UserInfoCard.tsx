@@ -10,7 +10,7 @@ import { ReactElement } from "react";
 /**
  * Properties for the [[`UserInfoCard`]] component.
  */
-interface UserInfoCardProps {
+export interface UserInfoCardProps {
   /**
    * Username of the user whose card is being displayed.
    */

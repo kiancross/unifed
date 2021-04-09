@@ -25,8 +25,18 @@ import {
 
 import { passwordClient } from "../../helpers";
 
-interface AccountTabParams {
+/**
+ * Properties for the [[`AccountTab`]] component.
+ */
+export interface AccountTabProps {
+  /**
+   * Username of the account.
+   */
   username: string;
+
+  /**
+   * Email of the account.
+   */
   email: string;
 }
 
@@ -38,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function AccountTab(props: AccountTabParams): ReactElement {
+export function AccountTab(props: AccountTabProps): ReactElement {
   const [passOpen, setPassOpen] = React.useState(false);
   const [displayError, setDisplayError] = React.useState(false);
   const [displaySuccess, setDisplaySuccess] = React.useState(false);

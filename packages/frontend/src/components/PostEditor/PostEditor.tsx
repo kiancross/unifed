@@ -9,7 +9,7 @@ import { CenteredLoader, ErrorMessage, PostEditorBase } from "..";
 /**
  * Properties for the [[`PostEditor`]] component.
  */
-interface PostEditorProps {
+export interface PostEditorProps {
   /**
    * Server of the post to edit.
    */

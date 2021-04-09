@@ -11,9 +11,23 @@ import { Post } from "./Post";
 import { Comments } from "./Comments";
 import { ReactElement } from "react";
 
-interface PostParams {
+/**
+ * Params taken by the [[`PostPage`]] component.
+ */
+export interface PostPageParams {
+  /**
+   * The server that the post of the post page is on.
+   */
   server: string;
+
+  /**
+   * The community that the post of the post page is part of.
+   */
   community: string;
+
+  /**
+   * The ID of the post.
+   */
   post: string;
 }
 
@@ -34,7 +48,7 @@ export const getPostQuery = gql`
 `;
 
 export function PostPage(): ReactElement {
-  const { post, server, community } = useParams<PostParams>();
+  const { post, server, community } = useParams<PostPageParams>();
   const { loading, error, data } = useQuery(getPostQuery, {
     variables: { id: post, host: server },
   });

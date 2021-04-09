@@ -17,13 +17,43 @@ import {
 import { Reply as ReplyIcon } from "@material-ui/icons";
 import { MarkdownViewer, PostHeader, PostEditor, PostCreator } from "../../components";
 
-interface PostValues {
+/**
+ * Properties for the [[`Comment`]] component.
+ */
+export interface CommentProps {
+  /**
+   * Username of the author of the comment.
+   */
   username: string;
+
+  /**
+   * Body of the comment.
+   */
   body: string;
+
+  /**
+   * ID of the comment.
+   */
   id: string;
+
+  /**
+   * ID of the post the comment is being made on, or the comment it is replying to.
+   */
   parent: string;
+
+  /**
+   * How wide the comment should be. This is based on how nested it is.
+   */
   grids: GridSize;
+
+  /**
+   * Server the comment is located on.
+   */
   host: string;
+
+  /**
+   * Community the comment is in.
+   */
   community: string;
 }
 
@@ -43,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function Comment(props: PostValues): ReactElement {
+export function Comment(props: CommentProps): ReactElement {
   const theme = useTheme();
   const classes = useStyles();
 

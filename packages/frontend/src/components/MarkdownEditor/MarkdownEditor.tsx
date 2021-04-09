@@ -11,7 +11,7 @@ import { MarkdownViewer } from "..";
 /**
  * Properties for the [[`MarkdownEditor`]] component.
  */
-interface MarkdownEditorProps {
+export interface MarkdownEditorProps {
   /**
    * Function to update the text the user has typed.
    */

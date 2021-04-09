@@ -22,7 +22,7 @@ import { UserIcon } from "../UserIcon";
 /**
  * Properties for the [[`PostHeader`]] component.
  */
-interface PostHeaderProps {
+export interface PostHeaderProps {
   /**
    * Author of the post.
    */

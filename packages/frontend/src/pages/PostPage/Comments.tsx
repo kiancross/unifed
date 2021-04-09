@@ -9,14 +9,32 @@ import { Grid, GridSize } from "@material-ui/core";
 import { CenteredLoader } from "../../components";
 import { Comment } from "./Comment";
 
-interface CommentParams {
+/**
+ * Properties for the [[`Comments`]] component.
+ */
+export interface CommentsProps {
+  /**
+   * Server the comments are located on.
+   */
   server: string;
+
+  /**
+   * The ID of the post or comment one level up from the current comment.
+   */
   parentId: string;
+
+  /**
+   * How wide the comment should be. This is based on how nested it is.
+   */
   grids: GridSize;
+
+  /**
+   * The community the comments are located on.
+   */
   community: string;
 }
 
-interface PostParams {
+interface PostType {
   id: string;
   body: string;
   author: {
@@ -42,7 +60,7 @@ export const getCommentsQuery = gql`
   }
 `;
 
-export function Comments(props: CommentParams): ReactElement {
+export function Comments(props: CommentsProps): ReactElement {
   const parentId = props.parentId;
   const server = props.server;
 
@@ -67,7 +85,7 @@ export function Comments(props: CommentParams): ReactElement {
 
   return (
     <Grid item container xs={12} direction="column">
-      {commentPosts.map((post: PostParams) => {
+      {commentPosts.map((post: PostType) => {
         const username = post.author.id;
         const text = post.body;
         return (

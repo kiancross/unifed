@@ -10,7 +10,7 @@ import { PostEditor, PostHeader } from "..";
 /**
  * Properties for the [[`PostPreview`]] component.
  */
-interface PostPreviewProps {
+export interface PostPreviewProps {
   /**
    * Author of the post.
    */

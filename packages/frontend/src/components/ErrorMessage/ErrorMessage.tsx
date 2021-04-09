@@ -10,7 +10,7 @@ import { ButtonLink } from "..";
 /**
  * Properties for the [[`ErrorMessage`]] component.
  */
-interface ErrorMessageProps {
+export interface ErrorMessageProps {
   /**
    * Error message to be displayed.
    */

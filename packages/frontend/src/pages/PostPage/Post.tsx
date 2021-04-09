@@ -7,12 +7,38 @@ import { Card, CardContent, Grid, Typography, makeStyles } from "@material-ui/co
 
 import { MarkdownViewer, PostHeader, PostEditor } from "../../components";
 
-interface Props {
+/**
+ * Properties for the [[`Post`]] component.
+ */
+export interface PostProps {
+  /**
+   * The username of the author of the post.
+   */
   username: string;
+
+  /**
+   * The body of the post.
+   */
   body: string;
+
+  /**
+   * The title of the post.
+   */
   title: string;
+
+  /**
+   * The ID of the post.
+   */
   id: string;
+
+  /**
+   * The server the post is on.
+   */
   server: string;
+
+  /**
+   * The community the post is a part of.
+   */
   community: string;
 }
 
@@ -23,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function Post(props: Props): ReactElement {
+export function Post(props: PostProps): ReactElement {
   const [editorOpen, setEditorOpen] = useState(false);
   const classes = useStyles();
 

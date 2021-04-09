@@ -6,9 +6,23 @@ import React, { ReactElement } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Button } from "@material-ui/core";
 
-interface Props {
+/**
+ * Properties for the [[`SubscribeButton`]] component.
+ */
+export interface SubscribeButtonProps {
+  /**
+   * ID of the community to subscribe/unsubscribe to/from.
+   */
   id: string;
+
+  /**
+   * Server the chosen community is located on.
+   */
   server: string;
+
+  /**
+   * True if the user is subscribe to the community, false otherwise.
+   */
   isSubscribed: boolean;
 }
 
@@ -30,7 +44,7 @@ export const unsubscribeQuery = gql`
   }
 `;
 
-export function SubscribeButton(props: Props): ReactElement {
+export function SubscribeButton(props: SubscribeButtonProps): ReactElement {
   const [subscribed, setSubscribed] = React.useState(props.isSubscribed);
   const [mutation, { loading, error, data }] = useMutation(
     subscribed ? unsubscribeQuery : subscribeQuery,

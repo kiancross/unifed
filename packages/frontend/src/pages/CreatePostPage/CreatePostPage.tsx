@@ -8,8 +8,18 @@ import { Container } from "@material-ui/core";
 
 import { PostCreator } from "../../components";
 
+/**
+ * Params taken by the [[`SubscribeButton`]] component.
+ */
 export interface CreatePostPageParams {
+  /**
+   * Server of the community the post is being made to.
+   */
   server: string;
+
+  /**
+   * The name of the community the post is being made to.
+   */
   community: string;
 }
 

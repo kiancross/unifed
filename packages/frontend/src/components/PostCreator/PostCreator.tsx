@@ -10,7 +10,7 @@ import { getPostsQuery } from "../../pages/CommunityPostsPage/CommunityPostsPage
 /**
  * Properties for the [[`PostCreator`]] component.
  */
-interface PostCreatorProps {
+export interface PostCreatorProps {
   /**
    * The server the post will be made to.
    */

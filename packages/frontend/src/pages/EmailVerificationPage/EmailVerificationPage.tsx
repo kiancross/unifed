@@ -7,7 +7,13 @@ import { Link, Redirect, useParams } from "react-router-dom";
 
 import { passwordClient } from "../../helpers";
 
-interface EmailVerificationPageParams {
+/**
+ * Params taken by the [[`EmailVerificationPage`]] component.
+ */
+export interface EmailVerificationPageParams {
+  /**
+   * The token used to verify the user's email.
+   */
   token: string;
 }
 
