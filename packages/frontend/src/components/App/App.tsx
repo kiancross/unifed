@@ -41,7 +41,8 @@ import { Footer } from "./Footer";
  *
  * Outline:
  *
- *  - A Header and a Footer are present on all pages of the App.
+ *  - A [[`Header`]] and a [[`Footer`]] are present on most pages of the
+      application. The header is hidden when the user is not authenticated.
  *
  * @internal
  */
