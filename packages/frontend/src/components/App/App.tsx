@@ -37,7 +37,7 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 
 /**
- * The frontend of the Unifed App.
+ * The frontend of the Unifed application.
  *
  * Outline:
  *

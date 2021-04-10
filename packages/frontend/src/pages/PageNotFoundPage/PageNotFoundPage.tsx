@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 });
 
 /**
- * Displays a '404 Page not Found' message if an invalid url is enterred.
+ * Displays a '404 Page not Found' message if an invalid URL is entered.
  *
  * A [[`ButtonLink`]] is diplayed for the user to return home.
  *

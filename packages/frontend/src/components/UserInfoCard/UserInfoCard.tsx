@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /**
- * Shows the user's username, name and user icon in a card.
+ * Displays the user's username, name and user icon in a card.
  *
  * @param props Properties passed to the component. See [[`UserInfoCardProps`]].
  *

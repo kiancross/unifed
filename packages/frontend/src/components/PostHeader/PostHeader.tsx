@@ -39,7 +39,7 @@ export interface PostHeaderProps {
   server: string;
 
   /**
-   * Title of the post. This is null for comments.
+   * Title of the post. This is `undefined` for comments.
    */
   title?: string;
 
@@ -49,17 +49,17 @@ export interface PostHeaderProps {
   parent?: string;
 
   /**
-   * True if the post is being used as a preivew. False if the full post or comment is displayed.
+   * Indicates whether the post is being used as a preview.
    */
   isPreview?: boolean;
 
   /**
-   * Function to be taken when edit option from the header dropdown is clicked.
+   * Function to be called when the edit button is clicked.
    */
   onToggleEdit: () => void;
 
   /**
-   * Community the post is part of.
+   * Community that the post belongs to.
    */
   community: string;
 }
@@ -69,7 +69,7 @@ const useStyles = makeStyles<Theme, PostHeaderProps>({
 });
 
 /**
- * GraphQL query to retrieve the IDs and hosts of the admins of the community the post is a part of.
+ * GraphQL query to retrieve a community.
  */
 export const getAdminsQuery = gql`
   query($id: String!, $host: String!) {
@@ -83,7 +83,7 @@ export const getAdminsQuery = gql`
 `;
 
 /**
- * GraphQL query to delete the post with the given id on the given host.
+ * GraphQL query to delete a post.
  */
 export const deletePostQuery = gql`
   mutation($id: String!, $host: String!) {
@@ -99,7 +99,7 @@ export const deletePostQuery = gql`
  *  - The user's icon is displayed on the left of the header
  *
  *  - The title of the post is displayed in the middle of the header.
- *    Nothing is displayed for the title of comments as they do not have one.
+ *    Nothing is displayed for the title of comments, as they do not have one.
  *
  *  - Users who have made the post or administrators of the community the post is a
  *    part of can edit or delete the post by selecting the desired option from a dropdown.

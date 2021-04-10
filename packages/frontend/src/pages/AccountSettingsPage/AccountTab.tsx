@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
  *  - Otherwise, an error message is displayed.
  *
  * @param props Properties passed to the component. See [[`AccountTabProps`]].
+ *
  * @internal
  */
 export function AccountTab(props: AccountTabProps): ReactElement {

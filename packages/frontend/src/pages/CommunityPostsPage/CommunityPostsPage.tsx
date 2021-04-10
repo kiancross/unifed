@@ -26,7 +26,7 @@ export interface CommunityPostsPageParams {
 }
 
 /**
- * GraphQL query to get the posts from a given community.
+ * GraphQL query to get the posts to a given community.
  */
 export const getPostsQuery = gql`
   query($community: String!, $host: String!) {
@@ -60,7 +60,8 @@ export const getPostsQuery = gql`
  *
  * Outline:
  *
- *  - A preview of each post made to the community is shown, which can be clicked to take the user to the post's page.
+ *  - A preview of each post made to the community is shown, which can be clicked to
+ *    take the user to the post's page.
  *
  * @internal
  */

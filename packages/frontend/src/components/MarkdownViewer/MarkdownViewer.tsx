@@ -14,10 +14,12 @@ import "katex/dist/katex.min.css";
 
 /**
  * Properties for the [[`MarkdownViewer`]] component.
+ *
+ * @internal
  */
 export interface MarkdownViewerProps {
   /**
-   * The raw markdown to be formatted.
+   * The raw markdown to be rendered.
    */
   children: string;
 }
@@ -51,7 +53,7 @@ const renderers = {
 };
 
 /**
- * Used to display raw markdown text as formatted markdown to the user.
+ * Used to display raw markdown as rendered HTML to the user.
  *
  * This is used for comments and posts when they are displayed.
  *

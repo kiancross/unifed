@@ -15,14 +15,16 @@ import {
 } from "@material-ui/core";
 
 /**
- * Types for the [[`PasswordField`]] component.
+ * Properties for the [[`PasswordField`]] component.
+ *
+ * @internal
  */
 export type PasswordFieldProps = Omit<TextFieldProps, "type" | "InputProps"> & {
   InputProps?: Omit<InputProps, "endAdornment">;
 };
 
 /**
- * Used for users to enter their passwords.
+ * Password input component.
  *
  * Outline:
  *

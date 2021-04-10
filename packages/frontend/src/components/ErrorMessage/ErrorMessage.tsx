@@ -9,6 +9,8 @@ import { ButtonLink } from "..";
 
 /**
  * Properties for the [[`ErrorMessage`]] component.
+ *
+ * @internal
  */
 export interface ErrorMessageProps {
   /**
@@ -31,9 +33,10 @@ const useStyles = makeStyles({
  *
  *  - Displays a message to the user indicating the problem.
  *
- *  - Provides a 'Return Home' button, taking the user to their Home Page when clicked.
+ *  - Provides a 'Return Home' button, taking the user to their home page when clicked.
  *
  * @param props Properties passed to the component. See [[`ErrorMessageProps`]].
+ *
  * @internal
  */
 export function ErrorMessage(props: ErrorMessageProps): ReactElement {

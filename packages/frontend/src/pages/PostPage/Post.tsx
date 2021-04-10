@@ -59,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
  *  - The author or admin of the community the post is in can edit or delete the post through its [[`PostHeader`]].
  *
  * @param props Properties passed to the component. See [[`PostProps`]].
+ *
  * @internal
  */
 export function Post(props: PostProps): ReactElement {

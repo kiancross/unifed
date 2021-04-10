@@ -7,7 +7,8 @@ import { ReactElement } from "react";
 import { CenteredLoader } from "..";
 
 /**
- * Card returned when data for it is still being retrieved.
+ * Card containing a centred loader.
+ *
  * @internal
  */
 export function LoadingCard(): ReactElement {

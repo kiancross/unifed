@@ -10,7 +10,9 @@ import { Autocomplete } from "@material-ui/lab";
 import { gql, useQuery } from "@apollo/client";
 
 /**
- * Defines the type 'Community' to be used in this component.
+ * Defines the fields received by the `getCommunities` GraphQL call.
+ *
+ * @internal
  */
 interface Community {
   id: string;
@@ -33,7 +35,9 @@ const useStyles = makeStyles({
 });
 
 /**
- * GraphQL query to get the id and title of communities on a given host.
+ * GraphQL query to get the `id` and `title` of communities on a given host.
+ *
+ * @internal
  */
 export const getCommunitiesQuery = gql`
   query($host: String!) {

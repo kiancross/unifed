@@ -9,17 +9,19 @@ import { ReactElement } from "react";
 
 /**
  * Properties for the [[`PostEditorBase`]] component.
+ *
+ * @internal
  */
 export interface PostEditorBaseProps {
   /**
    * The existing title of the post if it is being edited.
    *
-   * This is always null if it is comment.
+   * This is always `undefined` if it is a comment.
    */
   title?: string;
 
   /**
-   * The existing body of the post or comment if it is being edited, empty otherwise.
+   * The existing body of the post or comment if it is being edited, `undefined` otherwise.
    */
   body?: string;
 
@@ -49,9 +51,10 @@ export interface PostEditorBaseProps {
  *
  * Outline:
  *
- *  - The MarkdownEditor is used to enter the content of the post or comment.
+ *  - The [[`MarkdownEditor`]] is used to enter the content of the post or comment.
  *
- *  - Provides a consistent, reusable component with submit and cancel buttons that can be used for comments and posts.
+ *  - Provides a consistent, reusable component with submit and cancel buttons that
+ *    can be used for comments and posts.
  *
  * @param props Properties passed to the component. See [[`PostEditorBaseProps`]].
  *

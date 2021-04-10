@@ -24,15 +24,16 @@ import { UserIcon } from "../../../components";
 import { UserContext } from "../../../contexts";
 
 /**
- * The dropdown menu that is displayed when the user icon in the Header is clicked.
+ * The dropdown menu that is displayed when the user icon in the
+ * [[`Header`]] is clicked.
  *
  * Outline:
  *
- *  - The 'Profile' option takes users to their profile page.
+ *  - The 'Profile' button takes users to their profile page.
  *
- *  - The 'Settings' option takes users to their profile settings page.
+ *  - The 'Settings' button takes users to their account settings page.
  *
- *  - The 'Logout' option logs the user out of the app.
+ *  - The 'Logout' button logs the user out of the application.
  *
  * @internal
  */

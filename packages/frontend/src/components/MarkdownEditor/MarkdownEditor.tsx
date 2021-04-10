@@ -10,10 +10,12 @@ import { MarkdownViewer } from "..";
 
 /**
  * Properties for the [[`MarkdownEditor`]] component.
+ *
+ * @internal
  */
 export interface MarkdownEditorProps {
   /**
-   * Function to update the text the user has typed.
+   * Function called each time the user makes a change to the editor.
    */
   onChange?: (
     data: {
@@ -24,26 +26,28 @@ export interface MarkdownEditorProps {
   ) => void;
 
   /**
-   * Styling for the editor.
+   * Styling properties for the editor.
    */
   style?: React.CSSProperties;
 
   /**
-   * Text shown in the editor.
+   * Initial content displayed in the editor.
    */
   value?: string;
 }
 
 /**
- * Markdown text editor used to make/edit posts and comments.
+ * Markdown text editor used to create/edit posts and comments.
  *
  * Outline:
  *
- *  - Users are shown the raw text they have typed.
+ *  - Users are shown the raw markdown that they have typed.
  *
- *  - A toolbar at the top of the editor diplays icons that the user can click to insert the desired element e.g. a table or heading.
+ *  - A toolbar at the top of the editor diplays icons that the user can click to
+ *    insert the desired element e.g. a table or heading.
  *
  * @param props Properties passed to the component. See [[`MarkdownEditorProps`]].
+ *
  * @internal
  */
 export function MarkdownEditor(props: MarkdownEditorProps): ReactElement {

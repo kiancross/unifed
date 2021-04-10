@@ -7,15 +7,20 @@ import { Link as MaterialLink, LinkProps as MaterialLinkProps } from "@material-
 import { ReactElement } from "react";
 
 /**
- * Types for the [[`Link`]] component.
+ * Properties for the [[`Link`]] component.
+ *
+ * @internal
  */
 export type LinkProps = Omit<MaterialLinkProps, "component"> &
   RouterLinkProps &
   Pick<Required<RouterLinkProps>, "children">;
 
 /**
- * Link used to reach other pages in the app.
+ * Link used to reach other pages in the application (without reloading the page
+ * in the browser).
+ *
  * @param props Properties passed to the component. See [[`LinkProps`]].
+ *
  * @internal
  */
 export function Link(props: LinkProps): ReactElement {

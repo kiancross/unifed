@@ -16,7 +16,8 @@ import { ProfileTab } from "./ProfileTab";
  *
  *  - Users can edit their name, username and password.
  *
- *  - Users can toggle between their account information (username, email and password) and their profile information (name).
+ *  - Users can toggle between their account information (username, email and
+ *    password) and their profile information (name).
  *
  * @internal
  */

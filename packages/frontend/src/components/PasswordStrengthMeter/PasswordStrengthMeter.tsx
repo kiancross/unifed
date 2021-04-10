@@ -9,6 +9,8 @@ import { ReactElement } from "react";
 
 /**
  * Properties for the [[`PasswordStrengthMeter`]] component.
+ *
+ * @internal
  */
 export interface PasswordStrengthMeterProps {
   /**

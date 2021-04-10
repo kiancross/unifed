@@ -8,6 +8,8 @@ import { ReactElement } from "react";
 
 /**
  * Properties for the [[`Popup`]] component.
+ *
+ * @internal
  */
 export interface PopupProps {
   /**
@@ -17,11 +19,13 @@ export interface PopupProps {
 }
 
 /**
- * Displays an error to the user in popup form
+ * Displays an error or warning to the user as a
+ * [popover](https://material-ui.com/components/popover/).
  *
  * Outline:
  *
- *  - Used if the user has tried to take an action that is invalid e.g. enterring the wrong login information.
+ *  - For when user has taken an invalid action for which an error or warning
+ *   needs to be displayed e.g. entering the wrong login information.
  *
  * @param props Properties passed to the component. See [[`PopupProps`]].
  *

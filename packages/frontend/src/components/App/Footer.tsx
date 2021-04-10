@@ -14,13 +14,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /**
- * The Footer for the App.
+ * The footer for the [[`App`]].
  *
  * Outline:
  *
- *  - Clicking the 'Help' button takes the user to the user documentation.
+ *  - Clicking the 'Help' button takes the user to the
+       [user manual](https://kiancross.github.io/unifed/).
  *
- *  - Clicking the 'Privacy Notice' button takes the user to the Privacy Policy.
+ *  - Clicking the 'Privacy Notice' button takes the user to the privacy policy.
  *
  * @internal
  */

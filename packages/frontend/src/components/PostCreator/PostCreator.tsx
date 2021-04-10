@@ -9,6 +9,8 @@ import { getPostsQuery } from "../../pages/CommunityPostsPage/CommunityPostsPage
 
 /**
  * Properties for the [[`PostCreator`]] component.
+ *
+ * @internal
  */
 export interface PostCreatorProps {
   /**
@@ -29,28 +31,30 @@ export interface PostCreatorProps {
   submitButtonText: string;
 
   /**
-   * The ID of the parent post if a comment is being made.
+   * The ID of the parent post, if a comment is being made.
    */
   parentId?: string;
 
   /**
-   * True if a comment is being made, false if a post is.
+   * Indicates whether a comment is being made.
    */
   isComment?: boolean;
 
   /**
-   * Function to be carried out upon submission.
+   * Function called upon successful submission.
    */
   onSuccess: (id: string) => void;
 
   /**
-   * Function to be carried out if the creator is closed.
+   * Function called if the component is closed without creating a comment.
    */
   onCancel?: () => void;
 }
 
 /**
- * GraphQL query to creates the post using the given information.
+ * GraphQL query to create a post.
+ *
+ * @internal
  */
 export const createPostQuery = gql`
   mutation CREATE_POST(
@@ -78,11 +82,9 @@ export const createPostQuery = gql`
  *
  * Outline:
  *
- *  - The MarkdownEditor is used to curate the content of the post.
+ *  - The [[`MarkdownEditor`]] is used to curate the content of the post.
  *
- *  - Users can then click the submit button to make the post or cancel button to stop making it.
- *
- *  - Upon submitting the post, the page will be refreshed or the user is redirected to a new page.
+ *  - Users can click the submit button to create the post or the cancel button to leave the creator.
  *
  * @param props Properties passed to the component. See [[`PostCreatorProps`]].
  *

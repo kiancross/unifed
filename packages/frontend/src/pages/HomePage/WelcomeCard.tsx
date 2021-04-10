@@ -7,6 +7,7 @@ import { ReactElement } from "react";
 
 /**
  * Displays a welcome card to the user on their [[`HomePage`]].
+ *
  * @internal
  */
 export function WelcomeCard(): ReactElement {

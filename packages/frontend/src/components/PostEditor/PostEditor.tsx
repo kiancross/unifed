@@ -8,6 +8,8 @@ import { CenteredLoader, ErrorMessage, PostEditorBase } from "..";
 
 /**
  * Properties for the [[`PostEditor`]] component.
+ *
+ * @internal
  */
 export interface PostEditorProps {
   /**
@@ -28,12 +30,12 @@ export interface PostEditorProps {
   /**
    * The existing title of the post.
    *
-   * This is null if it is comment.
+   * This is `undefined` if it is a comment.
    */
   title?: string;
 
   /**
-   * True if a comment is being edited, false otherwise.
+   * Indicates if it is a comment being edited.
    */
   isComment?: boolean;
 
@@ -43,18 +45,20 @@ export interface PostEditorProps {
   submitButtonText: string;
 
   /**
-   * Function to be carried out when the submit button is clicked.
+   * Function to be called when the post is successfully edited.
    */
   onSuccess: () => void;
 
   /**
-   * Function to be carried out when the cancel button is clicked.
+   * Function to be called when the cancel button is clicked.
    */
   onCancel: () => void;
 }
 
 /**
- * GraphQL query to edit the post using the body and title passed to it.
+ * GraphQL query to edit a post.
+ *
+ * @internal
  */
 export const editPostQuery = gql`
   mutation($id: String!, $host: String!, $body: String!, $title: String) {
@@ -71,7 +75,7 @@ export const editPostQuery = gql`
  *
  * Outline:
  *
- *  - The MarkdownEditor is used to edit the post or comment.
+ *  - The [[`MarkdownEditor`]] is used to edit the post or comment.
  *
  *  - The current content of the post or comment is displayed initially.
  *
