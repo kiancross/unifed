@@ -60,7 +60,8 @@ function validate({ username, name, email, password, repeatPassword }: Values) {
  *
  *  - They must check a box saying that they have read and agree to the privacy notice.
  *
- *  - Upon successfully creating the account, they are redirected to their [[`HomePage`]], otherwise an error alert is displayed.
+ *  - Upon successfully creating the account, they are redirected to their [[`HomePage`]],
+ *    otherwise an error message is displayed.
  *
  * @internal
  */
