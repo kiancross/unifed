@@ -39,7 +39,7 @@ export function PostPreview(props: PostValues): ReactElement {
     />
   ) : (
     <Grid item container spacing={2}>
-      <Grid item xs={11} container direction="column" justify="flex-start">
+      <Grid item container direction="column" justify="flex-start">
         <Card className={classes.card}>
           <PostHeader
             community={props.community}

@@ -41,6 +41,12 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 0,
     paddingTop: 0,
   },
+  action: {
+    padding: "0px 16px 16px 16px",
+  },
+  replyButton: {
+    padding: "4px",
+  },
 }));
 
 export function Comment(props: PostValues): ReactElement {
@@ -91,8 +97,8 @@ export function Comment(props: PostValues): ReactElement {
                   <MarkdownViewer>{props.body}</MarkdownViewer>
                 </Typography>
               </CardContent>
-              <CardActions>
-                <IconButton onClick={() => setMakingReply(true)}>
+              <CardActions className={classes.action}>
+                <IconButton className={classes.replyButton} onClick={() => setMakingReply(true)}>
                   <ReplyIcon />
                 </IconButton>
               </CardActions>

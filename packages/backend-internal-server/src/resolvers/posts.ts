@@ -14,7 +14,7 @@ import {
 import { Service } from "typedi";
 import { CurrentUser } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
-import { Post, User, Community, RemoteReference } from "@unifed/backend-core";
+import { Post, User, Community, RemoteReference, config } from "@unifed/backend-core";
 import { CreatePostInput, RemoteReferenceInput } from "./inputs";
 import { translateHost } from "./helpers";
 import { PostsService, CommunitiesService, UsersService } from "../services";
@@ -65,6 +65,15 @@ export class PostsResolver implements ResolverInterface<Post> {
       body,
       title: title || null,
     });
+  }
+
+  @AuthoriseUser()
+  @Mutation(() => Boolean)
+  async reportPost(@Arg("post") post: RemoteReferenceInput): Promise<boolean> {
+    if (post.host === config.internalReference || post.host === config.federationHost) {
+      return await this.postsService.report(post.id);
+    }
+    return false;
   }
 
   @AuthoriseUser()

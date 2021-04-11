@@ -51,43 +51,77 @@ export const deletePostQuery = gql`
   }
 `;
 
+export const reportPostQuery = gql`
+  mutation($id: String!, $host: String!) {
+    reportPost(post: { id: $id, host: $host })
+  }
+`;
+
 export function PostHeader(props: Props): ReactElement {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
   const user = useContext(UserContext);
   const classes = useStyles(props);
+  const unapprovedBody = "This post is pending approval.";
+
+  const updateCacheDelete = {
+    update: (cache: any, { data: { deletePost } }: any) => {
+      if (deletePost) {
+        cache.modify({
+          fields: {
+            getPosts(existingPosts: Reference[], { readField }: any) {
+              return existingPosts.filter((post) => props.id !== readField("id", post));
+            },
+          },
+        });
+
+        if (props.parent) {
+          cache.modify({
+            id: `Post:${props.parent}`,
+            fields: {
+              children(existingChildren: Reference[], { readField }: any) {
+                return existingChildren.filter((child) => props.id !== readField("id", child));
+              },
+            },
+          });
+        }
+      }
+    },
+  };
+
+  const updateCacheReport = {
+    update: (cache: any, { data: { reportPost } }: any) => {
+      if (reportPost) {
+        cache.modify({
+          id: `Post:${props.id}`,
+          fields: {
+            body: () => unapprovedBody,
+            approved: () => false,
+          },
+        });
+      }
+    },
+  };
 
   const { data: adminData, loading: adminLoading, error: adminError } = useQuery(getAdminsQuery, {
     variables: { id: props.community, host: props.server },
   });
 
-  const [deletePost, { data, loading, error }] = useMutation(deletePostQuery, {
-    update: (cache) => {
-      cache.modify({
-        fields: {
-          getPosts(existingPosts: Reference[], { readField }) {
-            return existingPosts.filter((post) => props.id !== readField("id", post));
-          },
-        },
-      });
+  const [
+    deletePost,
+    { data: deleteData, loading: deleteLoading, error: deleteError },
+  ] = useMutation(deletePostQuery, updateCacheDelete);
 
-      if (props.parent) {
-        cache.modify({
-          id: `Post:${props.parent}`,
-          fields: {
-            children(existingChildren: Reference[], { readField }) {
-              return existingChildren.filter((child) => props.id !== readField("id", child));
-            },
-          },
-        });
-      }
-    },
-  });
+  const [reportPost, { loading: reportLoading, error: reportError }] = useMutation(
+    reportPostQuery,
+    updateCacheReport,
+  );
 
-  if (loading || adminLoading) return <CenteredLoader />;
-  if (error) return <ErrorMessage message="Post could not be deleted." />;
+  if (deleteLoading || adminLoading || reportLoading) return <CenteredLoader />;
+  if (deleteError) return <ErrorMessage message="Post could not be deleted." />;
   if (adminError) return <ErrorMessage message="Admins for the community could not be retrieved" />;
+  if (reportError) return <ErrorMessage message="Post could not be reported." />;
 
-  if (data) {
+  if (deleteData) {
     if (!props.parent && !props.isPreview) {
       return <Redirect to="/" />;
     }
@@ -111,6 +145,11 @@ export function PostHeader(props: Props): ReactElement {
     deletePost({ variables: { id: props.id, host: props.server } });
   };
 
+  const handleReport = () => {
+    handleClose();
+    reportPost({ variables: { id: props.id, host: props.server } });
+  };
+
   const isUserAdmin = adminData.getCommunity.admins.some(
     (admin: any) => admin.id === user.details?.username,
     //need to check host is "this"
@@ -118,8 +157,7 @@ export function PostHeader(props: Props): ReactElement {
   );
 
   const headerAction =
-    (user.details?.username === props.username || isUserAdmin) &&
-    props.server === process.env.REACT_APP_INTERNAL_REFERENCE ? (
+    (!!user.details || isUserAdmin) && props.server === process.env.REACT_APP_INTERNAL_REFERENCE ? (
       <React.Fragment>
         <IconButton
           data-testid="icon-button"
@@ -145,8 +183,20 @@ export function PostHeader(props: Props): ReactElement {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleEdit}> Edit </MenuItem>
-          <MenuItem onClick={handleDelete}> Delete </MenuItem>
+          {user.details?.username === props.username ? (
+            <div>
+              <MenuItem onClick={handleEdit}> Edit </MenuItem>
+              <MenuItem onClick={handleDelete}> Delete </MenuItem>
+            </div>
+          ) : isUserAdmin ? (
+            <div>
+              <MenuItem onClick={handleEdit}> Edit </MenuItem>
+              <MenuItem onClick={handleDelete}> Delete </MenuItem>
+              <MenuItem onClick={handleReport}> Report </MenuItem>
+            </div>
+          ) : (
+            <MenuItem onClick={handleReport}> Report </MenuItem>
+          )}
         </Menu>
       </React.Fragment>
     ) : null;
