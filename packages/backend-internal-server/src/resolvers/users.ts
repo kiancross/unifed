@@ -3,6 +3,7 @@
  */
 
 import { Service } from "typedi";
+
 import {
   Resolver,
   Mutation,
@@ -12,9 +13,10 @@ import {
   Arg,
   Query,
 } from "type-graphql";
+
+import { RemoteReference, User, UserProfile } from "@unifed/backend-core";
 import { CurrentUser, translateHost } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
-import { RemoteReference, User, UserProfile } from "@unifed/backend-core";
 import { RemoteReferenceInput, UserProfileInput } from "./inputs";
 import { UsersService } from "../services";
 
@@ -57,7 +59,7 @@ export class UsersResolver implements ResolverInterface<User> {
   @AuthoriseUser()
   @Query(() => [RemoteReference])
   async getSubscriptions(@CurrentUser() user: User): Promise<RemoteReference[]> {
-    return this.usersService.getSubscriptions(user.id);
+    return await this.usersService.getSubscriptions(user.id);
   }
 
   @FieldResolver(() => UserProfile)

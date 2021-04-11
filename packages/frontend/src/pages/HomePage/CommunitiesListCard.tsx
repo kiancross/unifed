@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React from "react";
+import React, { ReactElement } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 
@@ -19,7 +19,7 @@ import {
 
 import { LoadingCard } from "../../components";
 
-export const GET_COMMUNITIES = gql`
+export const getCommunitiesQuery = gql`
   query($host: String!) {
     getCommunities(host: $host) {
       id
@@ -28,8 +28,8 @@ export const GET_COMMUNITIES = gql`
   }
 `;
 
-export const CommunitiesListCard = () => {
-  const { loading, error, data } = useQuery(GET_COMMUNITIES, {
+export function CommunitiesListCard(): ReactElement {
+  const { loading, error, data } = useQuery(getCommunitiesQuery, {
     variables: {
       host: "this",
     },
@@ -62,4 +62,4 @@ export const CommunitiesListCard = () => {
       </Card>
     </Grid>
   );
-};
+}

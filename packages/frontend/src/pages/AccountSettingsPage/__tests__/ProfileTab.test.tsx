@@ -6,7 +6,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 
 import { UserContext, getUserQuery, defaultUserContext } from "../../../contexts";
-import { ProfileTab, CHANGE_NAME } from "../ProfileTab";
+import { ProfileTab, changeNameQuery } from "../ProfileTab";
 
 const getUserMock = {
   request: { query: getUserQuery },
@@ -22,7 +22,7 @@ test("Change name", async () => {
     getUserMock,
     {
       request: {
-        query: CHANGE_NAME,
+        query: changeNameQuery,
         variables: { name: "ham" },
       },
       result: {

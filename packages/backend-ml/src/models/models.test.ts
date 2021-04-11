@@ -3,7 +3,8 @@
  */
 
 import test from "ava";
-import { models, getModel, ModelNotDefinedError } from "./index";
+
+import { modelNames, getModel, ModelNotDefinedError } from "./models";
 import { defaultConfig as config } from "../config";
 
 test("Undefined model", (t) => {
@@ -15,8 +16,8 @@ test("Undefined model", (t) => {
 test("Creating models", (t) => {
   t.plan(5);
 
-  for (const modelName of models) {
+  for (const modelName of modelNames) {
+    t.not(modelName, undefined);
     getModel(modelName, config);
-    t.pass();
   }
 });

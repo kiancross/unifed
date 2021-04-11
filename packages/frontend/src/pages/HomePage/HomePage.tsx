@@ -7,8 +7,9 @@ import { Container, Grid, useMediaQuery } from "@material-ui/core";
 import { WelcomeCard } from "./WelcomeCard";
 import { CommunitiesListCard } from "./CommunitiesListCard";
 import { SubscribedPosts } from "./SubscribedPosts";
+import { ReactElement } from "react";
 
-export const HomePage = (): JSX.Element => {
+export function HomePage(): ReactElement {
   const isMobile = useMediaQuery("(max-width: 960px)");
   const direction = isMobile ? "column-reverse" : "row";
   return (
@@ -24,4 +25,4 @@ export const HomePage = (): JSX.Element => {
       </Grid>
     </Container>
   );
-};
+}

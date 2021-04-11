@@ -13,6 +13,7 @@ interface Props {
   title: string;
   id: string;
   server: string;
+  community: string;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Post = (props: Props): ReactElement => {
+export function Post(props: Props): ReactElement {
   const [editorOpen, setEditorOpen] = useState(false);
   const classes = useStyles();
 
@@ -40,6 +41,7 @@ export const Post = (props: Props): ReactElement => {
     <Grid item xs={12}>
       <Card color="primary" className={classes.card}>
         <PostHeader
+          community={props.community}
           onToggleEdit={() => setEditorOpen(true)}
           title={props.title}
           id={props.id}
@@ -55,4 +57,4 @@ export const Post = (props: Props): ReactElement => {
   );
 
   return content;
-};
+}

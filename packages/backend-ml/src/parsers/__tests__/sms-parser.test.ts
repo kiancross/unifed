@@ -4,10 +4,10 @@
 
 import test from "ava";
 import { InvalidFileError } from "../parser";
-import { SmsParser } from "../sms-parser";
+import { SMSParser } from "../sms-parser";
 
 test("Parse valid", async (t) => {
-  const parser = new SmsParser(`${__dirname}/../../../test-data/sms-valid.zip`);
+  const parser = new SMSParser(`${__dirname}/../../../test-data/sms-valid.zip`);
   const messages = await parser.getMessages();
 
   t.deepEqual(messages, [
@@ -17,7 +17,7 @@ test("Parse valid", async (t) => {
 });
 
 test("Parse invalid file", async (t) => {
-  const parser = new SmsParser(`${__dirname}/../../../test-data/sms-invalid-file.zip`);
+  const parser = new SMSParser(`${__dirname}/../../../test-data/sms-invalid-file.zip`);
 
   await t.throwsAsync(async () => await parser.getMessages(), {
     instanceOf: InvalidFileError,
@@ -25,7 +25,7 @@ test("Parse invalid file", async (t) => {
 });
 
 test("Parse invalid type", async (t) => {
-  const parser = new SmsParser(`${__dirname}/../../../test-data/sms-invalid-type.zip`);
+  const parser = new SMSParser(`${__dirname}/../../../test-data/sms-invalid-type.zip`);
 
   await t.throwsAsync(async () => await parser.getMessages(), {
     instanceOf: InvalidFileError,

@@ -2,6 +2,11 @@
  * CS3099 Group A3
  */
 
-export * from "./setup";
+import { seed } from "faker";
+
+seed(164);
+
 export * from "./communities";
 export * from "./posts";
+export * from "./setup";
+export * from "./users";

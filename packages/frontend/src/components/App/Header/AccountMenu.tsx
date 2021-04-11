@@ -2,11 +2,13 @@
  * CS3099 Group A3
  */
 
-import React from "react";
+import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
-import PersonIcon from "@material-ui/icons/Person";
-import SettingsIcon from "@material-ui/icons/Settings";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import {
+  Person as PersonIcon,
+  Settings as SettingsIcon,
+  ExitToApp as ExitToAppIcon,
+} from "@material-ui/icons";
 
 import {
   ClickAwayListener,
@@ -21,7 +23,7 @@ import {
 import { UserIcon } from "../../../components";
 import { UserContext } from "../../../contexts";
 
-export const AccountMenu = (): JSX.Element => {
+export function AccountMenu(): ReactElement {
   const user = React.useContext(UserContext);
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
@@ -51,7 +53,7 @@ export const AccountMenu = (): JSX.Element => {
         aria-haspopup="true"
         onClick={handleToggle}
       >
-        <UserIcon username={user.details.username} small />
+        <UserIcon inHeader username={user.details.username} small />
       </IconButton>
       <Popper
         open={open}
@@ -94,4 +96,4 @@ export const AccountMenu = (): JSX.Element => {
       </Popper>
     </div>
   );
-};
+}

@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { ReactElement, useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, ReactElement } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Theme, makeStyles } from "@material-ui/core";
 import { gql, useSubscription, useMutation } from "@apollo/client";
@@ -11,6 +11,15 @@ import { SafePeerConnection } from "./safe-peer-connection";
 import { VideoWrapperProps } from "./VideoWrapper";
 import { VideoGrid } from "./VideoGrid";
 import { JoinCallMessage } from "./JoinCallMessage";
+
+/**
+ * URL parameters for [[`CommunityCallPage`]].
+ *
+ * @internal
+ */
+export interface CommunityCallPageParams {
+  community: string;
+}
 
 interface CommunityCall {
   type: "request" | "offer" | "answer" | "ice";
@@ -39,7 +48,27 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const CommunityCallPage = (): ReactElement => {
+/**
+ *  Allows users to join a group call with other
+ *  community members.
+ *
+ *  Outline:
+ *
+ *   - Users are displayed a 'Join' button.
+ *
+ *   - Users are placed into a group call with other
+ *     members after clicking the 'Join' button.
+ *
+ *   - Users can mute themselves and other members
+ *     in the call - useful for 1-on-1 or
+ *     restricted group conversations.
+ *
+ *   - Access to the user's microphone and camera
+ *     is required.
+ *
+ *  @internal
+ */
+export function CommunityCallPage(): ReactElement {
   const classes = useStyles();
 
   const [localMediaStream, setLocalMediaStream] = useState<MediaStream | null>();
@@ -50,7 +79,7 @@ export const CommunityCallPage = (): ReactElement => {
   const peerConnections = useRef<{ [user: string]: SafePeerConnection }>({});
   const [connectedUsers, setConnectedUsers] = useState<ConnectedUser[]>([]);
 
-  const { community } = useParams<{ community: string }>();
+  const { community } = useParams<CommunityCallPageParams>();
 
   const [sendEvent] = useMutation(gql`
     mutation($community: String!, $user: String, $sdp: String, $type: String!) {
@@ -137,7 +166,7 @@ export const CommunityCallPage = (): ReactElement => {
     peerConnection.onclose = () => endUserConnection(username);
     peerConnection.onready = (stream) => addConnectedUser(username, stream);
 
-    peerConnection.onicecandidate = ({ candidate }) => {
+    peerConnection.super.onicecandidate = ({ candidate }) => {
       if (candidate) {
         sendEvent({
           variables: {
@@ -156,12 +185,12 @@ export const CommunityCallPage = (): ReactElement => {
   const onRequest = async ({ from: username }: CommunityCall): Promise<void> => {
     const peerConnection = await createPeerConnection(username, community);
 
-    const offer = await peerConnection.createOffer({
+    const offer = await peerConnection.super.createOffer({
       offerToReceiveAudio: true,
       offerToReceiveVideo: true,
     });
 
-    await peerConnection.setLocalDescription(offer);
+    await peerConnection.super.setLocalDescription(offer);
 
     await sendEvent({
       variables: {
@@ -178,8 +207,8 @@ export const CommunityCallPage = (): ReactElement => {
 
     await peerConnection.setRemoteDescription(JSON.parse(sdp));
 
-    const answer = await peerConnection.createAnswer();
-    await peerConnection.setLocalDescription(answer);
+    const answer = await peerConnection.super.createAnswer();
+    await peerConnection.super.setLocalDescription(answer);
 
     await sendEvent({
       variables: {
@@ -299,4 +328,4 @@ export const CommunityCallPage = (): ReactElement => {
       )}
     </Container>
   );
-};
+}

@@ -2,10 +2,10 @@
  * CS3099 Group A3
  */
 
-import React from "react";
+import React, { ReactElement } from "react";
 import { useFormik } from "formik";
 import { Alert } from "@material-ui/lab";
-import EditIcon from "@material-ui/icons/Edit";
+import { Edit as EditIcon } from "@material-ui/icons";
 
 import {
   Button,
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const AccountTab = (props: AccountTabParams): JSX.Element => {
+export function AccountTab(props: AccountTabParams): ReactElement {
   const [passOpen, setPassOpen] = React.useState(false);
   const [displayError, setDisplayError] = React.useState(false);
   const [displaySuccess, setDisplaySuccess] = React.useState(false);
@@ -47,7 +47,7 @@ export const AccountTab = (props: AccountTabParams): JSX.Element => {
     setPassOpen(!passOpen);
   };
 
-  const PassChangeForm = (): JSX.Element => {
+  function PassChangeForm() {
     const formik = useFormik({
       initialValues: {
         oldPassword: "",
@@ -120,7 +120,7 @@ export const AccountTab = (props: AccountTabParams): JSX.Element => {
         </Dialog>
       </form>
     );
-  };
+  }
 
   const classes = useStyles();
   return (
@@ -155,4 +155,4 @@ export const AccountTab = (props: AccountTabParams): JSX.Element => {
       </Snackbar>
     </>
   );
-};
+}

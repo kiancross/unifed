@@ -9,6 +9,7 @@ import { Container, Grid, useMediaQuery } from "@material-ui/core";
 import { PostCreator, UserInfoCard, CenteredLoader } from "../../components";
 import { Post } from "./Post";
 import { Comments } from "./Comments";
+import { ReactElement } from "react";
 
 interface PostParams {
   server: string;
@@ -16,7 +17,7 @@ interface PostParams {
   post: string;
 }
 
-export const GET_POST = gql`
+export const getPostQuery = gql`
   query GET_POST($id: String!, $host: String!) {
     getPost(post: { id: $id, host: $host }) {
       id
@@ -29,9 +30,9 @@ export const GET_POST = gql`
   }
 `;
 
-export const PostPage = (): JSX.Element => {
+export function PostPage(): ReactElement {
   const { post, server, community } = useParams<PostParams>();
-  const { loading, error, data } = useQuery(GET_POST, {
+  const { loading, error, data } = useQuery(getPostQuery, {
     variables: { id: post, host: server },
   });
   const isMobile = useMediaQuery("(max-width: 960px)");
@@ -49,7 +50,14 @@ export const PostPage = (): JSX.Element => {
     <Container style={{ paddingTop: "1.5rem" }}>
       <Grid alignContent="center" container direction={direction} spacing={3}>
         <Grid item container xs={12} md={8} direction="column" spacing={2}>
-          <Post id={post} server={server} username={username} body={body} title={title} />
+          <Post
+            community={community}
+            id={post}
+            server={server}
+            username={username}
+            body={body}
+            title={title}
+          />
           <PostCreator
             isComment
             parentId={post}
@@ -58,7 +66,7 @@ export const PostPage = (): JSX.Element => {
             submitButtonText="Add Comment"
             onSuccess={() => null}
           />
-          <Comments parentId={post} server={server} grids={11} />
+          <Comments community={community} parentId={post} server={server} grids={12} />
         </Grid>
 
         <Grid item container xs={12} md={4} direction="column" spacing={2}>
@@ -67,4 +75,4 @@ export const PostPage = (): JSX.Element => {
       </Grid>
     </Container>
   );
-};
+}

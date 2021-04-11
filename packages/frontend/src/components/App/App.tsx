@@ -37,7 +37,7 @@ import { CenteredLoader, ErrorBoundary, ErrorMessage } from "..";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 
-export const App = (): ReactElement => {
+export function App(): ReactElement {
   const user = useContext(UserContext);
 
   const [darkMode, setDarkMode] = useState(localStorage.getItem("darkMode") === "true");
@@ -131,4 +131,4 @@ export const App = (): ReactElement => {
       </ThemeProvider>
     </ErrorBoundary>
   );
-};
+}

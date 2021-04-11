@@ -2,14 +2,14 @@
  * CS3099 Group A3
  */
 
-import { ReactElement, useState, useContext } from "react";
+import { useState, useContext, ReactElement } from "react";
 import { Formik, Form, Field } from "formik";
 import { Button, Card, CardContent, TextField, Typography } from "@material-ui/core";
 
 import { UserContext } from "../../contexts";
-import { Link, Popup } from "../../components";
+import { Link, Popup, PasswordField } from "../../components";
 
-export const LoginCard = (): ReactElement => {
+export function LoginCard(): ReactElement {
   const user = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState("");
   const loginErrorMessage = "The email address and/or password you have entered is incorrect";
@@ -48,8 +48,7 @@ export const LoginCard = (): ReactElement => {
               <div>
                 <Field
                   name="password"
-                  as={TextField}
-                  type="password"
+                  as={PasswordField}
                   fullWidth
                   size="small"
                   margin="dense"
@@ -80,4 +79,4 @@ export const LoginCard = (): ReactElement => {
       <Popup message={errorMessage} />
     </div>
   );
-};
+}

@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React from "react";
+import React, { ReactElement } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { Grid, GridSize } from "@material-ui/core";
 
@@ -13,6 +13,7 @@ interface CommentParams {
   server: string;
   parentId: string;
   grids: GridSize;
+  community: string;
 }
 
 interface PostParams {
@@ -23,7 +24,7 @@ interface PostParams {
   };
 }
 
-export const GET_COMMENTS = gql`
+export const getCommentsQuery = gql`
   query GET_COMMENTS($id: String!, $server: String!) {
     getPost(post: { id: $id, host: $server }) {
       id
@@ -38,7 +39,7 @@ export const GET_COMMENTS = gql`
   }
 `;
 
-export const Comments = (props: CommentParams) => {
+export function Comments(props: CommentParams): ReactElement {
   const parentId = props.parentId;
   const server = props.server;
 
@@ -50,7 +51,7 @@ export const Comments = (props: CommentParams) => {
     }
   };
 
-  const { loading, error, data } = useQuery(GET_COMMENTS, {
+  const { loading, error, data } = useQuery(getCommentsQuery, {
     variables: { id: parentId, server },
   });
 
@@ -74,9 +75,11 @@ export const Comments = (props: CommentParams) => {
               body={text}
               id={post.id}
               parent={parentId}
+              community={props.community}
               grids={props.grids}
             />
             <Comments
+              community={props.community}
               parentId={post.id}
               server={props.server}
               grids={decrement(props.grids as number)}
@@ -86,4 +89,4 @@ export const Comments = (props: CommentParams) => {
       })}
     </Grid>
   );
-};
+}
