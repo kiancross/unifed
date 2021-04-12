@@ -20,7 +20,7 @@ import {
 import { LoadingCard } from "../../components";
 
 /**
- * GraphQL query to get the communities on a certain host.
+ * GraphQL query to get communities on a certain host.
  */
 export const getCommunitiesQuery = gql`
   query($host: String!) {
@@ -32,11 +32,12 @@ export const getCommunitiesQuery = gql`
 `;
 
 /**
- * Shows a list of the communities on the current host.
+ * Displays a list of communities on the user's host.
  *
  * Outline:
  *
- *  - This is shown on the [[`HomePage`]] of the app to provide communities for the user to join.
+ *  - This is displayed on the [[`HomePage`]] of the application, giving users a
+ *    list of communities to visit.
  *
  * @internal
  */

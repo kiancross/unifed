@@ -56,7 +56,8 @@ export const getPostQuery = gql`
  *
  *  - The [[`Comments`]] component shows the comments on the post, including nested ones.
  *
- *  - The [[`UserInfoCard`]] component shows the author's information (Username, name and [[`UserIcon`]]).
+ *  - The [[`UserInfoCard`]] component shows the author's information
+ *    (username, name and [[`UserIcon`]]).
  *
  * @internal
  */

@@ -25,17 +25,21 @@ import { AccountMenu } from "./AccountMenu";
 
 /**
  * Properties for the [[`Header`]] component.
+<<<<<<< HEAD
  * 
+=======
+ *
+>>>>>>> 9a49e9f0709f1f5d92472c4a014a78a5c9a6bbae
  * @internal
  */
 export interface HeaderProps {
   /**
-   * Function called when the 'dark mode' button in the Header is clicked.
+   * Function called when the 'dark mode' button in the [[`Header`]] is clicked.
    */
   onThemeChange: (darkMode: boolean) => void;
 
   /**
-   * Whether dark mode is currently enabled (true) for the App or not (false).
+   * Indicates whether dark mode is currently enabled.
    */
   darkMode: boolean;
 }
@@ -59,17 +63,18 @@ const useStyles = makeStyles({
 });
 
 /**
- * The Header for the App.
+ * The header of the application.
  *
  * Outline:
  *
  *  - Allows the user to
- *    - return to the Home Page by clicking the logo.
- *    - search for communities using 'SearchInput'.
- *    - toggle the theme for the app.
+ *    - return to the home page by clicking the logo;
+ *    - search for communities;
+ *    - toggle the theme for the application;
  *    - take actions on their profile e.g. logout.
  *
  * @param props Properties passed to the component. See [[`HeaderProps`]].
+ *
  * @internal
  */
 export function Header(props: HeaderProps): ReactElement | null {

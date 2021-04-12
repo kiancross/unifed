@@ -15,14 +15,16 @@ import { ErrorMessage } from "..";
  */
 export interface ErrorBoundaryProps {
   /**
-   * True if the app has encountered an error that has not been caught
+   * Indicates whether the application has encountered an error that has not been caught.
+   *
+   * @internal
    */
   hasError?: boolean;
 }
 
 /**
- * State types for the [[`ErrorBoundary`]] component.
- * 
+ * State for the [[`ErrorBoundary`]] component.
+ *
  * @internal
  */
 export interface ErrorBoundaryStates {
@@ -33,7 +35,11 @@ export interface ErrorBoundaryStates {
 }
 
 /**
- * Catches bugs with the App that have not been caught earlier, such as any Javascript errors.
+ * Catches exceptions thrown within the application that have not been caught, then
+ * displays an error message to the user.
+ *
+ * This component could not be written as a functional component, as we needed
+ * access to the `componentDidCatch` hook.
  *
  * @internal
  */

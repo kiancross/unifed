@@ -7,8 +7,8 @@ import { Button, ButtonProps } from "@material-ui/core";
 import { ReactElement } from "react";
 
 /**
- * Types for the [[`ButtonLink`]] component.
- * 
+ * Properties for the [[`ButtonLink`]] component.
+ *
  * @internal
  */
 export type ButtonLinkProps = Omit<ButtonProps, "component"> & LinkProps;

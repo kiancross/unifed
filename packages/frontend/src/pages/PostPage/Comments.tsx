@@ -34,7 +34,7 @@ export interface CommentsProps {
   community: string;
 }
 
-interface PostType {
+interface Post {
   id: string;
   body: string;
   author: {
@@ -64,6 +64,7 @@ export const getCommentsQuery = gql`
  * Displays all the comments of a post, including any nested one.
  *
  * @param props Properties passed to the component. See [[`CommentsProps`]].
+ *
  * @internal
  */
 export function Comments(props: CommentsProps): ReactElement {
@@ -91,7 +92,7 @@ export function Comments(props: CommentsProps): ReactElement {
 
   return (
     <Grid item container xs={12} direction="column">
-      {commentPosts.map((post: PostType) => {
+      {commentPosts.map((post: Post) => {
         const username = post.author.id;
         const text = post.body;
         return (

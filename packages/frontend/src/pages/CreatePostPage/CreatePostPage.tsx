@@ -30,7 +30,7 @@ export interface CreatePostPageParams {
  *
  * Outline:
  *
- *  - The user is provided with the [[`PostCreator`]] where they can enter the title and body of their post.
+ *  - The user can create a post using a markdown editor.
  *
  * @internal
  */

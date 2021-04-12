@@ -7,7 +7,7 @@ import { LogoTemplate, ButtonLink } from "../../components";
 import { RegistrationCard } from "./RegistrationCard";
 
 /**
- * Allows someone to register for the app.
+ * Allows a user to register for the application.
  *
  * Outline:
  *

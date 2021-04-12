@@ -14,11 +14,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /**
- * Displays the privacy policy for the app.
+ * Displays the privacy notice for the application.
  *
  * Outline:
  *
- *  - Shows the contact information for the app and how the user's data is used.
+ *  - Shows the contact information for the application and how the user's data is used.
  *
  * @internal
  */

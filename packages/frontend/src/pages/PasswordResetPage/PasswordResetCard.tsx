@@ -52,8 +52,6 @@ function validate({
  *
  *  - Users can enter a new password and then retype it to set it.
  *
- *  - If they leave the tab open for too long their session expires and they are given a chance to get a new reset token.
- *
  *  - Upon successfully resetting their password, they are redirected to their [[`HomePage`]].
  *
  * @internal

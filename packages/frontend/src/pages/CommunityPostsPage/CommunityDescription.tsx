@@ -44,12 +44,12 @@ export interface CommunityDescriptionProps {
   host: string;
 
   /**
-   * True if the user is subscribe to the community, false otherwise.
+   * Indicates whether the user is subscribed to the community.
    */
   isSubscribed: boolean;
 
   /**
-   * The admins of the community.
+   * The administrators of the community.
    */
   admins: string[];
 }
@@ -65,9 +65,11 @@ const useStyles = makeStyles((theme) => ({
  *
  * Outline:
  *
- *  - The admins, description, name and host of the community are shown, along with a subscription button.
+ *  - The admins, description, name and server of the community are displayed,
+ *    along with a subscription button.
  *
  * @param props Properties passed to the component. See [[`CommunityDescriptionProps`]].
+ *
  * @internal
  */
 export function CommunityDescription(props: CommunityDescriptionProps): ReactElement {

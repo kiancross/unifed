@@ -20,7 +20,7 @@ export interface EmailVerificationPageParams {
 }
 
 /**
- * Verifies user's emails.
+ * Verifies a user's email.
  *
  * Outline:
  *

@@ -6,7 +6,7 @@ import { CircularProgress, Grid } from "@material-ui/core";
 import { ReactElement } from "react";
 
 /**
- * The loading spinner used when data is being retrieved i.e. a gql call.
+ * The loading spinner used when data is being retrieved e.g. during a GraphQL call.
  *
  * @internal
  */

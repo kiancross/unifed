@@ -10,13 +10,13 @@ import { SubscribedPosts } from "./SubscribedPosts";
 import { ReactElement } from "react";
 
 /**
- * Displays a Home Page to the user.
+ * The user's home page.
  *
  * Outline:
  *
  *  - Shows posts from the communities that the user is subscribed to.
  *
- *  - Shows a list of communities on the local host.
+ *  - Shows a list of communities on the user's server.
  *
  * @internal
  */

@@ -19,7 +19,7 @@ export interface PostPreviewProps {
   username: string;
 
   /**
-   * Title of the post. This is null for comments.
+   * Title of the post. This is `undefined` for comments.
    */
   title: string;
 

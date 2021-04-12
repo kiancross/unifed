@@ -24,8 +24,13 @@ import {
 import { Popup } from "../../";
 
 /**
+<<<<<<< HEAD
  * GraphQL query to create a Community
  * 
+=======
+ * GraphQL query to create a Community.
+ *
+>>>>>>> 9a49e9f0709f1f5d92472c4a014a78a5c9a6bbae
  * @internal
  */
 export const createCommunityQuery = gql`
@@ -35,7 +40,7 @@ export const createCommunityQuery = gql`
 `;
 
 /**
- * Value types for form of the [[`CreateCommunityDialog`]] component.
+ * Values for the form in the [[`CreateCommunityDialog`]] component.
  *
  * @internal
  */
@@ -61,7 +66,7 @@ interface FormValues {
  *
  * Outline:
  *
- *  - Users can click the 'plus' icon in the header of the App.
+ *  - Users can click the 'plus' icon in the header of the application.
  *
  *  - They can then enter a name, ID and description for the community.
  *

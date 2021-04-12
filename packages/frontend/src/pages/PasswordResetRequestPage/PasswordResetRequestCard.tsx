@@ -32,7 +32,7 @@ function validate({ email }: Values) {
  *
  *  - Users enter their email and click the 'Send Email' button to be sent a reset token.
  *
- *  - A success alert is then shown with the message 'If an account with this email exists, we have sent a password reset link.'.
+ *  - A success message is displayed.
  *
  * @internal
  */

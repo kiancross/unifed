@@ -23,7 +23,7 @@ export interface SubscribeButtonProps {
   host: string;
 
   /**
-   * True if the user is subscribe to the community, false otherwise.
+   * Indicates whether the user is subscribed to the community.
    */
   isSubscribed: boolean;
 }
@@ -55,11 +55,12 @@ export const unsubscribeQuery = gql`
  *
  * Outline:
  *
- *  - The button is reads 'subscribe' if the user is not subscribed.
+ *  - The button reads 'Subscribe' if the user is not subscribed.
  *
- *  - The button is reads 'unsubscribe' if the user is subscribed.
+ *  - The button reads 'Unsubscribe' if the user is subscribed.
  *
  * @param props Properties passed to the component. See [[`SubscribeButtonProps`]].
+ *
  * @internal
  */
 export function SubscribeButton(props: SubscribeButtonProps): ReactElement {
