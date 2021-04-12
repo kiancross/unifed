@@ -10,6 +10,8 @@ import { MarkdownViewer } from "..";
 
 /**
  * Properties for the [[`MarkdownEditor`]] component.
+ * 
+ * @internal
  */
 export interface MarkdownEditorProps {
   /**

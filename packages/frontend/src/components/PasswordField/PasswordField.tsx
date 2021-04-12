@@ -16,6 +16,8 @@ import {
 
 /**
  * Types for the [[`PasswordField`]] component.
+ * 
+ * @internal
  */
 export type PasswordFieldProps = Omit<TextFieldProps, "type" | "InputProps"> & {
   InputProps?: Omit<InputProps, "endAdornment">;

@@ -8,6 +8,8 @@ import { Button } from "@material-ui/core";
 
 /**
  * Properties for the [[`SubscribeButton`]] component.
+ * 
+ * @internal
  */
 export interface SubscribeButtonProps {
   /**
@@ -28,6 +30,8 @@ export interface SubscribeButtonProps {
 
 /**
  * GraphQL query to subscribe to a community.
+ * 
+ * @internal
  */
 export const subscribeQuery = gql`
   mutation($id: String!, $host: String!) {
@@ -37,6 +41,8 @@ export const subscribeQuery = gql`
 
 /**
  * GraphQL query to unsubscribe from a community.
+ * 
+ * @internal
  */
 export const unsubscribeQuery = gql`
   mutation($id: String!, $host: String!) {

@@ -11,6 +11,8 @@ import { gql, useQuery } from "@apollo/client";
 
 /**
  * Defines the type 'Community' to be used in this component.
+ * 
+ * @internal
  */
 interface Community {
   id: string;

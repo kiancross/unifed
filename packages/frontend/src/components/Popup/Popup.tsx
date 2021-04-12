@@ -8,6 +8,8 @@ import { ReactElement } from "react";
 
 /**
  * Properties for the [[`Popup`]] component.
+ * 
+ * @internal
  */
 export interface PopupProps {
   /**

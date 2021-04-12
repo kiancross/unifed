@@ -8,6 +8,8 @@ import { Link as RouterLink } from "react-router-dom";
 
 /**
  * Properties for the [[`UserIcon`]] component.
+ * 
+ * @internal
  */
 export interface UserIconProps {
   /**

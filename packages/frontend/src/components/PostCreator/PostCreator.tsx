@@ -9,6 +9,8 @@ import { getPostsQuery } from "../../pages/CommunityPostsPage/CommunityPostsPage
 
 /**
  * Properties for the [[`PostCreator`]] component.
+ * 
+ * @internal
  */
 export interface PostCreatorProps {
   /**
@@ -51,6 +53,8 @@ export interface PostCreatorProps {
 
 /**
  * GraphQL query to creates the post using the given information.
+ * 
+ * @internal
  */
 export const createPostQuery = gql`
   mutation CREATE_POST(

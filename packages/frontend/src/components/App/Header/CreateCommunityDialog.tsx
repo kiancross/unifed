@@ -25,6 +25,8 @@ import { Popup } from "../../";
 
 /**
  * GraphQL query to create a Community
+ * 
+ * @internal
  */
 export const createCommunityQuery = gql`
   mutation($title: String!, $description: String!, $id: String!) {
@@ -35,6 +37,7 @@ export const createCommunityQuery = gql`
 /**
  * Value types for form of the [[`CreateCommunityDialog`]] component.
  *
+ * @internal
  */
 interface FormValues {
   /**

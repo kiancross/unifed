@@ -27,6 +27,8 @@ import { passwordClient } from "../../helpers";
 
 /**
  * Properties for the [[`AccountTab`]] component.
+ * 
+ * @internal
  */
 export interface AccountTabProps {
   /**

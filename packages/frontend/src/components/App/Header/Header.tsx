@@ -25,6 +25,8 @@ import { AccountMenu } from "./AccountMenu";
 
 /**
  * Properties for the [[`Header`]] component.
+ * 
+ * @internal
  */
 export interface HeaderProps {
   /**

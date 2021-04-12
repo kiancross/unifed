@@ -10,6 +10,8 @@ import { ErrorMessage } from "..";
 
 /**
  * Properties for the [[`ErrorBoundary`]] component.
+ * 
+ * @internal
  */
 export interface ErrorBoundaryProps {
   /**
@@ -20,6 +22,8 @@ export interface ErrorBoundaryProps {
 
 /**
  * State types for the [[`ErrorBoundary`]] component.
+ * 
+ * @internal
  */
 export interface ErrorBoundaryStates {
   /**

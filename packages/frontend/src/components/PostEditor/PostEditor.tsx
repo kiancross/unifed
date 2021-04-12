@@ -8,6 +8,8 @@ import { CenteredLoader, ErrorMessage, PostEditorBase } from "..";
 
 /**
  * Properties for the [[`PostEditor`]] component.
+ * 
+ * @internal
  */
 export interface PostEditorProps {
   /**
@@ -55,6 +57,8 @@ export interface PostEditorProps {
 
 /**
  * GraphQL query to edit the post using the body and title passed to it.
+ * 
+ * @internal
  */
 export const editPostQuery = gql`
   mutation($id: String!, $host: String!, $body: String!, $title: String) {

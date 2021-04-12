@@ -14,6 +14,8 @@ import "katex/dist/katex.min.css";
 
 /**
  * Properties for the [[`MarkdownViewer`]] component.
+ * 
+ * @internal
  */
 export interface MarkdownViewerProps {
   /**

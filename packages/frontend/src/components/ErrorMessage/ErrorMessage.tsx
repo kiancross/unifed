@@ -9,6 +9,8 @@ import { ButtonLink } from "..";
 
 /**
  * Properties for the [[`ErrorMessage`]] component.
+ * 
+ * @internal
  */
 export interface ErrorMessageProps {
   /**

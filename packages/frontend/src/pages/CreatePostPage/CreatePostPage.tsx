@@ -10,6 +10,8 @@ import { PostCreator } from "../../components";
 
 /**
  * Params taken by the [[`SubscribeButton`]] component.
+ * 
+ * @internal
  */
 export interface CreatePostPageParams {
   /**

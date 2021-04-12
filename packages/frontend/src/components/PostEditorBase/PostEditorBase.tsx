@@ -9,6 +9,8 @@ import { ReactElement } from "react";
 
 /**
  * Properties for the [[`PostEditorBase`]] component.
+ * 
+ * @internal
  */
 export interface PostEditorBaseProps {
   /**

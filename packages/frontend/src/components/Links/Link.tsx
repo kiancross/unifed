@@ -8,6 +8,8 @@ import { ReactElement } from "react";
 
 /**
  * Types for the [[`Link`]] component.
+ * 
+ * @internal
  */
 export type LinkProps = Omit<MaterialLinkProps, "component"> &
   RouterLinkProps &

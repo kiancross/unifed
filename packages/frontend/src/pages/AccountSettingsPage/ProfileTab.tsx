@@ -26,6 +26,8 @@ import { UserContext } from "../../contexts";
 
 /**
  * Properties for the [[`ProfileTab`]] component.
+ * 
+ * @internal
  */
 export interface ProfileTabProps {
   /**
@@ -44,6 +46,8 @@ const useStyles = makeStyles((theme) => ({
 
 /**
  * GraphQL query to change the name of a user.
+ * 
+ * @internal
  */
 export const changeNameQuery = gql`
   mutation UpdateUserProfile($name: String!) {
