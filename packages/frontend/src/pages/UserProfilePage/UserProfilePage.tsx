@@ -11,6 +11,8 @@ import { ReactElement } from "react";
 
 /**
  * Params taken by the [[`UserProfilePage`]] component.
+ * 
+ * @internal
  */
 export interface PublicUserProfileParams {
   /**
@@ -21,6 +23,8 @@ export interface PublicUserProfileParams {
 
 /**
  * GraphQL query to get the posts from a certain community on a certain host.
+ * 
+ * @internal
  */
 export const getUsersPostsQuery = gql`
   query($community: String!, $host: String!) {

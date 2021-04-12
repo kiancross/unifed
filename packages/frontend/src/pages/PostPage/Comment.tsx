@@ -19,6 +19,8 @@ import { MarkdownViewer, PostHeader, PostEditor, PostCreator } from "../../compo
 
 /**
  * Properties for the [[`Comment`]] component.
+ * 
+ * @internal
  */
 export interface CommentProps {
   /**

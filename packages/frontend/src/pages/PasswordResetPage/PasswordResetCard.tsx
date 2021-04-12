@@ -14,6 +14,8 @@ import { Link } from "../../components";
 
 /**
  * Params taken by the [[`PasswordResetCard`]] component.
+ * 
+ * @internal
  */
 export interface PasswordResetCardParams {
   token: string;
