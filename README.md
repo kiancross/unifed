@@ -72,6 +72,8 @@ $ bash <(curl -s https://gist.githubusercontent.com/kiancross/08756b745c79368373
 
 On your own machine, Docker is a better choice than Podman. Installation
 instructions can be found [here](https://docs.docker.com/get-docker/).
+Ensure that [Docker Compose](https://docs.docker.com/compose/) is also
+installed.
 
 ### Step 5 - Install dependencies
 ```console
