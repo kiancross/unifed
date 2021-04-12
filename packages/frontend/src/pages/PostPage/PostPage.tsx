@@ -16,9 +16,9 @@ import { ReactElement } from "react";
  */
 export interface PostPageParams {
   /**
-   * The server that the post of the post page is on.
+   * The host that the post of the post page is on.
    */
-  server: string;
+  host: string;
 
   /**
    * The community that the post of the post page is part of.
@@ -61,9 +61,9 @@ export const getPostQuery = gql`
  * @internal
  */
 export function PostPage(): ReactElement {
-  const { post, server, community } = useParams<PostPageParams>();
+  const { post, host, community } = useParams<PostPageParams>();
   const { loading, error, data } = useQuery(getPostQuery, {
-    variables: { id: post, host: server },
+    variables: { id: post, host: host },
   });
   const isMobile = useMediaQuery("(max-width: 960px)");
   const direction = isMobile ? "column-reverse" : "row";
@@ -83,7 +83,7 @@ export function PostPage(): ReactElement {
           <Post
             community={community}
             id={post}
-            server={server}
+            host={host}
             username={username}
             body={body}
             title={title}
@@ -91,12 +91,12 @@ export function PostPage(): ReactElement {
           <PostCreator
             isComment
             parentId={post}
-            server={server}
+            host={host}
             community={community}
             submitButtonText="Add Comment"
             onSuccess={() => null}
           />
-          <Comments community={community} parentId={post} server={server} grids={12} />
+          <Comments community={community} parentId={post} host={host} grids={12} />
         </Grid>
 
         <Grid item container xs={12} md={4} direction="column" spacing={2}>

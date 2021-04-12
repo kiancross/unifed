@@ -12,9 +12,9 @@ import { getPostsQuery } from "../../pages/CommunityPostsPage/CommunityPostsPage
  */
 export interface PostCreatorProps {
   /**
-   * The server the post will be made to.
+   * The host the post will be made to.
    */
-  server: string;
+  host: string;
 
   /**
    * The community the post will be made in.
@@ -93,7 +93,7 @@ export function PostCreator(props: PostCreatorProps): ReactElement {
     update(cache, { data: { createPost } }) {
       const variables = {
         community: props.community,
-        host: props.server,
+        host: props.host,
       };
 
       const current = cache.readQuery<any>({ query: getPostsQuery, variables });
@@ -132,7 +132,7 @@ export function PostCreator(props: PostCreatorProps): ReactElement {
             title,
             body,
             community: props.community,
-            host: props.server,
+            host: props.host,
             parentPost: props.parentId,
           },
         });

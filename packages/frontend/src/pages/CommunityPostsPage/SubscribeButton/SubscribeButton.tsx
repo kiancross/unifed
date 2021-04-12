@@ -16,9 +16,9 @@ export interface SubscribeButtonProps {
   id: string;
 
   /**
-   * Server the chosen community is located on.
+   * Host the chosen community is located on.
    */
-  server: string;
+  host: string;
 
   /**
    * True if the user is subscribe to the community, false otherwise.
@@ -77,7 +77,7 @@ export function SubscribeButton(props: SubscribeButtonProps): ReactElement {
   return (
     <Button
       onClick={() => {
-        mutation({ variables: { id: props.id, host: props.server } });
+        mutation({ variables: { id: props.id, host: props.host } });
       }}
       variant="contained"
       color={subscribed ? "secondary" : "primary"}

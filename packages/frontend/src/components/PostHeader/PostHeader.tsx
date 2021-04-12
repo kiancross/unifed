@@ -34,9 +34,9 @@ export interface PostHeaderProps {
   id: string;
 
   /**
-   * Server the post exists on.
+   * Host the post exists on.
    */
-  server: string;
+  host: string;
 
   /**
    * Title of the post. This is null for comments.
@@ -114,7 +114,7 @@ export function PostHeader(props: PostHeaderProps): ReactElement {
   const classes = useStyles(props);
 
   const { data: adminData, loading: adminLoading, error: adminError } = useQuery(getAdminsQuery, {
-    variables: { id: props.community, host: props.server },
+    variables: { id: props.community, host: props.host },
   });
 
   const [deletePost, { data, loading, error }] = useMutation(deletePostQuery, {
@@ -165,7 +165,7 @@ export function PostHeader(props: PostHeaderProps): ReactElement {
 
   const handleDelete = () => {
     handleClose();
-    deletePost({ variables: { id: props.id, host: props.server } });
+    deletePost({ variables: { id: props.id, host: props.host } });
   };
 
   const isUserAdmin = adminData.getCommunity.admins.some(
@@ -176,7 +176,7 @@ export function PostHeader(props: PostHeaderProps): ReactElement {
 
   const headerAction =
     (user.details?.username === props.username || isUserAdmin) &&
-    props.server === process.env.REACT_APP_INTERNAL_REFERENCE ? (
+    props.host === process.env.REACT_APP_INTERNAL_REFERENCE ? (
       <React.Fragment>
         <IconButton
           data-testid="icon-button"

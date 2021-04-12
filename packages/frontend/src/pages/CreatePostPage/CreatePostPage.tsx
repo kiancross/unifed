@@ -13,9 +13,9 @@ import { PostCreator } from "../../components";
  */
 export interface CreatePostPageParams {
   /**
-   * Server of the community the post is being made to.
+   * Host of the community the post is being made to.
    */
-  server: string;
+  host: string;
 
   /**
    * The name of the community the post is being made to.
@@ -33,10 +33,10 @@ export interface CreatePostPageParams {
  * @internal
  */
 export function CreatePostPage(): ReactElement {
-  const { community, server } = useParams<CreatePostPageParams>();
+  const { community, host } = useParams<CreatePostPageParams>();
   const [redirect, setRedirect] = useState<string | undefined>();
 
-  const href = "/instances/" + server + "/communities/" + community + "/posts";
+  const href = "/instances/" + host + "/communities/" + community + "/posts";
 
   const onSuccess = (id: string) => {
     setRedirect(href + "/" + id);
@@ -48,7 +48,7 @@ export function CreatePostPage(): ReactElement {
     <Container style={{ paddingTop: "1.5rem" }} maxWidth="lg">
       <PostCreator
         community={community}
-        server={server}
+        host={host}
         submitButtonText="Create Post"
         onSuccess={onSuccess}
       />

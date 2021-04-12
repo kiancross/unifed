@@ -68,7 +68,7 @@ export function UserProfilePage(): ReactElement {
                   body={post.body}
                   key={post.id}
                   id={post.id}
-                  server={post.host}
+                  host={post.host}
                   community="all"
                   username={username}
                   title={post.title}

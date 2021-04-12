@@ -100,7 +100,7 @@ export function App(): ReactElement {
                 </Route>
                 <Route
                   exact
-                  path="/instances/:server/communities/:community/posts"
+                  path="/instances/:host/communities/:community/posts"
                   component={CommunityPostsPage}
                 >
                   {!loggedIn ? redirectLogin : null}
@@ -108,14 +108,14 @@ export function App(): ReactElement {
 
                 <Route
                   exact
-                  path="/instances/:server/communities/:community/posts/create"
+                  path="/instances/:host/communities/:community/posts/create"
                   component={CreatePostPage}
                 >
                   {!loggedIn ? redirectLogin : null}
                 </Route>
                 <Route
                   exact
-                  path="/instances/:server/communities/:community/posts/:post"
+                  path="/instances/:host/communities/:community/posts/:post"
                   component={PostPage}
                 >
                   {!loggedIn ? redirectLogin : null}

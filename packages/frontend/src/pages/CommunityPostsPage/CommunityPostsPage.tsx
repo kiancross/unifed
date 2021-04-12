@@ -15,9 +15,9 @@ import { ReactElement } from "react";
  */
 export interface CommunityPostsPageParams {
   /**
-   * Server the community is located on.
+   * Host the community is located on.
    */
-  server: string;
+  host: string;
 
   /**
    * The name of the community to retrieve posts from.
@@ -65,13 +65,13 @@ export const getPostsQuery = gql`
  * @internal
  */
 export function CommunityPostsPage(): ReactElement {
-  const { community, server } = useParams<CommunityPostsPageParams>();
+  const { community, host } = useParams<CommunityPostsPageParams>();
   const isMobile = useMediaQuery("(max-width: 960px)");
 
   const { loading, error, data } = useQuery(getPostsQuery, {
     variables: {
       community,
-      host: server,
+      host: host,
     },
   });
 
@@ -107,7 +107,7 @@ export function CommunityPostsPage(): ReactElement {
                     username={post.author.id}
                     title={post.title}
                     id={post.id}
-                    server={server}
+                    host={host}
                     community={community}
                   />
                 );
@@ -120,18 +120,18 @@ export function CommunityPostsPage(): ReactElement {
                 fullWidth
                 color="primary"
                 variant="contained"
-                to={`/instances/${server}/communities/${community}/posts/create`}
+                to={`/instances/${host}/communities/${community}/posts/create`}
               >
                 Make Post
               </ButtonLink>
             </Grid>
-            {server === "this" ? (
+            {host === "this" ? (
               <Grid item>
                 <ButtonLink
                   fullWidth
                   color="primary"
                   variant="contained"
-                  to={`/instances/${server}/communities/${community}/call`}
+                  to={`/instances/${host}/communities/${community}/call`}
                 >
                   Join Community Call
                 </ButtonLink>
@@ -140,7 +140,7 @@ export function CommunityPostsPage(): ReactElement {
             <CommunityDescription
               title={communityData.title}
               id={community}
-              server={server}
+              host={host}
               desc={communityData.description}
               isSubscribed={isSubscribed}
               admins={communityAdmins}

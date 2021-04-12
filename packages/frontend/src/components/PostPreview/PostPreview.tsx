@@ -27,9 +27,9 @@ export interface PostPreviewProps {
   id: string;
 
   /**
-   * Server the post exists on.
+   * Host the post exists on.
    */
-  server: string;
+  host: string;
 
   /**
    * Community the post is part of.
@@ -71,7 +71,7 @@ export function PostPreview(props: PostPreviewProps): ReactElement {
     <PostEditor
       body={props.body}
       title={props.title}
-      server={props.server}
+      host={props.host}
       id={props.id}
       submitButtonText="Save Post"
       onSuccess={() => window.location.assign(window.location.href)}
@@ -87,13 +87,13 @@ export function PostPreview(props: PostPreviewProps): ReactElement {
             title={props.title}
             username={props.username}
             id={props.id}
-            server={props.server}
+            host={props.host}
             isPreview
           />
           <CardActionArea
             disableRipple
             component={RouterLink}
-            to={`/instances/${props.server}/communities/${props.community}/posts/${props.id}`}
+            to={`/instances/${props.host}/communities/${props.community}/posts/${props.id}`}
           >
             <CardContent>
               <Typography variant="body1">{props.title}</Typography>

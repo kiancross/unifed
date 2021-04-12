@@ -32,9 +32,9 @@ export interface PostProps {
   id: string;
 
   /**
-   * The server the post is on.
+   * The host the post is on.
    */
-  server: string;
+  host: string;
 
   /**
    * The community the post is a part of.
@@ -69,7 +69,7 @@ export function Post(props: PostProps): ReactElement {
     <PostEditor
       body={props.body}
       title={props.title}
-      server={props.server}
+      host={props.host}
       id={props.id}
       submitButtonText="Save Post"
       onSuccess={() => setEditorOpen(false)}
@@ -83,7 +83,7 @@ export function Post(props: PostProps): ReactElement {
           onToggleEdit={() => setEditorOpen(true)}
           title={props.title}
           id={props.id}
-          server={props.server}
+          host={props.host}
           username={props.username}
         />
         <CardContent style={{ paddingTop: 0 }}>

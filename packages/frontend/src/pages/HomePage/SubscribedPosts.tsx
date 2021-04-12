@@ -66,7 +66,7 @@ export function SubscribedPosts(): ReactElement {
               username={post.author.id}
               title={post.title}
               id={post.id}
-              server={post.host}
+              host={post.host}
               community={post.community.id}
             />
           );

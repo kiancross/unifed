@@ -14,9 +14,9 @@ import { Comment } from "./Comment";
  */
 export interface CommentsProps {
   /**
-   * Server the comments are located on.
+   * Host the comments are located on.
    */
-  server: string;
+  host: string;
 
   /**
    * The ID of the post or comment one level up from the current comment.
@@ -46,8 +46,8 @@ interface PostType {
  * GraphQL query to get the comments on a post.
  */
 export const getCommentsQuery = gql`
-  query GET_COMMENTS($id: String!, $server: String!) {
-    getPost(post: { id: $id, host: $server }) {
+  query GET_COMMENTS($id: String!, $host: String!) {
+    getPost(post: { id: $id, host: $host }) {
       id
       children {
         id
@@ -68,7 +68,7 @@ export const getCommentsQuery = gql`
  */
 export function Comments(props: CommentsProps): ReactElement {
   const parentId = props.parentId;
-  const server = props.server;
+  const host = props.host;
 
   const decrement = (grids: number): GridSize => {
     if (grids >= 9) {
@@ -79,7 +79,7 @@ export function Comments(props: CommentsProps): ReactElement {
   };
 
   const { loading, error, data } = useQuery(getCommentsQuery, {
-    variables: { id: parentId, server },
+    variables: { id: parentId, host },
   });
 
   if (error) return <h1>Error! ${error.message} </h1>;
@@ -97,7 +97,7 @@ export function Comments(props: CommentsProps): ReactElement {
         return (
           <React.Fragment key={post.id}>
             <Comment
-              host={server}
+              host={host}
               username={username}
               body={text}
               id={post.id}
@@ -108,7 +108,7 @@ export function Comments(props: CommentsProps): ReactElement {
             <Comments
               community={props.community}
               parentId={post.id}
-              server={props.server}
+              host={props.host}
               grids={decrement(props.grids as number)}
             />
           </React.Fragment>

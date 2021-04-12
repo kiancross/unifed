@@ -11,9 +11,9 @@ import { CenteredLoader, ErrorMessage, PostEditorBase } from "..";
  */
 export interface PostEditorProps {
   /**
-   * Server of the post to edit.
+   * host of the post to edit.
    */
-  server: string;
+  host: string;
 
   /**
    * ID of the post to edit.
@@ -95,7 +95,7 @@ export function PostEditor(props: PostEditorProps): ReactElement {
         const result = await editPost({
           variables: {
             id: props.id,
-            host: props.server,
+            host: props.host,
             title,
             body,
           },

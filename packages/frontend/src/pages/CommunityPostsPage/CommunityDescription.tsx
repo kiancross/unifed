@@ -37,9 +37,9 @@ export interface CommunityDescriptionProps {
   id: string;
 
   /**
-   * Server the community is located on.
+   * Host the community is located on.
    */
-  server: string;
+  host: string;
 
   /**
    * True if the user is subscribe to the community, false otherwise.
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
  *
  * Outline:
  *
- *  - The admins, description, name and server of the community are shown, along with a subscription button.
+ *  - The admins, description, name and host of the community are shown, along with a subscription button.
  *
  * @param props Properties passed to the component. See [[`CommunityDescriptionProps`]].
  * @internal
@@ -76,9 +76,9 @@ export function CommunityDescription(props: CommunityDescriptionProps): ReactEle
   return (
     <Grid item>
       <Card className={classes.card}>
-        <CardHeader disableTypography title={title} subheader={props.server} />
+        <CardHeader disableTypography title={title} subheader={props.host} />
         <CardActions>
-          <SubscribeButton id={props.id} server={props.server} isSubscribed={props.isSubscribed} />
+          <SubscribeButton id={props.id} host={props.host} isSubscribed={props.isSubscribed} />
         </CardActions>
         <Divider />
         <Grid container>

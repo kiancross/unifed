@@ -47,7 +47,7 @@ export interface CommentProps {
   grids: GridSize;
 
   /**
-   * Server the comment is located on.
+   * Host the comment is located on.
    */
   host: string;
 
@@ -94,7 +94,7 @@ export function Comment(props: CommentProps): ReactElement {
 
   const replyEditor = makingReply ? (
     <PostCreator
-      server={props.host}
+      host={props.host}
       community={props.community}
       submitButtonText="Make Reply"
       parentId={props.id}
@@ -106,7 +106,7 @@ export function Comment(props: CommentProps): ReactElement {
 
   const content = editorOpen ? (
     <PostEditor
-      server={props.host}
+      host={props.host}
       id={props.id}
       body={props.body}
       submitButtonText="Save Comment"
@@ -126,7 +126,7 @@ export function Comment(props: CommentProps): ReactElement {
                 parent={props.parent}
                 username={props.username}
                 id={props.id}
-                server={props.host}
+                host={props.host}
               />
               <CardContent className={classes.body}>
                 <Typography variant="subtitle2">
