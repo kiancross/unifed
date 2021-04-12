@@ -9,7 +9,7 @@ import { ReactElement } from "react";
 
 /**
  * Properties for the [[`UserInfoCard`]] component.
- * 
+ *
  * @internal
  */
 export interface UserInfoCardProps {

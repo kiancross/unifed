@@ -13,7 +13,7 @@ import { ReactElement } from "react";
 
 /**
  * Params taken by the [[`PostPage`]] component.
- * 
+ *
  * @internal
  */
 export interface PostPageParams {
@@ -35,7 +35,7 @@ export interface PostPageParams {
 
 /**
  * GraphQL query to get a post with a given ID on a given host.
- * 
+ *
  * @internal
  */
 export const getPostQuery = gql`

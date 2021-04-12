@@ -9,7 +9,7 @@ import { MarkdownViewer, PostHeader, PostEditor } from "../../components";
 
 /**
  * Properties for the [[`Post`]] component.
- * 
+ *
  * @internal
  */
 export interface PostProps {

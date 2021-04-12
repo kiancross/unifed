@@ -19,7 +19,7 @@ import { SubscribeButton } from "./SubscribeButton";
 
 /**
  * Properties for the [[`CommunityDescription`]] component.
- * 
+ *
  * @internal
  */
 export interface CommunityDescriptionProps {

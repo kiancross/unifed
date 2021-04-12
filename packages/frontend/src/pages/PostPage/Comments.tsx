@@ -11,7 +11,7 @@ import { Comment } from "./Comment";
 
 /**
  * Properties for the [[`Comments`]] component.
- * 
+ *
  * @internal
  */
 export interface CommentsProps {
@@ -46,7 +46,7 @@ interface Post {
 
 /**
  * GraphQL query to get the comments on a post.
- * 
+ *
  * @internal
  */
 export const getCommentsQuery = gql`

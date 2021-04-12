@@ -12,7 +12,7 @@ import { ReactElement } from "react";
 
 /**
  * Params taken by the [[`CommunityPostsPage`]] component.
- * 
+ *
  * @internal
  */
 export interface CommunityPostsPageParams {
@@ -29,7 +29,7 @@ export interface CommunityPostsPageParams {
 
 /**
  * GraphQL query to get the posts to a given community.
- * 
+ *
  * @internal
  */
 export const getPostsQuery = gql`

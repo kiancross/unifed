@@ -9,7 +9,7 @@ import { PostEditor, PostHeader } from "..";
 
 /**
  * Properties for the [[`PostPreview`]] component.
- * 
+ *
  * @internal
  */
 export interface PostPreviewProps {

@@ -21,7 +21,7 @@ import { UserIcon } from "../UserIcon";
 
 /**
  * Properties for the [[`PostHeader`]] component.
- * 
+ *
  * @internal
  */
 export interface PostHeaderProps {
@@ -72,7 +72,7 @@ const useStyles = makeStyles<Theme, PostHeaderProps>({
 
 /**
  * GraphQL query to retrieve the IDs and hosts of the admins of the community the post is a part of.
- * 
+ *
  * @internal
  */
 export const getAdminsQuery = gql`
@@ -88,7 +88,7 @@ export const getAdminsQuery = gql`
 
 /**
  * GraphQL query to delete the post with the given id on the given host.
- * 
+ *
  * @internal
  */
 export const deletePostQuery = gql`

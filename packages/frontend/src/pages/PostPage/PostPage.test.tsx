@@ -158,14 +158,7 @@ test("PostPage renders", async () => {
 test("Render Comment", async () => {
   render(
     <BrowserMockProvider mocks={[getAdminsMock]}>
-      <Post
-        community={community}
-        username={username}
-        id={id}
-        body={body}
-        host={host}
-        title={""}
-      />
+      <Post community={community} username={username} id={id} body={body} host={host} title={""} />
     </BrowserMockProvider>,
   );
 

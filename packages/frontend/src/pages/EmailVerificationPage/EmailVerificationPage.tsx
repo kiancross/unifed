@@ -9,7 +9,7 @@ import { passwordClient } from "../../helpers";
 
 /**
  * Params taken by the [[`EmailVerificationPage`]] component.
- * 
+ *
  * @internal
  */
 export interface EmailVerificationPageParams {
