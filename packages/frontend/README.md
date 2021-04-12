@@ -31,4 +31,5 @@ is logged in and whether it is in dark mode.
 
 ## Documentation
 
-Further developer documentation for this package is available [here](https://kiancross.github.io/unifed/developers/modules/frontend.html).
+Further developer documentation for this package is available
+[here](https://kiancross.github.io/unifed/developers/modules/frontend.html).
