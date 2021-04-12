@@ -13,9 +13,10 @@ You can create a post by clicking the 'Make Post' button on a community's posts 
 
 Enter the post title in the 'Title' textbox and the post content in the editor. Details on using the editor can be found here###link to editor page###. You can then create the post by clicking the 'make post' button.
 
-![Creating a Post](../../gifs/creating-post.gif)
+![Creating a Post](../../gifs/gif)
+
 ## Creating a Comment
 
 You can create a comment by typing in the editor on a post's page and then clicking the 'Make Comment' button.
 
-#### Gif of creating a comment
+![Creating a Comment](../../gifs/.gif)
