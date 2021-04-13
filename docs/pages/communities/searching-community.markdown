@@ -14,4 +14,4 @@ Upon typing the name of the host, a drop-down will provide a list of all communi
 
 Clicking on a community in the list will take you to the community’s posts page.
 
-![Searching for a Community](../../gifs/.gif)
+![Searching for a Community](../../gifs/searching-community.gif)

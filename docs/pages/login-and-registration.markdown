@@ -12,7 +12,7 @@ You can login using the email and password that you provided when you registered
 
 Note: You will not be able to login if you have not verified your email address (See below).
 
-![Logging In](../../gifs/.gif)
+![Logging In](../gifs/login.gif)
 
 ## Registration
 
@@ -28,7 +28,7 @@ On successful submission of the form, you will be sent an email containing a ver
 
 You will then be able to access your account.
 
-![Registration](../../gifs/.gif)
+![Registration](../gifs/register.gif)
 
 ## Forgotten Password
 
@@ -40,4 +40,4 @@ This password is subject to the same complexity requirements as on the registrat
 
 On successful reset, you will be taken to the login page.
 
-![Forgotten Password](../../gifs/.gif)
+![Forgotten Password](../gifs/forgotten-password.gif)

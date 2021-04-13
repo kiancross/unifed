@@ -12,10 +12,10 @@ You can view your account details, such as your password and name by clicking on
 
 The page consists of two tabs, the first for editing account information (such as your password) and the second for editing profile information (such as your name).
 
-![Viewing account settings](../gifs/.gif)
+![Viewing account settings](../gifs/viewing-profile.gif)
 
 ## Editing information
 
 To edit your information, click the 'pencil' icon to the right of the field you want to change.
 
-![Editing account settings](../../gifs/.gif)
+![Editing account settings](../gifs/.gif)
