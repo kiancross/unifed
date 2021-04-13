@@ -120,7 +120,7 @@ export class PostsResolver implements ResolverInterface<Post> {
     const posts = await Promise.all(
       adminCommunities.map((com) => this.postsService.getUnfilteredPosts(com.id)),
     );
-    const unapprovedPosts = posts.flat().filter(post => !post.approved);
+    const unapprovedPosts = posts.flat().filter((post) => !post.approved);
     return unapprovedPosts;
   }
 

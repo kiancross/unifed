@@ -2,11 +2,11 @@
  * CS3099 Group A3
  */
 
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import { QueueTab } from "./QueueTab";
 import { AppBar, Card, Container, Tab, Tabs } from "@material-ui/core";
 
-export const ModerationPage = (): JSX.Element => {
+export function ModerationPage(): ReactElement {
   const [selectedTab, setSelectedTab] = useState(0);
   const handleTabChange = (_event: React.ChangeEvent<unknown>, newValue: number): void => {
     setSelectedTab(newValue);
@@ -23,4 +23,4 @@ export const ModerationPage = (): JSX.Element => {
       </Card>
     </Container>
   );
-};
+}

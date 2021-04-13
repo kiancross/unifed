@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import { gql, Reference, useQuery, useMutation } from "@apollo/client";
 import { Formik, Field, Form } from "formik";
 import { Button, Checkbox, List, ListItem, ListItemIcon } from "@material-ui/core";
@@ -33,8 +33,8 @@ interface PostParams {
   host: string;
 }
 
-export const GET_UNAPPROVED_POSTS = gql`
-  query GET_UNAPPROVED_POSTS {
+export const getUnapprovedPostsQuery = gql`
+  query getUnapprovedPostsQuery {
     getUnapprovedPosts {
       id
       title
@@ -65,7 +65,7 @@ export const deletePostsMutation = gql`
   }
 `;
 
-export const QueueTab = (): JSX.Element => {
+export function QueueTab(): ReactElement {
   const classes = useStyles();
   const [selectedPosts, setSelectedPosts] = useState<{ id: string; host: string }[]>([]);
 
@@ -91,7 +91,7 @@ export const QueueTab = (): JSX.Element => {
     },
   };
 
-  const { loading: loadingQuery, data: queryData } = useQuery(GET_UNAPPROVED_POSTS);
+  const { loading: loadingQuery, data: queryData } = useQuery(getUnapprovedPostsQuery);
   const [approvePosts] = useMutation(approvePostsMutation, updateCache);
   const [deletePosts] = useMutation(deletePostsMutation, updateCache);
 
@@ -176,4 +176,4 @@ export const QueueTab = (): JSX.Element => {
       )}
     </Formik>
   );
-};
+}
