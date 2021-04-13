@@ -162,3 +162,12 @@ You can write LaTeX equations by wrapping an equation in "$".
 $x^n + y^n = z^n$
 
 ![LateX](../../images/editor/latex.jpg)
+
+You can also write multiline equations.
+
+$$
+b_n=\frac{1}{\pi}\int\limits_{-\pi}^{\pi}f(x)\sin nx\,\mathrm{d}x\\
+=\frac{1}{\pi}\int\limits_{-\pi}^{\pi}x^2\sin nx\,\mathrm{d}x
+$$
+
+![Latex Block](../../images/editor/latex-block.jpg)
