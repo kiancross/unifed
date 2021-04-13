@@ -4,10 +4,12 @@ exports[`Render 1`] = `
 Array [
   <style>
              
-  .rc-md-editor, .rc-md-editor * {                            
-    background-color: #f50057 !important;      
-    color: rgba(0, 0, 0, 0.87) !important; 
-  },
+  .rc-md-editor, .rc-md-editor * {
+    color: rgba(0, 0, 0, 0.87) !important;
+  }
+  .rc-md-editor {
+    background-color: #f50057 !important;
+  }
   
   </style>,
   <div
@@ -616,10 +618,12 @@ exports[`Render default value 1`] = `
 Array [
   <style>
              
-  .rc-md-editor, .rc-md-editor * {                            
-    background-color: #f50057 !important;      
-    color: rgba(0, 0, 0, 0.87) !important; 
-  },
+  .rc-md-editor, .rc-md-editor * {
+    color: rgba(0, 0, 0, 0.87) !important;
+  }
+  .rc-md-editor {
+    background-color: #f50057 !important;
+  }
   
   </style>,
   <div
