@@ -10,13 +10,8 @@ import { Autocomplete } from "@material-ui/lab";
 import { gql, useQuery } from "@apollo/client";
 
 /**
-<<<<<<< HEAD
- * Defines the type 'Community' to be used in this component.
- * 
-=======
  * Defines the fields received by the `getCommunities` GraphQL call.
  *
->>>>>>> 9a49e9f0709f1f5d92472c4a014a78a5c9a6bbae
  * @internal
  */
 interface Community {
