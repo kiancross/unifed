@@ -114,6 +114,7 @@ export function SearchInput(): ReactElement {
 
   if (selectedCommunity) {
     history.push(`/instances/${selectedCommunity.host}/communities/${selectedCommunity.id}/posts`);
+    setSelectedCommunity(null);
   }
 
   return (
