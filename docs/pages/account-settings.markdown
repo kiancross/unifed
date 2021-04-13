@@ -18,4 +18,4 @@ The page consists of two tabs, the first for editing account information (such a
 
 To edit your information, click the 'pencil' icon to the right of the field you want to change.
 
-#### gif of editing info
+![Editing account settings](../gifs/.gif)
