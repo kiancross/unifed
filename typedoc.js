@@ -17,6 +17,7 @@ module.exports = {
   ],
   out: "docs/developers",
   entryPoints: ["packages/"],
+  readme: "docs/_README.md",
 
   excludeExternals: true,
 

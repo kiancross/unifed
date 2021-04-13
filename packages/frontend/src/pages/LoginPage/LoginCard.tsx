@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import { ReactElement, useState, useContext } from "react";
+import { useState, useContext, ReactElement } from "react";
 import { Formik, Form, Field } from "formik";
 import { Card, CardContent, TextField, Typography } from "@material-ui/core";
 
@@ -10,7 +10,7 @@ import { UserContext } from "../../contexts";
 import { ActionButton, Link, PasswordField } from "../../components";
 import { ApolloError } from "@apollo/client/errors";
 
-export const LoginCard = (): ReactElement => {
+export function LoginCard(): ReactElement {
   const user = useContext(UserContext);
   const [error, setError] = useState<ApolloError | undefined>(undefined);
   const [loading, setLoading] = useState(false);
@@ -94,4 +94,4 @@ export const LoginCard = (): ReactElement => {
       </Card>
     </div>
   );
-};
+}

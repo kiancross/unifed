@@ -5,7 +5,7 @@
 import React, { ReactElement, useContext } from "react";
 import { useFormik } from "formik";
 import { gql, useMutation } from "@apollo/client";
-import EditIcon from "@material-ui/icons/Edit";
+import { Edit as EditIcon } from "@material-ui/icons";
 
 import {
   Button,
@@ -36,13 +36,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CHANGE_NAME = gql`
+export const changeNameQuery = gql`
   mutation UpdateUserProfile($name: String!) {
     updateUserProfile(profile: { name: $name })
   }
 `;
 
-export const ProfileTab = (props: ProfileTabParams): ReactElement => {
+export function ProfileTab(props: ProfileTabParams): ReactElement {
   const [nameOpen, setNameOpen] = React.useState(false);
   const user = useContext(UserContext);
 
@@ -50,11 +50,11 @@ export const ProfileTab = (props: ProfileTabParams): ReactElement => {
     setNameOpen(!nameOpen);
   };
 
-  const [changeName, { data }] = useMutation(CHANGE_NAME);
+  const [changeName, { data }] = useMutation(changeNameQuery);
 
   if (data?.updateUserProfile) user.refetch();
 
-  const NameChangeForm = (): ReactElement => {
+  function NameChangeForm() {
     const formik = useFormik({
       initialValues: {
         name: "",
@@ -89,7 +89,7 @@ export const ProfileTab = (props: ProfileTabParams): ReactElement => {
         </Dialog>
       </form>
     );
-  };
+  }
 
   const classes = useStyles();
   return (
@@ -110,4 +110,4 @@ export const ProfileTab = (props: ProfileTabParams): ReactElement => {
       {nameOpen && <NameChangeForm />}
     </List>
   );
-};
+}

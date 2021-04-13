@@ -2,6 +2,7 @@
  * CS3099 Group A3
  */
 
+export * from "./ActionButton";
 export * from "./App";
 export * from "./CenteredLoader";
 export * from "./ErrorBoundary";
@@ -20,4 +21,3 @@ export * from "./PostHeader";
 export * from "./PostPreview";
 export * from "./UserIcon";
 export * from "./UserInfoCard";
-export * from "./ActionButton";

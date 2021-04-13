@@ -29,7 +29,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const getCommunities = gql`
+export const getCommunitiesQuery = gql`
   query($host: String!) {
     getCommunities(host: $host) {
       id
@@ -46,7 +46,7 @@ const getOptionLabel = (option: Community | string) => {
   }
 };
 
-export const SearchInput = (): ReactElement => {
+export function SearchInput(): ReactElement {
   const classes = useStyles();
 
   const history = useHistory();
@@ -56,7 +56,7 @@ export const SearchInput = (): ReactElement => {
   const [community, setCommunity] = React.useState("");
   const [debouncedHost] = useDebounce(host, 400);
 
-  const { loading, data, error } = useQuery(getCommunities, {
+  const { loading, data, error } = useQuery(getCommunitiesQuery, {
     variables: { host: debouncedHost },
   });
 
@@ -114,6 +114,7 @@ export const SearchInput = (): ReactElement => {
 
   if (selectedCommunity) {
     history.push(`/instances/${selectedCommunity.host}/communities/${selectedCommunity.id}/posts`);
+    setSelectedCommunity(null);
   }
 
   return (
@@ -151,4 +152,4 @@ export const SearchInput = (): ReactElement => {
       />
     </Paper>
   );
-};
+}

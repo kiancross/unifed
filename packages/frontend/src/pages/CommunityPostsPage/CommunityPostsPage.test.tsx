@@ -5,7 +5,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 
 import { BrowserMockProvider } from "../../helpers";
-import { CommunityPostsPage, GET_POSTS } from "./CommunityPostsPage";
+import { CommunityPostsPage, getPostsQuery } from "./CommunityPostsPage";
 
 test("CommunityPostsPage renders", async () => {
   const community = "general";
@@ -14,7 +14,7 @@ test("CommunityPostsPage renders", async () => {
   const getPostsMock = [
     {
       request: {
-        query: GET_POSTS,
+        query: getPostsQuery,
         variables: {
           community: community,
           host: host,
@@ -38,6 +38,7 @@ test("CommunityPostsPage renders", async () => {
             id: community,
             title: "Test Community",
             description: "this is a test community",
+            admins: [{ id: "adminID" }],
           },
           getSubscriptions: [
             {
@@ -71,7 +72,7 @@ test("CommunityPostsPage error message renders", async () => {
   const getPostsMock = [
     {
       request: {
-        query: GET_POSTS,
+        query: getPostsQuery,
         variables: {
           community: community,
           host: host,

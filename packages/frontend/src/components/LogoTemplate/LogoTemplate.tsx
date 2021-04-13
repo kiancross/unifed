@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
  *
  * @internal
  */
-export const LogoTemplate = (props: LogoTemplateProps): ReactElement => {
+export function LogoTemplate(props: LogoTemplateProps): ReactElement {
   const classes = useStyles(props);
 
   const vertical = props.direction === "vertical";
@@ -93,4 +93,4 @@ export const LogoTemplate = (props: LogoTemplateProps): ReactElement => {
       </Container>
     </div>
   );
-};
+}
