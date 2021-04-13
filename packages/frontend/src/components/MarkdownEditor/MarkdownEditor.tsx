@@ -24,10 +24,12 @@ export function MarkdownEditor(props: MarkdownEditorProps): ReactElement {
   const theme = useTheme().palette;
 
   const styleSettings = `         
-  .rc-md-editor, .rc-md-editor * {                            
-    background-color: ${theme.secondary.main} !important;      
-    color: ${theme.text.primary} !important; 
-  },
+  .rc-md-editor, .rc-md-editor * {
+    color: ${theme.text.primary} !important;
+  }
+  .rc-md-editor {
+    background-color: ${theme.secondary.main} !important;
+  }
   `;
   return (
     <>
