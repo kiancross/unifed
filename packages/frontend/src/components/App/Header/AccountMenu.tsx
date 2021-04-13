@@ -8,6 +8,7 @@ import {
   Person as PersonIcon,
   Settings as SettingsIcon,
   ExitToApp as ExitToAppIcon,
+  Policy as ModerationIcon,
 } from "@material-ui/icons";
 
 import {
@@ -79,6 +80,10 @@ export function AccountMenu(): ReactElement {
                   >
                     <PersonIcon style={{ marginRight: "10px" }} fontSize="small" />
                     Profile
+                  </MenuItem>
+                  <MenuItem component={Link} dense to={"/moderation"} onClick={handleClose}>
+                    <ModerationIcon style={{ marginRight: "10px" }} fontSize="small" />
+                    Moderation
                   </MenuItem>
                   <MenuItem component={Link} dense to={"/account"} onClick={handleClose}>
                     <SettingsIcon style={{ marginRight: "10px" }} fontSize="small" />
