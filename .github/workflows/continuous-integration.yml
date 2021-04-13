@@ -34,7 +34,7 @@ jobs:
           echo "::set-output name=build::$(yarn config get bstatePath)"
           echo "::set-output name=unplugged::$(yarn config get pnpUnpluggedFolder)"
 
-      - uses: actions/cache@v2.1.4
+      - uses: actions/cache@v2.1.5
         id: cache
         with:
           path: |
@@ -47,7 +47,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - uses: actions/cache@v2.1.4
+      - uses: actions/cache@v2.1.5
         id: mongo-cache
         with:
           path: ~/.cache/mongodb-binaries
