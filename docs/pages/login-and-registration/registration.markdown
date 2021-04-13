@@ -2,7 +2,7 @@
 layout: default
 title: Registration
 parent: Login and Registration
-nav_order: 2
+nav_order: 3 
 permalink: /login-and-registration/registration/
 ---
 

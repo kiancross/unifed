@@ -14,7 +14,9 @@ To create a heading, add one to six `#` symbols before your heading text. The nu
 
 ```markdown
 # The largest heading
+
 ## The second largest heading
+
 ###### The smallest heading
 ```
 
@@ -24,13 +26,13 @@ To create a heading, add one to six `#` symbols before your heading text. The nu
 
 You can indicate emphasis with bold, italic, or strikethrough text.
 
-| Style | Syntax | Keyboard shortcut | Example | Output |
-| --- | --- | --- | --- | --- |
-| Bold | `** **` or `__ __` | command/control + b | `**This is bold text**` | **This is bold text** |
-| Italic | `* *` or `_ _` | command/control + i | `*This text is italicized*` | *This text is italicized* |
-| Strikethrough | `~~ ~~` | | `~~This was mistaken text~~` | ~~This was mistaken text~~ |
-| Bold and nested italic | `** **` and `_ _` | | `**This text is _extremely_ important**` | **This text is _extremely_ important** |
-| All bold and italic | `*** ***` | | `***All this text is important***` | ***All this text is important*** |
+| Style                  | Syntax             | Keyboard shortcut   | Example                                  | Output                                 |
+| ---------------------- | ------------------ | ------------------- | ---------------------------------------- | -------------------------------------- |
+| Bold                   | `** **` or `__ __` | command/control + b | `**This is bold text**`                  | **This is bold text**                  |
+| Italic                 | `* *` or `_ _`     | command/control + i | `*This text is italicized*`              | _This text is italicized_              |
+| Strikethrough          | `~~ ~~`            |                     | `~~This was mistaken text~~`             | ~~This was mistaken text~~             |
+| Bold and nested italic | `** **` and `_ _`  |                     | `**This text is _extremely_ important**` | **This text is _extremely_ important** |
+| All bold and italic    | `*** ***`          |                     | `***All this text is important***`       | **_All this text is important_**       |
 
 ### Quoting text
 
@@ -41,6 +43,7 @@ In the words of Abraham Lincoln:
 
 > Pardon my French
 ```
+
 ![Markdown Quote](../../images/editor/quote.jpg)
 
 ### Quoting code
@@ -50,6 +53,7 @@ You can call out code or a command within a sentence with single backticks. The 
 ```markdown
 Use `print("Hello World")` to print "Hello World" to the console.
 ```
+
 ![Markdown Inline Code](../../images/editor/inline-code.jpg)
 
 To format code or text into its own distinct block, use triple backticks.
@@ -81,6 +85,7 @@ You can make an unordered list by preceding one or more lines of text with `-` o
 - John Adams
 - Thomas Jefferson
 ```
+
 ![Markdown Bullet Points](../../images/editor/bullet.jpg)
 
 To order your list, precede each line with a number.
@@ -90,6 +95,7 @@ To order your list, precede each line with a number.
 2. James Monroe
 3. John Quincy Adams
 ```
+
 ![Markdown Numbered List](../../images/editor/numbered-list.jpg)
 
 #### Nested Lists
@@ -103,6 +109,7 @@ To create a nested list using the web editor on Unifed, you can align your list 
    - First nested list item
      - Second nested list item
 ```
+
 ![Markdown Nested List](../../images/editor/nested-list.jpg)
 
 To create a nested list in the comment editor on Unifed, which doesn't use a monospaced font, you can look at the list item immediately above the nested list and count the number of characters that appear before the content of the item. Then type that number of space characters in front of the nested list item.
@@ -113,7 +120,7 @@ In this example, you could add a nested list item under the list item `100. Firs
 100. First list item
      - First nested list item
 ```
- 
+
 ![Markdown Nested List 100](../../images/editor/nested-list-100.jpg)
 
 You can create multiple levels of nested lists using the same method. For example, because the first nested list item has seven spaces (`␣␣␣␣␣-␣`) before the nested list content `First nested list item`, you would need to indent the second nested list item by seven spaces.
@@ -123,6 +130,7 @@ You can create multiple levels of nested lists using the same method. For exampl
      - First nested list item
        - Second nested list item
 ```
+
 ![Markdown Nested List](../../images/editor/nested-list-100-levels.jpg)
 
 ### Task lists
@@ -146,3 +154,11 @@ You can tell the editor to ignore (or escape) Markdown formatting by using `\` b
 `Let's rename \*our-new-project\* to \*our-old-project\*.`
 
 ![Markdown Ignore Formatting](../../images/editor/escape-markdown.jpg)
+
+### LaTeX
+
+You can write LaTeX equations by wrapping an equation in "$".
+
+$x^n + y^n = z^n$
+
+![LateX](../../images/editor/latex.jpg)
