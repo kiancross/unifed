@@ -2,11 +2,12 @@
  * CS3099 Group A3
  */
 
-import { gql, useQuery } from "@apollo/client";
+import { useState } from "react";
+import { gql, Reference, useQuery, useMutation } from "@apollo/client";
 import { Formik, Field, Form } from "formik";
 import { Button, Checkbox, List, ListItem, ListItemIcon } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { LoadingCard, PostPreview } from "../../components";
+import { Comment, LoadingCard, PostPreview } from "../../components";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +27,9 @@ interface PostParams {
   community: {
     id: string;
   };
+  parentPost: {
+    id: string;
+  };
   host: string;
 }
 
@@ -41,17 +45,58 @@ export const GET_UNAPPROVED_POSTS = gql`
       community {
         id
       }
+      parentPost {
+        id
+      }
       host
     }
   }
 `;
 
+export const approvePostsMutation = gql`
+  mutation($posts: [RemoteReferenceInput!]!) {
+    approvePosts(posts: $posts)
+  }
+`;
+
+export const deletePostsMutation = gql`
+  mutation($posts: [RemoteReferenceInput!]!) {
+    deletePosts(posts: $posts)
+  }
+`;
+
 export const QueueTab = (): JSX.Element => {
   const classes = useStyles();
+  const [selectedPosts, setSelectedPosts] = useState<{ id: string; host: string }[]>([]);
+
+  const updateCache = {
+    update: (cache: any, { data: { approvePosts, deletePosts } }: any) => {
+      if (approvePosts || deletePosts) {
+        cache.modify({
+          fields: {
+            getUnapprovedPosts(existingPosts: Reference[], { readField }: any) {
+              // returns existingPosts - selectedPosts
+              return existingPosts.filter(
+                (existingPost) =>
+                  !selectedPosts.find(
+                    (selectedPost) =>
+                      selectedPost.id === readField("id", existingPost) &&
+                      selectedPost.host === readField("host", existingPost),
+                  ),
+              );
+            },
+          },
+        });
+      }
+    },
+  };
+
   const { loading: loadingQuery, data: queryData } = useQuery(GET_UNAPPROVED_POSTS);
+  const [approvePosts] = useMutation(approvePostsMutation, updateCache);
+  const [deletePosts] = useMutation(deletePostsMutation, updateCache);
+
   if (loadingQuery) return <LoadingCard />;
 
-  console.log(queryData);
   const unapprovedPosts = queryData.getUnapprovedPosts;
   return (
     <Formik
@@ -60,15 +105,16 @@ export const QueueTab = (): JSX.Element => {
         btn: "",
       }}
       onSubmit={async (values) => {
-        console.log(values);
-        const selectedPosts = values.selected.map((val: string) => {
+        const selected = values.selected.map((val: string) => {
           const split = val.split(" ", 2);
           return {
             id: split[0],
             host: split[1],
           };
         });
-        alert(JSON.stringify(selectedPosts));
+        setSelectedPosts(selected);
+        if (values.btn === "approve") approvePosts({ variables: { posts: selected } });
+        else if (values.btn === "remove") deletePosts({ variables: { posts: selected } });
       }}
     >
       {({ setFieldValue }) => (
@@ -103,14 +149,26 @@ export const QueueTab = (): JSX.Element => {
                     value={post.id + " " + post.host}
                   />
                 </ListItemIcon>
-                <PostPreview
-                  username={post.author.id}
-                  title={post.title}
-                  id={post.id}
-                  server={post.host}
-                  community={post.community.id}
-                  body={post.body}
-                />
+                {post.title ? (
+                  <PostPreview
+                    username={post.author.id}
+                    title={post.title}
+                    id={post.id}
+                    server={post.host}
+                    community={post.community.id}
+                    body={post.body}
+                  />
+                ) : (
+                  <Comment
+                    username={post.author.id}
+                    body={post.body}
+                    id={post.id}
+                    grids={12}
+                    parent={post.parentPost.id}
+                    host={post.host}
+                    community={post.community.id}
+                  />
+                )}
               </ListItem>
             ))}
           </List>

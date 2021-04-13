@@ -15,7 +15,7 @@ import {
   IconButton,
 } from "@material-ui/core";
 import { Reply as ReplyIcon } from "@material-ui/icons";
-import { MarkdownViewer, PostHeader, PostEditor, PostCreator } from "../../components";
+import { MarkdownViewer, PostHeader, PostEditor, PostCreator } from "..";
 
 interface PostValues {
   username: string;

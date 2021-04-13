@@ -3,8 +3,16 @@
  */
 
 import { Service } from "typedi";
-import { Post, PostModel, UserModel, RemoteReference } from "@unifed/backend-core";
+import {
+  config,
+  CommunityModel,
+  Post,
+  PostModel,
+  UserModel,
+  RemoteReference,
+} from "@unifed/backend-core";
 import { PostsFederationService, CreatePostProps } from "@unifed/backend-federation-client";
+import { plainToClass } from "class-transformer";
 
 @Service()
 export class PostsService extends PostsFederationService {
@@ -30,8 +38,51 @@ export class PostsService extends PostsFederationService {
     await UserModel.update({ username: username }, { $pull: { posts: postReference } });
   }
 
-  async approve(id: string): Promise<boolean> {
-    await PostModel.update({ _id: id }, { $set: {approved: true} });
+  async approve(username: string, postId: string): Promise<boolean> {
+    const post = await PostModel.findOne({ _id: postId }).exec();
+    if (!this.isAdmin(username, post)) return false;
+    await PostModel.update({ _id: postId }, { $set: { approved: true } });
     return true;
+  }
+
+  async adminDelete(username: string, postId: string): Promise<boolean> {
+    const post = await PostModel.findOne({ _id: postId }).exec();
+    if (!post || !this.isAdmin(username, post)) return false;
+    const authorId = post.author.id;
+    await PostModel.remove(post);
+
+    const postReference: RemoteReference = new RemoteReference();
+    postReference.id = postId;
+    postReference.host = config.federationHost;
+
+    await UserModel.update({ username: authorId }, { $pull: { posts: postReference } });
+    return true;
+  }
+
+  async isAdmin(username: string, post: Post | null): Promise<boolean> {
+    // finds the admins of the community of the post
+    if (!post?.community) return false;
+    const communityId = typeof post.community !== "string" ? post.community._id : post.community;
+    const admins = await CommunityModel.findOne({ _id: communityId })
+      .exec()
+      .then((res) => res?.admins);
+    if (!admins) return false;
+
+    // return true if username is in admins
+    for (let i = 0; i < admins.length; i++) {
+      if (admins[i]._id === username) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  async getUnfilteredPosts(community: string): Promise<Post[]> {
+    const posts = await PostModel.find({ community: community }).lean();
+    const ptcPosts = plainToClass(Post, posts).map((post) => {
+      post.host = config.federationHost;
+      return post;
+    });
+    return ptcPosts;
   }
 }

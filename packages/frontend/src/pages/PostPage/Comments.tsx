@@ -6,8 +6,7 @@ import React, { ReactElement } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { Grid, GridSize } from "@material-ui/core";
 
-import { CenteredLoader } from "../../components";
-import { Comment } from "./Comment";
+import { CenteredLoader, Comment } from "../../components";
 
 interface CommentParams {
   server: string;
