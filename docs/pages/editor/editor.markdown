@@ -7,6 +7,6 @@ permalink: /editor/
 
 # Markdown Editor
 
-The Markdown editor is present when editing a post or a comment
+The Markdown editor is present when editing a post or a comment.
 
 ![Editor](../../images/editor/whole.jpg)
