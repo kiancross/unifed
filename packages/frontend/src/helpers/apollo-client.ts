@@ -29,10 +29,21 @@ const accountsClientPromise: Promise<AccountsClient> = new Promise((resolve) => 
   accountsClientResolver = resolve;
 });
 
-export const setAccountsClient = (client: AccountsClient): void => {
+/**
+ * AccountsJS has some poorly designed configuration steps, which led
+ * to circular dependencies.
+ *
+ * This function is used to lazily set the `accountsClient`, reference,
+ * which is needed to add authentication tokens to each request.
+ *
+ * @param client Accounts client to be set.
+ *
+ * @internal
+ */
+export function setAccountsClient(client: AccountsClient): void {
   accountsClientResolver(client);
   accountsClient = client;
-};
+}
 
 const retryLink = new RetryLink();
 const authLink = accountsLink(() => accountsClient);
@@ -60,6 +71,11 @@ const splitLink = split(
   httpLink,
 );
 
+/**
+ * Client to deal with apollo queries.
+ *
+ * @internal
+ */
 export const apolloClient: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   link: ApolloLink.from([retryLink, authLink, splitLink]),
   cache: new InMemoryCache(),
