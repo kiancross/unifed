@@ -4,10 +4,9 @@
 
 import { Formik, Form, Field, FieldProps } from "formik";
 import { ButtonGroup, Button, TextField } from "@material-ui/core";
-import { MarkdownEditor } from "..";
+import { ActionButton, MarkdownEditor } from "..";
 import { ReactElement } from "react";
 import { ApolloError } from "@apollo/client/errors";
-import { ActionButton } from "../../components";
 
 /**
  * Properties for the [[`PostEditorBase`]] component.
@@ -38,12 +37,12 @@ export interface PostEditorBaseProps {
   submitButtonText: string;
 
   /**
-   * Loading state of the ActionButton
+   * Loading state to be passed to the ActionButton
    */
   loading: boolean;
 
   /**
-   * Error state of the ActionButton
+   * Error state to be passed to the ActionButton
    */
   error: ApolloError | undefined;
 

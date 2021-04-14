@@ -10,8 +10,7 @@ import { validateUsername, validateName, validateEmail, validatePassword } from 
 import { Card, Link, CardContent, TextField, Checkbox, FormControlLabel } from "@material-ui/core";
 
 import { passwordClient } from "../../helpers";
-import { PasswordStrengthMeter } from "../../components/PasswordStrengthMeter";
-import { ActionButton, PasswordField } from "../../components";
+import { ActionButton, PasswordField, PasswordStrengthMeter } from "../../components";
 import { ApolloError } from "@apollo/client/errors";
 
 interface Values {

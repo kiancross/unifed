@@ -59,7 +59,12 @@ export function ActionButton(props: Props): ReactElement {
     return (
       <React.Fragment>
         <Button onClick={handleClick} children={children} {...buttonProps} />
-        <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={open}
+          autoHideDuration={5000}
+          onClose={handleClose}
+        >
           <Alert children={message} onClose={handleClose} severity="error" />
         </Snackbar>
       </React.Fragment>

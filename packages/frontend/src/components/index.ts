@@ -13,6 +13,7 @@ export * from "./LogoTemplate";
 export * from "./MarkdownEditor";
 export * from "./MarkdownViewer";
 export * from "./PasswordField";
+export * from "./PasswordStrengthMeter";
 export * from "./Popup";
 export * from "./PostCreator";
 export * from "./PostEditor";
