@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 import { Container, Grid, useMediaQuery } from "@material-ui/core";
 
-import { PostCreator, UserInfoCard, CenteredLoader } from "../../components";
+import { PostCreator, UserInfoCard, CenteredLoader, ErrorMessage } from "../../components";
 import { Post } from "./Post";
 import { Comments } from "./Comments";
 import { ReactElement } from "react";
@@ -73,7 +73,8 @@ export function PostPage(): ReactElement {
   const isMobile = useMediaQuery("(max-width: 960px)");
   const direction = isMobile ? "column-reverse" : "row";
 
-  if (error) return <h1 style={{ color: "black" }}>Error! ${error.message} </h1>;
+  if (error)
+    return <ErrorMessage message="The post could not be retrieved. Please try again later." />;
   if (loading) return <CenteredLoader />;
 
   const postData = data.getPost;
