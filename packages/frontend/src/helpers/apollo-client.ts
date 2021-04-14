@@ -29,10 +29,16 @@ const accountsClientPromise: Promise<AccountsClient> = new Promise((resolve) => 
   accountsClientResolver = resolve;
 });
 
-export const setAccountsClient = (client: AccountsClient): void => {
+/**
+ * Sets an accounts client to handle logging in and out of user.
+ * 
+ * @param client Accounts client to be set.
+ * @internal
+ */
+export function setAccountsClient(client: AccountsClient): void {
   accountsClientResolver(client);
   accountsClient = client;
-};
+}
 
 const retryLink = new RetryLink();
 const authLink = accountsLink(() => accountsClient);
@@ -60,6 +66,11 @@ const splitLink = split(
   httpLink,
 );
 
+/**
+ * Client to deal with apollo queries.
+ * 
+ * @internal
+ */
 export const apolloClient: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   link: ApolloLink.from([retryLink, authLink, splitLink]),
   cache: new InMemoryCache(),
