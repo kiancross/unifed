@@ -18,6 +18,7 @@ You can create tables with pipes `|` and hyphens `-`. Hyphens are used to create
 | Content Cell  | Content Cell  |
 | Content Cell  | Content Cell  |
 ```
+
 ![Markdown Table](../../images/editor/table.jpg)
 
 The pipes on either end of the table are optional.

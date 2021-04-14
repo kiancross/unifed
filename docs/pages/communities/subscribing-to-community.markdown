@@ -14,10 +14,11 @@ To subscribe to a community, search for the community using the instructions her
 
 You can then subscribe to the community by clicking on the ‘Subscribe’ button on the community’s page.
 
-#### add picture/gif
+![Subscribing and Unsubscribing to/from a Community](../../gifs/subscribing.gif)
 
 ## Unsubscribing from a Community
 
 You can unsubscribe by clicking the same button, which displays ‘Unsubscribe’ if you are subscribed.
 
-#### add picture/gif
+![Subscribing and Unsubscribing to/from a Community](../../gifs/unsubscribing.gif)
+

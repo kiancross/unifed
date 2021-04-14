@@ -10,11 +10,28 @@ import { PostPreview, ButtonLink, CenteredLoader, ErrorMessage } from "../../com
 import { CommunityDescription } from "./CommunityDescription";
 import { ReactElement } from "react";
 
+/**
+ * Params taken by the [[`CommunityPostsPage`]] component.
+ *
+ * @internal
+ */
 export interface CommunityPostsPageParams {
-  server: string;
+  /**
+   * Host the community is located on.
+   */
+  host: string;
+
+  /**
+   * The name of the community to retrieve posts from.
+   */
   community: string;
 }
 
+/**
+ * GraphQL query to get the posts to a given community.
+ *
+ * @internal
+ */
 export const getPostsQuery = gql`
   query($community: String!, $host: String!) {
     getPosts(community: { id: $community, host: $host }) {
@@ -42,14 +59,24 @@ export const getPostsQuery = gql`
   }
 `;
 
+/**
+ * Allows users to see the posts that exist in a community, along with its description.
+ *
+ * Outline:
+ *
+ *  - A preview of each post made to the community is shown, which can be clicked to
+ *    take the user to the post's page.
+ *
+ * @internal
+ */
 export function CommunityPostsPage(): ReactElement {
-  const { community, server } = useParams<CommunityPostsPageParams>();
+  const { community, host } = useParams<CommunityPostsPageParams>();
   const isMobile = useMediaQuery("(max-width: 960px)");
 
   const { loading, error, data } = useQuery(getPostsQuery, {
     variables: {
       community,
-      host: server,
+      host: host,
     },
   });
 
@@ -85,7 +112,7 @@ export function CommunityPostsPage(): ReactElement {
                     username={post.author.id}
                     title={post.title}
                     id={post.id}
-                    server={server}
+                    host={host}
                     community={community}
                   />
                 );
@@ -98,18 +125,18 @@ export function CommunityPostsPage(): ReactElement {
                 fullWidth
                 color="primary"
                 variant="contained"
-                to={`/instances/${server}/communities/${community}/posts/create`}
+                to={`/instances/${host}/communities/${community}/posts/create`}
               >
                 Make Post
               </ButtonLink>
             </Grid>
-            {server === "this" ? (
+            {host === "this" ? (
               <Grid item>
                 <ButtonLink
                   fullWidth
                   color="primary"
                   variant="contained"
-                  to={`/instances/${server}/communities/${community}/call`}
+                  to={`/instances/${host}/communities/${community}/call`}
                 >
                   Join Community Call
                 </ButtonLink>
@@ -118,7 +145,7 @@ export function CommunityPostsPage(): ReactElement {
             <CommunityDescription
               title={communityData.title}
               id={community}
-              server={server}
+              host={host}
               desc={communityData.description}
               isSubscribed={isSubscribed}
               admins={communityAdmins}

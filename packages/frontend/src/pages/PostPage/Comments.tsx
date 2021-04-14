@@ -9,14 +9,34 @@ import { Grid, GridSize } from "@material-ui/core";
 import { CenteredLoader } from "../../components";
 import { Comment } from "./Comment";
 
-interface CommentParams {
-  server: string;
+/**
+ * Properties for the [[`Comments`]] component.
+ *
+ * @internal
+ */
+export interface CommentsProps {
+  /**
+   * Host the comments are located on.
+   */
+  host: string;
+
+  /**
+   * The ID of the post or comment one level up from the current comment.
+   */
   parentId: string;
+
+  /**
+   * How wide the comment should be. This is based on how nested it is.
+   */
   grids: GridSize;
+
+  /**
+   * The community the comments are located on.
+   */
   community: string;
 }
 
-interface PostParams {
+interface Post {
   id: string;
   body: string;
   author: {
@@ -24,9 +44,14 @@ interface PostParams {
   };
 }
 
+/**
+ * GraphQL query to get the comments on a post.
+ *
+ * @internal
+ */
 export const getCommentsQuery = gql`
-  query GET_COMMENTS($id: String!, $server: String!) {
-    getPost(post: { id: $id, host: $server }) {
+  query GET_COMMENTS($id: String!, $host: String!) {
+    getPost(post: { id: $id, host: $host }) {
       id
       children {
         id
@@ -39,9 +64,16 @@ export const getCommentsQuery = gql`
   }
 `;
 
-export function Comments(props: CommentParams): ReactElement {
+/**
+ * Displays all the comments of a post, including any nested one.
+ *
+ * @param props Properties passed to the component. See [[`CommentsProps`]].
+ *
+ * @internal
+ */
+export function Comments(props: CommentsProps): ReactElement {
   const parentId = props.parentId;
-  const server = props.server;
+  const host = props.host;
 
   const decrement = (grids: number): GridSize => {
     if (grids >= 9) {
@@ -52,7 +84,7 @@ export function Comments(props: CommentParams): ReactElement {
   };
 
   const { loading, error, data } = useQuery(getCommentsQuery, {
-    variables: { id: parentId, server },
+    variables: { id: parentId, host },
   });
 
   if (error) return <h1>Error! ${error.message} </h1>;
@@ -64,13 +96,13 @@ export function Comments(props: CommentParams): ReactElement {
 
   return (
     <Grid item container xs={12} direction="column">
-      {commentPosts.map((post: PostParams) => {
+      {commentPosts.map((post: Post) => {
         const username = post.author.id;
         const text = post.body;
         return (
           <React.Fragment key={post.id}>
             <Comment
-              host={server}
+              host={host}
               username={username}
               body={text}
               id={post.id}
@@ -81,7 +113,7 @@ export function Comments(props: CommentParams): ReactElement {
             <Comments
               community={props.community}
               parentId={post.id}
-              server={props.server}
+              host={props.host}
               grids={decrement(props.grids as number)}
             />
           </React.Fragment>

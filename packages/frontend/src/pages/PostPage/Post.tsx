@@ -7,12 +7,40 @@ import { Card, CardContent, Grid, Typography, makeStyles } from "@material-ui/co
 
 import { MarkdownViewer, PostHeader, PostEditor } from "../../components";
 
-interface Props {
+/**
+ * Properties for the [[`Post`]] component.
+ *
+ * @internal
+ */
+export interface PostProps {
+  /**
+   * The username of the author of the post.
+   */
   username: string;
+
+  /**
+   * The body of the post.
+   */
   body: string;
+
+  /**
+   * The title of the post.
+   */
   title: string;
+
+  /**
+   * The ID of the post.
+   */
   id: string;
-  server: string;
+
+  /**
+   * The host the post is on.
+   */
+  host: string;
+
+  /**
+   * The community the post is a part of.
+   */
   community: string;
 }
 
@@ -23,7 +51,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function Post(props: Props): ReactElement {
+/**
+ * Displays a post.
+ *
+ * Outline:
+ *
+ *  - Shows the title and body of a post.
+ *
+ *  - The author or admin of the community the post is in can edit or delete the post through its [[`PostHeader`]].
+ *
+ * @param props Properties passed to the component. See [[`PostProps`]].
+ *
+ * @internal
+ */
+export function Post(props: PostProps): ReactElement {
   const [editorOpen, setEditorOpen] = useState(false);
   const classes = useStyles();
 
@@ -32,7 +73,7 @@ export function Post(props: Props): ReactElement {
       <PostEditor
         body={props.body}
         title={props.title}
-        server={props.server}
+        host={props.host}
         id={props.id}
         submitButtonText="Save Post"
         onSuccess={() => setEditorOpen(false)}
@@ -47,7 +88,7 @@ export function Post(props: Props): ReactElement {
           onToggleEdit={() => setEditorOpen(true)}
           title={props.title}
           id={props.id}
-          server={props.server}
+          host={props.host}
           username={props.username}
         />
         <CardContent style={{ paddingTop: 0 }}>

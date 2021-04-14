@@ -28,10 +28,14 @@ You can add an optional language identifier to enable syntax highlighting in you
 
 For example, to syntax highlight Ruby code:
 
-    ```ruby
-    require 'redcarpet'
-    markdown = Redcarpet.new("Hello World!")
-    puts markdown.to_html
-    ```
+<pre>
+``` js
+var foo = function (bar) {
+  return bar++;
+};
 
-![Markdown Ruby Code](../../images/editor/ruby-code.jpg)
+console.log(foo(5));
+```
+</pre>
+
+![JS Code](../../images/editor/js-code.jpg)

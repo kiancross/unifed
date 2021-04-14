@@ -19,21 +19,62 @@ import { UserContext } from "../../contexts";
 import { Link, ErrorMessage, CenteredLoader } from "..";
 import { UserIcon } from "../UserIcon";
 
-interface Props {
+/**
+ * Properties for the [[`PostHeader`]] component.
+ *
+ * @internal
+ */
+export interface PostHeaderProps {
+  /**
+   * Author of the post.
+   */
   username: string;
+
+  /**
+   * ID of the post.
+   */
   id: string;
-  server: string;
+
+  /**
+   * Host the post exists on.
+   */
+  host: string;
+
+  /**
+   * Title of the post. This is `undefined` for comments.
+   */
   title?: string;
+
+  /**
+   * ID of the parent if this is the header of a comment.
+   */
   parent?: string;
+
+  /**
+   * Indicates whether the post is being used as a preview.
+   */
   isPreview?: boolean;
+
+  /**
+   * Function to be called when the edit button is clicked.
+   */
   onToggleEdit: () => void;
+
+  /**
+   * Community that the post belongs to.
+   */
   community: string;
 }
 
-const useStyles = makeStyles<Theme, Props>({
+const useStyles = makeStyles<Theme, PostHeaderProps>({
   header: (props) => (props.parent ? { paddingBottom: "0" } : {}),
 });
 
+/**
+ * GraphQL query to retrieve the IDs and hosts of the admins of the community the post is a part of.
+ *
+ * @internal
+ */
 export const getAdminsQuery = gql`
   query($id: String!, $host: String!) {
     getCommunity(community: { id: $id, host: $host }) {
@@ -45,6 +86,11 @@ export const getAdminsQuery = gql`
   }
 `;
 
+/**
+ * GraphQL query to delete the post with the given id on the given host.
+ *
+ * @internal
+ */
 export const deletePostQuery = gql`
   mutation($id: String!, $host: String!) {
     deletePost(post: { id: $id, host: $host })
@@ -57,7 +103,27 @@ export const reportPostQuery = gql`
   }
 `;
 
-export function PostHeader(props: Props): ReactElement {
+/**
+ * Used to display the user icon, title and actions that can be taken on a post or comment.
+ *
+ * Outline:
+ *
+ *  - The user's icon is displayed on the left of the header
+ *
+ *  - The title of the post is displayed in the middle of the header.
+ *    Nothing is displayed for the title of comments, as they do not have one.
+ *
+ *  - Users who have made the post or administrators of the community the post is a
+ *    part of can edit or delete the post by selecting the desired option from a dropdown.
+ *
+ *  - Users from the same host who are not the author of the post have the option to
+ *    report the post from the dropdown menu.
+ *
+ * @param props Properties passed to the component. See [[`PostHeaderProps`]].
+ *
+ * @internal
+ */
+export function PostHeader(props: PostHeaderProps): ReactElement {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
   const user = useContext(UserContext);
   const classes = useStyles(props);
@@ -103,7 +169,7 @@ export function PostHeader(props: Props): ReactElement {
   };
 
   const { data: adminData, loading: adminLoading, error: adminError } = useQuery(getAdminsQuery, {
-    variables: { id: props.community, host: props.server },
+    variables: { id: props.community, host: props.host },
   });
 
   const [
@@ -142,12 +208,12 @@ export function PostHeader(props: Props): ReactElement {
 
   const handleDelete = () => {
     handleClose();
-    deletePost({ variables: { id: props.id, host: props.server } });
+    deletePost({ variables: { id: props.id, host: props.host } });
   };
 
   const handleReport = () => {
     handleClose();
-    reportPost({ variables: { id: props.id, host: props.server } });
+    reportPost({ variables: { id: props.id, host: props.host } });
   };
 
   const isUserAdmin = adminData.getCommunity.admins.some(
@@ -157,7 +223,7 @@ export function PostHeader(props: Props): ReactElement {
   );
 
   const headerAction =
-    (!!user.details || isUserAdmin) && props.server === process.env.REACT_APP_INTERNAL_REFERENCE ? (
+    (!!user.details || isUserAdmin) && props.host === process.env.REACT_APP_INTERNAL_REFERENCE ? (
       <React.Fragment>
         <IconButton
           data-testid="icon-button"

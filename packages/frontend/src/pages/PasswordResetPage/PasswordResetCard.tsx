@@ -12,17 +12,25 @@ import { validatePassword } from "@unifed/shared";
 import { passwordClient } from "../../helpers";
 import { Link } from "../../components";
 
-interface Params {
+/**
+ * Params taken by the [[`PasswordResetCard`]] component.
+ *
+ * @internal
+ */
+export interface PasswordResetCardParams {
   token: string;
 }
 
-interface Values {
+interface PasswordResetValues {
   newPass: string;
   retyped: string;
 }
 
-function validate({ newPass, retyped }: Values): ReactElement | Partial<Values> {
-  const errors: Partial<Values> = {};
+function validate({
+  newPass,
+  retyped,
+}: PasswordResetValues): ReactElement | Partial<PasswordResetValues> {
+  const errors: Partial<PasswordResetValues> = {};
   if (newPass === retyped) {
     [validatePassword(newPass), validatePassword(retyped)].forEach((result, isRetyped) => {
       if (!result.valid) {
@@ -39,8 +47,19 @@ function validate({ newPass, retyped }: Values): ReactElement | Partial<Values> 
   return errors;
 }
 
-export function PasswordResetCard() {
-  const { token } = useParams<Params>();
+/**
+ * Allows the user to reset their password.
+ *
+ * Outline:
+ *
+ *  - Users can enter a new password and then retype it to set it.
+ *
+ *  - Upon successfully resetting their password, they are redirected to their [[`HomePage`]].
+ *
+ * @internal
+ */
+export function PasswordResetCard(): ReactElement {
+  const { token } = useParams<PasswordResetCardParams>();
   const [isReset, setIsReset] = useState(false);
   const [isInternalServerError, setIsInternalServerError] = useState(false);
   return (

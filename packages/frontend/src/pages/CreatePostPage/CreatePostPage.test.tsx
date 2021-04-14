@@ -10,7 +10,7 @@ import { CreatePostPage } from "./CreatePostPage";
 test("CreatePostPage renders", () => {
   render(
     <BrowserMockProvider
-      path="/instances/:server/communities/:community/posts/create"
+      path="/instances/:host/communities/:community/posts/create"
       initialEntries={["/instances/testserver/communities/this/posts/create"]}
     >
       <CreatePostPage />

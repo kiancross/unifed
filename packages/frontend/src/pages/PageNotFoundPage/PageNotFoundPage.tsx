@@ -15,6 +15,13 @@ const useStyles = makeStyles({
   },
 });
 
+/**
+ * Displays a '404 Page not Found' message if an invalid URL is entered.
+ *
+ * A [[`ButtonLink`]] is diplayed for the user to return home.
+ *
+ * @internal
+ */
 export function PageNotFoundPage(): ReactElement {
   const classes = useStyles();
 

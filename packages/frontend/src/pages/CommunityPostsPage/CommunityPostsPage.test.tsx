@@ -52,7 +52,7 @@ test("CommunityPostsPage renders", async () => {
   ];
   render(
     <BrowserMockProvider
-      path="/instances/:server/communities/:community/posts"
+      path="/instances/:host/communities/:community/posts"
       initialEntries={["/instances/this/communities/general/posts"]}
       mocks={getPostsMock}
     >
@@ -109,7 +109,7 @@ test("CommunityPostsPage error message renders", async () => {
   ];
   render(
     <BrowserMockProvider
-      path="/instances/:server/communities/:community/posts"
+      path="/instances/:host/communities/:community/posts"
       initialEntries={["/instances/this/communities/general/posts"]}
       mocks={getPostsMock}
     >

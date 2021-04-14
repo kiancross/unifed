@@ -6,10 +6,23 @@ import { Link as RouterLink, LinkProps as RouterLinkProps } from "react-router-d
 import { Link as MaterialLink, LinkProps as MaterialLinkProps } from "@material-ui/core";
 import { ReactElement } from "react";
 
-type Props = Omit<MaterialLinkProps, "component"> &
+/**
+ * Properties for the [[`Link`]] component.
+ *
+ * @internal
+ */
+export type LinkProps = Omit<MaterialLinkProps, "component"> &
   RouterLinkProps &
   Pick<Required<RouterLinkProps>, "children">;
 
-export function Link(props: Props): ReactElement {
+/**
+ * Link used to reach other pages in the application (without reloading the page
+ * in the browser).
+ *
+ * @param props Properties passed to the component. See [[`LinkProps`]].
+ *
+ * @internal
+ */
+export function Link(props: LinkProps): ReactElement {
   return <MaterialLink component={RouterLink} {...props} />;
 }
