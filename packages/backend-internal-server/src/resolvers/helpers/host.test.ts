@@ -43,7 +43,7 @@ test("Internal IP address with port", async (t) => {
 });
 
 test("Invalid host", async (t) => {
-  t.is(await normaliseHost("thisisinvalid"), "thisisinvalid");
+  t.is(await normaliseHost("foo"), "foo");
 });
 
 test("normaliseHost unset host", async (t) => {

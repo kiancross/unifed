@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 import { Container, Grid, useMediaQuery } from "@material-ui/core";
 
-import { UserInfoCard, PostPreview, CenteredLoader } from "../../components";
+import { UserInfoCard, PostPreview, CenteredLoader, ErrorMessage } from "../../components";
 import { ReactElement } from "react";
 
 /**
@@ -58,7 +58,10 @@ export function UserProfilePage(): ReactElement {
     },
   });
 
-  if (all.error) return <h1 style={{ color: "black" }}>Error! </h1>;
+  if (all.error)
+    return (
+      <ErrorMessage message="Your posts could not be retrieved at this time. Please try again later." />
+    );
   if (all.loading) return <CenteredLoader />;
 
   return (
