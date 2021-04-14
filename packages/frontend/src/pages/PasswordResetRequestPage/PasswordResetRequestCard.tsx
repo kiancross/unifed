@@ -25,6 +25,17 @@ function validate({ email }: Values) {
   return errors;
 }
 
+/**
+ * Allows the user to be sent an email with a link to reset their password.
+ *
+ * Outline:
+ *
+ *  - Users enter their email and click the 'Send Email' button to be sent a reset token.
+ *
+ *  - A success message is displayed.
+ *
+ * @internal
+ */
 export function PasswordResetRequestCard(): ReactElement {
   const [isRequested, setIsRequested] = useState(false);
   return (

@@ -8,16 +8,43 @@
 import React, { ErrorInfo } from "react";
 import { ErrorMessage } from "..";
 
-interface PropsType {
+/**
+ * Properties for the [[`ErrorBoundary`]] component.
+ *
+ * @internal
+ */
+export interface ErrorBoundaryProps {
+  /**
+   * Indicates whether the application has encountered an error that has not been caught.
+   *
+   * @internal
+   */
   hasError?: boolean;
 }
 
-interface StateTypes {
+/**
+ * State for the [[`ErrorBoundary`]] component.
+ *
+ * @internal
+ */
+export interface ErrorBoundaryStates {
+  /**
+   * Can be true or false as an error either has or has not occured.
+   */
   hasError: boolean;
 }
 
-export class ErrorBoundary extends React.Component<PropsType, StateTypes> {
-  constructor(props: PropsType) {
+/**
+ * Catches exceptions thrown within the application that have not been caught, then
+ * displays an error message to the user.
+ *
+ * This component could not be written as a functional component, as we needed
+ * access to the `componentDidCatch` hook.
+ *
+ * @internal
+ */
+export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryStates> {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false };
   }

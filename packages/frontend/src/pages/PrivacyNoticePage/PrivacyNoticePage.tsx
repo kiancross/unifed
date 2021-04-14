@@ -13,6 +13,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * Displays the privacy notice for the application.
+ *
+ * Outline:
+ *
+ *  - Shows the contact information for the application and how the user's data is used.
+ *
+ * @internal
+ */
 export function PrivacyNoticePage(): ReactElement {
   const classes = useStyles();
   return (

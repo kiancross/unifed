@@ -25,8 +25,20 @@ import {
 
 import { passwordClient } from "../../helpers";
 
-interface AccountTabParams {
+/**
+ * Properties for the [[`AccountTab`]] component.
+ *
+ * @internal
+ */
+export interface AccountTabProps {
+  /**
+   * Username of the account.
+   */
   username: string;
+
+  /**
+   * Email of the account.
+   */
   email: string;
 }
 
@@ -38,7 +50,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function AccountTab(props: AccountTabParams): ReactElement {
+/**
+ * Allows users to view their username, email and change their password.
+ *
+ * Outline:
+ *
+ *  - If password change is successful, the password is updated.
+ *
+ *  - Otherwise, an error message is displayed.
+ *
+ * @param props Properties passed to the component. See [[`AccountTabProps`]].
+ *
+ * @internal
+ */
+export function AccountTab(props: AccountTabProps): ReactElement {
   const [passOpen, setPassOpen] = React.useState(false);
   const [displayError, setDisplayError] = React.useState(false);
   const [displaySuccess, setDisplaySuccess] = React.useState(false);

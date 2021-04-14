@@ -37,6 +37,16 @@ import { CenteredLoader, ErrorBoundary, ErrorMessage } from "..";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 
+/**
+ * The frontend of the Unifed application.
+ *
+ * Outline:
+ *
+ *  - A [[`Header`]] and a [[`Footer`]] are present on most pages of the
+      application. The header is hidden when the user is not authenticated.
+ *
+ * @internal
+ */
 export function App(): ReactElement {
   const user = useContext(UserContext);
 
@@ -94,7 +104,7 @@ export function App(): ReactElement {
                 </Route>
                 <Route
                   exact
-                  path="/instances/:server/communities/:community/posts"
+                  path="/instances/:host/communities/:community/posts"
                   component={CommunityPostsPage}
                 >
                   {!loggedIn ? redirectLogin : null}
@@ -102,14 +112,14 @@ export function App(): ReactElement {
 
                 <Route
                   exact
-                  path="/instances/:server/communities/:community/posts/create"
+                  path="/instances/:host/communities/:community/posts/create"
                   component={CreatePostPage}
                 >
                   {!loggedIn ? redirectLogin : null}
                 </Route>
                 <Route
                   exact
-                  path="/instances/:server/communities/:community/posts/:post"
+                  path="/instances/:host/communities/:community/posts/:post"
                   component={PostPage}
                 >
                   {!loggedIn ? redirectLogin : null}

@@ -24,6 +24,20 @@ import {
 import { UserIcon } from "../../../components";
 import { UserContext } from "../../../contexts";
 
+/**
+ * The dropdown menu that is displayed when the user icon in the
+ * [[`Header`]] is clicked.
+ *
+ * Outline:
+ *
+ *  - The 'Profile' button takes users to their profile page.
+ *
+ *  - The 'Settings' button takes users to their account settings page.
+ *
+ *  - The 'Logout' button logs the user out of the application.
+ *
+ * @internal
+ */
 export function AccountMenu(): ReactElement {
   const user = React.useContext(UserContext);
   const [open, setOpen] = React.useState(false);

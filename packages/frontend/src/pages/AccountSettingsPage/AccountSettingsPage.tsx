@@ -9,6 +9,18 @@ import { UserContext } from "../../contexts";
 import { AccountTab } from "./AccountTab";
 import { ProfileTab } from "./ProfileTab";
 
+/**
+ * Allows users to view and edit their account details.
+ *
+ * Outline:
+ *
+ *  - Users can edit their name, username and password.
+ *
+ *  - Users can toggle between their account information (username, email and
+ *    password) and their profile information (name).
+ *
+ * @internal
+ */
 export function AccountSettingsPage(): ReactElement {
   const [selectedTab, setSelectedTab] = useState(0);
   const user = useContext(UserContext);

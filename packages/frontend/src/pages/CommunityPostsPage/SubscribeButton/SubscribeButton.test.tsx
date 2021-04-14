@@ -9,7 +9,7 @@ import { SubscribeButton, subscribeQuery, unsubscribeQuery } from "./SubscribeBu
 test("Render SubscribeButton on unsubscribed community", async () => {
   const { getByText } = render(
     <MockedProvider>
-      <SubscribeButton id={"foo"} server={"bar"} isSubscribed={false} />
+      <SubscribeButton id={"foo"} host={"bar"} isSubscribed={false} />
     </MockedProvider>,
   );
   getByText("Subscribe");
@@ -18,7 +18,7 @@ test("Render SubscribeButton on unsubscribed community", async () => {
 test("Render SubscribeButton on subscribed community", async () => {
   const { getByText } = render(
     <MockedProvider>
-      <SubscribeButton id={"foo"} server={"bar"} isSubscribed={true} />
+      <SubscribeButton id={"foo"} host={"bar"} isSubscribed={true} />
     </MockedProvider>,
   );
   getByText("Unsubscribe");
@@ -52,7 +52,7 @@ test("Subscribe and unsubscribe", async () => {
 
   const { getByText } = render(
     <MockedProvider mocks={mocks} addTypename={false}>
-      <SubscribeButton id={"foo"} server={"bar"} isSubscribed={false} />
+      <SubscribeButton id={"foo"} host={"bar"} isSubscribed={false} />
     </MockedProvider>,
   );
 

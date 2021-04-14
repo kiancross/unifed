@@ -7,10 +7,29 @@ import { Link, Redirect, useParams } from "react-router-dom";
 
 import { passwordClient } from "../../helpers";
 
-interface EmailVerificationPageParams {
+/**
+ * Params taken by the [[`EmailVerificationPage`]] component.
+ *
+ * @internal
+ */
+export interface EmailVerificationPageParams {
+  /**
+   * The token used to verify the user's email.
+   */
   token: string;
 }
 
+/**
+ * Verifies a user's email.
+ *
+ * Outline:
+ *
+ *  - On success, the user is redirected to the [[`HomePage`]].
+ *
+ *  - If they cannot be verified, an error message is displayed.
+ *
+ * @internal
+ */
 export function EmailVerificationPage(): ReactElement {
   const { token } = useParams<EmailVerificationPageParams>();
 

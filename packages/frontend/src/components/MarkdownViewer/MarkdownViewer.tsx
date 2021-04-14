@@ -12,7 +12,15 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import "react-markdown-editor-lite/lib/index.css";
 import "katex/dist/katex.min.css";
 
-interface MarkdownViewerProps {
+/**
+ * Properties for the [[`MarkdownViewer`]] component.
+ *
+ * @internal
+ */
+export interface MarkdownViewerProps {
+  /**
+   * The raw markdown to be rendered.
+   */
   children: string;
 }
 
@@ -44,6 +52,15 @@ const renderers = {
   },
 };
 
+/**
+ * Used to display raw markdown as rendered HTML to the user.
+ *
+ * This is used for comments and posts when they are displayed.
+ *
+ * @param props Properties passed to the component. See [[`MarkdownViewerProps`]].
+ *
+ * @internal
+ */
 export function MarkdownViewer(props: MarkdownViewerProps): ReactElement {
   return (
     <ReactMarkdown plugins={[math, gfm]} renderers={renderers} className="custom-html-style">

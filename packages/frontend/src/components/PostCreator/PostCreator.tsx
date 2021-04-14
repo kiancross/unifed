@@ -7,16 +7,55 @@ import { ReactElement } from "react";
 import { PostEditorBase, CenteredLoader, ErrorMessage } from "..";
 import { getPostsQuery } from "../../pages/CommunityPostsPage/CommunityPostsPage";
 
-interface Params {
-  server: string;
+/**
+ * Properties for the [[`PostCreator`]] component.
+ *
+ * @internal
+ */
+export interface PostCreatorProps {
+  /**
+   * The host the post will be made to.
+   */
+  host: string;
+
+  /**
+   * The community the post will be made in.
+   */
   community: string;
+
+  /**
+   * The text to be displayed on the 'submit' button.
+   *
+   * This is either 'Create Post', 'Make Reply' or 'Add Comment'.
+   */
   submitButtonText: string;
+
+  /**
+   * The ID of the parent post, if a comment is being made.
+   */
   parentId?: string;
+
+  /**
+   * Indicates whether a comment is being made.
+   */
   isComment?: boolean;
+
+  /**
+   * Function called upon successful submission.
+   */
   onSuccess: (id: string) => void;
+
+  /**
+   * Function called if the component is closed without creating a comment.
+   */
   onCancel?: () => void;
 }
 
+/**
+ * GraphQL query to create a post.
+ *
+ * @internal
+ */
 export const createPostQuery = gql`
   mutation CREATE_POST(
     $title: String
@@ -38,12 +77,25 @@ export const createPostQuery = gql`
   }
 `;
 
-export function PostCreator(props: Params): ReactElement {
+/**
+ * Used to create posts.
+ *
+ * Outline:
+ *
+ *  - The [[`MarkdownEditor`]] is used to curate the content of the post.
+ *
+ *  - Users can click the submit button to create the post or the cancel button to leave the creator.
+ *
+ * @param props Properties passed to the component. See [[`PostCreatorProps`]].
+ *
+ * @internal
+ */
+export function PostCreator(props: PostCreatorProps): ReactElement {
   const [createPost, { loading, error }] = useMutation(createPostQuery, {
     update(cache, { data: { createPost } }) {
       const variables = {
         community: props.community,
-        host: props.server,
+        host: props.host,
       };
 
       const current = cache.readQuery<any>({ query: getPostsQuery, variables });
@@ -82,7 +134,7 @@ export function PostCreator(props: Params): ReactElement {
             title,
             body,
             community: props.community,
-            host: props.server,
+            host: props.host,
             parentPost: props.parentId,
           },
         });

@@ -8,6 +8,17 @@ import { ReactElement } from "react";
 import { LogoTemplate, ButtonLink } from "../../components";
 import { LoginCard } from "./LoginCard";
 
+/**
+ * The page allowing the user to login.
+ *
+ * Outline:
+ *
+ *  - Displays the Unifed logo.
+ *
+ *  - Displays the [[`LoginCard`]].
+ *
+ * @internal
+ */
 export function LoginPage(): ReactElement {
   const isMobile = useMediaQuery("(max-width: 960px)");
   const direction = isMobile ? "vertical" : "horizontal";
