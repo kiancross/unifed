@@ -122,6 +122,8 @@ test("UserProfilePage post does not render with incorrect user", async () => {
   );
 
   await waitFor(() => {
-    expect(screen.getByText("Your posts could not be retrieved at this time. Please try again later."));
+    expect(
+      screen.getByText("Your posts could not be retrieved at this time. Please try again later."),
+    );
   });
 });
