@@ -15,6 +15,8 @@ interface Context {
 
 /**
  * GraphQL query to get the logged in user's information.
+ *
+ * @internal
  */
 export const getUserQuery = gql`
   query {
@@ -30,6 +32,11 @@ export const getUserQuery = gql`
   }
 `;
 
+/**
+ * Sets fields and initial values for the [[`UserContext`]].
+ *
+ * @internal
+ */
 export const defaultUserContext: Context = {
   details: undefined,
   refetch: async () => {
@@ -43,9 +50,19 @@ export const defaultUserContext: Context = {
   },
 };
 
+/**
+ * Imported by components and pages to access the current state of the user, such as their login status and name.
+ */
 export const UserContext = createContext<Context>(defaultUserContext);
 
-export const UserProvider = (props: { children: ReactElement }): ReactElement => {
+/**
+ * Wrapper for the application so that all components and pages can access the user information at any point.
+ *
+ * This helps to prevent prop drilling.
+ *
+ * @internal
+ */
+export function UserProvider(props: { children: ReactElement }): ReactElement {
   const { data, loading, error, refetch: refetchQuery } = useQuery(getUserQuery);
 
   const refetch = async () => {
@@ -83,4 +100,4 @@ export const UserProvider = (props: { children: ReactElement }): ReactElement =>
       {props.children}
     </UserContext.Provider>
   );
-};
+}
