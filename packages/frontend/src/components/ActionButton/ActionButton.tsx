@@ -2,7 +2,7 @@
  * CS3099 Group A3
  */
 
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import { ApolloError } from "@apollo/client/errors";
 import { Button, ButtonProps, Snackbar } from "@material-ui/core";
 import { CenteredLoader } from "../../components";
@@ -16,7 +16,7 @@ type ActionButtonProps = {
 
 type Props = Omit<ButtonProps, "disabled"> & ActionButtonProps;
 
-export const ActionButton = (props: Props): JSX.Element => {
+export function ActionButton(props: Props): ReactElement {
   const { errorMessage, loading, error, children, onClick, ...buttonProps } = props;
   const [open, setOpen] = useState(true);
 
@@ -54,4 +54,4 @@ export const ActionButton = (props: Props): JSX.Element => {
   }
 
   return <Button onClick={handleClick} children={children} {...buttonProps} />;
-};
+}
