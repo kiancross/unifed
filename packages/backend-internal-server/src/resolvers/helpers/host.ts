@@ -39,7 +39,7 @@ async function isHostLocal(host: string): Promise<boolean> {
   return new Promise((resolve, reject) => {
     dns.resolve(hostName, (error, addresses) => {
       if (error) {
-        if (error.code === "ENOTFOUND" || error.code === "ESERVFAIL") {
+        if (error.code && ["ENOTFOUND", "ESERVFAIL", "ENODATA"].includes(error.code)) {
           addresses = [hostName];
         } else {
           return reject(error);

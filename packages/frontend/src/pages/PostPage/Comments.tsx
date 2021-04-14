@@ -6,7 +6,7 @@ import React, { ReactElement } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { Grid, GridSize } from "@material-ui/core";
 
-import { CenteredLoader } from "../../components";
+import { CenteredLoader, ErrorMessage } from "../../components";
 import { Comment } from "./Comment";
 
 /**
@@ -87,7 +87,10 @@ export function Comments(props: CommentsProps): ReactElement {
     variables: { id: parentId, host },
   });
 
-  if (error) return <h1>Error! ${error.message} </h1>;
+  if (error)
+    return (
+      <ErrorMessage message="The comments for could not be retrived. Please try again later." />
+    );
   if (loading) return <CenteredLoader />;
 
   const commentPosts = data.getPost.children;
