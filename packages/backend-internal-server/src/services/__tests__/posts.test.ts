@@ -5,7 +5,13 @@
 import test from "ava";
 import nock from "nock";
 import { Container } from "typedi";
-import { PostModel, CommunityModel, UserModel, RemoteReference, config } from "@unifed/backend-core";
+import {
+  PostModel,
+  CommunityModel,
+  UserModel,
+  RemoteReference,
+  config,
+} from "@unifed/backend-core";
 import { setup, generatePost, generateCommunity, generateUser } from "@unifed/backend-testing";
 
 import { PostsService } from "../posts";
@@ -90,7 +96,7 @@ test.serial("Deleting post removes post reference from user", async (t) => {
   postReference.id = "testid";
 
   let user = generateUser();
-  user.username = "testuser"
+  user.username = "testuser";
   user.posts = [postReference];
 
   const scope = nock("http://thishost").delete("/fed/posts/testid").reply(200);
@@ -100,12 +106,16 @@ test.serial("Deleting post removes post reference from user", async (t) => {
   // need this
   await UserModel.findOne({ username: "testuser" });
 
-  let length = await UserModel.findOne({ username: "testuser" }).exec().then(res => res?.posts.length);
+  let length = await UserModel.findOne({ username: "testuser" })
+    .exec()
+    .then((res) => res?.posts.length);
   t.is(length, 1);
-  
+
   await postsService.delete("testuser", "thishost", "testid");
 
-  length = await UserModel.findOne({ username: "testuser" }).exec().then(res => res?.posts.length);
+  length = await UserModel.findOne({ username: "testuser" })
+    .exec()
+    .then((res) => res?.posts.length);
   t.is(length, 0);
 
   scope.done();

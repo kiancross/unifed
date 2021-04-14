@@ -111,20 +111,19 @@ test.serial("Delete posts", async (t) => {
 });
 
 test.serial("Get unapproved posts", async (t) => {
-
   const community = generateCommunity();
   community._id = "testcom";
 
   const host = await translateHost(config.internalReference);
-  
+
   let admin: RemoteReference = new RemoteReference();
   admin._id = "testuser";
   admin.host = host;
-  
+
   community.admins = [admin];
 
   const unapprovedPost = generatePost("testcom");
-  unapprovedPost._id = "postid"
+  unapprovedPost._id = "postid";
   unapprovedPost.approved = false;
 
   PostModel.create(unapprovedPost);
@@ -154,7 +153,7 @@ test.serial("Get unapproved posts", async (t) => {
       },
     },
   );
-  
+
   if (!response.data) {
     t.fail();
     return;
