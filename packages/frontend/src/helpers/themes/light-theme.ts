@@ -5,6 +5,11 @@
 import { ThemeOptions } from "@material-ui/core";
 import { baseTheme } from "./base-theme";
 
+/**
+ * The properties for the light theme of the application.
+ *
+ * @internal
+ */
 export const lightTheme: ThemeOptions = {
   ...baseTheme,
   overrides: {
