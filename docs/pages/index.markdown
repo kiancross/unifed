@@ -5,14 +5,31 @@ nav_order: 1
 permalink: /
 ---
 
-# Unifed Introduction
+<div style="text-align: center">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />  
+  <style>
+    .unifed-logo-text {
+      color: black;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 4em;
+      text-align: center;
+    }
+  </style>
+  <img src="images/unifed.svg" alt="Unifed" style="width: 300px">
+  <div class="unifed-logo-text">Unifed</div>
+</div>
 
-Unifed is a social networking site targeted at a university environment.
 
-It is made up of communities, which are pages relevant to certain aspects of university life. These could be subjects, such as Computer Science or different communities, such as Skydiving.
+Unifed is a federated social media network targeted towards university environments.
+{: .fs-6 .fw-300 }
 
-These communities can contain posts, which are made up of text, pictures and even code!
+[Get started now](login-and-registration/registration){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 
-You can search for and subscribe to communities. Once you have subscribed to one, new posts from that community will appear on your homepage so you can be updated on any events you may be interested in.
+---
 
-You can hop in and out of video calls within communities, acting as a replacement for bumping into other students or lecturers around campus.
+## Features
+
+ * Communities to discuss topics of interest and university life.
+ * Make posts, comments and engage with discussions seamlessly across communities in the federated network.
+ * Group video calling with others in a community; a replacement for bumping into other students or lecturers around campus.
+ * A safe, secure environment where your privacy is always protected.
