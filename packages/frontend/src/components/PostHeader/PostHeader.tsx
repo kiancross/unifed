@@ -249,20 +249,15 @@ export function PostHeader(props: PostHeaderProps): ReactElement {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          {user.details?.username === props.username ? (
-            <div>
+          {user.details?.username === props.username || isUserAdmin ? (
+            <>
               <MenuItem onClick={handleEdit}> Edit </MenuItem>
               <MenuItem onClick={handleDelete}> Delete </MenuItem>
-            </div>
-          ) : isUserAdmin ? (
-            <div>
-              <MenuItem onClick={handleEdit}> Edit </MenuItem>
-              <MenuItem onClick={handleDelete}> Delete </MenuItem>
-              <MenuItem onClick={handleReport}> Report </MenuItem>
-            </div>
-          ) : (
+            </>
+          ) : null}
+          {user.details?.username !== props.username ? (
             <MenuItem onClick={handleReport}> Report </MenuItem>
-          )}
+          ) : null}
         </Menu>
       </React.Fragment>
     ) : null;
