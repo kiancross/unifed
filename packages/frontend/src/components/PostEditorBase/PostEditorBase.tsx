@@ -9,19 +9,75 @@ import { ReactElement } from "react";
 import { ApolloError } from "@apollo/client/errors";
 import { ActionButton } from "../../components";
 
-interface Props {
+/**
+ * Properties for the [[`PostEditorBase`]] component.
+ *
+ * @internal
+ */
+export interface PostEditorBaseProps {
+  /**
+   * The existing title of the post if it is being edited.
+   *
+   * This is always `undefined` if it is a comment.
+   */
   title?: string;
+
+  /**
+   * The existing body of the post or comment if it is being edited, `undefined` otherwise.
+   */
   body?: string;
+
+  /**
+   * True if a comment is being edited, false otherwise.
+   */
   isComment?: boolean;
+
+  /**
+   * Text to be displayed on the submit button.
+   */
   submitButtonText: string;
+
+  /**
+   * Loading state of the ActionButton
+   */
   loading: boolean;
+
+  /**
+   * Error state of the ActionButton
+   */
   error: ApolloError | undefined;
+
+  /**
+   * Error message to be passed to the ActionButton
+   */
   errorMessage?: string;
+
+  /**
+   * Function to be carried out when the submit button is clicked.
+   */
   onSubmit: (values: { title?: string; body?: string }) => void;
+
+  /**
+   * Function to be carried out when the cancel button is clicked.
+   */
   onCancel?: () => void;
 }
 
-export function PostEditorBase(props: Props): ReactElement {
+/**
+ * Used to edit and create posts and comments.
+ *
+ * Outline:
+ *
+ *  - The [[`MarkdownEditor`]] is used to enter the content of the post or comment.
+ *
+ *  - Provides a consistent, reusable component with submit and cancel buttons that
+ *    can be used for comments and posts.
+ *
+ * @param props Properties passed to the component. See [[`PostEditorBaseProps`]].
+ *
+ * @internal
+ */
+export function PostEditorBase(props: PostEditorBaseProps): ReactElement {
   const initialValues = {
     title: props.isComment ? undefined : props.title,
     body: props.body,

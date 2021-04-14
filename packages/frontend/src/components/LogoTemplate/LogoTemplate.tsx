@@ -55,6 +55,8 @@ const useStyles = makeStyles((theme) => ({
  * pages, where branding is important and page
  * real-estate would not otherwise be utilised.
  *
+ * @param props Properties passed to the component. See [[`LogoTemplateProps`]].
+ *
  * @internal
  */
 export function LogoTemplate(props: LogoTemplateProps): ReactElement {

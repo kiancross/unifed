@@ -24,7 +24,15 @@ import {
 
 import { UserContext } from "../../contexts";
 
-interface ProfileTabParams {
+/**
+ * Properties for the [[`ProfileTab`]] component.
+ *
+ * @internal
+ */
+export interface ProfileTabProps {
+  /**
+   * Name of the profile.
+   */
   name: string;
 }
 
@@ -36,13 +44,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * GraphQL query to change the name of a user.
+ *
+ * @internal
+ */
 export const changeNameQuery = gql`
   mutation UpdateUserProfile($name: String!) {
     updateUserProfile(profile: { name: $name })
   }
 `;
 
-export function ProfileTab(props: ProfileTabParams): ReactElement {
+/**
+ * Allows users to change their name on the app.
+ *
+ * @param props Properties passed to the component. See [[`ProfileTabProps`]].
+ *
+ * @internal
+ */
+export function ProfileTab(props: ProfileTabProps): ReactElement {
   const [nameOpen, setNameOpen] = React.useState(false);
   const user = useContext(UserContext);
 

@@ -42,7 +42,7 @@ test("Renders correctly", async () => {
             username={username}
             title={title}
             id={id}
-            server={server}
+            host={server}
             community={community}
             body={body}
           />

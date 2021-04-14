@@ -42,6 +42,20 @@ function validate({ username, name, email, password, repeatPassword }: Values) {
   return errors;
 }
 
+/**
+ * Allows users to register an account on the application.
+ *
+ * Outline:
+ *
+ *  - Users can enter their email, a username and password to register.
+ *
+ *  - They must check a box saying that they have read and agree to the privacy notice.
+ *
+ *  - Upon successfully creating the account, they are redirected to their [[`HomePage`]],
+ *    otherwise an error message is displayed.
+ *
+ * @internal
+ */
 export function RegistrationCard(): ReactElement {
   const [isAccountCreated, setIsAccountCreated] = useState(false);
   const [password, setPassword] = useState("");

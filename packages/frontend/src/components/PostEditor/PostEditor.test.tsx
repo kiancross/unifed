@@ -32,7 +32,7 @@ test("Edit post", async () => {
     <BrowserRouter>
       <MockedProvider mocks={[editPostMock]} addTypename={false}>
         <PostEditor
-          server={host}
+          host={host}
           id={id}
           body={body}
           title={title}
@@ -74,7 +74,7 @@ test("Edit comment", async () => {
     <BrowserRouter>
       <MockedProvider mocks={[editPostMock]} addTypename={false}>
         <PostEditor
-          server={host}
+          host={host}
           id={id}
           body={body}
           submitButtonText="Save Comment"
@@ -113,7 +113,7 @@ test("Edit error", async () => {
     <BrowserRouter>
       <MockedProvider mocks={[editPostMock]} addTypename={false}>
         <PostEditor
-          server={host}
+          host={host}
           id={id}
           body={body}
           submitButtonText="Save Comment"
@@ -142,7 +142,7 @@ test("Cancel", async () => {
     <BrowserRouter>
       <MockedProvider mocks={[]}>
         <PostEditor
-          server="foo"
+          host="foo"
           id="bar"
           body="baz"
           submitButtonText="Save Comment"
