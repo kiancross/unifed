@@ -31,7 +31,7 @@ const accountsClientPromise: Promise<AccountsClient> = new Promise((resolve) => 
 
 /**
  * Sets an accounts client to handle logging in and out of user.
- * 
+ *
  * @param client Accounts client to be set.
  * @internal
  */
@@ -68,7 +68,7 @@ const splitLink = split(
 
 /**
  * Client to deal with apollo queries.
- * 
+ *
  * @internal
  */
 export const apolloClient: ApolloClient<NormalizedCacheObject> = new ApolloClient({

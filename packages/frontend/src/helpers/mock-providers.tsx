@@ -13,8 +13,8 @@ import { MemoryRouter, Route } from "react-router-dom";
  */
 export interface BrowserMockProviderProps {
   /**
-   * The url for the provider to route to. 
-   * 
+   * The url for the provider to route to.
+   *
    * This also defines the name and location of the parameters
    * e.g. "/instances/:host/communities/:community/posts" to define the location of the host and communtiy params in the url.
    */

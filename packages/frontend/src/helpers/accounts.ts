@@ -13,14 +13,14 @@ const accountsGraphQL = new AccountsGraphQLClient({
 
 /**
  * Client for dealing with logging in and out of the application.
- * 
+ *
  * @internal
  */
 export const accountsClient = new AccountsClient({}, accountsGraphQL);
 
 /**
  * Client for dealing with password information of users.
- * 
+ *
  * @internal
  */
 export const passwordClient = new AccountsClientPassword(accountsClient);
