@@ -12,6 +12,7 @@ import {
   RemoteReference,
 } from "@unifed/backend-core";
 import { PostsFederationService, CreatePostProps } from "@unifed/backend-federation-client";
+import { getIdFromRef } from "@unifed/backend-core/src/models/helpers";
 import { plainToClass } from "class-transformer";
 
 @Service()
@@ -48,8 +49,9 @@ export class PostsService extends PostsFederationService {
   async adminDelete(username: string, postId: string): Promise<boolean> {
     const post = await PostModel.findOne({ _id: postId }).exec();
     if (!post || !this.isAdmin(username, post)) return false;
-    const authorId = post.author.id;
+    const { _id: authorId, host: authorHost } = post.author;
     await PostModel.remove(post);
+    if (authorHost !== config.siteHost) return true;
 
     const postReference: RemoteReference = new RemoteReference();
     postReference.id = postId;
@@ -61,8 +63,8 @@ export class PostsService extends PostsFederationService {
 
   async isAdmin(username: string, post: Post | null): Promise<boolean> {
     // finds the admins of the community of the post
-    if (!post?.community) return false;
-    const communityId = typeof post.community !== "string" ? post.community._id : post.community;
+    const communityId = getIdFromRef(post?.community);
+    if (!communityId) return false;
     const admins = await CommunityModel.findOne({ _id: communityId })
       .exec()
       .then((res) => res?.admins);
