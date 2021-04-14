@@ -161,7 +161,7 @@ You can write LaTeX equations by wrapping an equation in "$".
 
 $x^n + y^n = z^n$
 
-![LateX](../../images/editor/latex.jpg)
+![LaTeX](../../images/editor/latex.jpg)
 
 You can also write multiline equations.
 
