@@ -6,25 +6,64 @@ import React, { ReactElement } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Button } from "@material-ui/core";
 
-interface Props {
+/**
+ * Properties for the [[`SubscribeButton`]] component.
+ *
+ * @internal
+ */
+export interface SubscribeButtonProps {
+  /**
+   * ID of the community to subscribe/unsubscribe to/from.
+   */
   id: string;
-  server: string;
+
+  /**
+   * Host the chosen community is located on.
+   */
+  host: string;
+
+  /**
+   * Indicates whether the user is subscribed to the community.
+   */
   isSubscribed: boolean;
 }
 
+/**
+ * GraphQL query to subscribe to a community.
+ *
+ * @internal
+ */
 export const subscribeQuery = gql`
   mutation($id: String!, $host: String!) {
     subscribe(community: { id: $id, host: $host })
   }
 `;
 
+/**
+ * GraphQL query to unsubscribe from a community.
+ *
+ * @internal
+ */
 export const unsubscribeQuery = gql`
   mutation($id: String!, $host: String!) {
     unsubscribe(community: { id: $id, host: $host })
   }
 `;
 
-export function SubscribeButton(props: Props): ReactElement {
+/**
+ * Allows users to subscribe to communities.
+ *
+ * Outline:
+ *
+ *  - The button reads 'Subscribe' if the user is not subscribed.
+ *
+ *  - The button reads 'Unsubscribe' if the user is subscribed.
+ *
+ * @param props Properties passed to the component. See [[`SubscribeButtonProps`]].
+ *
+ * @internal
+ */
+export function SubscribeButton(props: SubscribeButtonProps): ReactElement {
   const [subscribed, setSubscribed] = React.useState(props.isSubscribed);
   const [mutation, { loading, error, data }] = useMutation(
     subscribed ? unsubscribeQuery : subscribeQuery,
@@ -45,7 +84,7 @@ export function SubscribeButton(props: Props): ReactElement {
   return (
     <Button
       onClick={() => {
-        mutation({ variables: { id: props.id, host: props.server } });
+        mutation({ variables: { id: props.id, host: props.host } });
       }}
       variant="contained"
       color={subscribed ? "secondary" : "primary"}

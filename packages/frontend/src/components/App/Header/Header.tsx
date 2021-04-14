@@ -23,8 +23,20 @@ import { SearchInput } from "./SearchInput";
 import { CreateCommunityDialog } from "./CreateCommunityDialog";
 import { AccountMenu } from "./AccountMenu";
 
-interface Props {
+/**
+ * Properties for the [[`Header`]] component.
+ *
+ * @internal
+ */
+export interface HeaderProps {
+  /**
+   * Function called when the 'dark mode' button in the [[`Header`]] is clicked.
+   */
   onThemeChange: (darkMode: boolean) => void;
+
+  /**
+   * Indicates whether dark mode is currently enabled.
+   */
   darkMode: boolean;
 }
 
@@ -46,7 +58,22 @@ const useStyles = makeStyles({
   },
 });
 
-export function Header(props: Props): ReactElement | null {
+/**
+ * The header of the application.
+ *
+ * Outline:
+ *
+ *  - Allows the user to
+ *    - return to the home page by clicking the logo;
+ *    - search for communities;
+ *    - toggle the theme for the application;
+ *    - take actions on their profile e.g. logout.
+ *
+ * @param props Properties passed to the component. See [[`HeaderProps`]].
+ *
+ * @internal
+ */
+export function Header(props: HeaderProps): ReactElement | null {
   const [darkMode, setDarkMode] = useState(props.darkMode);
   const isMobile = useMediaQuery("(max-width: 960px)");
 

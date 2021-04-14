@@ -9,10 +9,23 @@ import { Container, Grid, useMediaQuery } from "@material-ui/core";
 import { UserInfoCard, PostPreview, CenteredLoader } from "../../components";
 import { ReactElement } from "react";
 
-interface PublicUserProfileParams {
+/**
+ * Params taken by the [[`UserProfilePage`]] component.
+ *
+ * @internal
+ */
+export interface PublicUserProfileParams {
+  /**
+   * The username of the profile.
+   */
   username: string;
 }
 
+/**
+ * GraphQL query to get the posts from a certain community on a certain host.
+ *
+ * @internal
+ */
 export const getUsersPostsQuery = gql`
   query($community: String!, $host: String!) {
     getPosts(community: { id: $community, host: $host }) {
@@ -27,6 +40,11 @@ export const getUsersPostsQuery = gql`
   }
 `;
 
+/**
+ * Allows users to see the posts they have made and their information (username and name).
+ *
+ * @internal
+ */
 export function UserProfilePage(): ReactElement {
   const { username } = useParams<PublicUserProfileParams>();
   const name = username;
@@ -54,7 +72,7 @@ export function UserProfilePage(): ReactElement {
                   body={post.body}
                   key={post.id}
                   id={post.id}
-                  server={post.host}
+                  host={post.host}
                   community="all"
                   username={username}
                   title={post.title}

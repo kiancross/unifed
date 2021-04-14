@@ -54,7 +54,7 @@ test("Edit and delete succeed with valid user", async () => {
             community={community}
             username={username}
             id={id}
-            server={host}
+            host={host}
             onToggleEdit={() => void 0}
           />
         </MockedProvider>
@@ -88,7 +88,7 @@ test("Action menu does not render with invalid user", async () => {
             community={community}
             username={username}
             id={id}
-            server={host}
+            host={host}
             onToggleEdit={() => void 0}
           />
         </MockedProvider>
@@ -114,7 +114,7 @@ test("Comment deletes", async () => {
             community={community}
             username={username}
             id={id}
-            server={host}
+            host={host}
             onToggleEdit={() => void 0}
           />
         </MockedProvider>
@@ -145,7 +145,7 @@ test("Preview deletes", async () => {
             isPreview
             username={username}
             id={id}
-            server={host}
+            host={host}
             onToggleEdit={() => void 0}
           />
         </MockedProvider>

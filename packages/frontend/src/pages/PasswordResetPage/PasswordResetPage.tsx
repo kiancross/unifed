@@ -7,6 +7,11 @@ import { LogoTemplate, ButtonLink } from "../../components";
 
 import { PasswordResetCard } from "./PasswordResetCard";
 
+/**
+ * Allows the user to reset their password by displaying the [[`PasswordResetCard`]] along with the Unifed logo.
+ *
+ * @internal
+ */
 export function PasswordResetPage(): ReactElement {
   return (
     <LogoTemplate>

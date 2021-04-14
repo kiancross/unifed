@@ -17,13 +17,45 @@ import {
 import { Reply as ReplyIcon } from "@material-ui/icons";
 import { MarkdownViewer, PostHeader, PostEditor, PostCreator } from "../../components";
 
-interface PostValues {
+/**
+ * Properties for the [[`Comment`]] component.
+ *
+ * @internal
+ */
+export interface CommentProps {
+  /**
+   * Username of the author of the comment.
+   */
   username: string;
+
+  /**
+   * Body of the comment.
+   */
   body: string;
+
+  /**
+   * ID of the comment.
+   */
   id: string;
+
+  /**
+   * ID of the post the comment is being made on, or the comment it is replying to.
+   */
   parent: string;
+
+  /**
+   * How wide the comment should be. This is based on how nested it is.
+   */
   grids: GridSize;
+
+  /**
+   * Host the comment is located on.
+   */
   host: string;
+
+  /**
+   * Community the comment is in.
+   */
   community: string;
 }
 
@@ -43,7 +75,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function Comment(props: PostValues): ReactElement {
+/**
+ * Displays a comment to the user.
+ *
+ * Outline:
+ *
+ *  - The body of the comment is shown, along with a 'reply' button that opens a [[`PostCreator`]].
+ *
+ *  - The author or admin of the community the comment is a part of can edit or delete the comment through its [[`PostHeader`]].
+ *
+ * @param props Properties passed to the component. See [[`CommentProps`]].
+ *
+ * @internal
+ */
+export function Comment(props: CommentProps): ReactElement {
   const theme = useTheme();
   const classes = useStyles();
 
@@ -52,7 +97,7 @@ export function Comment(props: PostValues): ReactElement {
 
   const replyEditor = makingReply ? (
     <PostCreator
-      server={props.host}
+      host={props.host}
       community={props.community}
       submitButtonText="Make Reply"
       parentId={props.id}
@@ -64,7 +109,7 @@ export function Comment(props: PostValues): ReactElement {
 
   const content = editorOpen ? (
     <PostEditor
-      server={props.host}
+      host={props.host}
       id={props.id}
       body={props.body}
       submitButtonText="Save Comment"
@@ -84,7 +129,7 @@ export function Comment(props: PostValues): ReactElement {
                 parent={props.parent}
                 username={props.username}
                 id={props.id}
-                server={props.host}
+                host={props.host}
               />
               <CardContent className={classes.body}>
                 <Typography variant="subtitle2">

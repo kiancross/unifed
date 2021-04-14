@@ -19,6 +19,11 @@ import {
 
 import { LoadingCard } from "../../components";
 
+/**
+ * GraphQL query to get communities on a certain host.
+ *
+ * @internal
+ */
 export const getCommunitiesQuery = gql`
   query($host: String!) {
     getCommunities(host: $host) {
@@ -28,6 +33,16 @@ export const getCommunitiesQuery = gql`
   }
 `;
 
+/**
+ * Displays a list of communities on the user's host.
+ *
+ * Outline:
+ *
+ *  - This is displayed on the [[`HomePage`]] of the application, giving users a
+ *    list of communities to visit.
+ *
+ * @internal
+ */
 export function CommunitiesListCard(): ReactElement {
   const { loading, error, data } = useQuery(getCommunitiesQuery, {
     variables: {
