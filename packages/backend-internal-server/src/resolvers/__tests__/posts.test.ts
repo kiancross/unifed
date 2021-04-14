@@ -116,7 +116,7 @@ test.serial("Get unapproved posts", async (t) => {
 
   const host = await translateHost(config.internalReference);
 
-  let admin: RemoteReference = new RemoteReference();
+  const admin: RemoteReference = new RemoteReference();
   admin._id = "testuser";
   admin.host = host;
 

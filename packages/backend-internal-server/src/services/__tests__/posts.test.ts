@@ -35,10 +35,10 @@ test.serial("Get unfiltered posts from community", async (t) => {
 test.serial("User is admin of community of post", async (t) => {
   const post = generatePost("foo");
 
-  let community = generateCommunity();
+  const community = generateCommunity();
   community._id = "foo";
 
-  let admin: RemoteReference = new RemoteReference();
+  const admin: RemoteReference = new RemoteReference();
   admin._id = "testuser";
   admin.host = "testhost";
   community.admins = [admin];
@@ -55,7 +55,7 @@ test.serial("User is admin of community of post", async (t) => {
 test.serial("User is not admin of community of post", async (t) => {
   const post = generatePost("foo");
 
-  let community = generateCommunity();
+  const community = generateCommunity();
   community._id = "foo";
 
   CommunityModel.create(community);
@@ -68,13 +68,13 @@ test.serial("User is not admin of community of post", async (t) => {
 });
 
 test.serial("Delete post by admin of community", async (t) => {
-  let post = generatePost("foo");
+  const post = generatePost("foo");
   post._id = "postid";
 
-  let community = generateCommunity();
+  const community = generateCommunity();
   community._id = "foo";
 
-  let admin: RemoteReference = new RemoteReference();
+  const admin: RemoteReference = new RemoteReference();
   admin._id = "testuser";
   admin.host = config.siteHost;
 
@@ -95,7 +95,7 @@ test.serial("Deleting post removes post reference from user", async (t) => {
   postReference.host = "thishost";
   postReference.id = "testid";
 
-  let user = generateUser();
+  const user = generateUser();
   user.username = "testuser";
   user.posts = [postReference];
 
