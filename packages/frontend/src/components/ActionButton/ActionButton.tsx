@@ -16,6 +16,19 @@ type ActionButtonProps = {
 
 type Props = Omit<ButtonProps, "disabled"> & ActionButtonProps;
 
+/**
+ * A reusable button for when making GraphQL mutations.
+ *
+ * Outline
+ *
+ *  - Button gets disabled when clicked.
+ *
+ *  - Shows the CenteredLoader while loading.
+ *
+ *  - Produces an error popup if there was an error
+ *
+ * @internal
+ */
 export function ActionButton(props: Props): ReactElement {
   const { errorMessage, loading, error, children, onClick, ...buttonProps } = props;
   const [open, setOpen] = useState(true);
