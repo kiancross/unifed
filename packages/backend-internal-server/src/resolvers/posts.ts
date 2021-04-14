@@ -88,6 +88,50 @@ export class PostsResolver implements ResolverInterface<Post> {
     return posts.flat();
   }
 
+  @AuthoriseUser()
+  @Mutation(() => Boolean)
+  async approvePosts(
+    @CurrentUser() user: User,
+    @Arg("posts", () => [RemoteReferenceInput]) posts: RemoteReferenceInput[],
+  ): Promise<boolean> {
+    for (let i = 0; i < posts.length; i++) {
+      const post = posts[i];
+      if (post.host === config.internalReference || post.host === config.federationHost) {
+        await this.postsService.approve(user.username, post.id);
+      }
+    }
+    return true;
+  }
+
+  @AuthoriseUser()
+  @Mutation(() => Boolean)
+  async deletePosts(
+    @CurrentUser() user: User,
+    @Arg("posts", () => [RemoteReferenceInput]) posts: RemoteReferenceInput[],
+  ): Promise<boolean> {
+    for (let i = 0; i < posts.length; i++) {
+      await this.postsService.adminDelete(user.username, posts[i].id);
+    }
+    return true;
+  }
+
+  @AuthoriseUser()
+  @Query(() => [Post])
+  async getUnapprovedPosts(@CurrentUser() user: User): Promise<Post[]> {
+    const allCommunities: Community[] = await this.communitiesService.getAll(
+      await translateHost(config.internalReference),
+    );
+    // all communities from instance where user is an admin
+    const adminCommunities: Community[] = allCommunities.filter((com) =>
+      com.admins.find((admin) => admin._id === user.username),
+    );
+    const posts = await Promise.all(
+      adminCommunities.map((com) => this.postsService.getUnfilteredPosts(com.id)),
+    );
+    const unapprovedPosts = posts.flat().filter((post) => !post.approved);
+    return unapprovedPosts;
+  }
+
   @Query(() => [Post])
   async getPosts(
     @Arg("community") community: RemoteReferenceInput,

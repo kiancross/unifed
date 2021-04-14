@@ -29,6 +29,7 @@ import {
   PasswordResetPage,
   PrivacyNoticePage,
   AccountSettingsPage,
+  ModerationPage,
 } from "../../pages";
 
 import { CenteredLoader, ErrorBoundary, ErrorMessage } from "..";
@@ -79,7 +80,9 @@ export function App(): ReactElement {
                 <Route exact path="/login">
                   {loggedIn ? redirectHome : <LoginPage />}
                 </Route>
-
+                <Route exact path="/moderation">
+                  {loggedIn ? <ModerationPage /> : redirectLogin}
+                </Route>
                 <Route exact path="/reset-password" component={PasswordResetRequestPage}>
                   {loggedIn ? redirectHome : null}
                 </Route>

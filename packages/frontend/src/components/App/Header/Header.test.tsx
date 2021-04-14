@@ -10,7 +10,7 @@ import { UserContext, defaultUserContext } from "../../../contexts";
 import { AccountMenu } from "./AccountMenu";
 import { Header } from "./Header";
 
-const menuItems = ["Profile", "Settings", "Logout"];
+const menuItems = ["Profile", "Moderation", "Settings", "Logout"];
 const username = "foo";
 
 const userContext = { ...defaultUserContext };

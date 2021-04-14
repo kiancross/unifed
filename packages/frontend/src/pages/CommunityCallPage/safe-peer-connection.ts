@@ -67,7 +67,10 @@ export class SafePeerConnection {
     const connected = this.super.iceConnectionState === "connected";
 
     // If the frame rate is greater than 0 then the video is ready.
-    const videoReady = videoTracks && videoTracks[0].getSettings().frameRate;
+    //
+    // On Safari, frameRate is undefined, so the strict equality check
+    // with 0 is essential.
+    const videoReady = videoTracks && videoTracks[0].getSettings().frameRate !== 0;
 
     return !!(connected && (videoTracks === undefined || videoReady));
   }
