@@ -6,8 +6,7 @@ import React, { ReactElement } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { Grid, GridSize } from "@material-ui/core";
 
-import { CenteredLoader, ErrorMessage } from "../../components";
-import { Comment } from "./Comment";
+import { CenteredLoader, Comment, ErrorMessage } from "../../components";
 
 /**
  * Properties for the [[`Comments`]] component.
