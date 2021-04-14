@@ -14,10 +14,26 @@ import {
   InputProps,
 } from "@material-ui/core";
 
+/**
+ * Properties for the [[`PasswordField`]] component.
+ *
+ * @internal
+ */
 export type PasswordFieldProps = Omit<TextFieldProps, "type" | "InputProps"> & {
   InputProps?: Omit<InputProps, "endAdornment">;
 };
 
+/**
+ * Password input component.
+ *
+ * Outline:
+ *
+ *  - Users can choose to show or hide their password while they type.
+ *
+ * @param props Properties passed to the component. See [[`PasswordFieldProps`]].
+ *
+ * @internal
+ */
 export function PasswordField(props: PasswordFieldProps): ReactElement {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 

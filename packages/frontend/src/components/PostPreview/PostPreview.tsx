@@ -7,12 +7,40 @@ import { Link as RouterLink } from "react-router-dom";
 import { Card, CardActionArea, CardContent, Grid, Typography, makeStyles } from "@material-ui/core";
 import { PostEditor, PostHeader } from "..";
 
-interface PostValues {
+/**
+ * Properties for the [[`PostPreview`]] component.
+ *
+ * @internal
+ */
+export interface PostPreviewProps {
+  /**
+   * Author of the post.
+   */
   username: string;
+
+  /**
+   * Title of the post. This is `undefined` for comments.
+   */
   title: string;
+
+  /**
+   * ID of the post.
+   */
   id: string;
-  server: string;
+
+  /**
+   * Host the post exists on.
+   */
+  host: string;
+
+  /**
+   * Community the post is part of.
+   */
   community: string;
+
+  /**
+   * Content of the post.
+   */
   body: string;
 }
 
@@ -23,7 +51,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function PostPreview(props: PostValues): ReactElement {
+/**
+ * Used to show a preview of a post
+ *
+ * Outline:
+ *
+ *  - The preview shows:
+ *    - The title of the post.
+ *    - The name of the author of the post.
+ *    - The user icon of the author.
+ *
+ * @param props Properties passed to the component. See [[`PostPreviewProps`]].
+ *
+ * @internal
+ */
+export function PostPreview(props: PostPreviewProps): ReactElement {
   const [editorOpen, setEditorOpen] = useState(false);
   const classes = useStyles();
 
@@ -31,7 +73,7 @@ export function PostPreview(props: PostValues): ReactElement {
     <PostEditor
       body={props.body}
       title={props.title}
-      server={props.server}
+      host={props.host}
       id={props.id}
       submitButtonText="Save Post"
       onSuccess={() => window.location.assign(window.location.href)}
@@ -39,7 +81,7 @@ export function PostPreview(props: PostValues): ReactElement {
     />
   ) : (
     <Grid item container spacing={2}>
-      <Grid item xs={11} container direction="column" justify="flex-start">
+      <Grid item xs={12} md={11} container direction="column" justify="flex-start">
         <Card className={classes.card}>
           <PostHeader
             community={props.community}
@@ -47,13 +89,13 @@ export function PostPreview(props: PostValues): ReactElement {
             title={props.title}
             username={props.username}
             id={props.id}
-            server={props.server}
+            host={props.host}
             isPreview
           />
           <CardActionArea
             disableRipple
             component={RouterLink}
-            to={`/instances/${props.server}/communities/${props.community}/posts/${props.id}`}
+            to={`/instances/${props.host}/communities/${props.community}/posts/${props.id}`}
           >
             <CardContent>
               <Typography variant="body1">{props.title}</Typography>

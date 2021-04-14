@@ -10,7 +10,7 @@ import { BrowserMockProvider } from "../../helpers";
 import { PostCreator, createPostQuery } from "./PostCreator";
 
 const community = "all";
-const server = "this";
+const host = "this";
 const mockFunc = jest.fn();
 const submitButtonText = "submit button";
 const title = "Test title";
@@ -26,7 +26,7 @@ test("PostCreator error renders", async () => {
           title: title,
           body: body,
           community: community,
-          host: server,
+          host: host,
           parentPost: parentPost,
         },
       },
@@ -40,7 +40,7 @@ test("PostCreator error renders", async () => {
       <PostCreator
         submitButtonText={submitButtonText}
         onSuccess={mockFunc}
-        server={server}
+        host={host}
         community={community}
         parentId={parentPost}
       />

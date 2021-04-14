@@ -9,6 +9,19 @@ import { Button, Card, CardContent, TextField, Typography } from "@material-ui/c
 import { UserContext } from "../../contexts";
 import { Link, Popup, PasswordField } from "../../components";
 
+/**
+ * Displays the login form on the [[`LoginPage`]].
+ *
+ * Outline:
+ *
+ *  - Prompts the user for their email and password.
+ *
+ *  - On success, they are redirected to their [[`HomePage`]], otherwise they are shown a error [[`Popup`]].
+ *
+ *  - Redirects the user to the [[`PasswordResetRequestPage`]] if they click the 'Forgotten Password?' button.
+ *
+ * @internal
+ */
 export function LoginCard(): ReactElement {
   const user = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState("");

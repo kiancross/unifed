@@ -28,6 +28,12 @@ reset:
 logs:
 	$(DOCKER_COMPOSE_COMMAND) logs
 
+# This is a bit of a messy shell command.
+#
+# It essentially extracts the username and password for
+# the database from the config file, uses this to login
+# to the database and then installs the development
+# entities.
 .PHONY: devdb
 devdb:
 	@id=$$($(DOCKER_COMPOSE_COMMAND) ps -q mongo); \

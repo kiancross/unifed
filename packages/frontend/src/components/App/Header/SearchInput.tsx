@@ -9,6 +9,11 @@ import { Paper, InputBase, CircularProgress, makeStyles } from "@material-ui/cor
 import { Autocomplete } from "@material-ui/lab";
 import { gql, useQuery } from "@apollo/client";
 
+/**
+ * Defines the fields received by the `getCommunities` GraphQL call.
+ *
+ * @internal
+ */
 interface Community {
   id: string;
   title: string;
@@ -29,6 +34,11 @@ const useStyles = makeStyles({
   },
 });
 
+/**
+ * GraphQL query to get the `id` and `title` of communities on a given host.
+ *
+ * @internal
+ */
 export const getCommunitiesQuery = gql`
   query($host: String!) {
     getCommunities(host: $host) {
@@ -46,6 +56,17 @@ const getOptionLabel = (option: Community | string) => {
   }
 };
 
+/**
+ * The search bar used to search for communities.
+ *
+ * Outline:
+ *
+ *  - Users can type a host name into the search bar to display a dropdown of the communities on that host.
+ *
+ *  - They can then click a community from the dropdown to be taken to the page of that community.
+ *
+ * @internal
+ */
 export function SearchInput(): ReactElement {
   const classes = useStyles();
 
@@ -114,6 +135,7 @@ export function SearchInput(): ReactElement {
 
   if (selectedCommunity) {
     history.push(`/instances/${selectedCommunity.host}/communities/${selectedCommunity.id}/posts`);
+    setSelectedCommunity(null);
   }
 
   return (

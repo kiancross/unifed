@@ -4,6 +4,11 @@
 
 import { ThemeOptions } from "@material-ui/core";
 
+/**
+ * Properties that are common to both the [[`lightTheme`]] and [[`darkTheme`]].
+ *
+ * @internal
+ */
 export const baseTheme: ThemeOptions = {
   typography: {
     subtitle2: {
