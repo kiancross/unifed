@@ -16,12 +16,13 @@ export interface BrowserMockProviderProps {
    * The url for the provider to route to.
    *
    * This also defines the name and location of the parameters
-   * e.g. "/instances/:host/communities/:community/posts" to define the location of the host and communtiy params in the url.
+   * e.g. `/instances/:host/communities/:community/posts` to define the location of
+   * the host and communtiy params in the URL.
    */
   path?: string;
 
   /**
-   * The existing browsing history, where the first entry is the current url.
+   * The existing browsing history, where the first entry is the current URL.
    */
   initialEntries?: string[];
 
@@ -36,11 +37,12 @@ export interface BrowserMockProviderProps {
  *
  * Outline:
  *
- *  - Provides MockedProvider for testing graphQL calls.
+ *  - Provides `MockedProvider` for testing graphQL calls.
  *
- *  - Provides MemoryRouter and Route for cases where url params are used.
+ *  - Provides `MemoryRouter` and `Route` for cases where URL params are used.
  *
  * @param props
+ *
  * @internal
  */
 export const BrowserMockProvider: FC<BrowserMockProviderProps> = (props) => {

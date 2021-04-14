@@ -51,7 +51,10 @@ export const defaultUserContext: Context = {
 };
 
 /**
- * Imported by components and pages to access the current state of the user, such as their login status and name.
+ * Imported by components and pages to access the current state of the user,
+ * such as their login status and name.
+ *
+ * @internal
  */
 export const UserContext = createContext<Context>(defaultUserContext);
 

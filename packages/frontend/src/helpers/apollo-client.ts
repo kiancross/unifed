@@ -30,9 +30,14 @@ const accountsClientPromise: Promise<AccountsClient> = new Promise((resolve) => 
 });
 
 /**
- * Sets an accounts client to handle logging in and out of user.
+ * AccountsJS has some poorly designed configuration steps, which led
+ * to circular dependencies.
+ *
+ * This function is used to lazily set the `accountsClient`, reference,
+ * which is needed to add authentication tokens to each request.
  *
  * @param client Accounts client to be set.
+ *
  * @internal
  */
 export function setAccountsClient(client: AccountsClient): void {
