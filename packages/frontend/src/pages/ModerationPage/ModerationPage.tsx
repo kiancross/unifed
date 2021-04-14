@@ -6,6 +6,15 @@ import { ReactElement, useState } from "react";
 import { QueueTab } from "./QueueTab";
 import { AppBar, Card, Container, Tab, Tabs } from "@material-ui/core";
 
+/**
+ * Presents moderation features for community administrators.
+ *
+ * Outline:
+ *
+ *  - Contains a moderation queue where posts from moderated communities can be reviewed.
+ *
+ * @internal
+ */
 export function ModerationPage(): ReactElement {
   const [selectedTab, setSelectedTab] = useState(0);
   const handleTabChange = (_event: React.ChangeEvent<unknown>, newValue: number): void => {

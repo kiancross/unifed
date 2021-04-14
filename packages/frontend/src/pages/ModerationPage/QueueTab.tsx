@@ -33,6 +33,11 @@ interface PostParams {
   host: string;
 }
 
+/**
+ * GraphQL query to get the unapproved posts from communities that the user moderates.
+ *
+ * @internal
+ */
 export const getUnapprovedPostsQuery = gql`
   query getUnapprovedPostsQuery {
     getUnapprovedPosts {
@@ -53,18 +58,37 @@ export const getUnapprovedPostsQuery = gql`
   }
 `;
 
+/**
+ * GraphQL mutation to approve a list of posts.
+ *
+ * @internal
+ */
 export const approvePostsMutation = gql`
   mutation($posts: [RemoteReferenceInput!]!) {
     approvePosts(posts: $posts)
   }
 `;
 
+/**
+ * GraphQL mutation to delete a list of posts.
+ *
+ * @internal
+ */
 export const deletePostsMutation = gql`
   mutation($posts: [RemoteReferenceInput!]!) {
     deletePosts(posts: $posts)
   }
 `;
 
+/**
+ * Allows community administrators to approve or remove unapproved content on their communities
+ *
+ * Outline:
+ *
+ *  - If approve or remove is successful, the selected posts are removed from the moderation queue.
+ *
+ * @internal
+ */
 export function QueueTab(): ReactElement {
   const classes = useStyles();
   const [selectedPosts, setSelectedPosts] = useState<{ id: string; host: string }[]>([]);
@@ -154,7 +178,7 @@ export function QueueTab(): ReactElement {
                     username={post.author.id}
                     title={post.title}
                     id={post.id}
-                    server={post.host}
+                    host={post.host}
                     community={post.community.id}
                     body={post.body}
                   />
