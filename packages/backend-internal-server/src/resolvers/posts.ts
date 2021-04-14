@@ -101,7 +101,6 @@ export class PostsResolver implements ResolverInterface<Post> {
     @Arg("posts", () => [RemoteReferenceInput]) posts: RemoteReferenceInput[],
   ): Promise<boolean> {
     for (let i = 0; i < posts.length; i++) {
-      console.log(i);
       await this.postsService.adminDelete(user.username, posts[i].id);
     }
     return true;
