@@ -218,8 +218,10 @@ test.serial("Create valid", async (t) => {
 });
 
 test.serial("Delete own", async (t) => {
-  const post = generatePost("all");
+  const community = generateCommunity();
+  const post = generatePost(community.id);
 
+  await CommunityModel.create(community);
   await PostModel.create(post);
 
   await request(app)
@@ -233,8 +235,10 @@ test.serial("Delete own", async (t) => {
 });
 
 test.serial("Delete other", async (t) => {
-  const post = generatePost("all");
+  const community = generateCommunity();
+  const post = generatePost(community.id);
 
+  await CommunityModel.create(community);
   await PostModel.create(post);
 
   await request(app)
@@ -249,8 +253,10 @@ test.serial("Delete other", async (t) => {
 });
 
 test.serial("Update own", async (t) => {
-  const post = generatePost("all");
+  const community = generateCommunity();
+  const post = generatePost(community.id);
 
+  await CommunityModel.create(community);
   await PostModel.create(post);
 
   post.title = "foo";
@@ -277,8 +283,10 @@ test.serial("Update own", async (t) => {
 });
 
 test.serial("Update other", async (t) => {
-  const post = generatePost("all");
+  const community = generateCommunity();
+  const post = generatePost(community.id);
 
+  await CommunityModel.create(community);
   await PostModel.create(post);
 
   await request(app)

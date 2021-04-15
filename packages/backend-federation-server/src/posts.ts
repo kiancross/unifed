@@ -12,7 +12,7 @@ import {
   PostModel,
   extractPostBody,
   getIdFromRef,
-  translateHost,
+  normaliseHost,
   InvalidPostBodyTypeError,
   InvalidPostBodyFormatError,
 } from "@unifed/backend-core";
@@ -86,7 +86,7 @@ async function throwIfWrongPermissions(
   // Check if the user is an administrator. If they are,
   // they have the correct permissions.
   for (const admin of retrievedCommunity.admins) {
-    if (username === admin.id && (await translateHost(host)) === admin.host) {
+    if (username === admin.id && (await normaliseHost(host)) === admin.host) {
       return;
     }
   }
