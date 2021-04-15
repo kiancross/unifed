@@ -4,12 +4,15 @@
 
 import { Service } from "typedi";
 import { plainToClass } from "class-transformer";
-import { RemoteReference, UserModel } from "@unifed/backend-core";
+import { RemoteReference, UserModel, UserProfile } from "@unifed/backend-core";
 
 @Service()
 export class UsersService {
-  async updateProfile(id: string, profile: { name: string }): Promise<boolean> {
-    await UserModel.updateOne({ _id: id }, { $set: { profile: profile as any } });
+  async updateProfile(id: string, name: string): Promise<boolean> {
+    const profile = new UserProfile();
+    profile.name = name;
+
+    await UserModel.updateOne({ _id: id }, { $set: { profile: profile } });
     return true;
   }
 
@@ -53,5 +56,13 @@ export class UsersService {
     if (!user || !user.subscriptions) return [];
 
     return plainToClass(RemoteReference, user.subscriptions);
+  }
+
+  async getAllPosts(username: string): Promise<RemoteReference[]> {
+    const user = await UserModel.findOne({ username: username }, "posts").lean();
+
+    if (!user || !user.posts) return [];
+
+    return plainToClass(RemoteReference, user.posts);
   }
 }
