@@ -26,6 +26,16 @@ import {
   ParamError,
 } from "./helpers";
 
+/**
+ * Extracts the body from a post or throws an error if
+ * the body is of an invalid format.
+ *
+ * @param post The post to extract the body from.
+ *
+ * @returns The extracted post body.
+ *
+ * @internal
+ */
 const extractPostBodyOrThrow = (
   post: Record<string, unknown>,
 ): ReturnType<typeof extractPostBody> => {
@@ -33,8 +43,11 @@ const extractPostBodyOrThrow = (
     return extractPostBody(post);
   } catch (error) {
     if (error instanceof InvalidPostBodyFormatError) {
+      // 400 errors are thrown if it is malformed.
       throw new ResponseError(400, "Invalid content field");
     } else if (error instanceof InvalidPostBodyTypeError) {
+      // 501 errors are thrown if they pass a type that we do not
+      // support.
       throw new ResponseError(501, "Only `markdown` and `text` types are supported");
     } else {
       throw error;
@@ -42,13 +55,33 @@ const extractPostBodyOrThrow = (
   }
 };
 
-const throwIfWrongPermissions = ({ author }: Post, username?: string, host?: string): void => {
+/**
+ * Throws an error if the user does not have the correct
+ * permissions to perform an action.
+ *
+ * @param author  The author of the post.
+ * @param username  The username of the user making the request.
+ * @param host  The host of the user making the request.
+ *
+ * @internal
+ */
+function throwIfWrongPermissions({ author }: Post, username?: string, host?: string): void {
   if (author.id !== username || author.host !== host) {
     throw new ResponseError(403, "Invalid permissions");
   }
-};
+}
 
-const getAuthor = (req: Request): [string, string] => {
+/**
+ * Gets an author's details from a request's headers.
+ *
+ * @param req  The request.
+ *
+ * @returns  A tuple with first parameter being the username and
+ *           second parameter being the user's host.
+ *
+ * @internal
+ */
+function getAuthor(req: Request): [string, string] {
   const username = req.get("user-id");
   const host = req.get("client-host");
 
@@ -57,9 +90,18 @@ const getAuthor = (req: Request): [string, string] => {
   }
 
   return [username, host];
-};
+}
 
-const processAndValidatePost = async (post: Post) => {
+/**
+ * Processes a post by running it through the spam detection
+ * and text toxicity classifier. Marks them as not approved
+ * if any component of the post fails the tests.
+ *
+ * @param post  The post to test.
+ *
+ * @internal
+ */
+async function processAndValidatePost(post: Post) {
   const spamThreshold = 0.8;
 
   const titleSpam = post.title && (await getSpamFactor(post.title)) >= spamThreshold;
@@ -71,12 +113,15 @@ const processAndValidatePost = async (post: Post) => {
   post.approved = !(titleSpam || bodySpam || titleToxic || bodyToxic);
 
   throwValidationError(await validate(post));
-};
+}
 
 const router = AsyncRouter();
 
 router.use(jsonBodyParser());
 
+/**
+ * Get all posts from the system.
+ */
 router.get("/", async (req, res) => {
   const limit =
     (await processParam(req.query, "limit", (value, name) => {
@@ -106,15 +151,11 @@ router.get("/", async (req, res) => {
   });
 
   const author = await processParam(req.query, "author", async (value) => value);
-  //const host = await processParam(req.query, "host", async (value) => value);
-
-  // TODO parentPost and contentType
 
   res.json(
     await PostModel.find({
       community,
       "author.id": author,
-      //"author.host": host, // TODO
       createdAt: {
         $gte: minDate,
       },
@@ -125,11 +166,17 @@ router.get("/", async (req, res) => {
   );
 });
 
+/**
+ * Get a particular post from the system.
+ */
 router.get("/:id", async (req, res) => {
   const post = await getPostOrThrow(req.params.id, 404);
   res.json(await post.populate("children").execPopulate());
 });
 
+/**
+ * Creates a post on the system.
+ */
 router.post("/", async (req, res) => {
   const rawPost = req.body;
 
@@ -151,6 +198,9 @@ router.post("/", async (req, res) => {
   res.json(await PostModel.create(post));
 });
 
+/**
+ * Updates a particular post on the system.
+ */
 router.put("/:id", async (req, res) => {
   const post = await getPostOrThrow(req.params.id, 404);
 
@@ -171,6 +221,9 @@ router.put("/:id", async (req, res) => {
   res.json(post);
 });
 
+/**
+ * Deletes a particular post from the system.
+ */
 router.delete("/:id", async (req) => {
   const post = await getPostOrThrow(req.params.id, 404);
 
