@@ -6,6 +6,11 @@ import { lorem } from "faker";
 import { v4 as uuid } from "uuid";
 import { Post, RemoteReference } from "@unifed/backend-core";
 
+/**
+ * Generates a test post with random attributes for all fields.
+ *
+ * @param community the community the created post is part of.
+ */
 export const generatePost = (community: string): Post => {
   const post = new Post();
   post.community = community;

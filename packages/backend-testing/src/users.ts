@@ -6,6 +6,9 @@ import { internet, name } from "faker";
 import { v4 as uuid } from "uuid";
 import { User, UserProfile } from "@unifed/backend-core";
 
+/**
+ * Generates a test user with random attributes (id, username, name).
+ */
 export const generateUser = (): User => {
   const user = new User();
   user.id = uuid();
