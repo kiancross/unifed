@@ -4,10 +4,11 @@
 
 import { useState, useContext, ReactElement } from "react";
 import { Formik, Form, Field } from "formik";
-import { Button, Card, CardContent, TextField, Typography } from "@material-ui/core";
+import { Card, CardContent, TextField, Typography } from "@material-ui/core";
 
 import { UserContext } from "../../contexts";
-import { Link, Popup, PasswordField } from "../../components";
+import { ActionButton, Link, PasswordField } from "../../components";
+import { ApolloError } from "@apollo/client/errors";
 
 /**
  * Displays the login form on the [[`LoginPage`]].
@@ -24,8 +25,13 @@ import { Link, Popup, PasswordField } from "../../components";
  */
 export function LoginCard(): ReactElement {
   const user = useContext(UserContext);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [error, setError] = useState<ApolloError | undefined>(undefined);
+  const [loading, setLoading] = useState(false);
   const loginErrorMessage = "The email address and/or password you have entered is incorrect";
+  const setStates = (err: ApolloError) => {
+    setError(err);
+    setLoading(false);
+  };
 
   return (
     <div>
@@ -39,9 +45,16 @@ export function LoginCard(): ReactElement {
             validateOnBlur={false}
             validateOnChange={false}
             onSubmit={async (values) => {
-              if (!(await user.login(values.email, values.password))) {
-                setErrorMessage(loginErrorMessage);
-              }
+              const error = new ApolloError({ errorMessage: loginErrorMessage });
+              user
+                .login(values.email, values.password)
+                .then((res) => {
+                  if (!res) setStates(error);
+                })
+                .catch((err) => {
+                  setStates(err);
+                });
+              setLoading(true);
             }}
           >
             <Form>
@@ -72,16 +85,19 @@ export function LoginCard(): ReactElement {
                   inputProps={{ "data-testid": "password" }}
                 />
               </div>
-              <Button
+              <ActionButton
                 type="submit"
                 variant="contained"
                 color="primary"
                 style={{ margin: "1rem 0rem" }}
                 fullWidth
                 data-testid="submit"
+                errorMessage={loginErrorMessage}
+                error={error}
+                loading={loading}
               >
                 Login
-              </Button>
+              </ActionButton>
             </Form>
           </Formik>
           <Typography>
@@ -89,7 +105,6 @@ export function LoginCard(): ReactElement {
           </Typography>
         </CardContent>
       </Card>
-      <Popup message={errorMessage} />
     </div>
   );
 }

@@ -5,7 +5,7 @@
 import { gql, useMutation } from "@apollo/client";
 import { ReactElement } from "react";
 import { Grid } from "@material-ui/core";
-import { PostEditorBase, CenteredLoader, ErrorMessage } from "..";
+import { PostEditorBase } from "..";
 import { getPostsQuery } from "../../pages/CommunityPostsPage/CommunityPostsPage";
 
 /**
@@ -122,9 +122,6 @@ export function PostCreator(props: PostCreatorProps): ReactElement {
     },
   });
 
-  if (loading) return <CenteredLoader />;
-  if (error) return <ErrorMessage message="The post could not be made. Please try again later." />;
-
   return (
     <Grid item>
       <PostEditorBase
@@ -146,6 +143,9 @@ export function PostCreator(props: PostCreatorProps): ReactElement {
           }
         }}
         submitButtonText={props.submitButtonText}
+        loading={loading}
+        error={error}
+        errorMessage="The post could not be made. Please try again later."
       />
     </Grid>
   );
