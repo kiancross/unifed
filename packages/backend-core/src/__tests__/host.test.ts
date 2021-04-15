@@ -4,7 +4,7 @@
 
 import test from "ava";
 
-import { normaliseHost, getAddressableHost, translateHost, HostNotSetError } from "./host";
+import { normaliseHost, getAddressableHost, translateHost, HostNotSetError } from "../host";
 
 test("localHost (this)", async (t) => {
   t.is(await normaliseHost("this"), "this");

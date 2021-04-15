@@ -2,10 +2,10 @@
  * CS3099 Group A3
  */
 
-import { config } from "@unifed/backend-core";
-
 import * as dns from "dns";
 import * as ipaddr from "ipaddr.js";
+
+import { config } from "./config";
 
 export const localAlias = "this";
 

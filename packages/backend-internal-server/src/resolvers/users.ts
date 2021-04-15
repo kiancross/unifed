@@ -14,8 +14,8 @@ import {
   Query,
 } from "type-graphql";
 
-import { Post, RemoteReference, User, UserProfile } from "@unifed/backend-core";
-import { CurrentUser, translateHost } from "./helpers";
+import { Post, RemoteReference, User, UserProfile, translateHost } from "@unifed/backend-core";
+import { CurrentUser } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
 import { RemoteReferenceInput, UserProfileInput } from "./inputs";
 import { PostsService, UsersService } from "../services";

@@ -9,8 +9,7 @@ import { graphql } from "graphql";
 import { setup, generatePost, generateCommunity } from "@unifed/backend-testing";
 
 import { getMergedSchema } from "../../schema";
-import { config, PostModel, RemoteReference } from "@unifed/backend-core";
-import { translateHost } from "../helpers";
+import { config, PostModel, RemoteReference, translateHost } from "@unifed/backend-core";
 
 setup(test);
 

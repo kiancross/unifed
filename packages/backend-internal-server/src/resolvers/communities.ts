@@ -15,11 +15,10 @@ import {
   Arg,
 } from "type-graphql";
 import { Service } from "typedi";
-import { Community, Post, User } from "@unifed/backend-core";
+import { Community, Post, User, translateHost } from "@unifed/backend-core";
 import { CurrentUser } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
 import { RemoteReferenceInput } from "./inputs";
-import { translateHost } from "./helpers";
 import { CommunitiesService, PostsService } from "../services";
 import { CommunityCallEvent } from "./types";
 

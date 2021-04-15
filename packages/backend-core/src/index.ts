@@ -6,5 +6,6 @@ export * from "./models";
 export * from "./types";
 export * from "./posts";
 export * from "./helpers";
+export * from "./host";
 export { config } from "./config";
 export { logger } from "./logger";

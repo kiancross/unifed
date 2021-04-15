@@ -14,9 +14,15 @@ import {
 import { Service } from "typedi";
 import { CurrentUser } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
-import { Post, User, Community, RemoteReference, config } from "@unifed/backend-core";
+import {
+  Post,
+  User,
+  Community,
+  RemoteReference,
+  config,
+  translateHost,
+} from "@unifed/backend-core";
 import { CreatePostInput, RemoteReferenceInput } from "./inputs";
-import { translateHost } from "./helpers";
 import { PostsService, CommunitiesService, UsersService } from "../services";
 
 @Service()

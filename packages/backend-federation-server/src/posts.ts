@@ -11,6 +11,8 @@ import {
   Post,
   PostModel,
   extractPostBody,
+  getIdFromRef,
+  translateHost,
   InvalidPostBodyTypeError,
   InvalidPostBodyFormatError,
 } from "@unifed/backend-core";
@@ -59,13 +61,36 @@ const extractPostBodyOrThrow = (
  * Throws an error if the user does not have the correct
  * permissions to perform an action.
  *
- * @param author  The author of the post.
  * @param username  The username of the user making the request.
  * @param host  The host of the user making the request.
  *
  * @internal
  */
-function throwIfWrongPermissions({ author }: Post, username?: string, host?: string): void {
+async function throwIfWrongPermissions(
+  { author, community }: Post,
+  username?: string,
+  host?: string,
+): Promise<void> {
+  const communityId = getIdFromRef(community);
+
+  if (!host) {
+    throw new ResponseError(400, "Host not found");
+  }
+
+  if (!communityId) {
+    throw new ResponseError(400, "Community not found");
+  }
+
+  const retrievedCommunity = await getCommunityOrThrow(communityId, 400);
+
+  // Check if the user is an administrator. If they are,
+  // they have the correct permissions.
+  for (const admin of retrievedCommunity.admins) {
+    if (username === admin.id && (await translateHost(host)) === admin.host) {
+      return;
+    }
+  }
+
   if (author.id !== username || author.host !== host) {
     throw new ResponseError(403, "Invalid permissions");
   }
@@ -212,7 +237,7 @@ router.put("/:id", async (req, res) => {
 
   const author = getAuthor(req);
 
-  throwIfWrongPermissions(post, ...author);
+  await throwIfWrongPermissions(post, ...author);
 
   await processAndValidatePost(post);
 
@@ -229,7 +254,7 @@ router.delete("/:id", async (req) => {
 
   const author = getAuthor(req);
 
-  throwIfWrongPermissions(post, ...author);
+  await throwIfWrongPermissions(post, ...author);
 
   await post.deleteOne();
 });

@@ -4486,6 +4486,7 @@ __metadata:
     eslint-plugin-import: ^2.22.1
     eslint-plugin-prettier: ^3.3.1
     graphql: ^15.5.0
+    ipaddr.js: ^2.0.0
     mongoose: 5.10.18
     nyc: ^15.1.0
     prettier: ^2.2.1
@@ -4607,7 +4608,6 @@ __metadata:
     got: ^11.8.2
     graphql: ^15.5.0
     graphql-tag: ^2.12.3
-    ipaddr.js: ^2.0.0
     mongoose: 5.10.18
     nock: ^13.0.11
     nodemailer: ^6.5.0
