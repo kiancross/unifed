@@ -16,6 +16,6 @@ test("RegistrationCard renders", async () => {
   );
 
   await waitFor(() => {
-    userEvent.click(screen.getByText("Create Account"));
+    userEvent.click(screen.getByRole("button", { name: "submit" }));
   });
 });
