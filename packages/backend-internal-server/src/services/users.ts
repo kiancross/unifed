@@ -19,15 +19,15 @@ export class UsersService {
   /**
    * Allows a user to subscribe to a community. Adds a reference to the subscribed
    * community for the user.
-   * 
+   *
    * @param userId The user subscribing.
-   * 
+   *
    * @param host The host of the community.
-   * 
+   *
    * @param communityId The id of the community on the federated network.
-   * 
+   *
    * @returns True on success.
-   * 
+   *
    * @internal
    */
   async subscribe(userId: string, host: string, communityId: string): Promise<boolean> {
@@ -50,15 +50,15 @@ export class UsersService {
   /**
    * Allows a user to unsubscribe from a community. If there is an existing
    * reference to the community, it is removed.
-   * 
+   *
    * @param userId ID of the user.
-   * 
+   *
    * @param host The server hosting the community.
-   * 
+   *
    * @param communityId The id of the community on the federated network.
-   * 
+   *
    * @returns True on success.
-   * 
+   *
    * @internal
    */
   async unsubscribe(userId: string, host: string, communityId: string): Promise<boolean> {
@@ -80,11 +80,11 @@ export class UsersService {
 
   /**
    * Fetches an array of references to the communities a user is subscribed to.
-   * 
+   *
    * @param id ID of the user.
-   * 
+   *
    * @returns Array of subscribed communities. Empty array if the user does not exist.
-   * 
+   *
    * @internal
    */
   async getSubscriptions(id: string): Promise<RemoteReference[]> {
@@ -97,11 +97,11 @@ export class UsersService {
 
   /**
    * Fetches all the posts made by a user.
-   * 
+   *
    * @param username Username of the user.
-   * 
+   *
    * @returns Array of posts. Empty array if the user does not exist.
-   * 
+   *
    * @internal
    */
   async getAllPosts(username: string): Promise<RemoteReference[]> {

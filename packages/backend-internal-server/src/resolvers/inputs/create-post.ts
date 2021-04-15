@@ -8,7 +8,7 @@ import { UpdatePostInput } from "./update-post";
 
 /**
  * Input used when creating a post.
- * 
+ *
  * @internal
  */
 @InputType()

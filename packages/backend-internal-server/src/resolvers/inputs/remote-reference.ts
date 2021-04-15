@@ -6,7 +6,7 @@ import { InputType, Field } from "type-graphql";
 
 /**
  * Input type for a reference in the federated network.
- * 
+ *
  * @internal
  */
 @InputType()

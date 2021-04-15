@@ -30,13 +30,13 @@ export class UsersResolver implements ResolverInterface<User> {
 
   /**
    * Allows user to update their profile.
-   * 
+   *
    * @param profile The new profile to update to.
-   * 
+   *
    * @param user The currently logged in user.
-   * 
+   *
    * @returns True once profile has been updated.
-   * 
+   *
    * @internal
    */
   @AuthoriseUser()
@@ -50,13 +50,13 @@ export class UsersResolver implements ResolverInterface<User> {
 
   /**
    * Allows users to subscribe to a community.
-   * 
+   *
    * @param community Reference to the community.
-   * 
+   *
    * @param user Currently logged in user.
-   * 
+   *
    * @returns True on success.
-   * 
+   *
    * @internal
    */
   @AuthoriseUser()
@@ -70,13 +70,13 @@ export class UsersResolver implements ResolverInterface<User> {
 
   /**
    * Allows users to unsubscribe from a community.
-   * 
+   *
    * @param community Reference to the community.
-   * 
+   *
    * @param user Currently logged in user.
-   * 
+   *
    * @returns True on success.
-   * 
+   *
    * @internal
    */
   @AuthoriseUser()
@@ -94,11 +94,11 @@ export class UsersResolver implements ResolverInterface<User> {
 
   /**
    * Fetches all the communities the user is subscribed to.
-   * 
+   *
    * @param user Currently logged in user.
-   * 
+   *
    * @returns Array of references to the communities on the federated network.
-   * 
+   *
    * @internal
    */
   @AuthoriseUser()
@@ -114,13 +114,13 @@ export class UsersResolver implements ResolverInterface<User> {
 
   /**
    * Fetches all the posts a user has posted.
-   * 
+   *
    * @param user Currently logged in user.
-   * 
+   *
    * @param username Username of the user to get posts of.
-   * 
+   *
    * @returns The posts made by the specified user.
-   * 
+   *
    * @internal
    */
   @AuthoriseUser()

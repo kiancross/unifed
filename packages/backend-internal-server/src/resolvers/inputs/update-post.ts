@@ -6,7 +6,7 @@ import { InputType, Field } from "type-graphql";
 
 /**
  * Input used when updating a post.
- * 
+ *
  * @internal
  */
 @InputType()

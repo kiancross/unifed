@@ -81,17 +81,17 @@ export class CommunitiesResolver implements ResolverInterface<Community> {
 
   /**
    * Allows a user to create a community to moderate.
-   * 
+   *
    * @param id ID of the new community to make.
-   * 
+   *
    * @param title Title of the new community.
-   * 
+   *
    * @param description Description of the new community.
-   * 
+   *
    * @param user Currently logged in user.
-   * 
+   *
    * @returns True on success.
-   * 
+   *
    * @internal
    */
   @AuthoriseUser()
@@ -107,11 +107,11 @@ export class CommunitiesResolver implements ResolverInterface<Community> {
 
   /**
    * Fetches the communities available at a host.
-   * 
+   *
    * @param host The host server to search
-   * 
+   *
    * @returns An array of communities.
-   * 
+   *
    * @internal
    */
   @Query(() => [Community])
@@ -121,11 +121,11 @@ export class CommunitiesResolver implements ResolverInterface<Community> {
 
   /**
    * Fetches a community on the federated network.
-   * 
+   *
    * @param community Reference to the community.
-   * 
+   *
    * @returns The community if it exists.
-   * 
+   *
    * @internal
    */
   @Query(() => Community, { nullable: true })
