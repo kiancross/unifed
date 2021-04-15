@@ -82,7 +82,7 @@ export function LogoTemplate(props: LogoTemplateProps): ReactElement {
             direction={vertical ? "column" : "row"}
           >
             <Grid item xs={9} md={4} container direction="column" justify="center">
-              <div>
+              <div aria-label="unifed logo">
                 <img src={logo} alt="Unifed" className={classes.logo}></img>
                 <div className={classes.logoText}>Unifed</div>
               </div>
