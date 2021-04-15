@@ -8,8 +8,6 @@ import { User, UserProfile } from "@unifed/backend-core";
 
 /**
  * Generates a test user with random attributes (id, username, name).
- * 
- * @returns 
  */
 export const generateUser = (): User => {
   const user = new User();
