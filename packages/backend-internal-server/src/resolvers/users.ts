@@ -75,7 +75,7 @@ export class UsersResolver implements ResolverInterface<User> {
   async getAllPosts(@CurrentUser() user: User, @Arg("username") username: string): Promise<Post[]> {
     const postsReferences = await this.usersService.getAllPosts(username);
     const postsAndComments = await Promise.all(
-      postsReferences.map(async (postReference) => {
+      postsReferences.reverse().map(async (postReference) => {
         return this.postsService.getById(
           user.username,
           await translateHost(postReference.host),

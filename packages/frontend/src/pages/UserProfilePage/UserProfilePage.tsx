@@ -27,8 +27,8 @@ export interface PublicUserProfileParams {
  * @internal
  */
 export const getUsersPostsQuery = gql`
-  query($community: String!, $host: String!) {
-    getPosts(community: { id: $community, host: $host }) {
+  query($username: String!) {
+    getAllPosts(username: $username) {
       id
       title
       host
@@ -51,24 +51,24 @@ export function UserProfilePage(): ReactElement {
   const isMobile = useMediaQuery("(max-width: 960px)");
   const direction = isMobile ? "column-reverse" : "row";
 
-  const all = useQuery(getUsersPostsQuery, {
+  const posts = useQuery(getUsersPostsQuery, {
     variables: {
-      community: "all",
-      host: "this",
+      username: name,
     },
   });
 
-  if (all.error)
+  if (posts.error)
     return (
       <ErrorMessage message="Your posts could not be retrieved at this time. Please try again later." />
     );
-  if (all.loading) return <CenteredLoader />;
+  if (posts.loading) return <CenteredLoader />;
+  console.log([posts.data.getAllPosts].reverse());
 
   return (
     <Container style={{ paddingTop: "1.5rem" }}>
       <Grid alignContent="center" container direction={direction} spacing={3}>
         <Grid item container xs={12} md={8} direction="column" spacing={2}>
-          {all.data.getPosts.map((post: any) => {
+          {posts.data.getAllPosts.map((post: any) => {
             if (post.title && post.author.id === username) {
               return (
                 <PostPreview
