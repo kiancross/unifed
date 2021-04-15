@@ -15,6 +15,11 @@ const mongod = new MongoMemoryServer({
   },
 });
 
+/**
+ * Sets up and tears down the database before and after each test.
+ *
+ * @param test the test to be run after the database is set up.
+ */
 export const setup = (test: TestType): void => {
   test.before(async () => {
     const uri = await mongod.getUri();
