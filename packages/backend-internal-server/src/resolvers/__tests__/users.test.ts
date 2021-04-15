@@ -7,10 +7,11 @@ import test from "ava";
 import { graphql } from "graphql";
 import { Container } from "typedi";
 
-import { setup, generateUser } from "@unifed/backend-testing";
-import { UserModel } from "@unifed/backend-core";
+import { setup, generateUser, generatePost } from "@unifed/backend-testing";
+import { RemoteReference, UserModel } from "@unifed/backend-core";
 
 import { getMergedSchema } from "../../schema";
+import nock from "nock";
 
 const schema = (async () => getMergedSchema(Container.of()))();
 
@@ -171,4 +172,50 @@ test.serial("unsubscribe", async (t) => {
   }
 
   t.is(response.data.getSubscriptions.length, 0);
+});
+
+test.serial("getAllPosts", async (t) => {
+  const postReference: RemoteReference = new RemoteReference();
+  postReference.host = "thishost";
+  postReference.id = "testid";
+
+  const post = generatePost("all");
+  post.id = "testid";
+  post.host = "thishost";
+
+  const scope = nock("http://thishost").get("/fed/posts/testid").reply(200, post);
+
+  const user = generateUser();
+  user.username = "testuser";
+  user.posts = [postReference];
+  await UserModel.create(user);
+
+  await UserModel.findOne({ username: "testuser" });
+
+  const response = await graphql(
+    await schema,
+    `
+      query {
+        getAllPosts(username: "testuser") {
+          title
+          body
+        }
+      }
+    `,
+    null,
+    {
+      user: {
+        id: user.id,
+      },
+    },
+  );
+
+  if (!response.data) {
+    t.fail();
+    return;
+  }
+
+  t.truthy(response.data.getAllPosts);
+
+  scope.done();
 });

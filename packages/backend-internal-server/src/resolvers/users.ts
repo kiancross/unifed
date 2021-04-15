@@ -14,16 +14,19 @@ import {
   Query,
 } from "type-graphql";
 
-import { RemoteReference, User, UserProfile } from "@unifed/backend-core";
+import { Post, RemoteReference, User, UserProfile } from "@unifed/backend-core";
 import { CurrentUser, translateHost } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
 import { RemoteReferenceInput, UserProfileInput } from "./inputs";
-import { UsersService } from "../services";
+import { PostsService, UsersService } from "../services";
 
 @Service()
 @Resolver(User)
 export class UsersResolver implements ResolverInterface<User> {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly postsService: PostsService,
+  ) {}
 
   @AuthoriseUser()
   @Mutation(() => Boolean)
@@ -65,5 +68,22 @@ export class UsersResolver implements ResolverInterface<User> {
   @FieldResolver(() => UserProfile)
   profile(@Root() user: User): UserProfile {
     return user.profile;
+  }
+
+  @AuthoriseUser()
+  @Query(() => [Post])
+  async getAllPosts(@CurrentUser() user: User, @Arg("username") username: string): Promise<Post[]> {
+    const postsReferences = await this.usersService.getAllPosts(username);
+    const postsAndComments = await Promise.all(
+      postsReferences.reverse().map(async (postReference) => {
+        return this.postsService.getById(
+          user.username,
+          await translateHost(postReference.host),
+          postReference.id,
+        );
+      }),
+    );
+
+    return postsAndComments.filter((postOrComment) => !!postOrComment.title);
   }
 }
