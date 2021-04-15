@@ -8,6 +8,14 @@ import { ErrorRequestHandler } from "express";
 import { routes } from "./routes";
 import { ResponseError } from "./response-error";
 
+/**
+ * The main entry point of the application.
+ *
+ * An Express application which hosts the HTTP
+ * server.
+ *
+ * @internal
+ */
 export const app = express();
 
 app.use((req, _, next) => {
@@ -18,6 +26,7 @@ app.use((req, _, next) => {
 app.use("/", routes);
 
 app.use(((err, _, res, next) => {
+  // Return a JSON error for ResponseErrors.
   if (err instanceof ResponseError) {
     res.status(err.code).json({
       title: err.title,

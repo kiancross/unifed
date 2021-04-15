@@ -10,6 +10,9 @@ import { ResponseError } from "./response-error";
 
 const router = AsyncRouter();
 
+/**
+ * Returns all users on the system.
+ */
 router.get("/", async (req, res) => {
   const prefix =
     (await processParam(req.query, "prefix", (value) => escapeStringRegexp(value))) || "";
