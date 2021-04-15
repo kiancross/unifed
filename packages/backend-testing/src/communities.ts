@@ -5,6 +5,11 @@
 import { lorem, random } from "faker";
 import { Community } from "@unifed/backend-core";
 
+/**
+ * Creates a new community with random attributes (id, title, description).
+ * 
+ * @returns 
+ */
 export const generateCommunity = (): Community => {
   const community = new Community();
   community.id = random.word();
@@ -14,6 +19,12 @@ export const generateCommunity = (): Community => {
   return community;
 };
 
+/**
+ * Generates an array of test communities with random attributes.
+ * 
+ * @param n number of new communities to create 
+ * @returns 
+ */
 export const generateCommunities = (n: number): Community[] => {
   const communities: Community[] = [];
 
