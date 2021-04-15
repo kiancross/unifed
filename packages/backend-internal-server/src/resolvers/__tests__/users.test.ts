@@ -192,7 +192,7 @@ test.serial("getAllPosts", async (t) => {
 
   await UserModel.findOne({ username: "testuser" });
 
-  let response = await graphql(
+  const response = await graphql(
     await schema,
     `
       query {
