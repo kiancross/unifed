@@ -69,17 +69,19 @@ export function Post(props: PostProps): ReactElement {
   const classes = useStyles();
 
   const content = editorOpen ? (
-    <PostEditor
-      body={props.body}
-      title={props.title}
-      host={props.host}
-      id={props.id}
-      submitButtonText="Save Post"
-      onSuccess={() => setEditorOpen(false)}
-      onCancel={() => setEditorOpen(false)}
-    />
+    <Grid item>
+      <PostEditor
+        body={props.body}
+        title={props.title}
+        host={props.host}
+        id={props.id}
+        submitButtonText="Save Post"
+        onSuccess={() => setEditorOpen(false)}
+        onCancel={() => setEditorOpen(false)}
+      />
+    </Grid>
   ) : (
-    <Grid item xs={12}>
+    <Grid item>
       <Card color="primary" className={classes.card}>
         <PostHeader
           community={props.community}

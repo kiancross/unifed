@@ -53,6 +53,8 @@ export function CommunitiesListCard(): ReactElement {
   if (error) return <React.Fragment />;
   if (loading) return <LoadingCard />;
 
+  const internalRef = process.env.REACT_APP_INTERNAL_REFERENCE;
+
   return (
     <Grid item>
       <Card>
@@ -66,7 +68,7 @@ export function CommunitiesListCard(): ReactElement {
                   button
                   key={community.id}
                   component={Link}
-                  to={"/instances/this/communities/" + community.id + "/posts"}
+                  to={"/instances/" + internalRef + "/communities/" + community.id + "/posts"}
                 >
                   <ListItemText primary={community.title} />
                 </ListItem>

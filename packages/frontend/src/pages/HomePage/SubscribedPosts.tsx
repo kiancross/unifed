@@ -57,7 +57,7 @@ export function SubscribedPosts(): ReactElement {
   if (loading) return <LoadingCard />;
 
   return (
-    <Grid item container spacing={1}>
+    <Grid item container spacing={2}>
       {data.getSubscribedPosts
         .filter((post: Post) => post.title)
         .map((post: Post) => {

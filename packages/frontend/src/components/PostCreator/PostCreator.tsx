@@ -4,6 +4,7 @@
 
 import { gql, useMutation } from "@apollo/client";
 import { ReactElement } from "react";
+import { Grid } from "@material-ui/core";
 import { PostEditorBase } from "..";
 import { getPostsQuery } from "../../pages/CommunityPostsPage/CommunityPostsPage";
 
@@ -122,28 +123,30 @@ export function PostCreator(props: PostCreatorProps): ReactElement {
   });
 
   return (
-    <PostEditorBase
-      isComment={props.isComment}
-      onCancel={props.onCancel}
-      onSubmit={async ({ title, body }) => {
-        const response = await createPost({
-          variables: {
-            title,
-            body,
-            community: props.community,
-            host: props.host,
-            parentPost: props.parentId,
-          },
-        });
+    <Grid item>
+      <PostEditorBase
+        isComment={props.isComment}
+        onCancel={props.onCancel}
+        onSubmit={async ({ title, body }) => {
+          const response = await createPost({
+            variables: {
+              title,
+              body,
+              community: props.community,
+              host: props.host,
+              parentPost: props.parentId,
+            },
+          });
 
-        if (response.data?.createPost) {
-          props.onSuccess(response.data.createPost.id);
-        }
-      }}
-      submitButtonText={props.submitButtonText}
-      loading={loading}
-      error={error}
-      errorMessage="The post could not be made. Please try again later."
-    />
+          if (response.data?.createPost) {
+            props.onSuccess(response.data.createPost.id);
+          }
+        }}
+        submitButtonText={props.submitButtonText}
+        loading={loading}
+        error={error}
+        errorMessage="The post could not be made. Please try again later."
+      />
+    </Grid>
   );
 }

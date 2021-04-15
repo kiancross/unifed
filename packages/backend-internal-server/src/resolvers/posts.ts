@@ -68,6 +68,15 @@ export class PostsResolver implements ResolverInterface<Post> {
   }
 
   @AuthoriseUser()
+  @Mutation(() => Boolean)
+  async reportPost(@Arg("post") post: RemoteReferenceInput): Promise<boolean> {
+    if (post.host === config.internalReference || post.host === config.federationHost) {
+      return await this.postsService.report(post.id);
+    }
+    return false;
+  }
+
+  @AuthoriseUser()
   @Query(() => [Post])
   async getSubscribedPosts(@CurrentUser() user: User): Promise<Post[]> {
     const subscriptions: RemoteReference[] = await this.usersService.getSubscriptions(user.id);
