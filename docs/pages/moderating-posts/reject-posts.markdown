@@ -8,7 +8,7 @@ nav_order: 3
 
 # Rejecting Posts
 
-You can reject posts by selecting the posts you want to approve and then clicking the 'Reject' button.
+You can reject posts by selecting the posts you want to approve and then clicking the 'Remove' button.
 
 The posts will then be deleted.
 
