@@ -9,3 +9,4 @@ export * from "./user";
 export * from "./post";
 export * from "./community";
 export * from "./remote-reference";
+export { getIdFromRef } from "./helpers";

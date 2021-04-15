@@ -119,7 +119,7 @@ export class Post extends Base {
     // federated protocol, so we have to actually change the
     // content that is returned so that this works on all
     // implementations.
-    const title = this.approved ? this.title : "Pending Approval";
+    const title = !this.approved && this.title ? "Pending Approval" : this.title;
     const body = this.approved ? this.body : "This post is pending approval.";
 
     return {

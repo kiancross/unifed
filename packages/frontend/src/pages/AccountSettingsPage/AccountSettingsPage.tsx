@@ -3,12 +3,7 @@
  */
 
 import React, { useState, useContext, ReactElement } from "react";
-import { Container } from "@material-ui/core";
-import AppBar from "@material-ui/core/AppBar";
-import Tab from "@material-ui/core/Tab";
-import TabContext from "@material-ui/lab/TabContext";
-import TabList from "@material-ui/lab/TabList";
-import TabPanel from "@material-ui/lab/TabPanel";
+import { AppBar, Card, Container, Tab, Tabs } from "@material-ui/core";
 
 import { UserContext } from "../../contexts";
 import { AccountTab } from "./AccountTab";
@@ -27,9 +22,9 @@ import { ProfileTab } from "./ProfileTab";
  * @internal
  */
 export function AccountSettingsPage(): ReactElement {
-  const [selectedTab, setSelectedTab] = useState("1");
+  const [selectedTab, setSelectedTab] = useState(0);
   const user = useContext(UserContext);
-  const handleTabChange = (_event: React.ChangeEvent<unknown>, newValue: string): void => {
+  const handleTabChange = (_event: React.ChangeEvent<unknown>, newValue: number): void => {
     setSelectedTab(newValue);
   };
   if (!user.details) {
@@ -39,22 +34,18 @@ export function AccountSettingsPage(): ReactElement {
 
   return (
     <Container style={{ paddingTop: "1.5rem" }} maxWidth="sm">
-      <TabContext value={selectedTab}>
+      <Card>
         <AppBar position="static">
-          <TabList onChange={handleTabChange} aria-label="account settings tabs">
-            <Tab label="ACCOUNT" value="1" />
-            <Tab label="PROFILE" value="2" />
-          </TabList>
+          <Tabs value={selectedTab} onChange={handleTabChange} aria-label="account settings tabs">
+            <Tab label="ACCOUNT" />
+            <Tab label="PROFILE" />
+          </Tabs>
         </AppBar>
-        <TabPanel value="1">
-          Account
+        {selectedTab === 0 && (
           <AccountTab username={user.details.username} email={user.details.emails[0].address} />
-        </TabPanel>
-        <TabPanel value="2">
-          Profile
-          <ProfileTab name={user.details.profile.name} />
-        </TabPanel>
-      </TabContext>
+        )}
+        {selectedTab === 1 && <ProfileTab name={user.details.profile.name} />}
+      </Card>
     </Container>
   );
 }

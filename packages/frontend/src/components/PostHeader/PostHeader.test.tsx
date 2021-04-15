@@ -7,7 +7,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { MockedProvider } from "@apollo/client/testing";
 
 import { UserContext, defaultUserContext } from "../../contexts";
-import { PostHeader, deletePostQuery, getAdminsQuery } from "./PostHeader";
+import { PostHeader, deletePostQuery, getAdminsQuery, reportPostQuery } from "./PostHeader";
 
 const username = "testuser";
 const id = "123";
@@ -26,6 +26,18 @@ const deletePostMock = {
   },
 };
 
+const reportPostMock = {
+  request: {
+    query: reportPostQuery,
+    variables: { id: id, host: host },
+  },
+  result: {
+    data: {
+      reportPost: true,
+    },
+  },
+};
+
 const getAdminsMock = {
   request: {
     query: getAdminsQuery,
@@ -40,7 +52,7 @@ const getAdminsMock = {
   },
 };
 
-const mocks = [getAdminsMock, deletePostMock];
+const mocks = [getAdminsMock, deletePostMock, reportPostMock];
 
 test("Edit and delete succeed with valid user", async () => {
   const userContext = { ...defaultUserContext };
@@ -76,11 +88,11 @@ test("Edit and delete succeed with valid user", async () => {
   expect(screen.getByText("Home Page"));
 });
 
-test("Action menu does not render with invalid user", async () => {
+test("Report button works for other users", async () => {
   const userContext = { ...defaultUserContext };
-  userContext.details = { ...userContext.details, username: "invalid" };
+  userContext.details = { ...userContext.details, username: "otheruser" };
 
-  const { getByText, queryByTestId } = render(
+  const { getByText, getByTestId } = render(
     <BrowserRouter>
       <UserContext.Provider value={userContext}>
         <MockedProvider mocks={mocks} addTypename={false}>
@@ -97,8 +109,8 @@ test("Action menu does not render with invalid user", async () => {
   );
 
   await waitFor(() => {
-    expect(queryByTestId("icon-button")).toBeNull();
-    getByText(username);
+    fireEvent.click(getByTestId("icon-button"));
+    fireEvent.click(getByText("Report"));
   });
 });
 

@@ -4,8 +4,9 @@
 
 import { Formik, Form, Field, FieldProps } from "formik";
 import { ButtonGroup, Button, TextField } from "@material-ui/core";
-import { MarkdownEditor } from "..";
+import { ActionButton, MarkdownEditor } from "..";
 import { ReactElement } from "react";
+import { ApolloError } from "@apollo/client/errors";
 
 /**
  * Properties for the [[`PostEditorBase`]] component.
@@ -34,6 +35,21 @@ export interface PostEditorBaseProps {
    * Text to be displayed on the submit button.
    */
   submitButtonText: string;
+
+  /**
+   * Loading state to be passed to the ActionButton
+   */
+  loading: boolean;
+
+  /**
+   * Error state to be passed to the ActionButton
+   */
+  error: ApolloError | undefined;
+
+  /**
+   * Error message to be passed to the ActionButton
+   */
+  errorMessage?: string;
 
   /**
    * Function to be carried out when the submit button is clicked.
@@ -112,9 +128,17 @@ export function PostEditorBase(props: PostEditorBaseProps): ReactElement {
               Cancel
             </Button>
           ) : null}
-          <Button variant="contained" color="primary" type="submit" aria-label="submit">
+          <ActionButton
+            variant="contained"
+            color="primary"
+            type="submit"
+            loading={props.loading}
+            error={props.error}
+            errorMessage={props.errorMessage}
+            aria-label="submit"
+          >
             {props.submitButtonText}
-          </Button>
+          </ActionButton>
         </ButtonGroup>
       </Form>
     </Formik>

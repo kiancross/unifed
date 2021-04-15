@@ -5,6 +5,11 @@
 import { ThemeOptions } from "@material-ui/core";
 import { baseTheme } from "./base-theme";
 
+/**
+ * The properties for the dark theme of the application.
+ *
+ * @internal
+ */
 export const darkTheme: ThemeOptions = {
   ...baseTheme,
   overrides: {
@@ -23,6 +28,7 @@ export const darkTheme: ThemeOptions = {
     },
     secondary: {
       main: "#606060",
+      dark: "#3e3e3e",
     },
     text: {
       primary: "#ffffff",

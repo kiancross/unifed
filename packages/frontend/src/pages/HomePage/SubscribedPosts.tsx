@@ -5,7 +5,7 @@
 import { Grid } from "@material-ui/core";
 import { gql, useQuery } from "@apollo/client";
 
-import { LoadingCard, PostPreview } from "../../components";
+import { LoadingCard, PostPreview, ErrorMessage } from "../../components";
 import { ReactElement } from "react";
 
 interface Post {
@@ -50,11 +50,14 @@ export const getSubscribedQuery = gql`
  */
 export function SubscribedPosts(): ReactElement {
   const { loading, error, data } = useQuery(getSubscribedQuery);
-  if (error) return <Grid item />;
+  if (error)
+    return (
+      <ErrorMessage message="Your subscribed posts could not be retrieved at this time. Please try again later." />
+    );
   if (loading) return <LoadingCard />;
 
   return (
-    <Grid item container spacing={1}>
+    <Grid item container spacing={2}>
       {data.getSubscribedPosts
         .filter((post: Post) => post.title)
         .map((post: Post) => {

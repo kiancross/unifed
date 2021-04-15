@@ -14,7 +14,7 @@ import {
 import { Service } from "typedi";
 import { CurrentUser } from "./helpers";
 import { AuthoriseUser } from "../auth-checkers";
-import { Post, User, Community, RemoteReference } from "@unifed/backend-core";
+import { Post, User, Community, RemoteReference, config } from "@unifed/backend-core";
 import { CreatePostInput, RemoteReferenceInput } from "./inputs";
 import { translateHost } from "./helpers";
 import { PostsService, CommunitiesService, UsersService } from "../services";
@@ -68,6 +68,15 @@ export class PostsResolver implements ResolverInterface<Post> {
   }
 
   @AuthoriseUser()
+  @Mutation(() => Boolean)
+  async reportPost(@Arg("post") post: RemoteReferenceInput): Promise<boolean> {
+    if (post.host === config.internalReference || post.host === config.federationHost) {
+      return await this.postsService.report(post.id);
+    }
+    return false;
+  }
+
+  @AuthoriseUser()
   @Query(() => [Post])
   async getSubscribedPosts(@CurrentUser() user: User): Promise<Post[]> {
     const subscriptions: RemoteReference[] = await this.usersService.getSubscriptions(user.id);
@@ -77,6 +86,50 @@ export class PostsResolver implements ResolverInterface<Post> {
       }),
     );
     return posts.flat();
+  }
+
+  @AuthoriseUser()
+  @Mutation(() => Boolean)
+  async approvePosts(
+    @CurrentUser() user: User,
+    @Arg("posts", () => [RemoteReferenceInput]) posts: RemoteReferenceInput[],
+  ): Promise<boolean> {
+    for (let i = 0; i < posts.length; i++) {
+      const post = posts[i];
+      if (post.host === config.internalReference || post.host === config.federationHost) {
+        await this.postsService.approve(user.username, post.id);
+      }
+    }
+    return true;
+  }
+
+  @AuthoriseUser()
+  @Mutation(() => Boolean)
+  async deletePosts(
+    @CurrentUser() user: User,
+    @Arg("posts", () => [RemoteReferenceInput]) posts: RemoteReferenceInput[],
+  ): Promise<boolean> {
+    for (let i = 0; i < posts.length; i++) {
+      await this.postsService.adminDelete(user.username, posts[i].id);
+    }
+    return true;
+  }
+
+  @AuthoriseUser()
+  @Query(() => [Post])
+  async getUnapprovedPosts(@CurrentUser() user: User): Promise<Post[]> {
+    const allCommunities: Community[] = await this.communitiesService.getAll(
+      await translateHost(config.internalReference),
+    );
+    // all communities from instance where user is an admin
+    const adminCommunities: Community[] = allCommunities.filter((com) =>
+      com.admins.find((admin) => admin._id === user.username),
+    );
+    const posts = await Promise.all(
+      adminCommunities.map((com) => this.postsService.getUnfilteredPosts(com.id)),
+    );
+    const unapprovedPosts = posts.flat().filter((post) => !post.approved);
+    return unapprovedPosts;
   }
 
   @Query(() => [Post])
