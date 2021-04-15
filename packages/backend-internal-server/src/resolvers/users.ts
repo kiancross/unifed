@@ -31,7 +31,7 @@ export class UsersResolver implements ResolverInterface<User> {
     @Arg("profile") profile: UserProfileInput,
     @CurrentUser() user: User,
   ): Promise<boolean> {
-    return this.usersService.updateProfile(user.id, profile);
+    return this.usersService.updateProfile(user.id, profile.name);
   }
 
   @AuthoriseUser()

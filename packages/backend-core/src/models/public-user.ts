@@ -18,6 +18,7 @@ import { Base } from "./base";
 @ObjectType()
 export class UserProfile {
   @Field()
+  @Property()
   name!: string;
 
   toJSON(): JSONMap {
