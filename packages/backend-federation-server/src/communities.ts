@@ -10,16 +10,26 @@ import { ResponseError } from "./response-error";
 
 const router = AsyncRouter();
 
+/*
+ * Serves all communities.
+ */
 router.get("/", async (_, res) => {
   const communities = await CommunityModel.find();
   res.json(communities.map((community) => community.id));
 });
 
+/*
+ * Serves a community by its ID.
+ */
 router.get("/:id", async (req, res) => {
   const community = await getCommunityOrThrow(req.params.id, 404);
   res.json(community);
 });
 
+/*
+ * Returns the last modified timestamps for all posts on a
+ * community.
+ */
 router.get("/:id/timestamps", async (req, res) => {
   const community = await getCommunityOrThrow(req.params.id, 404);
 
@@ -35,6 +45,7 @@ router.get("/:id/timestamps", async (req, res) => {
       }),
     );
   } else {
+    // Sanity check! This should never happen...
     throw new ResponseError(500, "Unable to populate posts from database");
   }
 });

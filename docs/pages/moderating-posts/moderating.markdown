@@ -7,6 +7,6 @@ permalink: /moderating/
 
 # Moderating Posts
 
-If you are an administrator of a community, you can approve or deny posts that have been flagged by the spam detector.
+If you are an administrator of a community, you can approve or reject posts that have been flagged by the spam detector or reported by users.
 
-Approved posts will then have their content shown in the community. Denied ones will be deleted.
+Approved posts will then have their content shown in the community. Rejected ones will be deleted.

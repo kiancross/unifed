@@ -54,6 +54,7 @@ export function JoinCallMessage(props: { onJoinClick: () => void }): ReactElemen
                 color="primary"
                 onClick={props.onJoinClick}
                 className={classes.fullWidth}
+                aria-label="join community call"
               >
                 Join Community Call
               </Button>

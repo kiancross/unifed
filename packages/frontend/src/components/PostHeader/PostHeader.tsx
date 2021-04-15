@@ -231,10 +231,13 @@ export function PostHeader(props: PostHeaderProps): ReactElement {
           edge="end"
           size="small"
           onClick={(e) => handleClick(e)}
+          aria-label="more options"
+          aria-controls="more-options"
         >
           <MoreHorizIcon />
         </IconButton>
         <Menu
+          id="more-options"
           anchorOrigin={{
             vertical: "bottom",
             horizontal: "right",
@@ -251,8 +254,12 @@ export function PostHeader(props: PostHeaderProps): ReactElement {
         >
           {user.details?.username === props.username || isUserAdmin ? (
             <>
-              <MenuItem onClick={handleEdit}> Edit </MenuItem>
-              <MenuItem onClick={handleDelete}> Delete </MenuItem>
+              <MenuItem onClick={handleEdit} aria-label="edit">
+                Edit
+              </MenuItem>
+              <MenuItem onClick={handleDelete} aria-label="delete">
+                Delete
+              </MenuItem>
             </>
           ) : null}
           {user.details?.username !== props.username ? (

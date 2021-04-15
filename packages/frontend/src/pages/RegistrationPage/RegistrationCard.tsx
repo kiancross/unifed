@@ -122,6 +122,7 @@ export function RegistrationCard(): ReactElement {
                     color="primary"
                     helperText={errors.username}
                     error={!!errors.username}
+                    inputProps={{ "aria-label": "username" }}
                   />
                 </div>
                 <div>
@@ -136,6 +137,7 @@ export function RegistrationCard(): ReactElement {
                     color="primary"
                     helperText={errors.name}
                     error={!!errors.name}
+                    inputProps={{ "aria-label": "name" }}
                   />
                 </div>
                 <div>
@@ -150,6 +152,7 @@ export function RegistrationCard(): ReactElement {
                     color="primary"
                     helperText={errors.email}
                     error={!!errors.email}
+                    inputProps={{ "aria-label": "email" }}
                   />
                 </div>
                 <div>
@@ -167,6 +170,7 @@ export function RegistrationCard(): ReactElement {
                     onKeyUp={(e: React.ChangeEvent<HTMLInputElement>) => {
                       setPassword(e.target.value);
                     }}
+                    inputProps={{ "aria-label": "password" }}
                   />
                   <PasswordStrengthMeter password={password} />
                 </div>
@@ -182,6 +186,7 @@ export function RegistrationCard(): ReactElement {
                     color="primary"
                     helperText={errors.repeatPassword}
                     error={!!errors.repeatPassword}
+                    inputProps={{ "aria-label": "repeat password" }}
                   />
                 </div>
                 <FormControlLabel
@@ -201,6 +206,7 @@ export function RegistrationCard(): ReactElement {
                   color="primary"
                   style={{ margin: "1rem 0rem" }}
                   fullWidth
+                  aria-label="submit"
                   error={error}
                   loading={loading}
                 >

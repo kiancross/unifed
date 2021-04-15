@@ -36,7 +36,7 @@ test("Leave call hidden", async () => {
     <VideoWrapper username="foo" muted={false} onMuteChange={jest.fn()} />,
   );
 
-  expect(queryByRole("button", { name: "leave" })).toBeNull();
+  expect(queryByRole("button", { name: "leave call" })).toBeNull();
 });
 
 test("Leave call click", async () => {
@@ -52,7 +52,7 @@ test("Leave call click", async () => {
     />,
   );
 
-  fireEvent.click(getByRole("button", { name: "leave" }));
+  fireEvent.click(getByRole("button", { name: "leave call" }));
 
   expect(onLeaveCall).toHaveBeenCalledTimes(1);
   expect(onLeaveCall).toHaveBeenCalledWith();
