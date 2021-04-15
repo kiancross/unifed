@@ -24,11 +24,11 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", () => {
-  throw new ResponseError(500, "Not implemented");
+  throw new ResponseError(501, "Not implemented");
 });
 
 router.post("/:id", () => {
-  throw new ResponseError(500, "Not implemented");
+  throw new ResponseError(501, "Not implemented");
 });
 
 export { router as routes };
