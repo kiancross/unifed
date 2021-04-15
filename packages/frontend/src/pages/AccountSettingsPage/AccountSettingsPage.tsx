@@ -36,7 +36,7 @@ export function AccountSettingsPage(): ReactElement {
     <Container style={{ paddingTop: "1.5rem" }} maxWidth="sm">
       <Card>
         <AppBar position="static">
-          <Tabs value={selectedTab} onChange={handleTabChange}>
+          <Tabs value={selectedTab} onChange={handleTabChange} aria-label="account settings tabs">
             <Tab label="ACCOUNT" />
             <Tab label="PROFILE" />
           </Tabs>

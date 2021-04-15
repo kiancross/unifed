@@ -65,7 +65,7 @@ export function PasswordResetRequestCard(): ReactElement {
                     color="primary"
                     helperText={errors.email}
                     error={!!errors.email}
-                    inputProps={{ "data-testid": "email-input" }}
+                    inputProps={{ "aria-label": "email" }}
                   />
                 </div>
                 <Button
@@ -74,7 +74,7 @@ export function PasswordResetRequestCard(): ReactElement {
                   color="primary"
                   style={{ margin: "1rem 0rem" }}
                   fullWidth
-                  data-testid="email-submit"
+                  aria-label="submit"
                 >
                   Send Email
                 </Button>

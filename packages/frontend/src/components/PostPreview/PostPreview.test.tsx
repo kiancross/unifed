@@ -34,7 +34,7 @@ const getAdminsMock = {
 test("Renders correctly", async () => {
   const userContext = { ...defaultUserContext };
   userContext.details = { ...userContext.details, username };
-  const { getAllByText, getByText, getByTestId } = render(
+  const { getAllByText, getByText, getByRole } = render(
     <MemoryRouter>
       <UserContext.Provider value={userContext}>
         <MockedProvider mocks={[getAdminsMock]} addTypename={false}>
@@ -52,18 +52,18 @@ test("Renders correctly", async () => {
   );
 
   await waitFor(() => {
-    getByTestId("icon-button");
+    getByRole("button", { name: "more options" });
   });
   await act(async () => {
-    fireEvent.click(getByTestId("icon-button"));
+    fireEvent.click(getByRole("button", { name: "more options" }));
   });
   await act(async () => {
-    fireEvent.click(getByText("Edit"));
+    fireEvent.click(getByRole("menuitem", { name: "edit" }));
   });
   getByText(title);
   getAllByText(body);
   await act(async () => {
-    fireEvent.click(getByText("Cancel"));
+    fireEvent.click(getByRole("button", { name: "cancel" }));
   });
   expect(screen.queryByText(body)).toBeNull;
 });
