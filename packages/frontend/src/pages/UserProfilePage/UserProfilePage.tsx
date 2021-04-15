@@ -62,7 +62,6 @@ export function UserProfilePage(): ReactElement {
       <ErrorMessage message="Your posts could not be retrieved at this time. Please try again later." />
     );
   if (posts.loading) return <CenteredLoader />;
-  console.log([posts.data.getAllPosts].reverse());
 
   return (
     <Container style={{ paddingTop: "1.5rem" }}>
