@@ -71,8 +71,13 @@ export function SubscribeButton(props: SubscribeButtonProps): ReactElement {
 
   if (loading) {
     return (
-      <Button disabled variant="contained" color="primary">
-        {subscribed ? "Subscribe" : "Unsubscribe"}
+      <Button
+        disabled
+        variant="contained"
+        color="primary"
+        aria-label={subscribed ? "subscribe" : "unsubscribe"}
+      >
+        {subscribed ? "subscribe" : "unsubscribe"}
       </Button>
     );
   }
@@ -89,6 +94,7 @@ export function SubscribeButton(props: SubscribeButtonProps): ReactElement {
       variant="contained"
       color={subscribed ? "secondary" : "primary"}
       disableElevation
+      aria-label={subscribed ? "unsubscribe" : "subscribe"}
     >
       {subscribed ? "Unsubscribe" : "Subscribe"}
     </Button>
