@@ -119,7 +119,12 @@ test.serial("Report post from local server", async (t) => {
 
   // first findOne call returns null
   await PostModel.findOne({ _id: "postid" }).exec();
-  t.is(await PostModel.findOne({ _id: "postid" }).exec().then(res => res?.approved), true);
+  t.is(
+    await PostModel.findOne({ _id: "postid" })
+      .exec()
+      .then((res) => res?.approved),
+    true,
+  );
 
   const response = await graphql(
     await getMergedSchema(Container.of()),
@@ -142,7 +147,12 @@ test.serial("Report post from local server", async (t) => {
   }
 
   t.true(response.data.reportPost);
-  t.is(await PostModel.findOne({ _id: "postid" }).exec().then(res => res?.approved), false);
+  t.is(
+    await PostModel.findOne({ _id: "postid" })
+      .exec()
+      .then((res) => res?.approved),
+    false,
+  );
 });
 
 test.serial("Get unapproved posts", async (t) => {
