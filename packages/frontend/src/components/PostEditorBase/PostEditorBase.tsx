@@ -77,6 +77,7 @@ export function PostEditorBase(props: PostEditorBaseProps): ReactElement {
         fullWidth
         variant="outlined"
         size="small"
+        aria-label="title"
       />
     </div>
   );
@@ -86,7 +87,7 @@ export function PostEditorBase(props: PostEditorBaseProps): ReactElement {
       <Form style={{ display: "block" }}>
         {titleField}
 
-        <Field name="body" required>
+        <Field name="body" required aria-label="body">
           {({ field }: FieldProps) => (
             <MarkdownEditor
               onChange={({ text }) => field.onChange(field.name)(text)}
@@ -106,11 +107,12 @@ export function PostEditorBase(props: PostEditorBaseProps): ReactElement {
               variant="contained"
               color="primary"
               onClick={props.onCancel}
+              aria-label="cancel"
             >
               Cancel
             </Button>
           ) : null}
-          <Button variant="contained" color="primary" type="submit">
+          <Button variant="contained" color="primary" type="submit" aria-label="submit">
             {props.submitButtonText}
           </Button>
         </ButtonGroup>
