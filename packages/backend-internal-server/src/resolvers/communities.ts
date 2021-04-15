@@ -79,6 +79,21 @@ export class CommunitiesResolver implements ResolverInterface<Community> {
     return true;
   }
 
+  /**
+   * Allows a user to create a community to moderate.
+   *
+   * @param id ID of the new community to make.
+   *
+   * @param title Title of the new community.
+   *
+   * @param description Description of the new community.
+   *
+   * @param user Currently logged in user.
+   *
+   * @returns True on success.
+   *
+   * @internal
+   */
   @AuthoriseUser()
   @Mutation(() => Boolean)
   async createCommunity(
@@ -90,11 +105,29 @@ export class CommunitiesResolver implements ResolverInterface<Community> {
     return await this.communitiesService.create(user.username, id, title, description);
   }
 
+  /**
+   * Fetches the communities available at a host.
+   *
+   * @param host The host server to search
+   *
+   * @returns An array of communities.
+   *
+   * @internal
+   */
   @Query(() => [Community])
   async getCommunities(@Arg("host") host: string): Promise<Community[]> {
     return await this.communitiesService.getAll(await translateHost(host));
   }
 
+  /**
+   * Fetches a community on the federated network.
+   *
+   * @param community Reference to the community.
+   *
+   * @returns The community if it exists.
+   *
+   * @internal
+   */
   @Query(() => Community, { nullable: true })
   async getCommunity(@Arg("community") community: RemoteReferenceInput): Promise<Community | null> {
     return await this.communitiesService.getOne(await translateHost(community.host), community.id);

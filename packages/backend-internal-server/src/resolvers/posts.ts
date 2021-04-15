@@ -28,6 +28,17 @@ export class PostsResolver implements ResolverInterface<Post> {
     private readonly usersService: UsersService,
   ) {}
 
+  /**
+   * Allows a user to create a new post.
+   *
+   * @param post The new post to make.
+   *
+   * @param user Currently logged in user.
+   *
+   * @returns The newly created post.
+   *
+   * @internal
+   */
   @AuthoriseUser()
   @Mutation(() => Post, { nullable: true })
   async createPost(
@@ -42,6 +53,18 @@ export class PostsResolver implements ResolverInterface<Post> {
     });
   }
 
+  /**
+   * Allows the author of a post or an admin of the community the post was made on to delete
+   * the post.
+   *
+   * @param post Reference to the post on the federated network.
+   *
+   * @param user Currently logged in user.
+   *
+   * @returns True once the call is made.
+   *
+   * @internal
+   */
   @AuthoriseUser()
   @Mutation(() => Boolean)
   async deletePost(
@@ -52,6 +75,22 @@ export class PostsResolver implements ResolverInterface<Post> {
     return true;
   }
 
+  /**
+   * Allows the author of a post or an admin of the community the post was made on to update
+   * the content of the post.
+   *
+   * @param post Reference to the post in the federated network.
+   *
+   * @param body The new body of the post.
+   *
+   * @param user Currently logged in user.
+   *
+   * @param title The new title of the post.
+   *
+   * @returns The updated post.
+   *
+   * @internal
+   */
   @AuthoriseUser()
   @Mutation(() => Post)
   async updatePost(
@@ -67,6 +106,15 @@ export class PostsResolver implements ResolverInterface<Post> {
     });
   }
 
+  /**
+   * Allows a user to report a post and set its approved flag to false.
+   *
+   * @param post The post to report
+   *
+   * @returns True on report success.
+   *
+   * @internal
+   */
   @AuthoriseUser()
   @Mutation(() => Boolean)
   async reportPost(@Arg("post") post: RemoteReferenceInput): Promise<boolean> {
@@ -76,6 +124,15 @@ export class PostsResolver implements ResolverInterface<Post> {
     return false;
   }
 
+  /**
+   * Fetches the list of posts from communities the user is subscribed to.
+   *
+   * @param user The currently logged in user.
+   *
+   * @returns Array of posts.
+   *
+   * @internal
+   */
   @AuthoriseUser()
   @Query(() => [Post])
   async getSubscribedPosts(@CurrentUser() user: User): Promise<Post[]> {
@@ -88,6 +145,17 @@ export class PostsResolver implements ResolverInterface<Post> {
     return posts.flat();
   }
 
+  /**
+   * Allows administrators to set the approved flag on the provided posts to true.
+   *
+   * @param user The admin making the approval.
+   *
+   * @param posts Array of post references to approve.
+   *
+   * @returns Returns true once the provided posts are approved.
+   *
+   * @internal
+   */
   @AuthoriseUser()
   @Mutation(() => Boolean)
   async approvePosts(
@@ -103,6 +171,17 @@ export class PostsResolver implements ResolverInterface<Post> {
     return true;
   }
 
+  /**
+   * Allows administrators to delete an array of posts.
+   *
+   * @param user The admin deleting the posts.
+   *
+   * @param posts Array of post references to delete.
+   *
+   * @returns Returns true once the provided posts are deleted.
+   *
+   * @internal
+   */
   @AuthoriseUser()
   @Mutation(() => Boolean)
   async deletePosts(
@@ -115,6 +194,15 @@ export class PostsResolver implements ResolverInterface<Post> {
     return true;
   }
 
+  /**
+   * Fetches an array of unapproved posts from communities the user moderates (is an admin in).
+   *
+   * @param user A community administrator.
+   *
+   * @returns Array of of unapproved posts.
+   *
+   * @internal
+   */
   @AuthoriseUser()
   @Query(() => [Post])
   async getUnapprovedPosts(@CurrentUser() user: User): Promise<Post[]> {
@@ -132,6 +220,17 @@ export class PostsResolver implements ResolverInterface<Post> {
     return unapprovedPosts;
   }
 
+  /**
+   * Fetches all the posts from a community.
+   *
+   * @param community Community to fetch posts from.
+   *
+   * @param user The currently logged in user.
+   *
+   * @returns Array of posts.
+   *
+   * @internal
+   */
   @Query(() => [Post])
   async getPosts(
     @Arg("community") community: RemoteReferenceInput,
@@ -144,6 +243,17 @@ export class PostsResolver implements ResolverInterface<Post> {
     );
   }
 
+  /**
+   * Fetches a post from the federated network.
+   *
+   * @param post Post to fetch.
+   *
+   * @param user The currently logged in user.
+   *
+   * @returns Object representing the post.
+   *
+   * @internal
+   */
   @Query(() => Post)
   async getPost(@Arg("post") post: RemoteReferenceInput, @CurrentUser() user: User): Promise<Post> {
     return await this.postsService.getById(user.username, await translateHost(post.host), post.id);
