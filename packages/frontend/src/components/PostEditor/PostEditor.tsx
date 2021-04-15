@@ -109,6 +109,9 @@ export function PostEditor(props: PostEditorProps): ReactElement {
         }
       }}
       submitButtonText={props.submitButtonText}
+      loading={loading}
+      error={error}
+      errorMessage="Could not edit comment. Please try again later."
     />
   );
 }
