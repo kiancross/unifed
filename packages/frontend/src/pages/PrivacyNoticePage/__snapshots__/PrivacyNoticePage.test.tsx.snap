@@ -16,7 +16,9 @@ exports[`Render 1`] = `
         <div
           className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-justify-xs-center MuiGrid-grid-xs-9 MuiGrid-grid-md-4"
         >
-          <div>
+          <div
+            aria-label="unifed logo"
+          >
             <img
               alt="Unifed"
               className="makeStyles-logo-4"

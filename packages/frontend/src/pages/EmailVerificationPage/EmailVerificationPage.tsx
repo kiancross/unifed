@@ -50,7 +50,9 @@ export function EmailVerificationPage(): ReactElement {
         <React.Fragment>
           <h1>Verification Failed!</h1>
           <Link to="/">
-            <button className="Submit-button">Back to Login</button>
+            <button className="Submit-button" aria-label="back to login page">
+              Back to Login
+            </button>
           </Link>
         </React.Fragment>
       )}

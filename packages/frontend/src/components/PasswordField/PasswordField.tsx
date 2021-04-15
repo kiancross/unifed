@@ -44,13 +44,16 @@ export function PasswordField(props: PasswordFieldProps): ReactElement {
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            <IconButton onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
+            <IconButton
+              onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+              aria-label="toggle password visibility"
+            >
               {isPasswordVisible ? (
-                <Tooltip title="Hide Password">
+                <Tooltip title="Hide Password" aria-label="hide password">
                   <Visibility />
                 </Tooltip>
               ) : (
-                <Tooltip title="Show Password">
+                <Tooltip title="Show Password" aria-label="show password">
                   <VisibilityOff />
                 </Tooltip>
               )}

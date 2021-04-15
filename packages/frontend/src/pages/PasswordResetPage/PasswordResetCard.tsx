@@ -99,7 +99,7 @@ export function PasswordResetCard(): ReactElement {
                       color="primary"
                       helperText={errors.newPass}
                       error={!!errors.newPass}
-                      inputProps={{ "data-testid": "new-pass-input" }}
+                      inputProps={{ role: "textbox", "aria-label": "new password" }}
                     />
                   </div>
                   <div>
@@ -115,7 +115,7 @@ export function PasswordResetCard(): ReactElement {
                       color="primary"
                       helperText={errors.newPass}
                       error={!!errors.newPass}
-                      inputProps={{ "data-testid": "retyped-pass-input" }}
+                      inputProps={{ role: "textbox", "aria-label": "retype new password" }}
                     />
                   </div>
                   <Button
@@ -124,7 +124,8 @@ export function PasswordResetCard(): ReactElement {
                     color="primary"
                     style={{ margin: "1rem 0rem" }}
                     fullWidth
-                    data-testid="reset-pass-submit"
+                    // data-testid="reset-pass-submit"
+                    aria-label="submit"
                   >
                     Change Password
                   </Button>
