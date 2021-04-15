@@ -61,7 +61,7 @@ test("CommunityPostsPage renders", async () => {
   );
 
   await waitFor(() => {
-    expect(screen.getByText("Join Community Call"));
+    expect(screen.getByRole("button", { name: "join community call" }));
   });
 });
 

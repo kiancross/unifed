@@ -126,6 +126,7 @@ export function CommunityPostsPage(): ReactElement {
                 color="primary"
                 variant="contained"
                 to={`/instances/${host}/communities/${community}/posts/create`}
+                aria-label="make post"
               >
                 Make Post
               </ButtonLink>
@@ -137,6 +138,7 @@ export function CommunityPostsPage(): ReactElement {
                   color="primary"
                   variant="contained"
                   to={`/instances/${host}/communities/${community}/call`}
+                  aria-label="join community call"
                 >
                   Join Community Call
                 </ButtonLink>
