@@ -98,7 +98,7 @@ export function CommunityPostsPage(): ReactElement {
   const direction = isMobile ? "column-reverse" : "row";
 
   return (
-    <div style={{ paddingTop: "15px" }}>
+    <div style={{ paddingTop: "1.5rem" }}>
       <Container maxWidth="lg">
         <Grid direction={direction} container spacing={3}>
           <Grid item container xs={12} md={8} direction="column" spacing={2}>

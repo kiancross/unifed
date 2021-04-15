@@ -24,7 +24,7 @@ export function HomePage(): ReactElement {
   const isMobile = useMediaQuery("(max-width: 960px)");
   const direction = isMobile ? "column-reverse" : "row";
   return (
-    <Container style={{ paddingTop: "1rem" }} maxWidth="lg">
+    <Container style={{ paddingTop: "1.5rem" }} maxWidth="lg">
       <Grid container direction={direction} spacing={3}>
         <Grid item container xs={12} md={8} direction="column" spacing={2}>
           <SubscribedPosts />
