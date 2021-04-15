@@ -110,6 +110,41 @@ test.serial("Delete posts", async (t) => {
   t.true(response.data.deletePosts);
 });
 
+test.serial("Report post from local server", async (t) => {
+  const post = generatePost("foo");
+  post._id = "postid";
+  post.approved = true;
+
+  PostModel.create(post);
+
+  // first findOne call returns null
+  await PostModel.findOne({ _id: "postid" }).exec();
+  t.is(await PostModel.findOne({ _id: "postid" }).exec().then(res => res?.approved), true);
+
+  const response = await graphql(
+    await getMergedSchema(Container.of()),
+    `
+      mutation {
+        reportPost(post: { host: "this", id: "postid" })
+      }
+    `,
+    null,
+    {
+      user: {
+        id: "testuser",
+      },
+    },
+  );
+
+  if (!response.data) {
+    t.fail();
+    return;
+  }
+
+  t.true(response.data.reportPost);
+  t.is(await PostModel.findOne({ _id: "postid" }).exec().then(res => res?.approved), false);
+});
+
 test.serial("Get unapproved posts", async (t) => {
   const community = generateCommunity();
   community._id = "testcom";

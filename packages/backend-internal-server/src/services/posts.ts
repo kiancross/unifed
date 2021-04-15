@@ -43,6 +43,7 @@ export class PostsService extends PostsFederationService {
     await PostModel.update({ _id: id }, { $set: { approved: false } });
     return true;
   }
+  
   async approve(username: string, postId: string): Promise<boolean> {
     const post = await PostModel.findOne({ _id: postId }).exec();
     if (!this.isAdmin(username, post)) return false;
