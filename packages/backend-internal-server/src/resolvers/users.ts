@@ -48,6 +48,17 @@ export class UsersResolver implements ResolverInterface<User> {
     return this.usersService.updateProfile(user.id, profile.name);
   }
 
+  /**
+   * Allows users to subscribe to a community.
+   * 
+   * @param community Reference to the community.
+   * 
+   * @param user Currently logged in user.
+   * 
+   * @returns True on success.
+   * 
+   * @internal
+   */
   @AuthoriseUser()
   @Mutation(() => Boolean)
   async subscribe(
@@ -57,6 +68,17 @@ export class UsersResolver implements ResolverInterface<User> {
     return this.usersService.subscribe(user.id, await translateHost(community.host), community.id);
   }
 
+  /**
+   * Allows users to unsubscribe from a community.
+   * 
+   * @param community Reference to the community.
+   * 
+   * @param user Currently logged in user.
+   * 
+   * @returns True on success.
+   * 
+   * @internal
+   */
   @AuthoriseUser()
   @Mutation(() => Boolean)
   async unsubscribe(
@@ -70,6 +92,15 @@ export class UsersResolver implements ResolverInterface<User> {
     );
   }
 
+  /**
+   * Fetches all the communities the user is subscribed to.
+   * 
+   * @param user Currently logged in user.
+   * 
+   * @returns Array of references to the communities on the federated network.
+   * 
+   * @internal
+   */
   @AuthoriseUser()
   @Query(() => [RemoteReference])
   async getSubscriptions(@CurrentUser() user: User): Promise<RemoteReference[]> {
@@ -81,6 +112,17 @@ export class UsersResolver implements ResolverInterface<User> {
     return user.profile;
   }
 
+  /**
+   * Fetches all the posts a user has posted.
+   * 
+   * @param user Currently logged in user.
+   * 
+   * @param username Username of the user to get posts of.
+   * 
+   * @returns The posts made by the specified user.
+   * 
+   * @internal
+   */
   @AuthoriseUser()
   @Query(() => [Post])
   async getAllPosts(@CurrentUser() user: User, @Arg("username") username: string): Promise<Post[]> {
