@@ -28,6 +28,17 @@ export class UsersResolver implements ResolverInterface<User> {
     private readonly postsService: PostsService,
   ) {}
 
+  /**
+   * Allows user to update their profile.
+   * 
+   * @param profile The new profile to update to.
+   * 
+   * @param user The currently logged in user.
+   * 
+   * @returns True once profile has been updated.
+   * 
+   * @internal
+   */
   @AuthoriseUser()
   @Mutation(() => Boolean)
   async updateUserProfile(
