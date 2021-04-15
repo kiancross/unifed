@@ -5,6 +5,7 @@
 import { Service } from "typedi";
 import {
   config,
+  getIdFromRef,
   CommunityModel,
   Post,
   PostModel,
@@ -12,7 +13,6 @@ import {
   RemoteReference,
 } from "@unifed/backend-core";
 import { PostsFederationService, CreatePostProps } from "@unifed/backend-federation-client";
-import { getIdFromRef } from "@unifed/backend-core/src/models/helpers";
 import { plainToClass } from "class-transformer";
 
 @Service()
