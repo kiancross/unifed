@@ -7,21 +7,21 @@ import { MockedProvider } from "@apollo/client/testing";
 import { SubscribeButton, subscribeQuery, unsubscribeQuery } from "./SubscribeButton";
 
 test("Render SubscribeButton on unsubscribed community", async () => {
-  const { getByText } = render(
+  const { getByRole } = render(
     <MockedProvider>
       <SubscribeButton id={"foo"} host={"bar"} isSubscribed={false} />
     </MockedProvider>,
   );
-  getByText("Subscribe");
+  getByRole("button", { name: "subscribe" });
 });
 
 test("Render SubscribeButton on subscribed community", async () => {
-  const { getByText } = render(
+  const { getByRole } = render(
     <MockedProvider>
       <SubscribeButton id={"foo"} host={"bar"} isSubscribed={true} />
     </MockedProvider>,
   );
-  getByText("Unsubscribe");
+  getByRole("button", { name: "unsubscribe" });
 });
 
 test("Subscribe and unsubscribe", async () => {
@@ -50,20 +50,20 @@ test("Subscribe and unsubscribe", async () => {
     },
   ];
 
-  const { getByText } = render(
+  const { getByRole } = render(
     <MockedProvider mocks={mocks} addTypename={false}>
       <SubscribeButton id={"foo"} host={"bar"} isSubscribed={false} />
     </MockedProvider>,
   );
 
-  fireEvent.click(getByText("Subscribe"));
-  expect(getByText("Unsubscribe").closest("button")).toBeDisabled();
+  fireEvent.click(getByRole("button", { name: "subscribe" }));
+  expect(getByRole("button", { name: "unsubscribe" }).closest("button")).toBeDisabled();
   await waitFor(() => {
-    expect(getByText("Unsubscribe").closest("button")).not.toBeDisabled();
+    expect(getByRole("button", { name: "unsubscribe" }).closest("button")).not.toBeDisabled();
   });
-  fireEvent.click(getByText("Unsubscribe"));
-  expect(getByText("Subscribe").closest("button")).toBeDisabled();
+  fireEvent.click(getByRole("button", { name: "unsubscribe" }));
+  expect(getByRole("button", { name: "subscribe" }).closest("button")).toBeDisabled();
   await waitFor(() => {
-    expect(getByText("Subscribe").closest("button")).not.toBeDisabled();
+    expect(getByRole("button", { name: "subscribe" }).closest("button")).not.toBeDisabled();
   });
 });
