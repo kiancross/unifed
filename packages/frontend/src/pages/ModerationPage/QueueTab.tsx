@@ -5,9 +5,9 @@
 import { ReactElement, useState } from "react";
 import { gql, Reference, useQuery, useMutation } from "@apollo/client";
 import { Formik, Field, Form } from "formik";
-import { Button, Checkbox, List, ListItem, ListItemIcon } from "@material-ui/core";
+import { Checkbox, List, ListItem, ListItemIcon } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Comment, LoadingCard, PostPreview } from "../../components";
+import { ActionButton, Comment, LoadingCard, PostPreview } from "../../components";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -116,8 +116,14 @@ export function QueueTab(): ReactElement {
   };
 
   const { loading: loadingQuery, data: queryData } = useQuery(getUnapprovedPostsQuery);
-  const [approvePosts] = useMutation(approvePostsMutation, updateCache);
-  const [deletePosts] = useMutation(deletePostsMutation, updateCache);
+  const [approvePosts, { loading: loadingApprove, error: approveError }] = useMutation(
+    approvePostsMutation,
+    updateCache,
+  );
+  const [deletePosts, { loading: loadingDelete, error: deleteError }] = useMutation(
+    deletePostsMutation,
+    updateCache,
+  );
 
   if (loadingQuery) return <LoadingCard />;
 
@@ -145,23 +151,28 @@ export function QueueTab(): ReactElement {
         <Form>
           <List classes={classes}>
             <ListItem>
-              <Button
+              <ActionButton
                 type="submit"
-                style={{ marginRight: "1rem" }}
+                style={{ width: "90px", marginRight: "1rem" }}
                 variant="contained"
                 color="primary"
                 onClick={() => setFieldValue("btn", "approve")}
+                loading={loadingApprove}
+                error={approveError}
               >
                 Approve
-              </Button>
-              <Button
+              </ActionButton>
+              <ActionButton
                 type="submit"
+                style={{ width: "90px" }}
                 variant="contained"
                 color="primary"
                 onClick={() => setFieldValue("btn", "remove")}
+                loading={loadingDelete}
+                error={deleteError}
               >
                 Remove
-              </Button>
+              </ActionButton>
             </ListItem>
             {unapprovedPosts.map((post: PostParams) => (
               <ListItem key={post.id}>

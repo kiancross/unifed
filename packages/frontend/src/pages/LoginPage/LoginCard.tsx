@@ -51,8 +51,8 @@ export function LoginCard(): ReactElement {
                 .then((res) => {
                   if (!res) setStates(error);
                 })
-                .catch(() => {
-                  setStates(error);
+                .catch((err) => {
+                  setStates(err);
                 });
               setLoading(true);
             }}
