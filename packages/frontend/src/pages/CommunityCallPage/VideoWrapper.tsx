@@ -33,9 +33,9 @@ export function VideoWrapper(props: VideoWrapperProps): ReactElement {
         action={
           <>
             {props.self ? (
-              <Tooltip title="Leave Call">
+              <Tooltip title="Leave Call" aria-label="leave call">
                 <IconButton
-                  aria-label="leave"
+                  aria-label="leave call"
                   onClick={() => {
                     if (props.onLeaveCall) {
                       props.onLeaveCall();
@@ -46,8 +46,8 @@ export function VideoWrapper(props: VideoWrapperProps): ReactElement {
                 </IconButton>
               </Tooltip>
             ) : null}
-            <Tooltip title={props.muted ? "Unmute" : "Mute"}>
-              <IconButton aria-label="mute" onClick={() => props.onMuteChange()}>
+            <Tooltip title={props.muted ? "Unmute" : "Mute"} aria-label="toggle mute">
+              <IconButton aria-label="toggle mute" onClick={() => props.onMuteChange()}>
                 {props.muted ? <MicOffIcon /> : <MicIcon />}
               </IconButton>
             </Tooltip>
