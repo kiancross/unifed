@@ -61,7 +61,7 @@ export function PasswordStrengthMeter(props: PasswordStrengthMeterProps): ReactE
     <div>
       <meter value={result.score} low={3} max={4} optimum={4} style={{ width: "100%" }} />
       <Tooltip title={tooltipTitle(result)} placement="bottom">
-        <p style={{ margin: "0", textAlign: "center", fontSize: "0.8rem" }}>
+        <p style={{ margin: "0", textAlign: "left", fontSize: "0.8rem" }}>
           <b>Password Strength:</b> {strengthLabel[result.score]}
         </p>
       </Tooltip>

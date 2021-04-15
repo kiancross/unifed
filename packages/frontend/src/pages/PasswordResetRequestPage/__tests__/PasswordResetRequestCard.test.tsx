@@ -32,7 +32,7 @@ test("Valid email", async () => {
     },
   ];
 
-  const { getByTestId } = render(
+  const { getByRole } = render(
     <MemoryRouter>
       <MockedProvider mocks={mocks} addTypename={false}>
         <PasswordResetRequestCard />
@@ -40,22 +40,22 @@ test("Valid email", async () => {
     </MemoryRouter>,
   );
 
-  fireEvent.change(getByTestId("email-input"), { target: { value: validEmail } });
+  fireEvent.change(getByRole("textbox", { name: "email" }), { target: { value: validEmail } });
   await act(async () => {
-    fireEvent.click(getByTestId("email-submit"));
+    fireEvent.click(getByRole("button", { name: "submit" }));
   });
 });
 
 // Shows warning that needs to be fixed
 test("Invalid email", async () => {
-  const { getByText, getByTestId } = render(
+  const { getByText, getByRole } = render(
     <MemoryRouter>
       <PasswordResetRequestCard />
     </MemoryRouter>,
   );
-  fireEvent.change(getByTestId("email-input"), { target: { value: "foo" } });
+  fireEvent.change(getByRole("textbox", { name: "email" }), { target: { value: "foo" } });
   await act(async () => {
-    fireEvent.click(getByTestId("email-submit"));
+    fireEvent.click(getByRole("button", { name: "submit" }));
   });
   getByText("Invalid email");
 });
