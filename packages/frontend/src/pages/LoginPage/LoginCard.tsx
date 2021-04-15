@@ -55,7 +55,8 @@ export function LoginCard(): ReactElement {
                   label="Email"
                   color="primary"
                   required
-                  inputProps={{ "data-testid": "email" }}
+                  inputProps={{ "aria-label": "email" }}
+                  aria-label="email"
                 />
               </div>
               <div>
@@ -70,6 +71,7 @@ export function LoginCard(): ReactElement {
                   color="primary"
                   required
                   inputProps={{ "data-testid": "password" }}
+                  aria-label="password"
                 />
               </div>
               <Button
@@ -79,6 +81,7 @@ export function LoginCard(): ReactElement {
                 style={{ margin: "1rem 0rem" }}
                 fullWidth
                 data-testid="submit"
+                aria-label="submit"
               >
                 Login
               </Button>
