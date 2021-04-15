@@ -8,7 +8,7 @@ import { graphql } from "graphql";
 import { Container } from "typedi";
 
 import { setup, generateUser } from "@unifed/backend-testing";
-import { UserModel } from "@unifed/backend-core";
+import { RemoteReference, UserModel } from "@unifed/backend-core";
 
 import { getMergedSchema } from "../../schema";
 
@@ -171,4 +171,30 @@ test.serial("unsubscribe", async (t) => {
   }
 
   t.is(response.data.getSubscriptions.length, 0);
+});
+
+test.serial("getAllPosts gets posts", async (t) => {
+  const postReference: RemoteReference = new RemoteReference();
+  postReference.host = "thishost";
+  postReference.id = "testid";
+
+  const user = generateUser();
+  user.posts = [postReference];
+
+  let response = await graphql(
+    await schema,
+    `
+      query {
+        getAllPosts {
+          id
+        }
+      }
+    `,
+    null,
+    {
+      user: {
+        id: user.id,
+      },
+    },
+  );
 });
