@@ -5,6 +5,7 @@
 export * from "./ActionButton";
 export * from "./App";
 export * from "./CenteredLoader";
+export * from "./Comment";
 export * from "./ErrorBoundary";
 export * from "./ErrorMessage";
 export * from "./Links";
