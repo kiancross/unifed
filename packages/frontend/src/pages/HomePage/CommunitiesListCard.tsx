@@ -59,7 +59,7 @@ export function CommunitiesListCard(): ReactElement {
         <CardHeader subheader="Communities" />
         <Divider />
         <CardContent style={{ padding: "0px" }}>
-          <List>
+          <List aria-label="communities">
             {data.getCommunities.map((community: any) => {
               return (
                 <ListItem
