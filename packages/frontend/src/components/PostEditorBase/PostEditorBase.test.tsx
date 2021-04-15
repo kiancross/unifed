@@ -13,7 +13,7 @@ test("Post editor base with defaults", async () => {
 
   const onSubmitMock = jest.fn();
 
-  const { getByText } = render(
+  const { getByText, getByRole } = render(
     <PostEditorBase
       title={title}
       body={body}
@@ -24,7 +24,7 @@ test("Post editor base with defaults", async () => {
 
   getByText(title);
 
-  fireEvent.click(getByText(buttonMessageText));
+  fireEvent.click(getByRole("button", { name: "submit" }));
 
   await waitFor(() => {
     expect(onSubmitMock).toHaveBeenCalledTimes(1);
@@ -39,7 +39,7 @@ test("Comment editor base with defaults", async () => {
 
   const onSubmitMock = jest.fn();
 
-  const { queryByText, getByText } = render(
+  const { queryByText, getByRole } = render(
     <PostEditorBase
       isComment
       title={title}
@@ -51,7 +51,7 @@ test("Comment editor base with defaults", async () => {
 
   expect(queryByText(title)).toBeNull();
 
-  fireEvent.click(getByText(buttonMessageText));
+  fireEvent.click(getByRole("button", { name: "submit" }));
 
   await waitFor(() => {
     expect(onSubmitMock).toHaveBeenCalledTimes(1);
@@ -63,7 +63,7 @@ test("Comment editor base with defaults", async () => {
 test("With cancel", async () => {
   const onCancel = jest.fn();
 
-  const { getByText } = render(
+  const { getByRole } = render(
     <PostEditorBase
       title="foo"
       body="bar"
@@ -73,7 +73,7 @@ test("With cancel", async () => {
     />,
   );
 
-  fireEvent.click(getByText("Cancel"));
+  fireEvent.click(getByRole("button", { name: "cancel" }));
 
   await waitFor(() => {
     expect(onCancel).toHaveBeenCalledTimes(1);
@@ -81,9 +81,9 @@ test("With cancel", async () => {
 });
 
 test("Without cancel", async () => {
-  const { queryByText } = render(
+  const { queryByRole } = render(
     <PostEditorBase title="foo" body="bar" submitButtonText="baz" onSubmit={() => null} />,
   );
 
-  expect(queryByText("Cancel")).toBeNull();
+  expect(queryByRole("button", { name: "cancel" })).toBeNull();
 });
