@@ -18,13 +18,12 @@ test("UserProfilePage posts render with correct user", async () => {
       request: {
         query: getUsersPostsQuery,
         variables: {
-          community: community,
-          host: host,
+          username: user,
         },
       },
       result: {
         data: {
-          getPosts: [
+          getAllPosts: [
             {
               id: "001",
               title: title,
@@ -61,13 +60,12 @@ test("UserProfilePage post does not render with incorrect user", async () => {
       request: {
         query: getUsersPostsQuery,
         variables: {
-          community: community,
-          host: host,
+          username: user,
         },
       },
       result: {
         data: {
-          getPosts: [
+          getAllPosts: [
             {
               id: "001",
               title: title,
@@ -98,14 +96,13 @@ test("UserProfilePage post does not render with incorrect user", async () => {
   });
 });
 
-test("UserProfilePage post does not render with incorrect user", async () => {
+test("Error Message renders when error is returned", async () => {
   const getPostsMock = [
     {
       request: {
         query: getUsersPostsQuery,
         variables: {
-          id: community,
-          host: host,
+          username: user,
         },
       },
     },

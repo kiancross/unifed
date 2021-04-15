@@ -57,4 +57,12 @@ export class UsersService {
 
     return plainToClass(RemoteReference, user.subscriptions);
   }
+
+  async getAllPosts(username: string): Promise<RemoteReference[]> {
+    const user = await UserModel.findOne({ username: username }, "posts").lean();
+
+    if (!user || !user.posts) return [];
+
+    return plainToClass(RemoteReference, user.posts);
+  }
 }
