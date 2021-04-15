@@ -137,7 +137,7 @@ export function Comment(props: CommentProps): ReactElement {
                 </Typography>
               </CardContent>
               <CardActions>
-                <IconButton onClick={() => setMakingReply(true)}>
+                <IconButton onClick={() => setMakingReply(true)} aria-label="reply">
                   <ReplyIcon />
                 </IconButton>
               </CardActions>
