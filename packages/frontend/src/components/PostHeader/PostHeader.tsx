@@ -97,6 +97,12 @@ export const deletePostQuery = gql`
   }
 `;
 
+export const reportPostQuery = gql`
+  mutation($id: String!, $host: String!) {
+    reportPost(post: { id: $id, host: $host })
+  }
+`;
+
 /**
  * Used to display the user icon, title and actions that can be taken on a post or comment.
  *
@@ -110,6 +116,9 @@ export const deletePostQuery = gql`
  *  - Users who have made the post or administrators of the community the post is a
  *    part of can edit or delete the post by selecting the desired option from a dropdown.
  *
+ *  - Users from the same host who are not the author of the post have the option to
+ *    report the post from the dropdown menu.
+ *
  * @param props Properties passed to the component. See [[`PostHeaderProps`]].
  *
  * @internal
@@ -118,39 +127,67 @@ export function PostHeader(props: PostHeaderProps): ReactElement {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null);
   const user = useContext(UserContext);
   const classes = useStyles(props);
+  const unapprovedBody = "This post is pending approval.";
+
+  const updateCacheDelete = {
+    update: (cache: any, { data: { deletePost } }: any) => {
+      if (deletePost) {
+        cache.modify({
+          fields: {
+            getPosts(existingPosts: Reference[], { readField }: any) {
+              return existingPosts.filter((post) => props.id !== readField("id", post));
+            },
+          },
+        });
+
+        if (props.parent) {
+          cache.modify({
+            id: `Post:${props.parent}`,
+            fields: {
+              children(existingChildren: Reference[], { readField }: any) {
+                return existingChildren.filter((child) => props.id !== readField("id", child));
+              },
+            },
+          });
+        }
+      }
+    },
+  };
+
+  const updateCacheReport = {
+    update: (cache: any, { data: { reportPost } }: any) => {
+      if (reportPost) {
+        cache.modify({
+          id: `Post:${props.id}`,
+          fields: {
+            body: () => unapprovedBody,
+            approved: () => false,
+          },
+        });
+      }
+    },
+  };
 
   const { data: adminData, loading: adminLoading, error: adminError } = useQuery(getAdminsQuery, {
     variables: { id: props.community, host: props.host },
   });
 
-  const [deletePost, { data, loading, error }] = useMutation(deletePostQuery, {
-    update: (cache) => {
-      cache.modify({
-        fields: {
-          getPosts(existingPosts: Reference[], { readField }) {
-            return existingPosts.filter((post) => props.id !== readField("id", post));
-          },
-        },
-      });
+  const [
+    deletePost,
+    { data: deleteData, loading: deleteLoading, error: deleteError },
+  ] = useMutation(deletePostQuery, updateCacheDelete);
 
-      if (props.parent) {
-        cache.modify({
-          id: `Post:${props.parent}`,
-          fields: {
-            children(existingChildren: Reference[], { readField }) {
-              return existingChildren.filter((child) => props.id !== readField("id", child));
-            },
-          },
-        });
-      }
-    },
-  });
+  const [reportPost, { loading: reportLoading, error: reportError }] = useMutation(
+    reportPostQuery,
+    updateCacheReport,
+  );
 
-  if (loading || adminLoading) return <CenteredLoader />;
-  if (error) return <ErrorMessage message="Post could not be deleted." />;
+  if (deleteLoading || adminLoading || reportLoading) return <CenteredLoader />;
+  if (deleteError) return <ErrorMessage message="Post could not be deleted." />;
   if (adminError) return <ErrorMessage message="Admins for the community could not be retrieved" />;
+  if (reportError) return <ErrorMessage message="Post could not be reported." />;
 
-  if (data) {
+  if (deleteData) {
     if (!props.parent && !props.isPreview) {
       return <Redirect to="/" />;
     }
@@ -174,6 +211,11 @@ export function PostHeader(props: PostHeaderProps): ReactElement {
     deletePost({ variables: { id: props.id, host: props.host } });
   };
 
+  const handleReport = () => {
+    handleClose();
+    reportPost({ variables: { id: props.id, host: props.host } });
+  };
+
   const isUserAdmin = adminData.getCommunity.admins.some(
     (admin: any) => admin.id === user.details?.username,
     //need to check host is "this"
@@ -181,8 +223,7 @@ export function PostHeader(props: PostHeaderProps): ReactElement {
   );
 
   const headerAction =
-    (user.details?.username === props.username || isUserAdmin) &&
-    props.host === process.env.REACT_APP_INTERNAL_REFERENCE ? (
+    (!!user.details || isUserAdmin) && props.host === process.env.REACT_APP_INTERNAL_REFERENCE ? (
       <React.Fragment>
         <IconButton
           data-testid="icon-button"
@@ -208,8 +249,15 @@ export function PostHeader(props: PostHeaderProps): ReactElement {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleEdit}> Edit </MenuItem>
-          <MenuItem onClick={handleDelete}> Delete </MenuItem>
+          {user.details?.username === props.username || isUserAdmin ? (
+            <>
+              <MenuItem onClick={handleEdit}> Edit </MenuItem>
+              <MenuItem onClick={handleDelete}> Delete </MenuItem>
+            </>
+          ) : null}
+          {user.details?.username !== props.username ? (
+            <MenuItem onClick={handleReport}> Report </MenuItem>
+          ) : null}
         </Menu>
       </React.Fragment>
     ) : null;
