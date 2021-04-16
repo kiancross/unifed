@@ -24,6 +24,8 @@ function includesLocalAddress(addresses: string[]): boolean {
     const parsedAddress = ipaddr.parse(address);
     const addressType = parsedAddress.range();
 
+    console.log("includesLocalAddress", addressType);
+
     if (addressType != "unicast") {
       return true;
     }
@@ -38,6 +40,7 @@ async function isHostLocal(host: string): Promise<boolean> {
 
   return new Promise((resolve, reject) => {
     dns.resolve(hostName, (error, addresses) => {
+      console.log("isHostLocal", error);
       if (error) {
         if (error.code && ["ENOTFOUND", "ESERVFAIL", "ENODATA"].includes(error.code)) {
           addresses = [hostName];

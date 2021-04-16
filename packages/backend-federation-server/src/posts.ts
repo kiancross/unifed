@@ -86,6 +86,7 @@ async function throwIfWrongPermissions(
   // Check if the user is an administrator. If they are,
   // they have the correct permissions.
   for (const admin of retrievedCommunity.admins) {
+    console.log(await normaliseHost(host), username, admin);
     if (username === admin.id && (await normaliseHost(host)) === admin.host) {
       return;
     }
