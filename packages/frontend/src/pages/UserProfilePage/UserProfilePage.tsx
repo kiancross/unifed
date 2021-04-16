@@ -22,7 +22,7 @@ export interface PublicUserProfileParams {
 }
 
 /**
- * GraphQL query to get the posts from a certain community on a certain host.
+ * GraphQL query to get the posts made by a certain user.
  *
  * @internal
  */
