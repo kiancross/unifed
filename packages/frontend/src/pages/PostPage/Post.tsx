@@ -81,7 +81,7 @@ export function Post(props: PostProps): ReactElement {
       />
     </Grid>
   ) : (
-    <Grid item>
+    <Grid style={{ width: "100%" }} item>
       <Card color="primary" className={classes.card}>
         <PostHeader
           community={props.community}

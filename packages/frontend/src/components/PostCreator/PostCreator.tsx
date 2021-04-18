@@ -123,7 +123,7 @@ export function PostCreator(props: PostCreatorProps): ReactElement {
   });
 
   return (
-    <Grid item>
+    <Grid style={{ width: "100%" }} item>
       <PostEditorBase
         isComment={props.isComment}
         onCancel={props.onCancel}

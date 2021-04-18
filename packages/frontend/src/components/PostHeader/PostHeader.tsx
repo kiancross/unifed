@@ -223,7 +223,8 @@ export function PostHeader(props: PostHeaderProps): ReactElement {
   );
 
   const headerAction =
-    (!!user.details || isUserAdmin) && props.host === process.env.REACT_APP_INTERNAL_REFERENCE ? (
+    (!!user.details || isUserAdmin) &&
+    (props.host === process.env.REACT_APP_INTERNAL_REFERENCE || props.host === "proxy:80") ? (
       <React.Fragment>
         <IconButton
           data-testid="icon-button"
@@ -253,14 +254,14 @@ export function PostHeader(props: PostHeaderProps): ReactElement {
           onClose={handleClose}
         >
           {user.details?.username === props.username || isUserAdmin ? (
-            <>
+            <div>
               <MenuItem onClick={handleEdit} aria-label="edit">
                 Edit
               </MenuItem>
               <MenuItem onClick={handleDelete} aria-label="delete">
                 Delete
               </MenuItem>
-            </>
+            </div>
           ) : null}
           {user.details?.username !== props.username ? (
             <MenuItem onClick={handleReport}> Report </MenuItem>
