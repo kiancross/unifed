@@ -223,8 +223,7 @@ export function PostHeader(props: PostHeaderProps): ReactElement {
   );
 
   const headerAction =
-    (!!user.details || isUserAdmin) &&
-    (props.host === process.env.REACT_APP_INTERNAL_REFERENCE || props.host === "proxy:80") ? (
+    (!!user.details || isUserAdmin) && props.host === process.env.REACT_APP_INTERNAL_REFERENCE ? (
       <React.Fragment>
         <IconButton
           data-testid="icon-button"
