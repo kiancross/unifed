@@ -253,14 +253,14 @@ export function PostHeader(props: PostHeaderProps): ReactElement {
           onClose={handleClose}
         >
           {user.details?.username === props.username || isUserAdmin ? (
-            <>
+            <div>
               <MenuItem onClick={handleEdit} aria-label="edit">
                 Edit
               </MenuItem>
               <MenuItem onClick={handleDelete} aria-label="delete">
                 Delete
               </MenuItem>
-            </>
+            </div>
           ) : null}
           {user.details?.username !== props.username ? (
             <MenuItem onClick={handleReport}> Report </MenuItem>

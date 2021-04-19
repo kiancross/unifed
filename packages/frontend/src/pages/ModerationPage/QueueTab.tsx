@@ -7,7 +7,8 @@ import { gql, Reference, useQuery, useMutation } from "@apollo/client";
 import { Formik, Field, Form } from "formik";
 import { Checkbox, List, ListItem, ListItemIcon } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { ActionButton, Comment, LoadingCard, PostPreview } from "../../components";
+import { ActionButton, Comment, LoadingCard } from "../../components";
+import { Post } from "../../pages/PostPage/Post";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -134,7 +135,7 @@ export function QueueTab(): ReactElement {
         selected: [],
         btn: "",
       }}
-      onSubmit={async (values) => {
+      onSubmit={async (values, { resetForm }) => {
         const selected = values.selected.map((val: string) => {
           const split = val.split(" ", 2);
           return {
@@ -143,8 +144,15 @@ export function QueueTab(): ReactElement {
           };
         });
         setSelectedPosts(selected);
-        if (values.btn === "approve") approvePosts({ variables: { posts: selected } });
-        else if (values.btn === "remove") deletePosts({ variables: { posts: selected } });
+        if (values.btn === "approve") {
+          approvePosts({ variables: { posts: selected } }).then((res) =>
+            res.data.approvePosts ? resetForm() : null,
+          );
+        } else if (values.btn === "remove") {
+          deletePosts({ variables: { posts: selected } }).then((res) =>
+            res.data.deletePosts ? resetForm() : null,
+          );
+        }
       }}
     >
       {({ setFieldValue }) => (
@@ -185,7 +193,7 @@ export function QueueTab(): ReactElement {
                   />
                 </ListItemIcon>
                 {post.title ? (
-                  <PostPreview
+                  <Post
                     username={post.author.id}
                     title={post.title}
                     id={post.id}
