@@ -141,24 +141,10 @@ jobs:
         with:
           name: documentation
           path: docs
-  
-  deploy-docs:
-    name: Deploy Documentation
-    if: github.ref == 'refs/heads/master'
-    runs-on: ubuntu-latest
-    needs: run
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Download 📩
-        uses: actions/download-artifact@v2
-        with:
-          name: documentation
-          path: docs
-
-      - name: Deploy 🚀
+      
+      - name: Deploy Documentation 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.1
+        if: github.ref == 'refs/heads/master'
         with:
           branch: gh-pages
           folder: docs
