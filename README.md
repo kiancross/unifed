@@ -1,6 +1,6 @@
 # Unifed
 
-[![Continuous Integration](https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml/badge.svg?event=schedule)](https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml?query=event%3Aschedule)
+[![Continuous Integration](https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml/badge.svg?event=push)](https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml)
 [![codecov](https://codecov.io/gh/kiancross/unifed/branch/master/graph/badge.svg?token=FI52RC1RQV)](https://codecov.io/gh/kiancross/unifed)
 
 Unifed is a federated social networking site, targetted towards
