@@ -9,6 +9,10 @@ universities.
 The application was developed for a Junior Honours project at the
 University of St Andrews.
 
+There is no publicly hosted example of the application, however
+a local installation can be done quickly be following the
+instructions [here](#installation).
+
 ## Contents
 
  * [Installation](#installation)

@@ -12,6 +12,6 @@ DOCS_README="docs/_README.md"
 # Add custom styles to the README used in developer documentation.
 echo '<style> .tsd-typography ul ul { margin: 0 !important; } </style>' > "$DOCS_README"
 
-cat "$README" | sed -e '2,5d' >> $DOCS_README
+cat "$README" | sed -e '2,4d' >> $DOCS_README
 
 yarn typedoc
