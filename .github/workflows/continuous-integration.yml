@@ -76,7 +76,7 @@ jobs:
         run: yarn test
 
       - name: Upload Coverage Report (backend-core) 1️⃣ 📊
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v1.5.0
         if: github.actor != 'dependabot[bot]'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -85,7 +85,7 @@ jobs:
           fail_ci_if_error: true
 
       - name: Upload Coverage Report (backend-federation-client) 2️⃣ 📊
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v1.5.0
         if: github.actor != 'dependabot[bot]'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -94,7 +94,7 @@ jobs:
           fail_ci_if_error: true
 
       - name: Upload Coverage Report (backend-federation-server) 3️⃣ 📊
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v1.5.0
         if: github.actor != 'dependabot[bot]'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -103,7 +103,7 @@ jobs:
           fail_ci_if_error: true
 
       - name: Upload Coverage Report (backend-internal-server) 4️⃣ 📊
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v1.5.0
         if: github.actor != 'dependabot[bot]'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -112,7 +112,7 @@ jobs:
           fail_ci_if_error: true
 
       - name: Upload Coverage Report (backend-ml) 5️⃣ 📊
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v1.5.0
         if: github.actor != 'dependabot[bot]'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -121,7 +121,7 @@ jobs:
           fail_ci_if_error: true
       
       - name: Upload Coverage Report (frontend) 6️⃣ 📊
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v1.5.0
         if: github.actor != 'dependabot[bot]'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -130,7 +130,7 @@ jobs:
           fail_ci_if_error: true
 
       - name: Upload Coverage Report (shared) 7️⃣ 📊
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v1.5.0
         if: github.actor != 'dependabot[bot]'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
