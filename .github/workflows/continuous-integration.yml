@@ -19,7 +19,7 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
         with:
           fetch-depth: 2
 
@@ -155,7 +155,7 @@ jobs:
     needs: run
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - name: Download 📩
         uses: actions/download-artifact@v2

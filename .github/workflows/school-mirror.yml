@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2.3.4
       with:
         fetch-depth: 0
     - uses: pixta-dev/repository-mirroring-action@eac5c75eb35c3335d2439c9a208c75a949077772
