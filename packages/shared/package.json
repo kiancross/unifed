@@ -2,7 +2,7 @@
   "name": "@unifed/shared",
   "version": "0.1.0",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "AGPL-3.0-or-later",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "devDependencies": {

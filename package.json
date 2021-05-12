@@ -2,7 +2,7 @@
   "name": "@unifed/monorepo",
   "version": "0.1.0",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "AGPL-3.0-or-later",
   "scripts": {
     "checks": "yarn lint && yarn build && yarn test",
     "lint": "yarn workspaces foreach -vp -j 8 run lint",
