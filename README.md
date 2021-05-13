@@ -260,7 +260,6 @@ installed, you can run `bundle exec Jekyll serve` in the
 ### Developers
 
 Developer documentation can be found [here](https://kiancross.github.io/unifed/developers/).
-Docker
 The developer documentation consists of this `README` and
 extensive API documentation. Clicking the package names
 on the right hand side of the documentation will take you
