@@ -1,22 +1,26 @@
-<img src="docs/images/unifed-with-text.svg" alt="Unifed Logo" width="300" />
+<p align="center">
+  <a href="#">
+    <img src="docs/images/unifed-with-text.svg" alt="Unifed Logo" width="300" />
+  </a>
+</p>
 
-[![Continuous Integration](https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml/badge.svg?event=push)](https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml)
-[![codecov](https://codecov.io/gh/kiancross/unifed/branch/master/graph/badge.svg?token=FI52RC1RQV)](https://codecov.io/gh/kiancross/unifed)
+<p align="center">
+  A federated social networking site, targetted towards universities.
+</p>
 
-Unifed is a federated social networking site, targetted towards
-universities.
-
-The application was developed for a Junior Honours project at the
-University of St Andrews.
-
-There is no publicly hosted example of the application, however
-a local installation can be done quickly by following the
-instructions [here](#installation). Alternatively, screenshots
-are available in the [user manual](https://kiancross.github.io/unifed/).
+<p align="center">
+  <a href="https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml">
+    <img src="https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml/badge.svg?event=push" alt="Continuous Integration" />
+  </a>
+  <a href="https://codecov.io/gh/kiancross/unifed">
+    <img src="https://codecov.io/gh/kiancross/unifed/branch/master/graph/badge.svg?token=FI52RC1RQV" alt="codecov" />
+  </a>
+</p>
 
 # Contents
 
- * [Features](#features)
+ * [About](#about)
+   * [Features](#features)
  * [Installation](#installation)
    * [Step 1 - Clone the repository](#step-1---clone-the-repository)
    * [Step 2 - Setup Node.js](#step-2---setup-nodejs)
@@ -36,7 +40,17 @@ are available in the [user manual](https://kiancross.github.io/unifed/).
    * [Developers](#developers)
    * [Protocol](#protocol)
 
-# Features
+# About
+
+Unifed was developed for a Junior Honours project at the
+University of St Andrews.
+
+There is no publicly hosted example of the application, however
+a local installation can be done quickly by following the
+instructions [here](#installation). Alternatively, screenshots
+are available in the [user manual](https://kiancross.github.io/unifed/).
+
+## Features
 
  * Communities to discuss topics of interest.
  * Posts and nested comments available across a federated network.
