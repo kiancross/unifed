@@ -35,9 +35,11 @@ const useStyles = makeStyles((theme) => ({
  * Outline:
  *
  *  - Clicking the 'Help' button takes the user to the
-       [user manual](https://kiancross.github.io/unifed/).
+ *    [user manual](https://kiancross.github.io/unifed/).
  *
  *  - Clicking the 'Privacy Notice' button takes the user to the privacy policy.
+ *
+ *  - Clicking the 'Source Code' button takes the user to the GitHub repository.
  *
  * @internal
  */
@@ -55,8 +57,15 @@ export function Footer(): ReactElement {
             Help
           </ExternalLink>
           <InternalLink className={classes.link} to="/privacy-notice">
-            Privacy Notice
+            Privacy&nbsp;Notice
           </InternalLink>
+          <ExternalLink
+            className={classes.link}
+            href="https://github.com/kiancross/unifed/"
+            target="_blank"
+          >
+            Source&nbsp;Code
+          </ExternalLink>
         </Container>
       </Paper>
     </Box>
