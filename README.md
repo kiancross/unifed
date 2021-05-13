@@ -1,4 +1,4 @@
-<img src="docs/images/unifed-with-text.svg?s" alt="Unifed Logo" width="300" />
+<img src="docs/images/unifed-with-text.svg" alt="Unifed Logo" width="300" />
 
 [![Continuous Integration](https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml/badge.svg?event=push)](https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml)
 [![codecov](https://codecov.io/gh/kiancross/unifed/branch/master/graph/badge.svg?token=FI52RC1RQV)](https://codecov.io/gh/kiancross/unifed)
