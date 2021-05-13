@@ -1,4 +1,4 @@
-# Unifed
+<img src="docs/images/unifed-with-text.svg?s" alt="Unifed Logo" width="300" />
 
 [![Continuous Integration](https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml/badge.svg?event=push)](https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml)
 [![codecov](https://codecov.io/gh/kiancross/unifed/branch/master/graph/badge.svg?token=FI52RC1RQV)](https://codecov.io/gh/kiancross/unifed)
@@ -14,7 +14,7 @@ a local installation can be done quickly by following the
 instructions [here](#installation). Alternatively, screenshots
 are available in the [user manual](https://kiancross.github.io/unifed/).
 
-## Contents
+# Contents
 
  * [Features](#features)
  * [Installation](#installation)
@@ -36,7 +36,7 @@ are available in the [user manual](https://kiancross.github.io/unifed/).
    * [Developers](#developers)
    * [Protocol](#protocol)
 
-## Features
+# Features
 
  * Communities to discuss topics of interest.
  * Posts and nested comments available across a federated network.
@@ -44,28 +44,28 @@ are available in the [user manual](https://kiancross.github.io/unifed/).
  * [Machine learning spam detection](packages/backend-ml).
  * Text toxicity classification.
 
-## Installation
+# Installation
 
 Unifed uses containers to make installation easy.
 
 The software stack is compatible with Linux, Mac, and Windows.
 
-### Step 1 - Clone the repository
+## Step 1 - Clone the repository
 ```console
 $ git clone git@github.com:kiancross/unifed.git
 ```
 
-### Step 2 - Setup Node.js
+## Step 2 - Setup Node.js
 
 Follow the instructions [here](https://nodejs.org/en/download/).
 Version 12 is the recommended choice.
 
-### Step 3 - Install yarn
+## Step 3 - Install yarn
 ```console
 $ https://yarnpkg.com/configuration/yarnrc npm install -g yarn
 ```
 
-### Step 4 - Setup a container service
+## Step 4 - Setup a container service
 
 Both Docker and Podman work, although we recommend Docker. If using Podman,
 ensure it is v3.0.0 or above.
@@ -73,18 +73,18 @@ ensure it is v3.0.0 or above.
 Installation instructions for Docker can be found [here](https://docs.docker.com/get-docker/).
 Ensure that [Docker Compose](https://docs.docker.com/compose/) is also installed.
 
-### Step 5 - Install dependencies
+## Step 5 - Install dependencies
 ```console
 $ yarn install
 ```
 
-### Step 6 - Finish
+## Step 6 - Finish
 Run `yarn container:start`.
 
 After a couple of minutes, you will be able to access the
 application at `http://localhost:8080`.
 
-## Commands
+# Commands
 
 All commands are run through `yarn`, e.g. `yarn build`.
 
@@ -115,7 +115,7 @@ The following commands are only available in the root directory:
 | `container:train:build` | Build the machine learning training container. |
 | `container:train` | Start training the machine learning models using the GPU accelerated container. |
 
-## Repository Layout
+# Repository Layout
 
 The following directories exist at the base of the
 repository.
@@ -134,7 +134,7 @@ are contained in `README` files within each package.
 More information about `docs` is in the [documentation][#documentation]
 section.
 
-### Configuration Files
+## Configuration Files
 
 Some configuration files are located in the root directory.
 These are described below.
@@ -179,7 +179,7 @@ directory. These are described below.
 Some of the above configuration files are symbolically linked to by
 packages.
 
-## Development Tools
+# Development Tools
 We use a variety of tools to assist with development.
 
 |Name|Description|
@@ -191,7 +191,7 @@ We use a variety of tools to assist with development.
 |IstanbulJS| Used for generating test coverage reports. |
 |Yarn| Used for managing npm packages. |
 
-## Containers
+# Containers
 We use Docker and Podman to orchestrate containers. Containers are
 an easy way to allow the application to be run on multiple platforms,
 with minimal configuration.
@@ -215,7 +215,7 @@ therefore we must maintain both. We tried tools like
 [`podman-compose`](https://github.com/containers/podman-compose),
 but they were buggy.
 
-## Continuous Integration
+# Continuous Integration
 On each pull request, automated tests are run. These must all pass before
 the pull request may be merged.
 
@@ -227,7 +227,7 @@ to each pull request.
 GitHub actions are used for running automated tests. See `.github/workflows`
 for the configuration files.
 
-## Contributing
+# Contributing
 
 The general workflow for fixing a bug/adding a feature should be:
 
@@ -241,12 +241,12 @@ The general workflow for fixing a bug/adding a feature should be:
   8) Make sure the automated tests pass and then request someone to review.
   9) Once reviewed, the changes can be merged. Write a good commit message.
 
-## Documentation
+# Documentation
 
 Unifed is extensively documented, for both users and
 developers.
 
-### Users
+## Users
 
 The user manual can be found [here](https://kiancross.github.io/unifed/).
 
@@ -257,7 +257,7 @@ installed, you can run `bundle exec Jekyll serve` in the
 `docs` directory to build the user manual.
 
 
-### Developers
+## Developers
 
 Developer documentation can be found [here](https://kiancross.github.io/unifed/developers/).
 The developer documentation consists of this `README` and
@@ -271,7 +271,7 @@ package.
 The developer documentation is built using `yarn dev-docs`,
 which invokes the `typedoc` command.
 
-### Protocol
+## Protocol
 
 The protocol we developed to allow communication between federated
 instances can be found [here](https://github.com/kiancross/cs3099a-specification),
