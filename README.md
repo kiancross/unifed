@@ -295,5 +295,4 @@ GitLab service at 06:00 GMT.
 ## License
 
 The Unifed source code is available under the
-[GNU AGPLv3](https://github.com/kiancross/unifed/blob/master/COPYING.md)
-license.
+[GNU AGPLv3](COPYING.md) license.
