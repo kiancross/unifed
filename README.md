@@ -31,6 +31,7 @@ University of St Andrews.
    * [Developers](#developers)
    * [Protocol](#protocol)
  * [Other](#other)
+ * [License](#license)
 
 ## Installation
 
@@ -290,3 +291,9 @@ instances can be found [here](https://kiancross.github.io/cs3099a-specification/
 
 Code pushed to this repository is mirrored to the School's
 GitLab service at 06:00 GMT.
+
+## License
+
+The Unifed source code is available under the
+[GNU AGPLv3](https://github.com/kiancross/unifed/blob/master/COPYING.md)
+license.
