@@ -13,7 +13,6 @@ updates:
       - dependencies
 
   - package-ecosystem: "github-actions"
-    open-pull-requests-limit: 0
     directory: "/"
     schedule:
       interval: "daily"
@@ -21,7 +20,6 @@ updates:
       - dependencies
   
   - package-ecosystem: "bundler"
-    open-pull-requests-limit: 0
     directory: "/docs"
     schedule:
       interval: "daily"
