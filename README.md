@@ -12,7 +12,7 @@ University of St Andrews.
 There is no publicly hosted example of the application, however
 a local installation can be done quickly be following the
 instructions [here](#installation). Alternatively, screenshots
-are available in the [user manual](#users).
+are available in the [user manual](https://kiancross.github.io/unifed/).
 
 ## Contents
 
