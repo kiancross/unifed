@@ -1,7 +1,5 @@
 <p align="center">
-  <a href="#">
-    <img src="docs/images/unifed-with-text.svg" alt="Unifed Logo" width="350" />
-  </a>
+  <img src="docs/images/unifed-with-text.svg" alt="Unifed Logo" width="350" />
 </p>
 
 <p align="center">
