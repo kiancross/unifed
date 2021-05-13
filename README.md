@@ -10,12 +10,13 @@ The application was developed for a Junior Honours project at the
 University of St Andrews.
 
 There is no publicly hosted example of the application, however
-a local installation can be done quickly be following the
+a local installation can be done quickly by following the
 instructions [here](#installation). Alternatively, screenshots
 are available in the [user manual](https://kiancross.github.io/unifed/).
 
 ## Contents
 
+ * [Features](#features)
  * [Installation](#installation)
    * [Step 1 - Clone the repository](#step-1---clone-the-repository)
    * [Step 2 - Setup Node.js](#step-2---setup-nodejs)
@@ -34,6 +35,14 @@ are available in the [user manual](https://kiancross.github.io/unifed/).
    * [Users](#users)
    * [Developers](#developers)
    * [Protocol](#protocol)
+
+## Features
+
+ * Communities to discuss topics of interest.
+ * Posts and nested comments available across a federated network.
+ * Group video calling using [WebRTC](https://webrtc.org/).
+ * [Machine learning spam detection](packages/backend-ml).
+ * Text toxicity classification.
 
 ## Installation
 
