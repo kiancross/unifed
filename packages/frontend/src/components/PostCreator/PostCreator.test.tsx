@@ -13,7 +13,6 @@ const community = "all";
 const host = "this";
 const mockFunc = jest.fn();
 const submitButtonText = "submit button";
-const title = "Test title";
 const body = "Test body";
 const parentPost = "123";
 
@@ -23,8 +22,6 @@ test("PostCreator error renders", async () => {
       request: {
         query: createPostQuery,
         variables: {
-          title: title,
-          body: body,
           community: community,
           host: host,
           parentPost: parentPost,
