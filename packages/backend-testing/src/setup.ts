@@ -31,11 +31,11 @@ export const setup = (test: TestType): void => {
   });
 
   test.beforeEach(async () => {
-    mongoose.connection.db.dropDatabase();
+    await mongoose.connection.db.dropDatabase();
   });
 
   test.after.always(async () => {
-    mongoose.disconnect();
-    mongod.stop();
+    await mongoose.disconnect();
+    await mongod.stop();
   });
 };
