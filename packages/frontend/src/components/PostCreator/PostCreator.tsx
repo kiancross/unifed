@@ -110,6 +110,7 @@ export const createPostQuery = gql`
  */
 export function PostCreator(props: PostCreatorProps): ReactElement {
   const [createPost, { loading, error }] = useMutation(createPostQuery, {
+    onError: () => null,
     update(cache, { data: { createPost } }) {
       const variables = {
         community: props.community,
@@ -155,7 +156,7 @@ export function PostCreator(props: PostCreatorProps): ReactElement {
             },
           });
 
-          if (response.data?.createPost) {
+          if (response?.data?.createPost) {
             props.onSuccess(response.data.createPost.id);
           }
         }}
