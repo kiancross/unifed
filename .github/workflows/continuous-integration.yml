@@ -316,8 +316,9 @@ jobs:
       - name: Download Build 📥
         uses: actions/download-artifact@v2
         with:
-          name: backend-internal-server-build
           path: builds
+
+      - run: rsync -a builds/*-build/ packages
 
       - name: Generate Documentation 🔧
         run: yarn dev-docs
