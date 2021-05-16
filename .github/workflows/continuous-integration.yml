@@ -6,12 +6,11 @@ name: Continuous Integration
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
   pull_request:
-    branches:
-      - master
+    branches: [ master ]
+  schedule:
+    # Everyday at 6am
+    - cron:  "0 6 */1 * *"
 
 jobs:
   run:
@@ -148,10 +147,24 @@ jobs:
         with:
           name: documentation
           path: docs
-      
-      - name: Deploy Documentation 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.1
-        if: github.ref == 'refs/heads/master'
+  
+  deploy-docs:
+    name: Deploy Documentation
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    needs: run
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v2.3.4
+
+      - name: Download 📩
+        uses: actions/download-artifact@v2
+        with:
+          name: documentation
+          path: docs
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.3
         with:
           branch: gh-pages
           folder: docs
