@@ -1,46 +1,61 @@
-# Unifed
+<p align="center">
+  <img src="docs/images/unifed-with-text.svg" alt="Unifed Logo" width="350" />
+</p>
 
-[![Continuous Integration](https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml/badge.svg?event=schedule)](https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml?query=event%3Aschedule)
-[![School GitLab Mirror](https://github.com/kiancross/unifed/workflows/School%20GitLab%20Mirror/badge.svg)](https://github.com/kiancross/unifed/actions?query=workflow%3A%22School+GitLab+Mirror%22)
-[![codecov](https://codecov.io/gh/kiancross/unifed/branch/master/graph/badge.svg?token=FI52RC1RQV)](https://codecov.io/gh/kiancross/unifed)
+<p align="center">
+  A federated social networking site, targetted towards universities.
+</p>
 
-Unifed is a federated social networking site, targetted towards
-universities.
+<p align="center">
+  <a href="https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml">
+    <img src="https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml/badge.svg?event=push" alt="Continuous Integration" />
+  </a>
+  <a href="https://codecov.io/gh/kiancross/unifed">
+    <img src="https://codecov.io/gh/kiancross/unifed/branch/master/graph/badge.svg?token=FI52RC1RQV" alt="codecov" />
+  </a>
+</p>
 
-The project was developed for a Junior Honours project at the
-University of St Andrews.
-
-## Contents
-
- * [Installation](#installation)
-   * [Step 1 - Clone the repository](#step-1---clone-the-repository)
-   * [Step 2 - Setup Node.js](#step-2---setup-nodejs)
-   * [Step 3 - Install yarn](#step-3---install-yarn)
-   * [Step 4 - Setup a container service](#step-4---setup-a-container-service)
-   * [Step 5 - Install dependencies](#step-5---install-dependencies)
-   * [Step 6 - Finish](#step-6---finish)
- * [Commands](#commands)
- * [Repository Layout](#repository-layout)
-   * [Configuration Files](#configuration-files)
- * [Development Tools](#development-tools)
- * [Containers](#containers)
- * [Continuous Integration](#continuous-integration)
- * [Contributing](#contributing)
- * [Documentation](#documentation)
+ * [About](#about)
+   * [Features](#features)
+ * [Developers](#developers)
+   * [Installation](#installation)
+   * [Commands](#commands)
+   * [Repository Layout](#repository-layout)
+     * [Configuration Files](#configuration-files)
+   * [Tools](#tools)
+   * [Containers](#containers)
+   * [Continuous Integration](#continuous-integration)
+   * [Contributing](#contributing)
+ * [Further Documentation](#further-documentation)
    * [Users](#users)
    * [Developers](#developers)
    * [Protocol](#protocol)
- * [Other](#other)
+
+# About
+
+Unifed was developed for a Junior Honours project at the
+University of St Andrews.
+
+There is no publicly hosted example of the application, however
+a local installation can be done quickly by following the
+instructions [here](#installation). Alternatively, screenshots
+are available in the [user manual](https://kiancross.github.io/unifed/).
+
+## Features
+
+ * Communities to discuss topics of interest.
+ * Posts and nested comments available across a federated network.
+ * Group video calling using [WebRTC](https://webrtc.org/).
+ * [Machine learning spam detection](packages/backend-ml).
+ * Text toxicity classification.
+
+# Developers
 
 ## Installation
 
 Unifed uses containers to make installation easy.
 
-The software stack is compatible with Linux, Mac, Windows and
-both personal computers and the School's lab machines.
-
-*If using the School's computers, you must use a lab machine,
-not one of the host servers.*
+The software stack is compatible with Linux, Mac, and Windows.
 
 ### Step 1 - Clone the repository
 ```console
@@ -48,32 +63,22 @@ $ git clone git@github.com:kiancross/unifed.git
 ```
 
 ### Step 2 - Setup Node.js
-On the lab machines, follow the instructions on the School's wiki
-[here](https://systems.wiki.cs.st-andrews.ac.uk/index.php/Using_Node.js_on_the_host_servers#From_the_64-bit_Linux_binary_distribution).
 
-On your own machine, follow the instructions [here](https://nodejs.org/en/download/).
-
+Follow the instructions [here](https://nodejs.org/en/download/).
 Version 12 is the recommended choice.
 
 ### Step 3 - Install yarn
 ```console
-$https://yarnpkg.com/configuration/yarnrc npm install -g yarn
+$ https://yarnpkg.com/configuration/yarnrc npm install -g yarn
 ```
 
 ### Step 4 - Setup a container service
-On the lab machines we use Podman. This *should* just work, however
-at the moment, due to a bug in the version on the lab machines,
-it does not. To fix it, you can run the following command, which
-will update your version of Podman:
 
-```console
-$ bash <(curl -s https://gist.githubusercontent.com/kiancross/08756b745c79368373130c4430cfdd99/raw/fa6a358d67327ed6f329df9ad0167d000e1492bd/update-podman.sh)
-```
+Both Docker and Podman work, although we recommend Docker. If using Podman,
+ensure it is v3.0.0 or above.
 
-On your own machine, Docker is a better choice than Podman. Installation
-instructions can be found [here](https://docs.docker.com/get-docker/).
-Ensure that [Docker Compose](https://docs.docker.com/compose/) is also
-installed.
+Installation instructions for Docker can be found [here](https://docs.docker.com/get-docker/).
+Ensure that [Docker Compose](https://docs.docker.com/compose/) is also installed.
 
 ### Step 5 - Install dependencies
 ```console
@@ -85,13 +90,6 @@ Run `yarn container:start`.
 
 After a couple of minutes, you will be able to access the
 application at `http://localhost:8080`.
-
-If you are running this remotely on a lab machine, you need to
-setup a SOCKS proxy to access the application from the browser
-on your own machine. Instructions can be found
-[here](https://systems.wiki.cs.st-andrews.ac.uk/index.php/Working_remotely#SOCKS_proxy)
-and
-[here](https://www.digitalocean.com/community/tutorials/how-to-route-web-traffic-securely-without-a-vpn-using-a-socks-tunnel).
 
 ## Commands
 
@@ -188,14 +186,14 @@ directory. These are described below.
 Some of the above configuration files are symbolically linked to by
 packages.
 
-## Development Tools
+## Tools
 We use a variety of tools to assist with development.
 
 |Name|Description|
 |----|-----------|
-|Docker| Used for orchestrating containers on personal machines.|
+|Docker| Used for orchestrating containers.|
 |ESLint| Used for detecting potential problems with code. |
-|Podman| Used for orchestrating containers on the School's lab machines.|
+|Podman| Used for orchestrating containers.|
 |Prettier| Used for checking and fixing code formatting. |
 |IstanbulJS| Used for generating test coverage reports. |
 |Yarn| Used for managing npm packages. |
@@ -250,12 +248,12 @@ The general workflow for fixing a bug/adding a feature should be:
   8) Make sure the automated tests pass and then request someone to review.
   9) Once reviewed, the changes can be merged. Write a good commit message.
 
-## Documentation
+# Further Documentation
 
 Unifed is extensively documented, for both users and
 developers.
 
-### Users
+## Users
 
 The user manual can be found [here](https://kiancross.github.io/unifed/).
 
@@ -266,10 +264,9 @@ installed, you can run `bundle exec Jekyll serve` in the
 `docs` directory to build the user manual.
 
 
-### Developers
+## Developers
 
 Developer documentation can be found [here](https://kiancross.github.io/unifed/developers/).
-
 The developer documentation consists of this `README` and
 extensive API documentation. Clicking the package names
 on the right hand side of the documentation will take you
@@ -281,12 +278,8 @@ package.
 The developer documentation is built using `yarn dev-docs`,
 which invokes the `typedoc` command.
 
-### Protocol
+## Protocol
 
 The protocol we developed to allow communication between federated
-instances can be found [here](https://kiancross.github.io/cs3099a-specification/).
-
-## Other
-
-Code pushed to this repository is mirrored to the School's
-GitLab service at 06:00 GMT.
+instances can be found [here](https://github.com/kiancross/cs3099a-specification),
+with a corresponding website available [here](https://kiancross.github.io/cs3099a-specification/).
