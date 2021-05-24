@@ -1,7 +1,3 @@
-#
-# CS3099 Group A3
-#
-
 source "https://rubygems.org"
 
 # To upgrade, run `bundle update github-pages`.
