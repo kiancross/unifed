@@ -138,7 +138,7 @@ The `packages` directory contains the source code, separated
 into distinct packages. Descriptions for each of these packages
 are contained in `README` files within each package.
 
-More information about `docs` is in the [documentation][#documentation]
+More information about `docs` is in the [documentation](#documentation)
 section.
 
 ### Configuration Files
