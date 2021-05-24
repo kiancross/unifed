@@ -2,17 +2,90 @@ name: Continuous Integration
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - master
   pull_request:
-    branches: [ master ]
-  schedule:
-    # Everyday at 6am
-    - cron:  "0 6 */1 * *"
+    branches:
+      - master
 
 jobs:
-  run:
-    name: Run
+  build:
+    name: Build (@unifed/${{ matrix.package }})
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - frontend
+          - shared
+          - backend-core
+          - backend-testing
+          - backend-ml
+          - backend-federation-client
+          - backend-federation-server
+          - backend-internal-server
+
+    steps:
+      - uses: actions/checkout@v2.3.4
+
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 12
+
+      - id: yarn-paths
+        run: |
+          echo "::set-output name=cache::$(yarn config get cacheFolder)"
+          echo "::set-output name=install::$(yarn config get installStatePath)"
+          echo "::set-output name=build::$(yarn config get bstatePath)"
+          echo "::set-output name=unplugged::$(yarn config get pnpUnpluggedFolder)"
+
+      - uses: actions/cache@v2.1.5
+        id: cache
+        with:
+          path: |
+            ${{ steps.yarn-paths.outputs.cache }}
+            ${{ steps.yarn-paths.outputs.install }}
+            ${{ steps.yarn-paths.outputs.build }}
+            ${{ steps.yarn-paths.outputs.unplugged }}
+            .pnp.cjs
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - run: npm install -g yarn
+
+      - name: Install Dependencies 🏗️
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+
+      - name: Build ⛏️
+        run: yarn workspace @unifed/${{ matrix.package }} build
+
+      - name: Save Build 💾
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.package }}-build
+          path: packages/**/build
+
+
+  test:
+    name: Test (@unifed/${{ matrix.package }})
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - frontend
+          - shared
+          - backend-core
+          - backend-ml
+          - backend-federation-client
+          - backend-federation-server
+          - backend-internal-server
 
     steps:
       - uses: actions/checkout@v2.3.4
@@ -55,112 +128,254 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
-      - name: Build ⛏️
-        run: yarn build
-
-      - name: Generate GraphQL Schema ⚙️
-        if: github.ref != 'refs/heads/master'
-        run: |
-          yarn workspace @unifed/backend-internal-server ts-node scripts/generate-schema.ts
-          cp packages/backend-internal-server/.schema.graphql packages/frontend/
-
-      - name: Code Style 👠
-        if: github.ref != 'refs/heads/master'
-        run: yarn lint
+      - name: Download Build 📥
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ matrix.package }}-build
+          path: packages
 
       - name: Test 📝
-        run: yarn test
-
-      - name: Upload Coverage Report (backend-core) 1️⃣ 📊
-        uses: codecov/codecov-action@v1.5.0
-        if: github.actor != 'dependabot[bot]'
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: backend-core
-          directory: packages/backend-core
-          fail_ci_if_error: true
-
-      - name: Upload Coverage Report (backend-federation-client) 2️⃣ 📊
-        uses: codecov/codecov-action@v1.5.0
-        if: github.actor != 'dependabot[bot]'
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: backend-federation-client
-          directory: packages/backend-federation-client
-          fail_ci_if_error: true
-
-      - name: Upload Coverage Report (backend-federation-server) 3️⃣ 📊
-        uses: codecov/codecov-action@v1.5.0
-        if: github.actor != 'dependabot[bot]'
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: backend-federation-server
-          directory: packages/backend-federation-server
-          fail_ci_if_error: true
-
-      - name: Upload Coverage Report (backend-internal-server) 4️⃣ 📊
-        uses: codecov/codecov-action@v1.5.0
-        if: github.actor != 'dependabot[bot]'
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: backend-internal-server
-          directory: packages/backend-internal-server
-          fail_ci_if_error: true
-
-      - name: Upload Coverage Report (backend-ml) 5️⃣ 📊
-        uses: codecov/codecov-action@v1.5.0
-        if: github.actor != 'dependabot[bot]'
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: backend-ml
-          directory: packages/backend-ml
-          fail_ci_if_error: true
+        run: yarn workspace @unifed/${{ matrix.package }} test
       
-      - name: Upload Coverage Report (frontend) 6️⃣ 📊
+      - name: Upload Coverage Report 📊
         uses: codecov/codecov-action@v1.5.0
         if: github.actor != 'dependabot[bot]'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          flags: frontend
-          directory: packages/frontend
+          flags: ${{ matrix.package }}
+          directory: packages/${{ matrix.package }}
           fail_ci_if_error: true
 
-      - name: Upload Coverage Report (shared) 7️⃣ 📊
-        uses: codecov/codecov-action@v1.5.0
-        if: github.actor != 'dependabot[bot]'
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: shared
-          directory: packages/shared
-          fail_ci_if_error: true
-      
-      - name: Generate Developer Documentation 🔧
-        run: yarn dev-docs
-
-      - name: Save Documentation 💾
-        if: github.ref == 'refs/heads/master'
-        uses: actions/upload-artifact@v2
-        with:
-          name: documentation
-          path: docs
   
-  deploy-docs:
-    name: Deploy Documentation
-    if: github.ref == 'refs/heads/master'
+  graphql-schema:
+    name: Generate GraphQL Schema
     runs-on: ubuntu-latest
-    needs: run
-    timeout-minutes: 5
+    needs: build
+    timeout-minutes: 15
+
     steps:
       - uses: actions/checkout@v2.3.4
 
-      - name: Download 📩
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 12
+
+      - id: yarn-paths
+        run: |
+          echo "::set-output name=cache::$(yarn config get cacheFolder)"
+          echo "::set-output name=install::$(yarn config get installStatePath)"
+          echo "::set-output name=build::$(yarn config get bstatePath)"
+          echo "::set-output name=unplugged::$(yarn config get pnpUnpluggedFolder)"
+
+      - uses: actions/cache@v2.1.5
+        id: cache
+        with:
+          path: |
+            ${{ steps.yarn-paths.outputs.cache }}
+            ${{ steps.yarn-paths.outputs.install }}
+            ${{ steps.yarn-paths.outputs.build }}
+            ${{ steps.yarn-paths.outputs.unplugged }}
+            .pnp.cjs
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - run: npm install -g yarn
+
+      - name: Install Dependencies 🏗️
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+
+      - name: Download Build 📥
         uses: actions/download-artifact@v2
         with:
-          name: documentation
-          path: docs
+          name: backend-internal-server-build
+          path: packages
+      
+      - name: Generate GraphQL Schema ⚙️
+        run: |
+          yarn workspace @unifed/backend-internal-server ts-node scripts/generate-schema.ts
+          cp packages/backend-internal-server/.schema.graphql schema.graphql
+      
+      - name: Save GraphQL Schema 💾
+        uses: actions/upload-artifact@v2
+        with:
+          name: graphql-schema
+          path: schema.graphql
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.3
+
+  code-style:
+    name: Check Code Style (@unifed/${{ matrix.package }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: graphql-schema
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - frontend
+          - shared
+          - backend-core
+          - backend-testing
+          - backend-ml
+          - backend-federation-client
+          - backend-federation-server
+          - backend-internal-server
+
+    steps:
+      - uses: actions/checkout@v2.3.4
+
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 12
+
+      - id: yarn-paths
+        run: |
+          echo "::set-output name=cache::$(yarn config get cacheFolder)"
+          echo "::set-output name=install::$(yarn config get installStatePath)"
+          echo "::set-output name=build::$(yarn config get bstatePath)"
+          echo "::set-output name=unplugged::$(yarn config get pnpUnpluggedFolder)"
+
+      - uses: actions/cache@v2.1.5
+        id: cache
+        with:
+          path: |
+            ${{ steps.yarn-paths.outputs.cache }}
+            ${{ steps.yarn-paths.outputs.install }}
+            ${{ steps.yarn-paths.outputs.build }}
+            ${{ steps.yarn-paths.outputs.unplugged }}
+            .pnp.cjs
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - run: npm install -g yarn
+
+      - name: Install Dependencies 🏗️
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+      
+      - name: Download Build 📥
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ matrix.package }}-build
+          path: packages
+      
+      - name: Download GraphQL Schema 📥
+        uses: actions/download-artifact@v2
+        if: matrix.package == 'frontend'
+        with:
+          name: graphql-schema
+
+      - if: matrix.package == 'frontend'
+        run: mv schema.graphql packages/frontend/.schema.graphql
+      
+      - name: Code Style 👠
+        run: yarn workspace @unifed/${{ matrix.package }} lint
+
+
+  developer-documentation:
+    name: Generate Developer Documentation
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v2.3.4
+
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 12
+
+      - id: yarn-paths
+        run: |
+          echo "::set-output name=cache::$(yarn config get cacheFolder)"
+          echo "::set-output name=install::$(yarn config get installStatePath)"
+          echo "::set-output name=build::$(yarn config get bstatePath)"
+          echo "::set-output name=unplugged::$(yarn config get pnpUnpluggedFolder)"
+
+      - uses: actions/cache@v2.1.5
+        id: cache
+        with:
+          path: |
+            ${{ steps.yarn-paths.outputs.cache }}
+            ${{ steps.yarn-paths.outputs.install }}
+            ${{ steps.yarn-paths.outputs.build }}
+            ${{ steps.yarn-paths.outputs.unplugged }}
+            .pnp.cjs
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - run: npm install -g yarn
+
+      - name: Install Dependencies 🏗️
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+      
+      - name: Download Build 📥
+        uses: actions/download-artifact@v2
+        with:
+          path: builds
+
+      - run: rsync -a builds/*-build/ packages
+
+      - name: Generate Documentation 🔧
+        run: yarn dev-docs
+      
+      - name: Save Documentation 💾
+        uses: actions/upload-artifact@v2
+        with:
+          name: developer-documentation
+          path: docs/developers
+  
+
+  user-manual:
+    name: Generate User Manual
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v2.3.4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+          working-directory: docs
+          bundler-cache: true
+
+      - name: Generate Documentation 🔧
+        run: |
+          cd docs
+          bundle exec jekyll build
+
+      - name: Save User Manual 💾
+        uses: actions/upload-artifact@v2
+        with:
+          name: user-manual
+          path: docs/_site
+ 
+
+  deploy-pages:
+    name: Deploy Documentation
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    timeout-minutes: 15
+    needs:
+      - user-manual
+      - developer-documentation
+
+    steps:
+      - uses: actions/checkout@v2.3.4
+      
+      - name: Download Developer Documentation 📥
+        uses: actions/download-artifact@v2
+        with:
+          name: developer-documentation
+          path: docs/developers
+
+      - name: Deploy Documentation 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
           branch: gh-pages
           folder: docs
