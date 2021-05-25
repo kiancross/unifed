@@ -6,17 +6,7 @@ permalink: /
 ---
 
 <div style="text-align: center">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />  
-  <style>
-    .unifed-logo-text {
-      color: black;
-      font-family: 'Roboto Mono', monospace;
-      font-size: 4em;
-      text-align: center;
-    }
-  </style>
-  <img src="images/unifed.svg" alt="Unifed" style="width: 300px">
-  <div class="unifed-logo-text">Unifed</div>
+  <img src="images/unifed-with-text.svg" alt="Unifed" style="width: 350px">
 </div>
 
 
