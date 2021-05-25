@@ -43,8 +43,8 @@ test.serial("User is admin of community of post", async (t) => {
   admin.host = "testhost";
   community.admins = [admin];
 
-  CommunityModel.create(community);
-  PostModel.create(post);
+  await CommunityModel.create(community);
+  await PostModel.create(post);
 
   // not sure why but test fails without this line of code below :/
   await CommunityModel.findOne({ _id: "foo" as string }).exec();
@@ -58,8 +58,8 @@ test.serial("User is not admin of community of post", async (t) => {
   const community = generateCommunity();
   community._id = "foo";
 
-  CommunityModel.create(community);
-  PostModel.create(post);
+  await CommunityModel.create(community);
+  await PostModel.create(post);
 
   // added this here for consistency
   await CommunityModel.findOne({ _id: "foo" as string }).exec();
@@ -81,8 +81,8 @@ test.serial("Delete post by admin of community", async (t) => {
   community.admins = [admin];
   post.author = admin;
 
-  CommunityModel.create(community);
-  PostModel.create(post);
+  await CommunityModel.create(community);
+  await PostModel.create(post);
 
   // need this again...
   await PostModel.findOne({ _id: post._id }).exec();
@@ -101,7 +101,7 @@ test.serial("Deleting post removes post reference from user", async (t) => {
 
   const scope = nock("http://thishost").delete("/fed/posts/testid").reply(200);
 
-  UserModel.create(user);
+  await UserModel.create(user);
 
   // need this
   await UserModel.findOne({ username: "testuser" });
