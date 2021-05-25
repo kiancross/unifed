@@ -281,5 +281,5 @@ which invokes the `typedoc` command.
 ## Protocol
 
 The protocol we developed to allow communication between federated
-instances can be found [here](https://github.com/kiancross/cs3099a-specification),
-with a corresponding website available [here](https://kiancross.github.io/cs3099a-specification/).
+instances can be found [here](https://github.com/kiancross/unifed-protocol),
+with a corresponding website available [here](https://kiancross.github.io/unifed-protocol/).
