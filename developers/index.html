@@ -1,0 +1,621 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Unifed Developer Documentation</title>
+	<meta name="description" content="Documentation for Unifed Developer Documentation">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">Unifed Developer Documentation</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>Unifed Developer Documentation</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<style> .tsd-typography ul ul { margin: 0 !important; } </style>
+				<p align="center">
+					<img src="../images/unifed-with-text.svg" alt="Unifed Logo" width="350" />
+				</p>
+				<p align="center">
+					A federated social networking site, targetted towards universities.
+				</p>
+				<p align="center">
+					<a href="https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml">
+						<img src="https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml/badge.svg?event=push" alt="Continuous Integration" />
+					</a>
+					<a href="https://codecov.io/gh/kiancross/unifed">
+						<img src="https://codecov.io/gh/kiancross/unifed/branch/master/graph/badge.svg?token=FI52RC1RQV" alt="codecov" />
+					</a>
+				</p>
+				<ul>
+					<li><a href="#about">About</a><ul>
+							<li><a href="#features">Features</a></li>
+						</ul>
+					</li>
+					<li><a href="#developers">Developers</a><ul>
+							<li><a href="#installation">Installation</a></li>
+							<li><a href="#commands">Commands</a></li>
+							<li><a href="#repository-layout">Repository Layout</a><ul>
+									<li><a href="#configuration-files">Configuration Files</a></li>
+								</ul>
+							</li>
+							<li><a href="#tools">Tools</a></li>
+							<li><a href="#containers">Containers</a></li>
+							<li><a href="#continuous-integration">Continuous Integration</a></li>
+							<li><a href="#contributing">Contributing</a></li>
+						</ul>
+					</li>
+					<li><a href="#further-documentation">Further Documentation</a><ul>
+							<li><a href="#users">Users</a></li>
+							<li><a href="#developers">Developers</a></li>
+							<li><a href="#protocol">Protocol</a></li>
+						</ul>
+					</li>
+				</ul>
+				<a href="#about" id="about" style="color: inherit; text-decoration: none;">
+					<h1>About</h1>
+				</a>
+				<p>Unifed was developed for a Junior Honours project at the
+				University of St Andrews.</p>
+				<p>There is no publicly hosted example of the application, however
+					a local installation can be done quickly by following the
+					instructions <a href="#installation">here</a>. Alternatively, screenshots
+				are available in the <a href="https://kiancross.github.io/unifed/">user manual</a>.</p>
+				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
+					<h2>Features</h2>
+				</a>
+				<ul>
+					<li>Communities to discuss topics of interest.</li>
+					<li>Posts and nested comments available across a federated network.</li>
+					<li>Group video calling using <a href="https://webrtc.org/">WebRTC</a>.</li>
+					<li><a href="packages/backend-ml">Machine learning spam detection</a>.</li>
+					<li>Text toxicity classification.</li>
+				</ul>
+				<a href="#developers" id="developers" style="color: inherit; text-decoration: none;">
+					<h1>Developers</h1>
+				</a>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
+				<p>Unifed uses containers to make installation easy.</p>
+				<p>The software stack is compatible with Linux, Mac, and Windows.</p>
+				<a href="#step-1---clone-the-repository" id="step-1---clone-the-repository" style="color: inherit; text-decoration: none;">
+					<h3>Step 1 - Clone the repository</h3>
+				</a>
+				<pre><code class="language-console">$ git clone git@github.com:kiancross/unifed.git
+</code></pre>
+				<a href="#step-2---setup-nodejs" id="step-2---setup-nodejs" style="color: inherit; text-decoration: none;">
+					<h3>Step 2 - Setup Node.js</h3>
+				</a>
+				<p>Follow the instructions <a href="https://nodejs.org/en/download/">here</a>.
+				Version 12 is the recommended choice.</p>
+				<a href="#step-3---install-yarn" id="step-3---install-yarn" style="color: inherit; text-decoration: none;">
+					<h3>Step 3 - Install yarn</h3>
+				</a>
+				<pre><code class="language-console">$ https://yarnpkg.com/configuration/yarnrc npm install -g yarn
+</code></pre>
+				<a href="#step-4---setup-a-container-service" id="step-4---setup-a-container-service" style="color: inherit; text-decoration: none;">
+					<h3>Step 4 - Setup a container service</h3>
+				</a>
+				<p>Both Docker and Podman work, although we recommend Docker. If using Podman,
+				ensure it is v3.0.0 or above.</p>
+				<p>Installation instructions for Docker can be found <a href="https://docs.docker.com/get-docker/">here</a>.
+				Ensure that <a href="https://docs.docker.com/compose/">Docker Compose</a> is also installed.</p>
+				<a href="#step-5---install-dependencies" id="step-5---install-dependencies" style="color: inherit; text-decoration: none;">
+					<h3>Step 5 - Install dependencies</h3>
+				</a>
+				<pre><code class="language-console">$ yarn install
+</code></pre>
+				<a href="#step-6---finish" id="step-6---finish" style="color: inherit; text-decoration: none;">
+					<h3>Step 6 - Finish</h3>
+				</a>
+				<p>Run <code>yarn container:start</code>.</p>
+				<p>After a couple of minutes, you will be able to access the
+				application at <code>http://localhost:8080</code>.</p>
+				<a href="#commands" id="commands" style="color: inherit; text-decoration: none;">
+					<h2>Commands</h2>
+				</a>
+				<p>All commands are run through <code>yarn</code>, e.g. <code>yarn build</code>.</p>
+				<p>The following commands are available in both the package
+					directories and the root directory (which runs them for
+				every package):</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Command</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>build</code></td>
+							<td>Build the package.</td>
+						</tr>
+						<tr>
+							<td><code>test</code></td>
+							<td>Run the tests.</td>
+						</tr>
+						<tr>
+							<td><code>lint</code></td>
+							<td>Check the code style.</td>
+						</tr>
+						<tr>
+							<td><code>fix</code></td>
+							<td>Fix the code style.</td>
+						</tr>
+						<tr>
+							<td><code>clean</code></td>
+							<td>Clean all build files.</td>
+						</tr>
+				</tbody></table>
+				<p>The following commands are only available in the root directory:</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Command</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>checks</code></td>
+							<td>Run all the checks needed for a successful pull request.</td>
+						</tr>
+						<tr>
+							<td><code>dev-docs</code></td>
+							<td>Clean all build files.</td>
+						</tr>
+						<tr>
+							<td><code>container:start</code></td>
+							<td>Start the containers.</td>
+						</tr>
+						<tr>
+							<td><code>container:stop</code></td>
+							<td>Stop the containers.</td>
+						</tr>
+						<tr>
+							<td><code>container:restart</code></td>
+							<td>Restart the containers.</td>
+						</tr>
+						<tr>
+							<td><code>container:reset</code></td>
+							<td>Reset the containers and their data files.</td>
+						</tr>
+						<tr>
+							<td><code>container:logs</code></td>
+							<td>Get the containers&#39; log output.</td>
+						</tr>
+						<tr>
+							<td><code>container:devdb</code></td>
+							<td>Install the development database.</td>
+						</tr>
+						<tr>
+							<td><code>container:train:build</code></td>
+							<td>Build the machine learning training container.</td>
+						</tr>
+						<tr>
+							<td><code>container:train</code></td>
+							<td>Start training the machine learning models using the GPU accelerated container.</td>
+						</tr>
+				</tbody></table>
+				<a href="#repository-layout" id="repository-layout" style="color: inherit; text-decoration: none;">
+					<h2>Repository Layout</h2>
+				</a>
+				<p>The following directories exist at the base of the
+				repository.</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Directory</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>configs</code></td>
+							<td>Contains most configuration files.</td>
+						</tr>
+						<tr>
+							<td><code>docs</code></td>
+							<td>Contains documentation.</td>
+						</tr>
+						<tr>
+							<td><code>packages</code></td>
+							<td>Contains the source code for the application.</td>
+						</tr>
+						<tr>
+							<td><code>scripts</code></td>
+							<td>Contains development scripts.</td>
+						</tr>
+				</tbody></table>
+				<p>The <code>packages</code> directory contains the source code, separated
+					into distinct packages. Descriptions for each of these packages
+				are contained in <code>README</code> files within each package.</p>
+				<p>More information about <code>docs</code> is in the <a href="#documentation">documentation</a>
+				section.</p>
+				<a href="#configuration-files" id="configuration-files" style="color: inherit; text-decoration: none;">
+					<h3>Configuration Files</h3>
+				</a>
+				<p>Some configuration files are located in the root directory.
+				These are described below.</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>.codecov.yml</code></td>
+							<td>Configuration file for <a href="https://codecov.io/">Codecov</a>. See <a href="https://docs.codecov.io/docs/codecov-yaml">here</a>.</td>
+						</tr>
+						<tr>
+							<td><code>.dockerignore</code></td>
+							<td>Files to be ignored by Docker. See <a href="https://docs.docker.com/engine/reference/builder/#dockerignore-file">here</a>.</td>
+						</tr>
+						<tr>
+							<td><code>.editorconfig</code></td>
+							<td>Configuration file used by IDEs. See <a href="https://editorconfig.org/">here</a>.</td>
+						</tr>
+						<tr>
+							<td><code>.gitattributes</code></td>
+							<td>See <a href="https://github.com/github/linguist/blob/master/docs/overrides.md">here</a> for how we are using this.</td>
+						</tr>
+						<tr>
+							<td><code>.github/dependabot.yml</code></td>
+							<td>Configuration file for Dependabot. See <a href="https://docs.github.com/en/code-security/supply-chain-security/configuration-options-for-dependency-updates">here</a>.</td>
+						</tr>
+						<tr>
+							<td><code>.gitignore</code></td>
+							<td>See <a href="https://git-scm.com/docs/gitignore">here</a>.</td>
+						</tr>
+						<tr>
+							<td><code>package.json</code></td>
+							<td>See <a href="https://yarnpkg.com/configuration/manifest">here</a>.</td>
+						</tr>
+						<tr>
+							<td><code>tsconfig.json</code></td>
+							<td>Contains project references to the packages included in the documentation. This is a &#39;pseudo&#39; TypeScript configuration.</td>
+						</tr>
+						<tr>
+							<td><code>typedoc.js</code></td>
+							<td>See <a href="https://typedoc.org/guides/options/">here</a>.</td>
+						</tr>
+						<tr>
+							<td><code>.vim</code></td>
+							<td>Contains Vim editor configurations.</td>
+						</tr>
+						<tr>
+							<td><code>.vscode</code></td>
+							<td>Contains Visual Studio Code editor configurations.</td>
+						</tr>
+						<tr>
+							<td><code>.yarn</code></td>
+							<td>Contains Yarn binaries.</td>
+						</tr>
+						<tr>
+							<td><code>yarn.lock</code></td>
+							<td>Yarn lock file, used to keep development environments synchronised.</td>
+						</tr>
+						<tr>
+							<td><code>.yarnrc.yml</code></td>
+							<td>Configuration file for Yarn. See <a href="https://yarnpkg.com/configuration/yarnrc">here</a>.</td>
+						</tr>
+				</tbody></table>
+				<p>The remaining configuration files are located in the <code>configs</code>
+				directory. These are described below.</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>backend-federation.dockerfile</code></td>
+							<td>Dockerfile to create the container for the <code>backend-federation-server</code>.</td>
+						</tr>
+						<tr>
+							<td><code>backend-internal.dockerfile</code></td>
+							<td>Dockerfile to create the container for the <code>backend-internal-server</code>.</td>
+						</tr>
+						<tr>
+							<td><code>backend-ml.dockerfile</code></td>
+							<td>Dockerfile to create the container for training machine learning models.</td>
+						</tr>
+						<tr>
+							<td><code>config.env</code></td>
+							<td>Configuration values used for the application. These are passed to the containers.</td>
+						</tr>
+						<tr>
+							<td><code>docker-compose.yml</code></td>
+							<td>Orchestration file for Docker Compose. See <a href="https://docs.docker.com/compose/compose-file/">here</a>.</td>
+						</tr>
+						<tr>
+							<td><code>eslintignore</code></td>
+							<td>Files to be ignored by ESLint. See <a href="https://eslint.org/docs/user-guide/configuring/ignoring-code#the-eslintignore-file">here</a>.</td>
+						</tr>
+						<tr>
+							<td><code>eslintrc-non-react.json</code></td>
+							<td>ESLint configuration file for all but the <code>frontend</code> package. See <a href="https://eslint.org/docs/user-guide/configuring/ignoring-code#the-eslintignore-file">here</a>.</td>
+						</tr>
+						<tr>
+							<td><code>frontend.dockerfile</code></td>
+							<td>Dockerfile to create the container for the <code>frontend</code>. This is only needed for development, as the frontend is static.</td>
+						</tr>
+						<tr>
+							<td><code>kube-deployment.yml</code></td>
+							<td>Orchestration file for Kubernetes, which is used by Podman. See <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/">here</a>.</td>
+						</tr>
+						<tr>
+							<td><code>mongo-dev.js</code></td>
+							<td>Development database to easily add default entities to MongoDB.</td>
+						</tr>
+						<tr>
+							<td><code>mongo-init.js</code></td>
+							<td>Script to initialise MongoDB.</td>
+						</tr>
+						<tr>
+							<td><code>nginx.dev.conf</code></td>
+							<td>NGINX configuration file used for development. See <a href="https://nginx.org/en/docs/">here</a>.</td>
+						</tr>
+						<tr>
+							<td><code>nycrc.yaml</code></td>
+							<td>Configuration file for IstanbulJS. See <a href="https://github.com/istanbuljs/nyc#configuring-nyc">here</a>.</td>
+						</tr>
+						<tr>
+							<td><code>prettierrc.yaml</code></td>
+							<td>Configuration file for Prettier. See <a href="https://prettier.io/docs/en/configuration.html">here</a>.</td>
+						</tr>
+				</tbody></table>
+				<p>Some of the above configuration files are symbolically linked to by
+				packages.</p>
+				<a href="#tools" id="tools" style="color: inherit; text-decoration: none;">
+					<h2>Tools</h2>
+				</a>
+				<p>We use a variety of tools to assist with development.</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td>Docker</td>
+							<td>Used for orchestrating containers.</td>
+						</tr>
+						<tr>
+							<td>ESLint</td>
+							<td>Used for detecting potential problems with code.</td>
+						</tr>
+						<tr>
+							<td>Podman</td>
+							<td>Used for orchestrating containers.</td>
+						</tr>
+						<tr>
+							<td>Prettier</td>
+							<td>Used for checking and fixing code formatting.</td>
+						</tr>
+						<tr>
+							<td>IstanbulJS</td>
+							<td>Used for generating test coverage reports.</td>
+						</tr>
+						<tr>
+							<td>Yarn</td>
+							<td>Used for managing npm packages.</td>
+						</tr>
+				</tbody></table>
+				<a href="#containers" id="containers" style="color: inherit; text-decoration: none;">
+					<h2>Containers</h2>
+				</a>
+				<p>We use Docker and Podman to orchestrate containers. Containers are
+					an easy way to allow the application to be run on multiple platforms,
+				with minimal configuration.</p>
+				<p>Multiple containers are run in a cluster. The only exposed container
+					is the NGINX container, which proxies requests to the internal server,
+					federation server and frontend (which simply serves static files).
+				NGINX binds to port <code>8080</code>.</p>
+				<p>The database inspection container (Mongo Express) is also exposed,
+				however this is only use for development. This is on port <code>8081</code>.</p>
+				<p>The final container is the MongoDB container. This is only accessible
+					to the internal and federation servers and not exposed outside of the
+				cluster.</p>
+				<p>Both the <code>kube-deployment.yml</code> and <code>docker-compose.yml</code> files are
+					essentially identical. Ideally, there would be a single source of
+					truth, however there is no good tool for converting one into another,
+					therefore we must maintain both. We tried tools like
+					<a href="https://github.com/containers/podman-compose"><code>podman-compose</code></a>,
+				but they were buggy.</p>
+				<a href="#continuous-integration" id="continuous-integration" style="color: inherit; text-decoration: none;">
+					<h2>Continuous Integration</h2>
+				</a>
+				<p>On each pull request, automated tests are run. These must all pass before
+				the pull request may be merged.</p>
+				<p>We use <a href="https://codecov.io/">Codecov</a> to generate a test coverage report. In
+					order to access the report, you should log into Codecov using your GitHub
+					account. Codecov automatically comments a summary of the coverage report
+				to each pull request.</p>
+				<p>GitHub actions are used for running automated tests. See <code>.github/workflows</code>
+				for the configuration files.</p>
+				<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
+					<h2>Contributing</h2>
+				</a>
+				<p>The general workflow for fixing a bug/adding a feature should be:</p>
+				<ol>
+					<li>Get the latest <code>master</code> branch: <code>git pull master</code>.</li>
+					<li>Fork from <code>master</code> with a suitable branch name: <code>git checkout -b &lt;branch_name&gt;</code>.</li>
+					<li>Make some changes.</li>
+					<li>Run <code>yarn checks</code> to ensure all tests pass. Ensure that test coverage is adequate.</li>
+					<li>Commit the changes to the new branch.</li>
+					<li>Push to the remote: <code>git push origin &lt;branch_name&gt;</code>.</li>
+					<li>Access the GitHub web-interface and create a pull request to <code>master</code>.</li>
+					<li>Make sure the automated tests pass and then request someone to review.</li>
+					<li>Once reviewed, the changes can be merged. Write a good commit message.</li>
+				</ol>
+				<a href="#further-documentation" id="further-documentation" style="color: inherit; text-decoration: none;">
+					<h1>Further Documentation</h1>
+				</a>
+				<p>Unifed is extensively documented, for both users and
+				developers.</p>
+				<a href="#users" id="users" style="color: inherit; text-decoration: none;">
+					<h2>Users</h2>
+				</a>
+				<p>The user manual can be found <a href="https://kiancross.github.io/unifed/">here</a>.</p>
+				<p>The user manual is built using Jekyll. Ruby must be installed,
+					then you can follow the quick-start instructions
+					<a href="https://jekyllrb.com/">here</a>. In short, once Jekyll is
+					installed, you can run <code>bundle exec Jekyll serve</code> in the
+				<code>docs</code> directory to build the user manual.</p>
+				<a href="#developers-1" id="developers-1" style="color: inherit; text-decoration: none;">
+					<h2>Developers</h2>
+				</a>
+				<p>Developer documentation can be found <a href="https://kiancross.github.io/unifed/developers/">here</a>.
+					The developer documentation consists of this <code>README</code> and
+					extensive API documentation. Clicking the package names
+					on the right hand side of the documentation will take you
+					to the API documentation for that particular package.
+					A description of the package is also available after clicking
+					it. Items marked with <code>internal</code> are not exported from the
+				package.</p>
+				<p>The developer documentation is built using <code>yarn dev-docs</code>,
+				which invokes the <code>typedoc</code> command.</p>
+				<a href="#protocol" id="protocol" style="color: inherit; text-decoration: none;">
+					<h2>Protocol</h2>
+				</a>
+				<p>The protocol we developed to allow communication between federated
+					instances can be found <a href="https://github.com/kiancross/unifed-protocol">here</a>,
+				with a corresponding website available <a href="https://kiancross.github.io/unifed-protocol/">here</a>.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/backend_core.html">backend-<wbr>core</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/backend_federation_client.html">backend-<wbr>federation-<wbr>client</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/backend_federation_server.html">backend-<wbr>federation-<wbr>server</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/backend_internal_server.html">backend-<wbr>internal-<wbr>server</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/backend_ml.html">backend-<wbr>ml</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/backend_testing.html">backend-<wbr>testing</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/frontend.html">frontend</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/shared.html">shared</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-module">
+						<a href="modules/backend_core.html" class="tsd-kind-icon">backend-<wbr>core</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/backend_federation_client.html" class="tsd-kind-icon">backend-<wbr>federation-<wbr>client</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/backend_federation_server.html" class="tsd-kind-icon">backend-<wbr>federation-<wbr>server</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/backend_internal_server.html" class="tsd-kind-icon">backend-<wbr>internal-<wbr>server</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/backend_ml.html" class="tsd-kind-icon">backend-<wbr>ml</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/backend_testing.html" class="tsd-kind-icon">backend-<wbr>testing</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/frontend.html" class="tsd-kind-icon">frontend</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/shared.html" class="tsd-kind-icon">shared</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

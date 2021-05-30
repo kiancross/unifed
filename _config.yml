@@ -1,0 +1,16 @@
+#
+# CS3099 Group A3
+#
+
+title: Unifed Help
+description: Help for Unifed.
+baseurl: "/unifed"
+url: "https://kiancross.github.io"
+
+remote_theme: pmarsceill/just-the-docs
+
+aux_links:
+  "Developer Documentation":
+    - "//kiancross.github.io/unifed/developers/"
+
+aux_links_new_tab: true

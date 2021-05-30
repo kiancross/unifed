@@ -1,0 +1,1506 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>backend-ml | Unifed Developer Documentation</title>
+	<meta name="description" content="Documentation for Unifed Developer Documentation">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">Unifed Developer Documentation</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../modules.html">Unifed Developer Documentation</a>
+				</li>
+				<li>
+					<a href="backend_ml.html">backend-ml</a>
+				</li>
+			</ul>
+			<h1>Module backend-ml</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<a href="#unifedbackend-ml" id="unifedbackend-ml" style="color: inherit; text-decoration: none;">
+						<h1>@unifed/backend-ml</h1>
+					</a>
+					<p>This package is currently used for machine learning related
+					code.</p>
+					<p>Unifed currently utilises two forms of machine learning:</p>
+					<ol>
+						<li>A spam detection filter.</li>
+						<li>A text toxicity classifier.</li>
+					</ol>
+					<p>The spam detection models are created and trained in this package,
+						whereas the text toxicity classifier utilises the pre-trained
+						<a href="https://github.com/tensorflow/tfjs-models/tree/master/toxicity"><code>@tensorflow-models/toxicity</code></a>
+					model.</p>
+					<a href="#spam-detection" id="spam-detection" style="color: inherit; text-decoration: none;">
+						<h2>Spam Detection</h2>
+					</a>
+					<p>The majority of the code in this package is for training a spam
+					detection model. </p>
+					<ol>
+						<li><p>Training data located in the <code>data</code> directory is converted
+							into a common form, using the parsers located in <code>src/parsers</code>.</p>
+						</li>
+						<li><p>The training data is then tokenized, using <code>src/tokenizer.ts</code>.</p>
+						</li>
+						<li><p>A tensor is created using this data with the code in <code>src/tensor.ts</code>.</p>
+						</li>
+						<li><p>The models used in <code>src/models</code> are trained with the data.</p>
+						</li>
+					</ol>
+					<p><code>src/train.ts</code> provides a command line utility for training the models,
+						whereas <code>src/test-model.ts</code> provides a command line utility for for
+					accessing the performance of models.</p>
+					<p>An API to utilise the models is exposed in <code>src/index.ts</code>, which can
+					be used by other packages.</p>
+					<a href="#training-data" id="training-data" style="color: inherit; text-decoration: none;">
+						<h3>Training Data</h3>
+					</a>
+					<p>Training data is located in the <code>data</code> directory. The sources for
+					the training data are as follows:</p>
+					<ul>
+						<li><code>enron.zip</code> - <a href="http://nlp.cs.aueb.gr/software_and_datasets/Enron-Spam/index.html">Source</a></li>
+						<li><code>sms.zip</code> - <a href="https://archive.ics.uci.edu/ml/datasets/sms+spam+collection">Source</a></li>
+						<li><code>spam-assasin.zip</code> - <a href="https://www.kaggle.com/veleon/ham-and-spam-dataset">Source</a></li>
+						<li><code>testing.zip</code> - <a href="https://www.kaggle.com/mandygu/lingspam-dataset">Source</a></li>
+					</ul>
+					<a href="#models" id="models" style="color: inherit; text-decoration: none;">
+						<h3>Models</h3>
+					</a>
+					<p>The models used have been taken from the following sources:</p>
+					<ul>
+						<li><code>dense</code> <em>(trained)</em> - <a href="https://towardsdatascience.com/nlp-spam-detection-in-sms-text-data-using-deep-learning-b8632db85cc8">Source</a></li>
+						<li><code>dense-pooling</code> <em>(trained)</em> - <a href="https://towardsdatascience.com/nlp-detecting-spam-messages-with-tensorflow-part-ii-77826c8f1abf">Source</a></li>
+						<li><code>twilio-dense</code> <em>(trained)</em> - <a href="https://www.twilio.com/blog/spam-deep-learning-detection-sms-keras-python-twilio">Source</a></li>
+						<li><code>lstm</code> <em>(not trained)</em> - <a href="https://towardsdatascience.com/nlp-spam-detection-in-sms-text-data-using-deep-learning-b8632db85cc8">Source</a></li>
+						<li><code>bi-directional-lstm</code> <em>(not trained)</em> - <a href="https://towardsdatascience.com/nlp-spam-detection-in-sms-text-data-using-deep-learning-b8632db85cc8">Source</a></li>
+					</ul>
+					<p>Some models have not been trained, as we did not have the computing
+						resources to do so in a reasonable amount of time. Training and
+					evaluating these would be an interesting project extension.</p>
+					<a href="#artifacts" id="artifacts" style="color: inherit; text-decoration: none;">
+						<h3>Artifacts</h3>
+					</a>
+					<p>The <code>models</code> directory contains the trained models. All
+						configuration information is stored within here. These
+						models take time to train and are checked into the
+					repository.</p>
+					<p>The <code>meta</code> directory contains statistics about the training
+						data, used in the report. This directory is not committed,
+					as it contained hundreds of thousands of lines.</p>
+					<a href="#development-and-evaluation" id="development-and-evaluation" style="color: inherit; text-decoration: none;">
+						<h3>Development and Evaluation</h3>
+					</a>
+					<p>A detailed report outlining the development and evaluation
+						of the spam detection filter is available in both the 3rd
+					and 4th deliverables.</p>
+					<a href="#text-toxicity" id="text-toxicity" style="color: inherit; text-decoration: none;">
+						<h2>Text Toxicity</h2>
+					</a>
+					<p>The text toxicity classifier utilises the pre-trained
+						<a href="https://github.com/tensorflow/tfjs-models/tree/master/toxicity"><code>@tensorflow-models/toxicity</code></a>
+					model.</p>
+					<p>This package provides a simple API around the model in order
+					to classify single pieces of text.</p>
+				</div>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Classes</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/backend_ml.bidirectionalltsmmodel.html" class="tsd-kind-icon">Bi<wbr>DirectionalLTSMModel</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/backend_ml.densemodel.html" class="tsd-kind-icon">Dense<wbr>Model</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/backend_ml.densepoolingmodel.html" class="tsd-kind-icon">Dense<wbr>Pooling<wbr>Model</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/backend_ml.enronparser.html" class="tsd-kind-icon">Enron<wbr>Parser</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/backend_ml.invalidfileerror.html" class="tsd-kind-icon">Invalid<wbr>File<wbr>Error</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/backend_ml.ltsmmodel.html" class="tsd-kind-icon">LTSMModel</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/backend_ml.model.html" class="tsd-kind-icon">Model</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/backend_ml.modelnotdefinederror.html" class="tsd-kind-icon">Model<wbr>Not<wbr>Defined<wbr>Error</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/backend_ml.parser.html" class="tsd-kind-icon">Parser</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/backend_ml.smsparser.html" class="tsd-kind-icon">SMSParser</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/backend_ml.spamassasinparser.html" class="tsd-kind-icon">Spam<wbr>Assasin<wbr>Parser</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/backend_ml.testingparser.html" class="tsd-kind-icon">Testing<wbr>Parser</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/backend_ml.tokenizer.html" class="tsd-kind-icon">Tokenizer</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/backend_ml.twiliodensemodel.html" class="tsd-kind-icon">Twilio<wbr>Dense<wbr>Model</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Interfaces</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/backend_ml.config.html" class="tsd-kind-icon">Config</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/backend_ml.message.html" class="tsd-kind-icon">Message</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/backend_ml.sentencemapping.html" class="tsd-kind-icon">Sentence<wbr>Mapping</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/backend_ml.trainedmodel.html" class="tsd-kind-icon">Trained<wbr>Model</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/backend_ml.zipfileentry.html" class="tsd-kind-icon">ZIPFile<wbr>Entry</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Type aliases</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="backend_ml.html#sequence" class="tsd-kind-icon">Sequence</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="backend_ml.html#stringnumbermapping" class="tsd-kind-icon">String<wbr>Number<wbr>Mapping</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="backend_ml.html#trainedmodelwithmeta" class="tsd-kind-icon">Trained<wbr>Model<wbr>With<wbr>Meta</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="backend_ml.html#configname" class="tsd-kind-icon">config<wbr>Name</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="backend_ml.html#defaultconfig" class="tsd-kind-icon">default<wbr>Config</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="backend_ml.html#historyname" class="tsd-kind-icon">history<wbr>Name</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="backend_ml.html#metapath" class="tsd-kind-icon">meta<wbr>Path</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="backend_ml.html#modelname" class="tsd-kind-icon">model<wbr>Name</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="backend_ml.html#modelnames" class="tsd-kind-icon">model<wbr>Names</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="backend_ml.html#modelspath" class="tsd-kind-icon">models<wbr>Path</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="backend_ml.html#sentencelengthsname" class="tsd-kind-icon">sentence<wbr>Lengths<wbr>Name</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="backend_ml.html#testingresultshamname" class="tsd-kind-icon">testing<wbr>Results<wbr>Ham<wbr>Name</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="backend_ml.html#testingresultsspamname" class="tsd-kind-icon">testing<wbr>Results<wbr>Spam<wbr>Name</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="backend_ml.html#tokenizername" class="tsd-kind-icon">tokenizer<wbr>Name</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="backend_ml.html#wordfrequenciesname" class="tsd-kind-icon">word<wbr>Frequencies<wbr>Name</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter"><a href="backend_ml.html#arraytocsv" class="tsd-kind-icon">array<wbr>ToCSV</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="backend_ml.html#createdirectory" class="tsd-kind-icon">create<wbr>Directory</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="backend_ml.html#fitmodel" class="tsd-kind-icon">fit<wbr>Model</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="backend_ml.html#flattenmessages" class="tsd-kind-icon">flatten<wbr>Messages</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="backend_ml.html#getlabelstensor" class="tsd-kind-icon">get<wbr>Labels<wbr>Tensor</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="backend_ml.html#getmodel" class="tsd-kind-icon">get<wbr>Model</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="backend_ml.html#getsentencestensor" class="tsd-kind-icon">get<wbr>Sentences<wbr>Tensor</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="backend_ml.html#getspamfactor" class="tsd-kind-icon">get<wbr>Spam<wbr>Factor</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="backend_ml.html#gettoxicityclassification" class="tsd-kind-icon">get<wbr>Toxicity<wbr>Classification</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="backend_ml.html#mergeparsers" class="tsd-kind-icon">merge<wbr>Parsers</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter"><a href="backend_ml.html#ratiosplitarray" class="tsd-kind-icon">ratio<wbr>Split<wbr>Array</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="backend_ml.html#readzipfile" class="tsd-kind-icon">readZIPFile</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="backend_ml.html#savemodel" class="tsd-kind-icon">save<wbr>Model</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="backend_ml.html#savesentencesmeta" class="tsd-kind-icon">save<wbr>Sentences<wbr>Meta</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="backend_ml.html#testmodel" class="tsd-kind-icon">test<wbr>Model</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="backend_ml.html#trainmodels" class="tsd-kind-icon">train<wbr>Models</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="sequence" class="tsd-anchor"></a>
+					<h3>Sequence</h3>
+					<div class="tsd-signature tsd-kind-icon">Sequence<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/tokenizer.ts#L12">packages/backend-ml/src/tokenizer.ts:12</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Type representing a numerical sequence.</p>
+						</div>
+						<p>See <a href="../classes/backend_ml.tokenizer.html"><code>Tokenizer</code></a> for usage example.</p>
+						<dl class="tsd-comment-tags">
+							<dt>internal</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="stringnumbermapping" class="tsd-anchor"></a>
+					<h3>String<wbr>Number<wbr>Mapping</h3>
+					<div class="tsd-signature tsd-kind-icon">String<wbr>Number<wbr>Mapping<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/tokenizer.ts#L21">packages/backend-ml/src/tokenizer.ts:21</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Type representing a string to number mapping.</p>
+						</div>
+						<p>See <a href="../classes/backend_ml.tokenizer.html"><code>Tokenizer</code></a> for usage example.</p>
+						<dl class="tsd-comment-tags">
+							<dt>internal</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="trainedmodelwithmeta" class="tsd-anchor"></a>
+					<h3>Trained<wbr>Model<wbr>With<wbr>Meta</h3>
+					<div class="tsd-signature tsd-kind-icon">Trained<wbr>Model<wbr>With<wbr>Meta<span class="tsd-signature-symbol">:</span> <a href="../interfaces/backend_ml.trainedmodel.html" class="tsd-signature-type" data-tsd-kind="Interface">TrainedModel</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">ModelMeta</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/train.ts#L33">packages/backend-ml/src/train.ts:33</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<dl class="tsd-comment-tags">
+							<dt>internal</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="configname" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> config<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">config<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;configuration.json&quot;</span><span class="tsd-signature-symbol"> = &quot;configuration.json&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/constants.ts#L25">packages/backend-ml/src/constants.ts:25</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Name of configuration file containing
+							the <a href="../interfaces/backend_ml.config.html"><code>Config</code></a> used to train the model.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>internal</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="defaultconfig" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> default<wbr>Config</h3>
+					<div class="tsd-signature tsd-kind-icon">default<wbr>Config<span class="tsd-signature-symbol">:</span> <a href="../interfaces/backend_ml.config.html" class="tsd-signature-type" data-tsd-kind="Interface">Config</a><span class="tsd-signature-symbol"> = ...</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/config.ts#L97">packages/backend-ml/src/config.ts:97</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Default configuration for training models.</p>
+						</div>
+						<p>See the spam detection paper in deliverables
+						3 and 4 for a justification of these values.</p>
+						<dl class="tsd-comment-tags">
+							<dt>internal</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="historyname" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> history<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">history<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;history.json&quot;</span><span class="tsd-signature-symbol"> = &quot;history.json&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/constants.ts#L34">packages/backend-ml/src/constants.ts:34</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Name of the file containing the statistics
+								from training the model, such as losses and
+							accuracy.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>internal</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="metapath" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> meta<wbr>Path</h3>
+					<div class="tsd-signature tsd-kind-icon">meta<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = ...</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/constants.ts#L17">packages/backend-ml/src/constants.ts:17</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Path to save metadata.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>internal</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="modelname" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> model<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">model<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;model.json&quot;</span><span class="tsd-signature-symbol"> = &quot;model.json&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/constants.ts#L42">packages/backend-ml/src/constants.ts:42</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Name of the file used to save the model
+							information, such as layers.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>internal</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="modelnames" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> model<wbr>Names</h3>
+					<div class="tsd-signature tsd-kind-icon">model<wbr>Names<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = ...</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/models/models.ts#L22">packages/backend-ml/src/models/models.ts:22</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Names of all available models.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>internal</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="modelspath" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> models<wbr>Path</h3>
+					<div class="tsd-signature tsd-kind-icon">models<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = ...</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/constants.ts#L10">packages/backend-ml/src/constants.ts:10</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Path to save models.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>internal</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="sentencelengthsname" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> sentence<wbr>Lengths<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">sentence<wbr>Lengths<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;sentence-lengths.dat&quot;</span><span class="tsd-signature-symbol"> = &quot;sentence-lengths.dat&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/constants.ts#L57">packages/backend-ml/src/constants.ts:57</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Name of file the file to save the sentence lengths
+							statistics.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>internal</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="testingresultshamname" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> testing<wbr>Results<wbr>Ham<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">testing<wbr>Results<wbr>Ham<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;testing-results-ham.dat&quot;</span><span class="tsd-signature-symbol"> = &quot;testing-results-ham.dat&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/constants.ts#L81">packages/backend-ml/src/constants.ts:81</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Name of file the file to save the testing
+							results for non-spam posts.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>internal</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="testingresultsspamname" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> testing<wbr>Results<wbr>Spam<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">testing<wbr>Results<wbr>Spam<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;testing-results-spam.dat&quot;</span><span class="tsd-signature-symbol"> = &quot;testing-results-spam.dat&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/constants.ts#L73">packages/backend-ml/src/constants.ts:73</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Name of file the file to save the testing
+							results for spam posts.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>internal</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="tokenizername" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> tokenizer<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">tokenizer<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;tokenizer.json&quot;</span><span class="tsd-signature-symbol"> = &quot;tokenizer.json&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/constants.ts#L49">packages/backend-ml/src/constants.ts:49</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Name of the file to save the serialised tokenizer.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>internal</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="wordfrequenciesname" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> word<wbr>Frequencies<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">word<wbr>Frequencies<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;word-frequencies.dat&quot;</span><span class="tsd-signature-symbol"> = &quot;word-frequencies.dat&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/constants.ts#L65">packages/backend-ml/src/constants.ts:65</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Name of file the file to save the worth frequency
+							statistics.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>internal</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+					<a name="arraytocsv" class="tsd-anchor"></a>
+					<h3>array<wbr>ToCSV</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">array<wbr>ToCSV&lt;T, R&gt;<span class="tsd-signature-symbol">(</span>values<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/helpers.ts#L88">packages/backend-ml/src/helpers.ts:88</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Converts a 2D array to a CSV.</p>
+								</div>
+								<p>This is a very naive implementation, which does not consider
+									commas in the actual values, however it is good enough for
+								this purpose.</p>
+								<dl class="tsd-comment-tags">
+									<dt>internal</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T</h4>
+									<div class="tsd-comment tsd-typography">
+										<p>The type of values contained in the 2D array.</p>
+									</div>
+								</li>
+								<li>
+									<h4>R<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>values: <span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A 2D array of values to convert to a CSV.
+											The first level of the array are treated as
+											rows. The values in the second level are
+										treated as columns.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>The converted CSV value.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="createdirectory" class="tsd-anchor"></a>
+					<h3>create<wbr>Directory</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Directory<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/helpers.ts#L41">packages/backend-ml/src/helpers.ts:41</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a directory.</p>
+								</div>
+								<p>If the directory already exists, this is a noop.</p>
+								<dl class="tsd-comment-tags">
+									<dt>internal</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The path to create the directory at.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="fitmodel" class="tsd-anchor"></a>
+					<h3>fit<wbr>Model</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">fit<wbr>Model<span class="tsd-signature-symbol">(</span>model<span class="tsd-signature-symbol">: </span><a href="../classes/backend_ml.model.html" class="tsd-signature-type" data-tsd-kind="Class">Model</a>, trainingSentences<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Tensor</span>, trainingLabels<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Tensor</span>, testingSentences<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Tensor</span>, testingLabels<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Tensor</span>, config<span class="tsd-signature-symbol">: </span><a href="../interfaces/backend_ml.config.html" class="tsd-signature-type" data-tsd-kind="Interface">Config</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/backend_ml.trainedmodel.html" class="tsd-signature-type" data-tsd-kind="Interface">TrainedModel</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/models/models.ts#L106">packages/backend-ml/src/models/models.ts:106</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Fits a given model to a set of training and validation data
+									data.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>internal</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>model: <a href="../classes/backend_ml.model.html" class="tsd-signature-type" data-tsd-kind="Class">Model</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The model to fit.</p>
+									</div>
+								</li>
+								<li>
+									<h5>trainingSentences: <span class="tsd-signature-type">Tensor</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The training sentences (i.e.
+										messages/posts).</p>
+									</div>
+								</li>
+								<li>
+									<h5>trainingLabels: <span class="tsd-signature-type">Tensor</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The training labels (i.e. spam/non-spam
+										classifications).</p>
+									</div>
+								</li>
+								<li>
+									<h5>testingSentences: <span class="tsd-signature-type">Tensor</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The testing sentences (i.e.
+											messages/posts), which are used for
+										validation.</p>
+									</div>
+								</li>
+								<li>
+									<h5>testingLabels: <span class="tsd-signature-type">Tensor</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The testing labels (i.e. spam/non-spam
+										classifications).</p>
+									</div>
+								</li>
+								<li>
+									<h5>config: <a href="../interfaces/backend_ml.config.html" class="tsd-signature-type" data-tsd-kind="Interface">Config</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The <a href="../interfaces/backend_ml.config.html"><code>Config</code></a> to use when fitting the model.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/backend_ml.trainedmodel.html" class="tsd-signature-type" data-tsd-kind="Interface">TrainedModel</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The trained model and training statistics.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="flattenmessages" class="tsd-anchor"></a>
+					<h3>flatten<wbr>Messages</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">flatten<wbr>Messages<span class="tsd-signature-symbol">(</span>messages<span class="tsd-signature-symbol">: </span><a href="../interfaces/backend_ml.message.html" class="tsd-signature-type" data-tsd-kind="Interface">Message</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/backend_ml.sentencemapping.html" class="tsd-signature-type" data-tsd-kind="Interface">SentenceMapping</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/helpers.ts#L104">packages/backend-ml/src/helpers.ts:104</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Flattens an array of <a href="../interfaces/backend_ml.message.html"><code>Message</code></a> objects into an array
+										of sentences and array of labels, returned as a
+									<a href="../interfaces/backend_ml.sentencemapping.html"><code>SentenceMapping</code></a>.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>internal</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>messages: <a href="../interfaces/backend_ml.message.html" class="tsd-signature-type" data-tsd-kind="Interface">Message</a><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The messages to flatten.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/backend_ml.sentencemapping.html" class="tsd-signature-type" data-tsd-kind="Interface">SentenceMapping</a></h4>
+							<p>A flattened representation of the messages, as
+							two arrays with corresponding indexes.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getlabelstensor" class="tsd-anchor"></a>
+					<h3>get<wbr>Labels<wbr>Tensor</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Labels<wbr>Tensor<span class="tsd-signature-symbol">(</span>labels<span class="tsd-signature-symbol">: </span><a href="backend_ml.html#sequence" class="tsd-signature-type" data-tsd-kind="Type alias">Sequence</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Tensor</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/tensor.ts#L79">packages/backend-ml/src/tensor.ts:79</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Converts an array of labels into a tensor.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>internal</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>labels: <a href="backend_ml.html#sequence" class="tsd-signature-type" data-tsd-kind="Type alias">Sequence</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The labels to convert to a tensor.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Tensor</span></h4>
+							<p>The tensor resulting from conversion of the labels.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getmodel" class="tsd-anchor"></a>
+					<h3>get<wbr>Model</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Model<span class="tsd-signature-symbol">(</span>modelName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, config<span class="tsd-signature-symbol">: </span><a href="../interfaces/backend_ml.config.html" class="tsd-signature-type" data-tsd-kind="Interface">Config</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/backend_ml.model.html" class="tsd-signature-type" data-tsd-kind="Class">Model</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/models/models.ts#L71">packages/backend-ml/src/models/models.ts:71</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Initialises a model (by name) with a given
+									configuration.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>internal</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>modelName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>config: <a href="../interfaces/backend_ml.config.html" class="tsd-signature-type" data-tsd-kind="Interface">Config</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The <a href="../interfaces/backend_ml.config.html"><code>Config</code></a> to initialise the model
+										with.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../classes/backend_ml.model.html" class="tsd-signature-type" data-tsd-kind="Class">Model</a></h4>
+							<p>An initialised model.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getsentencestensor" class="tsd-anchor"></a>
+					<h3>get<wbr>Sentences<wbr>Tensor</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Sentences<wbr>Tensor<span class="tsd-signature-symbol">(</span>sentences<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, tokenizer<span class="tsd-signature-symbol">: </span><a href="../classes/backend_ml.tokenizer.html" class="tsd-signature-type" data-tsd-kind="Class">Tokenizer</a>, maxSequenceLength<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Tensor</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/tensor.ts#L54">packages/backend-ml/src/tensor.ts:54</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Converts an array of sentences into a Tensor, which can be
+									used for training a model.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>internal</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>sentences: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>An array of sentences to be converted to a
+										tensor.</p>
+									</div>
+								</li>
+								<li>
+									<h5>tokenizer: <a href="../classes/backend_ml.tokenizer.html" class="tsd-signature-type" data-tsd-kind="Class">Tokenizer</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The tokenizer to use when converting sentences
+										to numerical values.</p>
+									</div>
+								</li>
+								<li>
+									<h5>maxSequenceLength: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The length that sequences should be
+											normalised to (making up one of the
+										tensor&#39;s dimensions).</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Tensor</span></h4>
+							<p>The tensor resulting from conversion of the sentences.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getspamfactor" class="tsd-anchor"></a>
+					<h3>get<wbr>Spam<wbr>Factor</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Spam<wbr>Factor<span class="tsd-signature-symbol">(</span>sentence<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/predictions.ts#L85">packages/backend-ml/src/predictions.ts:85</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Predicts the likelihood that a given sentence is spam.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>sentence: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The sentence to generate a prediction for.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A number between 0 and 1, indicating how likely the
+							given sentence is to be non-spam or spam respectively.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="gettoxicityclassification" class="tsd-anchor"></a>
+					<h3>get<wbr>Toxicity<wbr>Classification</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Toxicity<wbr>Classification<span class="tsd-signature-symbol">(</span>sentence<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/predictions.ts#L70">packages/backend-ml/src/predictions.ts:70</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Predicts whether or not a given sentence of &#39;toxic&#39;.</p>
+								</div>
+								<p>Toxic is defined as being any of:</p>
+								<ul>
+									<li>An identity attack</li>
+									<li>Insulting</li>
+									<li>Obscene</li>
+									<li>Sexually explicit</li>
+									<li>Threatening</li>
+								</ul>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>sentence: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The sentence to classify.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A boolean indicating if the sentence was classified as
+							toxic.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="mergeparsers" class="tsd-anchor"></a>
+					<h3>merge<wbr>Parsers</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">merge<wbr>Parsers<span class="tsd-signature-symbol">(</span>parsers<span class="tsd-signature-symbol">: </span><a href="../classes/backend_ml.parser.html" class="tsd-signature-type" data-tsd-kind="Class">Parser</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/backend_ml.message.html" class="tsd-signature-type" data-tsd-kind="Interface">Message</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/helpers.ts#L60">packages/backend-ml/src/helpers.ts:60</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Merges the messages from multiple parsers into a single
+									array of messages.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>internal</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>parsers: <a href="../classes/backend_ml.parser.html" class="tsd-signature-type" data-tsd-kind="Class">Parser</a><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The array of parsers for which messages should
+										be merged.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/backend_ml.message.html" class="tsd-signature-type" data-tsd-kind="Interface">Message</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+					<a name="ratiosplitarray" class="tsd-anchor"></a>
+					<h3>ratio<wbr>Split<wbr>Array</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">ratio<wbr>Split<wbr>Array&lt;T&gt;<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span>, ratio<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/helpers.ts#L131">packages/backend-ml/src/helpers.ts:131</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Splits an array into two parts using the given
+									ratio.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>internal</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T</h4>
+									<div class="tsd-comment tsd-typography">
+										<p>The type of elements in the array.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>data: <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The array to split.</p>
+									</div>
+								</li>
+								<li>
+									<h5>ratio: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The ration used to split the array. This
+										should be a number in-between 0 and 1.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span></h4>
+							<p>A tuple of length two containing the split
+							array.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="readzipfile" class="tsd-anchor"></a>
+					<h3>readZIPFile</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">readZIPFile<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AsyncGenerator</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/backend_ml.zipfileentry.html" class="tsd-signature-type" data-tsd-kind="Interface">ZIPFileEntry</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/parsers/helpers.ts#L53">packages/backend-ml/src/parsers/helpers.ts:53</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Iterates through all entries in a given
+									ZIP archive.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>internal</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Path to the ZIP archive.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AsyncGenerator</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/backend_ml.zipfileentry.html" class="tsd-signature-type" data-tsd-kind="Interface">ZIPFileEntry</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>An asynchronous generator yielding <a href="../interfaces/backend_ml.zipfileentry.html"><code>ZIPFileEntry</code></a>
+							objects.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="savemodel" class="tsd-anchor"></a>
+					<h3>save<wbr>Model</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">save<wbr>Model<span class="tsd-signature-symbol">(</span>trainedModel<span class="tsd-signature-symbol">: </span><a href="backend_ml.html#trainedmodelwithmeta" class="tsd-signature-type" data-tsd-kind="Type alias">TrainedModelWithMeta</a>, modelsPath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/train.ts#L52">packages/backend-ml/src/train.ts:52</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Saves a trained model.</p>
+								</div>
+								<p>The output files are the:</p>
+								<ul>
+									<li>model structure (i.e. layers);</li>
+									<li>trained weightings;</li>
+									<li>configuration;</li>
+									<li>tokenizer;</li>
+									<li>history statistics.</li>
+								</ul>
+								<dl class="tsd-comment-tags">
+									<dt>internal</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>trainedModel: <a href="backend_ml.html#trainedmodelwithmeta" class="tsd-signature-type" data-tsd-kind="Type alias">TrainedModelWithMeta</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The trained model.</p>
+									</div>
+								</li>
+								<li>
+									<h5>modelsPath: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The path to save the trained model.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="savesentencesmeta" class="tsd-anchor"></a>
+					<h3>save<wbr>Sentences<wbr>Meta</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">save<wbr>Sentences<wbr>Meta<span class="tsd-signature-symbol">(</span>sentences<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/train.ts#L76">packages/backend-ml/src/train.ts:76</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Generates and saves statistical information about
+									the training data.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>internal</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>sentences: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The sentences used for training
+										the models.</p>
+									</div>
+								</li>
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The path to save the statistical
+										information.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="testmodel" class="tsd-anchor"></a>
+					<h3>test<wbr>Model</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">test<wbr>Model<span class="tsd-signature-symbol">(</span>messages<span class="tsd-signature-symbol">: </span><a href="../interfaces/backend_ml.message.html" class="tsd-signature-type" data-tsd-kind="Interface">Message</a><span class="tsd-signature-symbol">[]</span>, outputPath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/test-model.ts#L24">packages/backend-ml/src/test-model.ts:24</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Tests a set of messages against the default model
+									and writes the results to a file.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>internal</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>messages: <a href="../interfaces/backend_ml.message.html" class="tsd-signature-type" data-tsd-kind="Interface">Message</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5>outputPath: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The file path to write the results
+										at.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="trainmodels" class="tsd-anchor"></a>
+					<h3>train<wbr>Models</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">train<wbr>Models<span class="tsd-signature-symbol">(</span>modelNames<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, messages<span class="tsd-signature-symbol">: </span><a href="../interfaces/backend_ml.message.html" class="tsd-signature-type" data-tsd-kind="Interface">Message</a><span class="tsd-signature-symbol">[]</span>, config<span class="tsd-signature-symbol">: </span><a href="../interfaces/backend_ml.config.html" class="tsd-signature-type" data-tsd-kind="Interface">Config</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AsyncGenerator</span><span class="tsd-signature-symbol">&lt;</span><a href="backend_ml.html#trainedmodelwithmeta" class="tsd-signature-type" data-tsd-kind="Type alias">TrainedModelWithMeta</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kiancross/unifed/blob/ea28d53/packages/backend-ml/src/train.ts#L121">packages/backend-ml/src/train.ts:121</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Trains models with the given data and given
+									configuration.</p>
+								</div>
+								<p>Creates a generator that yields once each
+									model is trained. This is so that they can
+									be saved individually, in case training is
+								interrupted after many hours.</p>
+								<dl class="tsd-comment-tags">
+									<dt>internal</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>modelNames: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The names of the models to be
+										trained.</p>
+									</div>
+								</li>
+								<li>
+									<h5>messages: <a href="../interfaces/backend_ml.message.html" class="tsd-signature-type" data-tsd-kind="Interface">Message</a><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The data used to train the models.</p>
+									</div>
+								</li>
+								<li>
+									<h5>config: <a href="../interfaces/backend_ml.config.html" class="tsd-signature-type" data-tsd-kind="Interface">Config</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The <a href="../interfaces/backend_ml.config.html"><code>Config</code></a> used to train the
+										models.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AsyncGenerator</span><span class="tsd-signature-symbol">&lt;</span><a href="backend_ml.html#trainedmodelwithmeta" class="tsd-signature-type" data-tsd-kind="Type alias">TrainedModelWithMeta</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../modules.html">Exports</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="backend_core.html">backend-<wbr>core</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="backend_federation_client.html">backend-<wbr>federation-<wbr>client</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="backend_federation_server.html">backend-<wbr>federation-<wbr>server</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="backend_internal_server.html">backend-<wbr>internal-<wbr>server</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="backend_ml.html">backend-<wbr>ml</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="backend_testing.html">backend-<wbr>testing</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="frontend.html">frontend</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="shared.html">shared</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-module">
+						<a href="backend_core.html" class="tsd-kind-icon">backend-<wbr>core</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="backend_federation_client.html" class="tsd-kind-icon">backend-<wbr>federation-<wbr>client</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="backend_federation_server.html" class="tsd-kind-icon">backend-<wbr>federation-<wbr>server</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="backend_internal_server.html" class="tsd-kind-icon">backend-<wbr>internal-<wbr>server</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-module">
+						<a href="backend_ml.html" class="tsd-kind-icon">backend-<wbr>ml</a>
+						<ul>
+							<li class=" tsd-kind-class tsd-parent-kind-module">
+								<a href="../classes/backend_ml.bidirectionalltsmmodel.html" class="tsd-kind-icon">Bi<wbr>DirectionalLTSMModel</a>
+							</li>
+							<li class=" tsd-kind-class tsd-parent-kind-module">
+								<a href="../classes/backend_ml.densemodel.html" class="tsd-kind-icon">Dense<wbr>Model</a>
+							</li>
+							<li class=" tsd-kind-class tsd-parent-kind-module">
+								<a href="../classes/backend_ml.densepoolingmodel.html" class="tsd-kind-icon">Dense<wbr>Pooling<wbr>Model</a>
+							</li>
+							<li class=" tsd-kind-class tsd-parent-kind-module">
+								<a href="../classes/backend_ml.enronparser.html" class="tsd-kind-icon">Enron<wbr>Parser</a>
+							</li>
+							<li class=" tsd-kind-class tsd-parent-kind-module">
+								<a href="../classes/backend_ml.invalidfileerror.html" class="tsd-kind-icon">Invalid<wbr>File<wbr>Error</a>
+							</li>
+							<li class=" tsd-kind-class tsd-parent-kind-module">
+								<a href="../classes/backend_ml.ltsmmodel.html" class="tsd-kind-icon">LTSMModel</a>
+							</li>
+							<li class=" tsd-kind-class tsd-parent-kind-module">
+								<a href="../classes/backend_ml.model.html" class="tsd-kind-icon">Model</a>
+							</li>
+							<li class=" tsd-kind-class tsd-parent-kind-module">
+								<a href="../classes/backend_ml.modelnotdefinederror.html" class="tsd-kind-icon">Model<wbr>Not<wbr>Defined<wbr>Error</a>
+							</li>
+							<li class=" tsd-kind-class tsd-parent-kind-module">
+								<a href="../classes/backend_ml.parser.html" class="tsd-kind-icon">Parser</a>
+							</li>
+							<li class=" tsd-kind-class tsd-parent-kind-module">
+								<a href="../classes/backend_ml.smsparser.html" class="tsd-kind-icon">SMSParser</a>
+							</li>
+							<li class=" tsd-kind-class tsd-parent-kind-module">
+								<a href="../classes/backend_ml.spamassasinparser.html" class="tsd-kind-icon">Spam<wbr>Assasin<wbr>Parser</a>
+							</li>
+							<li class=" tsd-kind-class tsd-parent-kind-module">
+								<a href="../classes/backend_ml.testingparser.html" class="tsd-kind-icon">Testing<wbr>Parser</a>
+							</li>
+							<li class=" tsd-kind-class tsd-parent-kind-module">
+								<a href="../classes/backend_ml.tokenizer.html" class="tsd-kind-icon">Tokenizer</a>
+							</li>
+							<li class=" tsd-kind-class tsd-parent-kind-module">
+								<a href="../classes/backend_ml.twiliodensemodel.html" class="tsd-kind-icon">Twilio<wbr>Dense<wbr>Model</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-module">
+								<a href="../interfaces/backend_ml.config.html" class="tsd-kind-icon">Config</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-module">
+								<a href="../interfaces/backend_ml.message.html" class="tsd-kind-icon">Message</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-module">
+								<a href="../interfaces/backend_ml.sentencemapping.html" class="tsd-kind-icon">Sentence<wbr>Mapping</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-module">
+								<a href="../interfaces/backend_ml.trainedmodel.html" class="tsd-kind-icon">Trained<wbr>Model</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-module">
+								<a href="../interfaces/backend_ml.zipfileentry.html" class="tsd-kind-icon">ZIPFile<wbr>Entry</a>
+							</li>
+							<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+								<a href="backend_ml.html#sequence" class="tsd-kind-icon">Sequence</a>
+							</li>
+							<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+								<a href="backend_ml.html#stringnumbermapping" class="tsd-kind-icon">String<wbr>Number<wbr>Mapping</a>
+							</li>
+							<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+								<a href="backend_ml.html#trainedmodelwithmeta" class="tsd-kind-icon">Trained<wbr>Model<wbr>With<wbr>Meta</a>
+							</li>
+							<li class=" tsd-kind-variable tsd-parent-kind-module">
+								<a href="backend_ml.html#configname" class="tsd-kind-icon">config<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-variable tsd-parent-kind-module">
+								<a href="backend_ml.html#defaultconfig" class="tsd-kind-icon">default<wbr>Config</a>
+							</li>
+							<li class=" tsd-kind-variable tsd-parent-kind-module">
+								<a href="backend_ml.html#historyname" class="tsd-kind-icon">history<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-variable tsd-parent-kind-module">
+								<a href="backend_ml.html#metapath" class="tsd-kind-icon">meta<wbr>Path</a>
+							</li>
+							<li class=" tsd-kind-variable tsd-parent-kind-module">
+								<a href="backend_ml.html#modelname" class="tsd-kind-icon">model<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-variable tsd-parent-kind-module">
+								<a href="backend_ml.html#modelnames" class="tsd-kind-icon">model<wbr>Names</a>
+							</li>
+							<li class=" tsd-kind-variable tsd-parent-kind-module">
+								<a href="backend_ml.html#modelspath" class="tsd-kind-icon">models<wbr>Path</a>
+							</li>
+							<li class=" tsd-kind-variable tsd-parent-kind-module">
+								<a href="backend_ml.html#sentencelengthsname" class="tsd-kind-icon">sentence<wbr>Lengths<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-variable tsd-parent-kind-module">
+								<a href="backend_ml.html#testingresultshamname" class="tsd-kind-icon">testing<wbr>Results<wbr>Ham<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-variable tsd-parent-kind-module">
+								<a href="backend_ml.html#testingresultsspamname" class="tsd-kind-icon">testing<wbr>Results<wbr>Spam<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-variable tsd-parent-kind-module">
+								<a href="backend_ml.html#tokenizername" class="tsd-kind-icon">tokenizer<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-variable tsd-parent-kind-module">
+								<a href="backend_ml.html#wordfrequenciesname" class="tsd-kind-icon">word<wbr>Frequencies<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+								<a href="backend_ml.html#arraytocsv" class="tsd-kind-icon">array<wbr>ToCSV</a>
+							</li>
+							<li class=" tsd-kind-function tsd-parent-kind-module">
+								<a href="backend_ml.html#createdirectory" class="tsd-kind-icon">create<wbr>Directory</a>
+							</li>
+							<li class=" tsd-kind-function tsd-parent-kind-module">
+								<a href="backend_ml.html#fitmodel" class="tsd-kind-icon">fit<wbr>Model</a>
+							</li>
+							<li class=" tsd-kind-function tsd-parent-kind-module">
+								<a href="backend_ml.html#flattenmessages" class="tsd-kind-icon">flatten<wbr>Messages</a>
+							</li>
+							<li class=" tsd-kind-function tsd-parent-kind-module">
+								<a href="backend_ml.html#getlabelstensor" class="tsd-kind-icon">get<wbr>Labels<wbr>Tensor</a>
+							</li>
+							<li class=" tsd-kind-function tsd-parent-kind-module">
+								<a href="backend_ml.html#getmodel" class="tsd-kind-icon">get<wbr>Model</a>
+							</li>
+							<li class=" tsd-kind-function tsd-parent-kind-module">
+								<a href="backend_ml.html#getsentencestensor" class="tsd-kind-icon">get<wbr>Sentences<wbr>Tensor</a>
+							</li>
+							<li class=" tsd-kind-function tsd-parent-kind-module">
+								<a href="backend_ml.html#getspamfactor" class="tsd-kind-icon">get<wbr>Spam<wbr>Factor</a>
+							</li>
+							<li class=" tsd-kind-function tsd-parent-kind-module">
+								<a href="backend_ml.html#gettoxicityclassification" class="tsd-kind-icon">get<wbr>Toxicity<wbr>Classification</a>
+							</li>
+							<li class=" tsd-kind-function tsd-parent-kind-module">
+								<a href="backend_ml.html#mergeparsers" class="tsd-kind-icon">merge<wbr>Parsers</a>
+							</li>
+							<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+								<a href="backend_ml.html#ratiosplitarray" class="tsd-kind-icon">ratio<wbr>Split<wbr>Array</a>
+							</li>
+							<li class=" tsd-kind-function tsd-parent-kind-module">
+								<a href="backend_ml.html#readzipfile" class="tsd-kind-icon">readZIPFile</a>
+							</li>
+							<li class=" tsd-kind-function tsd-parent-kind-module">
+								<a href="backend_ml.html#savemodel" class="tsd-kind-icon">save<wbr>Model</a>
+							</li>
+							<li class=" tsd-kind-function tsd-parent-kind-module">
+								<a href="backend_ml.html#savesentencesmeta" class="tsd-kind-icon">save<wbr>Sentences<wbr>Meta</a>
+							</li>
+							<li class=" tsd-kind-function tsd-parent-kind-module">
+								<a href="backend_ml.html#testmodel" class="tsd-kind-icon">test<wbr>Model</a>
+							</li>
+							<li class=" tsd-kind-function tsd-parent-kind-module">
+								<a href="backend_ml.html#trainmodels" class="tsd-kind-icon">train<wbr>Models</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-module">
+						<a href="backend_testing.html" class="tsd-kind-icon">backend-<wbr>testing</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="frontend.html" class="tsd-kind-icon">frontend</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="shared.html" class="tsd-kind-icon">shared</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
