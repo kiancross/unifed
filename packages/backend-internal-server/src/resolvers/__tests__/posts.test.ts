@@ -131,7 +131,7 @@ test.serial("Report post from local server", async (t) => {
   post._id = "postid";
   post.approved = true;
 
-  PostModel.create(post);
+  await PostModel.create(post);
 
   // first findOne call returns null
   await PostModel.findOne({ _id: "postid" }).exec();
@@ -187,7 +187,7 @@ test.serial("Get unapproved posts", async (t) => {
   unapprovedPost._id = "postid";
   unapprovedPost.approved = false;
 
-  PostModel.create(unapprovedPost);
+  await PostModel.create(unapprovedPost);
 
   const scope = nock("http://" + host)
     .get("/fed/communities")
