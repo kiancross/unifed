@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "AGPL-3.0-or-later",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "files": [

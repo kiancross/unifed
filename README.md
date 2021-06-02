@@ -30,6 +30,7 @@
    * [Users](#users)
    * [Developers](#developers)
    * [Protocol](#protocol)
+ * [License](#license)
 
 # About
 
@@ -283,3 +284,8 @@ which invokes the `typedoc` command.
 The protocol we developed to allow communication between federated
 instances can be found [here](https://github.com/kiancross/unifed-protocol),
 with a corresponding website available [here](https://kiancross.github.io/unifed-protocol/).
+
+## License
+
+The Unifed source code is available under the
+[GNU AGPLv3](https://github.com/kiancross/unifed/blob/master/LICENSE) license.
