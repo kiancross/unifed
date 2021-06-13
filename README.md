@@ -10,6 +10,9 @@
   <a href="https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml">
     <img src="https://github.com/kiancross/unifed/actions/workflows/continuous-integration.yml/badge.svg?event=push" alt="Continuous Integration" />
   </a>
+  <a href="https://github.com/kiancross/unifed/actions/workflows/codeql.yml">
+    <img src="https://github.com/kiancross/unifed/actions/workflows/codeql.yml/badge.svg?event=schedule" alt="CodeQL" />
+  </a>
   <a href="https://codecov.io/gh/kiancross/unifed">
     <img src="https://codecov.io/gh/kiancross/unifed/branch/master/graph/badge.svg?token=FI52RC1RQV" alt="codecov" />
   </a>
