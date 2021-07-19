@@ -50,11 +50,11 @@ export function JoinCallMessage(props: { onJoinClick: () => void }): ReactElemen
       container
       spacing={3}
       direction="column"
-      justify="center"
+      justifyContent="center"
       alignItems="center"
       className={classes.fullHeight}
     >
-      <Grid item container className={classes.fullHeight} justify="center" alignItems="center">
+      <Grid item container className={classes.fullHeight} justifyContent="center" alignItems="center">
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <Card className={classes.fullWidth}>
             <CardContent>

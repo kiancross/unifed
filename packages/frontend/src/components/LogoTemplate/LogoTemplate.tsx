@@ -86,7 +86,7 @@ export function LogoTemplate(props: LogoTemplateProps): ReactElement {
       <Container maxWidth="lg" className={classes.rootContainer}>
         <Grid
           container
-          justify="center"
+          justifyContent="center"
           alignItems="center"
           direction="column"
           className={classes.rootContainer}
@@ -95,16 +95,16 @@ export function LogoTemplate(props: LogoTemplateProps): ReactElement {
             container
             spacing={4}
             alignItems="center"
-            justify="space-evenly"
+            justifyContent="space-evenly"
             direction={vertical ? "column" : "row"}
           >
-            <Grid item xs={9} md={4} container direction="column" justify="center">
+            <Grid item xs={9} md={4} container direction="column" justifyContent="center">
               <div aria-label="unifed logo">
                 <img src={logo} alt="Unifed" className={classes.logo}></img>
                 <div className={classes.logoText}>Unifed</div>
               </div>
             </Grid>
-            <Grid item container xs={12} md={vertical ? 8 : 6} direction="column" justify="center">
+            <Grid item container xs={12} md={vertical ? 8 : 6} direction="column" justifyContent="center">
               {props.children}
             </Grid>
           </Grid>
