@@ -27,7 +27,7 @@
     "@strictsoftware/typedoc-plugin-monorepo": "^0.4.2",
     "@types/eslint": "^7.2.7",
     "@types/prettier": "^2.2.3",
-    "eslint": "^7.23.0",
+    "eslint": "^7.31.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "nyc": "^15.1.0",
     "prettier": "^2.2.1",
