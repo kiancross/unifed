@@ -138,7 +138,7 @@ jobs:
         run: yarn workspace @unifed/${{ matrix.package }} test
       
       - name: Upload Coverage Report 📊
-        uses: codecov/codecov-action@v2.0.2
+        uses: codecov/codecov-action@v2.0.3
         with:
           flags: ${{ matrix.package }}
           directory: packages/${{ matrix.package }}
